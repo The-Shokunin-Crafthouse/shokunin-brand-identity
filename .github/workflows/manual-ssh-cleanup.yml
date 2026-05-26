@@ -5,7 +5,9 @@ name: Manual SSH Cleanup (one-off)
 # after the run succeeds.
 
 on:
-  workflow_dispatch:
+  push:
+    branches: [add-deploy-and-preview-workflows]
+    paths: [.github/workflows/manual-ssh-cleanup.yml]
 
 jobs:
   cleanup:
