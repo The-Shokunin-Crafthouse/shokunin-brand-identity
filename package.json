@@ -1,0 +1,22 @@
+{
+  "name": "shokunin-brand-identity",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview-vite": "vite preview",
+    "preview": "node scripts/preview.mjs"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.47.2",
+    "@vitejs/plugin-react": "^4.3.1",
+    "playwright": "1.47.2",
+    "vite": "^5.4.8"
+  }
+}
