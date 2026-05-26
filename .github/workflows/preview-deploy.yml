@@ -34,7 +34,8 @@ jobs:
         run: npm run build
 
       - name: Block crawlers on preview
-        run: printf 'User-agent: *\nDisallow: /\n' > dist/robots.txt
+        run: |
+          printf 'User-agent: *\nDisallow: /\n' > dist/robots.txt
 
       - name: Deploy preview to Hostinger via rsync
         uses: burnett01/rsync-deployments@7.0.1
