@@ -12,7 +12,7 @@
     },
     "spacingBase": "Hybrid 4/8pt layout ladder + 2pt micro ladder. Layout: 4·8·12·16·24·32·48·64·80·96·120 px. Micro (chrome only): 2·6·10·14·18·22 px. Arbitrary px outside these ladders is a bug.",
     "typeScale": "Modular ratio 1.25 · 12 steps · 11/12/13/14/16/20/24/32/44/60/84/120 px.",
-    "fontStrategy": "Two families. Sans = Neue Haas Grotesk Display Pro (self-hosted woff2 in /fonts/, Helvetica Neue → Inter fallback while sourcing). Mono = Cascadia Mono (Google Fonts CDN). Weights 300/400/500 in active use across both families; weight 600 reserved for the secondary-button hover bump only — no other approved use. NHG mono evaluation (Geist, JetBrains, IBM Plex) closed; see decisions/decisions.md 2026-05-26."
+    "fontStrategy": "Two families. Sans = Neue Haas Grotesk Display Pro / Text Pro (self-hosted woff2 in /fonts/ when shipped; Helvetica Neue → Inter fallback until then). Mono = Cascadia Mono (Google Fonts CDN). Weights 300/400/500 in active use across both families; weight 600 reserved for the secondary-button hover bump only — no other approved use. Per-step composition tokens at font.text.{step} bind size + weight + lineHeight + tracking + family default; surfaces should reach for those, not the underlying axes. Full weight-per-step rationale + screen optical compensation in _config/design-system/type-system.md. Mono evaluation re-run Sprint 2 across Cascadia / Geist / JetBrains / IBM Plex — Cascadia re-affirmed; see decisions/decisions.md Sprint 2 entry."
   },
   "color": {
     "warmGray": {
@@ -267,6 +267,199 @@
       "wider":    { "$type": "dimension", "$value": { "value": 0.06,   "unit": "em" }, "$description": "Wider · 0.06em. Mono caps at 11px in chrome." },
       "widest":   { "$type": "dimension", "$value": { "value": 0.08,   "unit": "em" }, "$description": "Widest · 0.08em. Eyebrows, buttons, badges, dashboards." },
       "caps":     { "$type": "dimension", "$value": { "value": 0.1,    "unit": "em" }, "$description": "Caps · 0.1em. Premium small caps treatment for sub-sections." }
+    },
+    "text": {
+      "$description": "Composed typography tokens · one per scale step. Resolves family + size + weight + lineHeight + tracking for the default register at that step. Surfaces SHOULD reach for these instead of the underlying primitives unless a single axis is deliberately overridden (e.g. set 32px in mono — override family, keep the rest). Full weight + optical rationale lives in _config/design-system/type-system.md. Sprint 2 deliverable resolving 2a.",
+      "11": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "{font.family.sans}",
+          "fontSize": "{font.size.11}",
+          "fontWeight": "{font.weight.medium}",
+          "lineHeight": "{font.lineHeight.base}",
+          "letterSpacing": "{font.tracking.widest}"
+        },
+        "$description": "Chrome eyebrows, badges, button labels. Medium-weight optical compensation for NHG sub-pixel rendering at 11px; widest tracking sets chrome rhythm."
+      },
+      "12": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "{font.family.sans}",
+          "fontSize": "{font.size.12}",
+          "fontWeight": "{font.weight.medium}",
+          "lineHeight": "{font.lineHeight.base}",
+          "letterSpacing": "{font.tracking.wide}"
+        },
+        "$description": "UI labels, dense table headers. Same chrome-tier compensation as step 11; wide tracking (less than widest) because 12px holds rhythm with less air."
+      },
+      "13": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "{font.family.sans}",
+          "fontSize": "{font.size.13}",
+          "fontWeight": "{font.weight.regular}",
+          "lineHeight": "{font.lineHeight.relaxed}",
+          "letterSpacing": "{font.tracking.normal}"
+        },
+        "$description": "Captions, muted secondary copy. Transitions out of chrome register into body register; regular weight + relaxed leading for reading-length captions."
+      },
+      "14": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "{font.family.sans}",
+          "fontSize": "{font.size.14}",
+          "fontWeight": "{font.weight.regular}",
+          "lineHeight": "{font.lineHeight.base}",
+          "letterSpacing": "{font.tracking.normal}"
+        },
+        "$description": "Secondary body, dense table cells, form helper text."
+      },
+      "16": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "{font.family.sans}",
+          "fontSize": "{font.size.16}",
+          "fontWeight": "{font.weight.regular}",
+          "lineHeight": "{font.lineHeight.base}",
+          "letterSpacing": "{font.tracking.normal}"
+        },
+        "$description": "Body default. Anchor of the weight rhythm — every other step calibrates against 16/400/1.5/0."
+      },
+      "20": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "{font.family.sans}",
+          "fontSize": "{font.size.20}",
+          "fontWeight": "{font.weight.regular}",
+          "lineHeight": "{font.lineHeight.relaxed}",
+          "letterSpacing": "{font.tracking.normal}"
+        },
+        "$description": "Lead paragraph, intro body, large body. Regular preserves reading-text register one step above body."
+      },
+      "24": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "{font.family.sans}",
+          "fontSize": "{font.size.24}",
+          "fontWeight": "{font.weight.medium}",
+          "lineHeight": "{font.lineHeight.snug}",
+          "letterSpacing": "{font.tracking.snug}"
+        },
+        "$description": "Card titles, mid-headlines. First step into headline register."
+      },
+      "32": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "{font.family.sans}",
+          "fontSize": "{font.size.32}",
+          "fontWeight": "{font.weight.medium}",
+          "lineHeight": "{font.lineHeight.snug}",
+          "letterSpacing": "{font.tracking.tight}"
+        },
+        "$description": "Section titles, page headers. Section-marker weight; tight tracking separates from prose mass."
+      },
+      "44": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "{font.family.sans}",
+          "fontSize": "{font.size.44}",
+          "fontWeight": "{font.weight.light}",
+          "lineHeight": "{font.lineHeight.tight}",
+          "letterSpacing": "{font.tracking.tighter}"
+        },
+        "$description": "Premise statements, hero subhead. Crosses into display register — NHG Light carries open counters; tighter tracking closes the rhythm so light doesn't read loose."
+      },
+      "60": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "{font.family.sans}",
+          "fontSize": "{font.size.60}",
+          "fontWeight": "{font.weight.light}",
+          "lineHeight": "{font.lineHeight.tight}",
+          "letterSpacing": "{font.tracking.tighter}"
+        },
+        "$description": "Mid display, hero alt."
+      },
+      "84": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "{font.family.sans}",
+          "fontSize": "{font.size.84}",
+          "fontWeight": "{font.weight.light}",
+          "lineHeight": "{font.lineHeight.tight}",
+          "letterSpacing": "{font.tracking.tightest}"
+        },
+        "$description": "Large display, hero primary. At this size, regular reads as bold — light is the considered weight."
+      },
+      "120": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "{font.family.sans}",
+          "fontSize": "{font.size.120}",
+          "fontWeight": "{font.weight.light}",
+          "lineHeight": "{font.lineHeight.flat}",
+          "letterSpacing": "{font.tracking.tightest}"
+        },
+        "$description": "Maximum display, hero monumental. Flat 1.0 line-height for vertical alignment in two-line displays."
+      },
+      "mono": {
+        "$description": "Mono variants · chrome tier only. Mono is not a default at headline or display sizes — invoke as a single-axis family override on the sans composition tokens if a larger mono surface is required.",
+        "11": {
+          "$type": "typography",
+          "$value": {
+            "fontFamily": "{font.family.mono}",
+            "fontSize": "{font.size.11}",
+            "fontWeight": "{font.weight.medium}",
+            "lineHeight": "{font.lineHeight.base}",
+            "letterSpacing": "{font.tracking.wider}"
+          },
+          "$description": "Mono caps in chrome at 11px. tracking.wider (0.06em) not widest (0.08em) — at this scale Cascadia caps loosen unevenly under widest with NHG."
+        },
+        "12": {
+          "$type": "typography",
+          "$value": {
+            "fontFamily": "{font.family.mono}",
+            "fontSize": "{font.size.12}",
+            "fontWeight": "{font.weight.medium}",
+            "lineHeight": "{font.lineHeight.base}",
+            "letterSpacing": "{font.tracking.wide}"
+          },
+          "$description": "Mono labels at 12px."
+        },
+        "13": {
+          "$type": "typography",
+          "$value": {
+            "fontFamily": "{font.family.mono}",
+            "fontSize": "{font.size.13}",
+            "fontWeight": "{font.weight.regular}",
+            "lineHeight": "{font.lineHeight.relaxed}",
+            "letterSpacing": "{font.tracking.normal}"
+          },
+          "$description": "Mono captions, token references, timestamps at 13px."
+        },
+        "14": {
+          "$type": "typography",
+          "$value": {
+            "fontFamily": "{font.family.mono}",
+            "fontSize": "{font.size.14}",
+            "fontWeight": "{font.weight.regular}",
+            "lineHeight": "{font.lineHeight.base}",
+            "letterSpacing": "{font.tracking.normal}"
+          },
+          "$description": "Mono inline code, dense mono cells at 14px."
+        },
+        "16": {
+          "$type": "typography",
+          "$value": {
+            "fontFamily": "{font.family.mono}",
+            "fontSize": "{font.size.16}",
+            "fontWeight": "{font.weight.regular}",
+            "lineHeight": "{font.lineHeight.relaxed}",
+            "letterSpacing": "{font.tracking.normal}"
+          },
+          "$description": "Mono code block body. Use Cascadia Code companion for ligatures inside <code>/<pre> surfaces."
+        }
+      }
     }
   },
   "space": {

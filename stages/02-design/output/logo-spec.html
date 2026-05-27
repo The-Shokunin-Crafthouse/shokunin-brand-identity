@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Logo Specification · The Shokunin Crafthouse</title>
+
+<!--
+  ────────────────────────────────────────────────────────────────────
+  Logo specification — Sprint 2 deliverable resolving 2e (ii), 2f, 2g.
+
+  Self-contained single HTML file. All marks rendered inline as SVG
+  so the file works offline and stays in sync with the canonical mark
+  geometry from _config/brand/mark-spec.md. Light/dark toggle exercises
+  both modes; ground swatches show every approved background.
+
+  Source of truth for the mark itself:
+    _config/brand/mark-spec.md
+  Exports referenced here:
+    assets/logo/mark-{primary,compact,icon}-{light,dark}.svg
+  ────────────────────────────────────────────────────────────────────
+-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cascadia+Mono:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --sans: "Neue Haas Grotesk Display Pro", "Neue Haas Grotesk Text Pro",
+          "Helvetica Neue", Inter, system-ui, sans-serif;
+  --mono: "Cascadia Mono", "Cascadia Code", ui-monospace, "SF Mono", Menlo, monospace;
+
+  /* light-mode color */
+  --bg:           #E3DFD8;
+  --surface:      #D9D5CE;
+  --surface-deep: #CDC9C2;
+  --hairline:     #D5D1CA;
+  --hairline-2:   #C5C0B8;
+  --ink:          #1A1815;
+  --ink-muted:    #5F5C55;
+  --ink-faint:    #9A9388;
+  --cream:        #F1EFEB;
+  --shu:          #C8281C;
+  --shu-deep:     #9E1F15;
+  --white:        #FFFFFF;
+}
+[data-theme="dark"] {
+  --bg:           #0D0C0B;
+  --surface:      #181512;
+  --surface-deep: #221F1B;
+  --hairline:     #201E1A;
+  --hairline-2:   #2F2B26;
+  --ink:          #E2DDD6;
+  --ink-muted:    #9A9388;
+  --ink-faint:    #6B655C;
+  --cream:        #F1EFEB;
+  --shu:          #C8281C;
+  --shu-deep:     #DA5C4D;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: geometricPrecision;
+  font-feature-settings: "ss01", "cv11", "kern";
+  transition: background 380ms cubic-bezier(0.22, 1, 0.36, 1),
+              color 380ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.frame { max-width: 1200px; margin: 0 auto; padding: 64px 48px 120px; }
+@media (max-width: 720px) { .frame { padding: 32px 24px 64px; } }
+
+.masthead {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  padding-bottom: 32px; border-bottom: 1px solid var(--ink);
+  margin-bottom: 64px; gap: 24px;
+}
+.masthead h1 {
+  font-size: 32px; font-weight: 500; line-height: 1.2;
+  letter-spacing: -0.018em; margin: 0 0 8px;
+}
+.masthead p {
+  font-size: 14px; color: var(--ink-muted); margin: 0; max-width: 56ch;
+}
+.masthead .meta {
+  font-family: var(--mono); font-size: 11px; font-weight: 500;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--ink-muted);
+  display: flex; flex-direction: column; gap: 4px;
+  text-align: right; white-space: nowrap;
+}
+.toggle {
+  border: 1px solid var(--ink); background: transparent; color: var(--ink);
+  font-family: var(--mono); font-size: 11px; font-weight: 500;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 6px 12px; cursor: pointer; border-radius: 3px;
+  transition: color 200ms cubic-bezier(0.22, 1, 0.36, 1),
+              border-color 200ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.toggle:hover { color: var(--shu); border-color: var(--shu); }
+
+.section { padding-block: 48px; border-top: 1px dashed var(--hairline-2); }
+.section:first-of-type { border-top: none; padding-top: 0; }
+.eyebrow {
+  font-family: var(--mono); font-size: 11px; font-weight: 500;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--ink-muted); margin: 0 0 16px;
+}
+.title {
+  font-size: 32px; font-weight: 500; line-height: 1.2;
+  letter-spacing: -0.018em; margin: 0 0 12px;
+}
+.lede { font-size: 14px; color: var(--ink-muted); max-width: 68ch; margin: 0 0 32px; }
+
+.grid {
+  display: grid; gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+.tile {
+  border: 1px solid var(--hairline);
+  background: var(--surface);
+  border-radius: 8px;
+  padding: 24px;
+  display: flex; flex-direction: column; gap: 16px;
+}
+.tile.center { align-items: center; justify-content: center; }
+.tile .label {
+  font-family: var(--mono); font-size: 11px; font-weight: 500;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--ink-muted); margin: 0;
+}
+.tile .caption {
+  font-family: var(--mono); font-size: 11px; font-weight: 400;
+  letter-spacing: 0.06em; color: var(--ink-muted); margin: 0;
+}
+.tile .row {
+  display: flex; align-items: center; gap: 16px; justify-content: space-between;
+}
+
+.bg-swatch {
+  display: flex; align-items: center; justify-content: center;
+  padding: 32px; border-radius: 8px; min-height: 160px;
+  border: 1px solid var(--hairline);
+}
+
+/* mark display sizes via SVG width attr inline */
+.mark-frame { display: inline-flex; align-items: center; justify-content: center; }
+
+.misuse-tile {
+  border: 1px solid var(--hairline);
+  background: var(--surface);
+  border-radius: 8px;
+  padding: 24px;
+  display: flex; flex-direction: column; gap: 12px;
+}
+.misuse-tile .display {
+  background: var(--cream);
+  border-radius: 4px;
+  padding: 24px;
+  display: flex; align-items: center; justify-content: center;
+  min-height: 120px;
+  position: relative;
+}
+.misuse-tile .display::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(135deg, transparent 49%, var(--shu) 49.5%, var(--shu) 50.5%, transparent 51%);
+  opacity: 0.55; border-radius: 4px;
+  pointer-events: none;
+}
+.misuse-tile .reason {
+  font-size: 13px; color: var(--ink-muted); margin: 0;
+}
+.misuse-tile h3 {
+  font-size: 14px; font-weight: 500; margin: 0;
+  letter-spacing: 0; line-height: 1.4;
+}
+
+.minsize-row {
+  display: flex; gap: 32px; align-items: flex-end; flex-wrap: wrap;
+  padding: 32px; background: var(--surface); border: 1px solid var(--hairline);
+  border-radius: 8px;
+}
+.minsize-row .cell {
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+}
+.minsize-row .cell .label {
+  font-family: var(--mono); font-size: 11px; font-weight: 500;
+  letter-spacing: 0.06em; color: var(--ink-muted);
+}
+
+.clearspace-demo {
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: 8px;
+  padding: 48px;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.callout {
+  border-left: 3px solid var(--shu);
+  background: var(--surface);
+  padding: 24px 24px 24px 32px;
+  border-radius: 0 8px 8px 0;
+  margin-top: 24px;
+}
+.callout h3 {
+  font-size: 14px; font-weight: 500; margin: 0 0 8px;
+  font-family: var(--mono); letter-spacing: 0.06em; text-transform: uppercase;
+}
+.callout p { font-size: 14px; margin: 0; max-width: 70ch; }
+.callout strong { color: var(--shu-deep); font-weight: 500; }
+
+.foot {
+  margin-top: 96px; padding-top: 24px; border-top: 1px solid var(--ink);
+  font-family: var(--mono); font-size: 11px; font-weight: 400;
+  letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-muted);
+  display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap;
+}
+
+/* ─── 16px tested case styles ─── */
+.favicon-bar {
+  display: flex; align-items: center; gap: 16px;
+  background: var(--surface); border: 1px solid var(--hairline);
+  border-radius: 8px; padding: 16px 24px;
+}
+.favicon-bar .tab {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--bg); border: 1px solid var(--hairline);
+  padding: 8px 12px; border-radius: 6px 6px 0 0;
+  font-family: var(--mono); font-size: 11px; color: var(--ink-muted);
+  letter-spacing: 0.06em;
+}
+
+/* Inline SVG reusable hover-clean style */
+svg.mark { display: block; }
+
+.swatch-grid {
+  display: grid; gap: 0;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  border: 1px solid var(--hairline);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.swatch {
+  padding: 48px 24px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 12px;
+  border-right: 1px solid var(--hairline);
+  border-bottom: 1px solid var(--hairline);
+  min-height: 220px;
+}
+.swatch:last-child { border-right: none; }
+.swatch .name {
+  font-family: var(--mono); font-size: 11px; font-weight: 500;
+  letter-spacing: 0.08em; text-transform: uppercase;
+}
+.swatch .hex {
+  font-family: var(--mono); font-size: 11px; font-weight: 400;
+  letter-spacing: 0.06em; opacity: 0.7;
+}
+</style>
+</head>
+<body>
+<div class="frame">
+
+  <header class="masthead">
+    <div>
+      <h1>Logo Specification</h1>
+      <p>The mark, its lockups, its rules of placement. Every page that carries the Shokunin mark draws its guidance from this document. Self-contained, syncs against <span style="font-family:var(--mono);font-size:13px">_config/brand/mark-spec.md</span>.</p>
+    </div>
+    <div class="meta">
+      <span>SPRINT 2 · 2E · 2F · 2G</span>
+      <span>2026.05.26</span>
+      <button class="toggle" id="modeToggle" type="button">Toggle · Dark</button>
+    </div>
+  </header>
+
+  <!-- ─── 1 · Anatomy ─── -->
+  <section class="section">
+    <p class="eyebrow">01 · ANATOMY</p>
+    <h2 class="title">The mark, decomposed</h2>
+    <p class="lede">An eleven-cross grid. Four columns, three rows. The top-right cell of the middle row is held empty by intent — the eleventh cross is where it is by design; the twelfth is not there by design. Inter-cell spacing is 56 source units; cross bounding box is 32 source units.</p>
+
+    <div class="clearspace-demo">
+      <svg class="mark" width="384" height="300" viewBox="0 0 256 200" xmlns="http://www.w3.org/2000/svg" aria-label="Primary mark anatomy">
+        <rect width="256" height="200" fill="var(--ink)" />
+        <!-- crosses -->
+        <g fill="var(--cream)">
+          <path d="M49 39 H60 V49 H49 V60 H39 V49 H28 V39 H39 V28 H49 V39 Z" />
+          <path d="M105 39 H116 V49 H105 V60 H95 V49 H84 V39 H95 V28 H105 V39 Z" />
+          <path d="M161 39 H172 V49 H161 V60 H151 V49 H140 V39 H151 V28 H161 V39 Z" />
+          <path d="M217 39 H228 V49 H217 V60 H207 V49 H196 V39 H207 V28 H217 V39 Z" />
+          <path d="M49 95 H60 V105 H49 V116 H39 V105 H28 V95 H39 V84 H49 V95 Z" />
+          <path d="M105 95 H116 V105 H105 V116 H95 V105 H84 V95 H95 V84 H105 V95 Z" />
+          <path d="M161 95 H172 V105 H161 V116 H151 V105 H140 V95 H151 V84 H161 V95 Z" />
+          <path d="M49 151 H60 V161 H49 V172 H39 V161 H28 V151 H39 V140 H49 V151 Z" />
+          <path d="M105 151 H116 V161 H105 V172 H95 V161 H84 V151 H95 V140 H105 V151 Z" />
+          <path d="M161 151 H172 V161 H161 V172 H151 V161 H140 V151 H151 V140 H161 V151 Z" />
+          <path d="M217 151 H228 V161 H217 V172 H207 V161 H196 V151 H207 V140 H217 V151 Z" />
+        </g>
+        <!-- absent-cell indicator (overlay shown only in this anatomy panel) -->
+        <rect x="201" y="89" width="32" height="32" fill="none" stroke="var(--shu)" stroke-width="0.5" stroke-dasharray="2 1.5" />
+      </svg>
+    </div>
+
+    <div class="callout">
+      <h3>The deliberate detail · 2g</h3>
+      <p><strong>The missing top-right cell of the middle row.</strong> Marked in the anatomy above with a dashed vermilion outline (the outline is for illustration only — it is never present in the mark itself). The absence is the mark's signature; the eye enters top-left, scans right, drops to row two, and arrives at the held emptiness. The refined spacing (56 source units between cell centers, down from the rough's 64) tightens the eleven crosses into a single body so the absence reads as designed negative space, not as undeveloped territory.</p>
+    </div>
+  </section>
+
+  <!-- ─── 2 · Lockups ─── -->
+  <section class="section">
+    <p class="eyebrow">02 · LOCKUPS</p>
+    <h2 class="title">Three forms · primary, compact, icon</h2>
+    <p class="lede">Primary is the default. Compact is for constrained chrome. Icon is for favicons and the smallest contexts. Each ships in light and dark variants — the variant name describes the surface it is placed on, not the mark's own colour.</p>
+
+    <div class="grid">
+      <div class="tile center">
+        <p class="label">Primary · 256 × 200</p>
+        <svg class="mark" width="240" viewBox="0 0 256 200" xmlns="http://www.w3.org/2000/svg" aria-label="Primary lockup, light variant">
+          <rect width="256" height="200" fill="#1A1815" />
+          <g fill="#F1EFEB">
+            <path d="M49 39 H60 V49 H49 V60 H39 V49 H28 V39 H39 V28 H49 V39 Z" />
+            <path d="M105 39 H116 V49 H105 V60 H95 V49 H84 V39 H95 V28 H105 V39 Z" />
+            <path d="M161 39 H172 V49 H161 V60 H151 V49 H140 V39 H151 V28 H161 V39 Z" />
+            <path d="M217 39 H228 V49 H217 V60 H207 V49 H196 V39 H207 V28 H217 V39 Z" />
+            <path d="M49 95 H60 V105 H49 V116 H39 V105 H28 V95 H39 V84 H49 V95 Z" />
+            <path d="M105 95 H116 V105 H105 V116 H95 V105 H84 V95 H95 V84 H105 V95 Z" />
+            <path d="M161 95 H172 V105 H161 V116 H151 V105 H140 V95 H151 V84 H161 V95 Z" />
+            <path d="M49 151 H60 V161 H49 V172 H39 V161 H28 V151 H39 V140 H49 V151 Z" />
+            <path d="M105 151 H116 V161 H105 V172 H95 V161 H84 V151 H95 V140 H105 V151 Z" />
+            <path d="M161 151 H172 V161 H161 V172 H151 V161 H140 V151 H151 V140 H161 V151 Z" />
+            <path d="M217 151 H228 V161 H217 V172 H207 V161 H196 V151 H207 V140 H217 V151 Z" />
+          </g>
+        </svg>
+        <p class="caption">mark-primary-light.svg · default usage</p>
+      </div>
+
+      <div class="tile center">
+        <p class="label">Compact · 232 × 176</p>
+        <svg class="mark" width="200" viewBox="0 0 232 176" xmlns="http://www.w3.org/2000/svg" aria-label="Compact lockup, light variant">
+          <rect width="232" height="176" fill="#1A1815" />
+          <g fill="#F1EFEB">
+            <path d="M37 27 H48 V37 H37 V48 H27 V37 H16 V27 H27 V16 H37 V27 Z" />
+            <path d="M93 27 H104 V37 H93 V48 H83 V37 H72 V27 H83 V16 H93 V27 Z" />
+            <path d="M149 27 H160 V37 H149 V48 H139 V37 H128 V27 H139 V16 H149 V27 Z" />
+            <path d="M205 27 H216 V37 H205 V48 H195 V37 H184 V27 H195 V16 H205 V27 Z" />
+            <path d="M37 83 H48 V93 H37 V104 H27 V93 H16 V83 H27 V72 H37 V83 Z" />
+            <path d="M93 83 H104 V93 H93 V104 H83 V93 H72 V83 H83 V72 H93 V83 Z" />
+            <path d="M149 83 H160 V93 H149 V104 H139 V93 H128 V83 H139 V72 H149 V83 Z" />
+            <path d="M37 139 H48 V149 H37 V160 H27 V149 H16 V139 H27 V128 H37 V139 Z" />
+            <path d="M93 139 H104 V149 H93 V160 H83 V149 H72 V139 H83 V128 H93 V139 Z" />
+            <path d="M149 139 H160 V149 H149 V160 H139 V149 H128 V139 H139 V128 H149 V139 Z" />
+            <path d="M205 139 H216 V149 H205 V160 H195 V149 H184 V139 H195 V128 H205 V139 Z" />
+          </g>
+        </svg>
+        <p class="caption">mark-compact-light.svg · constrained chrome</p>
+      </div>
+
+      <div class="tile center">
+        <p class="label">Icon · 256 × 256</p>
+        <svg class="mark" width="180" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" aria-label="Icon-only lockup, light variant">
+          <g fill="#1A1815">
+            <path d="M49 67 H60 V77 H49 V88 H39 V77 H28 V67 H39 V56 H49 V67 Z" />
+            <path d="M105 67 H116 V77 H105 V88 H95 V77 H84 V67 H95 V56 H105 V67 Z" />
+            <path d="M161 67 H172 V77 H161 V88 H151 V77 H140 V67 H151 V56 H161 V67 Z" />
+            <path d="M217 67 H228 V77 H217 V88 H207 V77 H196 V67 H207 V56 H217 V67 Z" />
+            <path d="M49 123 H60 V133 H49 V144 H39 V133 H28 V123 H39 V112 H49 V123 Z" />
+            <path d="M105 123 H116 V133 H105 V144 H95 V133 H84 V123 H95 V112 H105 V123 Z" />
+            <path d="M161 123 H172 V133 H161 V144 H151 V133 H140 V123 H151 V112 H161 V123 Z" />
+            <path d="M49 179 H60 V189 H49 V200 H39 V189 H28 V179 H39 V168 H49 V179 Z" />
+            <path d="M105 179 H116 V189 H105 V200 H95 V189 H84 V179 H95 V168 H105 V179 Z" />
+            <path d="M161 179 H172 V189 H161 V200 H151 V189 H140 V179 H151 V168 H161 V179 Z" />
+            <path d="M217 179 H228 V189 H217 V200 H207 V189 H196 V179 H207 V168 H217 V179 Z" />
+          </g>
+        </svg>
+        <p class="caption">mark-icon-light.svg · favicon, app icon</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── 3 · Clear space ─── -->
+  <section class="section">
+    <p class="eyebrow">03 · CLEAR SPACE</p>
+    <h2 class="title">One cross-unit on every side</h2>
+    <p class="lede">The minimum clear space around the mark equals one cross bounding box — 32 source units at the canonical scale, equivalent to 12.5% of the primary lockup's width on every side. No type, ruling line, or competing graphic may enter that zone. At display sizes (96px+) the studio prefers doubling this — two cross-units of clear space — but one is the floor.</p>
+
+    <div class="clearspace-demo">
+      <svg class="mark" width="480" viewBox="0 0 320 264" xmlns="http://www.w3.org/2000/svg" aria-label="Clear space diagram">
+        <!-- clear space outline -->
+        <rect x="0" y="0" width="320" height="264" fill="none" stroke="var(--shu)" stroke-width="0.5" stroke-dasharray="2 1.5" />
+        <!-- mark sits inside with 32 unit pad -->
+        <rect x="32" y="32" width="256" height="200" fill="#1A1815" />
+        <g fill="#F1EFEB" transform="translate(32, 32)">
+          <path d="M49 39 H60 V49 H49 V60 H39 V49 H28 V39 H39 V28 H49 V39 Z" />
+          <path d="M105 39 H116 V49 H105 V60 H95 V49 H84 V39 H95 V28 H105 V39 Z" />
+          <path d="M161 39 H172 V49 H161 V60 H151 V49 H140 V39 H151 V28 H161 V39 Z" />
+          <path d="M217 39 H228 V49 H217 V60 H207 V49 H196 V39 H207 V28 H217 V39 Z" />
+          <path d="M49 95 H60 V105 H49 V116 H39 V105 H28 V95 H39 V84 H49 V95 Z" />
+          <path d="M105 95 H116 V105 H105 V116 H95 V105 H84 V95 H95 V84 H105 V95 Z" />
+          <path d="M161 95 H172 V105 H161 V116 H151 V105 H140 V95 H151 V84 H161 V95 Z" />
+          <path d="M49 151 H60 V161 H49 V172 H39 V161 H28 V151 H39 V140 H49 V151 Z" />
+          <path d="M105 151 H116 V161 H105 V172 H95 V161 H84 V151 H95 V140 H105 V151 Z" />
+          <path d="M161 151 H172 V161 H161 V172 H151 V161 H140 V151 H151 V140 H161 V151 Z" />
+          <path d="M217 151 H228 V161 H217 V172 H207 V161 H196 V151 H207 V140 H217 V151 Z" />
+        </g>
+        <!-- unit indicator -->
+        <rect x="0" y="116" width="32" height="32" fill="none" stroke="var(--shu)" stroke-width="0.5" stroke-dasharray="1 1" />
+        <text x="16" y="170" fill="var(--shu)" font-family="Cascadia Mono,monospace" font-size="9" letter-spacing="0.5" text-anchor="middle">1 UNIT</text>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ─── 4 · Minimum sizes ─── -->
+  <section class="section">
+    <p class="eyebrow">04 · MINIMUM SIZES</p>
+    <h2 class="title">The smallest each lockup may go</h2>
+    <p class="lede">Below these sizes the cross detail collapses. Below the absolute minimum (icon at 16px) the mark reads as a textured pattern field — the asymmetric absence is still discernible, but the individual cross forms vanish. The 16px case is the tested floor.</p>
+
+    <div class="minsize-row">
+      <div class="cell">
+        <svg class="mark" width="96" viewBox="0 0 256 200" xmlns="http://www.w3.org/2000/svg" aria-label="Primary at 96px">
+          <rect width="256" height="200" fill="#1A1815" />
+          <g fill="#F1EFEB">
+            <path d="M49 39 H60 V49 H49 V60 H39 V49 H28 V39 H39 V28 H49 V39 Z" />
+            <path d="M105 39 H116 V49 H105 V60 H95 V49 H84 V39 H95 V28 H105 V39 Z" />
+            <path d="M161 39 H172 V49 H161 V60 H151 V49 H140 V39 H151 V28 H161 V39 Z" />
+            <path d="M217 39 H228 V49 H217 V60 H207 V49 H196 V39 H207 V28 H217 V39 Z" />
+            <path d="M49 95 H60 V105 H49 V116 H39 V105 H28 V95 H39 V84 H49 V95 Z" />
+            <path d="M105 95 H116 V105 H105 V116 H95 V105 H84 V95 H95 V84 H105 V95 Z" />
+            <path d="M161 95 H172 V105 H161 V116 H151 V105 H140 V95 H151 V84 H161 V95 Z" />
+            <path d="M49 151 H60 V161 H49 V172 H39 V161 H28 V151 H39 V140 H49 V151 Z" />
+            <path d="M105 151 H116 V161 H105 V172 H95 V161 H84 V151 H95 V140 H105 V151 Z" />
+            <path d="M161 151 H172 V161 H161 V172 H151 V161 H140 V151 H151 V140 H161 V151 Z" />
+            <path d="M217 151 H228 V161 H217 V172 H207 V161 H196 V151 H207 V140 H217 V151 Z" />
+          </g>
+        </svg>
+        <span class="label">Primary · min 48px wide</span>
+      </div>
+
+      <div class="cell">
+        <svg class="mark" width="64" viewBox="0 0 232 176" xmlns="http://www.w3.org/2000/svg" aria-label="Compact at 64px">
+          <rect width="232" height="176" fill="#1A1815" />
+          <g fill="#F1EFEB">
+            <path d="M37 27 H48 V37 H37 V48 H27 V37 H16 V27 H27 V16 H37 V27 Z" />
+            <path d="M93 27 H104 V37 H93 V48 H83 V37 H72 V27 H83 V16 H93 V27 Z" />
+            <path d="M149 27 H160 V37 H149 V48 H139 V37 H128 V27 H139 V16 H149 V27 Z" />
+            <path d="M205 27 H216 V37 H205 V48 H195 V37 H184 V27 H195 V16 H205 V27 Z" />
+            <path d="M37 83 H48 V93 H37 V104 H27 V93 H16 V83 H27 V72 H37 V83 Z" />
+            <path d="M93 83 H104 V93 H93 V104 H83 V93 H72 V83 H83 V72 H93 V83 Z" />
+            <path d="M149 83 H160 V93 H149 V104 H139 V93 H128 V83 H139 V72 H149 V83 Z" />
+            <path d="M37 139 H48 V149 H37 V160 H27 V149 H16 V139 H27 V128 H37 V139 Z" />
+            <path d="M93 139 H104 V149 H93 V160 H83 V149 H72 V139 H83 V128 H93 V139 Z" />
+            <path d="M149 139 H160 V149 H149 V160 H139 V149 H128 V139 H139 V128 H149 V139 Z" />
+            <path d="M205 139 H216 V149 H205 V160 H195 V149 H184 V139 H195 V128 H205 V139 Z" />
+          </g>
+        </svg>
+        <span class="label">Compact · min 32px wide</span>
+      </div>
+
+      <div class="cell">
+        <svg class="mark" width="32" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" aria-label="Icon at 32px">
+          <g fill="var(--ink)">
+            <path d="M49 67 H60 V77 H49 V88 H39 V77 H28 V67 H39 V56 H49 V67 Z" />
+            <path d="M105 67 H116 V77 H105 V88 H95 V77 H84 V67 H95 V56 H105 V67 Z" />
+            <path d="M161 67 H172 V77 H161 V88 H151 V77 H140 V67 H151 V56 H161 V67 Z" />
+            <path d="M217 67 H228 V77 H217 V88 H207 V77 H196 V67 H207 V56 H217 V67 Z" />
+            <path d="M49 123 H60 V133 H49 V144 H39 V133 H28 V123 H39 V112 H49 V123 Z" />
+            <path d="M105 123 H116 V133 H105 V144 H95 V133 H84 V123 H95 V112 H105 V123 Z" />
+            <path d="M161 123 H172 V133 H161 V144 H151 V133 H140 V123 H151 V112 H161 V123 Z" />
+            <path d="M49 179 H60 V189 H49 V200 H39 V189 H28 V179 H39 V168 H49 V179 Z" />
+            <path d="M105 179 H116 V189 H105 V200 H95 V189 H84 V179 H95 V168 H105 V179 Z" />
+            <path d="M161 179 H172 V189 H161 V200 H151 V189 H140 V179 H151 V168 H161 V179 Z" />
+            <path d="M217 179 H228 V189 H217 V200 H207 V189 H196 V179 H207 V168 H217 V179 Z" />
+          </g>
+        </svg>
+        <span class="label">Icon · 32px</span>
+      </div>
+
+      <div class="cell">
+        <svg class="mark" width="16" height="16" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" aria-label="Icon at 16px favicon">
+          <g fill="var(--ink)">
+            <path d="M49 67 H60 V77 H49 V88 H39 V77 H28 V67 H39 V56 H49 V67 Z" />
+            <path d="M105 67 H116 V77 H105 V88 H95 V77 H84 V67 H95 V56 H105 V67 Z" />
+            <path d="M161 67 H172 V77 H161 V88 H151 V77 H140 V67 H151 V56 H161 V67 Z" />
+            <path d="M217 67 H228 V77 H217 V88 H207 V77 H196 V67 H207 V56 H217 V67 Z" />
+            <path d="M49 123 H60 V133 H49 V144 H39 V133 H28 V123 H39 V112 H49 V123 Z" />
+            <path d="M105 123 H116 V133 H105 V144 H95 V133 H84 V123 H95 V112 H105 V123 Z" />
+            <path d="M161 123 H172 V133 H161 V144 H151 V133 H140 V123 H151 V112 H161 V123 Z" />
+            <path d="M49 179 H60 V189 H49 V200 H39 V189 H28 V179 H39 V168 H49 V179 Z" />
+            <path d="M105 179 H116 V189 H105 V200 H95 V189 H84 V179 H95 V168 H105 V179 Z" />
+            <path d="M161 179 H172 V189 H161 V200 H151 V189 H140 V179 H151 V168 H161 V179 Z" />
+            <path d="M217 179 H228 V189 H217 V200 H207 V189 H196 V179 H207 V168 H217 V179 Z" />
+          </g>
+        </svg>
+        <span class="label">Icon · 16px · tested floor</span>
+      </div>
+    </div>
+
+    <p class="lede" style="margin-top: 24px;">In a browser tab strip, the 16px favicon resolves like this — the asymmetric pattern reads at a glance, the cross detail is gone:</p>
+
+    <div class="favicon-bar">
+      <span class="tab">
+        <svg class="mark" width="16" height="16" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <g fill="var(--ink)">
+            <path d="M49 67 H60 V77 H49 V88 H39 V77 H28 V67 H39 V56 H49 V67 Z" />
+            <path d="M105 67 H116 V77 H105 V88 H95 V77 H84 V67 H95 V56 H105 V67 Z" />
+            <path d="M161 67 H172 V77 H161 V88 H151 V77 H140 V67 H151 V56 H161 V67 Z" />
+            <path d="M217 67 H228 V77 H217 V88 H207 V77 H196 V67 H207 V56 H217 V67 Z" />
+            <path d="M49 123 H60 V133 H49 V144 H39 V133 H28 V123 H39 V112 H49 V123 Z" />
+            <path d="M105 123 H116 V133 H105 V144 H95 V133 H84 V123 H95 V112 H105 V123 Z" />
+            <path d="M161 123 H172 V133 H161 V144 H151 V133 H140 V123 H151 V112 H161 V123 Z" />
+            <path d="M49 179 H60 V189 H49 V200 H39 V189 H28 V179 H39 V168 H49 V179 Z" />
+            <path d="M105 179 H116 V189 H105 V200 H95 V189 H84 V179 H95 V168 H105 V179 Z" />
+            <path d="M161 179 H172 V189 H161 V200 H151 V189 H140 V179 H151 V168 H161 V179 Z" />
+            <path d="M217 179 H228 V189 H217 V200 H207 V189 H196 V179 H207 V168 H217 V179 Z" />
+          </g>
+        </svg>
+        brand.shokunincrafthouse.com
+      </span>
+    </div>
+  </section>
+
+  <!-- ─── 5 · Approved backgrounds ─── -->
+  <section class="section">
+    <p class="eyebrow">05 · APPROVED BACKGROUNDS</p>
+    <h2 class="title">Where the mark sits</h2>
+    <p class="lede">The mark places on five approved grounds. Two are warm light, two are warm dark, one is neutral white for client-facing surfaces that demand it. Each pairing has a fixed variant — the variant name describes the surface, not the mark.</p>
+
+    <div class="swatch-grid">
+
+      <div class="swatch" style="background: #E3DFD8;">
+        <svg class="mark" width="160" viewBox="0 0 256 200" xmlns="http://www.w3.org/2000/svg"><rect width="256" height="200" fill="#1A1815"/><g fill="#F1EFEB"><path d="M49 39 H60 V49 H49 V60 H39 V49 H28 V39 H39 V28 H49 V39 Z"/><path d="M105 39 H116 V49 H105 V60 H95 V49 H84 V39 H95 V28 H105 V39 Z"/><path d="M161 39 H172 V49 H161 V60 H151 V49 H140 V39 H151 V28 H161 V39 Z"/><path d="M217 39 H228 V49 H217 V60 H207 V49 H196 V39 H207 V28 H217 V39 Z"/><path d="M49 95 H60 V105 H49 V116 H39 V105 H28 V95 H39 V84 H49 V95 Z"/><path d="M105 95 H116 V105 H105 V116 H95 V105 H84 V95 H95 V84 H105 V95 Z"/><path d="M161 95 H172 V105 H161 V116 H151 V105 H140 V95 H151 V84 H161 V95 Z"/><path d="M49 151 H60 V161 H49 V172 H39 V161 H28 V151 H39 V140 H49 V151 Z"/><path d="M105 151 H116 V161 H105 V172 H95 V161 H84 V151 H95 V140 H105 V151 Z"/><path d="M161 151 H172 V161 H161 V172 H151 V161 H140 V151 H151 V140 H161 V151 Z"/><path d="M217 151 H228 V161 H217 V172 H207 V161 H196 V151 H207 V140 H217 V151 Z"/></g></svg>
+        <div style="color:#5F5C55"><span class="name">Page · light</span></div>
+        <div style="color:#5F5C55"><span class="hex">#E3DFD8 · warmGray.100 · light variant</span></div>
+      </div>
+
+      <div class="swatch" style="background: #D9D5CE;">
+        <svg class="mark" width="160" viewBox="0 0 256 200" xmlns="http://www.w3.org/2000/svg"><rect width="256" height="200" fill="#1A1815"/><g fill="#F1EFEB"><path d="M49 39 H60 V49 H49 V60 H39 V49 H28 V39 H39 V28 H49 V39 Z"/><path d="M105 39 H116 V49 H105 V60 H95 V49 H84 V39 H95 V28 H105 V39 Z"/><path d="M161 39 H172 V49 H161 V60 H151 V49 H140 V39 H151 V28 H161 V39 Z"/><path d="M217 39 H228 V49 H217 V60 H207 V49 H196 V39 H207 V28 H217 V39 Z"/><path d="M49 95 H60 V105 H49 V116 H39 V105 H28 V95 H39 V84 H49 V95 Z"/><path d="M105 95 H116 V105 H105 V116 H95 V105 H84 V95 H95 V84 H105 V95 Z"/><path d="M161 95 H172 V105 H161 V116 H151 V105 H140 V95 H151 V84 H161 V95 Z"/><path d="M49 151 H60 V161 H49 V172 H39 V161 H28 V151 H39 V140 H49 V151 Z"/><path d="M105 151 H116 V161 H105 V172 H95 V161 H84 V151 H95 V140 H105 V151 Z"/><path d="M161 151 H172 V161 H161 V172 H151 V161 H140 V151 H151 V140 H161 V151 Z"/><path d="M217 151 H228 V161 H217 V172 H207 V161 H196 V151 H207 V140 H217 V151 Z"/></g></svg>
+        <div style="color:#5F5C55"><span class="name">Surface · sunk light</span></div>
+        <div style="color:#5F5C55"><span class="hex">#D9D5CE · warmGray.200 · light variant</span></div>
+      </div>
+
+      <div class="swatch" style="background: #0D0C0B;">
+        <svg class="mark" width="160" viewBox="0 0 256 200" xmlns="http://www.w3.org/2000/svg"><rect width="256" height="200" fill="#F1EFEB"/><g fill="#1A1815"><path d="M49 39 H60 V49 H49 V60 H39 V49 H28 V39 H39 V28 H49 V39 Z"/><path d="M105 39 H116 V49 H105 V60 H95 V49 H84 V39 H95 V28 H105 V39 Z"/><path d="M161 39 H172 V49 H161 V60 H151 V49 H140 V39 H151 V28 H161 V39 Z"/><path d="M217 39 H228 V49 H217 V60 H207 V49 H196 V39 H207 V28 H217 V39 Z"/><path d="M49 95 H60 V105 H49 V116 H39 V105 H28 V95 H39 V84 H49 V95 Z"/><path d="M105 95 H116 V105 H105 V116 H95 V105 H84 V95 H95 V84 H105 V95 Z"/><path d="M161 95 H172 V105 H161 V116 H151 V105 H140 V95 H151 V84 H161 V95 Z"/><path d="M49 151 H60 V161 H49 V172 H39 V161 H28 V151 H39 V140 H49 V151 Z"/><path d="M105 151 H116 V161 H105 V172 H95 V161 H84 V151 H95 V140 H105 V151 Z"/><path d="M161 151 H172 V161 H161 V172 H151 V161 H140 V151 H151 V140 H161 V151 Z"/><path d="M217 151 H228 V161 H217 V172 H207 V161 H196 V151 H207 V140 H217 V151 Z"/></g></svg>
+        <div style="color:#9A9388"><span class="name">Page · dark</span></div>
+        <div style="color:#9A9388"><span class="hex">#0D0C0B · dark.surfacePage · dark variant</span></div>
+      </div>
+
+      <div class="swatch" style="background: #181512;">
+        <svg class="mark" width="160" viewBox="0 0 256 200" xmlns="http://www.w3.org/2000/svg"><rect width="256" height="200" fill="#F1EFEB"/><g fill="#1A1815"><path d="M49 39 H60 V49 H49 V60 H39 V49 H28 V39 H39 V28 H49 V39 Z"/><path d="M105 39 H116 V49 H105 V60 H95 V49 H84 V39 H95 V28 H105 V39 Z"/><path d="M161 39 H172 V49 H161 V60 H151 V49 H140 V39 H151 V28 H161 V39 Z"/><path d="M217 39 H228 V49 H217 V60 H207 V49 H196 V39 H207 V28 H217 V39 Z"/><path d="M49 95 H60 V105 H49 V116 H39 V105 H28 V95 H39 V84 H49 V95 Z"/><path d="M105 95 H116 V105 H105 V116 H95 V105 H84 V95 H95 V84 H105 V95 Z"/><path d="M161 95 H172 V105 H161 V116 H151 V105 H140 V95 H151 V84 H161 V95 Z"/><path d="M49 151 H60 V161 H49 V172 H39 V161 H28 V151 H39 V140 H49 V151 Z"/><path d="M105 151 H116 V161 H105 V172 H95 V161 H84 V151 H95 V140 H105 V151 Z"/><path d="M161 151 H172 V161 H161 V172 H151 V161 H140 V151 H151 V140 H161 V151 Z"/><path d="M217 151 H228 V161 H217 V172 H207 V161 H196 V151 H207 V140 H217 V151 Z"/></g></svg>
+        <div style="color:#9A9388"><span class="name">Surface · sunk dark</span></div>
+        <div style="color:#9A9388"><span class="hex">#181512 · dark.surfaceSunk · dark variant</span></div>
+      </div>
+
+      <div class="swatch" style="background: #FFFFFF;">
+        <svg class="mark" width="160" viewBox="0 0 256 200" xmlns="http://www.w3.org/2000/svg"><rect width="256" height="200" fill="#1A1815"/><g fill="#F1EFEB"><path d="M49 39 H60 V49 H49 V60 H39 V49 H28 V39 H39 V28 H49 V39 Z"/><path d="M105 39 H116 V49 H105 V60 H95 V49 H84 V39 H95 V28 H105 V39 Z"/><path d="M161 39 H172 V49 H161 V60 H151 V49 H140 V39 H151 V28 H161 V39 Z"/><path d="M217 39 H228 V49 H217 V60 H207 V49 H196 V39 H207 V28 H217 V39 Z"/><path d="M49 95 H60 V105 H49 V116 H39 V105 H28 V95 H39 V84 H49 V95 Z"/><path d="M105 95 H116 V105 H105 V116 H95 V105 H84 V95 H95 V84 H105 V95 Z"/><path d="M161 95 H172 V105 H161 V116 H151 V105 H140 V95 H151 V84 H161 V95 Z"/><path d="M49 151 H60 V161 H49 V172 H39 V161 H28 V151 H39 V140 H49 V151 Z"/><path d="M105 151 H116 V161 H105 V172 H95 V161 H84 V151 H95 V140 H105 V151 Z"/><path d="M161 151 H172 V161 H161 V172 H151 V161 H140 V151 H151 V140 H161 V151 Z"/><path d="M217 151 H228 V161 H217 V172 H207 V161 H196 V151 H207 V140 H217 V151 Z"/></g></svg>
+        <div style="color:#5F5C55"><span class="name">White · neutral</span></div>
+        <div style="color:#5F5C55"><span class="hex">#FFFFFF · client-facing only · light variant</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── 6 · Misuse ─── -->
+  <section class="section">
+    <p class="eyebrow">06 · MISUSE</p>
+    <h2 class="title">Six things the mark does not do</h2>
+    <p class="lede">Every example below is forbidden. The red diagonal indicates the violation. If a surface requires any of these, the surface is wrong — change the surface, not the mark.</p>
+
+    <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));">
+
+      <div class="misuse-tile">
+        <div class="display">
+          <svg class="mark" width="180" height="80" viewBox="0 0 256 200" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="256" height="200" fill="#1A1815"/>
+            <g fill="#F1EFEB"><path d="M49 39 H60 V49 H49 V60 H39 V49 H28 V39 H39 V28 H49 V39 Z"/><path d="M105 39 H116 V49 H105 V60 H95 V49 H84 V39 H95 V28 H105 V39 Z"/><path d="M161 39 H172 V49 H161 V60 H151 V49 H140 V39 H151 V28 H161 V39 Z"/><path d="M217 39 H228 V49 H217 V60 H207 V49 H196 V39 H207 V28 H217 V39 Z"/><path d="M49 95 H60 V105 H49 V116 H39 V105 H28 V95 H39 V84 H49 V95 Z"/><path d="M105 95 H116 V105 H105 V116 H95 V105 H84 V95 H95 V84 H105 V95 Z"/><path d="M161 95 H172 V105 H161 V116 H151 V105 H140 V95 H151 V84 H161 V95 Z"/><path d="M49 151 H60 V161 H49 V172 H39 V161 H28 V151 H39 V140 H49 V151 Z"/><path d="M105 151 H116 V161 H105 V172 H95 V161 H84 V151 H95 V140 H105 V151 Z"/><path d="M161 151 H172 V161 H161 V172 H151 V161 H140 V151 H151 V140 H161 V151 Z"/><path d="M217 151 H228 V161 H217 V172 H207 V161 H196 V151 H207 V140 H217 V151 Z"/></g>
+          </svg>
+        </div>
+        <h3>Do not stretch</h3>
+        <p class="reason">Non-uniform scale destroys the cross proportions and the grid rhythm. Scale uniformly, always.</p>
+      </div>
+
+      <div class="misuse-tile">
+        <div class="display">
+          <svg class="mark" width="140" viewBox="0 0 256 200" xmlns="http://www.w3.org/2000/svg" style="transform: rotate(12deg)">
+            <rect width="256" height="200" fill="#1A1815"/>
+            <g fill="#F1EFEB"><path d="M49 39 H60 V49 H49 V60 H39 V49 H28 V39 H39 V28 H49 V39 Z"/><path d="M105 39 H116 V49 H105 V60 H95 V49 H84 V39 H95 V28 H105 V39 Z"/><path d="M161 39 H172 V49 H161 V60 H151 V49 H140 V39 H151 V28 H161 V39 Z"/><path d="M217 39 H228 V49 H217 V60 H207 V49 H196 V39 H207 V28 H217 V39 Z"/><path d="M49 95 H60 V105 H49 V116 H39 V105 H28 V95 H39 V84 H49 V95 Z"/><path d="M105 95 H116 V105 H105 V116 H95 V105 H84 V95 H95 V84 H105 V95 Z"/><path d="M161 95 H172 V105 H161 V116 H151 V105 H140 V95 H151 V84 H161 V95 Z"/><path d="M49 151 H60 V161 H49 V172 H39 V161 H28 V151 H39 V140 H49 V151 Z"/><path d="M105 151 H116 V161 H105 V172 H95 V161 H84 V151 H95 V140 H105 V151 Z"/><path d="M161 151 H172 V161 H161 V172 H151 V161 H140 V151 H151 V140 H161 V151 Z"/><path d="M217 151 H228 V161 H217 V172 H207 V161 H196 V151 H207 V140 H217 V151 Z"/></g>
+          </svg>
+        </div>
+        <h3>Do not rotate</h3>
+        <p class="reason">The mark is always set true to the page baseline. The grid is the axis; rotation breaks it.</p>
+      </div>
+
+      <div class="misuse-tile">
+        <div class="display">
+          <svg class="mark" width="140" viewBox="0 0 256 200" xmlns="http://www.w3.org/2000/svg">
+            <rect width="256" height="200" fill="#C8281C"/>
+            <g fill="#F1EFEB"><path d="M49 39 H60 V49 H49 V60 H39 V49 H28 V39 H39 V28 H49 V39 Z"/><path d="M105 39 H116 V49 H105 V60 H95 V49 H84 V39 H95 V28 H105 V39 Z"/><path d="M161 39 H172 V49 H161 V60 H151 V49 H140 V39 H151 V28 H161 V39 Z"/><path d="M217 39 H228 V49 H217 V60 H207 V49 H196 V39 H207 V28 H217 V39 Z"/><path d="M49 95 H60 V105 H49 V116 H39 V105 H28 V95 H39 V84 H49 V95 Z"/><path d="M105 95 H116 V105 H105 V116 H95 V105 H84 V95 H95 V84 H105 V95 Z"/><path d="M161 95 H172 V105 H161 V116 H151 V105 H140 V95 H151 V84 H161 V95 Z"/><path d="M49 151 H60 V161 H49 V172 H39 V161 H28 V151 H39 V140 H49 V151 Z"/><path d="M105 151 H116 V161 H105 V172 H95 V161 H84 V151 H95 V140 H105 V151 Z"/><path d="M161 151 H172 V161 H161 V172 H151 V161 H140 V151 H151 V140 H161 V151 Z"/><path d="M217 151 H228 V161 H217 V172 H207 V161 H196 V151 H207 V140 H217 V151 Z"/></g>
+          </svg>
+        </div>
+        <h3>Do not recolor</h3>
+        <p class="reason">The mark uses ink and cream only. Shu (vermilion) is the chromatic accent for interactive states — never for the mark itself.</p>
+      </div>
+
+      <div class="misuse-tile">
+        <div class="display">
+          <svg class="mark" width="140" viewBox="0 0 256 200" xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(4px 6px 8px rgba(0,0,0,0.35))">
+            <rect width="256" height="200" fill="#1A1815"/>
+            <g fill="#F1EFEB"><path d="M49 39 H60 V49 H49 V60 H39 V49 H28 V39 H39 V28 H49 V39 Z"/><path d="M105 39 H116 V49 H105 V60 H95 V49 H84 V39 H95 V28 H105 V39 Z"/><path d="M161 39 H172 V49 H161 V60 H151 V49 H140 V39 H151 V28 H161 V39 Z"/><path d="M217 39 H228 V49 H217 V60 H207 V49 H196 V39 H207 V28 H217 V39 Z"/><path d="M49 95 H60 V105 H49 V116 H39 V105 H28 V95 H39 V84 H49 V95 Z"/><path d="M105 95 H116 V105 H105 V116 H95 V105 H84 V95 H95 V84 H105 V95 Z"/><path d="M161 95 H172 V105 H161 V116 H151 V105 H140 V95 H151 V84 H161 V95 Z"/><path d="M49 151 H60 V161 H49 V172 H39 V161 H28 V151 H39 V140 H49 V151 Z"/><path d="M105 151 H116 V161 H105 V172 H95 V161 H84 V151 H95 V140 H105 V151 Z"/><path d="M161 151 H172 V161 H161 V172 H151 V161 H140 V151 H151 V140 H161 V151 Z"/><path d="M217 151 H228 V161 H217 V172 H207 V161 H196 V151 H207 V140 H217 V151 Z"/></g>
+          </svg>
+        </div>
+        <h3>Do not apply effects</h3>
+        <p class="reason">No drop shadow, glow, gradient, or filter. The mark is flat by design — depth comes from surface, not from the mark itself.</p>
+      </div>
+
+      <div class="misuse-tile">
+        <div class="display" style="background: #5F5C55;">
+          <svg class="mark" width="140" viewBox="0 0 256 200" xmlns="http://www.w3.org/2000/svg">
+            <rect width="256" height="200" fill="#484640"/>
+            <g fill="#9A9388"><path d="M49 39 H60 V49 H49 V60 H39 V49 H28 V39 H39 V28 H49 V39 Z"/><path d="M105 39 H116 V49 H105 V60 H95 V49 H84 V39 H95 V28 H105 V39 Z"/><path d="M161 39 H172 V49 H161 V60 H151 V49 H140 V39 H151 V28 H161 V39 Z"/><path d="M217 39 H228 V49 H217 V60 H207 V49 H196 V39 H207 V28 H217 V39 Z"/><path d="M49 95 H60 V105 H49 V116 H39 V105 H28 V95 H39 V84 H49 V95 Z"/><path d="M105 95 H116 V105 H105 V116 H95 V105 H84 V95 H95 V84 H105 V95 Z"/><path d="M161 95 H172 V105 H161 V116 H151 V105 H140 V95 H151 V84 H161 V95 Z"/><path d="M49 151 H60 V161 H49 V172 H39 V161 H28 V151 H39 V140 H49 V151 Z"/><path d="M105 151 H116 V161 H105 V172 H95 V161 H84 V151 H95 V140 H105 V151 Z"/><path d="M161 151 H172 V161 H161 V172 H151 V161 H140 V151 H151 V140 H161 V151 Z"/><path d="M217 151 H228 V161 H217 V172 H207 V161 H196 V151 H207 V140 H217 V151 Z"/></g>
+          </svg>
+        </div>
+        <h3>Do not place on low-contrast ground</h3>
+        <p class="reason">Only on the five approved backgrounds. Mid-tone surfaces silence the mark; the variant must always contrast its ground.</p>
+      </div>
+
+      <div class="misuse-tile">
+        <div class="display">
+          <svg class="mark" width="140" viewBox="0 0 256 200" xmlns="http://www.w3.org/2000/svg">
+            <rect width="256" height="200" fill="#1A1815"/>
+            <g fill="#F1EFEB"><path d="M49 39 H60 V49 H49 V60 H39 V49 H28 V39 H39 V28 H49 V39 Z"/><path d="M105 39 H116 V49 H105 V60 H95 V49 H84 V39 H95 V28 H105 V39 Z"/><path d="M161 39 H172 V49 H161 V60 H151 V49 H140 V39 H151 V28 H161 V39 Z"/><path d="M217 39 H228 V49 H217 V60 H207 V49 H196 V39 H207 V28 H217 V39 Z"/><path d="M49 95 H60 V105 H49 V116 H39 V105 H28 V95 H39 V84 H49 V95 Z"/><path d="M105 95 H116 V105 H105 V116 H95 V105 H84 V95 H95 V84 H105 V95 Z"/><path d="M161 95 H172 V105 H161 V116 H151 V105 H140 V95 H151 V84 H161 V95 Z"/><path d="M217 95 H228 V105 H217 V116 H207 V105 H196 V95 H207 V84 H217 V95 Z"/><path d="M49 151 H60 V161 H49 V172 H39 V161 H28 V151 H39 V140 H49 V151 Z"/><path d="M105 151 H116 V161 H105 V172 H95 V161 H84 V151 H95 V140 H105 V151 Z"/><path d="M161 151 H172 V161 H161 V172 H151 V161 H140 V151 H151 V140 H161 V151 Z"/><path d="M217 151 H228 V161 H217 V172 H207 V161 H196 V151 H207 V140 H217 V151 Z"/></g>
+          </svg>
+        </div>
+        <h3>Do not fill the absent cell</h3>
+        <p class="reason">The missing top-right of row two is the mark's signature. Completing the grid to twelve crosses destroys the deliberate detail — and the mark.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <footer class="foot">
+    <span>SPRINT 2 · MARK SYSTEM · LOCKED 2026.05.26</span>
+    <span>11 CROSSES · 4-3-4 · MA</span>
+    <span>SHOKUNIN CRAFTHOUSE · BRAND IDENTITY</span>
+  </footer>
+
+</div>
+
+<script>
+(function () {
+  const root = document.documentElement;
+  const btn = document.getElementById('modeToggle');
+  function apply(mode) {
+    root.setAttribute('data-theme', mode);
+    btn.textContent = 'Toggle · ' + (mode === 'light' ? 'Dark' : 'Light');
+    try { localStorage.setItem('sc-logo-spec-mode', mode); } catch (e) {}
+  }
+  let initial = 'light';
+  try {
+    const stored = localStorage.getItem('sc-logo-spec-mode');
+    if (stored === 'dark' || stored === 'light') initial = stored;
+  } catch (e) {}
+  apply(initial);
+  btn.addEventListener('click', () => {
+    apply(root.getAttribute('data-theme') === 'light' ? 'dark' : 'light');
+  });
+})();
+</script>
+</body>
+</html>

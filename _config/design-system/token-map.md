@@ -217,6 +217,32 @@ Type primitives map to family / size / weight / line height / tracking. Composit
 | `font/tracking/widest` | 0.08em | Eyebrows, buttons, badges. |
 | `font/tracking/caps` | 0.10em | Small caps treatment. |
 
+### font/text · composition tokens · one per scale step · Sprint 2
+
+Composed `typography` tokens that resolve family + size + weight + lineHeight + tracking together. Surfaces SHOULD reach for these instead of the underlying axes; override one axis only when deliberate (e.g. set a 32px headline in mono). Full weight rationale + screen optical compensation in `_config/design-system/type-system.md`.
+
+| Token Name | Family | Size | Weight | Line-height | Tracking | Use case |
+|---|---|---|---|---|---|---|
+| `font/text/11`  | sans | 11  | 500 | 1.5  | 0.08em   | Eyebrows, badges, button labels. |
+| `font/text/12`  | sans | 12  | 500 | 1.5  | 0.04em   | UI labels, dense table headers. |
+| `font/text/13`  | sans | 13  | 400 | 1.55 | 0        | Captions, muted secondary copy. |
+| `font/text/14`  | sans | 14  | 400 | 1.5  | 0        | Secondary body, helper text. |
+| `font/text/16`  | sans | 16  | 400 | 1.5  | 0        | Body default · anchor of system. |
+| `font/text/20`  | sans | 20  | 400 | 1.55 | 0        | Lead paragraph, intro body. |
+| `font/text/24`  | sans | 24  | 500 | 1.2  | -0.012em | Card titles, mid-headlines. |
+| `font/text/32`  | sans | 32  | 500 | 1.2  | -0.018em | Section titles, page headers. |
+| `font/text/44`  | sans | 44  | 300 | 1.1  | -0.025em | Premise statements, hero subhead. |
+| `font/text/60`  | sans | 60  | 300 | 1.1  | -0.025em | Mid display, hero alt. |
+| `font/text/84`  | sans | 84  | 300 | 1.1  | -0.04em  | Large display, hero primary. |
+| `font/text/120` | sans | 120 | 300 | 1.0  | -0.04em  | Maximum display, hero monumental. |
+| `font/text/mono/11` | mono | 11 | 500 | 1.5  | 0.06em | Mono caps in chrome at 11px. |
+| `font/text/mono/12` | mono | 12 | 500 | 1.5  | 0.04em | Mono labels at 12px. |
+| `font/text/mono/13` | mono | 13 | 400 | 1.55 | 0      | Mono captions, token references, timestamps. |
+| `font/text/mono/14` | mono | 14 | 400 | 1.5  | 0      | Mono inline code, dense mono cells. |
+| `font/text/mono/16` | mono | 16 | 400 | 1.55 | 0      | Mono code block body (use Cascadia Code for ligatures inside `<code>`/`<pre>`). |
+
+**Weight zone summary.** Chrome (11–12) = medium · Body and reading (13–20) = regular · Mid-headline (24–32) = medium · Display (44–120) = light. Weight 600 reserved exclusively for the secondary-button hover bump — no scale step uses it.
+
 ---
 
 ## Spacing Tokens
