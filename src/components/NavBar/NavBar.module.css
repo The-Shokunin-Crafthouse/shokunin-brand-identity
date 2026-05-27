@@ -1,0 +1,136 @@
+/* tokens:
+ *   --sc-space-component-padding-inline-md  · 12 inline padding on links
+ *   --sc-space-component-padding-block-md   · 8 block padding
+ *   --sc-space-layout-inset-md              · 24 nav inset
+ *   --sc-space-component-gap-lg             · 12 inter-link gap
+ *   --sc-border-width-default               · 1 bottom hairline
+ *   --sc-color-border-default               · bottom hairline color
+ *   --sc-color-surface-page                 · nav bg (matches page so nav reads as floating)
+ *   --sc-color-text-primary                 · link rest
+ *   --sc-color-interactive-hover            · link hover
+ *   --sc-color-brand-accent                 · current link
+ *   --sc-font-text-body-dense-*             · link type (14)
+ *   --sc-font-text-label-chrome-*           · toggle button (11 caps)
+ *   --sc-motion-hover-duration / -easing
+ */
+
+.nav {
+  width: 100%;
+  background-color: var(--sc-color-surface-page);
+  border-bottom-width: var(--sc-border-width-default);
+  border-bottom-style: solid;
+  border-bottom-color: var(--sc-color-border-default);
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sc-space-component-gap-lg);
+  padding-inline: var(--sc-space-layout-inset-md);
+  padding-block: var(--sc-space-component-padding-block-md);
+}
+
+.brand {
+  font-family: var(--sc-font-text-label-chrome-family);
+  font-weight: var(--sc-font-text-label-chrome-weight);
+  letter-spacing: var(--sc-font-text-label-chrome-letter-spacing);
+  font-size: var(--sc-font-text-label-chrome-size);
+  color: var(--sc-color-text-primary);
+  text-transform: uppercase;
+}
+
+.links {
+  display: flex;
+  align-items: center;
+  gap: var(--sc-space-component-gap-lg);
+  flex: 1;
+}
+
+.linkItem {
+  display: inline-block;
+}
+
+.link {
+  display: inline-block;
+  padding-inline: var(--sc-space-component-padding-inline-md);
+  padding-block: var(--sc-space-component-padding-block-md);
+  font-family: var(--sc-font-text-body-dense-family);
+  font-size: var(--sc-font-text-body-dense-size);
+  font-weight: var(--sc-font-text-body-dense-weight);
+  line-height: var(--sc-font-text-body-dense-line-height);
+  letter-spacing: var(--sc-font-text-body-dense-letter-spacing);
+  color: var(--sc-color-text-primary);
+  text-decoration: none;
+  transition: color var(--sc-motion-hover-duration) var(--sc-motion-hover-easing);
+}
+
+.link:hover {
+  color: var(--sc-color-interactive-hover);
+}
+
+.link[aria-current="page"] {
+  color: var(--sc-color-brand-accent);
+}
+
+.trailing {
+  display: flex;
+  align-items: center;
+  gap: var(--sc-space-component-gap-md);
+  flex-shrink: 0;
+}
+
+/* --- Desktop variant ---------------------------------------------- */
+
+.desktop .links {
+  justify-content: flex-start;
+  margin-inline-start: var(--sc-space-component-gap-lg);
+}
+
+/* --- Compact variant ---------------------------------------------- */
+
+.compact .row {
+  justify-content: space-between;
+}
+
+.toggle {
+  font-family: var(--sc-font-text-label-chrome-family);
+  font-size: var(--sc-font-text-label-chrome-size);
+  font-weight: var(--sc-font-text-label-chrome-weight);
+  letter-spacing: var(--sc-font-text-label-chrome-letter-spacing);
+  color: var(--sc-color-text-primary);
+  background: transparent;
+  border: 0;
+  padding-inline: var(--sc-space-component-padding-inline-md);
+  padding-block: var(--sc-space-component-padding-block-md);
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+.menu {
+  display: none;
+  flex-direction: column;
+  padding-inline: var(--sc-space-layout-inset-md);
+  padding-block: var(--sc-space-component-padding-block-md);
+  border-top-width: var(--sc-border-width-default);
+  border-top-style: solid;
+  border-top-color: var(--sc-color-border-default);
+}
+
+.menuOpen {
+  display: flex;
+}
+
+.compact .menu .links {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
+}
+
+.compact .menu .link {
+  padding-block: var(--sc-space-component-padding-block-md);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .link { transition: none; }
+}
