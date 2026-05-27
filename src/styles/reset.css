@@ -1,0 +1,98 @@
+/* ============================================================
+ * reset.css — minimal cross-browser reset + body defaults.
+ *
+ * Per Sprint 4 contract resolution 1: body bg + color come from
+ * semantic tokens; font-family bridges from the sans primitive
+ * (authorized exception — bridge layer between primitives and
+ * components). Components themselves consume semantic --sc-*
+ * vars only; primitive references inside src/components/* are
+ * a bug.
+ *
+ * Reduced-motion: kills any global animation/transition. Per-
+ * component CSS modules opt back in with their own reduced-
+ * motion fallbacks where they have a functional path.
+ * ============================================================ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  margin: 0;
+  background-color: var(--sc-color-surface-page);
+  color: var(--sc-color-text-primary);
+  font-family: var(--sc-font-family-sans);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+figure,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+ul,
+ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+input,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+:focus-visible {
+  outline: 2px solid var(--sc-color-border-focus);
+  outline-offset: 2px;
+}
+
+::selection {
+  background-color: var(--sc-color-brand-accent);
+  color: var(--sc-color-text-on-accent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
