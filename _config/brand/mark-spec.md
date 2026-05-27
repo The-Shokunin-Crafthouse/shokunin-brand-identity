@@ -104,9 +104,15 @@ The cross form itself is unchanged from the rough. Adding chamfered terminals, a
 
 ## 4. Deliberate detail (2g)
 
-**The missing top-right cell of the middle row.** Read order matters — the eye enters at the top-left, scans right, drops to the middle row, and arrives at the absence. The empty cell is on the diagonal axis from bottom-left; it carries visual weight as the *terminus* of the diagonal scan.
+**The missing top-right cell of the middle row encodes S and C — the studio's initials — through a single absence.** Read the populated crosses as letterforms and two readings resolve at the same time.
 
-The detail is preserved in every lockup at every size. At 16px favicon scale the cross detail disappears but the absence remains visible as a darker void in the pattern field.
+**The S.** The top row of four traces the top stroke. The middle row of three, stopped short by the absence, traces the middle stroke reversing direction. The bottom row of four closes with the bottom stroke. The S is readable only because the middle row terminates where it does — fill the absent cell and the middle row becomes a straight horizontal four, and the S collapses back into a generic 4×3 grid. The absence is the bend.
+
+**The C.** Read the rightmost column alone. The cross at row 1 and the cross at row 3 are populated; the cell between them is absent. The two crosses are the upper and lower terminals of a letter C with the mouth opening rightward — the C is exactly the rightmost column read as bracket ends framing a hole. The C's open mouth is the same absent cell that pivots the S.
+
+One absence does the work of two letterforms — the middle-stroke reversal of the S and the open mouth of the C. The studio's initials are not stamped on the mark; they *are* the mark's underlying structure, surfaced only when the grid is read as a letterform.
+
+The detail is preserved in every lockup at every size. At 16px favicon scale the cross detail disappears but the absence remains visible as a darker void in the pattern field — the SC encoding is no longer legible at that scale, but its anchor cell still holds.
 
 ---
 
