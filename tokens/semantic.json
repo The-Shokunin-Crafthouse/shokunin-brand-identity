@@ -1,0 +1,297 @@
+{
+  "$schema": "https://design-tokens.github.io/community-group/format/",
+  "$description": "Shokunin Crafthouse · Semantic tokens · purpose-mapped aliases · Light + Dark modes. Every $value is a DTCG reference to a primitive — no hex or px lives in this file. The default $value resolves to the LIGHT mode value; the DARK mode value lives in $extensions.modes.dark. Build tools that don't understand the modes extension still get a valid light-mode token tree.",
+  "$metadata": {
+    "version": "0.1.0",
+    "generated": "2026-05-26",
+    "source": {
+      "preview": "stages/02-design/design-system-preview.html",
+      "figmaFile": "ufNlysCwWz7y2FBk61DxbN",
+      "figmaPage": "Brand System (node 1:4)",
+      "figmaCollection": "Semantic"
+    },
+    "modes": ["light", "dark"],
+    "defaultMode": "light",
+    "modeStrategy": "Each token's $value is the light-mode resolution. $extensions.modes.{light,dark} holds the full per-mode map so any DTCG processor can pick the right alias per theme. Mode-invariant tokens (spacing) repeat the same alias in both modes — explicit, no implicit fallback.",
+    "aliasRule": "Semantic tokens MUST alias primitives via the {group.subgroup.name} DTCG reference syntax. Hardcoded hex / px values in this file are a bug and will fail Sprint 1 success criterion 1b."
+  },
+  "color": {
+    "surface": {
+      "page": {
+        "$type": "color",
+        "$value": "{color.warmGray.100}",
+        "$description": "Page ground. Foundation surface in both modes. Light = oatmeal warmGray.100, dark = warm near-black.",
+        "$extensions": {
+          "modes": {
+            "light": "{color.warmGray.100}",
+            "dark":  "{color.dark.surfacePage}"
+          }
+        }
+      },
+      "sunk": {
+        "$type": "color",
+        "$value": "{color.warmGray.200}",
+        "$description": "Set-in component surface · cards, frames, tiles. In light, sits BELOW page (deeper). In dark, sits ABOVE page (lighter). Role-named for light-mode semantics; perceptual direction inverts in dark.",
+        "$extensions": {
+          "modes": {
+            "light": "{color.warmGray.200}",
+            "dark":  "{color.dark.surfaceSunk}"
+          }
+        }
+      },
+      "deepSunk": {
+        "$type": "color",
+        "$value": "{color.warmGray.300}",
+        "$description": "Deeper-step surface · nested states, form inputs, card hover. One step beyond surface.sunk in either mode.",
+        "$extensions": {
+          "modes": {
+            "light": "{color.warmGray.300}",
+            "dark":  "{color.dark.surfaceDeepSunk}"
+          }
+        }
+      }
+    },
+    "text": {
+      "primary": {
+        "$type": "color",
+        "$value": "{color.warmGray.800}",
+        "$description": "Primary text · body, headlines, strong rules. AAA on every surface in both modes.",
+        "$extensions": {
+          "modes": {
+            "light": "{color.warmGray.800}",
+            "dark":  "{color.dark.textPrimary}"
+          }
+        }
+      },
+      "secondary": {
+        "$type": "color",
+        "$value": "{color.warmGray.500}",
+        "$description": "Secondary text · eyebrows, metadata, descriptions. AA on surface.page (5.0:1) and surface.sunk (4.6:1). USAGE RESTRICTION: must not render on surface.deepSunk in light mode — the pair drops to 4.04:1 (below AA). On deepest surface, use text.primary instead. Dark mode passes AA on all three surfaces.",
+        "$extensions": {
+          "modes": {
+            "light": "{color.warmGray.500}",
+            "dark":  "{color.warmGray.400}"
+          },
+          "usageRestrictions": {
+            "forbiddenSurfaces": ["color.surface.deepSunk"],
+            "modes": ["light"],
+            "reason": "Contrast ratio 4.04:1 falls below WCAG AA 4.5:1 threshold on this pair only.",
+            "substitute": "{color.text.primary}"
+          }
+        }
+      },
+      "disabled": {
+        "$type": "color",
+        "$value": "{color.warmGray.400}",
+        "$description": "Disabled text · placeholders, ghosted controls. Documented exception: fails AA by spec.",
+        "$extensions": {
+          "modes": {
+            "light": "{color.warmGray.400}",
+            "dark":  "{color.dark.textDisabled}"
+          }
+        }
+      },
+      "onAccent": {
+        "$type": "color",
+        "$value": "{color.utility.white}",
+        "$description": "Text on shu/brand fills. Pure white reads strong against vermilion in both modes.",
+        "$extensions": {
+          "modes": {
+            "light": "{color.utility.white}",
+            "dark":  "{color.utility.white}"
+          }
+        }
+      }
+    },
+    "border": {
+      "default": {
+        "$type": "color",
+        "$value": "{color.warmGray.250}",
+        "$description": "Default 1px solid hairline. Structural dividers, title block, section rules.",
+        "$extensions": {
+          "modes": {
+            "light": "{color.warmGray.250}",
+            "dark":  "{color.dark.border}"
+          }
+        }
+      },
+      "subtle": {
+        "$type": "color",
+        "$value": "{color.warmGray.350}",
+        "$description": "Dashed inner divisions. Secondary structural rules inside cards and sections.",
+        "$extensions": {
+          "modes": {
+            "light": "{color.warmGray.350}",
+            "dark":  "{color.dark.borderSubtle}"
+          }
+        }
+      },
+      "strong": {
+        "$type": "color",
+        "$value": "{color.warmGray.800}",
+        "$description": "Strong frame border. Title block, masthead, asserted structural frames.",
+        "$extensions": {
+          "modes": {
+            "light": "{color.warmGray.800}",
+            "dark":  "{color.warmGray.50}"
+          }
+        }
+      },
+      "focus": {
+        "$type": "color",
+        "$value": "{color.shu.500}",
+        "$description": "Focus ring color. Shu in light mode, shu.400 (lifted) in dark for visibility.",
+        "$extensions": {
+          "modes": {
+            "light": "{color.shu.500}",
+            "dark":  "{color.shu.400}"
+          }
+        }
+      }
+    },
+    "interactive": {
+      "default": {
+        "$type": "color",
+        "$value": "{color.warmGray.800}",
+        "$description": "Resting state for interactive elements · button text + border. Ink in light, near-white in dark.",
+        "$extensions": {
+          "modes": {
+            "light": "{color.warmGray.800}",
+            "dark":  "{color.warmGray.50}"
+          }
+        }
+      },
+      "hover": {
+        "$type": "color",
+        "$value": "{color.shu.500}",
+        "$description": "Hover state · primary button text/icon/border turn shu. Documented AA exception at 11px (3.8:1 on bg); brand-signal use justifies. Dark mode uses shu.400 for visibility.",
+        "$extensions": {
+          "modes": {
+            "light": "{color.shu.500}",
+            "dark":  "{color.shu.400}"
+          }
+        }
+      },
+      "active": {
+        "$type": "color",
+        "$value": "{color.shu.700}",
+        "$description": "Pressed/active state · one step deeper than hover. Visual color slot exists; primary press is also a scale transform (motion.scale.pressButton 0.985).",
+        "$extensions": {
+          "modes": {
+            "light": "{color.shu.700}",
+            "dark":  "{color.shu.500}"
+          }
+        }
+      }
+    },
+    "status": {
+      "success": {
+        "$type": "color",
+        "$value": "{color.status.success.light}",
+        "$description": "Success state · warm olive on light, lifted olive on dark. AA on respective grounds.",
+        "$extensions": {
+          "modes": {
+            "light": "{color.status.success.light}",
+            "dark":  "{color.status.success.dark}"
+          }
+        }
+      },
+      "warning": {
+        "$type": "color",
+        "$value": "{color.status.warning.light}",
+        "$description": "Warning state · deep ochre on light, lifted ochre on dark. AA on respective grounds.",
+        "$extensions": {
+          "modes": {
+            "light": "{color.status.warning.light}",
+            "dark":  "{color.status.warning.dark}"
+          }
+        }
+      },
+      "error": {
+        "$type": "color",
+        "$value": "{color.shu.500}",
+        "$description": "Error state · vermilion in both modes (lifted to shu.400 in dark). Same as brand accent — error and brand share the chromatic signal.",
+        "$extensions": {
+          "modes": {
+            "light": "{color.shu.500}",
+            "dark":  "{color.shu.400}"
+          }
+        }
+      },
+      "info": {
+        "$type": "color",
+        "$value": "{color.status.info.light}",
+        "$description": "Info state · warm slate on light, lifted slate on dark. AA on respective grounds.",
+        "$extensions": {
+          "modes": {
+            "light": "{color.status.info.light}",
+            "dark":  "{color.status.info.dark}"
+          }
+        }
+      }
+    },
+    "brand": {
+      "accent": {
+        "$type": "color",
+        "$value": "{color.shu.500}",
+        "$description": "Brand accent · vermilion shu kept consistent across modes for brand-mark continuity. Used for the mark, stamps, and signature surfaces — not body text.",
+        "$extensions": {
+          "modes": {
+            "light": "{color.shu.500}",
+            "dark":  "{color.shu.500}"
+          }
+        }
+      },
+      "accentDeep": {
+        "$type": "color",
+        "$value": "{color.shu.700}",
+        "$description": "Brand accent deep · pressed accent state and AA-passing accent text on light surfaces (5.3:1 on warmGray.100).",
+        "$extensions": {
+          "modes": {
+            "light": "{color.shu.700}",
+            "dark":  "{color.shu.700}"
+          }
+        }
+      }
+    }
+  },
+  "space": {
+    "component": {
+      "padding": {
+        "sm": {
+          "$type": "dimension",
+          "$value": "{space.8}",
+          "$description": "Small component padding · 8px. Tight chrome paddings, dense surfaces. Mode-invariant.",
+          "$extensions": {
+            "modes": {
+              "light": "{space.8}",
+              "dark":  "{space.8}"
+            }
+          }
+        },
+        "md": {
+          "$type": "dimension",
+          "$value": "{space.16}",
+          "$description": "Medium component padding · 16px. Default card and frame padding. Mode-invariant.",
+          "$extensions": {
+            "modes": {
+              "light": "{space.16}",
+              "dark":  "{space.16}"
+            }
+          }
+        },
+        "lg": {
+          "$type": "dimension",
+          "$value": "{space.24}",
+          "$description": "Large component padding · 24px. Section padding, generous cards. Mode-invariant.",
+          "$extensions": {
+            "modes": {
+              "light": "{space.24}",
+              "dark":  "{space.24}"
+            }
+          }
+        }
+      }
+    }
+  }
+}

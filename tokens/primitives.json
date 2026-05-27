@@ -1,0 +1,317 @@
+{
+  "$schema": "https://design-tokens.github.io/community-group/format/",
+  "$description": "Shokunin Crafthouse · Primitives · raw token values · single source of truth. Generated from Figma Primitives collection (VariableCollectionId:2013:2). Anchors marked in token descriptions are the values extracted directly from stages/02-design/design-system-preview.html; non-anchored values are derived (palette interpolation, alpha steps, etc.) and called out per-token.",
+  "$metadata": {
+    "version": "0.1.0",
+    "generated": "2026-05-26",
+    "source": {
+      "preview": "stages/02-design/design-system-preview.html",
+      "figmaFile": "ufNlysCwWz7y2FBk61DxbN",
+      "figmaPage": "Brand System (node 1:4)",
+      "figmaCollection": "Primitives"
+    },
+    "spacingBase": "Hybrid 4/8pt layout ladder + 2pt micro ladder. Layout: 4·8·12·16·24·32·48·64·80·96·120 px. Micro (chrome only): 2·6·10·14·18·22 px. Arbitrary px outside these ladders is a bug.",
+    "typeScale": "Modular ratio 1.25 · 12 steps · 11/12/13/14/16/20/24/32/44/60/84/120 px.",
+    "fontStrategy": "Two families. Sans = Neue Haas Grotesk Display Pro (self-hosted woff2 in /fonts/, Helvetica Neue → Inter fallback while sourcing). Mono = Cascadia Mono (Google Fonts CDN). Weights 300/400/500 in active use across both families; weight 600 reserved for the secondary-button hover bump only — no other approved use. NHG mono evaluation (Geist, JetBrains, IBM Plex) closed; see decisions/decisions.md 2026-05-26."
+  },
+  "color": {
+    "warmGray": {
+      "50": {
+        "$type": "color",
+        "$value": "#F1EFEB",
+        "$description": "Lightest cream · derived 50% toward white from step 100. For ultra-soft fills."
+      },
+      "100": {
+        "$type": "color",
+        "$value": "#E3DFD8",
+        "$description": "Oatmeal page ground · anchor from HTML --bg. Foundation of every light surface."
+      },
+      "200": {
+        "$type": "color",
+        "$value": "#D9D5CE",
+        "$description": "Set-in component surface · anchor from HTML --surface. Cards, frames, raised tiles."
+      },
+      "250": {
+        "$type": "color",
+        "$value": "#D5D1CA",
+        "$description": "Default hairline rule · anchor from HTML --hairline. 1px solid divisions."
+      },
+      "300": {
+        "$type": "color",
+        "$value": "#CDC9C2",
+        "$description": "Sunk surface · anchor from HTML --surface-deep. Form inputs, card hover, nested states."
+      },
+      "350": {
+        "$type": "color",
+        "$value": "#C5C0B8",
+        "$description": "Subtle hairline · anchor from HTML --hairline-2. Dashed inner divisions."
+      },
+      "400": {
+        "$type": "color",
+        "$value": "#9A9388",
+        "$description": "Faint warm gray · anchor from HTML --ink-faint. Disabled text and decorative marks (fails AA by spec)."
+      },
+      "500": {
+        "$type": "color",
+        "$value": "#5F5C55",
+        "$description": "Muted warm gray · anchor from HTML --ink-muted. Secondary copy, metadata, eyebrows."
+      },
+      "600": {
+        "$type": "color",
+        "$value": "#484640",
+        "$description": "Mid-deep · derived between 500 and 800. Reserved for future deep-mid surfaces."
+      },
+      "700": {
+        "$type": "color",
+        "$value": "#312F2A",
+        "$description": "Near-ink · derived between 500 and 800. Reserved for future near-ink surfaces."
+      },
+      "800": {
+        "$type": "color",
+        "$value": "#1A1815",
+        "$description": "Ink · anchor from HTML --ink. Primary text, strong rules."
+      },
+      "900": {
+        "$type": "color",
+        "$value": "#0D0C0B",
+        "$description": "Bar deep · anchor from HTML --bg-deep. Dark surface, colophon, future dark mode ground."
+      }
+    },
+    "shu": {
+      "50": {
+        "$type": "color",
+        "$value": "#FCEFEC",
+        "$description": "Lightest vermilion wash · derived. For soft accent backgrounds."
+      },
+      "100": {
+        "$type": "color",
+        "$value": "#F7D9D4",
+        "$description": "Pale vermilion · derived. Soft accent fills."
+      },
+      "200": {
+        "$type": "color",
+        "$value": "#F0B5AC",
+        "$description": "Light vermilion · derived. Accent surface tints."
+      },
+      "300": {
+        "$type": "color",
+        "$value": "#E68B7F",
+        "$description": "Mid-light vermilion · derived. Used for dark-mode interactive states."
+      },
+      "400": {
+        "$type": "color",
+        "$value": "#DA5C4D",
+        "$description": "Mid vermilion · derived. Dark-mode hover/active accent color."
+      },
+      "500": {
+        "$type": "color",
+        "$value": "#C8281C",
+        "$description": "Vermilion · 朱 · anchor from HTML --shu. The single chromatic accent. Brand-identity-only (live site uses brass)."
+      },
+      "600": {
+        "$type": "color",
+        "$value": "#B22318",
+        "$description": "Mid-deep vermilion · derived between 500 and 700."
+      },
+      "700": {
+        "$type": "color",
+        "$value": "#9E1F15",
+        "$description": "Deep vermilion · anchor from HTML --shu-deep. Pressed/active accent, AA-passing text on light surfaces."
+      },
+      "800": {
+        "$type": "color",
+        "$value": "#771A11",
+        "$description": "Deeper vermilion · derived. Future high-contrast accent uses."
+      },
+      "900": {
+        "$type": "color",
+        "$value": "#4F100B",
+        "$description": "Darkest vermilion · derived. Reserved."
+      }
+    },
+    "status": {
+      "success": {
+        "light": {
+          "$type": "color",
+          "$value": "#4F5C2A",
+          "$description": "Warm olive · success states on light ground. Passes AA on warmGray.100 (~4.7:1)."
+        },
+        "dark": {
+          "$type": "color",
+          "$value": "#A8BE6E",
+          "$description": "Lifted olive · success states on dark ground. Inverted-mode equivalent of success.light."
+        }
+      },
+      "warning": {
+        "light": {
+          "$type": "color",
+          "$value": "#8A5E10",
+          "$description": "Deep ochre · warning states on light ground. Passes AA on warmGray.100 (~4.5:1)."
+        },
+        "dark": {
+          "$type": "color",
+          "$value": "#D9B265",
+          "$description": "Lifted ochre · warning states on dark ground."
+        }
+      },
+      "info": {
+        "light": {
+          "$type": "color",
+          "$value": "#3B5C7A",
+          "$description": "Warm slate · info states on light ground. Passes AA on warmGray.100 (~5.1:1)."
+        },
+        "dark": {
+          "$type": "color",
+          "$value": "#8FB1D0",
+          "$description": "Lifted slate · info states on dark ground."
+        }
+      }
+    },
+    "dark": {
+      "surfacePage": {
+        "$type": "color",
+        "$value": "#0D0C0B",
+        "$description": "Dark-mode page ground · from site --ground. Same value as warmGray.900 but role-named for dark-surface clarity."
+      },
+      "surfaceSunk": {
+        "$type": "color",
+        "$value": "#181512",
+        "$description": "Dark-mode set-in surface · from site --tile-filled. Cards in dark mode (visually LIGHTER than page; role inverts perceptually)."
+      },
+      "surfaceDeepSunk": {
+        "$type": "color",
+        "$value": "#221F1B",
+        "$description": "Dark-mode deeper surface · derived. Nested states in dark mode."
+      },
+      "border": {
+        "$type": "color",
+        "$value": "#201E1A",
+        "$description": "Dark-mode hairline · from site --border."
+      },
+      "borderSubtle": {
+        "$type": "color",
+        "$value": "#2F2B26",
+        "$description": "Dark-mode subtle hairline · derived."
+      },
+      "textPrimary": {
+        "$type": "color",
+        "$value": "#E2DDD6",
+        "$description": "Dark-mode primary text · from site --text-primary."
+      },
+      "textDisabled": {
+        "$type": "color",
+        "$value": "#6B655C",
+        "$description": "Dark-mode disabled text · derived (fails AA by spec)."
+      }
+    },
+    "utility": {
+      "white": {
+        "$type": "color",
+        "$value": "#FFFFFF",
+        "$description": "Pure white · utility primitive. Used by semantic text-on-accent and accent fill text."
+      },
+      "black": {
+        "$type": "color",
+        "$value": "#000000",
+        "$description": "Pure black · utility primitive. Reserved for special shadow alpha bases."
+      }
+    }
+  },
+  "font": {
+    "family": {
+      "sans": {
+        "$type": "fontFamily",
+        "$value": ["Neue Haas Grotesk Display Pro", "Neue Haas Grotesk Text Pro", "Helvetica Neue", "Inter", "system-ui", "sans-serif"],
+        "$description": "Primary sans serif · display + body. Self-hosted woff2 from /fonts/; falls back to Helvetica Neue → Inter when NHG not loaded."
+      },
+      "mono": {
+        "$type": "fontFamily",
+        "$value": ["Cascadia Mono", "Cascadia Code", "ui-monospace", "SF Mono", "Menlo", "monospace"],
+        "$description": "Monospace · chrome + code. Eyebrows, badges, buttons, timestamps, code surfaces. Loaded from Google Fonts CDN. Selected over Geist/JetBrains/Plex — see decisions/decisions.md 2026-05-26."
+      }
+    },
+    "size": {
+      "11":  { "$type": "dimension", "$value": { "value": 11,  "unit": "px" }, "$description": "11px · type scale step (modular ratio 1.25). UI eyebrows, badges, buttons." },
+      "12":  { "$type": "dimension", "$value": { "value": 12,  "unit": "px" }, "$description": "12px · type scale step. UI labels." },
+      "13":  { "$type": "dimension", "$value": { "value": 13,  "unit": "px" }, "$description": "13px · type scale step. Captions, muted secondary copy." },
+      "14":  { "$type": "dimension", "$value": { "value": 14,  "unit": "px" }, "$description": "14px · type scale step. Secondary body copy." },
+      "16":  { "$type": "dimension", "$value": { "value": 16,  "unit": "px" }, "$description": "16px · type scale step. Body copy default." },
+      "20":  { "$type": "dimension", "$value": { "value": 20,  "unit": "px" }, "$description": "20px · type scale step." },
+      "24":  { "$type": "dimension", "$value": { "value": 24,  "unit": "px" }, "$description": "24px · type scale step. Card titles." },
+      "32":  { "$type": "dimension", "$value": { "value": 32,  "unit": "px" }, "$description": "32px · type scale step. Section titles." },
+      "44":  { "$type": "dimension", "$value": { "value": 44,  "unit": "px" }, "$description": "44px · type scale step. Premise statements." },
+      "60":  { "$type": "dimension", "$value": { "value": 60,  "unit": "px" }, "$description": "60px · type scale step. Mid display." },
+      "84":  { "$type": "dimension", "$value": { "value": 84,  "unit": "px" }, "$description": "84px · type scale step. Large display." },
+      "120": { "$type": "dimension", "$value": { "value": 120, "unit": "px" }, "$description": "120px · type scale step. Maximum display." }
+    },
+    "weight": {
+      "light":    { "$type": "fontWeight", "$value": 300, "$description": "Light · 300. Display weight for premise statements and large headlines." },
+      "regular":  { "$type": "fontWeight", "$value": 400, "$description": "Regular · 400. Body copy default." },
+      "medium":   { "$type": "fontWeight", "$value": 500, "$description": "Medium · 500. UI labels, button text, section titles, eyebrows." },
+      "semibold": { "$type": "fontWeight", "$value": 600, "$description": "Semibold · 600. Secondary button hover weight bump only — no other approved use." }
+    },
+    "lineHeight": {
+      "flat":    { "$type": "number", "$value": 1.0,  "$description": "Flat · 1.0. Display specimens at 120px, vertical alignment." },
+      "tight":   { "$type": "number", "$value": 1.1,  "$description": "Tight · 1.1. Large display 44–84px." },
+      "snug":    { "$type": "number", "$value": 1.2,  "$description": "Snug · 1.2. Mid headlines 24–32px." },
+      "base":    { "$type": "number", "$value": 1.5,  "$description": "Base · 1.5. Body 16px + UI 11–14px." },
+      "relaxed": { "$type": "number", "$value": 1.55, "$description": "Relaxed · 1.55. Long-read prose, captions in cards." }
+    },
+    "tracking": {
+      "tightest": { "$type": "dimension", "$value": { "value": -0.04,  "unit": "em" }, "$description": "Tightest · -0.04em. Largest display sizes 84/120px." },
+      "tighter":  { "$type": "dimension", "$value": { "value": -0.025, "unit": "em" }, "$description": "Tighter · -0.025em. 60px display." },
+      "tight":    { "$type": "dimension", "$value": { "value": -0.018, "unit": "em" }, "$description": "Tight · -0.018em. Section titles 32px." },
+      "snug":     { "$type": "dimension", "$value": { "value": -0.012, "unit": "em" }, "$description": "Snug · -0.012em. Card titles 24px." },
+      "normal":   { "$type": "dimension", "$value": { "value": 0,      "unit": "em" }, "$description": "Normal · 0. Body copy default." },
+      "wide":     { "$type": "dimension", "$value": { "value": 0.04,   "unit": "em" }, "$description": "Wide · 0.04em. UI label rhythm at 12px." },
+      "wider":    { "$type": "dimension", "$value": { "value": 0.06,   "unit": "em" }, "$description": "Wider · 0.06em. Mono caps at 11px in chrome." },
+      "widest":   { "$type": "dimension", "$value": { "value": 0.08,   "unit": "em" }, "$description": "Widest · 0.08em. Eyebrows, buttons, badges, dashboards." },
+      "caps":     { "$type": "dimension", "$value": { "value": 0.1,    "unit": "em" }, "$description": "Caps · 0.1em. Premium small caps treatment for sub-sections." }
+    }
+  },
+  "space": {
+    "4":   { "$type": "dimension", "$value": { "value": 4,   "unit": "px" }, "$description": "4px · layout spacing (4/8pt ladder)." },
+    "8":   { "$type": "dimension", "$value": { "value": 8,   "unit": "px" }, "$description": "8px · layout spacing (4/8pt ladder)." },
+    "12":  { "$type": "dimension", "$value": { "value": 12,  "unit": "px" }, "$description": "12px · layout spacing (4/8pt ladder)." },
+    "16":  { "$type": "dimension", "$value": { "value": 16,  "unit": "px" }, "$description": "16px · layout spacing (4/8pt ladder)." },
+    "24":  { "$type": "dimension", "$value": { "value": 24,  "unit": "px" }, "$description": "24px · layout spacing (4/8pt ladder)." },
+    "32":  { "$type": "dimension", "$value": { "value": 32,  "unit": "px" }, "$description": "32px · layout spacing (4/8pt ladder)." },
+    "48":  { "$type": "dimension", "$value": { "value": 48,  "unit": "px" }, "$description": "48px · layout spacing (4/8pt ladder)." },
+    "64":  { "$type": "dimension", "$value": { "value": 64,  "unit": "px" }, "$description": "64px · layout spacing (4/8pt ladder)." },
+    "80":  { "$type": "dimension", "$value": { "value": 80,  "unit": "px" }, "$description": "80px · layout spacing (4/8pt ladder)." },
+    "96":  { "$type": "dimension", "$value": { "value": 96,  "unit": "px" }, "$description": "96px · layout spacing (4/8pt ladder)." },
+    "120": { "$type": "dimension", "$value": { "value": 120, "unit": "px" }, "$description": "120px · layout spacing (4/8pt ladder)." },
+    "micro": {
+      "2":  { "$type": "dimension", "$value": { "value": 2,  "unit": "px" }, "$description": "2px · chrome micro-spacing (2pt ladder). Component padding, badge insets, mono caps compensation." },
+      "6":  { "$type": "dimension", "$value": { "value": 6,  "unit": "px" }, "$description": "6px · chrome micro-spacing (2pt ladder)." },
+      "10": { "$type": "dimension", "$value": { "value": 10, "unit": "px" }, "$description": "10px · chrome micro-spacing (2pt ladder)." },
+      "14": { "$type": "dimension", "$value": { "value": 14, "unit": "px" }, "$description": "14px · chrome micro-spacing (2pt ladder)." },
+      "18": { "$type": "dimension", "$value": { "value": 18, "unit": "px" }, "$description": "18px · chrome micro-spacing (2pt ladder)." },
+      "22": { "$type": "dimension", "$value": { "value": 22, "unit": "px" }, "$description": "22px · chrome micro-spacing (2pt ladder)." }
+    }
+  },
+  "radius": {
+    "none":    { "$type": "dimension", "$value": { "value": 0,    "unit": "px" }, "$description": "No radius. Reserved for special structural rectangles." },
+    "input":   { "$type": "dimension", "$value": { "value": 3,    "unit": "px" }, "$description": "Form input + badge radius. Small, just enough to read as soft." },
+    "default": { "$type": "dimension", "$value": { "value": 8,    "unit": "px" }, "$description": "Default radius. Cards, buttons, frames, stamps." },
+    "circle":  { "$type": "dimension", "$value": { "value": 9999, "unit": "px" }, "$description": "Pill / full circle. Status dots, brand stamp." }
+  },
+  "motion": {
+    "duration": {
+      "micro":        { "$type": "duration", "$value": { "value": 200, "unit": "ms" }, "$description": "200ms · hover, tap, press. Default micro-interaction." },
+      "press":        { "$type": "duration", "$value": { "value": 160, "unit": "ms" }, "$description": "160ms · press/release scale. levibahn.com convention." },
+      "standard":     { "$type": "duration", "$value": { "value": 380, "unit": "ms" }, "$description": "380ms · state change, cross-fade, surface swap." },
+      "orchestrated": { "$type": "duration", "$value": { "value": 720, "unit": "ms" }, "$description": "720ms · page, route, choreographed reveal. Justify anything longer in writing." }
+    },
+    "easing": {
+      "out":       { "$type": "cubicBezier", "$value": [0.22, 1, 0.36, 1],     "$description": "Quint-out · primary easing. Hover, state changes, most things that ease in or out." },
+      "outStrong": { "$type": "cubicBezier", "$value": [0.23, 1, 0.32, 1],     "$description": "Strong quint-out · press/release. From levibahn.com convention." },
+      "inOut":     { "$type": "cubicBezier", "$value": [0.65, 0, 0.35, 1],     "$description": "Symmetric · crossfades, mode switches." },
+      "cinematic": { "$type": "cubicBezier", "$value": [0.32, 0.08, 0.12, 1],  "$description": "Long deliberate · orchestrated only. Page transitions." }
+    },
+    "scale": {
+      "pressButton": { "$type": "number", "$value": 0.985, "$description": "Button press scale · 0.985. Subtle confirmation press (levibahn.com)." },
+      "pressTap":    { "$type": "number", "$value": 0.92,  "$description": "Tap target press scale · 0.92. Heavier touch affordance." }
+    }
+  }
+}
