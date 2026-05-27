@@ -1,0 +1,53 @@
+/* tokens:
+ *   --sc-space-component-padding-lg          · generous internal padding
+ *   --sc-space-component-gap-lg              · stack rhythm inside card body
+ *   --sc-radius-surface                      · corner
+ *   --sc-border-width-default                · hairline frame
+ *   --sc-color-surface-sunk                  · default + interactive resting bg
+ *   --sc-color-surface-deep-sunk             · interactive hover bg
+ *   --sc-color-surface-page                  · elevated bg (lifted against sunk)
+ *   --sc-color-border-default                · default frame
+ *   --sc-color-border-strong                 · elevated frame
+ *   --sc-color-text-primary                  · text inherits via reset
+ *   --sc-motion-hover-duration / -easing
+ */
+
+.card {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: var(--sc-space-component-padding-lg);
+  border-radius: var(--sc-radius-surface);
+  border-width: var(--sc-border-width-default);
+  border-style: solid;
+  transition:
+    background-color var(--sc-motion-hover-duration) var(--sc-motion-hover-easing),
+    border-color var(--sc-motion-hover-duration) var(--sc-motion-hover-easing);
+}
+
+.default {
+  background-color: var(--sc-color-surface-sunk);
+  border-color: var(--sc-color-border-default);
+  color: var(--sc-color-text-primary);
+}
+
+.interactive {
+  background-color: var(--sc-color-surface-sunk);
+  border-color: var(--sc-color-border-default);
+  color: var(--sc-color-text-primary);
+  cursor: pointer;
+  font: inherit;
+}
+.interactive:hover {
+  background-color: var(--sc-color-surface-deep-sunk);
+}
+
+.elevated {
+  background-color: var(--sc-color-surface-page);
+  border-color: var(--sc-color-border-strong);
+  color: var(--sc-color-text-primary);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card { transition: none; }
+}

@@ -1,0 +1,105 @@
+/* tokens:
+ *   --sc-space-component-padding-inline-md  · 12 inline
+ *   --sc-space-component-padding-block-md   · 8 block
+ *   --sc-space-component-gap-sm             · label ↔ input gap (4)
+ *   --sc-radius-control                     · 3 corner — inscribed register
+ *   --sc-border-width-default               · 1 border
+ *   --sc-font-text-body-default-*           · 16 input value
+ *   --sc-font-text-label-ui-*               · 12 label
+ *   --sc-font-text-caption-*                · 13 helper/error
+ *   --sc-color-surface-page                 · input bg
+ *   --sc-color-surface-sunk                 · disabled bg
+ *   --sc-color-border-default               · resting border
+ *   --sc-color-border-strong                · filled / focused border (semantic via :focus-visible)
+ *   --sc-color-text-primary                 · value ink
+ *   --sc-color-text-secondary               · label + helper
+ *   --sc-color-text-disabled                · disabled value
+ *   --sc-color-status-error                 · error border + helper
+ */
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sc-space-component-gap-sm);
+  width: 100%;
+}
+
+.label {
+  font-family: var(--sc-font-text-label-ui-family);
+  font-size: var(--sc-font-text-label-ui-size);
+  font-weight: var(--sc-font-text-label-ui-weight);
+  line-height: var(--sc-font-text-label-ui-line-height);
+  letter-spacing: var(--sc-font-text-label-ui-letter-spacing);
+  color: var(--sc-color-text-secondary);
+}
+
+.input {
+  padding-inline: var(--sc-space-component-padding-inline-md);
+  padding-block: var(--sc-space-component-padding-block-md);
+  border-radius: var(--sc-radius-control);
+  border-width: var(--sc-border-width-default);
+  border-style: solid;
+  border-color: var(--sc-color-border-default);
+  background-color: var(--sc-color-surface-page);
+  color: var(--sc-color-text-primary);
+  font-family: var(--sc-font-text-body-default-family);
+  font-size: var(--sc-font-text-body-default-size);
+  font-weight: var(--sc-font-text-body-default-weight);
+  line-height: var(--sc-font-text-body-default-line-height);
+  letter-spacing: var(--sc-font-text-body-default-letter-spacing);
+  width: 100%;
+  transition: border-color var(--sc-motion-hover-duration) var(--sc-motion-hover-easing);
+}
+
+.input::placeholder {
+  color: var(--sc-color-text-disabled);
+}
+
+/* Filled state — when input has content, border darkens to strong */
+.input:not(:placeholder-shown):not(:disabled) {
+  border-color: var(--sc-color-border-strong);
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--sc-color-border-focus);
+}
+
+.helper {
+  font-family: var(--sc-font-text-caption-family);
+  font-size: var(--sc-font-text-caption-size);
+  font-weight: var(--sc-font-text-caption-weight);
+  line-height: var(--sc-font-text-caption-line-height);
+  letter-spacing: var(--sc-font-text-caption-letter-spacing);
+  color: var(--sc-color-text-secondary);
+}
+
+.helperError {
+  color: var(--sc-color-status-error);
+}
+
+/* --- Error state -------------------------------------------------- */
+
+.errored .input {
+  border-color: var(--sc-color-status-error);
+}
+
+.errored .input:focus {
+  border-color: var(--sc-color-status-error);
+}
+
+/* --- Disabled state ----------------------------------------------- */
+
+.disabled .label {
+  color: var(--sc-color-text-disabled);
+}
+
+.input:disabled {
+  background-color: var(--sc-color-surface-sunk);
+  color: var(--sc-color-text-disabled);
+  cursor: not-allowed;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .input { transition: none; }
+}

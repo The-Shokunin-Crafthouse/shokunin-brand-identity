@@ -1,0 +1,59 @@
+/* tokens:
+ *   --sc-space-component-padding-lg          · 16 internal padding
+ *   --sc-space-component-gap-md              · title ↔ body gap
+ *   --sc-radius-surface                      · 8 corner
+ *   --sc-border-width-default                · hairline frame
+ *   --sc-border-width-accent                 · 3 left-rule
+ *   --sc-color-surface-sunk                  · banner ground
+ *   --sc-color-border-default                · banner frame
+ *   --sc-color-text-primary                  · title ink
+ *   --sc-color-text-secondary                · body ink
+ *   --sc-color-status-info / warning / error / success · left rule per variant
+ *   --sc-font-text-title-card-*              · title type
+ *   --sc-font-text-body-dense-*              · body type
+ */
+
+.alert {
+  display: flex;
+  align-items: flex-start;
+  background-color: var(--sc-color-surface-sunk);
+  border-radius: var(--sc-radius-surface);
+  border-width: var(--sc-border-width-default);
+  border-style: solid;
+  border-color: var(--sc-color-border-default);
+  border-left-width: var(--sc-border-width-accent);
+  padding: var(--sc-space-component-padding-lg);
+  gap: var(--sc-space-component-gap-md);
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sc-space-component-gap-sm);
+  flex: 1;
+}
+
+.title {
+  font-family: var(--sc-font-text-title-card-family);
+  font-size: var(--sc-font-text-title-card-size);
+  font-weight: var(--sc-font-text-title-card-weight);
+  line-height: var(--sc-font-text-title-card-line-height);
+  letter-spacing: var(--sc-font-text-title-card-letter-spacing);
+  color: var(--sc-color-text-primary);
+}
+
+.message {
+  font-family: var(--sc-font-text-body-dense-family);
+  font-size: var(--sc-font-text-body-dense-size);
+  font-weight: var(--sc-font-text-body-dense-weight);
+  line-height: var(--sc-font-text-body-dense-line-height);
+  letter-spacing: var(--sc-font-text-body-dense-letter-spacing);
+  color: var(--sc-color-text-secondary);
+}
+
+/* --- Variants — left-rule color carries the status signal --------- */
+
+.info       { border-left-color: var(--sc-color-status-info); }
+.warning    { border-left-color: var(--sc-color-status-warning); }
+.error      { border-left-color: var(--sc-color-status-error); }
+.success    { border-left-color: var(--sc-color-status-success); }

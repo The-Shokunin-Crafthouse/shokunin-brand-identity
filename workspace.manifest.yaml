@@ -13,12 +13,13 @@ studio: "The Shokunin Crafthouse"
 template_version: "1.0.0"
 
 project:
-  name: ""
-  client: ""
-  kind: ""            # brand | product | site | app | campaign
-  stage: "01-brief"   # current stage id
-  lead: ""
-  started: ""         # YYYY-MM-DD
+  name: "Shokunin Brand Identity"
+  client: "Internal — Shokunin Crafthouse"
+  kind: "brand"       # brand | product | site | app | campaign
+  stage: "03-build"   # current stage id
+  currentSprint: "Sprint 4 — Component Primitives (feat/sprint-4-components)"
+  lead: "Levi Bahn"
+  started: "2026-05-26"
   target_launch: ""   # YYYY-MM-DD
   status: "active"    # active | paused | closed
 

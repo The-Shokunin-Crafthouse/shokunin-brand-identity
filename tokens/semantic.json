@@ -253,6 +253,320 @@
           }
         }
       }
+    },
+    "text-on-inverse": {
+      "$type": "color",
+      "$value": "{color.warmGray.50}",
+      "$description": "Sprint 4 addition · text on inverted surface. Tooltip body text and similar inverse-ground content. Near-white on light mode (atop dark Tooltip), ink on dark mode (atop light Tooltip).",
+      "$extensions": {
+        "modes": {
+          "light": "{color.warmGray.50}",
+          "dark":  "{color.warmGray.800}"
+        }
+      }
+    },
+    "surface-inverse": {
+      "$type": "color",
+      "$value": "{color.warmGray.800}",
+      "$description": "Sprint 4 addition · inverted surface. Tooltip ground. Ink in light mode, near-white in dark mode — always the visual opposite of surface.page.",
+      "$extensions": {
+        "modes": {
+          "light": "{color.warmGray.800}",
+          "dark":  "{color.warmGray.50}"
+        }
+      }
+    }
+  },
+  "border": {
+    "width": {
+      "default": {
+        "$type": "dimension",
+        "$value": "{border.width.hairline}",
+        "$description": "Sprint 4 addition · default border weight (1px). Card, Input, Divider, NavBar.",
+        "$extensions": { "modes": { "light": "{border.width.hairline}", "dark": "{border.width.hairline}" } }
+      },
+      "focus": {
+        "$type": "dimension",
+        "$value": "{border.width.focus}",
+        "$description": "Sprint 4 addition · focus-ring weight (2px). Every interactive component.",
+        "$extensions": { "modes": { "light": "{border.width.focus}", "dark": "{border.width.focus}" } }
+      },
+      "accent": {
+        "$type": "dimension",
+        "$value": "{border.width.accent}",
+        "$description": "Sprint 4 addition · accent rule weight (3px). Alert left-rule, ProgressIndicator bar.",
+        "$extensions": { "modes": { "light": "{border.width.accent}", "dark": "{border.width.accent}" } }
+      }
+    },
+    "focus": {
+      "offset": {
+        "$type": "dimension",
+        "$value": "{space.micro.2}",
+        "$description": "Sprint 4 addition · focus-ring outline offset (2px). Ground around the ring.",
+        "$extensions": { "modes": { "light": "{space.micro.2}", "dark": "{space.micro.2}" } }
+      }
+    }
+  },
+  "radius": {
+    "control": {
+      "$type": "dimension",
+      "$value": "{radius.input}",
+      "$description": "Sprint 4 addition · controls that read as inscribed rather than lifted (3px). Input, Badge, Tooltip.",
+      "$extensions": { "modes": { "light": "{radius.input}", "dark": "{radius.input}" } }
+    },
+    "surface": {
+      "$type": "dimension",
+      "$value": "{radius.default}",
+      "$description": "Sprint 4 addition · raised surfaces (8px). Card, Button, Alert.",
+      "$extensions": { "modes": { "light": "{radius.default}", "dark": "{radius.default}" } }
+    },
+    "pill": {
+      "$type": "dimension",
+      "$value": "{radius.circle}",
+      "$description": "Sprint 4 addition · pill / circle (9999px). Avatar, Switch track + thumb, ProgressIndicator bar caps.",
+      "$extensions": { "modes": { "light": "{radius.circle}", "dark": "{radius.circle}" } }
+    },
+    "none": {
+      "$type": "dimension",
+      "$value": "{radius.none}",
+      "$description": "Sprint 4 addition · structural rectangles, code surfaces (0).",
+      "$extensions": { "modes": { "light": "{radius.none}", "dark": "{radius.none}" } }
+    }
+  },
+  "motion": {
+    "hover": {
+      "duration": {
+        "$type": "duration",
+        "$value": "{motion.duration.micro}",
+        "$description": "Sprint 4 addition · hover state-change duration (200ms). Pair with hover.easing.",
+        "$extensions": { "modes": { "light": "{motion.duration.micro}", "dark": "{motion.duration.micro}" } }
+      },
+      "easing": {
+        "$type": "cubicBezier",
+        "$value": "{motion.easing.out}",
+        "$description": "Sprint 4 addition · quint-out · hover entrance.",
+        "$extensions": { "modes": { "light": "{motion.easing.out}", "dark": "{motion.easing.out}" } }
+      }
+    },
+    "press": {
+      "duration": {
+        "$type": "duration",
+        "$value": "{motion.duration.press}",
+        "$description": "Sprint 4 addition · press/release scale (160ms).",
+        "$extensions": { "modes": { "light": "{motion.duration.press}", "dark": "{motion.duration.press}" } }
+      },
+      "easing": {
+        "$type": "cubicBezier",
+        "$value": "{motion.easing.outStrong}",
+        "$description": "Sprint 4 addition · strong quint-out · press feedback.",
+        "$extensions": { "modes": { "light": "{motion.easing.outStrong}", "dark": "{motion.easing.outStrong}" } }
+      },
+      "scale": {
+        "$type": "number",
+        "$value": "{motion.scale.pressButton}",
+        "$description": "Sprint 4 addition · button press scale (0.985). Subtle confirmation.",
+        "$extensions": { "modes": { "light": "{motion.scale.pressButton}", "dark": "{motion.scale.pressButton}" } }
+      }
+    },
+    "mode": {
+      "duration": {
+        "$type": "duration",
+        "$value": "{motion.duration.standard}",
+        "$description": "Sprint 4 addition · theme switch surface + color cross-fade (380ms).",
+        "$extensions": { "modes": { "light": "{motion.duration.standard}", "dark": "{motion.duration.standard}" } }
+      },
+      "easing": {
+        "$type": "cubicBezier",
+        "$value": "{motion.easing.inOut}",
+        "$description": "Sprint 4 addition · symmetric · mode switches and crossfades.",
+        "$extensions": { "modes": { "light": "{motion.easing.inOut}", "dark": "{motion.easing.inOut}" } }
+      }
+    },
+    "reveal": {
+      "duration": {
+        "$type": "duration",
+        "$value": "{motion.duration.micro}",
+        "$description": "Sprint 4 addition · Tooltip enter, Alert enter, Switch thumb slide (200ms).",
+        "$extensions": { "modes": { "light": "{motion.duration.micro}", "dark": "{motion.duration.micro}" } }
+      },
+      "easing": {
+        "$type": "cubicBezier",
+        "$value": "{motion.easing.out}",
+        "$description": "Sprint 4 addition · quint-out · reveal entrance.",
+        "$extensions": { "modes": { "light": "{motion.easing.out}", "dark": "{motion.easing.out}" } }
+      }
+    }
+  },
+  "font": {
+    "text": {
+      "label": {
+        "chrome": {
+          "$type": "typography",
+          "$value": "{font.text.11}",
+          "$description": "Sprint 4 addition · chrome labels · 11/medium/widest. Button labels, Badge text, eyebrows.",
+          "$extensions": { "modes": { "light": "{font.text.11}", "dark": "{font.text.11}" } }
+        },
+        "ui": {
+          "$type": "typography",
+          "$value": "{font.text.12}",
+          "$description": "Sprint 4 addition · UI labels · 12/medium/wide. Form labels, dense table headers.",
+          "$extensions": { "modes": { "light": "{font.text.12}", "dark": "{font.text.12}" } }
+        }
+      },
+      "caption": {
+        "$type": "typography",
+        "$value": "{font.text.13}",
+        "$description": "Sprint 4 addition · caption · 13/regular/relaxed. Helper text, Tooltip body, timestamps.",
+        "$extensions": { "modes": { "light": "{font.text.13}", "dark": "{font.text.13}" } }
+      },
+      "body": {
+        "dense": {
+          "$type": "typography",
+          "$value": "{font.text.14}",
+          "$description": "Sprint 4 addition · dense body · 14/regular/base. NavBar links, secondary body, Alert body.",
+          "$extensions": { "modes": { "light": "{font.text.14}", "dark": "{font.text.14}" } }
+        },
+        "default": {
+          "$type": "typography",
+          "$value": "{font.text.16}",
+          "$description": "Sprint 4 addition · body default · 16/regular/base. Input value, Card body, default prose.",
+          "$extensions": { "modes": { "light": "{font.text.16}", "dark": "{font.text.16}" } }
+        },
+        "lead": {
+          "$type": "typography",
+          "$value": "{font.text.20}",
+          "$description": "Sprint 4 addition · lead body · 20/regular/relaxed. Intro paragraphs.",
+          "$extensions": { "modes": { "light": "{font.text.20}", "dark": "{font.text.20}" } }
+        }
+      },
+      "title": {
+        "card": {
+          "$type": "typography",
+          "$value": "{font.text.24}",
+          "$description": "Sprint 4 addition · card title · 24/medium/snug. Card titles, Alert title.",
+          "$extensions": { "modes": { "light": "{font.text.24}", "dark": "{font.text.24}" } }
+        },
+        "section": {
+          "$type": "typography",
+          "$value": "{font.text.32}",
+          "$description": "Sprint 4 addition · section title · 32/medium/snug. Showcase section headers.",
+          "$extensions": { "modes": { "light": "{font.text.32}", "dark": "{font.text.32}" } }
+        }
+      },
+      "display": {
+        "sm": {
+          "$type": "typography",
+          "$value": "{font.text.44}",
+          "$description": "Sprint 4 addition · display sm · 44/light/tight. Premise statements.",
+          "$extensions": { "modes": { "light": "{font.text.44}", "dark": "{font.text.44}" } }
+        },
+        "md": {
+          "$type": "typography",
+          "$value": "{font.text.60}",
+          "$description": "Sprint 4 addition · display md · 60/light/tight.",
+          "$extensions": { "modes": { "light": "{font.text.60}", "dark": "{font.text.60}" } }
+        },
+        "lg": {
+          "$type": "typography",
+          "$value": "{font.text.84}",
+          "$description": "Sprint 4 addition · display lg · 84/light/tight.",
+          "$extensions": { "modes": { "light": "{font.text.84}", "dark": "{font.text.84}" } }
+        },
+        "xl": {
+          "$type": "typography",
+          "$value": "{font.text.120}",
+          "$description": "Sprint 4 addition · display xl · 120/light/flat. Maximum display.",
+          "$extensions": { "modes": { "light": "{font.text.120}", "dark": "{font.text.120}" } }
+        }
+      },
+      "mono": {
+        "chrome": {
+          "$type": "typography",
+          "$value": "{font.text.mono.11}",
+          "$description": "Sprint 4 addition · mono chrome · 11px Cascadia caps. Token references, status mono badges.",
+          "$extensions": { "modes": { "light": "{font.text.mono.11}", "dark": "{font.text.mono.11}" } }
+        },
+        "caption": {
+          "$type": "typography",
+          "$value": "{font.text.mono.13}",
+          "$description": "Sprint 4 addition · mono caption · 13px. Timestamps, token names, code references.",
+          "$extensions": { "modes": { "light": "{font.text.mono.13}", "dark": "{font.text.mono.13}" } }
+        },
+        "body": {
+          "$type": "typography",
+          "$value": "{font.text.mono.16}",
+          "$description": "Sprint 4 addition · mono body · 16px. Inline code, code blocks.",
+          "$extensions": { "modes": { "light": "{font.text.mono.16}", "dark": "{font.text.mono.16}" } }
+        }
+      }
+    }
+  },
+  "size": {
+    "avatar": {
+      "xs": {
+        "$type": "dimension",
+        "$value": "{space.24}",
+        "$description": "Sprint 4 addition · avatar xs · 24px · table-row avatar.",
+        "$extensions": { "modes": { "light": "{space.24}", "dark": "{space.24}" } }
+      },
+      "sm": {
+        "$type": "dimension",
+        "$value": "{space.32}",
+        "$description": "Sprint 4 addition · avatar sm · 32px · default avatar.",
+        "$extensions": { "modes": { "light": "{space.32}", "dark": "{space.32}" } }
+      },
+      "md": {
+        "$type": "dimension",
+        "$value": "{space.48}",
+        "$description": "Sprint 4 addition · avatar md · 48px · prominent avatar.",
+        "$extensions": { "modes": { "light": "{space.48}", "dark": "{space.48}" } }
+      },
+      "lg": {
+        "$type": "dimension",
+        "$value": "{space.64}",
+        "$description": "Sprint 4 addition · avatar lg · 64px · feature avatar.",
+        "$extensions": { "modes": { "light": "{space.64}", "dark": "{space.64}" } }
+      }
+    },
+    "switch": {
+      "track-width": {
+        "$type": "dimension",
+        "$value": "{space.32}",
+        "$description": "Sprint 4 addition · switch track width (32px).",
+        "$extensions": { "modes": { "light": "{space.32}", "dark": "{space.32}" } }
+      },
+      "track-height": {
+        "$type": "dimension",
+        "$value": "{space.micro.18}",
+        "$description": "Sprint 4 addition · switch track height (18px).",
+        "$extensions": { "modes": { "light": "{space.micro.18}", "dark": "{space.micro.18}" } }
+      },
+      "thumb": {
+        "$type": "dimension",
+        "$value": "{space.micro.14}",
+        "$description": "Sprint 4 addition · switch thumb diameter (14px) · 2px inset inside 18px track.",
+        "$extensions": { "modes": { "light": "{space.micro.14}", "dark": "{space.micro.14}" } }
+      }
+    },
+    "progress": {
+      "bar-height": {
+        "$type": "dimension",
+        "$value": "{space.4}",
+        "$description": "Sprint 4 addition · bar progress indicator height (4px).",
+        "$extensions": { "modes": { "light": "{space.4}", "dark": "{space.4}" } }
+      },
+      "circular": {
+        "$type": "dimension",
+        "$value": "{space.48}",
+        "$description": "Sprint 4 addition · circular progress indicator diameter (48px).",
+        "$extensions": { "modes": { "light": "{space.48}", "dark": "{space.48}" } }
+      },
+      "circular-stroke": {
+        "$type": "dimension",
+        "$value": "{space.4}",
+        "$description": "Sprint 4 addition · circular stroke width (4px).",
+        "$extensions": { "modes": { "light": "{space.4}", "dark": "{space.4}" } }
+      }
     }
   },
   "space": {
@@ -290,6 +604,114 @@
               "dark":  "{space.24}"
             }
           }
+        }
+      },
+      "padding-inline": {
+        "sm": {
+          "$type": "dimension",
+          "$value": "{space.micro.6}",
+          "$description": "Sprint 4 addition · tight inline padding (6px). Badge.",
+          "$extensions": { "modes": { "light": "{space.micro.6}", "dark": "{space.micro.6}" } }
+        },
+        "md": {
+          "$type": "dimension",
+          "$value": "{space.12}",
+          "$description": "Sprint 4 addition · default inline padding (12px). Button, Input, NavBar link.",
+          "$extensions": { "modes": { "light": "{space.12}", "dark": "{space.12}" } }
+        },
+        "lg": {
+          "$type": "dimension",
+          "$value": "{space.16}",
+          "$description": "Sprint 4 addition · generous inline padding (16px). Card, Alert.",
+          "$extensions": { "modes": { "light": "{space.16}", "dark": "{space.16}" } }
+        }
+      },
+      "padding-block": {
+        "sm": {
+          "$type": "dimension",
+          "$value": "{space.micro.2}",
+          "$description": "Sprint 4 addition · ultra-thin block padding (2px). Badge.",
+          "$extensions": { "modes": { "light": "{space.micro.2}", "dark": "{space.micro.2}" } }
+        },
+        "md": {
+          "$type": "dimension",
+          "$value": "{space.8}",
+          "$description": "Sprint 4 addition · default block padding (8px). Button, Input.",
+          "$extensions": { "modes": { "light": "{space.8}", "dark": "{space.8}" } }
+        },
+        "lg": {
+          "$type": "dimension",
+          "$value": "{space.12}",
+          "$description": "Sprint 4 addition · generous block padding (12px). Card header, Alert.",
+          "$extensions": { "modes": { "light": "{space.12}", "dark": "{space.12}" } }
+        }
+      },
+      "gap": {
+        "sm": {
+          "$type": "dimension",
+          "$value": "{space.4}",
+          "$description": "Sprint 4 addition · tightest inter-element gap (4px). Icon + label in compact controls.",
+          "$extensions": { "modes": { "light": "{space.4}", "dark": "{space.4}" } }
+        },
+        "md": {
+          "$type": "dimension",
+          "$value": "{space.8}",
+          "$description": "Sprint 4 addition · default inter-element gap (8px). Icon + label, label + helper.",
+          "$extensions": { "modes": { "light": "{space.8}", "dark": "{space.8}" } }
+        },
+        "lg": {
+          "$type": "dimension",
+          "$value": "{space.12}",
+          "$description": "Sprint 4 addition · generous gap (12px). Card header → body, Alert icon + content.",
+          "$extensions": { "modes": { "light": "{space.12}", "dark": "{space.12}" } }
+        }
+      }
+    },
+    "layout": {
+      "stack": {
+        "sm": {
+          "$type": "dimension",
+          "$value": "{space.16}",
+          "$description": "Sprint 4 addition · tightest vertical rhythm (16px) between sibling blocks.",
+          "$extensions": { "modes": { "light": "{space.16}", "dark": "{space.16}" } }
+        },
+        "md": {
+          "$type": "dimension",
+          "$value": "{space.24}",
+          "$description": "Sprint 4 addition · default block rhythm (24px).",
+          "$extensions": { "modes": { "light": "{space.24}", "dark": "{space.24}" } }
+        },
+        "lg": {
+          "$type": "dimension",
+          "$value": "{space.48}",
+          "$description": "Sprint 4 addition · between major sections inside a page (48px).",
+          "$extensions": { "modes": { "light": "{space.48}", "dark": "{space.48}" } }
+        },
+        "xl": {
+          "$type": "dimension",
+          "$value": "{space.80}",
+          "$description": "Sprint 4 addition · between top-level showcase sections (80px).",
+          "$extensions": { "modes": { "light": "{space.80}", "dark": "{space.80}" } }
+        }
+      },
+      "inset": {
+        "sm": {
+          "$type": "dimension",
+          "$value": "{space.16}",
+          "$description": "Sprint 4 addition · page edge inset on mobile (16px).",
+          "$extensions": { "modes": { "light": "{space.16}", "dark": "{space.16}" } }
+        },
+        "md": {
+          "$type": "dimension",
+          "$value": "{space.24}",
+          "$description": "Sprint 4 addition · default page inset (24px).",
+          "$extensions": { "modes": { "light": "{space.24}", "dark": "{space.24}" } }
+        },
+        "lg": {
+          "$type": "dimension",
+          "$value": "{space.48}",
+          "$description": "Sprint 4 addition · generous page inset for wide layouts (48px).",
+          "$extensions": { "modes": { "light": "{space.48}", "dark": "{space.48}" } }
         }
       }
     }
