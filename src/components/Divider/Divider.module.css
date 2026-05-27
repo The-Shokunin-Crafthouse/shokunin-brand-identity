@@ -1,0 +1,49 @@
+/* tokens:
+ *   --sc-color-border-default       · rule color
+ *   --sc-border-width-default       · rule weight (hairline)
+ *   --sc-font-text-mono-chrome-*    · inline label · mono caps at 
+ *   --sc-color-text-secondary       · label color
+ *   --sc-space-component-gap-md     · label ↔ rule spacing
+ *   --sc-space-component-gap-sm     · vertical rule inline padding
+ */
+
+.horizontal {
+  border: 0;
+  height: var(--sc-border-width-default);
+  background-color: var(--sc-color-border-default);
+  width: 100%;
+  margin: 0;
+}
+
+.vertical {
+  display: inline-block;
+  width: var(--sc-border-width-default);
+  background-color: var(--sc-color-border-default);
+  align-self: stretch;
+  min-height: 1em;
+  margin-inline: var(--sc-space-component-gap-sm);
+}
+
+.labelled {
+  display: flex;
+  align-items: center;
+  gap: var(--sc-space-component-gap-md);
+  width: 100%;
+}
+
+.rule {
+  flex: 1;
+  height: var(--sc-border-width-default);
+  background-color: var(--sc-color-border-default);
+}
+
+.label {
+  font-family: var(--sc-font-text-mono-chrome-family);
+  font-size: var(--sc-font-text-mono-chrome-size);
+  font-weight: var(--sc-font-text-mono-chrome-weight);
+  line-height: var(--sc-font-text-mono-chrome-line-height);
+  letter-spacing: var(--sc-font-text-mono-chrome-letter-spacing);
+  color: var(--sc-color-text-secondary);
+  text-transform: uppercase;
+  flex-shrink: 0;
+}

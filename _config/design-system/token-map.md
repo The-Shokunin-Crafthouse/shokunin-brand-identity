@@ -3,6 +3,8 @@
 # Last synced: 2026-05-26 (drift re-sync · breakpoints added)
 # Synced by: sync-figma-token skill (workflow/sync-figma-token.md)
 
+> **CSS var namespacing:** primitives → `--sc-p-*` · semantic → `--sc-*` · component code references `--sc-*` only, never `--sc-p-*`.
+
 ---
 
 ## Sync notes (skill deviation flagged)
@@ -384,3 +386,122 @@ Tokens export to:
 - Figma Variables (Primitives + Semantic collections) — consumed by designers
 
 Both are downstream of this file. This file is the source of truth.
+
+---
+
+## Sprint 4 — Component-layer semantic expansion (2026-05-27)
+
+Added during Sprint 4 to support the 12 component primitives without raw values at the component callsite. One ADR — see `decisions/decisions.md` 2026-05-27. 3 new primitives, 65 new semantic aliases. Generated CSS uses namespace `--sc-p-*` for primitives and `--sc-*` for semantic so a primitive and a same-named semantic alias cannot collide.
+
+### Primitive additions
+
+#### border/width · stroke ladder · primitive
+
+| Token Name | Value | Notes |
+|---|---|---|
+| `border/width/hairline` | 1px | Default rule weight. Card, Input, Divider, NavBar. |
+| `border/width/focus` | 2px | Focus-ring outline weight. |
+| `border/width/accent` | 3px | Alert left-rule, ProgressIndicator bar. |
+
+### Semantic additions
+
+#### color/surface · inverse ground
+
+| Token Name | Alias (light → dark) | Notes |
+|---|---|---|
+| `color/surface-inverse` | `warmGray/800` → `warmGray/50` | Inverted surface. Tooltip ground. |
+| `color/text-on-inverse` | `warmGray/50` → `warmGray/800` | Text on inverse surface. |
+
+#### border/width · semantic
+
+| Token Name | Alias | Notes |
+|---|---|---|
+| `border/width/default` | `border/width/hairline` | 1px default rule. |
+| `border/width/focus` | `border/width/focus` | 2px focus ring. |
+| `border/width/accent` | `border/width/accent` | 3px accent rule. |
+| `border/focus/offset` | `space/micro/2` | 2px focus-ring offset. |
+
+#### radius · role aliases
+
+| Token Name | Alias | Notes |
+|---|---|---|
+| `radius/control` | `radius/input` (3px) | Inscribed controls. Input, Badge, Tooltip. |
+| `radius/surface` | `radius/default` (8px) | Raised surfaces. Card, Button, Alert. |
+| `radius/pill` | `radius/circle` (9999px) | Avatar, Switch, ProgressIndicator bar. |
+| `radius/none` | `radius/none` (0) | Structural rectangles. |
+
+#### motion · role aliases · pair-tokens
+
+| Token Name | Alias | Notes |
+|---|---|---|
+| `motion/hover/duration` | `motion/duration/micro` (200ms) | Hover state-change duration. |
+| `motion/hover/easing` | `motion/easing/out` | Quint-out · hover entrance. |
+| `motion/press/duration` | `motion/duration/press` (160ms) | Press/release scale. |
+| `motion/press/easing` | `motion/easing/outStrong` | Strong quint-out · press feedback. |
+| `motion/press/scale` | `motion/scale/pressButton` (0.985) | Button press scale. |
+| `motion/mode/duration` | `motion/duration/standard` (380ms) | Theme switch cross-fade. |
+| `motion/mode/easing` | `motion/easing/inOut` | Symmetric · mode switches. |
+| `motion/reveal/duration` | `motion/duration/micro` (200ms) | Tooltip, Alert, Switch thumb. |
+| `motion/reveal/easing` | `motion/easing/out` | Quint-out · reveal entrance. |
+
+#### font/text · role aliases · per-surface composition
+
+| Token Name | Alias | Notes |
+|---|---|---|
+| `font/text/label/chrome` | `font/text/11` (11/medium/widest) | Button labels, Badge, eyebrows. |
+| `font/text/label/ui` | `font/text/12` (12/medium/wide) | Form labels, table headers. |
+| `font/text/caption` | `font/text/13` (13/regular/relaxed) | Helper text, Tooltip, timestamps. |
+| `font/text/body/dense` | `font/text/14` (14/regular/base) | NavBar links, Alert body. |
+| `font/text/body/default` | `font/text/16` (16/regular/base) | Input value, Card body. |
+| `font/text/body/lead` | `font/text/20` (20/regular/relaxed) | Intro paragraphs. |
+| `font/text/title/card` | `font/text/24` (24/medium/snug) | Card titles, Alert title. |
+| `font/text/title/section` | `font/text/32` (32/medium/snug) | Section headers. |
+| `font/text/display/sm` | `font/text/44` (44/light/tight) | Premise statements. |
+| `font/text/display/md` | `font/text/60` (60/light/tight) | |
+| `font/text/display/lg` | `font/text/84` (84/light/tight) | |
+| `font/text/display/xl` | `font/text/120` (120/light/flat) | Maximum display. |
+| `font/text/mono/chrome` | `font/text/mono/11` | Token references, mono badges. |
+| `font/text/mono/caption` | `font/text/mono/13` | Timestamps, token names. |
+| `font/text/mono/body` | `font/text/mono/16` | Inline code, code blocks. |
+
+#### size · component dimensions · semantic
+
+| Token Name | Alias | Notes |
+|---|---|---|
+| `size/avatar/xs` | `space/24` | Table-row avatar. |
+| `size/avatar/sm` | `space/32` | Default avatar. |
+| `size/avatar/md` | `space/48` | Prominent avatar. |
+| `size/avatar/lg` | `space/64` | Feature avatar. |
+| `size/switch/track-width` | `space/32` | |
+| `size/switch/track-height` | `space/micro/18` | |
+| `size/switch/thumb` | `space/micro/14` | 2px inset inside 18px track. |
+| `size/progress/bar-height` | `space/4` | |
+| `size/progress/circular` | `space/48` | |
+| `size/progress/circular-stroke` | `space/4` | |
+
+#### space/component · directional padding + gap · semantic
+
+| Token Name | Alias | Notes |
+|---|---|---|
+| `space/component/padding-inline/sm` | `space/micro/6` | Badge. |
+| `space/component/padding-inline/md` | `space/12` | Button, Input, NavBar link. |
+| `space/component/padding-inline/lg` | `space/16` | Card, Alert. |
+| `space/component/padding-block/sm` | `space/micro/2` | Badge. |
+| `space/component/padding-block/md` | `space/8` | Button, Input. |
+| `space/component/padding-block/lg` | `space/12` | Card header, Alert. |
+| `space/component/gap/sm` | `space/4` | Compact icon + label. |
+| `space/component/gap/md` | `space/8` | Default icon + label. |
+| `space/component/gap/lg` | `space/12` | Card header → body. |
+
+#### space/layout · page rhythm · semantic
+
+| Token Name | Alias | Notes |
+|---|---|---|
+| `space/layout/stack/sm` | `space/16` | Tightest sibling-block rhythm. |
+| `space/layout/stack/md` | `space/24` | Default block rhythm. |
+| `space/layout/stack/lg` | `space/48` | Between major page sections. |
+| `space/layout/stack/xl` | `space/80` | Between top-level showcase sections. |
+| `space/layout/inset/sm` | `space/16` | Mobile page edge inset. |
+| `space/layout/inset/md` | `space/24` | Default page inset. |
+| `space/layout/inset/lg` | `space/48` | Wide-layout page inset. |
+

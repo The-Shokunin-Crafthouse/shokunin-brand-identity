@@ -1,0 +1,55 @@
+/* tokens:
+ *   --sc-space-component-padding-inline-sm  · inline padding
+ *   --sc-space-component-padding-block-sm   · block padding
+ *   --sc-radius-control                     · corner — inscribed control register
+ *   --sc-border-width-default               · border
+ *   --sc-font-text-mono-chrome-*            · mono caps at 
+ *   --sc-color-text-primary                 · default + neutral text
+ *   --sc-color-text-secondary               · neutral text (muted)
+ *   --sc-color-brand-accent                 · default border + text
+ *   --sc-color-status-success / warning / error / info
+ *   --sc-color-border-default               · neutral border
+ */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding-inline: var(--sc-space-component-padding-inline-sm);
+  padding-block: var(--sc-space-component-padding-block-sm);
+  border-radius: var(--sc-radius-control);
+  border-width: var(--sc-border-width-default);
+  border-style: solid;
+  background-color: transparent;
+  font-family: var(--sc-font-text-mono-chrome-family);
+  font-size: var(--sc-font-text-mono-chrome-size);
+  font-weight: var(--sc-font-text-mono-chrome-weight);
+  line-height: var(--sc-font-text-mono-chrome-line-height);
+  letter-spacing: var(--sc-font-text-mono-chrome-letter-spacing);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.default {
+  color: var(--sc-color-brand-accent);
+  border-color: var(--sc-color-brand-accent);
+}
+
+.success {
+  color: var(--sc-color-status-success);
+  border-color: var(--sc-color-status-success);
+}
+
+.warning {
+  color: var(--sc-color-status-warning);
+  border-color: var(--sc-color-status-warning);
+}
+
+.error {
+  color: var(--sc-color-status-error);
+  border-color: var(--sc-color-status-error);
+}
+
+.neutral {
+  color: var(--sc-color-text-secondary);
+  border-color: var(--sc-color-border-default);
+}

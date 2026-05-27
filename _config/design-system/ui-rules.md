@@ -2,6 +2,12 @@
 
 Directive rules for UI produced in this project. These are not preferences. They are the bar.
 
+## Token Implementation Rules
+
+- Primitives namespace: `--sc-p-*` · Semantic namespace: `--sc-*`.
+- Semantic-only at callsite — component code never references `--sc-p-*`.
+- Primitive reference in a component is a bug.
+
 ## Motion
 
 - Springs for interactive affordances. `ease-out` entrances. `ease-in` exits. `linear` only for continuous motion (progress, marquee, infinite scroll).

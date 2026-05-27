@@ -1,0 +1,70 @@
+/* tokens:
+ *   --sc-color-surface-inverse              · inverted ground (ink in light / near-white in dark)
+ *   --sc-color-text-on-inverse              · inverted ink
+ *   --sc-space-component-padding-inline-md  · 12 inline
+ *   --sc-space-component-padding-block-md   · 8 block
+ *   --sc-space-component-gap-md             · arrow offset (8) below trigger
+ *   --sc-radius-control                     · 3 corner
+ *   --sc-font-text-caption-*                · 13 / regular / relaxed
+ *   --sc-motion-reveal-duration / -easing
+ *   --sc-border-width-default               · arrow stroke (reused as triangle leg)
+ */
+
+.wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip {
+  position: absolute;
+  bottom: calc(100% + var(--sc-space-component-gap-md));
+  left: 50%;
+  transform: translate(-50%, calc(var(--sc-space-component-gap-sm) * -1));
+  background-color: var(--sc-color-surface-inverse);
+  color: var(--sc-color-text-on-inverse);
+  padding-inline: var(--sc-space-component-padding-inline-md);
+  padding-block: var(--sc-space-component-padding-block-md);
+  border-radius: var(--sc-radius-control);
+  font-family: var(--sc-font-text-caption-family);
+  font-size: var(--sc-font-text-caption-size);
+  font-weight: var(--sc-font-text-caption-weight);
+  line-height: var(--sc-font-text-caption-line-height);
+  letter-spacing: var(--sc-font-text-caption-letter-spacing);
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity var(--sc-motion-reveal-duration) var(--sc-motion-reveal-easing),
+    transform var(--sc-motion-reveal-duration) var(--sc-motion-reveal-easing);
+  z-index: 10;
+}
+
+.tooltip::after {
+  /* Arrow · inherits surface-inverse via border-color */
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: var(--sc-space-component-gap-sm);
+  border-style: solid;
+  border-color: var(--sc-color-surface-inverse) transparent transparent transparent;
+}
+
+.open {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+.singleline {
+  white-space: nowrap;
+}
+
+.multiline {
+  white-space: normal;
+  /* 240 readability cap · built from semantic layout-stack-xl (80) · 3 */
+  max-width: calc(var(--sc-space-layout-stack-xl) * 3);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tooltip { transition: none; }
+}

@@ -1,0 +1,145 @@
+/* tokens:
+ *   --sc-space-component-padding-inline-md  · inline
+ *   --sc-space-component-padding-block-md   · block
+ *   --sc-space-component-gap-md             · label ↔ spinner gap
+ *   --sc-radius-surface                     · corner
+ *   --sc-border-width-default               · border
+ *   --sc-border-width-focus                 · focus ring (via reset)
+ *   --sc-font-text-label-chrome-*           · medium widest caps
+ *   --sc-color-interactive-default          · ink in light / near-white in dark · secondary/ghost text + border
+ *   --sc-color-interactive-hover            · shu hover
+ *   --sc-color-interactive-active           · shu deep press
+ *   --sc-color-brand-accent                 · primary fill
+ *   --sc-color-brand-accent-deep            · primary press fill
+ *   --sc-color-status-error                 · destructive fill
+ *   --sc-color-text-on-accent               · white text on solid fills
+ *   --sc-color-text-disabled                · disabled text
+ *   --sc-color-surface-deep-sunk            · ghost hover ground
+ *   --sc-motion-hover-duration / -easing
+ *   --sc-motion-press-duration / -easing / -scale
+ */
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sc-space-component-gap-md);
+  padding-inline: var(--sc-space-component-padding-inline-md);
+  padding-block: var(--sc-space-component-padding-block-md);
+  border-radius: var(--sc-radius-surface);
+  border-width: var(--sc-border-width-default);
+  border-style: solid;
+  background-color: transparent;
+  cursor: pointer;
+  user-select: none;
+  text-transform: uppercase;
+  transition:
+    background-color var(--sc-motion-hover-duration) var(--sc-motion-hover-easing),
+    border-color var(--sc-motion-hover-duration) var(--sc-motion-hover-easing),
+    color var(--sc-motion-hover-duration) var(--sc-motion-hover-easing),
+    transform var(--sc-motion-press-duration) var(--sc-motion-press-easing);
+}
+
+.label {
+  font-family: var(--sc-font-text-label-chrome-family);
+  font-size: var(--sc-font-text-label-chrome-size);
+  font-weight: var(--sc-font-text-label-chrome-weight);
+  line-height: var(--sc-font-text-label-chrome-line-height);
+  letter-spacing: var(--sc-font-text-label-chrome-letter-spacing);
+}
+
+/* --- Variants ----------------------------------------------------- */
+
+.primary {
+  background-color: var(--sc-color-brand-accent);
+  border-color: var(--sc-color-brand-accent);
+  color: var(--sc-color-text-on-accent);
+}
+.primary:hover:not(:disabled) {
+  background-color: var(--sc-color-brand-accent-deep);
+  border-color: var(--sc-color-brand-accent-deep);
+}
+.primary:active:not(:disabled) {
+  transform: scale(var(--sc-motion-press-scale));
+}
+
+.secondary {
+  border-color: var(--sc-color-interactive-default);
+  color: var(--sc-color-interactive-default);
+}
+.secondary:hover:not(:disabled) {
+  border-color: var(--sc-color-interactive-hover);
+  color: var(--sc-color-interactive-hover);
+}
+.secondary:active:not(:disabled) {
+  transform: scale(var(--sc-motion-press-scale));
+  color: var(--sc-color-interactive-active);
+  border-color: var(--sc-color-interactive-active);
+}
+
+.ghost {
+  border-color: transparent;
+  color: var(--sc-color-interactive-default);
+}
+.ghost:hover:not(:disabled) {
+  background-color: var(--sc-color-surface-deep-sunk);
+  color: var(--sc-color-interactive-hover);
+}
+.ghost:active:not(:disabled) {
+  transform: scale(var(--sc-motion-press-scale));
+}
+
+.destructive {
+  background-color: var(--sc-color-status-error);
+  border-color: var(--sc-color-status-error);
+  color: var(--sc-color-text-on-accent);
+}
+.destructive:hover:not(:disabled) {
+  /* status-error is shu — deepen to brand-accent-deep on press for parity with primary. */
+  background-color: var(--sc-color-brand-accent-deep);
+  border-color: var(--sc-color-brand-accent-deep);
+}
+.destructive:active:not(:disabled) {
+  transform: scale(var(--sc-motion-press-scale));
+}
+
+/* --- Disabled · cross-variant ------------------------------------- */
+
+.button:disabled {
+  color: var(--sc-color-text-disabled);
+  border-color: var(--sc-color-border-default);
+  background-color: transparent;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* --- Loading ------------------------------------------------------ */
+
+.loading .label {
+  opacity: 0.6;
+}
+
+.spinner {
+  width: var(--sc-space-component-gap-md);
+  height: var(--sc-space-component-gap-md);
+  border-radius: var(--sc-radius-pill);
+  border-width: var(--sc-border-width-default);
+  border-style: solid;
+  border-color: currentColor;
+  border-top-color: transparent;
+  /* Spinner cycle uses --sc-motion-mode-duration (380ms) · the only
+     semantic motion duration in the "long enough to read as spin"
+     register. Faster than ideal (720ms would be the aesthetic match
+     but would require a new motion/continuous token group). */
+  animation: spin var(--sc-motion-mode-duration) linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .button { transition: none; }
+  .button:active:not(:disabled) { transform: none; }
+  .spinner { animation: none; }
+}

@@ -1,0 +1,109 @@
+/* tokens:
+ *   --sc-size-switch-track-width   · 32 track
+ *   --sc-size-switch-track-height  · 18 track
+ *   --sc-size-switch-thumb         · 14 thumb (2 inset)
+ *   --sc-radius-pill               · 9999 pill
+ *   --sc-color-surface-deep-sunk   · off track ground
+ *   --sc-color-brand-accent        · on track ground
+ *   --sc-color-surface-page        · thumb (rides above track in both modes)
+ *   --sc-color-text-primary        · label
+ *   --sc-color-text-disabled       · disabled label + thumb
+ *   --sc-color-border-default      · thumb edge
+ *   --sc-border-width-default      · thumb stroke
+ *   --sc-font-text-body-default-*  · label
+ *   --sc-space-component-gap-md    · switch ↔ label gap
+ *   --sc-motion-reveal-duration / -easing  · thumb travel
+ */
+
+.field {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sc-space-component-gap-md);
+  cursor: pointer;
+  user-select: none;
+}
+
+.disabled {
+  cursor: not-allowed;
+}
+
+.controlWrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.input {
+  /* Visually-hidden native checkbox · stays focusable for keyboard + a11y */
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: inherit;
+  margin: 0;
+}
+
+.track {
+  width: var(--sc-size-switch-track-width);
+  height: var(--sc-size-switch-track-height);
+  border-radius: var(--sc-radius-pill);
+  background-color: var(--sc-color-surface-deep-sunk);
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  transition: background-color var(--sc-motion-reveal-duration) var(--sc-motion-reveal-easing);
+}
+
+.thumb {
+  width: var(--sc-size-switch-thumb);
+  height: var(--sc-size-switch-thumb);
+  border-radius: var(--sc-radius-pill);
+  background-color: var(--sc-color-surface-page);
+  border-width: var(--sc-border-width-default);
+  border-style: solid;
+  border-color: var(--sc-color-border-default);
+  position: absolute;
+  /* Inset 2 from left edge inside an 18 track gives a 2 ring above and below.
+     2 = thumb (14) ⇒ (track-height - thumb) / 2 = 2.
+     Expressed via calc on tokens — no magic value. */
+  left: calc((var(--sc-size-switch-track-height) - var(--sc-size-switch-thumb)) / 2);
+  transition: left var(--sc-motion-reveal-duration) var(--sc-motion-reveal-easing);
+}
+
+/* On state — track flips to accent, thumb travels to the right edge */
+.input:checked ~ .track {
+  background-color: var(--sc-color-brand-accent);
+}
+.input:checked ~ .track .thumb {
+  left: calc(var(--sc-size-switch-track-width) - var(--sc-size-switch-thumb) - ((var(--sc-size-switch-track-height) - var(--sc-size-switch-thumb)) / 2));
+}
+
+/* Focus ring — native input focus surfaces through the track */
+.input:focus-visible ~ .track {
+  outline: var(--sc-border-width-focus) solid var(--sc-color-border-focus);
+  outline-offset: var(--sc-border-focus-offset);
+}
+
+/* Disabled */
+.input:disabled ~ .track {
+  background-color: var(--sc-color-surface-sunk);
+}
+.input:disabled ~ .track .thumb {
+  border-color: var(--sc-color-text-disabled);
+}
+
+.label {
+  font-family: var(--sc-font-text-body-default-family);
+  font-size: var(--sc-font-text-body-default-size);
+  font-weight: var(--sc-font-text-body-default-weight);
+  line-height: var(--sc-font-text-body-default-line-height);
+  letter-spacing: var(--sc-font-text-body-default-letter-spacing);
+  color: var(--sc-color-text-primary);
+}
+
+.disabled .label {
+  color: var(--sc-color-text-disabled);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .track, .thumb { transition: none; }
+}

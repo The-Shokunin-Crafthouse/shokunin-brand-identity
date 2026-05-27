@@ -1,0 +1,126 @@
+/* tokens:
+ *   --sc-size-progress-bar-height        · 4 bar height
+ *   --sc-size-progress-circular          · 48 circle diameter
+ *   --sc-size-progress-circular-stroke   · 4 stroke
+ *   --sc-radius-pill                     · 9999 pill caps on bar
+ *   --sc-color-surface-deep-sunk         · bar + ring track
+ *   --sc-color-brand-accent              · fill (active progress)
+ *   --sc-color-text-secondary            · step dot text (resting)
+ *   --sc-color-text-on-accent            · step dot text (active)
+ *   --sc-color-border-default            · resting step dot border
+ *   --sc-color-border-strong             · current step dot border
+ *   --sc-border-width-default            · borders
+ *   --sc-space-component-gap-md          · step item gap
+ *   --sc-space-layout-stack-sm           · step dot diameter (reuses 16 space token)
+ *   --sc-font-text-mono-chrome-*         · step numerals (chrome mono)
+ *   --sc-motion-reveal-duration / -easing
+ */
+
+/* --- Bar ---------------------------------------------------------- */
+
+.bar {
+  width: 100%;
+  height: var(--sc-size-progress-bar-height);
+  border-radius: var(--sc-radius-pill);
+  background-color: var(--sc-color-surface-deep-sunk);
+  overflow: hidden;
+}
+
+.barFill {
+  display: block;
+  height: 100%;
+  background-color: var(--sc-color-brand-accent);
+  transition: width var(--sc-motion-reveal-duration) var(--sc-motion-reveal-easing);
+}
+
+/* --- Circular ----------------------------------------------------- */
+
+.circular {
+  width: var(--sc-size-progress-circular);
+  height: var(--sc-size-progress-circular);
+  display: block;
+}
+
+.circularTrack {
+  fill: none;
+  stroke: var(--sc-color-surface-deep-sunk);
+  /* Stroke ratio · SVG viewBox is 100×100; mapping 4-unit semantic
+     stroke onto a 48-unit semantic diameter gives ~8.33% stroke
+     width, which corresponds to ~8 SVG units inside the 100-unit
+     viewBox. Calc holds the relationship even if either token
+     changes. */
+  stroke-width: calc(var(--sc-size-progress-circular-stroke) / var(--sc-size-progress-circular) * 100);
+}
+
+.circularFill {
+  fill: none;
+  stroke: var(--sc-color-brand-accent);
+  stroke-width: calc(var(--sc-size-progress-circular-stroke) / var(--sc-size-progress-circular) * 100);
+  stroke-linecap: round;
+  transition: stroke-dashoffset var(--sc-motion-reveal-duration) var(--sc-motion-reveal-easing);
+}
+
+/* --- Step --------------------------------------------------------- */
+
+.step {
+  display: flex;
+  align-items: center;
+  gap: var(--sc-space-component-gap-md);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.stepItem {
+  display: flex;
+  align-items: center;
+  gap: var(--sc-space-component-gap-md);
+}
+
+.stepDot {
+  width: var(--sc-space-layout-stack-sm);
+  height: var(--sc-space-layout-stack-sm);
+  border-radius: var(--sc-radius-pill);
+  border-width: var(--sc-border-width-default);
+  border-style: solid;
+  border-color: var(--sc-color-border-default);
+  background-color: var(--sc-color-surface-deep-sunk);
+  color: var(--sc-color-text-secondary);
+  font-family: var(--sc-font-text-mono-chrome-family);
+  font-size: var(--sc-font-text-mono-chrome-size);
+  font-weight: var(--sc-font-text-mono-chrome-weight);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  flex-shrink: 0;
+  transition:
+    background-color var(--sc-motion-reveal-duration) var(--sc-motion-reveal-easing),
+    border-color var(--sc-motion-reveal-duration) var(--sc-motion-reveal-easing),
+    color var(--sc-motion-reveal-duration) var(--sc-motion-reveal-easing);
+}
+
+.stepConnector {
+  flex: 1;
+  height: var(--sc-border-width-default);
+  background-color: var(--sc-color-border-default);
+  min-width: var(--sc-space-layout-stack-md);
+}
+
+.stepDone .stepDot {
+  background-color: var(--sc-color-brand-accent);
+  border-color: var(--sc-color-brand-accent);
+  color: var(--sc-color-text-on-accent);
+}
+.stepDone .stepConnector {
+  background-color: var(--sc-color-brand-accent);
+}
+
+.stepCurrent .stepDot {
+  border-color: var(--sc-color-border-strong);
+  color: var(--sc-color-text-primary);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .barFill, .circularFill, .stepDot { transition: none; }
+}
