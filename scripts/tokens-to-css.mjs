@@ -41,18 +41,43 @@ function kebab(segment) {
   return segment.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase();
 }
 
-// Path array → CSS var name. ['color','warmGray','100'] → --sc-color-warm-gray-100
-function varName(path) {
-  return '--sc-' + path.map(kebab).join('-');
+// Path array → CSS var name. Primitives are prefixed `--sc-p-` so they
+// cannot collide with semantic aliases that share a path (e.g. semantic
+// `border.width.focus` aliases primitive `border.width.focus` — both
+// resolve to a CSS var, and only the namespace distinguishes them).
+function varName(path, { primitive = false } = {}) {
+  const prefix = primitive ? '--sc-p-' : '--sc-';
+  return prefix + path.map(kebab).join('-');
 }
 
+// Build a Set of all leaf paths in the primitives tree so aliases
+// inside semantic.json can resolve to the correct namespace.
+function collectLeafPaths(node, path, out) {
+  for (const key of Object.keys(node)) {
+    if (key.startsWith('$')) continue;
+    const child = node[key];
+    if (!child || typeof child !== 'object') continue;
+    const next = [...path, key];
+    if ('$value' in child) {
+      out.add(next.join('.'));
+    } else {
+      collectLeafPaths(child, next, out);
+    }
+  }
+}
+
+let PRIMITIVE_PATHS = new Set();
+
 // DTCG alias `{a.b.c}` → CSS var reference. Returns null if not an alias.
+// Resolves namespace by checking whether the alias target is a primitive.
 function aliasToVar(value) {
   if (typeof value !== 'string') return null;
   const m = /^\{([^}]+)\}$/.exec(value);
   if (!m) return null;
-  const path = m[1].split('.');
-  return `var(${varName(path)})`;
+  const dotted = m[1];
+  const path = dotted.split('.');
+  const isPrimitive = PRIMITIVE_PATHS.has(dotted);
+  return `var(${varName(path, { primitive: isPrimitive })})`;
 }
 
 // Format a DTCG dimension { value, unit } or a plain number-with-unit
@@ -99,10 +124,35 @@ function formatComposite(value) {
   return formatDimension(value);
 }
 
-// Emit a typography composite as multiple --sc-font-text-N-* vars.
-function emitTypography(path, token, lines) {
-  const root = varName(path);
-  const v = token.$value;
+// Emit a typography composite as multiple --sc-...-* vars.
+// Handles two cases:
+//   1. Composite literal — $value is an object { fontFamily, fontSize, ... }
+//      with each axis either a primitive alias or a literal.
+//   2. Composite alias — $value is a string like "{font.text.16}" pointing
+//      at another typography token. Each sub-axis re-aliases to the target
+//      token's sub-axis vars.
+function emitTypography(path, token, lines, mode = null) {
+  const root = varName(path, { primitive: !mode });
+  const v = mode && token.$extensions?.modes?.[mode] !== undefined
+    ? token.$extensions.modes[mode]
+    : token.$value;
+
+  if (typeof v === 'string') {
+    // Composite alias — re-emit each sub-axis as a var() pointing at the
+    // target token's sub-axis. Target is in primitives if PRIMITIVE_PATHS
+    // contains it; otherwise semantic.
+    const m = /^\{([^}]+)\}$/.exec(v);
+    if (!m) return;
+    const targetPath = m[1].split('.');
+    const targetIsPrimitive = PRIMITIVE_PATHS.has(m[1]);
+    const targetRoot = varName(targetPath, { primitive: targetIsPrimitive });
+    for (const axis of ['family', 'size', 'weight', 'line-height', 'letter-spacing']) {
+      lines.push(`  ${root}-${axis}: var(${targetRoot}-${axis});`);
+    }
+    lines.push(`  ${root}: var(${targetRoot});`);
+    return;
+  }
+
   const family = formatComposite(v.fontFamily);
   const size = formatComposite(v.fontSize);
   const weight = formatComposite(v.fontWeight);
@@ -116,12 +166,13 @@ function emitTypography(path, token, lines) {
   // CSS `font` shorthand for the composite (style/variant default,
   // weight + size/line-height + family). letter-spacing is set via
   // a sibling rule by consumers.
-  lines.push(
-    `  ${root}: ${weight} ${size}/${lh} ${family};`,
-  );
+  lines.push(`  ${root}: ${weight} ${size}/${lh} ${family};`);
 }
 
 // Walk an object tree and emit one CSS declaration per leaf $value.
+// opts.mode === null  → emit primitives namespace (--sc-p-*)
+// opts.mode === 'light' or 'dark' → emit semantic namespace (--sc-*)
+//   resolving each token's $extensions.modes[opts.mode] when present.
 function walk(node, path, lines, opts = { mode: null }) {
   for (const key of Object.keys(node)) {
     if (key.startsWith('$')) continue;
@@ -137,36 +188,38 @@ function walk(node, path, lines, opts = { mode: null }) {
 }
 
 function emitLeaf(token, path, lines, opts) {
-  // For semantic tokens we honour $extensions.modes.{light,dark}.
-  if (opts.mode && token.$extensions?.modes?.[opts.mode] !== undefined) {
+  const isPrimitiveLayer = opts.mode === null;
+  const ns = { primitive: isPrimitiveLayer };
+
+  // Typography composites get exploded into per-axis subkeys.
+  if (token.$type === 'typography') {
+    emitTypography(path, token, lines, opts.mode);
+    return;
+  }
+
+  // Semantic layer — honour $extensions.modes.{light,dark} when present.
+  if (!isPrimitiveLayer && token.$extensions?.modes?.[opts.mode] !== undefined) {
     const aliasOrValue = token.$extensions.modes[opts.mode];
     const aliased = aliasToVar(aliasOrValue);
     if (aliased) {
-      lines.push(`  ${varName(path)}: ${aliased};`);
+      lines.push(`  ${varName(path, ns)}: ${aliased};`);
       return;
     }
-    // Literal in mode override — emit as a primitive of token.$type.
     const literal = formatPrimitive({ $type: token.$type, $value: aliasOrValue });
-    if (literal !== null) lines.push(`  ${varName(path)}: ${literal};`);
+    if (literal !== null) lines.push(`  ${varName(path, ns)}: ${literal};`);
     return;
   }
 
-  // Typography composites get exploded.
-  if (token.$type === 'typography') {
-    emitTypography(path, token, lines);
-    return;
-  }
-
-  // Alias values resolve via var().
+  // Alias $value resolves via var() to either primitive or semantic ns.
   const aliased = aliasToVar(token.$value);
   if (aliased) {
-    lines.push(`  ${varName(path)}: ${aliased};`);
+    lines.push(`  ${varName(path, ns)}: ${aliased};`);
     return;
   }
 
   // Plain primitive literal.
   const literal = formatPrimitive(token);
-  if (literal !== null) lines.push(`  ${varName(path)}: ${literal};`);
+  if (literal !== null) lines.push(`  ${varName(path, ns)}: ${literal};`);
 }
 
 // Build the CSS document.
@@ -190,11 +243,15 @@ const header = `/* ============================================================
  * ============================================================ */
 `;
 
+// Collect primitive leaf paths so semantic aliases resolve to --sc-p-*.
+PRIMITIVE_PATHS = new Set();
+collectLeafPaths(primitives, [], PRIMITIVE_PATHS);
+
 const rootLines = [':root {'];
-rootLines.push('  /* --- Primitives ---------------------------------------- */');
-walk(primitives, [], rootLines);
+rootLines.push('  /* --- Primitives (--sc-p-*) ----------------------------- */');
+walk(primitives, [], rootLines, { mode: null });
 rootLines.push('');
-rootLines.push('  /* --- Semantic · light mode (default) ------------------ */');
+rootLines.push('  /* --- Semantic · light mode (default) (--sc-*) --------- */');
 walk(semantic, [], rootLines, { mode: 'light' });
 rootLines.push('}');
 

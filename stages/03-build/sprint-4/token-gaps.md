@@ -1,6 +1,6 @@
 # Sprint 4 — Token Gap Log
 
-**Status:** ⏳ awaiting approval
+**Status:** ✅ approved 2026-05-27 (Levi) · all 9 groups landed · 65 semantic + 3 primitives added · ADR `2026-05-27 — Sprint 4 semantic-layer expansion` logged · token-map.md mirrored · tokens.css regenerated (365 root + 158 dark declarations) · `npm run build` exits 0.
 **Protocol:** Per Sprint 4 contract resolution 2. No component code references any value below until the parent gap entry is **approved**, patched into `tokens/semantic.json`, mirrored in `_config/design-system/token-map.md`, and recorded as ADR in `decisions/decisions.md`.
 
 Each gap entry lists: proposed semantic token name · resolved primitive alias (or new primitive if required) · rationale · which Sprint 4 components consume it.

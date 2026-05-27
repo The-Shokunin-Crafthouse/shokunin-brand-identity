@@ -489,6 +489,13 @@
     "default": { "$type": "dimension", "$value": { "value": 8,    "unit": "px" }, "$description": "Default radius. Cards, buttons, frames, stamps." },
     "circle":  { "$type": "dimension", "$value": { "value": 9999, "unit": "px" }, "$description": "Pill / full circle. Status dots, brand stamp." }
   },
+  "border": {
+    "width": {
+      "hairline": { "$type": "dimension", "$value": { "value": 1, "unit": "px" }, "$description": "1px · default rule weight. Card borders, Divider, Input border, NavBar underline. Sprint 4 addition." },
+      "focus":    { "$type": "dimension", "$value": { "value": 2, "unit": "px" }, "$description": "2px · focus-ring outline weight. Stronger than hairline so focus state reads at distance. Sprint 4 addition." },
+      "accent":   { "$type": "dimension", "$value": { "value": 3, "unit": "px" }, "$description": "3px · accent rule. Alert left-rule, ProgressIndicator bar thickness. Sprint 4 addition." }
+    }
+  },
   "motion": {
     "duration": {
       "micro":        { "$type": "duration", "$value": { "value": 200, "unit": "ms" }, "$description": "200ms · hover, tap, press. Default micro-interaction." },

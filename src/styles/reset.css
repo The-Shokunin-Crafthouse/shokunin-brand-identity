@@ -30,7 +30,10 @@ body {
   margin: 0;
   background-color: var(--sc-color-surface-page);
   color: var(--sc-color-text-primary);
-  font-family: var(--sc-font-family-sans);
+  font-family: var(--sc-p-font-family-sans);
+  transition:
+    background-color var(--sc-motion-mode-duration) var(--sc-motion-mode-easing),
+    color var(--sc-motion-mode-duration) var(--sc-motion-mode-easing);
 }
 
 h1,
@@ -77,8 +80,8 @@ svg {
 }
 
 :focus-visible {
-  outline: 2px solid var(--sc-color-border-focus);
-  outline-offset: 2px;
+  outline: var(--sc-border-width-focus) solid var(--sc-color-border-focus);
+  outline-offset: var(--sc-border-focus-offset);
 }
 
 ::selection {
