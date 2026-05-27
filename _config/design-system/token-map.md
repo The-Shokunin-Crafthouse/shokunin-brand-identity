@@ -3,6 +3,8 @@
 # Last synced: 2026-05-26 (drift re-sync · breakpoints added)
 # Synced by: sync-figma-token skill (workflow/sync-figma-token.md)
 
+> **CSS var namespacing:** primitives → `--sc-p-*` · semantic → `--sc-*` · component code references `--sc-*` only, never `--sc-p-*`.
+
 ---
 
 ## Sync notes (skill deviation flagged)
