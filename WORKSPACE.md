@@ -49,7 +49,7 @@ This file is a directive, not documentation. Read it. Follow it.
 - **Start date:** 2026-05-26
 - **Target launch:** TBD
 - **Production domain:** brand.shokunincrafthouse.com
-- **Current sprint:** (none — update this field before each sprint starts)
+- **Current sprint:** Sprint 3 — Voice System + AI Voice Checker (`feat/sprint-3-voice`)
 
 ### Purpose
 
