@@ -1,0 +1,1489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1440" />
+<title>The Shokunin Crafthouse — Design System Preview</title>
+
+<!-- Cascadia Mono via Google (free, free of license friction). Neue Haas falls back to Helvetica Neue → Inter until the woff2 lands in /fonts. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cascadia+Mono:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<!-- Phosphor Icons · regular weight default. -->
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/bold/style.css">
+
+<style>
+/* ─── @font-face stubs ──────────────────────────────────────────────
+   When the Neue Haas Grotesk woff2 files land in stages/02-design/fonts/,
+   these will resolve. Until then, the fallback stack carries the type. */
+@font-face {
+  font-family: "Neue Haas Grotesk Display Pro";
+  font-weight: 300 500;
+  font-style: normal;
+  font-display: optional;
+  src: url("./fonts/NeueHaasGroteskDisplayPro.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Neue Haas Grotesk Text Pro";
+  font-weight: 400 500;
+  font-style: normal;
+  font-display: optional;
+  src: url("./fonts/NeueHaasGroteskTextPro.woff2") format("woff2");
+}
+
+/* ─── Tokens ──────────────────────────────────────────────────────── */
+:root {
+  /* ─ Color · warm-ground palette · canonical from main site tokens.css ─
+     Page = oatmeal. Cards = tile-filled, slightly deeper. Surface-deep is
+     a derived sink reserved for nested states. Card hover steps from
+     --surface DOWN to --bg — the card "presses" into the page. */
+  --bg:           #E3DFD8;   /* page · anchored at user-locked oatmeal */
+  --surface:      #D9D5CE;   /* set-in surface · Δ-10 from bg */
+  --surface-deep: #CDC9C2;   /* derived sink · Δ-22 below bg */
+  --bg-deep:      #0D0C0B;   /* warm near-black · site --bar */
+  --ink:          #1A1815;   /* site --text-primary */
+  --ink-muted:    #5F5C55;   /* site --text-secondary */
+  --ink-faint:    #9A9388;   /* site dark-mode secondary, reused as light-mode faint */
+  --hairline:     #D5D1CA;   /* derived · Δ-14 from bg · between surface tiers */
+  --hairline-2:   #C5C0B8;   /* derived · Δ-30 from bg · deeper dashed inner */
+
+  /* ─ Color · single chromatic accent · vermilion · shu (朱) ─
+     Kept from Direction 01. Brand-identity-only; the live site uses brass. */
+  --shu:        #c8281c;
+  --shu-deep:   #9e1f15;
+  --shu-rgb:    200 40 28;   /* triplet for rgba composition */
+
+  /* ─ Type · two families ─ */
+  --sans: "Neue Haas Grotesk Display Pro", "Neue Haas Grotesk Text Pro",
+          "Helvetica Neue", Inter, system-ui, sans-serif;
+  --mono: "Cascadia Mono", "Cascadia Code", ui-monospace, "SF Mono", Menlo, monospace;
+
+  /* ─ Type scale · modular ratio 1.25 ─ */
+  --t-11: 11px;  --t-12: 12px;  --t-13: 13px;  --t-14: 14px;
+  --t-16: 16px;  --t-20: 20px;  --t-24: 24px;  --t-32: 32px;
+  --t-44: 44px;  --t-60: 60px;  --t-84: 84px;  --t-120: 120px;
+
+  /* ─ Spacing · 4/8pt layout ladder ─ */
+  --sp-4: 4px;    --sp-8: 8px;    --sp-12: 12px;  --sp-16: 16px;
+  --sp-24: 24px;  --sp-32: 32px;  --sp-48: 48px;  --sp-64: 64px;
+  --sp-80: 80px;  --sp-96: 96px;  --sp-120: 120px;
+
+  /* ─ Spacing · 2pt micro ladder · chrome only ─ */
+  --sp-x-2: 2px;   --sp-x-6: 6px;   --sp-x-10: 10px;
+  --sp-x-14: 14px; --sp-x-18: 18px; --sp-x-22: 22px;
+
+  /* ─ Radius · 8 default, 3 inputs/badges, 50% status dots ─ */
+  --r-default: 8px;
+  --r-input:   3px;
+  --r-badge:   3px;
+  --r-circle:  50%;
+
+  /* ─ Motion · cinematic across the board · no springs ─
+     Slower than the previous spec. Everything reads as deliberate,
+     authored. Springs reserved for future high-tactility primitives. */
+  --dur-micro:         200ms;
+  --dur-standard:      380ms;
+  --dur-orchestrated:  720ms;
+  --ease-out:          cubic-bezier(0.22, 1, 0.36, 1);     /* quint-out · primary */
+  --ease-out-strong:   cubic-bezier(0.23, 1, 0.32, 1);     /* press/release · from levibahn.com */
+  --ease-in-out:       cubic-bezier(0.65, 0, 0.35, 1);     /* symmetric · state */
+  --ease-cinematic:    cubic-bezier(0.32, 0.08, 0.12, 1);  /* long deliberate · orchestrated */
+
+  /* ─ Press / release scale · matches levibahn.com convention ─ */
+  --press-scale-button: 0.985;
+  --press-scale-tap:    0.92;
+  --press-dur:          160ms;
+
+  /* ─ Focus ─ */
+  --focus-ring: 2px solid var(--shu);
+  --focus-offset: 2px;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: var(--t-16);
+  line-height: 1.45;
+  font-feature-settings: "ss01", "cv11", "kern";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: geometricprecision;
+}
+
+/* ─── Standing grain · 0.12 soft-light · product-light ────────────── */
+body::before {
+  content: "";
+  position: fixed; inset: 0;
+  pointer-events: none;
+  z-index: 100;
+  opacity: 0.12;
+  mix-blend-mode: soft-light;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.1 0 0 0 0 0.09 0 0 0 0 0.08 0 0 0 0.45 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+.doc { width: 1440px; margin: 0 auto; position: relative; }
+
+/* ─── Title block · same pattern as Direction 01 ──────────────────── */
+.title-block {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  border-bottom: 1px solid var(--ink);
+  font-family: var(--mono);
+  font-size: var(--t-11);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.title-block > * {
+  padding: var(--sp-x-18) var(--sp-24);
+  border-right: 1px solid var(--ink);
+  display: flex; flex-direction: column; gap: var(--sp-4);
+}
+.title-block > *:last-child { border-right: none; }
+.title-block .k { color: var(--ink-muted); font-weight: 400; white-space: nowrap; }
+.title-block .v { color: var(--ink); font-weight: 500; white-space: nowrap; }
+.title-block .center { align-items: center; justify-content: center; gap: var(--sp-x-6); }
+.title-block .right  { align-items: flex-end; text-align: right; }
+
+/* ─── Section frame ───────────────────────────────────────────────── */
+section {
+  padding: var(--sp-96) var(--sp-80);
+  border-bottom: 1px solid var(--hairline);
+  position: relative;
+}
+section[data-tight] { padding-top: var(--sp-64); padding-bottom: var(--sp-64); }
+
+.sec-head {
+  display: grid;
+  grid-template-columns: 80px 1fr 320px;
+  gap: var(--sp-32);
+  align-items: baseline;
+  margin-bottom: var(--sp-48);
+  padding-bottom: var(--sp-x-18);
+  border-bottom: 1px solid var(--hairline);
+}
+.sec-num {
+  font-family: var(--mono);
+  font-size: var(--t-13);
+  letter-spacing: 0.08em;
+  color: var(--shu);
+  font-weight: 500;
+}
+.sec-title {
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: var(--t-32);
+  letter-spacing: -0.018em;
+  line-height: 1.05;
+  margin: 0;
+}
+.sec-meta {
+  font-family: var(--mono);
+  font-size: var(--t-11);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  text-align: right;
+  line-height: 1.5;
+}
+
+.eyebrow {
+  font-family: var(--mono);
+  font-size: var(--t-11);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+.eyebrow-shu { color: var(--shu); }
+
+/* ─── Premise / opener ────────────────────────────────────────────── */
+.premise { padding: var(--sp-120) var(--sp-80) var(--sp-96); }
+.premise .wordmark-large {
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 72px;
+  line-height: 1;
+  letter-spacing: -0.028em;
+  margin: 0 0 var(--sp-48);
+}
+.premise .wordmark-large .a { font-weight: 300; color: var(--ink-muted); }
+.premise-statement {
+  font-family: var(--sans);
+  font-weight: 300;
+  font-size: 44px;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  max-width: 900px;
+  margin: 0 0 var(--sp-48);
+}
+.premise-statement em { font-style: normal; font-weight: 500; }
+.premise-statement .shu { color: var(--shu); }
+.premise-meta {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--sp-32);
+  padding-top: var(--sp-32);
+  border-top: 1px solid var(--hairline);
+  font-family: var(--mono);
+  font-size: var(--t-12);
+}
+.premise-meta .cell .k {
+  color: var(--ink-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: var(--t-11);
+  margin-bottom: var(--sp-x-6);
+}
+.premise-meta .cell .v { color: var(--ink); font-weight: 500; letter-spacing: 0.02em; }
+
+/* ─── Swatch stack · color ────────────────────────────────────────── */
+.swatch-stack { border: 1px solid var(--hairline); }
+.swatch {
+  display: grid;
+  grid-template-columns: 96px 1.4fr 1fr 220px 120px;
+  align-items: stretch;
+  border-bottom: 1px solid var(--hairline);
+}
+.swatch:last-child { border-bottom: none; }
+.swatch .chip { min-height: 84px; }
+.swatch .role {
+  padding: var(--sp-x-18) var(--sp-24);
+  display: flex; flex-direction: column; justify-content: center; gap: var(--sp-x-6);
+  border-left: 1px solid var(--hairline);
+}
+.swatch .role .name { font-family: var(--sans); font-size: var(--t-16); font-weight: 500; }
+.swatch .role .desc { font-family: var(--sans); font-size: var(--t-13); color: var(--ink-muted); line-height: 1.4; }
+.swatch .token, .swatch .hex, .swatch .ratio {
+  padding: var(--sp-x-18) var(--sp-24);
+  border-left: 1px solid var(--hairline);
+  font-family: var(--mono);
+  font-size: var(--t-12);
+  color: var(--ink-muted);
+  display: flex; flex-direction: column; justify-content: center; gap: var(--sp-4);
+}
+.swatch .token .v, .swatch .hex .v, .swatch .ratio .v { color: var(--ink); font-weight: 500; }
+.swatch .ratio { text-align: right; }
+
+/* ─── Type ladder ─────────────────────────────────────────────────── */
+.type-ladder { border-top: 1px solid var(--hairline); }
+.type-row {
+  display: grid;
+  grid-template-columns: 120px 1fr 280px;
+  gap: var(--sp-24);
+  align-items: baseline;
+  padding: var(--sp-x-18) 0;
+  border-bottom: 1px solid var(--hairline);
+}
+.type-row .px {
+  font-family: var(--mono);
+  font-size: var(--t-11);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+.type-row .meta {
+  font-family: var(--mono);
+  font-size: var(--t-11);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  text-align: right;
+}
+.type-row .sample { line-height: 1; letter-spacing: -0.025em; }
+.s-120 { font-size: 120px; font-weight: 300; letter-spacing: -0.04em; line-height: 0.85; }
+.s-84  { font-size: 84px;  font-weight: 400; letter-spacing: -0.03em;  line-height: 0.95; }
+.s-60  { font-size: 60px;  font-weight: 400; letter-spacing: -0.025em; line-height: 1; }
+.s-44  { font-size: 44px;  font-weight: 500; letter-spacing: -0.02em;  line-height: 1.05; }
+.s-32  { font-size: 32px;  font-weight: 500; letter-spacing: -0.018em; line-height: 1.1; }
+.s-24  { font-size: 24px;  font-weight: 500; letter-spacing: -0.012em; line-height: 1.2; }
+.s-20  { font-size: 20px;  font-weight: 500; letter-spacing: -0.01em;  line-height: 1.3; }
+.s-16  { font-size: 16px;  font-weight: 400; letter-spacing: -0.005em; line-height: 1.5; }
+.s-14  { font-size: 14px;  font-weight: 400; letter-spacing: 0;        line-height: 1.5; color: var(--ink); }
+.s-13  { font-size: 13px;  font-weight: 400; letter-spacing: 0;        line-height: 1.5; color: var(--ink-muted); }
+.s-12  { font-size: 12px;  font-weight: 500; letter-spacing: 0.04em;   line-height: 1.5; }
+.s-11  { font-family: var(--mono); font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink); }
+
+/* ─── Family specimen cards ───────────────────────────────────────── */
+.type-grid-two {
+  display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-48);
+  margin-top: var(--sp-64);
+  padding-top: var(--sp-32);
+  border-top: 1px solid var(--hairline);
+}
+.type-card .label {
+  font-family: var(--mono);
+  font-size: var(--t-11);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin-bottom: var(--sp-x-18);
+  display: flex; justify-content: space-between;
+}
+.type-card .label .accent { color: var(--shu); }
+.type-card .specimen {
+  font-size: 120px;
+  line-height: 0.85;
+  letter-spacing: -0.04em;
+  color: var(--ink);
+}
+.type-card .specimen.sans-light  { font-family: var(--sans); font-weight: 300; }
+.type-card .specimen.sans-medium { font-family: var(--sans); font-weight: 500; }
+.type-card .specimen.mono        { font-family: var(--mono); font-weight: 400; letter-spacing: -0.02em; }
+.type-card .note {
+  margin-top: var(--sp-24);
+  padding-top: var(--sp-16);
+  border-top: 1px dashed var(--hairline);
+  font-family: var(--sans);
+  font-size: var(--t-14);
+  line-height: 1.5;
+  color: var(--ink-muted);
+}
+.type-card .note strong { color: var(--ink); font-weight: 500; }
+
+/* ─── Spacing visualization ───────────────────────────────────────── */
+.spacing-block { padding-top: var(--sp-x-18); }
+.spacing-block + .spacing-block { margin-top: var(--sp-48); }
+.spacing-block h4 {
+  font-family: var(--mono);
+  font-size: var(--t-11);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin: 0 0 var(--sp-24);
+  display: flex; justify-content: space-between;
+}
+.spacing-block h4 .accent { color: var(--shu); }
+.sp-row {
+  display: grid;
+  grid-template-columns: 80px 1fr 140px;
+  gap: var(--sp-24);
+  align-items: center;
+  padding: var(--sp-x-10) 0;
+  border-bottom: 1px dashed var(--hairline);
+}
+.sp-row:last-child { border-bottom: none; }
+.sp-row .token {
+  font-family: var(--mono);
+  font-size: var(--t-12);
+  color: var(--ink);
+}
+.sp-row .bar {
+  height: var(--sp-x-14);
+  background: var(--shu);
+  position: relative;
+}
+.sp-row .bar::after {
+  content: "";
+  position: absolute; top: -4px; bottom: -4px; right: -1px;
+  width: 1px;
+  background: var(--ink);
+}
+.sp-row .val {
+  font-family: var(--mono);
+  font-size: var(--t-11);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  text-align: right;
+}
+
+/* ─── Borders + radius samples ────────────────────────────────────── */
+.border-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sp-24);
+}
+.border-sample {
+  padding: var(--sp-32);
+  background: var(--surface);
+  min-height: 160px;
+  display: flex; flex-direction: column; justify-content: space-between;
+  position: relative;
+}
+.border-sample.hairline-solid { border: 1px solid var(--hairline); }
+.border-sample.hairline-dash  { border: 1px dashed var(--hairline-2); }
+.border-sample.ink-solid      { border: 1px solid var(--ink); }
+.border-sample.accent-left    {
+  border: 1px solid var(--hairline);
+  border-left: 2px solid var(--shu);
+}
+.border-sample.r-default { border-radius: var(--r-default); }
+.border-sample.r-input   { border-radius: var(--r-input); }
+.border-sample.r-circle {
+  border-radius: 50%;
+  width: 160px; height: 160px;
+  background: var(--shu);
+  border: none;
+  align-self: start;
+  display: grid; place-items: center;
+  color: #ffffff;
+  font-size: 32px;
+}
+.border-sample .label {
+  font-family: var(--mono);
+  font-size: var(--t-11);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+.border-sample .value {
+  font-family: var(--mono);
+  font-size: var(--t-12);
+  color: var(--ink);
+}
+
+/* ─── Motion · live demos ─────────────────────────────────────────── */
+.motion-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sp-24);
+}
+.motion-card {
+  border: 1px solid var(--hairline);
+  background: var(--bg);
+  padding: var(--sp-24) var(--sp-24) var(--sp-x-22);
+  position: relative;
+  min-height: 280px;
+  display: flex; flex-direction: column; justify-content: space-between;
+}
+.motion-card .name {
+  font-family: var(--mono);
+  font-size: var(--t-11);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--shu);
+  margin-bottom: var(--sp-4);
+}
+.motion-card .ms {
+  font-family: var(--sans);
+  font-size: 64px;
+  font-weight: 300;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+}
+.motion-card .ms span {
+  font-family: var(--mono);
+  font-size: 14px;
+  color: var(--ink-muted);
+  font-weight: 400;
+  margin-left: var(--sp-x-6);
+  letter-spacing: 0.04em;
+}
+.motion-card .curve {
+  font-family: var(--mono);
+  font-size: var(--t-11);
+  color: var(--ink-muted);
+  line-height: 1.5;
+  margin-top: var(--sp-x-10);
+  word-break: break-all;
+}
+.motion-card .demo {
+  margin-top: var(--sp-16);
+  padding-top: var(--sp-16);
+  border-top: 1px dashed var(--hairline);
+  display: flex; flex-direction: column; gap: var(--sp-x-10);
+}
+.motion-card .track {
+  height: 16px;
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  position: relative;
+  overflow: hidden;
+}
+.motion-card .puck {
+  position: absolute;
+  top: 0; left: 0;
+  width: 16px; height: 100%;
+  background: var(--shu);
+}
+.motion-card .trigger {
+  align-self: flex-start;
+  font-family: var(--mono);
+  font-size: var(--t-11);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 500;
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid var(--ink);
+  border-radius: var(--r-default);
+  padding: var(--sp-x-6) var(--sp-12);
+  cursor: pointer;
+  display: inline-flex; align-items: center; gap: var(--sp-x-6);
+  transition: background var(--dur-micro) var(--ease-out),
+              color      var(--dur-micro) var(--ease-out);
+}
+.motion-card .trigger:hover { background: var(--ink); color: #ffffff; }
+.motion-card .trigger:focus-visible { outline: var(--focus-ring); outline-offset: var(--focus-offset); }
+.motion-card .trigger .ph { font-size: var(--t-12); }
+
+.motion-note {
+  margin-top: var(--sp-32);
+  padding: var(--sp-24) var(--sp-x-22) var(--sp-24) var(--sp-24);
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-left: 2px solid var(--shu);
+  font-family: var(--sans);
+  font-size: var(--t-16);
+  line-height: 1.55;
+  color: var(--ink);
+}
+.motion-note strong { font-weight: 500; }
+
+/* ─── Components ──────────────────────────────────────────────────── */
+.comp-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--sp-48);
+}
+.comp-block .label {
+  font-family: var(--mono);
+  font-size: var(--t-11);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin-bottom: var(--sp-x-18);
+  padding-bottom: var(--sp-x-10);
+  border-bottom: 1px dashed var(--hairline);
+  display: flex; justify-content: space-between;
+}
+.comp-block .label .accent { color: var(--shu); }
+.comp-block .row {
+  display: flex; flex-wrap: wrap; gap: var(--sp-16);
+  align-items: center;
+}
+
+/* ─ Button system · radius 8 · cascadia mono · optional trailing icon ─
+   Primary  : transparent w/ ink border. Hover → text + icon + border turn shu.
+   Secondary: borderless ghost, shu text/icon at rest. Hover bumps weight.
+   Accent   : shu fill, deepens on hover. One per view max.
+   Press    : scale(0.985) over 160ms · levibahn.com convention. */
+.btn {
+  font-family: var(--mono);            /* Cascadia Mono · the button face */
+  font-size: var(--t-11);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 500;
+  padding: var(--sp-x-10) var(--sp-x-18);
+  border: 1px solid var(--ink);
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  border-radius: var(--r-default);
+  transition: color        var(--dur-micro) var(--ease-out-strong),
+              border-color var(--dur-micro) var(--ease-out-strong),
+              background   var(--dur-micro) var(--ease-out-strong),
+              font-weight  var(--dur-micro) var(--ease-out-strong),
+              transform    var(--press-dur) var(--ease-out-strong);
+  display: inline-flex; align-items: center; gap: var(--sp-x-10);
+  white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
+}
+.btn:hover { color: var(--shu); border-color: var(--shu); }
+.btn:hover .ph { color: var(--shu); }
+.btn:focus-visible { outline: var(--focus-ring); outline-offset: var(--focus-offset); }
+.btn:active { transform: scale(var(--press-scale-button)); }
+.btn[disabled] {
+  background: transparent; color: var(--ink-faint);
+  border-color: var(--ink-faint); cursor: not-allowed;
+}
+.btn[disabled]:hover { color: var(--ink-faint); border-color: var(--ink-faint); transform: none; }
+.btn[disabled]:hover .ph { color: var(--ink-faint); }
+
+/* Icon slot · phosphor sits flush at the right edge */
+.btn .ph {
+  font-size: var(--t-14);
+  line-height: 1;
+  transition: color var(--dur-micro) var(--ease-out-strong);
+}
+
+/* ─ Secondary · ghost · borderless · shu text/icon at rest · bolder on hover ─ */
+.btn--secondary {
+  border-color: transparent;
+  background: transparent;
+  color: var(--shu);
+  padding-left: 0;
+  padding-right: 0;
+}
+.btn--secondary .ph { color: var(--shu); }
+.btn--secondary:hover {
+  background: transparent;
+  color: var(--shu-deep);
+  font-weight: 600;
+  border-color: transparent;
+}
+.btn--secondary:hover .ph { color: var(--shu-deep); }
+.btn--secondary[disabled] {
+  background: transparent; border-color: transparent; color: var(--ink-faint);
+}
+.btn--secondary[disabled] .ph { color: var(--ink-faint); }
+
+/* ─ Accent · shu fill ─ */
+.btn--accent {
+  background: var(--shu); border-color: var(--shu-deep); color: #ffffff;
+}
+.btn--accent .ph { color: #ffffff; }
+.btn--accent:hover { background: var(--shu-deep); border-color: var(--shu-deep); color: #ffffff; }
+.btn--accent:hover .ph { color: #ffffff; }
+
+/* Forced state demos · selectors per variant so states don't bleed */
+.btn[data-state="hover"]   { color: var(--shu); border-color: var(--shu); }
+.btn[data-state="hover"] .ph { color: var(--shu); }
+.btn--secondary[data-state="hover"] {
+  color: var(--shu-deep); font-weight: 600; background: transparent; border-color: transparent;
+}
+.btn--secondary[data-state="hover"] .ph { color: var(--shu-deep); }
+.btn--accent[data-state="hover"]    { background: var(--shu-deep); border-color: var(--shu-deep); color: #ffffff; }
+.btn[data-state="focus"]   { outline: var(--focus-ring); outline-offset: var(--focus-offset); }
+.btn[data-state="active"]  { transform: scale(var(--press-scale-button)); }
+.btn[data-state="disabled"]{ background: transparent; color: var(--ink-faint); border-color: var(--ink-faint); pointer-events: none; }
+.btn--secondary[data-state="disabled"] { border-color: transparent; }
+.btn--secondary[data-state="disabled"] .ph { color: var(--ink-faint); }
+
+@media (prefers-reduced-motion: reduce) {
+  .btn:active, .btn[data-state="active"] { transform: none; }
+}
+
+.state-tag {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin-top: var(--sp-x-6);
+  display: block;
+  text-align: center;
+}
+.btn-cell { display: flex; flex-direction: column; align-items: center; }
+
+/* ─ Form inputs · radius 3 · sit one shade deeper than surface ─ */
+.input {
+  font-family: var(--sans);
+  font-size: var(--t-14);
+  padding: var(--sp-x-10) var(--sp-12);
+  background: var(--surface-deep);
+  border: 1px solid var(--hairline);
+  color: var(--ink);
+  border-radius: var(--r-input);
+  min-width: 280px;
+  transition: border-color var(--dur-standard) var(--ease-out-strong),
+              background   var(--dur-standard) var(--ease-out-strong),
+              box-shadow   var(--dur-standard) var(--ease-out-strong);
+}
+.input::placeholder { color: var(--ink-faint); }
+.input:hover { border-color: var(--hairline-2); }
+.input:focus { outline: none; border-color: var(--ink); box-shadow: 0 0 0 1px var(--shu); }
+.input[disabled] { background: var(--surface); color: var(--ink-faint); cursor: not-allowed; }
+.input[data-state="error"] {
+  border-color: var(--shu);
+  box-shadow: inset 0 0 0 1px rgba(var(--shu-rgb) / 0.16);
+}
+
+.input-cell {
+  display: flex; flex-direction: column; gap: var(--sp-x-6);
+}
+.input-cell label {
+  font-family: var(--mono);
+  font-size: var(--t-11);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+.input-cell .err {
+  font-family: var(--sans);
+  font-size: var(--t-12);
+  color: var(--shu);
+  font-weight: 500;
+}
+
+/* ─ Card · borderless · surface fill distinguishes it from page ─
+   Hover: bg steps down to --bg (the page), title color shifts to shu.
+   Registration mark bottom-right brings the brand into the corner. */
+.card {
+  background: var(--surface);
+  border: none;
+  border-radius: var(--r-default);
+  padding: var(--sp-32);
+  display: block;
+  max-width: 560px;
+  position: relative;
+  cursor: pointer;
+  transition: background-color var(--dur-standard) var(--ease-out-strong);
+}
+.card:hover { background: var(--surface-deep); }
+.card:hover h3 { color: var(--shu); }
+.card:hover .reg-mark { color: var(--shu); opacity: 1; }
+.card h3 {
+  font-family: var(--sans);
+  font-size: var(--t-24);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.012em;
+  margin: 0 0 var(--sp-x-10);
+  transition: color var(--dur-standard) var(--ease-out-strong);
+}
+.card .eyebrow { margin-bottom: var(--sp-12); }
+.card p {
+  font-family: var(--sans);
+  font-size: var(--t-14);
+  line-height: 1.55;
+  color: var(--ink-muted);
+  margin: 0;
+  max-width: 360px;
+}
+
+/* — Registration mark · printer's crosshair in the corner — */
+.card .reg-mark {
+  position: absolute;
+  bottom: var(--sp-16);
+  right: var(--sp-16);
+  width: 20px;
+  height: 20px;
+  color: var(--ink-faint);
+  opacity: 0.7;
+  display: inline-flex; align-items: center; justify-content: center;
+  transition: color var(--dur-standard) var(--ease-out-strong),
+              opacity var(--dur-standard) var(--ease-out-strong);
+}
+.card .reg-mark .ph { font-size: 20px; line-height: 1; }
+
+/* ─ Status / badge · 3px radius · semantic dot color ─
+   Default (in-progress) : white dot · surface bg
+   Muted (drafting)      : faint dot · surface bg
+   Error                 : shu dot   · surface bg
+   Signed                : faint dot · surface bg · ink stroke
+   Shipping              : signed style + orbiting comet (CSS-only) */
+.badge {
+  display: inline-flex; align-items: center; gap: var(--sp-x-6);
+  padding: var(--sp-4) var(--sp-x-10);
+  background: var(--surface);
+  border: 1px solid transparent;          /* reserved slot for stroked variants */
+  border-radius: var(--r-badge);
+  font-family: var(--mono);
+  font-size: var(--t-11);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink);
+  position: relative;
+}
+.badge::before {
+  content: "";
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: #ffffff;                    /* default = in-progress = WHITE dot */
+  flex-shrink: 0;
+}
+
+/* — Muted · drafting · faint dot — */
+.badge.muted::before { background: var(--ink-faint); }
+
+/* — Error · shu dot — */
+.badge.error::before { background: var(--shu); }
+
+/* — Signed · stroke on same surface bg — */
+.badge.signed {
+  border-color: var(--ink);
+}
+.badge.signed::before {
+  background: var(--ink);
+}
+
+/* — Shipping · same as signed for now · comet orbit to be added later — */
+.badge.shipping {
+  border-color: var(--ink);
+}
+.badge.shipping::before {
+  background: var(--ink);
+}
+
+/* ─── Colophon · dark band ────────────────────────────────────────── */
+.colophon {
+  padding: var(--sp-64) var(--sp-80);
+  background: var(--bg-deep);
+  color: var(--bg);
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 96px;
+  gap: var(--sp-48);
+  align-items: end;
+}
+.colophon h4 {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgb(255 255 255 / 0.5);
+  font-weight: 400;
+  margin: 0 0 var(--sp-x-10);
+}
+.colophon p {
+  font-family: var(--sans);
+  font-size: var(--t-14);
+  line-height: 1.5;
+  color: var(--bg);
+  margin: 0;
+}
+.colophon .shu { color: var(--shu); }
+.colophon .stamp {
+  width: 96px; height: 96px;
+  background: var(--shu);
+  border-radius: var(--r-default);
+  display: grid; place-items: center;
+  color: #ffffff;
+  font-size: 48px;
+}
+.colophon .stamp .ph { line-height: 1; }
+
+/* ─── Anchor TOC · floats at top-right ────────────────────────────── */
+.toc {
+  position: fixed;
+  top: var(--sp-16); right: var(--sp-16);
+  z-index: 200;
+  background: var(--bg);
+  border: 1px solid var(--hairline);
+  padding: var(--sp-x-10) var(--sp-12);
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  display: flex; flex-direction: column; gap: var(--sp-4);
+}
+.toc a { color: var(--ink-muted); text-decoration: none; }
+.toc a:hover { color: var(--shu); }
+</style>
+</head>
+
+<body>
+
+<nav class="toc" aria-label="Sections">
+  <a href="#colors">01 · Color</a>
+  <a href="#type">02 · Type</a>
+  <a href="#spacing">03 · Spacing</a>
+  <a href="#borders">04 · Borders & Radius</a>
+  <a href="#motion">05 · Motion</a>
+  <a href="#components">06 · Components</a>
+</nav>
+
+<div class="doc">
+
+  <!-- ─── Title block ─────────────────────────────────────────────── -->
+  <header class="title-block">
+    <div class="left">
+      <span class="k">Project</span>
+      <span class="v">The Shokunin Crafthouse · Design System</span>
+      <span class="k">Source</span>
+      <span class="v">Direction 01 · reconciled to studio standards</span>
+    </div>
+    <div class="center">
+      <span class="k">Document</span>
+      <span class="v">Tokens preview · v0.1</span>
+      <span class="k">Format</span>
+      <span class="v">Single-file HTML</span>
+    </div>
+    <div class="right">
+      <span class="k">Status</span>
+      <span class="v">Draft · awaiting review</span>
+      <span class="k">Date</span>
+      <span class="v">2026 · 05 · 26</span>
+    </div>
+  </header>
+
+  <!-- ─── Premise ─────────────────────────────────────────────────── -->
+  <section class="premise">
+    <h1 class="wordmark-large">The <span class="a">Shokunin</span> Crafthouse</h1>
+    <p class="premise-statement">
+      A design system, like a workshop, holds a small number of <em>well-made</em> tools.
+      One ground. One ink. One <span class="shu">accent</span>. One ratio. One physics.
+      Everything else descends from these.
+    </p>
+    <div class="premise-meta">
+      <div class="cell"><div class="k">Palette</div><div class="v">Warm-ground · single accent</div></div>
+      <div class="cell"><div class="k">Type</div><div class="v">Neue Haas · Cascadia Mono</div></div>
+      <div class="cell"><div class="k">Scale</div><div class="v">1.25 modular</div></div>
+      <div class="cell"><div class="k">Spacing</div><div class="v">4 / 8 pt · 2 pt micro</div></div>
+    </div>
+  </section>
+
+  <!-- ─── 01 · COLOR ──────────────────────────────────────────────── -->
+  <section id="colors">
+    <div class="sec-head">
+      <div class="sec-num">01</div>
+      <h2 class="sec-title">Color · warm ground, single accent.</h2>
+      <div class="sec-meta">
+        AA min · body copy<br>
+        AAA · legal & disclosure
+      </div>
+    </div>
+
+    <div class="swatch-stack">
+
+      <div class="swatch">
+        <div class="chip" style="background: var(--bg);"></div>
+        <div class="role"><div class="name">Ground · oatmeal</div><div class="desc">The page. User-locked anchor. Everything sits on this.</div></div>
+        <div class="token"><div>token</div><div class="v">--bg</div></div>
+        <div class="hex"><div>hex</div><div class="v">#E3DFD8</div></div>
+        <div class="ratio"><div>contrast on ink</div><div class="v">~12.8 : 1 · AAA</div></div>
+      </div>
+
+      <div class="swatch">
+        <div class="chip" style="background: var(--surface);"></div>
+        <div class="role"><div class="name">Surface · set-in</div><div class="desc">Default component surface. Cards, frames, code blocks. Δ-10 below the page, so the component reads as <em style="font-style:normal;color:var(--ink);font-weight:500;">set into</em> the oatmeal.</div></div>
+        <div class="token"><div>token</div><div class="v">--surface</div></div>
+        <div class="hex"><div>hex</div><div class="v">#D9D5CE</div></div>
+        <div class="ratio"><div>contrast on ink</div><div class="v">~11.6 : 1 · AAA</div></div>
+      </div>
+
+      <div class="swatch">
+        <div class="chip" style="background: var(--surface-deep);"></div>
+        <div class="role"><div class="name">Surface · sunk</div><div class="desc">Deeper still — Δ-22 below the page. Reserved for nested states: selected rows inside a sunk panel, ghosted hovers on already-sunken surfaces, card hover.</div></div>
+        <div class="token"><div>token</div><div class="v">--surface-deep</div></div>
+        <div class="hex"><div>hex</div><div class="v">#CDC9C2</div></div>
+        <div class="ratio"><div>derived · Δ-22 from bg</div><div class="v">—</div></div>
+      </div>
+
+      <div class="swatch">
+        <div class="chip" style="background: var(--bg-deep);"></div>
+        <div class="role"><div class="name">Bar · deep</div><div class="desc">Dark surface. Colophon, code blocks, future dark mode ground. From site's <code style="font-family:var(--mono);font-size:0.9em;">--bar</code>.</div></div>
+        <div class="token"><div>token</div><div class="v">--bg-deep</div></div>
+        <div class="hex"><div>hex</div><div class="v">#0D0C0B</div></div>
+        <div class="ratio"><div>vs. bg</div><div class="v">~16.0 : 1</div></div>
+      </div>
+
+      <div class="swatch">
+        <div class="chip" style="background: var(--ink);"></div>
+        <div class="role"><div class="name">Ink</div><div class="desc">Primary text. Strong rules. Site's <code style="font-family:var(--mono);font-size:0.9em;">--text-primary</code>.</div></div>
+        <div class="token"><div>token</div><div class="v">--ink</div></div>
+        <div class="hex"><div>hex</div><div class="v">#1A1815</div></div>
+        <div class="ratio"><div>on bg</div><div class="v">~12.8 : 1 · AAA</div></div>
+      </div>
+
+      <div class="swatch">
+        <div class="chip" style="background: var(--ink-muted);"></div>
+        <div class="role"><div class="name">Ink · muted</div><div class="desc">Secondary copy, metadata, eyebrows. Site's <code style="font-family:var(--mono);font-size:0.9em;">--text-secondary</code>.</div></div>
+        <div class="token"><div>token</div><div class="v">--ink-muted</div></div>
+        <div class="hex"><div>hex</div><div class="v">#5F5C55</div></div>
+        <div class="ratio"><div>on bg</div><div class="v">~5.5 : 1 · AA</div></div>
+      </div>
+
+      <div class="swatch">
+        <div class="chip" style="background: var(--ink-faint);"></div>
+        <div class="role"><div class="name">Ink · faint</div><div class="desc">Disabled, placeholder, decorative marks. Site's dark-mode secondary reused on light.</div></div>
+        <div class="token"><div>token</div><div class="v">--ink-faint</div></div>
+        <div class="hex"><div>hex</div><div class="v">#9A9388</div></div>
+        <div class="ratio"><div>on bg · large only</div><div class="v">~2.5 : 1</div></div>
+      </div>
+
+      <div class="swatch">
+        <div class="chip" style="background: var(--hairline);"></div>
+        <div class="role"><div class="name">Hairline</div><div class="desc">Default rule. 1px solid divisions. Derived to sit between surface tiers so it reads as a division on both bg and surface.</div></div>
+        <div class="token"><div>token</div><div class="v">--hairline</div></div>
+        <div class="hex"><div>hex</div><div class="v">#D5D1CA</div></div>
+        <div class="ratio"><div>non-text</div><div class="v">—</div></div>
+      </div>
+
+      <div class="swatch">
+        <div class="chip" style="background: var(--hairline-2);"></div>
+        <div class="role"><div class="name">Hairline · 2</div><div class="desc">Dashed rule. Inner divisions, secondary structure. Stronger so it survives on top of any surface tier.</div></div>
+        <div class="token"><div>token</div><div class="v">--hairline-2</div></div>
+        <div class="hex"><div>hex</div><div class="v">#C5C0B8</div></div>
+        <div class="ratio"><div>non-text</div><div class="v">—</div></div>
+      </div>
+
+      <div class="swatch">
+        <div class="chip" style="background: var(--shu);"></div>
+        <div class="role"><div class="name">Shu · vermilion (朱)</div><div class="desc">The single chromatic accent. Brand-identity-only — the live site uses brass. Used to <em style="font-style:normal;color:var(--ink);font-weight:500;">assert</em>, never to decorate.</div></div>
+        <div class="token"><div>token</div><div class="v">--shu</div></div>
+        <div class="hex"><div>hex</div><div class="v">#c8281c</div></div>
+        <div class="ratio"><div>on bg · large only</div><div class="v">~4.3 : 1</div></div>
+      </div>
+
+      <div class="swatch">
+        <div class="chip" style="background: var(--shu-deep);"></div>
+        <div class="role"><div class="name">Shu · deep</div><div class="desc">Pressed/active accent. Borders on filled accent surfaces.</div></div>
+        <div class="token"><div>token</div><div class="v">--shu-deep</div></div>
+        <div class="hex"><div>hex</div><div class="v">#9e1f15</div></div>
+        <div class="ratio"><div>on bg</div><div class="v">~6.7 : 1 · AAA</div></div>
+      </div>
+
+    </div>
+
+    <div style="margin-top: var(--sp-24); display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-24);">
+      <div style="padding: var(--sp-24); background: var(--surface); border: 1px solid var(--hairline); border-left: 2px solid var(--shu);">
+        <div class="eyebrow eyebrow-shu" style="margin-bottom: var(--sp-x-10);">Accent rule</div>
+        <p style="margin: 0; font-family: var(--sans); font-size: var(--t-14); line-height: 1.55; color: var(--ink);">
+          <strong>Shu asserts.</strong> Used on one element per screen as a maximum.
+          A signature, a status, a press. Never as background fill across an article surface.
+          When in doubt, the ink does the work.
+        </p>
+      </div>
+      <div style="padding: var(--sp-24); background: var(--surface); border: 1px solid var(--hairline);">
+        <div class="eyebrow" style="margin-bottom: var(--sp-x-10);">Alpha composition</div>
+        <p style="margin: 0; font-family: var(--mono); font-size: var(--t-12); line-height: 1.6; color: var(--ink);">
+          --shu-rgb: 200 40 28<br>
+          background: rgba(var(--shu-rgb) / 0.16);
+        </p>
+        <p style="margin: var(--sp-x-10) 0 0; font-family: var(--sans); font-size: var(--t-13); line-height: 1.5; color: var(--ink-muted);">
+          Channel-triplet token paired with the hex so the same accent can sit at any alpha without hardcoded channels.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── 02 · TYPE ───────────────────────────────────────────────── -->
+  <section id="type">
+    <div class="sec-head">
+      <div class="sec-num">02</div>
+      <h2 class="sec-title">Type · two families, twelve steps, three weights.</h2>
+      <div class="sec-meta">
+        Modular ratio · 1.25<br>
+        Weights · 300 / 400 / 500
+      </div>
+    </div>
+
+    <div class="type-ladder">
+      <div class="type-row">
+        <span class="px">--t-120 / 300</span>
+        <span class="sample s-120">Crafthouse</span>
+        <span class="meta">120 · 0.85 · -0.04</span>
+      </div>
+      <div class="type-row">
+        <span class="px">--t-84 / 400</span>
+        <span class="sample s-84">Crafthouse</span>
+        <span class="meta">84 · 0.95 · -0.03</span>
+      </div>
+      <div class="type-row">
+        <span class="px">--t-60 / 400</span>
+        <span class="sample s-60">Crafthouse</span>
+        <span class="meta">60 · 1.0 · -0.025</span>
+      </div>
+      <div class="type-row">
+        <span class="px">--t-44 / 500</span>
+        <span class="sample s-44">A workshop holds well-made tools.</span>
+        <span class="meta">44 · 1.05 · -0.02</span>
+      </div>
+      <div class="type-row">
+        <span class="px">--t-32 / 500</span>
+        <span class="sample s-32">A workshop holds well-made tools.</span>
+        <span class="meta">32 · 1.1 · -0.018</span>
+      </div>
+      <div class="type-row">
+        <span class="px">--t-24 / 500</span>
+        <span class="sample s-24">A workshop holds well-made tools.</span>
+        <span class="meta">24 · 1.2 · -0.012</span>
+      </div>
+      <div class="type-row">
+        <span class="px">--t-20 / 500</span>
+        <span class="sample s-20">A workshop holds well-made tools.</span>
+        <span class="meta">20 · 1.3 · -0.01</span>
+      </div>
+      <div class="type-row">
+        <span class="px">--t-16 / 400</span>
+        <span class="sample s-16">Body copy. Sixteen pixels. Line-height 1.5. The figure carries the running prose without strain across a comfortable measure of fifty to seventy-five characters.</span>
+        <span class="meta">16 · 1.5 · -0.005</span>
+      </div>
+      <div class="type-row">
+        <span class="px">--t-14 / 400</span>
+        <span class="sample s-14">Secondary copy. The annotation under a figure, the description under a swatch, the descender of an explanation.</span>
+        <span class="meta">14 · 1.5 · 0</span>
+      </div>
+      <div class="type-row">
+        <span class="px">--t-13 / 400</span>
+        <span class="sample s-13">Caption · the smallest comfortable prose size for muted descriptive text.</span>
+        <span class="meta">13 · 1.5 · 0</span>
+      </div>
+      <div class="type-row">
+        <span class="px">--t-12 / 500</span>
+        <span class="sample s-12">UI label · button text · metadata field</span>
+        <span class="meta">12 · 1.5 · 0.04</span>
+      </div>
+      <div class="type-row">
+        <span class="px">--t-11 / mono</span>
+        <span class="sample s-11">EYEBROW · STATUS · TIMESTAMP · 0.08 TRACKING</span>
+        <span class="meta">11 · 1.5 · 0.08 · UPPER</span>
+      </div>
+      <div class="type-row" style="background: var(--surface); margin: 0 calc(-1 * var(--sp-24)); padding-left: var(--sp-24); padding-right: var(--sp-24); border-radius: var(--r-default);">
+        <span class="px" style="color: var(--shu);">BUTTON · BADGE</span>
+        <span class="sample s-11" style="color: var(--ink);">SIGN THE WORK · IN PROGRESS · DOWNLOAD</span>
+        <span class="meta">Cascadia Mono · 11 · 500 · 0.08</span>
+      </div>
+    </div>
+
+    <div class="type-grid-two">
+      <div class="type-card">
+        <div class="label"><span>Sans · 300 light</span><span class="accent">Neue Haas Grotesk</span></div>
+        <div class="specimen sans-light">Aa</div>
+        <p class="note">Light for the <strong>argument</strong>. Display headlines, premise statements, the question being asked. Self-hosted woff2 from <code style="font-family: var(--mono); font-size: 0.95em; background: var(--surface); padding: 0 4px; border: 1px solid var(--hairline);">/fonts/</code> when the file lands; Helvetica Neue → Inter fallback in the interim.</p>
+      </div>
+      <div class="type-card">
+        <div class="label"><span>Sans · 500 medium</span><span class="accent">Neue Haas Grotesk</span></div>
+        <div class="specimen sans-medium">Aa</div>
+        <p class="note">Medium for the <strong>evidence</strong>. Section titles, button labels, anywhere the type needs to hold a corner. Italic forms are not used in chrome.</p>
+      </div>
+      <div class="type-card" style="grid-column: 1 / -1;">
+        <div class="label"><span>Mono · 400 regular</span><span class="accent">Cascadia Mono</span></div>
+        <div class="specimen mono">Aa · 11 · /04</div>
+        <p class="note">Mono handles every <strong>signal-bearing</strong> small-cap surface: eyebrows, metadata, timestamps, code, tokens. Loaded from Google Fonts at weights 300 / 400 / 500 / 600. Never inside running prose, never in the wordmark.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── 03 · SPACING ────────────────────────────────────────────── -->
+  <section id="spacing">
+    <div class="sec-head">
+      <div class="sec-num">03</div>
+      <h2 class="sec-title">Spacing · two ladders, one grammar.</h2>
+      <div class="sec-meta">
+        Layout · 4 / 8 pt<br>
+        Micro · 2 pt · chrome only
+      </div>
+    </div>
+
+    <div class="spacing-block">
+      <h4><span>Layout ladder · structural spacing</span><span class="accent">--sp-*</span></h4>
+      <div class="sp-row"><span class="token">--sp-4</span>   <span class="bar" style="width: 4px;"></span>   <span class="val">4 px</span></div>
+      <div class="sp-row"><span class="token">--sp-8</span>   <span class="bar" style="width: 8px;"></span>   <span class="val">8 px</span></div>
+      <div class="sp-row"><span class="token">--sp-12</span>  <span class="bar" style="width: 12px;"></span>  <span class="val">12 px</span></div>
+      <div class="sp-row"><span class="token">--sp-16</span>  <span class="bar" style="width: 16px;"></span>  <span class="val">16 px</span></div>
+      <div class="sp-row"><span class="token">--sp-24</span>  <span class="bar" style="width: 24px;"></span>  <span class="val">24 px</span></div>
+      <div class="sp-row"><span class="token">--sp-32</span>  <span class="bar" style="width: 32px;"></span>  <span class="val">32 px</span></div>
+      <div class="sp-row"><span class="token">--sp-48</span>  <span class="bar" style="width: 48px;"></span>  <span class="val">48 px</span></div>
+      <div class="sp-row"><span class="token">--sp-64</span>  <span class="bar" style="width: 64px;"></span>  <span class="val">64 px</span></div>
+      <div class="sp-row"><span class="token">--sp-80</span>  <span class="bar" style="width: 80px;"></span>  <span class="val">80 px</span></div>
+      <div class="sp-row"><span class="token">--sp-96</span>  <span class="bar" style="width: 96px;"></span>  <span class="val">96 px</span></div>
+      <div class="sp-row"><span class="token">--sp-120</span> <span class="bar" style="width: 120px;"></span> <span class="val">120 px</span></div>
+    </div>
+
+    <div class="spacing-block">
+      <h4><span>Micro ladder · chrome padding, badges, inline rhythm</span><span class="accent">--sp-x-*</span></h4>
+      <div class="sp-row"><span class="token">--sp-x-2</span>  <span class="bar" style="width: 2px;"></span>  <span class="val">2 px</span></div>
+      <div class="sp-row"><span class="token">--sp-x-6</span>  <span class="bar" style="width: 6px;"></span>  <span class="val">6 px</span></div>
+      <div class="sp-row"><span class="token">--sp-x-10</span> <span class="bar" style="width: 10px;"></span> <span class="val">10 px</span></div>
+      <div class="sp-row"><span class="token">--sp-x-14</span> <span class="bar" style="width: 14px;"></span> <span class="val">14 px</span></div>
+      <div class="sp-row"><span class="token">--sp-x-18</span> <span class="bar" style="width: 18px;"></span> <span class="val">18 px</span></div>
+      <div class="sp-row"><span class="token">--sp-x-22</span> <span class="bar" style="width: 22px;"></span> <span class="val">22 px</span></div>
+    </div>
+
+    <div style="margin-top: var(--sp-48); padding: var(--sp-24); background: var(--surface); border: 1px solid var(--hairline); border-left: 2px solid var(--shu); font-family: var(--sans); font-size: var(--t-14); line-height: 1.55;">
+      <strong style="font-weight: 500;">Rule.</strong> Layout spacing (gaps between sections, between cards, page padding) always pulls from <code style="font-family: var(--mono); background: var(--bg); padding: 0 4px; border: 1px solid var(--hairline);">--sp-*</code>. Micro spacing (chrome padding, badge insets, mono caps tracking compensation) may pull from <code style="font-family: var(--mono); background: var(--bg); padding: 0 4px; border: 1px solid var(--hairline);">--sp-x-*</code>. Arbitrary px values are still a bug.
+    </div>
+  </section>
+
+  <!-- ─── 04 · BORDERS & RADIUS ───────────────────────────────────── -->
+  <section id="borders">
+    <div class="sec-head">
+      <div class="sec-num">04</div>
+      <h2 class="sec-title">Borders & radius · radius does the work; hairlines stay structural.</h2>
+      <div class="sec-meta">
+        Default radius · 8 px<br>
+        Inputs / badges · 3 px
+      </div>
+    </div>
+
+    <p style="font-family: var(--sans); font-size: var(--t-14); line-height: 1.55; color: var(--ink-muted); max-width: 720px; margin: 0 0 var(--sp-32);">
+      Hairlines exist for <em style="font-style:normal;color:var(--ink);font-weight:500;">structural</em> work — the title block, section dividers,
+      table-like swatch stacks. Most components rely on surface fill and radius to define themselves, not borders. The
+      samples below are the available palette of treatments; reach for them sparingly.
+    </p>
+
+    <div class="border-grid">
+
+      <div class="border-sample hairline-solid r-default">
+        <div>
+          <div class="label">Hairline · solid</div>
+          <div class="value" style="margin-top: var(--sp-x-6);">1px solid var(--hairline)</div>
+        </div>
+        <div class="label" style="color: var(--shu);">Structural rules only</div>
+      </div>
+
+      <div class="border-sample hairline-dash r-default">
+        <div>
+          <div class="label">Hairline · dashed</div>
+          <div class="value" style="margin-top: var(--sp-x-6);">1px dashed var(--hairline-2)</div>
+        </div>
+        <div class="label" style="color: var(--shu);">Inner divisions · secondary</div>
+      </div>
+
+      <div class="border-sample ink-solid r-default">
+        <div>
+          <div class="label">Ink · solid</div>
+          <div class="value" style="margin-top: var(--sp-x-6);">1px solid var(--ink)</div>
+        </div>
+        <div class="label" style="color: var(--shu);">Title block · masthead</div>
+      </div>
+
+      <div class="border-sample accent-left r-default">
+        <div>
+          <div class="label">Accent · left bar</div>
+          <div class="value" style="margin-top: var(--sp-x-6);">2px solid var(--shu) · left</div>
+        </div>
+        <div class="label" style="color: var(--shu);">Pull-quote · note · alert</div>
+      </div>
+
+      <div class="border-sample r-default" style="background: var(--surface); padding: 0; min-height: 160px; align-items: stretch; display: grid; grid-template-columns: 1fr 1fr;">
+        <div style="padding: var(--sp-24); display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <div class="label">Radius · default</div>
+            <div class="value" style="margin-top: var(--sp-x-6);">--r-default · 8px</div>
+          </div>
+          <div class="label" style="color: var(--shu);">Buttons · cards · stamps</div>
+        </div>
+        <div style="background: var(--ink); border-radius: var(--r-default); margin: var(--sp-24);"></div>
+      </div>
+
+      <div class="border-sample r-default" style="background: var(--surface); padding: 0; min-height: 160px; align-items: stretch; display: grid; grid-template-columns: 1fr 1fr;">
+        <div style="padding: var(--sp-24); display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <div class="label">Radius · input</div>
+            <div class="value" style="margin-top: var(--sp-x-6);">--r-input · 3px</div>
+          </div>
+          <div class="label" style="color: var(--shu);">Form fields · URL bar · badges</div>
+        </div>
+        <div style="background: var(--ink); border-radius: var(--r-input); margin: var(--sp-24);"></div>
+      </div>
+
+      <div style="grid-column: 1 / -1; display: flex; gap: var(--sp-24); align-items: center; padding: var(--sp-24); background: var(--surface); border-radius: var(--r-default);">
+        <div class="border-sample r-circle">
+          <i class="ph ph-plus" aria-hidden="true"></i>
+        </div>
+        <div>
+          <div class="label">Radius · 50%</div>
+          <div class="value" style="margin-top: var(--sp-x-6);">--r-circle · 50%</div>
+          <p style="margin: var(--sp-12) 0 0; font-family: var(--sans); font-size: var(--t-14); line-height: 1.5; color: var(--ink-muted); max-width: 420px;">
+            Reserved for status dots and the circular brand stamp shown left.
+            Avatars, badges, and pills stay rectilinear at 3 px.
+          </p>
+        </div>
+      </div>
+
+      <div style="grid-column: 1 / -1; display: flex; gap: var(--sp-24); align-items: center; padding: var(--sp-24); background: var(--surface); border-radius: var(--r-default);">
+        <button class="btn" tabindex="0" style="outline: var(--focus-ring); outline-offset: var(--focus-offset);">Focused element <i class="ph ph-arrow-right"></i></button>
+        <div>
+          <div class="label">Focus ring</div>
+          <div class="value" style="margin-top: var(--sp-x-6);">outline: 2px solid var(--shu); outline-offset: 2px;</div>
+          <p style="margin: var(--sp-x-10) 0 0; font-family: var(--sans); font-size: var(--t-14); color: var(--ink-muted);">
+            Every interactive element. Visible, vermilion, two-pixel offset. Browser defaults are never silent.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ─── 05 · MOTION ─────────────────────────────────────────────── -->
+  <section id="motion">
+    <div class="sec-head">
+      <div class="sec-num">05</div>
+      <h2 class="sec-title">Motion · three durations, three curves. Click each to feel it.</h2>
+      <div class="sec-meta">
+        Springs · interactive<br>
+        Ease · scripted only
+      </div>
+    </div>
+
+    <div class="motion-grid">
+
+      <div class="motion-card">
+        <div>
+          <div class="name">Micro · tap, hover, press</div>
+          <div class="ms">200<span>ms</span></div>
+          <div class="curve">--ease-out<br>cubic-bezier(0.22, 1, 0.36, 1)<br><span style="color: var(--ink-faint);">quint-out · the default exit</span></div>
+        </div>
+        <div class="demo">
+          <div class="track"><div class="puck" data-puck="micro"></div></div>
+          <button class="trigger" data-trigger="micro">Run 200ms <i class="ph ph-play"></i></button>
+        </div>
+      </div>
+
+      <div class="motion-card">
+        <div>
+          <div class="name">Standard · state change</div>
+          <div class="ms">380<span>ms</span></div>
+          <div class="curve">--ease-in-out<br>cubic-bezier(0.65, 0, 0.35, 1)<br><span style="color: var(--ink-faint);">symmetric · for crossfades</span></div>
+        </div>
+        <div class="demo">
+          <div class="track"><div class="puck" data-puck="standard"></div></div>
+          <button class="trigger" data-trigger="standard">Run 380ms <i class="ph ph-play"></i></button>
+        </div>
+      </div>
+
+      <div class="motion-card">
+        <div>
+          <div class="name">Orchestrated · page, route</div>
+          <div class="ms">720<span>ms</span></div>
+          <div class="curve">--ease-cinematic<br>cubic-bezier(0.32, 0.08, 0.12, 1)<br><span style="color: var(--ink-faint);">long deliberate · scripted only</span></div>
+        </div>
+        <div class="demo">
+          <div class="track"><div class="puck" data-puck="orchestrated"></div></div>
+          <button class="trigger" data-trigger="orchestrated">Run 720ms <i class="ph ph-play"></i></button>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="motion-note">
+      <strong>Cinematic across the board.</strong>
+      Curves only — no spring physics. The studio's tactile spring set is reserved for future high-touch primitives;
+      everything here authored as a deliberate, scripted move. The three durations cover hover/press, state change,
+      and orchestrated reveal. Anything past one second justifies itself in writing.
+    </div>
+  </section>
+
+  <!-- ─── 06 · COMPONENTS ─────────────────────────────────────────── -->
+  <section id="components">
+    <div class="sec-head">
+      <div class="sec-num">06</div>
+      <h2 class="sec-title">Components · the same tokens, asked to do something.</h2>
+      <div class="sec-meta">
+        Buttons · inputs · card<br>
+        All five states · all visible
+      </div>
+    </div>
+
+    <div class="comp-grid">
+
+      <!-- ─ Buttons · primary · transparent w/ ink border, fills ink on hover ─ -->
+      <div class="comp-block">
+        <div class="label"><span>Button · primary · all five states forced visible</span><span class="accent">.btn</span></div>
+        <div class="row">
+          <div class="btn-cell"><button class="btn">Sign the work <i class="ph ph-arrow-right"></i></button><span class="state-tag">default</span></div>
+          <div class="btn-cell"><button class="btn" data-state="hover">Sign the work <i class="ph ph-arrow-right"></i></button><span class="state-tag">hover</span></div>
+          <div class="btn-cell"><button class="btn" data-state="focus">Sign the work <i class="ph ph-arrow-right"></i></button><span class="state-tag">focus</span></div>
+          <div class="btn-cell"><button class="btn" data-state="active">Sign the work <i class="ph ph-arrow-right"></i></button><span class="state-tag">active</span></div>
+          <div class="btn-cell"><button class="btn" data-state="disabled" disabled>Sign the work <i class="ph ph-arrow-right"></i></button><span class="state-tag">disabled</span></div>
+        </div>
+        <div class="row" style="margin-top: var(--sp-16);">
+          <button class="btn">Without icon</button>
+          <button class="btn">Download <i class="ph ph-download-simple"></i></button>
+          <button class="btn">Open file <i class="ph ph-arrow-up-right"></i></button>
+        </div>
+      </div>
+
+      <!-- ─ Buttons · secondary · ghost · fills ink + bolder on hover ─ -->
+      <div class="comp-block">
+        <div class="label"><span>Button · secondary · borderless ghost · hover fills ink, weight bumps to 600</span><span class="accent">.btn .btn--secondary</span></div>
+        <div class="row">
+          <div class="btn-cell"><button class="btn btn--secondary">View archive <i class="ph ph-arrow-right"></i></button><span class="state-tag">default</span></div>
+          <div class="btn-cell"><button class="btn btn--secondary" data-state="hover">View archive <i class="ph ph-arrow-right"></i></button><span class="state-tag">hover · 600</span></div>
+          <div class="btn-cell"><button class="btn btn--secondary" data-state="focus">View archive <i class="ph ph-arrow-right"></i></button><span class="state-tag">focus</span></div>
+          <div class="btn-cell"><button class="btn btn--secondary" data-state="active">View archive <i class="ph ph-arrow-right"></i></button><span class="state-tag">active</span></div>
+          <div class="btn-cell"><button class="btn btn--secondary" data-state="disabled" disabled>View archive <i class="ph ph-arrow-right"></i></button><span class="state-tag">disabled</span></div>
+        </div>
+      </div>
+
+      <!-- ─ Buttons · accent · shu fill · sparingly ─ -->
+      <div class="comp-block">
+        <div class="label"><span>Button · accent · use sparingly · one per view max</span><span class="accent">.btn .btn--accent</span></div>
+        <div class="row">
+          <div class="btn-cell"><button class="btn btn--accent">Ship it <i class="ph ph-paper-plane-tilt"></i></button><span class="state-tag">default</span></div>
+          <div class="btn-cell"><button class="btn btn--accent" data-state="hover">Ship it <i class="ph ph-paper-plane-tilt"></i></button><span class="state-tag">hover</span></div>
+          <div class="btn-cell"><button class="btn btn--accent" data-state="focus">Ship it <i class="ph ph-paper-plane-tilt"></i></button><span class="state-tag">focus</span></div>
+          <div class="btn-cell"><button class="btn btn--accent" data-state="active">Ship it <i class="ph ph-paper-plane-tilt"></i></button><span class="state-tag">active</span></div>
+        </div>
+      </div>
+
+      <!-- ─ Inputs ─ -->
+      <div class="comp-block">
+        <div class="label"><span>Form input · all states</span><span class="accent">.input</span></div>
+        <div class="row" style="align-items: flex-start;">
+          <div class="input-cell"><label>Default</label><input class="input" placeholder="hello@shokunin.studio" /></div>
+          <div class="input-cell"><label>Filled</label><input class="input" value="levi@shokunin.studio" /></div>
+          <div class="input-cell"><label>Focus</label><input class="input" value="levi@shokunin.studio" id="focusable" /></div>
+          <div class="input-cell"><label>Disabled</label><input class="input" value="—" disabled /></div>
+          <div class="input-cell">
+            <label>Error</label>
+            <input class="input" data-state="error" value="not-an-email" />
+            <span class="err">Wants an address. Try again.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─ Badges / status · 3px radius · semantic dot ─ -->
+      <div class="comp-block">
+        <div class="label"><span>Badge · status · 3px radius · dot signals state</span><span class="accent">.badge</span></div>
+        <div class="row">
+          <span class="badge">In progress</span>
+          <span class="badge muted">Drafting</span>
+          <span class="badge error">Error</span>
+          <span class="badge signed">Signed</span>
+          <span class="badge shipping">Shipping</span>
+        </div>
+      </div>
+
+      <!-- ─ Card ─ -->
+      <div class="comp-block">
+        <div class="label"><span>Card · hairline rect · accent stamp</span><span class="accent">.card</span></div>
+        <div class="row">
+          <article class="card">
+            <div class="eyebrow eyebrow-shu">Project · 047</div>
+            <h3>Copper &amp; Quartz · wedding registry</h3>
+            <p>A bespoke Stripe-backed registry built around a single bench: one ledger, one signature, no theme.</p>
+            <span class="reg-mark" aria-hidden="true"><i class="ph ph-crosshair"></i></span>
+          </article>
+
+          <article class="card">
+            <div class="eyebrow">Studio note</div>
+            <h3>Subtraction precedes addition.</h3>
+            <p>The first pass removes. The second pass removes again. Only then do we add. Density is not richness — resolution is.</p>
+            <span class="reg-mark" aria-hidden="true"><i class="ph ph-crosshair"></i></span>
+          </article>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ─── Colophon ────────────────────────────────────────────────── -->
+  <footer class="colophon">
+    <div>
+      <h4>Source</h4>
+      <p>Direction 01 HTML · reconciled against studio-memory.md, dated 26 May 2026.</p>
+    </div>
+    <div>
+      <h4>Decisions logged</h4>
+      <p>Ground anchors · register · two families · NHG self-host · spacing rigor · grain opacity.</p>
+    </div>
+    <div>
+      <h4>Next</h4>
+      <p>Mark notes on this preview. On approval, port tokens to <span class="shu">Figma variables</span> + Tokens Studio.</p>
+    </div>
+    <div class="stamp" aria-label="Mark">
+      <i class="ph ph-plus" aria-hidden="true"></i>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+/* ─── Motion demo · live ────────────────────────────────────────────
+   Click a trigger to see the puck travel its track at the token's
+   duration + curve. Press again to replay. */
+(() => {
+  const recipes = {
+    micro:        { dur: 200,  ease: "cubic-bezier(0.22, 1, 0.36, 1)" },
+    standard:     { dur: 380,  ease: "cubic-bezier(0.65, 0, 0.35, 1)" },
+    orchestrated: { dur: 720,  ease: "cubic-bezier(0.32, 0.08, 0.12, 1)" },
+  };
+  document.querySelectorAll("[data-trigger]").forEach(btn => {
+    const key = btn.dataset.trigger;
+    const puck = document.querySelector(`[data-puck="${key}"]`);
+    const track = puck.parentElement;
+    btn.addEventListener("click", () => {
+      const travel = track.clientWidth - puck.clientWidth;
+      puck.style.transition = "none";
+      puck.style.transform = "translateX(0)";
+      // force reflow so the next assignment animates
+      void puck.offsetWidth;
+      puck.style.transition = `transform ${recipes[key].dur}ms ${recipes[key].ease}`;
+      puck.style.transform = `translateX(${travel}px)`;
+    });
+  });
+})();
+</script>
+
+</body>
+</html>

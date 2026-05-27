@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Color Explorer — Shokunin Crafthouse</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cascadia+Mono:wght@400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+/* ─── Token map · CSS custom properties · driven by [data-theme] ─── */
+:root {
+  --sans: "Neue Haas Grotesk Display Pro", "Neue Haas Grotesk Text Pro",
+          "Helvetica Neue", Inter, system-ui, sans-serif;
+  --mono: "Cascadia Mono", "Cascadia Code", ui-monospace, "SF Mono", Menlo, monospace;
+  --radius-input: 3px;
+  --radius-default: 8px;
+}
+
+[data-theme="light"] {
+  --ui-bg:           #E3DFD8;
+  --ui-surface:      #D9D5CE;
+  --ui-surface-deep: #CDC9C2;
+  --ui-text:         #1A1815;
+  --ui-text-muted:   #5F5C55;
+  --ui-text-faint:   #9A9388;
+  --ui-border:       #D5D1CA;
+  --ui-border-subtle:#C5C0B8;
+  --ui-shu:          #C8281C;
+  --ui-pass:         #4F5C2A;
+  --ui-warn:         #8A5E10;
+}
+[data-theme="dark"] {
+  --ui-bg:           #0D0C0B;
+  --ui-surface:      #181512;
+  --ui-surface-deep: #221F1B;
+  --ui-text:         #E2DDD6;
+  --ui-text-muted:   #9A9388;
+  --ui-text-faint:   #6B655C;
+  --ui-border:       #201E1A;
+  --ui-border-subtle:#2F2B26;
+  --ui-shu:          #DA5C4D;
+  --ui-pass:         #A8BE6E;
+  --ui-warn:         #D9B265;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: var(--ui-bg);
+  color: var(--ui-text);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 200ms cubic-bezier(0.22, 1, 0.36, 1),
+              color 200ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.doc { max-width: 1280px; margin: 0 auto; padding: 48px 32px 96px; }
+
+/* ─── Header ─────────────────────────────────────────────────────── */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--ui-border);
+  margin-bottom: 48px;
+}
+header h1 {
+  margin: 0;
+  font-family: var(--sans);
+  font-size: 32px;
+  font-weight: 500;
+  letter-spacing: -0.018em;
+  line-height: 1.05;
+}
+header .sub {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ui-text-muted);
+  margin-top: 6px;
+}
+
+/* ─── Mode toggle ────────────────────────────────────────────────── */
+.mode-toggle {
+  display: inline-flex;
+  border: 1px solid var(--ui-border);
+  border-radius: var(--radius-default);
+  overflow: hidden;
+  background: var(--ui-surface);
+}
+.mode-toggle button {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: transparent;
+  border: none;
+  padding: 10px 18px;
+  cursor: pointer;
+  color: var(--ui-text-muted);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: background-color 200ms cubic-bezier(0.22, 1, 0.36, 1),
+              color 200ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.mode-toggle button[aria-pressed="true"] {
+  background: var(--ui-text);
+  color: var(--ui-bg);
+}
+.mode-toggle button:hover:not([aria-pressed="true"]) {
+  color: var(--ui-text);
+}
+
+/* ─── Section frame ──────────────────────────────────────────────── */
+section { margin-bottom: 80px; }
+.sec-head {
+  display: grid;
+  grid-template-columns: 80px 1fr 220px;
+  gap: 24px;
+  align-items: baseline;
+  margin-bottom: 32px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--ui-border);
+}
+.sec-num {
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  color: var(--ui-shu);
+  font-weight: 500;
+}
+.sec-title {
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 24px;
+  letter-spacing: -0.012em;
+  margin: 0;
+}
+.sec-meta {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ui-text-muted);
+  text-align: right;
+}
+
+/* ─── Scale ladder ───────────────────────────────────────────────── */
+.scale-block { margin-bottom: 40px; }
+.scale-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ui-text-muted);
+  margin: 0 0 16px;
+  display: flex;
+  justify-content: space-between;
+}
+.scale-label .name { color: var(--ui-text); font-weight: 500; }
+.scale-label .meta { color: var(--ui-text-muted); }
+.swatch-row {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  border: 1px solid var(--ui-border);
+  border-radius: var(--radius-default);
+  overflow: hidden;
+}
+.swatch-row.cols-10 { grid-template-columns: repeat(10, 1fr); }
+.swatch-row.cols-7  { grid-template-columns: repeat(7, 1fr); }
+.swatch-row.cols-6  { grid-template-columns: repeat(6, 1fr); }
+.swatch-row.cols-2  { grid-template-columns: repeat(2, 1fr); max-width: 360px; }
+
+.swatch {
+  display: flex;
+  flex-direction: column;
+  min-height: 110px;
+  position: relative;
+  cursor: pointer;
+}
+.swatch .chip { flex: 1; min-height: 56px; }
+.swatch .info {
+  background: var(--ui-surface);
+  padding: 8px 10px;
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-top: 1px solid var(--ui-border);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.swatch .step { color: var(--ui-text); font-weight: 500; }
+.swatch .hex  { color: var(--ui-text-muted); }
+
+/* Status scale uses a 2-row grid */
+.status-pair {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  border: 1px solid var(--ui-border);
+  border-radius: var(--radius-default);
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+.status-pair .name-cell {
+  grid-column: 1 / -1;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 10px 14px;
+  background: var(--ui-surface);
+  color: var(--ui-text);
+  font-weight: 500;
+  border-bottom: 1px solid var(--ui-border);
+}
+
+/* ─── Semantic section ───────────────────────────────────────────── */
+.semantic-mode-display {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ui-text-muted);
+  margin-bottom: 24px;
+  padding: 8px 14px;
+  background: var(--ui-surface);
+  border: 1px solid var(--ui-border);
+  border-radius: var(--radius-default);
+}
+.semantic-mode-display .dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--ui-shu);
+}
+
+.sem-group { margin-bottom: 32px; }
+.sem-group h3 {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ui-text-muted);
+  margin: 0 0 12px;
+  font-weight: 500;
+}
+
+.sem-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 12px;
+}
+.sem-token {
+  border: 1px solid var(--ui-border);
+  border-radius: var(--radius-default);
+  overflow: hidden;
+  background: var(--ui-surface);
+}
+.sem-token .preview {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  padding-left: 16px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  border-bottom: 1px solid var(--ui-border);
+}
+.sem-token .meta {
+  padding: 10px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.sem-token .meta .name {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--ui-text);
+  font-weight: 500;
+}
+.sem-token .meta .hex {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--ui-text-muted);
+  letter-spacing: 0.04em;
+}
+.sem-token .meta .alias {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--ui-text-muted);
+  letter-spacing: 0.02em;
+}
+.sem-token .meta .alias .arrow { color: var(--ui-shu); margin: 0 4px; }
+
+/* ─── Contrast checker ───────────────────────────────────────────── */
+.contrast-table {
+  width: 100%;
+  border: 1px solid var(--ui-border);
+  border-radius: var(--radius-default);
+  border-collapse: separate;
+  border-spacing: 0;
+  overflow: hidden;
+  font-family: var(--mono);
+  font-size: 12px;
+}
+.contrast-table th, .contrast-table td {
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 1px solid var(--ui-border);
+}
+.contrast-table tr:last-child td { border-bottom: none; }
+.contrast-table th {
+  background: var(--ui-surface);
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ui-text-muted);
+  font-weight: 500;
+}
+.contrast-table td.swatch-cell { padding: 6px 16px; }
+.contrast-table td.swatch-cell .swatch-preview {
+  display: inline-block;
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  border: 1px solid var(--ui-border);
+  vertical-align: middle;
+  margin-right: 6px;
+}
+.contrast-table td.ratio {
+  font-weight: 500;
+  color: var(--ui-text);
+  font-variant-numeric: tabular-nums;
+}
+.pill {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: var(--radius-input);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+.pill.pass    { background: rgba(79, 92, 42, 0.18); color: var(--ui-pass); }
+.pill.fail    { background: rgba(200, 40, 28, 0.16); color: var(--ui-shu); }
+.pill.exempt  { background: rgba(138, 94, 16, 0.16); color: var(--ui-warn); }
+.pill.restrict{ background: rgba(155, 95, 12, 0.16); color: var(--ui-warn); border: 1px dashed var(--ui-warn); }
+
+[data-theme="dark"] .pill.pass    { background: rgba(168, 190, 110, 0.18); color: var(--ui-pass); }
+[data-theme="dark"] .pill.fail    { background: rgba(218, 92, 77, 0.18); color: var(--ui-shu); }
+[data-theme="dark"] .pill.exempt  { background: rgba(217, 178, 101, 0.18); color: var(--ui-warn); }
+[data-theme="dark"] .pill.restrict{ background: rgba(217, 178, 101, 0.18); color: var(--ui-warn); border: 1px dashed var(--ui-warn); }
+
+.contrast-table .restriction-note {
+  font-family: var(--sans);
+  font-size: 11px;
+  color: var(--ui-text-muted);
+  font-style: italic;
+  margin-top: 4px;
+}
+
+/* Mode chip in audit table */
+.mode-chip {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: var(--radius-input);
+  background: var(--ui-surface-deep);
+  color: var(--ui-text);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.mode-chip.dark { background: var(--ui-text); color: var(--ui-bg); }
+
+/* ─── Custom picker ──────────────────────────────────────────────── */
+.picker {
+  border: 1px solid var(--ui-border);
+  border-radius: var(--radius-default);
+  background: var(--ui-surface);
+  padding: 24px;
+  margin-top: 32px;
+}
+.picker h3 {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ui-text-muted);
+  margin: 0 0 16px;
+  font-weight: 500;
+}
+.picker-controls {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+.picker-controls label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ui-text-muted);
+}
+.picker-controls select {
+  font-family: var(--mono);
+  font-size: 12px;
+  padding: 10px 12px;
+  background: var(--ui-surface-deep);
+  color: var(--ui-text);
+  border: 1px solid var(--ui-border);
+  border-radius: var(--radius-input);
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'><path fill='%235F5C55' d='M6 8L2 4h8z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 36px;
+}
+.picker-controls select:focus {
+  outline: 2px solid var(--ui-shu);
+  outline-offset: 2px;
+}
+
+.picker-preview {
+  height: 100px;
+  border-radius: var(--radius-default);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--sans);
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: -0.012em;
+  margin-bottom: 16px;
+  border: 1px solid var(--ui-border);
+}
+
+.picker-meta {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+}
+.picker-meta .cell {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 10px 12px;
+  background: var(--ui-surface-deep);
+  border-radius: var(--radius-input);
+}
+.picker-meta .cell .k {
+  text-transform: uppercase;
+  color: var(--ui-text-muted);
+  letter-spacing: 0.06em;
+  font-size: 9px;
+}
+.picker-meta .cell .v {
+  color: var(--ui-text);
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ─── Footer ─────────────────────────────────────────────────────── */
+footer {
+  margin-top: 64px;
+  padding-top: 24px;
+  border-top: 1px solid var(--ui-border);
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ui-text-muted);
+  display: flex;
+  justify-content: space-between;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition-duration: 0.001ms !important;
+    animation-duration: 0.001ms !important;
+  }
+}
+</style>
+</head>
+
+<body>
+<div class="doc">
+
+  <header>
+    <div>
+      <h1>Color Explorer</h1>
+      <div class="sub">The Shokunin Crafthouse · Brand identity tokens · Stage 01 audit</div>
+    </div>
+    <div class="mode-toggle" role="tablist" aria-label="Theme mode">
+      <button type="button" data-mode="light" aria-pressed="true">Light</button>
+      <button type="button" data-mode="dark" aria-pressed="false">Dark</button>
+    </div>
+  </header>
+
+  <!-- ─── 01 · PRIMITIVES ────────────────────────────────────── -->
+  <section id="primitives">
+    <div class="sec-head">
+      <div class="sec-num">01</div>
+      <h2 class="sec-title">Primitives · raw color values</h2>
+      <div class="sec-meta">37 primitives · 5 scales</div>
+    </div>
+    <div id="primitives-content"></div>
+  </section>
+
+  <!-- ─── 02 · SEMANTIC ──────────────────────────────────────── -->
+  <section id="semantic">
+    <div class="sec-head">
+      <div class="sec-num">02</div>
+      <h2 class="sec-title">Semantic · purpose-mapped aliases</h2>
+      <div class="sec-meta">23 tokens · 2 modes</div>
+    </div>
+    <div class="semantic-mode-display">
+      <span class="dot"></span>
+      Currently rendering · <strong id="current-mode-display">light</strong>
+    </div>
+    <div id="semantic-content"></div>
+  </section>
+
+  <!-- ─── 03 · CONTRAST ──────────────────────────────────────── -->
+  <section id="contrast">
+    <div class="sec-head">
+      <div class="sec-num">03</div>
+      <h2 class="sec-title">Contrast · text on surface, both modes</h2>
+      <div class="sec-meta">WCAG AA · 4.5:1 normal · 3:1 large<br>WCAG AAA · 7:1 normal · 4.5:1 large</div>
+    </div>
+    <table class="contrast-table">
+      <thead>
+        <tr>
+          <th>Mode</th>
+          <th>Text token</th>
+          <th>Surface token</th>
+          <th>Ratio</th>
+          <th>AA</th>
+          <th>AAA</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody id="contrast-table-body"></tbody>
+    </table>
+
+    <div class="picker">
+      <h3>Custom pair · pick any two tokens</h3>
+      <div class="picker-controls">
+        <label>
+          Foreground
+          <select id="picker-fg"></select>
+        </label>
+        <label>
+          Background
+          <select id="picker-bg"></select>
+        </label>
+      </div>
+      <div id="picker-preview" class="picker-preview">The artisan devotes a life</div>
+      <div class="picker-meta">
+        <div class="cell"><div class="k">FG hex</div><div class="v" id="picker-fg-hex">—</div></div>
+        <div class="cell"><div class="k">BG hex</div><div class="v" id="picker-bg-hex">—</div></div>
+        <div class="cell"><div class="k">Ratio</div><div class="v" id="picker-ratio">—</div></div>
+        <div class="cell"><div class="k">Grade</div><div class="v" id="picker-grade">—</div></div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span>Source · tokens/primitives.json + tokens/semantic.json</span>
+    <span>Built with the actual token values · v0.1</span>
+  </footer>
+
+</div>
+
+<script>
+/* ═════════════════════════════════════════════════════════════════
+   TOKEN DATA · mirrored from tokens/primitives.json + tokens/semantic.json
+   Flat lookup map for resolution. Source of truth lives in the JSON files;
+   this is the rendered snapshot used by the explorer.
+   ═════════════════════════════════════════════════════════════════ */
+
+const PRIMITIVES = {
+  // warmGray ladder
+  'color.warmGray.50':  { hex: '#F1EFEB', scale: 'warmGray', step: '50' },
+  'color.warmGray.100': { hex: '#E3DFD8', scale: 'warmGray', step: '100' },
+  'color.warmGray.200': { hex: '#D9D5CE', scale: 'warmGray', step: '200' },
+  'color.warmGray.250': { hex: '#D5D1CA', scale: 'warmGray', step: '250' },
+  'color.warmGray.300': { hex: '#CDC9C2', scale: 'warmGray', step: '300' },
+  'color.warmGray.350': { hex: '#C5C0B8', scale: 'warmGray', step: '350' },
+  'color.warmGray.400': { hex: '#9A9388', scale: 'warmGray', step: '400' },
+  'color.warmGray.500': { hex: '#5F5C55', scale: 'warmGray', step: '500' },
+  'color.warmGray.600': { hex: '#484640', scale: 'warmGray', step: '600' },
+  'color.warmGray.700': { hex: '#312F2A', scale: 'warmGray', step: '700' },
+  'color.warmGray.800': { hex: '#1A1815', scale: 'warmGray', step: '800' },
+  'color.warmGray.900': { hex: '#0D0C0B', scale: 'warmGray', step: '900' },
+  // shu ladder
+  'color.shu.50':  { hex: '#FCEFEC', scale: 'shu', step: '50' },
+  'color.shu.100': { hex: '#F7D9D4', scale: 'shu', step: '100' },
+  'color.shu.200': { hex: '#F0B5AC', scale: 'shu', step: '200' },
+  'color.shu.300': { hex: '#E68B7F', scale: 'shu', step: '300' },
+  'color.shu.400': { hex: '#DA5C4D', scale: 'shu', step: '400' },
+  'color.shu.500': { hex: '#C8281C', scale: 'shu', step: '500' },
+  'color.shu.600': { hex: '#B22318', scale: 'shu', step: '600' },
+  'color.shu.700': { hex: '#9E1F15', scale: 'shu', step: '700' },
+  'color.shu.800': { hex: '#771A11', scale: 'shu', step: '800' },
+  'color.shu.900': { hex: '#4F100B', scale: 'shu', step: '900' },
+  // status
+  'color.status.success.light':  { hex: '#4F5C2A', scale: 'status', step: 'success/light' },
+  'color.status.success.dark':   { hex: '#A8BE6E', scale: 'status', step: 'success/dark' },
+  'color.status.warning.light':  { hex: '#8A5E10', scale: 'status', step: 'warning/light' },
+  'color.status.warning.dark':   { hex: '#D9B265', scale: 'status', step: 'warning/dark' },
+  'color.status.info.light':     { hex: '#3B5C7A', scale: 'status', step: 'info/light' },
+  'color.status.info.dark':      { hex: '#8FB1D0', scale: 'status', step: 'info/dark' },
+  // dark-mode anchors
+  'color.dark.surfacePage':      { hex: '#0D0C0B', scale: 'dark', step: 'surfacePage' },
+  'color.dark.surfaceSunk':      { hex: '#181512', scale: 'dark', step: 'surfaceSunk' },
+  'color.dark.surfaceDeepSunk':  { hex: '#221F1B', scale: 'dark', step: 'surfaceDeepSunk' },
+  'color.dark.border':           { hex: '#201E1A', scale: 'dark', step: 'border' },
+  'color.dark.borderSubtle':     { hex: '#2F2B26', scale: 'dark', step: 'borderSubtle' },
+  'color.dark.textPrimary':      { hex: '#E2DDD6', scale: 'dark', step: 'textPrimary' },
+  'color.dark.textDisabled':     { hex: '#6B655C', scale: 'dark', step: 'textDisabled' },
+  // utility
+  'color.utility.white':         { hex: '#FFFFFF', scale: 'utility', step: 'white' },
+  'color.utility.black':         { hex: '#000000', scale: 'utility', step: 'black' },
+};
+
+const SEMANTIC = {
+  'color.surface.page':       { group: 'surface',     modes: { light: 'color.warmGray.100', dark: 'color.dark.surfacePage' } },
+  'color.surface.sunk':       { group: 'surface',     modes: { light: 'color.warmGray.200', dark: 'color.dark.surfaceSunk' } },
+  'color.surface.deepSunk':   { group: 'surface',     modes: { light: 'color.warmGray.300', dark: 'color.dark.surfaceDeepSunk' } },
+  'color.text.primary':       { group: 'text',        modes: { light: 'color.warmGray.800', dark: 'color.dark.textPrimary' } },
+  'color.text.secondary':     { group: 'text',        modes: { light: 'color.warmGray.500', dark: 'color.warmGray.400' },
+    restrictions: { forbiddenSurfaces: ['color.surface.deepSunk'], modes: ['light'], substitute: 'color.text.primary',
+                    reason: 'Contrast 4.04:1 falls below WCAG AA 4.5:1 on this pair only.' } },
+  'color.text.disabled':      { group: 'text',        modes: { light: 'color.warmGray.400', dark: 'color.dark.textDisabled' }, exempt: 'disabled-by-spec' },
+  'color.text.onAccent':      { group: 'text',        modes: { light: 'color.utility.white', dark: 'color.utility.white' } },
+  'color.border.default':     { group: 'border',      modes: { light: 'color.warmGray.250', dark: 'color.dark.border' } },
+  'color.border.subtle':      { group: 'border',      modes: { light: 'color.warmGray.350', dark: 'color.dark.borderSubtle' } },
+  'color.border.strong':      { group: 'border',      modes: { light: 'color.warmGray.800', dark: 'color.warmGray.50' } },
+  'color.border.focus':       { group: 'border',      modes: { light: 'color.shu.500',      dark: 'color.shu.400' } },
+  'color.interactive.default':{ group: 'interactive', modes: { light: 'color.warmGray.800', dark: 'color.warmGray.50' } },
+  'color.interactive.hover':  { group: 'interactive', modes: { light: 'color.shu.500',      dark: 'color.shu.400' } },
+  'color.interactive.active': { group: 'interactive', modes: { light: 'color.shu.700',      dark: 'color.shu.500' } },
+  'color.status.success':     { group: 'status',      modes: { light: 'color.status.success.light', dark: 'color.status.success.dark' } },
+  'color.status.warning':     { group: 'status',      modes: { light: 'color.status.warning.light', dark: 'color.status.warning.dark' } },
+  'color.status.error':       { group: 'status',      modes: { light: 'color.shu.500',      dark: 'color.shu.400' } },
+  'color.status.info':        { group: 'status',      modes: { light: 'color.status.info.light',    dark: 'color.status.info.dark' } },
+  'color.brand.accent':       { group: 'brand',       modes: { light: 'color.shu.500',      dark: 'color.shu.500' } },
+  'color.brand.accentDeep':   { group: 'brand',       modes: { light: 'color.shu.700',      dark: 'color.shu.700' } },
+};
+
+/* ═════════════════════════════════════════════════════════════════
+   WCAG · relative luminance + contrast ratio
+   ═════════════════════════════════════════════════════════════════ */
+function hexToRgb(hex) {
+  const h = hex.replace('#','');
+  return [parseInt(h.slice(0,2),16), parseInt(h.slice(2,4),16), parseInt(h.slice(4,6),16)];
+}
+function luminance(hex) {
+  const [r,g,b] = hexToRgb(hex).map(c => {
+    c /= 255;
+    return c <= 0.03928 ? c/12.92 : Math.pow((c+0.055)/1.055, 2.4);
+  });
+  return 0.2126*r + 0.7152*g + 0.0722*b;
+}
+function contrast(fgHex, bgHex) {
+  const L1 = luminance(fgHex), L2 = luminance(bgHex);
+  const [lighter, darker] = L1 > L2 ? [L1, L2] : [L2, L1];
+  return (lighter + 0.05) / (darker + 0.05);
+}
+function gradeBadge(ratio) {
+  return {
+    AA:  ratio >= 4.5,
+    AALarge: ratio >= 3,
+    AAA: ratio >= 7,
+    AAALarge: ratio >= 4.5,
+  };
+}
+
+/* ═════════════════════════════════════════════════════════════════
+   Resolve semantic alias → hex (per current mode)
+   ═════════════════════════════════════════════════════════════════ */
+function resolveSemantic(tokenName, mode) {
+  const t = SEMANTIC[tokenName];
+  if (!t) return null;
+  const primName = t.modes[mode];
+  const p = PRIMITIVES[primName];
+  return p ? p.hex : null;
+}
+
+/* ═════════════════════════════════════════════════════════════════
+   RENDER · Primitives section
+   ═════════════════════════════════════════════════════════════════ */
+function renderPrimitives() {
+  const root = document.getElementById('primitives-content');
+  const scales = {
+    warmGray: { label: 'warmGray', meta: 'Warm-gray ladder · 12 steps · single hue', cols: 12 },
+    shu:      { label: 'shu', meta: 'Vermilion 朱 · 10 steps · the chromatic accent', cols: 10 },
+    dark:     { label: 'dark', meta: 'Dark-mode anchors · 7 from site canonical', cols: 7 },
+    utility:  { label: 'utility', meta: 'Utility · 2', cols: 2 },
+  };
+
+  const html = [];
+  for (const [scaleName, meta] of Object.entries(scales)) {
+    const tokens = Object.entries(PRIMITIVES)
+      .filter(([, v]) => v.scale === scaleName)
+      .sort((a, b) => {
+        const an = parseInt(a[1].step, 10);
+        const bn = parseInt(b[1].step, 10);
+        if (!isNaN(an) && !isNaN(bn)) return an - bn;
+        return a[1].step.localeCompare(b[1].step);
+      });
+    html.push(`<div class="scale-block">
+      <div class="scale-label"><span class="name">color.${meta.label}</span><span class="meta">${meta.meta}</span></div>
+      <div class="swatch-row cols-${meta.cols}">
+        ${tokens.map(([name, t]) => `
+          <div class="swatch" title="${name}">
+            <div class="chip" style="background:${t.hex}"></div>
+            <div class="info">
+              <span class="step">${t.step}</span>
+              <span class="hex">${t.hex}</span>
+            </div>
+          </div>`).join('')}
+      </div>
+    </div>`);
+  }
+
+  // Status — paired grid per family
+  const families = ['success', 'warning', 'info'];
+  html.push(`<div class="scale-block">
+    <div class="scale-label"><span class="name">color.status</span><span class="meta">3 families × light/dark · 6 swatches</span></div>
+    ${families.map(fam => `
+      <div class="status-pair">
+        <div class="name-cell">${fam}</div>
+        ${['light','dark'].map(mode => {
+          const t = PRIMITIVES[`color.status.${fam}.${mode}`];
+          return `<div class="swatch" title="color.status.${fam}.${mode}">
+            <div class="chip" style="background:${t.hex}"></div>
+            <div class="info">
+              <span class="step">${mode}</span>
+              <span class="hex">${t.hex}</span>
+            </div>
+          </div>`;
+        }).join('')}
+      </div>`).join('')}
+  </div>`);
+
+  root.innerHTML = html.join('');
+}
+
+/* ═════════════════════════════════════════════════════════════════
+   RENDER · Semantic section · responsive to current mode
+   ═════════════════════════════════════════════════════════════════ */
+function renderSemantic(mode) {
+  const root = document.getElementById('semantic-content');
+  document.getElementById('current-mode-display').textContent = mode;
+
+  const groups = {};
+  for (const [name, t] of Object.entries(SEMANTIC)) {
+    if (!groups[t.group]) groups[t.group] = [];
+    groups[t.group].push([name, t]);
+  }
+
+  const html = [];
+  for (const [groupName, tokens] of Object.entries(groups)) {
+    html.push(`<div class="sem-group">
+      <h3>color.${groupName}</h3>
+      <div class="sem-grid">
+        ${tokens.map(([name, t]) => {
+          const aliasName = t.modes[mode];
+          const hex = resolveSemantic(name, mode);
+          // Choose preview text color: contrast on the swatch fill
+          const textColor = contrast('#FFFFFF', hex) >= contrast('#000000', hex) ? '#FFFFFF' : '#000000';
+          return `
+            <div class="sem-token" title="${name}">
+              <div class="preview" style="background:${hex}; color:${textColor}">${hex}</div>
+              <div class="meta">
+                <div class="name">${name}</div>
+                <div class="alias"><span class="arrow">→</span> ${aliasName}</div>
+              </div>
+            </div>`;
+        }).join('')}
+      </div>
+    </div>`);
+  }
+  root.innerHTML = html.join('');
+}
+
+/* ═════════════════════════════════════════════════════════════════
+   RENDER · Contrast audit table · all text × all surface, both modes
+   ═════════════════════════════════════════════════════════════════ */
+function renderContrastTable() {
+  const tbody = document.getElementById('contrast-table-body');
+  const textTokens = ['color.text.primary', 'color.text.secondary', 'color.text.disabled'];
+  const surfaceTokens = ['color.surface.page', 'color.surface.sunk', 'color.surface.deepSunk'];
+  const modes = ['light', 'dark'];
+
+  const rows = [];
+  for (const mode of modes) {
+    for (const tName of textTokens) {
+      for (const sName of surfaceTokens) {
+        const fg = resolveSemantic(tName, mode);
+        const bg = resolveSemantic(sName, mode);
+        const r = contrast(fg, bg);
+        const g = gradeBadge(r);
+        const sem = SEMANTIC[tName];
+        // Restriction check
+        const restricted = sem.restrictions
+          && sem.restrictions.modes.includes(mode)
+          && sem.restrictions.forbiddenSurfaces.includes(sName);
+        const exempt = sem.exempt;
+
+        let statusCell = '';
+        if (restricted) {
+          statusCell = `<span class="pill restrict">Restricted</span>
+            <div class="restriction-note">${sem.restrictions.reason} Use <code>${sem.restrictions.substitute}</code> on this surface.</div>`;
+        } else if (exempt) {
+          statusCell = `<span class="pill exempt">Exempt · ${exempt}</span>`;
+        } else if (g.AA) {
+          statusCell = `<span class="pill pass">In-spec</span>`;
+        } else {
+          statusCell = `<span class="pill fail">Fail</span>`;
+        }
+
+        rows.push(`<tr>
+          <td><span class="mode-chip ${mode === 'dark' ? 'dark' : ''}">${mode}</span></td>
+          <td class="swatch-cell"><span class="swatch-preview" style="background:${fg}"></span>${tName.replace('color.','')}</td>
+          <td class="swatch-cell"><span class="swatch-preview" style="background:${bg}"></span>${sName.replace('color.','')}</td>
+          <td class="ratio">${r.toFixed(2)}:1</td>
+          <td>${g.AA ? '<span class="pill pass">Pass</span>' : '<span class="pill fail">Fail</span>'}</td>
+          <td>${g.AAA ? '<span class="pill pass">Pass</span>' : '<span class="pill fail">Fail</span>'}</td>
+          <td>${statusCell}</td>
+        </tr>`);
+      }
+    }
+  }
+  tbody.innerHTML = rows.join('');
+}
+
+/* ═════════════════════════════════════════════════════════════════
+   CUSTOM PICKER · any fg × any bg from full token set
+   ═════════════════════════════════════════════════════════════════ */
+function buildPickerOptions(currentMode) {
+  // Build a flat label → hex list from primitives + semantic (resolved per mode)
+  const opts = [];
+  // Semantic (resolved)
+  for (const [name] of Object.entries(SEMANTIC)) {
+    const hex = resolveSemantic(name, currentMode);
+    opts.push({ group: `semantic (${currentMode})`, label: name, hex });
+  }
+  // Primitives
+  for (const [name, t] of Object.entries(PRIMITIVES)) {
+    opts.push({ group: 'primitives', label: name, hex: t.hex });
+  }
+
+  // Build optgroups
+  const byGroup = {};
+  for (const o of opts) {
+    if (!byGroup[o.group]) byGroup[o.group] = [];
+    byGroup[o.group].push(o);
+  }
+  return Object.entries(byGroup).map(([g, items]) =>
+    `<optgroup label="${g}">${items.map(o =>
+      `<option value="${o.hex}" data-name="${o.label}">${o.label} — ${o.hex}</option>`
+    ).join('')}</optgroup>`
+  ).join('');
+}
+
+function populatePicker(mode) {
+  const fg = document.getElementById('picker-fg');
+  const bg = document.getElementById('picker-bg');
+  const opts = buildPickerOptions(mode);
+  const prevFg = fg.value, prevBg = bg.value;
+  fg.innerHTML = opts;
+  bg.innerHTML = opts;
+  // Default selections: text.primary on surface.page if first load
+  if (!prevFg) fg.value = resolveSemantic('color.text.primary', mode);
+  else fg.value = prevFg;
+  if (!prevBg) bg.value = resolveSemantic('color.surface.page', mode);
+  else bg.value = prevBg;
+  updatePicker();
+}
+
+function updatePicker() {
+  const fg = document.getElementById('picker-fg').value;
+  const bg = document.getElementById('picker-bg').value;
+  const r = contrast(fg, bg);
+  const g = gradeBadge(r);
+  document.getElementById('picker-fg-hex').textContent = fg;
+  document.getElementById('picker-bg-hex').textContent = bg;
+  document.getElementById('picker-ratio').textContent = r.toFixed(2) + ':1';
+
+  const grades = [];
+  if (g.AAA) grades.push('AAA');
+  else if (g.AA) grades.push('AA');
+  else if (g.AALarge) grades.push('AA Large');
+  else grades.push('Fail');
+  document.getElementById('picker-grade').textContent = grades.join(' ');
+
+  const preview = document.getElementById('picker-preview');
+  preview.style.background = bg;
+  preview.style.color = fg;
+}
+
+/* ═════════════════════════════════════════════════════════════════
+   MODE TOGGLE · flips the entire UI + re-renders semantic + picker
+   ═════════════════════════════════════════════════════════════════ */
+function setMode(mode) {
+  document.documentElement.setAttribute('data-theme', mode);
+  document.querySelectorAll('.mode-toggle button').forEach(b => {
+    b.setAttribute('aria-pressed', b.dataset.mode === mode ? 'true' : 'false');
+  });
+  renderSemantic(mode);
+  populatePicker(mode);
+}
+
+/* ═════════════════════════════════════════════════════════════════
+   INIT
+   ═════════════════════════════════════════════════════════════════ */
+document.addEventListener('DOMContentLoaded', () => {
+  renderPrimitives();
+  renderContrastTable();
+  setMode('light');
+
+  // Mode toggle wiring
+  document.querySelectorAll('.mode-toggle button').forEach(btn => {
+    btn.addEventListener('click', () => setMode(btn.dataset.mode));
+  });
+
+  // Picker change wiring
+  document.getElementById('picker-fg').addEventListener('change', updatePicker);
+  document.getElementById('picker-bg').addEventListener('change', updatePicker);
+});
+</script>
+</body>
+</html>
