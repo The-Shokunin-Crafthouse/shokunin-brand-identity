@@ -1,0 +1,1738 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<title>SCDS · Color · Mobile</title>
+<meta name="viewport" content="width=390, initial-scale=1">
+<link rel="icon" type="image/svg+xml" href="../system/mark-icon-light.svg">
+<link rel="stylesheet" href="../system/colors_and_type.css">
+<link rel="stylesheet" href="../system/_components.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  html { background: var(--sc-color-surface-page); }
+  body {
+    width: 390px;
+    min-height: 100vh;
+    color: var(--sc-color-text-primary);
+    background: var(--sc-color-surface-page);
+    font: var(--sc-t-body);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* ─────────────────────────────────────────────────────────────
+   * Status bar (visual only — kept inside the page so iframe is honest)
+   * ───────────────────────────────────────────────────────────── */
+  .statusbar {
+    height: 47px;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--sc-color-text-primary);
+    font: 600 15px/1 -apple-system, "SF Pro", system-ui;
+    position: relative;
+    z-index: 30;
+    background: var(--sc-color-surface-page);
+  }
+  .statusbar .right { display: flex; gap: 6px; align-items: center; }
+  .sb-glyph { width: 17px; height: 11px; display: inline-block; }
+
+  /* Home indicator */
+  .home-indicator {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 390px;
+    height: 32px;
+    background: transparent;
+    pointer-events: none;
+    z-index: 40;
+  }
+  .home-indicator::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 8px;
+    width: 134px;
+    height: 5px;
+    border-radius: 9999px;
+    background: var(--sc-color-text-primary);
+    transform: translateX(-50%);
+    opacity: 0.92;
+  }
+
+  /* ─────────────────────────────────────────────────────────────
+   * Generic content
+   * ───────────────────────────────────────────────────────────── */
+  main.content {
+    padding-inline: 24px;
+    padding-block: 24px 120px;
+  }
+
+  /* metabar (under nav, above hero) */
+  .metabar {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    padding-bottom: 16px;
+    border-bottom: var(--sc-border-width-default) solid var(--sc-color-border-default);
+    margin-bottom: 48px;
+    font: var(--sc-t-mono-chrome);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .metabar .crumb { color: var(--sc-color-text-secondary); }
+  .metabar .crumb .accent { color: var(--sc-color-brand-accent); margin-right: 6px; }
+  .metabar .meta-right { color: var(--sc-color-text-disabled); letter-spacing: 0.06em; }
+  .metabar .meta-right b { color: var(--sc-color-text-secondary); font-weight: var(--sc-p-font-weight-medium); margin-right: 4px; }
+
+  /* hero */
+  .hero { margin-bottom: 56px; }
+  .hero-eyebrow {
+    font: var(--sc-t-mono-chrome);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--sc-color-text-secondary);
+    margin-bottom: 24px;
+    display: inline-block;
+  }
+  .hero h1 {
+    font: var(--sc-p-font-weight-light) 44px/1.05 var(--sc-p-font-family-display);
+    letter-spacing: -0.02em;
+    color: var(--sc-color-text-primary);
+    margin: 0 0 24px;
+    text-wrap: balance;
+  }
+  .hero .lead {
+    font: var(--sc-p-font-weight-regular) 17px/1.5 var(--sc-p-font-family-text);
+    color: var(--sc-color-text-secondary);
+    margin: 0;
+    text-wrap: pretty;
+  }
+  .hero .lead em {
+    font-style: normal;
+    color: var(--sc-color-text-primary);
+  }
+
+  /* chapter */
+  .chapter {
+    padding-top: 48px;
+    border-top: var(--sc-border-width-default) solid var(--sc-color-border-default);
+    margin-bottom: 48px;
+    scroll-margin-top: 80px;
+  }
+  .chapter-eyebrow {
+    font: var(--sc-t-mono-chrome);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--sc-color-text-disabled);
+    display: flex;
+    gap: 10px;
+    align-items: baseline;
+    margin-bottom: 16px;
+  }
+  .chapter-eyebrow .ord { color: var(--sc-color-brand-accent); }
+  .chapter-eyebrow .dot {
+    width: 3px; height: 3px;
+    background: var(--sc-color-text-disabled);
+    display: inline-block;
+    transform: translateY(-2px);
+  }
+  .chapter h2 {
+    font: var(--sc-p-font-weight-light) 28px/1.15 var(--sc-p-font-family-display);
+    letter-spacing: -0.015em;
+    color: var(--sc-color-text-primary);
+    margin: 0 0 16px;
+    text-wrap: balance;
+  }
+  .chapter .premise {
+    font: var(--sc-p-font-weight-regular) 15px/1.55 var(--sc-p-font-family-text);
+    color: var(--sc-color-text-secondary);
+    margin: 0 0 28px;
+    text-wrap: pretty;
+  }
+  .chapter-body { display: flex; flex-direction: column; gap: 20px; }
+
+  .row-eyebrow {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font: var(--sc-t-mono-chrome);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--sc-color-text-secondary);
+    margin-bottom: 4px;
+  }
+  .row-eyebrow b { color: var(--sc-color-text-primary); font-weight: var(--sc-p-font-weight-medium); }
+
+  /* inline callout (replaces desktop right-gutter annotations) */
+  .callout {
+    font: var(--sc-p-font-weight-regular) 11px/1.55 var(--sc-p-font-family-mono);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--sc-color-text-secondary);
+    padding: 0 0 0 12px;
+    border-left: var(--sc-border-width-default) solid var(--sc-color-border-default);
+    margin-top: 12px;
+  }
+  .callout b {
+    font-weight: var(--sc-p-font-weight-medium);
+    color: var(--sc-color-text-primary);
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  /* ─────────────────────────────────────────────────────────────
+   * Chapter i — warm-gray ladder (horizontal scroll)
+   * ───────────────────────────────────────────────────────────── */
+  .ramp-scroller {
+    overflow-x: auto;
+    margin: 0 -24px;
+    padding: 0 24px;
+    scrollbar-width: none;
+  }
+  .ramp-scroller::-webkit-scrollbar { display: none; }
+  .ramp-strip {
+    display: inline-flex;
+    gap: 0;
+    border-radius: var(--sc-radius-control);
+    overflow: hidden;
+    border: var(--sc-border-width-default) solid var(--sc-color-border-default);
+    height: 160px;
+    min-width: max-content;
+  }
+  .ramp-strip .stop {
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    width: 44px;
+    height: 100%;
+    position: relative;
+    transition: width var(--sc-motion-hover-duration) var(--sc-motion-hover-easing);
+  }
+  .ramp-strip .stop[aria-pressed="true"]::after {
+    content: "";
+    position: absolute; inset: 0;
+    box-shadow: inset 0 0 0 2px var(--sc-color-brand-accent);
+  }
+  .ramp-labels {
+    display: flex;
+    margin: 8px -24px 0;
+    padding: 0 24px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .ramp-labels::-webkit-scrollbar { display: none; }
+  .ramp-labels .l {
+    flex: 0 0 44px;
+    font: var(--sc-t-mono-chrome);
+    color: var(--sc-color-text-secondary);
+    text-align: left;
+  }
+  .ramp-labels .l .step {
+    color: var(--sc-color-text-primary);
+    font-weight: var(--sc-p-font-weight-medium);
+    display: block;
+  }
+  .ramp-key {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px 16px;
+    padding-top: 12px;
+    border-top: var(--sc-border-width-default) solid var(--sc-color-border-default);
+    font: var(--sc-t-mono-chrome);
+    color: var(--sc-color-text-secondary);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .ramp-key b { color: var(--sc-color-text-primary); font-weight: var(--sc-p-font-weight-medium); }
+
+  /* ─────────────────────────────────────────────────────────────
+   * Chapter ii — shu (vertical stack on mobile)
+   * ───────────────────────────────────────────────────────────── */
+  .shu-plate {
+    background: var(--sc-p-color-shu-500);
+    color: var(--sc-p-color-warm-gray-50);
+    aspect-ratio: 4 / 3;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: var(--sc-radius-control);
+    cursor: pointer;
+    border: 0;
+    width: 100%;
+    text-align: left;
+  }
+  .shu-plate .plate-head {
+    font: var(--sc-t-mono-chrome);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .shu-plate .glyph {
+    font: var(--sc-p-font-weight-light) 120px/0.9 var(--sc-p-font-family-display);
+    align-self: flex-end;
+    color: rgba(241, 239, 235, 0.96);
+    letter-spacing: -0.04em;
+    margin-bottom: -12px;
+  }
+  .shu-plate .plate-foot {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font: var(--sc-t-mono-chrome);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(241, 239, 235, 0.86);
+  }
+  .shu-plate .plate-foot b { color: var(--sc-p-color-warm-gray-50); font-weight: var(--sc-p-font-weight-medium); }
+
+  .shu-rail {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1px;
+    border-radius: var(--sc-radius-control);
+    overflow: hidden;
+  }
+  .shu-rail .step {
+    border: 0;
+    cursor: pointer;
+    height: 48px;
+    padding: 0 6px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    font: var(--sc-t-mono-chrome);
+    letter-spacing: 0;
+    position: relative;
+  }
+  .shu-rail .step .name { font-weight: var(--sc-p-font-weight-medium); }
+  .shu-rail .step .hex { opacity: 0.7; font-size: 10px; }
+  .shu-rail .step[aria-pressed="true"] { box-shadow: inset 0 0 0 2px var(--sc-color-brand-accent); }
+
+  .three-jobs {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border: var(--sc-border-width-default) solid var(--sc-color-border-default);
+    border-radius: var(--sc-radius-control);
+    overflow: hidden;
+  }
+  .three-jobs .job {
+    padding: 16px;
+    border-bottom: var(--sc-border-width-default) solid var(--sc-color-border-default);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .three-jobs .job:last-child { border-bottom: 0; }
+  .three-jobs .label {
+    font: var(--sc-t-mono-chrome);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--sc-color-text-secondary);
+  }
+  .three-jobs .demo { display: flex; align-items: center; height: 44px; }
+  .three-jobs .caption {
+    font: var(--sc-t-mono-chrome);
+    color: var(--sc-color-text-disabled);
+  }
+  .demo-hover {
+    color: var(--sc-color-text-primary);
+    font: var(--sc-p-font-weight-regular) 16px/1.4 var(--sc-p-font-family-text);
+    text-decoration: none;
+  }
+  .demo-hover:active { color: var(--sc-color-interactive-hover); }
+  .demo-focus {
+    padding: 8px 12px;
+    border-radius: var(--sc-radius-control);
+    background: var(--sc-color-surface-sunk);
+    border: var(--sc-border-width-default) solid var(--sc-color-border-default);
+    color: var(--sc-color-text-primary);
+    font: var(--sc-p-font-weight-regular) 14px/1.2 var(--sc-p-font-family-text);
+    width: 100%;
+  }
+  .demo-focus:focus {
+    outline: 2px solid var(--sc-color-brand-accent);
+    outline-offset: 2px;
+    border-color: var(--sc-color-brand-accent);
+  }
+  .demo-mark {
+    width: 56px; height: 44px;
+    background: var(--sc-color-text-primary);
+    position: relative;
+    display: inline-block;
+  }
+  .demo-mark::after {
+    content: "";
+    position: absolute; right: 0; top: 0;
+    width: 14px; height: 14px;
+    background: var(--sc-p-color-shu-500);
+  }
+
+  /* ─────────────────────────────────────────────────────────────
+   * Chapter iii — status row (2x2)
+   * ───────────────────────────────────────────────────────────── */
+  .status-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border: var(--sc-border-width-default) solid var(--sc-color-border-default);
+    border-radius: var(--sc-radius-control);
+    overflow: hidden;
+  }
+  .status-tile { display: flex; flex-direction: column; }
+  .status-tile:nth-child(odd) { border-right: var(--sc-border-width-default) solid var(--sc-color-border-default); }
+  .status-tile:nth-child(-n+2) { border-bottom: var(--sc-border-width-default) solid var(--sc-color-border-default); }
+  .status-swatch { height: 72px; border: 0; cursor: pointer; }
+  .status-meta { padding: 12px 14px 14px; background: var(--sc-color-surface-raised); border-top: var(--sc-border-width-default) solid var(--sc-color-border-default); }
+  .status-meta .name {
+    font: var(--sc-t-mono-chrome);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--sc-color-text-primary);
+    margin-bottom: 2px;
+  }
+  .status-meta .hue {
+    font: var(--sc-p-font-weight-regular) 11px/1.4 var(--sc-p-font-family-text);
+    color: var(--sc-color-text-secondary);
+    margin-bottom: 6px;
+  }
+  .status-meta .hexes {
+    font: var(--sc-t-mono-chrome);
+    color: var(--sc-color-text-disabled);
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+  }
+  .status-meta .hexes b { color: var(--sc-color-text-secondary); font-weight: var(--sc-p-font-weight-medium); }
+
+  /* ─────────────────────────────────────────────────────────────
+   * Chapter iv — three-tier (vertical cards)
+   * ───────────────────────────────────────────────────────────── */
+  .tier-stack { display: flex; flex-direction: column; gap: 16px; }
+  .tier-row {
+    border: var(--sc-border-width-default) solid var(--sc-color-border-default);
+    border-radius: var(--sc-radius-control);
+    overflow: hidden;
+  }
+  .tier-step {
+    padding: 12px 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: var(--sc-border-width-default) solid var(--sc-color-border-default);
+  }
+  .tier-step:last-child { border-bottom: 0; }
+  .tier-step .badge-num {
+    font: var(--sc-t-mono-chrome);
+    color: var(--sc-color-text-disabled);
+    width: 18px;
+    flex-shrink: 0;
+  }
+  .tier-step .swatch-dot {
+    width: 20px; height: 20px;
+    border-radius: 2px;
+    flex-shrink: 0;
+    border: var(--sc-border-width-default) solid var(--sc-color-border-default);
+  }
+  .tier-step .tok {
+    font: var(--sc-p-font-weight-regular) 11px/1.4 var(--sc-p-font-family-mono);
+    color: var(--sc-color-text-primary);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .tier-step .tok .dim { color: var(--sc-color-text-secondary); }
+  .tier-step.is-component { background: var(--sc-color-surface-raised); }
+  .tier-step.is-component .tok { color: var(--sc-color-text-secondary); }
+  .tier-step.is-component .tok b { color: var(--sc-color-text-primary); font-weight: var(--sc-p-font-weight-medium); }
+
+  /* ─────────────────────────────────────────────────────────────
+   * Chapter v — contrast checker (mobile)
+   * ───────────────────────────────────────────────────────────── */
+  .checker {
+    border: var(--sc-border-width-default) solid var(--sc-color-border-default);
+    border-radius: var(--sc-radius-control);
+    overflow: hidden;
+    background: var(--sc-color-surface-raised);
+  }
+  .checker-side {
+    padding: 14px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border-bottom: var(--sc-border-width-default) solid var(--sc-color-border-default);
+  }
+  .checker-side .role {
+    font: var(--sc-t-mono-chrome);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--sc-color-text-secondary);
+    display: flex;
+    justify-content: space-between;
+  }
+  .checker-side .role .tok-name { color: var(--sc-color-text-primary); font-weight: var(--sc-p-font-weight-medium); }
+  .checker-side .role .hex-val { color: var(--sc-color-text-disabled); }
+  .checker-swatch {
+    height: 48px;
+    border-radius: var(--sc-radius-control);
+    border: var(--sc-border-width-default) solid var(--sc-color-border-default);
+  }
+  .picker-row { display: flex; gap: 6px; flex-wrap: wrap; }
+  .picker-row .px {
+    width: 24px; height: 24px;
+    border: var(--sc-border-width-default) solid var(--sc-color-border-default);
+    border-radius: 2px;
+    padding: 0;
+    cursor: pointer;
+  }
+  .picker-row .px[aria-pressed="true"] {
+    outline: 2px solid var(--sc-color-brand-accent);
+    outline-offset: 2px;
+  }
+  .checker-preview {
+    padding: 28px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    border-bottom: var(--sc-border-width-default) solid var(--sc-color-border-default);
+  }
+  .checker-preview .p-aa {
+    font: 300 44px/1 var(--sc-p-font-family-display);
+    letter-spacing: -0.02em;
+  }
+  .checker-preview .p-body {
+    font: 400 14px/1.5 var(--sc-p-font-family-text);
+  }
+  .checker-preview .p-chrome {
+    font: 500 10px/1.5 var(--sc-p-font-family-mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0.78;
+  }
+  .ratio-cell {
+    padding: 18px 16px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    border-bottom: var(--sc-border-width-default) solid var(--sc-color-border-default);
+  }
+  .ratio-label {
+    font: var(--sc-t-mono-chrome);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--sc-color-text-secondary);
+  }
+  .ratio-value {
+    font: 300 56px/1 var(--sc-p-font-family-display);
+    letter-spacing: -0.025em;
+    color: var(--sc-color-text-primary);
+    font-variant-numeric: tabular-nums;
+  }
+  .ratio-value .colon { color: var(--sc-color-text-disabled); margin: 0 8px; }
+  .ratio-value.bad { color: var(--sc-color-status-error); }
+  .ratio-foot {
+    font: 400 12px/1.4 var(--sc-p-font-family-text);
+    color: var(--sc-color-text-secondary);
+    margin-top: 6px;
+  }
+  .ratio-foot b { color: var(--sc-color-text-primary); font-weight: var(--sc-p-font-weight-medium); }
+  .verdicts {
+    padding: 14px 16px 18px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px 14px;
+  }
+  .verdict { display: flex; flex-direction: column; gap: 4px; }
+  .verdict .v-head {
+    font: var(--sc-t-mono-chrome);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--sc-color-text-secondary);
+  }
+  .verdict .badge-row { display: flex; align-items: center; gap: 6px; }
+  .verdict .req { font: var(--sc-t-mono-chrome); color: var(--sc-color-text-disabled); }
+  .sc-badge.sc-badge--pass { color: var(--sc-color-status-success); border-color: var(--sc-color-status-success); }
+  .sc-badge.sc-badge--fail { color: var(--sc-color-status-error); border-color: var(--sc-color-status-error); }
+
+  /* ═════════════════════════════════════════════════════════════
+   * NAV PATTERN A — DRAWER (default; conventional hamburger)
+   * ═════════════════════════════════════════════════════════════ */
+  [data-nav="drawer"] .pattern-a { display: contents; }
+  [data-nav="drawer"] .pattern-b,
+  [data-nav="drawer"] .pattern-c { display: none !important; }
+
+  .pa-topbar {
+    position: sticky;
+    top: 0;
+    z-index: 25;
+    height: 52px;
+    background: var(--sc-color-surface-page);
+    border-bottom: var(--sc-border-width-default) solid var(--sc-color-border-default);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+  }
+  .pa-burger {
+    width: 44px; height: 44px;
+    background: transparent;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    align-items: flex-start;
+    padding-left: 8px;
+  }
+  .pa-burger span {
+    width: 18px;
+    height: 1.5px;
+    background: var(--sc-color-text-primary);
+    display: block;
+  }
+  .pa-burger span:nth-child(2) { width: 14px; }
+  .pa-title {
+    font: var(--sc-t-mono-chrome);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--sc-color-text-primary);
+  }
+  .pa-title .accent { color: var(--sc-color-brand-accent); margin-right: 6px; }
+  .pa-mark {
+    width: 22px; height: 22px;
+    display: block;
+  }
+
+  /* drawer */
+  .pa-scrim {
+    position: fixed;
+    inset: 0;
+    background: rgba(13, 12, 11, 0.55);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--sc-motion-mode-duration) var(--sc-motion-mode-easing);
+    z-index: 50;
+  }
+  .pa-drawer {
+    position: fixed;
+    left: 0; top: 0; bottom: 0;
+    width: 326px;
+    background: var(--sc-color-surface-page);
+    border-right: var(--sc-border-width-default) solid var(--sc-color-border-default);
+    transform: translateX(-100%);
+    transition: transform var(--sc-motion-mode-duration) var(--sc-motion-mode-easing);
+    z-index: 51;
+    padding: 24px 24px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    overflow-y: auto;
+  }
+  body.drawer-open .pa-scrim { opacity: 1; pointer-events: auto; }
+  body.drawer-open .pa-drawer { transform: translateX(0); }
+  .pa-drawer .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--sc-color-text-primary);
+    text-decoration: none;
+  }
+  .pa-drawer .brand img { width: 22px; height: 22px; }
+  .pa-drawer .brand-name {
+    font: var(--sc-t-mono-chrome);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .pa-drawer .brand-sub {
+    font: var(--sc-t-mono-chrome);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--sc-color-text-secondary);
+  }
+  .pa-drawer .pa-close {
+    position: absolute;
+    top: 16px; right: 16px;
+    width: 44px; height: 44px;
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    font: 300 24px/1 var(--sc-p-font-family-display);
+    color: var(--sc-color-text-secondary);
+  }
+  .pa-drawer .nav-section { display: flex; flex-direction: column; gap: 4px; }
+  .pa-drawer .nav-eyebrow {
+    font: var(--sc-t-mono-chrome);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--sc-color-text-disabled);
+    padding: 4px 0 4px;
+  }
+  .pa-drawer .nav-eyebrow .ord {
+    color: var(--sc-color-text-secondary);
+    margin-right: 6px;
+  }
+  .pa-drawer .nav-link {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    color: var(--sc-color-text-primary);
+    text-decoration: none;
+    font: var(--sc-p-font-weight-regular) 16px/1.5 var(--sc-p-font-family-text);
+    padding: 6px 0;
+    position: relative;
+  }
+  .pa-drawer .nav-link .num {
+    font: var(--sc-t-mono-chrome);
+    color: var(--sc-color-text-disabled);
+  }
+  .pa-drawer .nav-link[aria-current="page"] {
+    font-weight: var(--sc-p-font-weight-medium);
+  }
+  .pa-drawer .nav-link[aria-current="page"]::before {
+    content: "";
+    position: absolute;
+    left: -24px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 2px;
+    height: 16px;
+    background: var(--sc-color-brand-accent);
+  }
+  .pa-drawer .mode-row {
+    margin-top: auto;
+    padding-top: 16px;
+    border-top: var(--sc-border-width-default) solid var(--sc-color-border-default);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .pa-drawer .mode-label {
+    font: var(--sc-t-mono-chrome);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--sc-color-text-secondary);
+  }
+  .pa-drawer .mode-label .state { color: var(--sc-color-text-primary); margin-left: 4px; }
+  .pa-drawer .drawer-foot {
+    font: var(--sc-t-mono-chrome);
+    color: var(--sc-color-text-disabled);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  /* ═════════════════════════════════════════════════════════════
+   * NAV PATTERN B — BOTTOM SECTION SHEET
+   * ═════════════════════════════════════════════════════════════ */
+  [data-nav="sheet"] .pattern-b { display: contents; }
+  [data-nav="sheet"] .pattern-a,
+  [data-nav="sheet"] .pattern-c { display: none !important; }
+
+  /* top crumb-only bar */
+  .pb-topbar {
+    position: sticky;
+    top: 0;
+    z-index: 25;
+    height: 44px;
+    background: var(--sc-color-surface-page);
+    border-bottom: var(--sc-border-width-default) solid var(--sc-color-border-default);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+  }
+  .pb-topbar .crumb {
+    font: var(--sc-t-mono-chrome);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--sc-color-text-secondary);
+  }
+  .pb-topbar .crumb .accent { color: var(--sc-color-brand-accent); margin-right: 6px; }
+  .pb-topbar .pb-mark { width: 20px; height: 20px; }
+
+  /* fixed bottom dock — current chapter pill */
+  .pb-dock {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 45;
+    width: 342px;
+    height: 56px;
+    background: var(--sc-color-surface-page);
+    border: var(--sc-border-width-default) solid var(--sc-color-border-default);
+    border-radius: var(--sc-radius-surface);
+    box-shadow: var(--sc-elevation-card);
+    display: flex;
+    align-items: center;
+    padding: 0 6px 0 20px;
+    cursor: pointer;
+    gap: 12px;
+  }
+  .pb-dock-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex: 1;
+    min-width: 0;
+  }
+  .pb-dock-eyebrow {
+    font: var(--sc-t-mono-chrome);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--sc-color-text-disabled);
+  }
+  .pb-dock-eyebrow .ord { color: var(--sc-color-brand-accent); margin-right: 4px; }
+  .pb-dock-title {
+    font: var(--sc-p-font-weight-medium) 14px/1.2 var(--sc-p-font-family-text);
+    color: var(--sc-color-text-primary);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .pb-dock-button {
+    width: 44px; height: 44px;
+    border-radius: var(--sc-radius-control);
+    background: var(--sc-color-surface-sunk);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--sc-color-text-primary);
+    font: 300 18px/1 var(--sc-p-font-family-display);
+  }
+
+  /* sheet */
+  .pb-sheet-scrim {
+    position: fixed;
+    inset: 0;
+    background: rgba(13,12,11,0.55);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 60;
+    transition: opacity var(--sc-motion-mode-duration) var(--sc-motion-mode-easing);
+  }
+  .pb-sheet {
+    position: fixed;
+    left: 0; right: 0;
+    bottom: 0;
+    z-index: 61;
+    background: var(--sc-color-surface-page);
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    border-top: var(--sc-border-width-default) solid var(--sc-color-border-default);
+    transform: translateY(100%);
+    transition: transform var(--sc-motion-mode-duration) var(--sc-motion-mode-easing);
+    max-height: 80vh;
+    display: flex;
+    flex-direction: column;
+  }
+  body.sheet-open .pb-sheet-scrim { opacity: 1; pointer-events: auto; }
+  body.sheet-open .pb-sheet { transform: translateY(0); }
+  .pb-grabber {
+    width: 36px; height: 4px;
+    background: var(--sc-color-text-disabled);
+    border-radius: 9999px;
+    margin: 8px auto 4px;
+    opacity: 0.5;
+  }
+  .pb-sheet-head {
+    padding: 12px 24px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: var(--sc-border-width-default) solid var(--sc-color-border-default);
+  }
+  .pb-sheet-head .title {
+    font: var(--sc-p-font-weight-medium) 16px/1.2 var(--sc-p-font-family-text);
+    color: var(--sc-color-text-primary);
+  }
+  .pb-tabs {
+    display: inline-flex;
+    border: var(--sc-border-width-default) solid var(--sc-color-border-default);
+    border-radius: var(--sc-radius-control);
+    overflow: hidden;
+  }
+  .pb-tab {
+    background: transparent;
+    border: 0;
+    padding: 6px 12px;
+    font: var(--sc-t-mono-chrome);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--sc-color-text-secondary);
+    cursor: pointer;
+  }
+  .pb-tab[aria-pressed="true"] {
+    background: var(--sc-color-text-primary);
+    color: var(--sc-color-surface-page);
+  }
+  .pb-sheet-body {
+    overflow-y: auto;
+    padding: 0 0 24px;
+  }
+  .pb-sheet-section { padding: 16px 24px 8px; }
+  .pb-sheet-section .eyebrow {
+    font: var(--sc-t-mono-chrome);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--sc-color-text-disabled);
+    margin-bottom: 8px;
+  }
+  .pb-sheet-section .eyebrow .ord { color: var(--sc-color-text-secondary); margin-right: 6px; }
+  .pb-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 0;
+    color: var(--sc-color-text-primary);
+    text-decoration: none;
+    font: var(--sc-p-font-weight-regular) 16px/1.3 var(--sc-p-font-family-text);
+    border-bottom: var(--sc-border-width-default) solid var(--sc-color-border-default);
+  }
+  .pb-link:last-child { border-bottom: 0; }
+  .pb-link .num { font: var(--sc-t-mono-chrome); color: var(--sc-color-text-disabled); }
+  .pb-link[aria-current="true"] {
+    color: var(--sc-color-text-primary);
+    font-weight: var(--sc-p-font-weight-medium);
+  }
+  .pb-link[aria-current="true"] .num { color: var(--sc-color-brand-accent); }
+  .pb-link .roman {
+    width: 24px;
+    font: var(--sc-t-mono-chrome);
+    color: var(--sc-color-text-disabled);
+  }
+
+  /* push the bottom of content so dock doesn't cover */
+  [data-nav="sheet"] main.content { padding-bottom: 140px; }
+
+  /* ═════════════════════════════════════════════════════════════
+   * NAV PATTERN C — STEPPER RAIL
+   * ═════════════════════════════════════════════════════════════ */
+  [data-nav="rail"] .pattern-c { display: contents; }
+  [data-nav="rail"] .pattern-a,
+  [data-nav="rail"] .pattern-b { display: none !important; }
+
+  [data-nav="rail"] main.content { padding-left: 56px; }
+
+  /* top: page chevron */
+  .pc-topbar {
+    position: sticky;
+    top: 0;
+    z-index: 25;
+    height: 44px;
+    background: var(--sc-color-surface-page);
+    border-bottom: var(--sc-border-width-default) solid var(--sc-color-border-default);
+    display: flex;
+    align-items: center;
+    padding: 0 16px 0 56px;
+  }
+  .pc-page-pill {
+    background: transparent;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font: var(--sc-t-mono-chrome);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--sc-color-text-primary);
+  }
+  .pc-page-pill .crumb-prefix { color: var(--sc-color-text-secondary); }
+  .pc-page-pill .crumb-prefix .ord { color: var(--sc-color-brand-accent); margin-right: 4px; }
+  .pc-page-pill .chev {
+    width: 8px; height: 8px;
+    border-right: 1.5px solid var(--sc-color-text-primary);
+    border-bottom: 1.5px solid var(--sc-color-text-primary);
+    transform: rotate(45deg);
+    margin-left: 4px;
+    transition: transform var(--sc-motion-hover-duration) var(--sc-motion-hover-easing);
+  }
+  body.pages-open .pc-page-pill .chev { transform: rotate(-135deg); margin-top: 4px; }
+  .pc-mark {
+    margin-left: auto;
+    width: 20px; height: 20px;
+  }
+
+  /* page dropdown */
+  .pc-page-sheet {
+    position: fixed;
+    left: 0; right: 0;
+    top: 91px; /* status 47 + bar 44 */
+    z-index: 35;
+    background: var(--sc-color-surface-page);
+    border-bottom: var(--sc-border-width-default) solid var(--sc-color-border-default);
+    transform: translateY(calc(-100% - 100px));
+    transition: transform var(--sc-motion-mode-duration) var(--sc-motion-mode-easing);
+    padding: 16px 24px 24px 56px;
+    box-shadow: var(--sc-elevation-card);
+  }
+  body.pages-open .pc-page-sheet { transform: translateY(0); }
+  .pc-page-sheet .nav-eyebrow {
+    font: var(--sc-t-mono-chrome);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--sc-color-text-disabled);
+    margin: 8px 0 4px;
+  }
+  .pc-page-sheet .nav-eyebrow .ord { color: var(--sc-color-text-secondary); margin-right: 6px; }
+  .pc-page-link {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    padding: 6px 0;
+    color: var(--sc-color-text-primary);
+    text-decoration: none;
+    font: var(--sc-p-font-weight-regular) 16px/1.4 var(--sc-p-font-family-text);
+  }
+  .pc-page-link .num { font: var(--sc-t-mono-chrome); color: var(--sc-color-text-disabled); }
+  .pc-page-link[aria-current="page"] { font-weight: var(--sc-p-font-weight-medium); }
+  .pc-page-link[aria-current="page"] .num { color: var(--sc-color-brand-accent); }
+
+  /* the rail itself — fixed left edge */
+  .pc-rail {
+    position: fixed;
+    left: 0;
+    top: 91px;
+    bottom: 32px; /* keep clear of home indicator */
+    width: 40px;
+    z-index: 24;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 16px 0 8px;
+    border-right: var(--sc-border-width-default) solid var(--sc-color-border-default);
+    background: var(--sc-color-surface-page);
+  }
+  .pc-rail .tick {
+    flex: 0 0 auto;
+    width: 100%;
+    padding: 6px 0;
+    text-align: center;
+    cursor: pointer;
+    background: transparent;
+    border: 0;
+    position: relative;
+  }
+  .pc-rail .tick .roman {
+    font: var(--sc-p-font-weight-regular) 13px/1 var(--sc-p-font-family-mono);
+    color: var(--sc-color-text-disabled);
+    letter-spacing: 0;
+    display: block;
+  }
+  .pc-rail .tick[aria-current="true"] .roman {
+    color: var(--sc-color-brand-accent);
+    font-weight: var(--sc-p-font-weight-medium);
+  }
+  .pc-rail .tick[aria-current="true"]::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3px;
+    height: 18px;
+    background: var(--sc-color-brand-accent);
+  }
+  .pc-rail .tick + .tick { margin-top: 6px; }
+  .pc-rail .tick::after {
+    content: "";
+    display: block;
+    width: 14px;
+    height: 1px;
+    background: var(--sc-color-border-default);
+    margin: 6px auto 0;
+  }
+  .pc-rail .tick:last-child::after { display: none; }
+
+  .pc-rail-foot {
+    margin-top: auto;
+    padding-top: 12px;
+    border-top: var(--sc-border-width-default) solid var(--sc-color-border-default);
+    width: 18px;
+    text-align: center;
+  }
+  .pc-rail-foot .home {
+    display: inline-block;
+    width: 6px; height: 6px;
+    background: var(--sc-color-text-disabled);
+  }
+
+  /* scrim under dropdown */
+  .pc-scrim {
+    position: fixed;
+    inset: 0;
+    background: rgba(13,12,11,0.25);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 33;
+    transition: opacity var(--sc-motion-mode-duration) var(--sc-motion-mode-easing);
+  }
+  body.pages-open .pc-scrim { opacity: 1; pointer-events: auto; }
+
+</style>
+</head>
+<body data-nav="drawer">
+
+  <!-- iOS status bar (kept inside the document so the iframe shows it) -->
+  <div class="statusbar" aria-hidden="true">
+    <span>9:41</span>
+    <span class="right">
+      <svg viewBox="0 0 19 12" width="17" height="11"><rect x="0" y="7.5" width="3.2" height="4.5" rx="0.7" fill="currentColor"/><rect x="4.8" y="5" width="3.2" height="7" rx="0.7" fill="currentColor"/><rect x="9.6" y="2.5" width="3.2" height="9.5" rx="0.7" fill="currentColor"/><rect x="14.4" y="0" width="3.2" height="12" rx="0.7" fill="currentColor"/></svg>
+      <svg viewBox="0 0 27 13" width="22" height="11"><rect x="0.5" y="0.5" width="23" height="12" rx="3.5" stroke="currentColor" stroke-opacity="0.45" fill="none"/><rect x="2" y="2" width="20" height="9" rx="2" fill="currentColor"/><path d="M25 4.5V8.5C25.8 8.2 26.5 7.2 26.5 6.5C26.5 5.8 25.8 4.8 25 4.5Z" fill="currentColor" fill-opacity="0.4"/></svg>
+    </span>
+  </div>
+
+  <!-- ═══════════════════ PATTERN A — DRAWER ═══════════════════ -->
+  <div class="pattern-a">
+    <header class="pa-topbar">
+      <button class="pa-burger" id="paBurger" aria-label="Open navigation"><span></span><span></span><span></span></button>
+      <div class="pa-title"><span class="accent">01 / 05</span>Foundations · Color</div>
+      <img class="pa-mark" src="../system/mark-icon-light.svg" alt="" id="paBrandMark">
+    </header>
+
+    <div class="pa-scrim" id="paScrim"></div>
+    <aside class="pa-drawer" id="paDrawer" aria-label="Documentation navigation">
+      <button class="pa-close" id="paClose" aria-label="Close">×</button>
+      <a class="brand" href="#">
+        <img src="../system/mark-icon-light.svg" alt="" class="brand-mark-img">
+        <div>
+          <div class="brand-name">Shokunin Crafthouse</div>
+          <div class="brand-sub">design system · v1.2</div>
+        </div>
+      </a>
+
+      <nav class="nav-section" aria-label="Foundations">
+        <div class="nav-eyebrow"><span class="ord">01</span>Foundations</div>
+        <a class="nav-link" href="#color" aria-current="page">Color<span class="num">01</span></a>
+        <a class="nav-link" href="#type">Type<span class="num">02</span></a>
+        <a class="nav-link" href="#spacing">Spacing<span class="num">03</span></a>
+        <a class="nav-link" href="#motion">Motion<span class="num">04</span></a>
+        <a class="nav-link" href="#mark">Mark<span class="num">05</span></a>
+      </nav>
+
+      <nav class="nav-section" aria-label="Components">
+        <div class="nav-eyebrow"><span class="ord">02</span>Components</div>
+        <a class="nav-link" href="#button">Button</a>
+        <a class="nav-link" href="#badge">Badge</a>
+        <a class="nav-link" href="#card">Card</a>
+        <a class="nav-link" href="#input">Input</a>
+        <a class="nav-link" href="#alert">Alert</a>
+        <a class="nav-link" href="#switch">Switch</a>
+        <a class="nav-link" href="#avatar">Avatar</a>
+      </nav>
+
+      <nav class="nav-section" aria-label="Voice">
+        <div class="nav-eyebrow"><span class="ord">03</span>Voice</div>
+        <a class="nav-link" href="#register">Register</a>
+        <a class="nav-link" href="#density">Density</a>
+        <a class="nav-link" href="#hard-rules">Hard rules</a>
+      </nav>
+
+      <div class="mode-row">
+        <span class="mode-label">Mode <span class="state" data-mode-state>Light</span></span>
+        <label class="sc-switch" data-theme-switch>
+          <input type="checkbox" data-theme-input style="position:absolute;opacity:0;pointer-events:none;">
+          <span class="sc-switch-track"><span class="sc-switch-thumb"></span></span>
+        </label>
+      </div>
+      <div class="drawer-foot">
+        <span>edition · 2026.05</span>
+        <span>SCDS-01</span>
+      </div>
+    </aside>
+  </div>
+
+  <!-- ═══════════════════ PATTERN B — BOTTOM SHEET ═══════════════════ -->
+  <div class="pattern-b">
+    <header class="pb-topbar">
+      <div class="crumb"><span class="accent">01 / 05</span>Foundations · Color</div>
+      <img class="pb-mark" src="../system/mark-icon-light.svg" alt="" id="pbBrandMark">
+    </header>
+
+    <button class="pb-dock" id="pbDock" aria-label="Open section index">
+      <div class="pb-dock-meta">
+        <span class="pb-dock-eyebrow"><span class="ord" id="pbDockOrd">i</span><span id="pbDockChapter">The room · warm-gray ladder</span></span>
+        <span class="pb-dock-title" id="pbDockTitle">Thirteen steps. One hue.</span>
+      </div>
+      <span class="pb-dock-button">↑</span>
+    </button>
+
+    <div class="pb-sheet-scrim" id="pbScrim"></div>
+    <aside class="pb-sheet" id="pbSheet" aria-label="Section index">
+      <div class="pb-grabber"></div>
+      <div class="pb-sheet-head">
+        <span class="title" id="pbSheetTitle">Foundations · Color</span>
+        <div class="pb-tabs" role="tablist">
+          <button class="pb-tab" data-tab="chapters" aria-pressed="true">Chapters</button>
+          <button class="pb-tab" data-tab="pages" aria-pressed="false">Pages</button>
+        </div>
+      </div>
+      <div class="pb-sheet-body">
+        <!-- chapters view -->
+        <div class="pb-sheet-section" data-tabview="chapters">
+          <div class="eyebrow">On this page · 5 chapters</div>
+          <a class="pb-link" href="#ramp" data-chapter="ramp" aria-current="true"><span class="roman">i</span><span>The room · warm-gray ladder</span><span class="num">13</span></a>
+          <a class="pb-link" href="#shu" data-chapter="shu"><span class="roman">ii</span><span>The signal · 朱 shu</span><span class="num">10</span></a>
+          <a class="pb-link" href="#status" data-chapter="status"><span class="roman">iii</span><span>Outside the band · status</span><span class="num">4</span></a>
+          <a class="pb-link" href="#tiers" data-chapter="tiers"><span class="roman">iv</span><span>Resolution · three tiers</span><span class="num">3</span></a>
+          <a class="pb-link" href="#contrast" data-chapter="contrast"><span class="roman">v</span><span>Contrast · measurement</span><span class="num">~</span></a>
+        </div>
+        <!-- pages view -->
+        <div class="pb-sheet-section" data-tabview="pages" style="display:none;">
+          <div class="eyebrow"><span class="ord">01</span>Foundations</div>
+          <a class="pb-link" href="#" aria-current="true"><span>Color</span><span class="num">01</span></a>
+          <a class="pb-link" href="#"><span>Type</span><span class="num">02</span></a>
+          <a class="pb-link" href="#"><span>Spacing</span><span class="num">03</span></a>
+          <a class="pb-link" href="#"><span>Motion</span><span class="num">04</span></a>
+          <a class="pb-link" href="#"><span>Mark</span><span class="num">05</span></a>
+        </div>
+        <div class="pb-sheet-section" data-tabview="pages" style="display:none;">
+          <div class="eyebrow"><span class="ord">02</span>Components</div>
+          <a class="pb-link" href="#"><span>Button</span></a>
+          <a class="pb-link" href="#"><span>Badge</span></a>
+          <a class="pb-link" href="#"><span>Card</span></a>
+          <a class="pb-link" href="#"><span>Input</span></a>
+          <a class="pb-link" href="#"><span>Alert</span></a>
+          <a class="pb-link" href="#"><span>Switch</span></a>
+        </div>
+        <div class="pb-sheet-section" data-tabview="pages" style="display:none;">
+          <div class="eyebrow"><span class="ord">03</span>Voice</div>
+          <a class="pb-link" href="#"><span>Register</span></a>
+          <a class="pb-link" href="#"><span>Density</span></a>
+          <a class="pb-link" href="#"><span>Hard rules</span></a>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <!-- ═══════════════════ PATTERN C — STEPPER RAIL ═══════════════════ -->
+  <div class="pattern-c">
+    <header class="pc-topbar">
+      <button class="pc-page-pill" id="pcPagePill" aria-label="Switch page">
+        <span class="crumb-prefix"><span class="ord">01</span>Foundations</span>
+        <span>·</span>
+        <span>Color</span>
+        <span class="chev"></span>
+      </button>
+      <img class="pc-mark" src="../system/mark-icon-light.svg" alt="" id="pcBrandMark">
+    </header>
+
+    <div class="pc-scrim" id="pcScrim"></div>
+
+    <aside class="pc-page-sheet" id="pcPageSheet" aria-label="Page index">
+      <div class="nav-eyebrow"><span class="ord">01</span>Foundations</div>
+      <a class="pc-page-link" href="#" aria-current="page">Color<span class="num">01</span></a>
+      <a class="pc-page-link" href="#">Type<span class="num">02</span></a>
+      <a class="pc-page-link" href="#">Spacing<span class="num">03</span></a>
+      <a class="pc-page-link" href="#">Motion<span class="num">04</span></a>
+      <a class="pc-page-link" href="#">Mark<span class="num">05</span></a>
+      <div class="nav-eyebrow"><span class="ord">02</span>Components</div>
+      <a class="pc-page-link" href="#">Button</a>
+      <a class="pc-page-link" href="#">Badge</a>
+      <a class="pc-page-link" href="#">Card</a>
+      <div class="nav-eyebrow"><span class="ord">03</span>Voice</div>
+      <a class="pc-page-link" href="#">Register</a>
+      <a class="pc-page-link" href="#">Density</a>
+    </aside>
+
+    <nav class="pc-rail" aria-label="Chapter rail">
+      <button class="tick" data-target="ramp" aria-current="true"><span class="roman">i</span></button>
+      <button class="tick" data-target="shu"><span class="roman">ii</span></button>
+      <button class="tick" data-target="status"><span class="roman">iii</span></button>
+      <button class="tick" data-target="tiers"><span class="roman">iv</span></button>
+      <button class="tick" data-target="contrast"><span class="roman">v</span></button>
+      <div class="pc-rail-foot"><span class="home"></span></div>
+    </nav>
+  </div>
+
+  <!-- ═════════════════════ SHARED CONTENT ═════════════════════ -->
+  <main class="content">
+
+    <!-- meta -->
+    <div class="metabar">
+      <div class="crumb"><span class="accent">01 / 05</span>Color</div>
+      <div class="meta-right"><b>Spec</b>v1.2</div>
+    </div>
+
+    <!-- hero -->
+    <section class="hero">
+      <span class="hero-eyebrow">Color · the room and the signal</span>
+      <h1>Color earns its place by doing work.</h1>
+      <p class="lead">Two warm grays carry the room. One vermilion does the signaling. Status pulls its hue from outside the brand band, so brand and danger can never be confused. <em>Every value below was placed to solve a specific problem.</em></p>
+    </section>
+
+    <!-- chapter i -->
+    <section class="chapter" id="ramp" data-screen-label="Color · Warm-gray ladder">
+      <div class="chapter-eyebrow"><span class="ord">i</span><span class="dot"></span><span>The room · warm-gray ladder</span></div>
+      <h2>Thirteen steps. One hue.</h2>
+      <p class="premise">The page sits at warmGray.100. Ink sits at warmGray.800. The other eleven steps exist so the surface between them never has to fight to read.</p>
+
+      <div class="chapter-body">
+        <div class="row-eyebrow"><span><b>Ladder</b> · 13 steps</span><span>Tap to load</span></div>
+        <div class="ramp-scroller">
+          <div class="ramp-strip" id="warmRamp" role="group" aria-label="Warm gray ladder">
+            <button class="stop" type="button" data-token="warm-gray-25"  data-hex="#F8F6F2" style="background:#F8F6F2" title="warm-gray-25"></button>
+            <button class="stop" type="button" data-token="warm-gray-50"  data-hex="#F1EFEB" style="background:#F1EFEB" title="warm-gray-50"></button>
+            <button class="stop" type="button" data-token="warm-gray-100" data-hex="#E3DFD8" style="background:#E3DFD8" title="warm-gray-100 · page ground"></button>
+            <button class="stop" type="button" data-token="warm-gray-200" data-hex="#D9D5CE" style="background:#D9D5CE" title="warm-gray-200"></button>
+            <button class="stop" type="button" data-token="warm-gray-250" data-hex="#D5D1CA" style="background:#D5D1CA" title="warm-gray-250 · hairline"></button>
+            <button class="stop" type="button" data-token="warm-gray-300" data-hex="#CDC9C2" style="background:#CDC9C2" title="warm-gray-300"></button>
+            <button class="stop" type="button" data-token="warm-gray-350" data-hex="#C5C0B8" style="background:#C5C0B8" title="warm-gray-350"></button>
+            <button class="stop" type="button" data-token="warm-gray-400" data-hex="#9A9388" style="background:#9A9388" title="warm-gray-400 · disabled"></button>
+            <button class="stop" type="button" data-token="warm-gray-500" data-hex="#5F5C55" style="background:#5F5C55" title="warm-gray-500 · secondary"></button>
+            <button class="stop" type="button" data-token="warm-gray-600" data-hex="#484640" style="background:#484640" title="warm-gray-600"></button>
+            <button class="stop" type="button" data-token="warm-gray-700" data-hex="#312F2A" style="background:#312F2A" title="warm-gray-700"></button>
+            <button class="stop" type="button" data-token="warm-gray-800" data-hex="#1A1815" style="background:#1A1815" title="warm-gray-800 · ink"></button>
+            <button class="stop" type="button" data-token="warm-gray-900" data-hex="#0D0C0B" style="background:#0D0C0B" title="warm-gray-900"></button>
+          </div>
+        </div>
+        <div class="ramp-labels">
+          <div class="l"><span class="step">25</span>F8F6F2</div>
+          <div class="l"><span class="step">50</span>F1EFEB</div>
+          <div class="l"><span class="step">100</span>E3DFD8</div>
+          <div class="l"><span class="step">200</span>D9D5CE</div>
+          <div class="l"><span class="step">250</span>D5D1CA</div>
+          <div class="l"><span class="step">300</span>CDC9C2</div>
+          <div class="l"><span class="step">350</span>C5C0B8</div>
+          <div class="l"><span class="step">400</span>9A9388</div>
+          <div class="l"><span class="step">500</span>5F5C55</div>
+          <div class="l"><span class="step">600</span>484640</div>
+          <div class="l"><span class="step">700</span>312F2A</div>
+          <div class="l"><span class="step">800</span>1A1815</div>
+          <div class="l"><span class="step">900</span>0D0C0B</div>
+        </div>
+        <div class="ramp-key">
+          <span><b>100</b> page</span>
+          <span><b>250</b> hairline</span>
+          <span><b>400</b> disabled</span>
+          <span><b>500</b> secondary</span>
+          <span><b>800</b> ink</span>
+          <span><b>900</b> dark</span>
+        </div>
+        <div class="callout"><b>No pure white</b>warmGray.25 (#F8F6F2) is the lightest value. Pure white is not a token.</div>
+      </div>
+    </section>
+
+    <!-- chapter ii -->
+    <section class="chapter" id="shu" data-screen-label="Color · Shu — the signal">
+      <div class="chapter-eyebrow"><span class="ord">ii</span><span class="dot"></span><span>The signal · 朱 shu</span></div>
+      <h2>One vermilion. Three jobs.</h2>
+      <p class="premise">Shu marks the cursor's intent — hover, focus, the studio mark's accent. If you catch it doing decorative work, the page is wrong.</p>
+
+      <div class="chapter-body">
+        <button class="shu-plate" type="button" data-token="shu-500" data-hex="#C8281C">
+          <div class="plate-head">朱 · shu · vermilion</div>
+          <div class="glyph">500</div>
+          <div class="plate-foot">
+            <span><b>#C8281C</b></span>
+            <span>load →</span>
+          </div>
+        </button>
+
+        <div class="shu-rail">
+          <button class="step" type="button" data-token="shu-50"  data-hex="#FCEFEC" style="background:#FCEFEC;color:#1A1815"><span class="name">50</span><span class="hex">FCEFEC</span></button>
+          <button class="step" type="button" data-token="shu-100" data-hex="#F7D9D4" style="background:#F7D9D4;color:#1A1815"><span class="name">100</span><span class="hex">F7D9D4</span></button>
+          <button class="step" type="button" data-token="shu-200" data-hex="#F0B5AC" style="background:#F0B5AC;color:#1A1815"><span class="name">200</span><span class="hex">F0B5AC</span></button>
+          <button class="step" type="button" data-token="shu-300" data-hex="#E68B7F" style="background:#E68B7F;color:#1A1815"><span class="name">300</span><span class="hex">E68B7F</span></button>
+          <button class="step" type="button" data-token="shu-400" data-hex="#DA5C4D" style="background:#DA5C4D;color:#F1EFEB"><span class="name">400</span><span class="hex">DA5C4D</span></button>
+          <button class="step" type="button" data-token="shu-500" data-hex="#C8281C" style="background:#C8281C;color:#F1EFEB"><span class="name">500</span><span class="hex">C8281C</span></button>
+          <button class="step" type="button" data-token="shu-600" data-hex="#B22318" style="background:#B22318;color:#F1EFEB"><span class="name">600</span><span class="hex">B22318</span></button>
+          <button class="step" type="button" data-token="shu-700" data-hex="#9E1F15" style="background:#9E1F15;color:#F1EFEB"><span class="name">700</span><span class="hex">9E1F15</span></button>
+          <button class="step" type="button" data-token="shu-800" data-hex="#771A11" style="background:#771A11;color:#F1EFEB"><span class="name">800</span><span class="hex">771A11</span></button>
+          <button class="step" type="button" data-token="shu-900" data-hex="#4F100B" style="background:#4F100B;color:#F1EFEB"><span class="name">900</span><span class="hex">4F100B</span></button>
+        </div>
+
+        <div class="three-jobs">
+          <div class="job">
+            <div class="label">Job 01 · hover</div>
+            <div class="demo"><a class="demo-hover" href="javascript:void(0)" onclick="event.preventDefault()">Tap to see the hover color.</a></div>
+            <div class="caption">--sc-color-interactive-hover</div>
+          </div>
+          <div class="job">
+            <div class="label">Job 02 · focus</div>
+            <div class="demo"><input class="demo-focus" type="text" placeholder="Tap to focus" aria-label="Focus demo input"></div>
+            <div class="caption">--sc-color-border-focus</div>
+          </div>
+          <div class="job">
+            <div class="label">Job 03 · mark accent</div>
+            <div class="demo"><span class="demo-mark" aria-hidden="true"></span></div>
+            <div class="caption">accent surface only</div>
+          </div>
+        </div>
+        <div class="callout"><b>Not error</b>Shu is brand-vermilion. Error is a separate oxblood — see chapter iii.</div>
+      </div>
+    </section>
+
+    <!-- chapter iii -->
+    <section class="chapter" id="status" data-screen-label="Color · Status">
+      <div class="chapter-eyebrow"><span class="ord">iii</span><span class="dot"></span><span>Outside the band · status</span></div>
+      <h2>Four hues. None of them shu.</h2>
+      <p class="premise">Error is oxblood, not red. When a screen says danger, brand and warning can't be mistaken. Each status carries a light pair and a dark pair, both calibrated AA.</p>
+
+      <div class="chapter-body">
+        <div class="status-grid">
+          <div class="status-tile">
+            <button class="status-swatch" type="button" data-token="status-success-light" data-hex="#2F855A" style="background:#2F855A" aria-label="Load success-light"></button>
+            <div class="status-meta">
+              <div class="name">Success</div>
+              <div class="hue">Forest · AA 4.9:1</div>
+              <div class="hexes"><span><b>L</b> 2F855A</span><span><b>D</b> 6EE7B7</span></div>
+            </div>
+          </div>
+          <div class="status-tile">
+            <button class="status-swatch" type="button" data-token="status-warning-light" data-hex="#C2410C" style="background:#C2410C" aria-label="Load warning-light"></button>
+            <div class="status-meta">
+              <div class="name">Warning</div>
+              <div class="hue">Burnt orange · 20°</div>
+              <div class="hexes"><span><b>L</b> C2410C</span><span><b>D</b> FB923C</span></div>
+            </div>
+          </div>
+          <div class="status-tile">
+            <button class="status-swatch" type="button" data-token="status-error-light" data-hex="#7F1D1D" style="background:#7F1D1D" aria-label="Load error-light"></button>
+            <div class="status-meta">
+              <div class="name">Error</div>
+              <div class="hue">Oxblood · not shu</div>
+              <div class="hexes"><span><b>L</b> 7F1D1D</span><span><b>D</b> FCA5A5</span></div>
+            </div>
+          </div>
+          <div class="status-tile">
+            <button class="status-swatch" type="button" data-token="status-info-light" data-hex="#1D4ED8" style="background:#1D4ED8" aria-label="Load info-light"></button>
+            <div class="status-meta">
+              <div class="name">Info</div>
+              <div class="hue">Royal · AA 7.5:1</div>
+              <div class="hexes"><span><b>L</b> 1D4ED8</span><span><b>D</b> 93C5FD</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="callout"><b>Why oxblood</b>If brand and error share a hue band, the page lies twice. Once about brand, once about danger.</div>
+      </div>
+    </section>
+
+    <!-- chapter iv -->
+    <section class="chapter" id="tiers" data-screen-label="Color · Three-tier architecture">
+      <div class="chapter-eyebrow"><span class="ord">iv</span><span class="dot"></span><span>Resolution · three tiers</span></div>
+      <h2>Primitive · semantic · component.</h2>
+      <p class="premise">Components consume only the middle column. Raw hex at the call site is a bug. The resolution path below is the only one the system permits.</p>
+
+      <div class="chapter-body">
+        <div class="tier-stack">
+          <div class="tier-row">
+            <div class="tier-step"><span class="badge-num">01</span><span class="swatch-dot" style="background:#E3DFD8"></span><span class="tok">--sc-p-color-warm-gray-100 <span class="dim">#E3DFD8</span></span></div>
+            <div class="tier-step"><span class="badge-num">02</span><span class="swatch-dot" style="background:#E3DFD8"></span><span class="tok">--sc-color-surface-page</span></div>
+            <div class="tier-step is-component"><span class="badge-num">03</span><span class="swatch-dot" style="background:#E3DFD8"></span><span class="tok"><b>body</b> { background: … }</span></div>
+          </div>
+          <div class="tier-row">
+            <div class="tier-step"><span class="badge-num">01</span><span class="swatch-dot" style="background:#C8281C"></span><span class="tok">--sc-p-color-shu-500 <span class="dim">#C8281C</span></span></div>
+            <div class="tier-step"><span class="badge-num">02</span><span class="swatch-dot" style="background:#C8281C"></span><span class="tok">--sc-color-interactive-hover</span></div>
+            <div class="tier-step is-component"><span class="badge-num">03</span><span class="swatch-dot" style="background:#C8281C"></span><span class="tok"><b>a:hover</b>, <b>.sc-button:hover</b></span></div>
+          </div>
+          <div class="tier-row">
+            <div class="tier-step"><span class="badge-num">01</span><span class="swatch-dot" style="background:#7F1D1D"></span><span class="tok">--sc-p-color-status-error-light</span></div>
+            <div class="tier-step"><span class="badge-num">02</span><span class="swatch-dot" style="background:#7F1D1D"></span><span class="tok">--sc-color-status-error</span></div>
+            <div class="tier-step is-component"><span class="badge-num">03</span><span class="swatch-dot" style="background:#7F1D1D"></span><span class="tok"><b>.sc-alert--error</b></span></div>
+          </div>
+        </div>
+        <div class="callout"><b>Why the prefix</b>--sc-p-* is primitive. --sc-* is semantic. The hyphen-p is the only signal you're reaching past the system.</div>
+      </div>
+    </section>
+
+    <!-- chapter v -->
+    <section class="chapter" id="contrast" data-screen-label="Color · Contrast checker">
+      <div class="chapter-eyebrow"><span class="ord">v</span><span class="dot"></span><span>Contrast · the measurement</span></div>
+      <h2>A number decides.</h2>
+      <p class="premise">Every pairing has a contrast ratio. Body must pass AA. Legal and disclosure pass AAA. Tap any value above, then check the verdict.</p>
+
+      <div class="chapter-body">
+        <div class="checker">
+          <div class="checker-side">
+            <div class="role"><span>Foreground · <span class="tok-name" id="fgName">text-primary</span></span><span class="hex-val" id="fgHex">#1A1815</span></div>
+            <div class="checker-swatch" id="fgSwatch" style="background:#1A1815"></div>
+            <div class="picker-row" id="fgPicker"></div>
+          </div>
+          <div class="checker-side">
+            <div class="role"><span>Background · <span class="tok-name" id="bgName">surface-page</span></span><span class="hex-val" id="bgHex">#E3DFD8</span></div>
+            <div class="checker-swatch" id="bgSwatch" style="background:#E3DFD8"></div>
+            <div class="picker-row" id="bgPicker"></div>
+          </div>
+          <div class="checker-preview" id="preview" style="background:#E3DFD8;color:#1A1815">
+            <div class="p-aa">Aa — Shokunin</div>
+            <div class="p-body">The main verb arrives in the first nine words. If it doesn't, the sentence is fighting the reader.</div>
+            <div class="p-chrome">11px · mono · chrome label</div>
+          </div>
+          <div class="ratio-cell">
+            <span class="ratio-label">WCAG ratio</span>
+            <div class="ratio-value" id="ratioValue">12.40<span class="colon">:</span>1</div>
+            <div class="ratio-foot"><b id="ratioVerdictWord">Strong.</b> <span id="ratioVerdictTail">Cleanly passes AAA. Safe for legal and disclosure.</span></div>
+          </div>
+          <div class="verdicts">
+            <div class="verdict"><span class="v-head">AA · normal</span><div class="badge-row"><span class="sc-badge sc-badge--pass" id="badge-aa-normal">Pass</span><span class="req">≥ 4.5</span></div></div>
+            <div class="verdict"><span class="v-head">AA · large</span><div class="badge-row"><span class="sc-badge sc-badge--pass" id="badge-aa-large">Pass</span><span class="req">≥ 3.0</span></div></div>
+            <div class="verdict"><span class="v-head">AAA · normal</span><div class="badge-row"><span class="sc-badge sc-badge--pass" id="badge-aaa-normal">Pass</span><span class="req">≥ 7.0</span></div></div>
+            <div class="verdict"><span class="v-head">AAA · large</span><div class="badge-row"><span class="sc-badge sc-badge--pass" id="badge-aaa-large">Pass</span><span class="req">≥ 4.5</span></div></div>
+          </div>
+        </div>
+        <div class="callout"><b>Pick a swatch above</b>The first tap loads foreground. The second loads background. Then it alternates.</div>
+      </div>
+    </section>
+
+  </main>
+
+  <div class="home-indicator" aria-hidden="true"></div>
+
+<script>
+/* ─────────────────────────────────────────────────────────────
+ * Nav-pattern switch (URL param)
+ * ───────────────────────────────────────────────────────────── */
+(function() {
+  const p = new URLSearchParams(location.search);
+  const nav = p.get('nav') || 'drawer';
+  document.body.setAttribute('data-nav', nav);
+})();
+
+/* ─────────────────────────────────────────────────────────────
+ * Tokens / contrast math (same as desktop)
+ * ───────────────────────────────────────────────────────────── */
+const TOKENS = {
+  'warm-gray-25':  '#F8F6F2','warm-gray-50':  '#F1EFEB','warm-gray-100': '#E3DFD8',
+  'warm-gray-200': '#D9D5CE','warm-gray-250': '#D5D1CA','warm-gray-300': '#CDC9C2',
+  'warm-gray-350': '#C5C0B8','warm-gray-400': '#9A9388','warm-gray-500': '#5F5C55',
+  'warm-gray-600': '#484640','warm-gray-700': '#312F2A','warm-gray-800': '#1A1815',
+  'warm-gray-900': '#0D0C0B',
+  'shu-50':'#FCEFEC','shu-100':'#F7D9D4','shu-200':'#F0B5AC','shu-300':'#E68B7F',
+  'shu-400':'#DA5C4D','shu-500':'#C8281C','shu-600':'#B22318','shu-700':'#9E1F15',
+  'shu-800':'#771A11','shu-900':'#4F100B',
+  'status-success-light':'#2F855A','status-success-dark':'#6EE7B7',
+  'status-warning-light':'#C2410C','status-warning-dark':'#FB923C',
+  'status-error-light':'#7F1D1D','status-error-dark':'#FCA5A5',
+  'status-info-light':'#1D4ED8','status-info-dark':'#93C5FD'
+};
+const SEMANTIC = {
+  'warm-gray-100':'surface-page','warm-gray-50':'surface-raised','warm-gray-25':'surface-floating',
+  'warm-gray-200':'surface-sunk','warm-gray-800':'text-primary','warm-gray-500':'text-secondary',
+  'warm-gray-400':'text-disabled','warm-gray-250':'border-default',
+  'shu-500':'brand-accent','shu-700':'brand-accent-deep',
+  'status-error-light':'status-error','status-success-light':'status-success',
+  'status-warning-light':'status-warning','status-info-light':'status-info'
+};
+const QUICK_FG = ['warm-gray-800','warm-gray-500','warm-gray-50','shu-500','status-error-light','status-success-light'];
+const QUICK_BG = ['warm-gray-100','warm-gray-50','warm-gray-25','warm-gray-200','warm-gray-900','shu-500'];
+
+function hexToRgb(h){const m=h.replace('#','');return{r:parseInt(m.substr(0,2),16),g:parseInt(m.substr(2,2),16),b:parseInt(m.substr(4,2),16)};}
+function relLum({r,g,b}){const a=[r,g,b].map(v=>{v/=255;return v<=0.03928?v/12.92:Math.pow((v+0.055)/1.055,2.4);});return 0.2126*a[0]+0.7152*a[1]+0.0722*a[2];}
+function contrast(fg,bg){const l1=relLum(hexToRgb(fg)),l2=relLum(hexToRgb(bg));return(Math.max(l1,l2)+0.05)/(Math.min(l1,l2)+0.05);}
+
+const state = { fg:'warm-gray-800', bg:'warm-gray-100', lastChanged:'bg' };
+function renderChecker() {
+  const fgHex = TOKENS[state.fg], bgHex = TOKENS[state.bg];
+  document.getElementById('fgSwatch').style.background = fgHex;
+  document.getElementById('bgSwatch').style.background = bgHex;
+  document.getElementById('fgHex').textContent = fgHex;
+  document.getElementById('bgHex').textContent = bgHex;
+  document.getElementById('fgName').textContent = SEMANTIC[state.fg] || state.fg;
+  document.getElementById('bgName').textContent = SEMANTIC[state.bg] || state.bg;
+  const preview = document.getElementById('preview');
+  preview.style.background = bgHex; preview.style.color = fgHex;
+  const r = contrast(fgHex, bgHex), rounded = r.toFixed(2);
+  const v = document.getElementById('ratioValue');
+  v.innerHTML = rounded + '<span class="colon">:</span>1';
+  v.classList.toggle('bad', r < 3.0);
+  const passes = {'aa-normal':r>=4.5,'aa-large':r>=3.0,'aaa-normal':r>=7.0,'aaa-large':r>=4.5};
+  for (const k in passes) {
+    const el = document.getElementById('badge-'+k);
+    if (!el) continue;
+    el.className = 'sc-badge ' + (passes[k] ? 'sc-badge--pass' : 'sc-badge--fail');
+    el.textContent = passes[k] ? 'Pass' : 'Fail';
+  }
+  let word, tail;
+  if (r >= 7.0)      { word='Strong.';   tail='Cleanly passes AAA. Safe for legal and disclosure.'; }
+  else if (r >= 4.5) { word='Sufficient.'; tail='Passes AA for normal body. Reach deeper for legal copy.'; }
+  else if (r >= 3.0) { word='Large text only.'; tail='Below AA for body. Permissible only at 18px / 14px-bold.'; }
+  else               { word='Insufficient.'; tail='Fails WCAG. Reserve for decoration; never for type.'; }
+  document.getElementById('ratioVerdictWord').textContent = word;
+  document.getElementById('ratioVerdictTail').textContent = tail;
+  document.querySelectorAll('[data-token]').forEach(el => {
+    const t = el.getAttribute('data-token');
+    el.setAttribute('aria-pressed', t === state.fg || t === state.bg ? 'true' : 'false');
+  });
+}
+function loadToken(token, role) {
+  if (!TOKENS[token]) return;
+  if (role === 'fg' || (!role && state.lastChanged === 'bg')) { state.fg = token; state.lastChanged = 'fg'; }
+  else { state.bg = token; state.lastChanged = 'bg'; }
+  renderChecker();
+}
+document.querySelectorAll('[data-token]').forEach(el => {
+  if (el.closest('.picker-row')) return;
+  el.addEventListener('click', () => loadToken(el.getAttribute('data-token')));
+});
+function buildPicker(rootId, list, role) {
+  const root = document.getElementById(rootId);
+  list.forEach(tok => {
+    const btn = document.createElement('button');
+    btn.type = 'button'; btn.className = 'px';
+    btn.setAttribute('data-token', tok);
+    btn.style.background = TOKENS[tok];
+    btn.title = tok + ' · ' + TOKENS[tok];
+    btn.addEventListener('click', () => loadToken(tok, role));
+    root.appendChild(btn);
+  });
+}
+buildPicker('fgPicker', QUICK_FG, 'fg');
+buildPicker('bgPicker', QUICK_BG, 'bg');
+renderChecker();
+
+/* ─────────────────────────────────────────────────────────────
+ * Pattern A — drawer open/close
+ * ───────────────────────────────────────────────────────────── */
+(function(){
+  const burger = document.getElementById('paBurger');
+  const close = document.getElementById('paClose');
+  const scrim = document.getElementById('paScrim');
+  if (!burger) return;
+  const open = () => document.body.classList.add('drawer-open');
+  const shut = () => document.body.classList.remove('drawer-open');
+  burger.addEventListener('click', open);
+  close.addEventListener('click', shut);
+  scrim.addEventListener('click', shut);
+  document.querySelectorAll('.pa-drawer .nav-link').forEach(a => a.addEventListener('click', shut));
+})();
+
+/* ─────────────────────────────────────────────────────────────
+ * Pattern B — bottom sheet
+ * ───────────────────────────────────────────────────────────── */
+(function(){
+  const dock = document.getElementById('pbDock');
+  const scrim = document.getElementById('pbScrim');
+  const sheet = document.getElementById('pbSheet');
+  if (!dock) return;
+  const open = () => document.body.classList.add('sheet-open');
+  const shut = () => document.body.classList.remove('sheet-open');
+  dock.addEventListener('click', open);
+  scrim.addEventListener('click', shut);
+
+  /* tabs */
+  document.querySelectorAll('.pb-tab').forEach(t => {
+    t.addEventListener('click', () => {
+      const target = t.getAttribute('data-tab');
+      document.querySelectorAll('.pb-tab').forEach(x => x.setAttribute('aria-pressed', x.getAttribute('data-tab') === target ? 'true' : 'false'));
+      document.querySelectorAll('[data-tabview]').forEach(v => {
+        v.style.display = v.getAttribute('data-tabview') === target ? '' : 'none';
+      });
+    });
+  });
+
+  /* anchor links inside sheet close it */
+  document.querySelectorAll('.pb-sheet .pb-link').forEach(l => {
+    l.addEventListener('click', () => setTimeout(shut, 120));
+  });
+
+  /* update dock label as user scrolls between chapters */
+  const chapterMeta = {
+    'ramp':     ['i',   'The room · warm-gray ladder',     'Thirteen steps. One hue.'],
+    'shu':      ['ii',  'The signal · 朱 shu',              'One vermilion. Three jobs.'],
+    'status':   ['iii', 'Outside the band · status',       'Four hues. None of them shu.'],
+    'tiers':    ['iv',  'Resolution · three tiers',         'Primitive · semantic · component.'],
+    'contrast': ['v',   'Contrast · the measurement',       'A number decides.']
+  };
+  const sections = ['ramp','shu','status','tiers','contrast'].map(id => document.getElementById(id));
+  const updateDock = () => {
+    let cur = sections[0];
+    for (const s of sections) {
+      if (!s) continue;
+      const r = s.getBoundingClientRect();
+      if (r.top <= 120) cur = s;
+    }
+    if (!cur) return;
+    const [ord, chap, title] = chapterMeta[cur.id] || [];
+    if (!ord) return;
+    document.getElementById('pbDockOrd').textContent = ord;
+    document.getElementById('pbDockChapter').textContent = chap;
+    document.getElementById('pbDockTitle').textContent = title;
+    /* update current marker in sheet */
+    document.querySelectorAll('.pb-sheet .pb-link[data-chapter]').forEach(a => {
+      a.setAttribute('aria-current', a.getAttribute('data-chapter') === cur.id ? 'true' : 'false');
+    });
+  };
+  document.addEventListener('scroll', updateDock, { passive: true });
+  window.addEventListener('load', updateDock);
+  updateDock();
+})();
+
+/* ─────────────────────────────────────────────────────────────
+ * Pattern C — page sheet + rail tick highlighting
+ * ───────────────────────────────────────────────────────────── */
+(function(){
+  const pill = document.getElementById('pcPagePill');
+  const scrim = document.getElementById('pcScrim');
+  if (!pill) return;
+  const toggle = () => document.body.classList.toggle('pages-open');
+  const shut = () => document.body.classList.remove('pages-open');
+  pill.addEventListener('click', toggle);
+  scrim.addEventListener('click', shut);
+
+  /* rail ticks scroll to chapters */
+  const ticks = document.querySelectorAll('.pc-rail .tick');
+  ticks.forEach(t => {
+    t.addEventListener('click', () => {
+      const target = t.getAttribute('data-target');
+      const el = document.getElementById(target);
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  /* update current rail tick on scroll */
+  const sections = ['ramp','shu','status','tiers','contrast'].map(id => document.getElementById(id));
+  const update = () => {
+    let cur = sections[0];
+    for (const s of sections) {
+      if (!s) continue;
+      const r = s.getBoundingClientRect();
+      if (r.top <= 120) cur = s;
+    }
+    ticks.forEach(t => t.setAttribute('aria-current', t.getAttribute('data-target') === (cur ? cur.id : null) ? 'true' : 'false'));
+  };
+  document.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('load', update);
+  update();
+})();
+
+/* ─────────────────────────────────────────────────────────────
+ * Theme switch (in drawer)
+ * ───────────────────────────────────────────────────────────── */
+(function(){
+  const input = document.querySelector('[data-theme-input]');
+  const sw = document.querySelector('[data-theme-switch]');
+  const state = document.querySelector('[data-mode-state]');
+  if (!input) return;
+  const marks = ['paBrandMark','pbBrandMark','pcBrandMark'];
+  const apply = (m) => {
+    document.documentElement.setAttribute('data-theme', m);
+    input.checked = (m === 'dark');
+    sw.classList.toggle('sc-switch--on', m === 'dark');
+    if (state) state.textContent = m === 'dark' ? 'Dark' : 'Light';
+    marks.forEach(id => { const el = document.getElementById(id); if (el) el.src = m === 'dark' ? '../system/mark-icon-dark.svg' : '../system/mark-icon-light.svg'; });
+  };
+  input.addEventListener('change', () => apply(input.checked ? 'dark' : 'light'));
+  sw.addEventListener('click', (e) => {
+    if (e.target.tagName !== 'INPUT') {
+      e.preventDefault();
+      input.checked = !input.checked;
+      apply(input.checked ? 'dark' : 'light');
+    }
+  });
+  apply('light');
+})();
+
+</script>
+</body>
+</html>

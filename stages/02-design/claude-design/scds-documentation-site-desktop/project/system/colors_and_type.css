@@ -1,0 +1,484 @@
+/* ============================================================
+ * Shokunin Crafthouse — colors_and_type.css
+ *
+ * Consolidated token surface for the design system. Sourced from
+ * tokens/primitives.json + tokens/semantic.json in the upstream
+ * brand-identity codebase, regenerated for this skill's
+ * downstream consumption.
+ *
+ * Namespacing:
+ *   --sc-p-*   primitive · raw values  · DO NOT reference at call site
+ *   --sc-*     semantic  · role-mapped · component code uses these only
+ *   --sc-t-*   semantic  · type-shortcut composite shorthand for `font:`
+ *
+ * Author: The Shokunin Crafthouse
+ * ============================================================ */
+
+
+/* ── @font-face · Neue Haas Grotesk + Cascadia Code ─────────────
+ *
+ * Linotype number → CSS font-weight mapping:
+ *   15 XXThin  → 100   ·   16 XXThin Italic
+ *   25 XThin   → 200   ·   26 XThin Italic
+ *   35 Thin    → 250   ·   36 Thin Italic    (extra step between 200/300)
+ *   45 Light   → 300   ·   46 Light Italic   (used as "light" in system)
+ *   55 Roman   → 400   ·   56 Roman Italic   (regular)
+ *   65 Medium  → 500   ·   66 Medium Italic  (used as "medium" in system)
+ *   75 Bold    → 700   ·   76 Bold Italic
+ *   95 Black   → 900   ·   96 Black Italic
+ *
+ * Text cuts cover 400 / 500 / 700 normal + italic only.
+ * --------------------------------------------------------------- */
+
+/* Neue Haas Grotesk Display — normal */
+@font-face { font-family: "Neue Haas Grotesk Display"; font-weight: 100; font-style: normal; font-display: swap;
+  src: url("./fonts/NeueHaasGrotDisp-15XXThin.woff2") format("woff2"); }
+@font-face { font-family: "Neue Haas Grotesk Display"; font-weight: 200; font-style: normal; font-display: swap;
+  src: url("./fonts/NeueHaasGrotDisp-25XThin.woff2") format("woff2"); }
+@font-face { font-family: "Neue Haas Grotesk Display"; font-weight: 250; font-style: normal; font-display: swap;
+  src: url("./fonts/NeueHaasGrotDisp-35Thin.woff2") format("woff2"); }
+@font-face { font-family: "Neue Haas Grotesk Display"; font-weight: 300; font-style: normal; font-display: swap;
+  src: url("./fonts/NeueHaasGrotDisp-45Light.woff2") format("woff2"); }
+@font-face { font-family: "Neue Haas Grotesk Display"; font-weight: 400; font-style: normal; font-display: swap;
+  src: url("./fonts/NeueHaasGrotDisp-55Roman.woff2") format("woff2"); }
+@font-face { font-family: "Neue Haas Grotesk Display"; font-weight: 500; font-style: normal; font-display: swap;
+  src: url("./fonts/NeueHaasGrotDisp-65Medium.woff2") format("woff2"); }
+@font-face { font-family: "Neue Haas Grotesk Display"; font-weight: 700; font-style: normal; font-display: swap;
+  src: url("./fonts/NeueHaasGrotDisp-75Bold.woff2") format("woff2"); }
+@font-face { font-family: "Neue Haas Grotesk Display"; font-weight: 900; font-style: normal; font-display: swap;
+  src: url("./fonts/NeueHaasGrotDisp-95Black.woff2") format("woff2"); }
+
+/* Neue Haas Grotesk Display — italic */
+@font-face { font-family: "Neue Haas Grotesk Display"; font-weight: 100; font-style: italic; font-display: swap;
+  src: url("./fonts/NeueHaasGrotDisp-16XXThinItalic.woff2") format("woff2"); }
+@font-face { font-family: "Neue Haas Grotesk Display"; font-weight: 200; font-style: italic; font-display: swap;
+  src: url("./fonts/NeueHaasGrotDisp-26XThinItalic.woff2") format("woff2"); }
+@font-face { font-family: "Neue Haas Grotesk Display"; font-weight: 250; font-style: italic; font-display: swap;
+  src: url("./fonts/NeueHaasGrotDisp-36ThinItalic.woff2") format("woff2"); }
+@font-face { font-family: "Neue Haas Grotesk Display"; font-weight: 300; font-style: italic; font-display: swap;
+  src: url("./fonts/NeueHaasGrotDisp-46LightItalic.woff2") format("woff2"); }
+@font-face { font-family: "Neue Haas Grotesk Display"; font-weight: 400; font-style: italic; font-display: swap;
+  src: url("./fonts/NeueHaasGrotDisp-56Italic.woff2") format("woff2"); }
+@font-face { font-family: "Neue Haas Grotesk Display"; font-weight: 500; font-style: italic; font-display: swap;
+  src: url("./fonts/NeueHaasGrotDisp-66MediumItalic.woff2") format("woff2"); }
+@font-face { font-family: "Neue Haas Grotesk Display"; font-weight: 700; font-style: italic; font-display: swap;
+  src: url("./fonts/NeueHaasGrotDisp-76BoldItalic.woff2") format("woff2"); }
+@font-face { font-family: "Neue Haas Grotesk Display"; font-weight: 900; font-style: italic; font-display: swap;
+  src: url("./fonts/NeueHaasGrotDisp-96BlackItalic.woff2") format("woff2"); }
+
+/* Neue Haas Grotesk Text — body/chrome cut */
+@font-face { font-family: "Neue Haas Grotesk Text"; font-weight: 400; font-style: normal; font-display: swap;
+  src: url("./fonts/NeueHaasGrotText-55Roman.woff2") format("woff2"); }
+@font-face { font-family: "Neue Haas Grotesk Text"; font-weight: 500; font-style: normal; font-display: swap;
+  src: url("./fonts/NeueHaasGrotText-65Medium.woff2") format("woff2"); }
+@font-face { font-family: "Neue Haas Grotesk Text"; font-weight: 700; font-style: normal; font-display: swap;
+  src: url("./fonts/NeueHaasGrotText-75Bold.woff2") format("woff2"); }
+
+@font-face {
+  font-family: "Cascadia Code";
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  src: url("./fonts/cascadia-code-latin-400-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Cascadia Code";
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+  src: url("./fonts/cascadia-code-latin-400-italic.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Cascadia Code";
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+  src: url("./fonts/cascadia-code-latin-500-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Cascadia Code";
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+  src: url("./fonts/cascadia-code-latin-600-normal.woff2") format("woff2");
+}
+
+
+:root {
+  /* ── PRIMITIVES · color ──────────────────────────────────── */
+
+  /* warmGray · single warm hue ladder · 13 steps */
+  --sc-p-color-warm-gray-25: #F8F6F2;  /* near-cream · lighter than 50 · floating surface */
+  --sc-p-color-warm-gray-50:  #F1EFEB;  /* cream · lightest base */
+  --sc-p-color-warm-gray-100: #E3DFD8;  /* page ground · oatmeal */
+  --sc-p-color-warm-gray-200: #D9D5CE;  /* sunk surface · cards */
+  --sc-p-color-warm-gray-250: #D5D1CA;  /* default hairline */
+  --sc-p-color-warm-gray-300: #CDC9C2;  /* deep-sunk surface */
+  --sc-p-color-warm-gray-350: #C5C0B8;  /* subtle hairline */
+  --sc-p-color-warm-gray-400: #9A9388;  /* faint · disabled (fails AA by spec) */
+  --sc-p-color-warm-gray-500: #5F5C55;  /* muted · secondary text on page */
+  --sc-p-color-warm-gray-600: #484640;
+  --sc-p-color-warm-gray-700: #312F2A;
+  --sc-p-color-warm-gray-800: #1A1815;  /* ink · primary text */
+  --sc-p-color-warm-gray-900: #0D0C0B;  /* bar deep · dark mode ground */
+
+  /* shu · vermilion 朱 · single chromatic accent · 10 steps */
+  --sc-p-color-shu-50:  #FCEFEC;
+  --sc-p-color-shu-100: #F7D9D4;
+  --sc-p-color-shu-200: #F0B5AC;
+  --sc-p-color-shu-300: #E68B7F;
+  --sc-p-color-shu-400: #DA5C4D;  /* dark-mode hover/active */
+  --sc-p-color-shu-500: #C8281C;  /* shu · anchor accent */
+  --sc-p-color-shu-600: #B22318;
+  --sc-p-color-shu-700: #9E1F15;  /* shu-deep · press, AA accent text */
+  --sc-p-color-shu-800: #771A11;
+  --sc-p-color-shu-900: #4F100B;
+
+  /* status · semantic states · light + dark variants
+   * Calibrated AA on warmGray.100 (light) and dark.surface-page (dark).
+   * Error is rose-crimson, intentionally pulled off the shu hue band
+   * so it cannot be confused with the brand accent. */
+  --sc-p-color-status-success-light: #2F855A; /* forest green · AA ~4.9:1 on warmGray.100 */
+  --sc-p-color-status-success-dark:  #6EE7B7;
+  --sc-p-color-status-warning-light: #C2410C; /* burnt orange · hue ~20° */
+  --sc-p-color-status-warning-dark:  #FB923C;
+  --sc-p-color-status-error-light:   #7F1D1D; /* oxblood · deep + serious, clearly NOT shu vermilion */
+  --sc-p-color-status-error-dark:    #FCA5A5;
+  --sc-p-color-status-info-light:    #1D4ED8; /* royal blue · AA ~7.5:1 on warmGray.100 */
+  --sc-p-color-status-info-dark:     #93C5FD;
+
+  /* dark-mode-only anchors */
+  --sc-p-color-dark-surface-page:      #0D0C0B;
+  --sc-p-color-dark-surface-sunk:      #181512;
+  --sc-p-color-dark-surface-deep-sunk: #221F1B;
+  --sc-p-color-dark-border:            #201E1A;
+  --sc-p-color-dark-border-subtle:     #2F2B26;
+  --sc-p-color-dark-text-primary:      #E2DDD6;
+  --sc-p-color-dark-text-disabled:     #6B655C;
+
+  /* utility */
+  --sc-p-color-utility-white: #FFFFFF;
+  --sc-p-color-utility-black: #000000;
+
+
+  /* ── PRIMITIVES · type ───────────────────────────────────── */
+
+  --sc-p-font-family-display: "Neue Haas Grotesk Display", "Neue Haas Grotesk Text", "Helvetica Neue", Inter, system-ui, sans-serif;
+  --sc-p-font-family-text:    "Neue Haas Grotesk Text", "Neue Haas Grotesk Display", "Helvetica Neue", Inter, system-ui, sans-serif;
+  --sc-p-font-family-sans:    var(--sc-p-font-family-display);
+  --sc-p-font-family-mono:    "Cascadia Code", "Cascadia Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  /* size · 12 steps · modular ratio 1.25 */
+  --sc-p-font-size-11:  11px;
+  --sc-p-font-size-12:  12px;
+  --sc-p-font-size-13:  13px;
+  --sc-p-font-size-14:  14px;
+  --sc-p-font-size-16:  16px;
+  --sc-p-font-size-20:  20px;
+  --sc-p-font-size-24:  24px;
+  --sc-p-font-size-32:  32px;
+  --sc-p-font-size-44:  44px;
+  --sc-p-font-size-60:  60px;
+  --sc-p-font-size-84:  84px;
+  --sc-p-font-size-120: 120px;
+
+  /* weight · 4 steps. 600 reserved for secondary-button hover only. */
+  --sc-p-font-weight-light:    300;
+  --sc-p-font-weight-regular:  400;
+  --sc-p-font-weight-medium:   500;
+  --sc-p-font-weight-semibold: 600;
+
+  /* line-height · unitless multiplier */
+  --sc-p-font-line-height-flat:    1.0;  /* 120px */
+  --sc-p-font-line-height-tight:   1.1;  /* 44–84px */
+  --sc-p-font-line-height-snug:    1.2;  /* 24–32px */
+  --sc-p-font-line-height-base:    1.5;  /* body + UI */
+  --sc-p-font-line-height-relaxed: 1.55; /* long-read */
+
+  /* tracking · em */
+  --sc-p-font-tracking-tightest: 0;
+  --sc-p-font-tracking-tighter:  0;
+  --sc-p-font-tracking-tight:    0;
+  --sc-p-font-tracking-snug:     0;
+  --sc-p-font-tracking-normal:     0;
+  --sc-p-font-tracking-wide:     0;
+  --sc-p-font-tracking-wider:    0;
+  --sc-p-font-tracking-widest:   0;
+  --sc-p-font-tracking-caps:     0;
+
+
+  /* ── PRIMITIVES · space, radius, border, motion ──────────── */
+
+  --sc-p-space-4:   4px;
+  --sc-p-space-8:   8px;
+  --sc-p-space-12:  12px;
+  --sc-p-space-16:  16px;
+  --sc-p-space-24:  24px;
+  --sc-p-space-32:  32px;
+  --sc-p-space-48:  48px;
+  --sc-p-space-64:  64px;
+  --sc-p-space-80:  80px;
+  --sc-p-space-96:  96px;
+  --sc-p-space-120: 120px;
+  --sc-p-space-micro-2:  2px;
+  --sc-p-space-micro-4:  4px;
+  --sc-p-space-micro-6:  6px;
+  --sc-p-space-micro-8:  8px;
+  --sc-p-space-micro-12: 12px;
+  --sc-p-space-micro-16: 16px;
+  --sc-p-space-micro-22: 22px;
+
+  --sc-p-radius-none:    0px;
+  --sc-p-radius-input:   3px;
+  --sc-p-radius-default: 8px;
+  --sc-p-radius-circle:  9999px;
+
+  --sc-p-border-width-hairline: 1px;
+  --sc-p-border-width-focus:    2px;
+  --sc-p-border-width-accent:   3px;
+
+  --sc-p-motion-duration-micro:        200ms;
+  --sc-p-motion-duration-press:        160ms;
+  --sc-p-motion-duration-standard:     380ms;
+  --sc-p-motion-duration-orchestrated: 720ms;
+
+  --sc-p-motion-easing-out:        cubic-bezier(0.22, 1, 0.36, 1);  /* quint-out · primary */
+  --sc-p-motion-easing-out-strong: cubic-bezier(0.23, 1, 0.32, 1);
+  --sc-p-motion-easing-standard:   cubic-bezier(0.33, 1, 0.68, 1);  /* cubic-out · general state change */
+  --sc-p-motion-easing-cinematic:  cubic-bezier(0.34, 1.4, 0.64, 1); /* gentle overshoot · Figma gentle-like */
+  /* Legacy alias kept so existing references to `in-out` still resolve. */
+  --sc-p-motion-easing-in-out:     cubic-bezier(0.33, 1, 0.68, 1);
+
+  --sc-p-motion-scale-press-button: 0.985;
+  --sc-p-motion-scale-press-tap:    0.92;
+
+  /* Elevation — directional cast (x = y / 2), no multi-layer noise.
+     The light source sits up-and-left; objects cast down-and-right. */
+  --sc-p-elevation-1: 1px 2px 4px rgba(26, 24, 21, 0.10);
+  --sc-p-elevation-2: 4px 8px 16px rgba(26, 24, 21, 0.12);
+  --sc-p-elevation-3: 8px 16px 32px rgba(26, 24, 21, 0.18);
+
+
+  /* ── SEMANTIC · light mode (default) ─────────────────────── */
+
+  /* color · surface */
+  --sc-color-surface-page:      var(--sc-p-color-warm-gray-100);
+  --sc-color-surface-raised:    var(--sc-p-color-warm-gray-50);   /* lifted above page · card default */
+  --sc-color-surface-floating:  var(--sc-p-color-warm-gray-25);   /* highest · interactive hover, popovers */
+  --sc-color-surface-sunk:      var(--sc-p-color-warm-gray-200);
+  --sc-color-surface-deep-sunk: var(--sc-p-color-warm-gray-300);
+  --sc-color-surface-inverse:   var(--sc-p-color-warm-gray-800);
+
+  /* color · text */
+  --sc-color-text-primary:    var(--sc-p-color-warm-gray-800);
+  --sc-color-text-secondary:  var(--sc-p-color-warm-gray-500);
+  --sc-color-text-disabled:   var(--sc-p-color-warm-gray-400);
+  --sc-color-text-on-accent:  var(--sc-p-color-utility-white);
+  --sc-color-text-on-inverse: var(--sc-p-color-warm-gray-50);
+
+  /* color · border */
+  --sc-color-border-default: var(--sc-p-color-warm-gray-250);
+  --sc-color-border-subtle:  var(--sc-p-color-warm-gray-350);
+  --sc-color-border-strong:  var(--sc-p-color-warm-gray-800);
+  --sc-color-border-focus:   var(--sc-p-color-shu-500);
+
+  /* color · interactive */
+  --sc-color-interactive-default: var(--sc-p-color-warm-gray-800);
+  --sc-color-interactive-hover:   var(--sc-p-color-shu-500);
+  --sc-color-interactive-active:  var(--sc-p-color-shu-700);
+
+  /* color · status */
+  --sc-color-status-success: var(--sc-p-color-status-success-light);
+  --sc-color-status-warning: var(--sc-p-color-status-warning-light);
+  --sc-color-status-error:   var(--sc-p-color-status-error-light);
+  --sc-color-status-info:    var(--sc-p-color-status-info-light);
+
+  /* color · brand */
+  --sc-color-brand-accent:      var(--sc-p-color-shu-500);
+  --sc-color-brand-accent-deep: var(--sc-p-color-shu-700);
+
+  /* border */
+  --sc-border-width-default: var(--sc-p-border-width-hairline);
+  --sc-border-width-focus:   var(--sc-p-border-width-focus);
+  --sc-border-width-accent:  var(--sc-p-border-width-accent);
+  --sc-border-focus-offset:  var(--sc-p-space-micro-2);
+
+  /* radius · role */
+  --sc-radius-control: var(--sc-p-radius-input);     /* inputs, badges */
+  --sc-radius-surface: var(--sc-p-radius-default);   /* cards, buttons */
+  --sc-radius-pill:    var(--sc-p-radius-circle);    /* avatars, switch */
+  --sc-radius-none:    var(--sc-p-radius-none);
+
+  /* motion · role pairs */
+  --sc-motion-hover-duration:  var(--sc-p-motion-duration-micro);
+  --sc-motion-hover-easing:    var(--sc-p-motion-easing-out);
+  --sc-motion-press-duration:  var(--sc-p-motion-duration-press);
+  --sc-motion-press-easing:    var(--sc-p-motion-easing-out-strong);
+  --sc-motion-press-scale:     var(--sc-p-motion-scale-press-button);
+  --sc-motion-mode-duration:   var(--sc-p-motion-duration-standard);
+  --sc-motion-mode-easing:     var(--sc-p-motion-easing-standard);
+  --sc-motion-reveal-duration: var(--sc-p-motion-duration-micro);
+  --sc-motion-reveal-easing:   var(--sc-p-motion-easing-out);
+
+  /* elevation */
+  --sc-elevation-low:   var(--sc-p-elevation-1);
+  --sc-elevation-card:  var(--sc-p-elevation-2);
+  --sc-elevation-modal: var(--sc-p-elevation-3);
+
+
+  /* ── SEMANTIC · sizing (mode-invariant) ──────────────────── */
+
+  --sc-size-avatar-xs: var(--sc-p-space-24);
+  --sc-size-avatar-sm: var(--sc-p-space-32);
+  --sc-size-avatar-md: var(--sc-p-space-48);
+  --sc-size-avatar-lg: var(--sc-p-space-64);
+
+  --sc-size-switch-track-width:  var(--sc-p-space-32);
+  --sc-size-switch-track-height: var(--sc-p-space-micro-16);
+  --sc-size-switch-thumb:        var(--sc-p-space-micro-12);
+
+  --sc-size-progress-bar-height:       var(--sc-p-space-4);
+  --sc-size-progress-circular:         var(--sc-p-space-48);
+  --sc-size-progress-circular-stroke:  var(--sc-p-space-4);
+
+
+  /* ── SEMANTIC · spacing ──────────────────────────────────── */
+
+  --sc-space-component-padding-sm: var(--sc-p-space-8);
+  --sc-space-component-padding-md: var(--sc-p-space-16);
+  --sc-space-component-padding-lg: var(--sc-p-space-24);
+
+  --sc-space-component-padding-inline-sm: var(--sc-p-space-micro-6);
+  --sc-space-component-padding-inline-md: var(--sc-p-space-12);
+  --sc-space-component-padding-inline-lg: var(--sc-p-space-16);
+
+  --sc-space-component-padding-block-sm: var(--sc-p-space-micro-2);
+  --sc-space-component-padding-block-md: var(--sc-p-space-8);
+  --sc-space-component-padding-block-lg: var(--sc-p-space-12);
+
+  --sc-space-component-gap-sm: var(--sc-p-space-4);
+  --sc-space-component-gap-md: var(--sc-p-space-8);
+  --sc-space-component-gap-lg: var(--sc-p-space-12);
+
+  --sc-space-layout-stack-sm: var(--sc-p-space-16);
+  --sc-space-layout-stack-md: var(--sc-p-space-24);
+  --sc-space-layout-stack-lg: var(--sc-p-space-48);
+  --sc-space-layout-stack-xl: var(--sc-p-space-80);
+
+  --sc-space-layout-inset-sm: var(--sc-p-space-16);
+  --sc-space-layout-inset-md: var(--sc-p-space-24);
+  --sc-space-layout-inset-lg: var(--sc-p-space-48);
+
+
+  /* ── SEMANTIC · type shorthands ──────────────────────────── */
+  /* `--sc-t-*` resolves to a single `font` shorthand. Use for quick
+   * application; for per-axis control reach for the matching axis
+   * primitive instead. */
+
+  --sc-t-label-chrome:  var(--sc-p-font-weight-medium)  var(--sc-p-font-size-11)/var(--sc-p-font-line-height-base) var(--sc-p-font-family-text);
+  --sc-t-label-ui:      var(--sc-p-font-weight-medium)  var(--sc-p-font-size-12)/var(--sc-p-font-line-height-base) var(--sc-p-font-family-text);
+  --sc-t-caption:       var(--sc-p-font-weight-regular) var(--sc-p-font-size-13)/var(--sc-p-font-line-height-relaxed) var(--sc-p-font-family-text);
+  --sc-t-body-dense:    var(--sc-p-font-weight-regular) var(--sc-p-font-size-14)/var(--sc-p-font-line-height-base) var(--sc-p-font-family-text);
+  --sc-t-body:          var(--sc-p-font-weight-regular) var(--sc-p-font-size-16)/var(--sc-p-font-line-height-base) var(--sc-p-font-family-text);
+  --sc-t-body-lead:     var(--sc-p-font-weight-regular) var(--sc-p-font-size-20)/var(--sc-p-font-line-height-relaxed) var(--sc-p-font-family-text);
+  --sc-t-title-card:    var(--sc-p-font-weight-medium)  var(--sc-p-font-size-24)/var(--sc-p-font-line-height-snug) var(--sc-p-font-family-display);
+  --sc-t-title-section: var(--sc-p-font-weight-medium)  var(--sc-p-font-size-32)/var(--sc-p-font-line-height-snug) var(--sc-p-font-family-display);
+  --sc-t-display-sm:    var(--sc-p-font-weight-light)   var(--sc-p-font-size-44)/var(--sc-p-font-line-height-tight) var(--sc-p-font-family-display);
+  --sc-t-display-md:    var(--sc-p-font-weight-light)   var(--sc-p-font-size-60)/var(--sc-p-font-line-height-tight) var(--sc-p-font-family-display);
+  --sc-t-display-lg:    var(--sc-p-font-weight-light)   var(--sc-p-font-size-84)/var(--sc-p-font-line-height-tight) var(--sc-p-font-family-display);
+  --sc-t-display-xl:    var(--sc-p-font-weight-light)   var(--sc-p-font-size-120)/var(--sc-p-font-line-height-flat) var(--sc-p-font-family-display);
+  --sc-t-mono-chrome:   var(--sc-p-font-weight-medium)  var(--sc-p-font-size-11)/var(--sc-p-font-line-height-base) var(--sc-p-font-family-mono);
+  --sc-t-mono-caption:  var(--sc-p-font-weight-regular) var(--sc-p-font-size-13)/var(--sc-p-font-line-height-relaxed) var(--sc-p-font-family-mono);
+  --sc-t-mono-body:     var(--sc-p-font-weight-regular) var(--sc-p-font-size-16)/var(--sc-p-font-line-height-relaxed) var(--sc-p-font-family-mono);
+}
+
+
+/* ── SEMANTIC · dark mode overrides ────────────────────────── */
+
+[data-theme="dark"] {
+  --sc-color-surface-page:      var(--sc-p-color-dark-surface-page);
+  --sc-color-surface-raised:    var(--sc-p-color-dark-surface-sunk);   /* perceptually-lifted in dark */
+  --sc-color-surface-floating:  var(--sc-p-color-dark-surface-deep-sunk); /* highest perceptual lift in dark */
+  --sc-color-surface-sunk:      var(--sc-p-color-dark-surface-sunk);
+  --sc-color-surface-deep-sunk: var(--sc-p-color-dark-surface-deep-sunk);
+  --sc-color-surface-inverse:   var(--sc-p-color-warm-gray-50);
+
+  --sc-color-text-primary:    var(--sc-p-color-dark-text-primary);
+  --sc-color-text-secondary:  var(--sc-p-color-warm-gray-400);
+  --sc-color-text-disabled:   var(--sc-p-color-dark-text-disabled);
+  --sc-color-text-on-accent:  var(--sc-p-color-utility-white);
+  --sc-color-text-on-inverse: var(--sc-p-color-warm-gray-800);
+
+  --sc-color-border-default: var(--sc-p-color-dark-border);
+  --sc-color-border-subtle:  var(--sc-p-color-dark-border-subtle);
+  --sc-color-border-strong:  var(--sc-p-color-warm-gray-50);
+  --sc-color-border-focus:   var(--sc-p-color-shu-400);
+
+  --sc-color-interactive-default: var(--sc-p-color-warm-gray-50);
+  --sc-color-interactive-hover:   var(--sc-p-color-shu-400);
+  --sc-color-interactive-active:  var(--sc-p-color-shu-500);
+
+  --sc-color-status-success: var(--sc-p-color-status-success-dark);
+  --sc-color-status-warning: var(--sc-p-color-status-warning-dark);
+  --sc-color-status-error:   var(--sc-p-color-status-error-dark);
+  --sc-color-status-info:    var(--sc-p-color-status-info-dark);
+}
+
+
+/* ── Element defaults — applied via `body` font + classes ───── */
+
+html {
+  background-color: var(--sc-color-surface-page);
+  color: var(--sc-color-text-primary);
+}
+
+body {
+  background-color: var(--sc-color-surface-page);
+  color: var(--sc-color-text-primary);
+  font: var(--sc-t-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  transition:
+    background-color var(--sc-motion-mode-duration) var(--sc-motion-mode-easing),
+    color var(--sc-motion-mode-duration) var(--sc-motion-mode-easing);
+}
+
+h1, .sc-h1 { font: var(--sc-t-display-md); letter-spacing: var(--sc-p-font-tracking-tighter); margin: 0; }
+h2, .sc-h2 { font: var(--sc-t-display-sm); letter-spacing: var(--sc-p-font-tracking-tighter); margin: 0; }
+h3, .sc-h3 { font: var(--sc-t-title-section); letter-spacing: var(--sc-p-font-tracking-tight); margin: 0; }
+h4, .sc-h4 { font: var(--sc-t-title-card); letter-spacing: var(--sc-p-font-tracking-snug); margin: 0; }
+
+p, .sc-body { font: var(--sc-t-body); margin: 0; }
+.sc-body-lead   { font: var(--sc-t-body-lead); }
+.sc-body-dense  { font: var(--sc-t-body-dense); }
+.sc-caption     { font: var(--sc-t-caption); color: var(--sc-color-text-secondary); }
+
+.sc-eyebrow,
+.sc-label-chrome {
+  font: var(--sc-t-mono-chrome);
+  letter-spacing: var(--sc-p-font-tracking-wider);
+  text-transform: uppercase;
+  color: var(--sc-color-text-secondary);
+}
+
+code, pre, .sc-mono { font: var(--sc-t-mono-body); }
+.sc-mono-caption    { font: var(--sc-t-mono-caption); color: var(--sc-color-text-secondary); }
+
+::selection {
+  background-color: var(--sc-color-brand-accent);
+  color: var(--sc-color-text-on-accent);
+}
+
+:focus-visible {
+  outline: var(--sc-border-width-focus) solid var(--sc-color-border-focus);
+  outline-offset: var(--sc-border-focus-offset);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

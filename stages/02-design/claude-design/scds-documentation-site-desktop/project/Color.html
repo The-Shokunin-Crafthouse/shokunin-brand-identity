@@ -1,0 +1,1522 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<title>Shokunin Crafthouse — Color</title>
+<meta name="viewport" content="width=1440">
+<link rel="icon" type="image/svg+xml" href="system/mark-icon-light.svg">
+<link rel="stylesheet" href="system/colors_and_type.css">
+<link rel="stylesheet" href="system/_components.css">
+<style>
+  /* ─────────────────────────────────────────────────────────────
+   * Site shell
+   * ───────────────────────────────────────────────────────────── */
+
+  *, *::before, *::after { box-sizing: border-box; }
+
+  html, body { height: 100%; margin: 0; padding: 0; }
+  body {
+    min-width: 1440px;
+    overflow-x: auto;
+  }
+
+  /* canonical layout: sidebar fixed, main offset by sidebar width */
+  .site {
+    display: grid;
+    grid-template-columns: 256px 1fr;
+    min-height: 100vh;
+  }
+
+  /* ── Sidebar ─────────────────────────────────────────────── */
+
+  .sidebar {
+    position: sticky;
+    top: 0;
+    align-self: start;
+    height: 100vh;
+    border-right: var(--sc-border-width-default) solid var(--sc-color-border-default);
+    background: var(--sc-color-surface-page);
+    padding: 28px 24px 20px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    overflow-y: auto;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: var(--sc-color-text-primary);
+  }
+  .brand img { width: 22px; height: 22px; display: block; }
+  .brand-name {
+    font: var(--sc-t-mono-chrome);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--sc-color-text-primary);
+  }
+  .brand-sub {
+    font: var(--sc-t-mono-chrome);
+    color: var(--sc-color-text-secondary);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .nav-section { display: flex; flex-direction: column; gap: 6px; }
+  .nav-eyebrow {
+    font: var(--sc-t-mono-chrome);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--sc-color-text-disabled);
+    padding: 4px 0 6px;
+  }
+  .nav-eyebrow .ord {
+    color: var(--sc-color-text-secondary);
+    margin-right: 6px;
+  }
+  .nav-link {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    text-decoration: none;
+    color: var(--sc-color-text-primary);
+    font: var(--sc-p-font-weight-regular) 13px/1.5 var(--sc-p-font-family-text);
+    padding: 3px 0 3px 0;
+    position: relative;
+    transition: color var(--sc-motion-hover-duration) var(--sc-motion-hover-easing);
+  }
+  .nav-link .num {
+    font: var(--sc-t-mono-chrome);
+    color: var(--sc-color-text-disabled);
+    letter-spacing: 0;
+  }
+  .nav-link:hover { color: var(--sc-color-interactive-hover); }
+  .nav-link[aria-current="page"] {
+    color: var(--sc-color-text-primary);
+    font-weight: var(--sc-p-font-weight-medium);
+  }
+  .nav-link[aria-current="page"]::before {
+    content: "";
+    position: absolute;
+    left: -24px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 2px;
+    height: 14px;
+    background: var(--sc-color-brand-accent);
+  }
+
+  .nav-spacer { flex: 1; }
+
+  .mode-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 16px;
+    border-top: var(--sc-border-width-default) solid var(--sc-color-border-default);
+  }
+  .mode-row .mode-label {
+    font: var(--sc-t-mono-chrome);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--sc-color-text-secondary);
+  }
+  .mode-row .mode-state {
+    color: var(--sc-color-text-primary);
+    margin-left: 4px;
+  }
+
+  .sidebar-foot {
+    font: var(--sc-t-mono-chrome);
+    color: var(--sc-color-text-disabled);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  /* ── Main column ─────────────────────────────────────────── */
+
+  .main {
+    background: var(--sc-color-surface-page);
+    padding: 56px 40px 160px 64px;
+    min-width: 0;
+  }
+
+  /* content + gutter grid · math sums to 1440 - 256 - 64 - 40 = 1080 */
+  .content-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 880px) 32px 168px;
+    column-gap: 0;
+    max-width: 1080px;
+  }
+
+  /* metabar above all */
+  .metabar {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    padding-bottom: 24px;
+    border-bottom: var(--sc-border-width-default) solid var(--sc-color-border-default);
+    margin-bottom: 80px;
+  }
+  .metabar .crumb {
+    font: var(--sc-t-mono-chrome);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--sc-color-text-secondary);
+  }
+  .metabar .crumb .accent { color: var(--sc-color-brand-accent); margin-right: 8px; }
+  .metabar .meta-right {
+    font: var(--sc-t-mono-chrome);
+    color: var(--sc-color-text-disabled);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    display: flex;
+    gap: 24px;
+  }
+  .metabar .meta-right b {
+    font-weight: var(--sc-p-font-weight-medium);
+    color: var(--sc-color-text-secondary);
+  }
+
+  /* Page hero */
+  .hero { grid-column: 1; max-width: 880px; margin-bottom: 96px; }
+  .hero-eyebrow {
+    font: var(--sc-t-mono-chrome);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--sc-color-text-secondary);
+    margin-bottom: 32px;
+    display: inline-block;
+  }
+  .hero h1 {
+    font: var(--sc-p-font-weight-light) 84px/1.05 var(--sc-p-font-family-display);
+    letter-spacing: -0.02em;
+    color: var(--sc-color-text-primary);
+    margin: 0 0 32px;
+    max-width: 800px;
+    text-wrap: balance;
+  }
+  .hero .lead {
+    font: var(--sc-p-font-weight-regular) 22px/1.55 var(--sc-p-font-family-text);
+    color: var(--sc-color-text-secondary);
+    max-width: 680px;
+    margin: 0;
+    text-wrap: pretty;
+  }
+  .hero .lead em {
+    font-style: normal;
+    color: var(--sc-color-text-primary);
+  }
+
+  /* Chapter — section block */
+  .chapter {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: minmax(0, 880px) 32px 168px;
+    column-gap: 0;
+    padding-top: 80px;
+    border-top: var(--sc-border-width-default) solid var(--sc-color-border-default);
+    margin-bottom: 0;
+  }
+  .chapter + .chapter { margin-top: 96px; }
+
+  .chapter-head { grid-column: 1; max-width: 760px; margin-bottom: 56px; }
+  .chapter-eyebrow {
+    font: var(--sc-t-mono-chrome);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--sc-color-text-disabled);
+    display: flex;
+    gap: 12px;
+    align-items: baseline;
+    margin-bottom: 24px;
+  }
+  .chapter-eyebrow .ord { color: var(--sc-color-text-secondary); }
+  .chapter-eyebrow .dot {
+    width: 4px; height: 4px; border-radius: 0;
+    background: var(--sc-color-text-disabled); display: inline-block;
+  }
+  .chapter h2 {
+    font: var(--sc-p-font-weight-light) 44px/1.1 var(--sc-p-font-family-display);
+    letter-spacing: -0.015em;
+    color: var(--sc-color-text-primary);
+    margin: 0 0 24px;
+    text-wrap: balance;
+  }
+  .chapter .premise {
+    font: var(--sc-p-font-weight-regular) 18px/1.55 var(--sc-p-font-family-text);
+    color: var(--sc-color-text-secondary);
+    margin: 0;
+    text-wrap: pretty;
+  }
+  .chapter-body { grid-column: 1; }
+
+  /* right-gutter annotations */
+  .gutter {
+    grid-column: 3;
+    padding-top: 4px;
+  }
+  .annotation {
+    font: var(--sc-p-font-weight-regular) 11px/1.6 var(--sc-p-font-family-mono);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--sc-color-text-secondary);
+    padding-left: 14px;
+    border-left: var(--sc-border-width-default) solid var(--sc-color-border-default);
+    margin-bottom: 28px;
+    max-width: 168px;
+  }
+  .annotation b {
+    font-weight: var(--sc-p-font-weight-medium);
+    color: var(--sc-color-text-primary);
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  /* ─────────────────────────────────────────────────────────────
+   * Warm-gray ladder
+   * ───────────────────────────────────────────────────────────── */
+
+  .ramp {
+    display: grid;
+    grid-template-columns: repeat(13, 1fr);
+    gap: 0;
+    border-radius: var(--sc-radius-control);
+    overflow: hidden;
+    border: var(--sc-border-width-default) solid var(--sc-color-border-default);
+    height: 200px;
+    cursor: default;
+  }
+  .ramp .stop {
+    position: relative;
+    display: block;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: flex var(--sc-motion-hover-duration) var(--sc-motion-hover-easing);
+  }
+  .ramp .stop::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    box-shadow: inset 0 0 0 0 var(--sc-color-brand-accent);
+    transition: box-shadow var(--sc-motion-hover-duration) var(--sc-motion-hover-easing);
+    pointer-events: none;
+  }
+  .ramp .stop:hover::after { box-shadow: inset 0 0 0 2px var(--sc-color-brand-accent); }
+  .ramp .stop[aria-pressed="true"]::after {
+    box-shadow: inset 0 0 0 2px var(--sc-color-brand-accent);
+  }
+  .ramp-labels {
+    display: grid;
+    grid-template-columns: repeat(13, 1fr);
+    margin-top: 12px;
+    padding: 0;
+  }
+  .ramp-labels .l {
+    font: var(--sc-t-mono-chrome);
+    color: var(--sc-color-text-secondary);
+    letter-spacing: 0;
+    text-align: left;
+    padding-left: 2px;
+  }
+  .ramp-labels .l .step {
+    color: var(--sc-color-text-primary);
+    font-weight: var(--sc-p-font-weight-medium);
+  }
+  .ramp-key {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 24px;
+    padding-top: 16px;
+    border-top: var(--sc-border-width-default) solid var(--sc-color-border-default);
+    font: var(--sc-t-mono-chrome);
+    color: var(--sc-color-text-secondary);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .ramp-key b { color: var(--sc-color-text-primary); font-weight: var(--sc-p-font-weight-medium); }
+
+  /* ─────────────────────────────────────────────────────────────
+   * Shu plate
+   * ───────────────────────────────────────────────────────────── */
+
+  .shu-block {
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    gap: 24px;
+    margin-bottom: 48px;
+  }
+  .shu-plate {
+    background: var(--sc-p-color-shu-500);
+    color: var(--sc-p-color-warm-gray-50);
+    aspect-ratio: 16 / 9;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: var(--sc-radius-control);
+    position: relative;
+    cursor: pointer;
+    transition: filter var(--sc-motion-hover-duration) var(--sc-motion-hover-easing);
+  }
+  .shu-plate:hover { filter: brightness(1.04); }
+  .shu-plate .glyph {
+    font: var(--sc-p-font-weight-light) 200px/0.9 var(--sc-p-font-family-display);
+    align-self: flex-end;
+    opacity: 1;
+    color: rgba(241, 239, 235, 0.96);
+    letter-spacing: -0.04em;
+    margin-bottom: -24px;
+  }
+  .shu-plate .plate-foot {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font: var(--sc-t-mono-chrome);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(241, 239, 235, 0.86);
+  }
+  .shu-plate .plate-foot b {
+    color: var(--sc-p-color-warm-gray-50);
+    font-weight: var(--sc-p-font-weight-medium);
+  }
+  .shu-plate .plate-head {
+    font: var(--sc-t-mono-chrome);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--sc-p-color-warm-gray-50);
+  }
+
+  .shu-rail {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    border-radius: var(--sc-radius-control);
+    overflow: hidden;
+  }
+  .shu-rail .step {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 14px;
+    height: 38px;
+    cursor: pointer;
+    position: relative;
+    transition: filter var(--sc-motion-hover-duration) var(--sc-motion-hover-easing);
+  }
+  .shu-rail .step:hover { filter: brightness(1.04); }
+  .shu-rail .step .name {
+    font: var(--sc-t-mono-chrome);
+    letter-spacing: 0;
+  }
+  .shu-rail .step .hex {
+    font: var(--sc-t-mono-chrome);
+    letter-spacing: 0;
+    opacity: 0.7;
+  }
+  .shu-rail .step[aria-pressed="true"] {
+    box-shadow: inset 0 0 0 2px var(--sc-color-brand-accent);
+  }
+
+  /* the three jobs */
+  .three-jobs {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border: var(--sc-border-width-default) solid var(--sc-color-border-default);
+    border-radius: var(--sc-radius-control);
+    overflow: hidden;
+  }
+  .three-jobs .job {
+    padding: 24px;
+    border-right: var(--sc-border-width-default) solid var(--sc-color-border-default);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .three-jobs .job:last-child { border-right: 0; }
+  .three-jobs .job .label {
+    font: var(--sc-t-mono-chrome);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--sc-color-text-secondary);
+  }
+  .three-jobs .job .demo {
+    display: flex;
+    align-items: center;
+    height: 56px;
+  }
+  .three-jobs .job .caption {
+    font: var(--sc-t-mono-chrome);
+    color: var(--sc-color-text-disabled);
+    letter-spacing: 0;
+  }
+
+  .demo-hover {
+    color: var(--sc-color-text-primary);
+    font: var(--sc-p-font-weight-regular) 18px/1.4 var(--sc-p-font-family-text);
+    text-decoration: none;
+    cursor: pointer;
+    transition: color var(--sc-motion-hover-duration) var(--sc-motion-hover-easing);
+  }
+  .demo-hover:hover { color: var(--sc-color-interactive-hover); }
+
+  .demo-focus {
+    padding: 8px 14px;
+    border-radius: var(--sc-radius-control);
+    background: var(--sc-color-surface-sunk);
+    border: var(--sc-border-width-default) solid var(--sc-color-border-default);
+    color: var(--sc-color-text-primary);
+    font: var(--sc-p-font-weight-regular) 14px/1.2 var(--sc-p-font-family-text);
+    width: 180px;
+  }
+  .demo-focus:focus {
+    outline: 2px solid var(--sc-color-brand-accent);
+    outline-offset: 2px;
+    border-color: var(--sc-color-brand-accent);
+  }
+
+  .demo-mark {
+    width: 64px; height: 50px;
+    background: var(--sc-color-text-primary);
+    position: relative;
+  }
+  .demo-mark::after {
+    content: "";
+    position: absolute;
+    right: 0; top: 0;
+    width: 16px; height: 16px;
+    background: var(--sc-p-color-shu-500);
+  }
+
+  /* ─────────────────────────────────────────────────────────────
+   * Status row — outside the band
+   * ───────────────────────────────────────────────────────────── */
+
+  .status-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    border: var(--sc-border-width-default) solid var(--sc-color-border-default);
+    border-radius: var(--sc-radius-control);
+    overflow: hidden;
+  }
+  .status-tile {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border-right: var(--sc-border-width-default) solid var(--sc-color-border-default);
+  }
+  .status-tile:last-child { border-right: 0; }
+  .status-swatch {
+    height: 96px;
+    cursor: pointer;
+    position: relative;
+    transition: filter var(--sc-motion-hover-duration) var(--sc-motion-hover-easing);
+  }
+  .status-swatch:hover { filter: brightness(1.06); }
+  .status-meta {
+    padding: 16px 18px 18px;
+    background: var(--sc-color-surface-raised);
+    border-top: var(--sc-border-width-default) solid var(--sc-color-border-default);
+  }
+  .status-meta .name {
+    font: var(--sc-t-mono-chrome);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--sc-color-text-primary);
+    margin-bottom: 4px;
+  }
+  .status-meta .hue {
+    font: var(--sc-p-font-weight-regular) 13px/1.4 var(--sc-p-font-family-text);
+    color: var(--sc-color-text-secondary);
+    margin-bottom: 10px;
+  }
+  .status-meta .hexes {
+    font: var(--sc-t-mono-chrome);
+    color: var(--sc-color-text-disabled);
+    letter-spacing: 0;
+    display: flex;
+    justify-content: space-between;
+  }
+  .status-meta .hexes b {
+    color: var(--sc-color-text-secondary);
+    font-weight: var(--sc-p-font-weight-medium);
+  }
+
+  /* ─────────────────────────────────────────────────────────────
+   * Three-tier architecture
+   * ───────────────────────────────────────────────────────────── */
+
+  .tier-table {
+    display: grid;
+    grid-template-columns: 1fr 32px 1fr 32px 1fr;
+    align-items: stretch;
+    border: var(--sc-border-width-default) solid var(--sc-color-border-default);
+    border-radius: var(--sc-radius-control);
+    overflow: hidden;
+  }
+  .tier-col-head {
+    padding: 16px 20px 14px;
+    border-bottom: var(--sc-border-width-default) solid var(--sc-color-border-default);
+    background: var(--sc-color-surface-raised);
+  }
+  .tier-col-head .num {
+    font: var(--sc-t-mono-chrome);
+    color: var(--sc-color-text-disabled);
+    letter-spacing: 0;
+    margin-right: 6px;
+  }
+  .tier-col-head .label {
+    font: var(--sc-t-mono-chrome);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--sc-color-text-primary);
+  }
+  .tier-col-head .sub {
+    font: var(--sc-p-font-weight-regular) 12px/1.4 var(--sc-p-font-family-text);
+    color: var(--sc-color-text-secondary);
+    margin-top: 6px;
+  }
+  .tier-arrow-head, .tier-arrow {
+    border-right: var(--sc-border-width-default) solid var(--sc-color-border-default);
+    border-bottom: var(--sc-border-width-default) solid var(--sc-color-border-default);
+    background: var(--sc-color-surface-sunk);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--sc-color-text-disabled);
+    font: var(--sc-t-mono-chrome);
+  }
+  .tier-arrow:last-child, .tier-arrow-head:last-child { /* no-op */ }
+  .tier-col-head { border-right: var(--sc-border-width-default) solid var(--sc-color-border-default); }
+  .tier-col-head:last-child { border-right: 0; }
+
+  .tier-cell {
+    padding: 18px 20px;
+    border-bottom: var(--sc-border-width-default) solid var(--sc-color-border-default);
+    border-right: var(--sc-border-width-default) solid var(--sc-color-border-default);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 64px;
+  }
+  .tier-cell:last-child { border-right: 0; }
+  .tier-arrow:last-child, .tier-arrow-head:last-child { border-right: var(--sc-border-width-default) solid var(--sc-color-border-default); }
+  .tier-table > .tier-cell:nth-last-child(-n+5) { border-bottom: 0; }
+  .tier-table > .tier-arrow:nth-last-child(-n+5) { border-bottom: 0; }
+
+  .swatch-dot {
+    width: 22px; height: 22px;
+    border-radius: 2px;
+    flex-shrink: 0;
+    border: var(--sc-border-width-default) solid var(--sc-color-border-default);
+  }
+  .tier-cell .tok {
+    font: var(--sc-p-font-weight-regular) 12px/1.4 var(--sc-p-font-family-mono);
+    color: var(--sc-color-text-primary);
+    letter-spacing: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .tier-cell .tok .dim { color: var(--sc-color-text-secondary); }
+  .tier-cell.cell-component .tok { color: var(--sc-color-text-secondary); }
+  .tier-cell.cell-component .tok b { color: var(--sc-color-text-primary); font-weight: var(--sc-p-font-weight-medium); }
+
+  .tier-arrow .glyph {
+    font: var(--sc-p-font-weight-light) 18px/1 var(--sc-p-font-family-display);
+    color: var(--sc-color-text-disabled);
+  }
+
+  /* ─────────────────────────────────────────────────────────────
+   * Contrast checker
+   * ───────────────────────────────────────────────────────────── */
+
+  .checker {
+    border: var(--sc-border-width-default) solid var(--sc-color-border-default);
+    border-radius: var(--sc-radius-control);
+    overflow: hidden;
+    background: var(--sc-color-surface-raised);
+  }
+  .checker-top {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .checker-side {
+    padding: 20px 24px 20px;
+    border-right: var(--sc-border-width-default) solid var(--sc-color-border-default);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .checker-side:last-child { border-right: 0; }
+  .checker-side .role {
+    font: var(--sc-t-mono-chrome);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--sc-color-text-secondary);
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+  .checker-side .role .tok-name {
+    color: var(--sc-color-text-primary);
+    font-weight: var(--sc-p-font-weight-medium);
+  }
+  .checker-side .role .hex-val {
+    color: var(--sc-color-text-disabled);
+  }
+  .checker-side .swatch {
+    height: 64px;
+    border-radius: var(--sc-radius-control);
+    border: var(--sc-border-width-default) solid var(--sc-color-border-default);
+  }
+  .checker-side .picker-row {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .picker-row .picker-label {
+    font: var(--sc-t-mono-chrome);
+    color: var(--sc-color-text-disabled);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-right: 4px;
+  }
+  .picker-row .px {
+    width: 18px;
+    height: 18px;
+    border: var(--sc-border-width-default) solid var(--sc-color-border-default);
+    border-radius: 2px;
+    padding: 0;
+    cursor: pointer;
+    background: var(--bg);
+    transition: outline-offset var(--sc-motion-hover-duration) var(--sc-motion-hover-easing);
+  }
+  .picker-row .px[aria-pressed="true"] {
+    outline: 2px solid var(--sc-color-brand-accent);
+    outline-offset: 2px;
+  }
+
+  .checker-preview {
+    padding: 56px 48px 56px 48px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    border-top: var(--sc-border-width-default) solid var(--sc-color-border-default);
+    border-bottom: var(--sc-border-width-default) solid var(--sc-color-border-default);
+    transition:
+      background-color var(--sc-motion-hover-duration) var(--sc-motion-hover-easing),
+      color var(--sc-motion-hover-duration) var(--sc-motion-hover-easing);
+  }
+  .checker-preview .p-aa {
+    font: 300 84px/1 var(--sc-p-font-family-display);
+    letter-spacing: -0.02em;
+  }
+  .checker-preview .p-body {
+    font: 400 16px/1.5 var(--sc-p-font-family-text);
+    max-width: 540px;
+  }
+  .checker-preview .p-chrome {
+    font: 500 11px/1.5 var(--sc-p-font-family-mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0.78;
+  }
+
+  .checker-bottom {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    align-items: stretch;
+  }
+  .ratio-cell {
+    padding: 24px 32px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    border-right: var(--sc-border-width-default) solid var(--sc-color-border-default);
+  }
+  .ratio-label {
+    font: var(--sc-t-mono-chrome);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--sc-color-text-secondary);
+  }
+  .ratio-value {
+    font: 300 84px/1 var(--sc-p-font-family-display);
+    letter-spacing: -0.025em;
+    color: var(--sc-color-text-primary);
+    font-variant-numeric: tabular-nums;
+    transition: color var(--sc-motion-mode-duration) var(--sc-motion-mode-easing);
+  }
+  .ratio-value .colon {
+    color: var(--sc-color-text-disabled);
+    margin: 0 12px;
+  }
+  .ratio-value.bad { color: var(--sc-color-status-error); }
+  .ratio-foot {
+    font: 400 13px/1.5 var(--sc-p-font-family-text);
+    color: var(--sc-color-text-secondary);
+    margin-top: 8px;
+  }
+  .ratio-foot b {
+    color: var(--sc-color-text-primary);
+    font-weight: var(--sc-p-font-weight-medium);
+  }
+
+  .verdicts {
+    padding: 24px 28px 24px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 12px 16px;
+    align-content: center;
+  }
+  .verdict {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .verdict .v-head {
+    font: var(--sc-t-mono-chrome);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--sc-color-text-secondary);
+  }
+  .verdict .badge-row { display: flex; align-items: center; gap: 8px; }
+  .verdict .req {
+    font: var(--sc-t-mono-chrome);
+    color: var(--sc-color-text-disabled);
+    letter-spacing: 0;
+  }
+
+  /* Pass / fail micro-component (reuses badge visual logic) */
+  .sc-badge.sc-badge--pass {
+    color: var(--sc-color-status-success);
+    border-color: var(--sc-color-status-success);
+  }
+  .sc-badge.sc-badge--fail {
+    color: var(--sc-color-status-error);
+    border-color: var(--sc-color-status-error);
+  }
+
+  /* ─────────────────────────────────────────────────────────────
+   * Misc helpers
+   * ───────────────────────────────────────────────────────────── */
+
+  .stack-md { display: flex; flex-direction: column; gap: 24px; }
+  .stack-lg { display: flex; flex-direction: column; gap: 48px; }
+  .row-eyebrow {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font: var(--sc-t-mono-chrome);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--sc-color-text-secondary);
+    margin-bottom: 16px;
+  }
+  .row-eyebrow b {
+    color: var(--sc-color-text-primary);
+    font-weight: var(--sc-p-font-weight-medium);
+  }
+
+  /* Theme-toggle uses the system Switch — selectors live in _components.css */
+  .sc-switch { gap: 10px; }
+</style>
+</head>
+<body>
+
+<div class="site">
+
+  <!-- ─────────────────── SIDEBAR ─────────────────── -->
+  <aside class="sidebar" aria-label="Documentation navigation">
+    <a class="brand" href="#" aria-label="Shokunin Crafthouse — home">
+      <img id="brandMark" src="system/mark-icon-light.svg" alt="">
+      <div>
+        <div class="brand-name">Shokunin Crafthouse</div>
+        <div class="brand-sub">design system · v1.2</div>
+      </div>
+    </a>
+
+    <nav class="nav-section" aria-label="Foundations">
+      <div class="nav-eyebrow"><span class="ord">01</span>Foundations</div>
+      <a class="nav-link" href="#color" aria-current="page">Color<span class="num">01</span></a>
+      <a class="nav-link" href="#type">Type<span class="num">02</span></a>
+      <a class="nav-link" href="#spacing">Spacing<span class="num">03</span></a>
+      <a class="nav-link" href="#motion">Motion<span class="num">04</span></a>
+      <a class="nav-link" href="#mark">Mark<span class="num">05</span></a>
+    </nav>
+
+    <nav class="nav-section" aria-label="Components">
+      <div class="nav-eyebrow"><span class="ord">02</span>Components</div>
+      <a class="nav-link" href="#button">Button<span class="num">12</span></a>
+      <a class="nav-link" href="#badge">Badge</a>
+      <a class="nav-link" href="#card">Card</a>
+      <a class="nav-link" href="#input">Input</a>
+      <a class="nav-link" href="#alert">Alert</a>
+      <a class="nav-link" href="#switch">Switch</a>
+      <a class="nav-link" href="#avatar">Avatar</a>
+      <a class="nav-link" href="#progress">Progress</a>
+      <a class="nav-link" href="#tooltip">Tooltip</a>
+      <a class="nav-link" href="#divider">Divider</a>
+      <a class="nav-link" href="#nav">NavBar</a>
+      <a class="nav-link" href="#specimen">Specimen</a>
+    </nav>
+
+    <nav class="nav-section" aria-label="Voice">
+      <div class="nav-eyebrow"><span class="ord">03</span>Voice</div>
+      <a class="nav-link" href="#register">Register</a>
+      <a class="nav-link" href="#density">Density</a>
+      <a class="nav-link" href="#hard-rules">Hard rules</a>
+    </nav>
+
+    <div class="nav-spacer"></div>
+
+    <div class="mode-row">
+      <span class="mode-label">Mode <span class="mode-state" id="modeState">Light</span></span>
+      <label class="sc-switch" id="themeSwitch" aria-label="Toggle dark mode">
+        <input type="checkbox" id="themeInput" style="position:absolute;opacity:0;pointer-events:none;">
+        <span class="sc-switch-track"><span class="sc-switch-thumb"></span></span>
+      </label>
+    </div>
+
+    <div class="sidebar-foot">
+      <span>edition · 2026.05</span>
+      <span>SCDS-01</span>
+    </div>
+  </aside>
+
+  <!-- ─────────────────── MAIN ─────────────────── -->
+  <main class="main">
+    <div class="content-grid">
+
+      <!-- META BAR -->
+      <div class="metabar">
+        <div class="crumb"><span class="accent">01 / 05</span>Foundations · Color</div>
+        <div class="meta-right">
+          <span><b>Last revised</b> 2026.05.27</span>
+          <span><b>Tokens</b> 88</span>
+          <span><b>Spec</b> v1.2</span>
+        </div>
+      </div>
+
+      <!-- HERO -->
+      <section class="hero">
+        <span class="hero-eyebrow">Color · the room and the signal</span>
+        <h1>Color earns its place by doing work.</h1>
+        <p class="lead">Two warm grays carry the room. One vermilion does the signaling. Status pulls its hue from outside the brand band so the brand and the danger can never be confused. <em>Every value below was placed to solve a specific problem.</em></p>
+      </section>
+
+      <!-- ═════════ THE ROOM ═════════ -->
+      <section class="chapter" id="ramp" data-screen-label="Color · Warm-gray ladder">
+        <div class="chapter-head">
+          <div class="chapter-eyebrow"><span class="ord">i</span><span class="dot"></span><span>The room · warm-gray ladder</span></div>
+          <h2>Thirteen steps. One hue. Built to absorb friction.</h2>
+          <p class="premise">The page sits at warmGray.100. Ink sits at warmGray.800. The other eleven steps exist so the surface between them never has to fight to read.</p>
+        </div>
+
+        <div class="chapter-body stack-md">
+          <div class="row-eyebrow">
+            <span><b>Ladder</b> · warmGray · single warm hue · 13 steps</span>
+            <span id="rampHint">Click any step to load into the contrast checker below</span>
+          </div>
+          <div class="ramp" id="warmRamp" role="group" aria-label="Warm gray ladder">
+            <!-- 13 stops, populated below; built statically so DOM stays editable -->
+            <button class="stop" type="button" data-token="warm-gray-25"  data-hex="#F8F6F2" style="background:#F8F6F2" title="warm-gray-25 · #F8F6F2"></button>
+            <button class="stop" type="button" data-token="warm-gray-50"  data-hex="#F1EFEB" style="background:#F1EFEB" title="warm-gray-50 · #F1EFEB"></button>
+            <button class="stop" type="button" data-token="warm-gray-100" data-hex="#E3DFD8" style="background:#E3DFD8" title="warm-gray-100 · #E3DFD8 · page ground"></button>
+            <button class="stop" type="button" data-token="warm-gray-200" data-hex="#D9D5CE" style="background:#D9D5CE" title="warm-gray-200 · #D9D5CE"></button>
+            <button class="stop" type="button" data-token="warm-gray-250" data-hex="#D5D1CA" style="background:#D5D1CA" title="warm-gray-250 · #D5D1CA · default hairline"></button>
+            <button class="stop" type="button" data-token="warm-gray-300" data-hex="#CDC9C2" style="background:#CDC9C2" title="warm-gray-300 · #CDC9C2"></button>
+            <button class="stop" type="button" data-token="warm-gray-350" data-hex="#C5C0B8" style="background:#C5C0B8" title="warm-gray-350 · #C5C0B8"></button>
+            <button class="stop" type="button" data-token="warm-gray-400" data-hex="#9A9388" style="background:#9A9388" title="warm-gray-400 · #9A9388 · disabled (fails AA by spec)"></button>
+            <button class="stop" type="button" data-token="warm-gray-500" data-hex="#5F5C55" style="background:#5F5C55" title="warm-gray-500 · #5F5C55 · secondary text"></button>
+            <button class="stop" type="button" data-token="warm-gray-600" data-hex="#484640" style="background:#484640" title="warm-gray-600 · #484640"></button>
+            <button class="stop" type="button" data-token="warm-gray-700" data-hex="#312F2A" style="background:#312F2A" title="warm-gray-700 · #312F2A"></button>
+            <button class="stop" type="button" data-token="warm-gray-800" data-hex="#1A1815" style="background:#1A1815" title="warm-gray-800 · #1A1815 · ink"></button>
+            <button class="stop" type="button" data-token="warm-gray-900" data-hex="#0D0C0B" style="background:#0D0C0B" title="warm-gray-900 · #0D0C0B · bar deep"></button>
+          </div>
+          <div class="ramp-labels">
+            <div class="l"><span class="step">25</span><br>F8F6F2</div>
+            <div class="l"><span class="step">50</span><br>F1EFEB</div>
+            <div class="l"><span class="step">100</span><br>E3DFD8</div>
+            <div class="l"><span class="step">200</span><br>D9D5CE</div>
+            <div class="l"><span class="step">250</span><br>D5D1CA</div>
+            <div class="l"><span class="step">300</span><br>CDC9C2</div>
+            <div class="l"><span class="step">350</span><br>C5C0B8</div>
+            <div class="l"><span class="step">400</span><br>9A9388</div>
+            <div class="l"><span class="step">500</span><br>5F5C55</div>
+            <div class="l"><span class="step">600</span><br>484640</div>
+            <div class="l"><span class="step">700</span><br>312F2A</div>
+            <div class="l"><span class="step">800</span><br>1A1815</div>
+            <div class="l"><span class="step">900</span><br>0D0C0B</div>
+          </div>
+          <div class="ramp-key">
+            <span><b>100</b> · page ground</span>
+            <span><b>250</b> · hairline</span>
+            <span><b>400</b> · disabled, fails AA <span style="color:var(--sc-color-text-disabled)">(by design)</span></span>
+            <span><b>500</b> · secondary text</span>
+            <span><b>800</b> · ink</span>
+            <span><b>900</b> · dark ground</span>
+          </div>
+        </div>
+
+        <aside class="gutter">
+          <div class="annotation"><b>No pure white</b>warmGray.25 (#F8F6F2) is the lightest value in the system. Pure white is not a token.</div>
+          <div class="annotation"><b>No pure black</b>warmGray.900 (#0D0C0B) is the deepest. The warmth at the extremes is the signature.</div>
+          <div class="annotation"><b>Hairline</b>250, not 200. A 4-point lift from page is enough to read as structure, not decoration.</div>
+        </aside>
+      </section>
+
+      <!-- ═════════ THE SIGNAL ═════════ -->
+      <section class="chapter" id="shu" data-screen-label="Color · Shu — the signal">
+        <div class="chapter-head">
+          <div class="chapter-eyebrow"><span class="ord">ii</span><span class="dot"></span><span>The signal · 朱 shu</span></div>
+          <h2>One vermilion. Three jobs. Nothing else.</h2>
+          <p class="premise">Shu marks the cursor's intent — hover, focus, the studio mark's accent surface. If you catch it doing decorative work on a page, the page is wrong.</p>
+        </div>
+
+        <div class="chapter-body stack-lg">
+
+          <div class="shu-block">
+            <button class="shu-plate" type="button" data-token="shu-500" data-hex="#C8281C" aria-label="Load shu-500 into checker">
+              <div class="plate-head">朱 · shu · vermilion</div>
+              <div class="glyph">500</div>
+              <div class="plate-foot">
+                <span><b>#C8281C</b> · sc-color-brand-accent</span>
+                <span>load →</span>
+              </div>
+            </button>
+
+            <div class="shu-rail">
+              <button class="step" type="button" data-token="shu-50"  data-hex="#FCEFEC" style="background:#FCEFEC;color:#1A1815"><span class="name">shu.50</span><span class="hex">FCEFEC</span></button>
+              <button class="step" type="button" data-token="shu-100" data-hex="#F7D9D4" style="background:#F7D9D4;color:#1A1815"><span class="name">shu.100</span><span class="hex">F7D9D4</span></button>
+              <button class="step" type="button" data-token="shu-200" data-hex="#F0B5AC" style="background:#F0B5AC;color:#1A1815"><span class="name">shu.200</span><span class="hex">F0B5AC</span></button>
+              <button class="step" type="button" data-token="shu-300" data-hex="#E68B7F" style="background:#E68B7F;color:#1A1815"><span class="name">shu.300</span><span class="hex">E68B7F</span></button>
+              <button class="step" type="button" data-token="shu-400" data-hex="#DA5C4D" style="background:#DA5C4D;color:#F1EFEB"><span class="name">shu.400</span><span class="hex">DA5C4D</span></button>
+              <button class="step" type="button" data-token="shu-500" data-hex="#C8281C" style="background:#C8281C;color:#F1EFEB"><span class="name">shu.500</span><span class="hex">C8281C</span></button>
+              <button class="step" type="button" data-token="shu-600" data-hex="#B22318" style="background:#B22318;color:#F1EFEB"><span class="name">shu.600</span><span class="hex">B22318</span></button>
+              <button class="step" type="button" data-token="shu-700" data-hex="#9E1F15" style="background:#9E1F15;color:#F1EFEB"><span class="name">shu.700</span><span class="hex">9E1F15</span></button>
+              <button class="step" type="button" data-token="shu-800" data-hex="#771A11" style="background:#771A11;color:#F1EFEB"><span class="name">shu.800</span><span class="hex">771A11</span></button>
+              <button class="step" type="button" data-token="shu-900" data-hex="#4F100B" style="background:#4F100B;color:#F1EFEB"><span class="name">shu.900</span><span class="hex">4F100B</span></button>
+            </div>
+          </div>
+
+          <div class="three-jobs">
+            <div class="job">
+              <div class="label">Job 01 · hover</div>
+              <div class="demo">
+                <a class="demo-hover" href="javascript:void(0)" onmouseenter="" onclick="event.preventDefault()">Pass your cursor here.</a>
+              </div>
+              <div class="caption">--sc-color-interactive-hover → shu.500</div>
+            </div>
+            <div class="job">
+              <div class="label">Job 02 · focus</div>
+              <div class="demo">
+                <input class="demo-focus" type="text" value="Tab to here" aria-label="Focus demo input">
+              </div>
+              <div class="caption">--sc-color-border-focus → shu.500</div>
+            </div>
+            <div class="job">
+              <div class="label">Job 03 · mark accent</div>
+              <div class="demo">
+                <span class="demo-mark" aria-hidden="true"></span>
+              </div>
+              <div class="caption">studio mark · accent surface only</div>
+            </div>
+          </div>
+
+        </div>
+
+        <aside class="gutter">
+          <div class="annotation"><b>Used sparingly</b>Two intentional moments per page is the ceiling. Three is decoration.</div>
+          <div class="annotation"><b>Not error</b>Shu is brand-vermilion. The error status is a separate oxblood — see the row below.</div>
+          <div class="annotation"><b>The mark itself</b>The studio mark never resolves to shu. Only the small accent cell in the lockups carries it.</div>
+        </aside>
+      </section>
+
+      <!-- ═════════ OUTSIDE THE BAND ═════════ -->
+      <section class="chapter" id="status" data-screen-label="Color · Status — outside the band">
+        <div class="chapter-head">
+          <div class="chapter-eyebrow"><span class="ord">iii</span><span class="dot"></span><span>Outside the band · status</span></div>
+          <h2>Four independent hues. None of them shu.</h2>
+          <p class="premise">Error is oxblood, not red. When a screen says danger, the brand and the warning cannot be mistaken for each other. Each status carries a light pair and a dark pair, both calibrated AA on the ground beneath them.</p>
+        </div>
+
+        <div class="chapter-body">
+          <div class="status-row">
+
+            <div class="status-tile">
+              <button class="status-swatch" type="button" data-token="status-success-light" data-hex="#2F855A" style="background:#2F855A" aria-label="Load success-light"></button>
+              <div class="status-meta">
+                <div class="name">Success</div>
+                <div class="hue">Forest green · AA on ground 4.9 : 1</div>
+                <div class="hexes"><span><b>L</b> 2F855A</span><span><b>D</b> 6EE7B7</span></div>
+              </div>
+            </div>
+
+            <div class="status-tile">
+              <button class="status-swatch" type="button" data-token="status-warning-light" data-hex="#C2410C" style="background:#C2410C" aria-label="Load warning-light"></button>
+              <div class="status-meta">
+                <div class="name">Warning</div>
+                <div class="hue">Burnt orange · hue ~20°</div>
+                <div class="hexes"><span><b>L</b> C2410C</span><span><b>D</b> FB923C</span></div>
+              </div>
+            </div>
+
+            <div class="status-tile">
+              <button class="status-swatch" type="button" data-token="status-error-light" data-hex="#7F1D1D" style="background:#7F1D1D" aria-label="Load error-light"></button>
+              <div class="status-meta">
+                <div class="name">Error</div>
+                <div class="hue">Oxblood · deep · not shu</div>
+                <div class="hexes"><span><b>L</b> 7F1D1D</span><span><b>D</b> FCA5A5</span></div>
+              </div>
+            </div>
+
+            <div class="status-tile">
+              <button class="status-swatch" type="button" data-token="status-info-light" data-hex="#1D4ED8" style="background:#1D4ED8" aria-label="Load info-light"></button>
+              <div class="status-meta">
+                <div class="name">Info</div>
+                <div class="hue">Royal blue · AA 7.5 : 1</div>
+                <div class="hexes"><span><b>L</b> 1D4ED8</span><span><b>D</b> 93C5FD</span></div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <aside class="gutter">
+          <div class="annotation"><b>Why oxblood</b>Error must read as serious. Shu reads as bright. If both occupy the same hue band, the page lies twice — once about brand, once about danger.</div>
+          <div class="annotation"><b>Color is not the only carrier</b>Every status pairs a hue with a copy register and an alert stamp. Pull the color and the message still reads.</div>
+        </aside>
+      </section>
+
+      <!-- ═════════ THREE-TIER ARCHITECTURE ═════════ -->
+      <section class="chapter" id="tiers" data-screen-label="Color · Three-tier architecture">
+        <div class="chapter-head">
+          <div class="chapter-eyebrow"><span class="ord">iv</span><span class="dot"></span><span>Resolution · three tiers</span></div>
+          <h2>A primitive holds the value. A semantic gives it a role.</h2>
+          <p class="premise">Components consume only the middle column. Raw hex at the call site is a bug, not a shortcut. The resolution path below is the only path the system permits.</p>
+        </div>
+
+        <div class="chapter-body">
+          <div class="tier-table">
+
+            <!-- header row -->
+            <div class="tier-col-head">
+              <span class="num">01</span><span class="label">Primitive</span>
+              <div class="sub">raw value · token-map.json</div>
+            </div>
+            <div class="tier-arrow-head"></div>
+            <div class="tier-col-head">
+              <span class="num">02</span><span class="label">Semantic</span>
+              <div class="sub">role · what it means</div>
+            </div>
+            <div class="tier-arrow-head"></div>
+            <div class="tier-col-head">
+              <span class="num">03</span><span class="label">Component</span>
+              <div class="sub">read-site only</div>
+            </div>
+
+            <!-- row 1 · page -->
+            <div class="tier-cell">
+              <span class="swatch-dot" style="background:#E3DFD8"></span>
+              <span class="tok">--sc-p-color-warm-gray-100<br><span class="dim">#E3DFD8</span></span>
+            </div>
+            <div class="tier-arrow"><span class="glyph">→</span></div>
+            <div class="tier-cell">
+              <span class="swatch-dot" style="background:#E3DFD8"></span>
+              <span class="tok">--sc-color-surface-page</span>
+            </div>
+            <div class="tier-arrow"><span class="glyph">→</span></div>
+            <div class="tier-cell cell-component">
+              <span class="tok"><b>body</b> { background: … }</span>
+            </div>
+
+            <!-- row 2 · ink -->
+            <div class="tier-cell">
+              <span class="swatch-dot" style="background:#1A1815"></span>
+              <span class="tok">--sc-p-color-warm-gray-800<br><span class="dim">#1A1815</span></span>
+            </div>
+            <div class="tier-arrow"><span class="glyph">→</span></div>
+            <div class="tier-cell">
+              <span class="swatch-dot" style="background:#1A1815"></span>
+              <span class="tok">--sc-color-text-primary</span>
+            </div>
+            <div class="tier-arrow"><span class="glyph">→</span></div>
+            <div class="tier-cell cell-component">
+              <span class="tok"><b>h1</b>, <b>p</b> { color: … }</span>
+            </div>
+
+            <!-- row 3 · shu hover -->
+            <div class="tier-cell">
+              <span class="swatch-dot" style="background:#C8281C"></span>
+              <span class="tok">--sc-p-color-shu-500<br><span class="dim">#C8281C</span></span>
+            </div>
+            <div class="tier-arrow"><span class="glyph">→</span></div>
+            <div class="tier-cell">
+              <span class="swatch-dot" style="background:#C8281C"></span>
+              <span class="tok">--sc-color-interactive-hover</span>
+            </div>
+            <div class="tier-arrow"><span class="glyph">→</span></div>
+            <div class="tier-cell cell-component">
+              <span class="tok"><b>a:hover</b>, <b>.sc-button:hover</b></span>
+            </div>
+
+            <!-- row 4 · error -->
+            <div class="tier-cell">
+              <span class="swatch-dot" style="background:#7F1D1D"></span>
+              <span class="tok">--sc-p-color-status-error-light<br><span class="dim">#7F1D1D</span></span>
+            </div>
+            <div class="tier-arrow"><span class="glyph">→</span></div>
+            <div class="tier-cell">
+              <span class="swatch-dot" style="background:#7F1D1D"></span>
+              <span class="tok">--sc-color-status-error</span>
+            </div>
+            <div class="tier-arrow"><span class="glyph">→</span></div>
+            <div class="tier-cell cell-component">
+              <span class="tok"><b>.sc-alert--error</b>, <b>.sc-badge--error</b></span>
+            </div>
+
+          </div>
+        </div>
+
+        <aside class="gutter">
+          <div class="annotation"><b>Dark mode</b>Only the middle column remaps. Primitives are values; semantics are roles; the role changes its source by theme, the component never knows.</div>
+          <div class="annotation"><b>Why the prefix</b>--sc-p-* is primitive. --sc-* is semantic. The hyphen-p is the only visual cue you need to know you are reaching past the system.</div>
+        </aside>
+      </section>
+
+      <!-- ═════════ THE CHECKER ═════════ -->
+      <section class="chapter" id="contrast" data-screen-label="Color · Contrast checker">
+        <div class="chapter-head">
+          <div class="chapter-eyebrow"><span class="ord">v</span><span class="dot"></span><span>Contrast · the measurement</span></div>
+          <h2>Contrast is a measurement, not an instinct.</h2>
+          <p class="premise">Every text-and-surface pairing in the system has a number. The number decides. Body must pass AA. Legal and disclosure pass AAA. Pick any two values above, then read the verdict below.</p>
+        </div>
+
+        <div class="chapter-body">
+          <div class="checker" id="checker">
+            <div class="checker-top">
+              <div class="checker-side">
+                <div class="role">
+                  <span>Foreground · <span class="tok-name" id="fgName">text-primary</span></span>
+                  <span class="hex-val" id="fgHex">#1A1815</span>
+                </div>
+                <div class="swatch" id="fgSwatch" style="background:#1A1815"></div>
+                <div class="picker-row" id="fgPicker">
+                  <span class="picker-label">Quick</span>
+                  <!-- populated by JS -->
+                </div>
+              </div>
+              <div class="checker-side">
+                <div class="role">
+                  <span>Background · <span class="tok-name" id="bgName">surface-page</span></span>
+                  <span class="hex-val" id="bgHex">#E3DFD8</span>
+                </div>
+                <div class="swatch" id="bgSwatch" style="background:#E3DFD8"></div>
+                <div class="picker-row" id="bgPicker">
+                  <span class="picker-label">Quick</span>
+                  <!-- populated by JS -->
+                </div>
+              </div>
+            </div>
+
+            <div class="checker-preview" id="preview"
+                 style="background:#E3DFD8; color:#1A1815">
+              <div class="p-aa">Aa — Shokunin</div>
+              <div class="p-body">Sentences hold 4–28 words by register. The main verb arrives in the first nine. If it doesn't, the sentence is fighting the reader.</div>
+              <div class="p-chrome">11px · mono · chrome label · 0.08em tracking</div>
+            </div>
+
+            <div class="checker-bottom">
+              <div class="ratio-cell">
+                <span class="ratio-label">WCAG contrast ratio</span>
+                <div class="ratio-value" id="ratioValue">12.40<span class="colon">:</span>1</div>
+                <div class="ratio-foot"><b id="ratioVerdictWord">Strong.</b> <span id="ratioVerdictTail">Cleanly passes AAA for both normal and large body. Safe for legal and disclosure.</span></div>
+              </div>
+              <div class="verdicts" id="verdicts">
+                <div class="verdict">
+                  <span class="v-head">AA · normal text</span>
+                  <div class="badge-row">
+                    <span class="sc-badge sc-badge--pass" id="badge-aa-normal">Pass</span>
+                    <span class="req">≥ 4.5</span>
+                  </div>
+                </div>
+                <div class="verdict">
+                  <span class="v-head">AA · large text</span>
+                  <div class="badge-row">
+                    <span class="sc-badge sc-badge--pass" id="badge-aa-large">Pass</span>
+                    <span class="req">≥ 3.0</span>
+                  </div>
+                </div>
+                <div class="verdict">
+                  <span class="v-head">AAA · normal text</span>
+                  <div class="badge-row">
+                    <span class="sc-badge sc-badge--pass" id="badge-aaa-normal">Pass</span>
+                    <span class="req">≥ 7.0</span>
+                  </div>
+                </div>
+                <div class="verdict">
+                  <span class="v-head">AAA · large text</span>
+                  <div class="badge-row">
+                    <span class="sc-badge sc-badge--pass" id="badge-aaa-large">Pass</span>
+                    <span class="req">≥ 4.5</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <aside class="gutter">
+          <div class="annotation"><b>Pick a swatch above</b>Click any color in the warm-gray ladder, shu rail, or status row to load it as foreground or background.</div>
+          <div class="annotation"><b>Last clicked wins</b>The first click loads foreground. The second loads background. Then it alternates.</div>
+          <div class="annotation"><b>Quick presets</b>The eight chips on each side are the most-used pairings. text-primary on surface-page is the page default.</div>
+        </aside>
+      </section>
+
+    </div>
+  </main>
+</div>
+
+<script>
+/* ─────────────────────────────────────────────────────────────
+ * Tokens registry — name → hex
+ * ───────────────────────────────────────────────────────────── */
+const TOKENS = {
+  'warm-gray-25':         '#F8F6F2',
+  'warm-gray-50':         '#F1EFEB',
+  'warm-gray-100':        '#E3DFD8',
+  'warm-gray-200':        '#D9D5CE',
+  'warm-gray-250':        '#D5D1CA',
+  'warm-gray-300':        '#CDC9C2',
+  'warm-gray-350':        '#C5C0B8',
+  'warm-gray-400':        '#9A9388',
+  'warm-gray-500':        '#5F5C55',
+  'warm-gray-600':        '#484640',
+  'warm-gray-700':        '#312F2A',
+  'warm-gray-800':        '#1A1815',
+  'warm-gray-900':        '#0D0C0B',
+  'shu-50':               '#FCEFEC',
+  'shu-100':              '#F7D9D4',
+  'shu-200':              '#F0B5AC',
+  'shu-300':              '#E68B7F',
+  'shu-400':              '#DA5C4D',
+  'shu-500':              '#C8281C',
+  'shu-600':              '#B22318',
+  'shu-700':              '#9E1F15',
+  'shu-800':              '#771A11',
+  'shu-900':              '#4F100B',
+  'status-success-light': '#2F855A',
+  'status-success-dark':  '#6EE7B7',
+  'status-warning-light': '#C2410C',
+  'status-warning-dark':  '#FB923C',
+  'status-error-light':   '#7F1D1D',
+  'status-error-dark':    '#FCA5A5',
+  'status-info-light':    '#1D4ED8',
+  'status-info-dark':     '#93C5FD'
+};
+
+/* Semantic name lookup for human-readable display */
+const SEMANTIC = {
+  'warm-gray-100': 'surface-page',
+  'warm-gray-50':  'surface-raised',
+  'warm-gray-25':  'surface-floating',
+  'warm-gray-200': 'surface-sunk',
+  'warm-gray-300': 'surface-deep-sunk',
+  'warm-gray-800': 'text-primary',
+  'warm-gray-500': 'text-secondary',
+  'warm-gray-400': 'text-disabled',
+  'warm-gray-250': 'border-default',
+  'warm-gray-350': 'border-subtle',
+  'shu-500':       'brand-accent · interactive-hover · border-focus',
+  'shu-700':       'brand-accent-deep · interactive-active',
+  'status-error-light': 'status-error',
+  'status-error-dark':  'status-error (dark)',
+  'status-success-light': 'status-success',
+  'status-success-dark':  'status-success (dark)',
+  'status-warning-light': 'status-warning',
+  'status-warning-dark':  'status-warning (dark)',
+  'status-info-light':    'status-info',
+  'status-info-dark':     'status-info (dark)'
+};
+
+const QUICK_FG = ['warm-gray-800','warm-gray-500','warm-gray-50','shu-500','shu-700','status-error-light','status-success-light','status-info-light'];
+const QUICK_BG = ['warm-gray-100','warm-gray-50','warm-gray-25','warm-gray-200','warm-gray-900','warm-gray-800','shu-500','shu-700'];
+
+/* ─────────────────────────────────────────────────────────────
+ * WCAG contrast math
+ * ───────────────────────────────────────────────────────────── */
+function hexToRgb(h) {
+  const m = h.replace('#','').trim();
+  return {
+    r: parseInt(m.substring(0,2),16),
+    g: parseInt(m.substring(2,4),16),
+    b: parseInt(m.substring(4,6),16)
+  };
+}
+function relLum({r,g,b}) {
+  const a = [r,g,b].map(v => {
+    v /= 255;
+    return v <= 0.03928 ? v/12.92 : Math.pow((v+0.055)/1.055, 2.4);
+  });
+  return 0.2126*a[0] + 0.7152*a[1] + 0.0722*a[2];
+}
+function contrast(fg, bg) {
+  const l1 = relLum(hexToRgb(fg));
+  const l2 = relLum(hexToRgb(bg));
+  return (Math.max(l1,l2)+0.05) / (Math.min(l1,l2)+0.05);
+}
+
+/* ─────────────────────────────────────────────────────────────
+ * State
+ * ───────────────────────────────────────────────────────────── */
+const state = {
+  fg: 'warm-gray-800',
+  bg: 'warm-gray-100',
+  lastChanged: 'bg' // alternate next click
+};
+
+function renderChecker() {
+  const fgHex = TOKENS[state.fg];
+  const bgHex = TOKENS[state.bg];
+  document.getElementById('fgSwatch').style.background = fgHex;
+  document.getElementById('bgSwatch').style.background = bgHex;
+  document.getElementById('fgHex').textContent = fgHex;
+  document.getElementById('bgHex').textContent = bgHex;
+  document.getElementById('fgName').textContent = SEMANTIC[state.fg] || state.fg;
+  document.getElementById('bgName').textContent = SEMANTIC[state.bg] || state.bg;
+  const preview = document.getElementById('preview');
+  preview.style.background = bgHex;
+  preview.style.color = fgHex;
+
+  const r = contrast(fgHex, bgHex);
+  const rounded = r.toFixed(2);
+  const valueEl = document.getElementById('ratioValue');
+  valueEl.innerHTML = `${rounded}<span class="colon">:</span>1`;
+  valueEl.classList.toggle('bad', r < 3.0);
+
+  const passes = {
+    'aa-normal':  r >= 4.5,
+    'aa-large':   r >= 3.0,
+    'aaa-normal': r >= 7.0,
+    'aaa-large':  r >= 4.5
+  };
+  for (const k in passes) {
+    const el = document.getElementById('badge-' + k);
+    if (!el) continue;
+    if (passes[k]) {
+      el.className = 'sc-badge sc-badge--pass';
+      el.textContent = 'Pass';
+    } else {
+      el.className = 'sc-badge sc-badge--fail';
+      el.textContent = 'Fail';
+    }
+  }
+
+  let word, tail;
+  if (r >= 7.0)      { word = 'Strong.';   tail = `Cleanly passes AAA for normal body. Safe for legal, disclosure, and dense data.`; }
+  else if (r >= 4.5) { word = 'Sufficient.'; tail = `Passes AA for normal body. Use for content; reach for a deeper pairing for legal copy.`; }
+  else if (r >= 3.0) { word = 'Large text only.'; tail = `Below AA for body. Permissible only at 18px / 14px-bold and above.`; }
+  else               { word = 'Insufficient.'; tail = `Fails all WCAG tiers. Reserve for decoration; never for type.`; }
+  document.getElementById('ratioVerdictWord').textContent = word;
+  document.getElementById('ratioVerdictTail').textContent = tail;
+
+  /* update aria-pressed on all swatches */
+  document.querySelectorAll('[data-token]').forEach(el => {
+    const t = el.getAttribute('data-token');
+    el.setAttribute('aria-pressed', t === state.fg || t === state.bg ? 'true' : 'false');
+  });
+}
+
+/* ─────────────────────────────────────────────────────────────
+ * Wire palette swatches → checker (alternating fg / bg)
+ * ───────────────────────────────────────────────────────────── */
+function loadToken(token, role) {
+  if (!TOKENS[token]) return;
+  if (role === 'fg' || (!role && state.lastChanged === 'bg')) {
+    state.fg = token;
+    state.lastChanged = 'fg';
+  } else {
+    state.bg = token;
+    state.lastChanged = 'bg';
+  }
+  renderChecker();
+}
+
+document.querySelectorAll('[data-token]').forEach(el => {
+  /* on swatches NOT inside the quick-picker (those are wired below) */
+  if (el.closest('.picker-row')) return;
+  el.addEventListener('click', () => loadToken(el.getAttribute('data-token')));
+});
+
+/* Build quick-picker chips */
+function buildPicker(rootId, list, role) {
+  const root = document.getElementById(rootId);
+  list.forEach(tok => {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'px';
+    btn.setAttribute('data-token', tok);
+    btn.setAttribute('data-role', role);
+    btn.style.setProperty('--bg', TOKENS[tok]);
+    btn.style.background = TOKENS[tok];
+    btn.title = tok + ' · ' + TOKENS[tok];
+    btn.addEventListener('click', () => loadToken(tok, role));
+    root.appendChild(btn);
+  });
+}
+buildPicker('fgPicker', QUICK_FG, 'fg');
+buildPicker('bgPicker', QUICK_BG, 'bg');
+
+/* ─────────────────────────────────────────────────────────────
+ * Theme toggle
+ * ───────────────────────────────────────────────────────────── */
+const themeInput = document.getElementById('themeInput');
+const themeSwitch = document.getElementById('themeSwitch');
+const modeState = document.getElementById('modeState');
+const brandMark = document.getElementById('brandMark');
+
+function applyTheme(mode) {
+  document.documentElement.setAttribute('data-theme', mode);
+  themeInput.checked = (mode === 'dark');
+  themeSwitch.classList.toggle('sc-switch--on', mode === 'dark');
+  modeState.textContent = mode === 'dark' ? 'Dark' : 'Light';
+  brandMark.src = mode === 'dark' ? 'system/mark-icon-dark.svg' : 'system/mark-icon-light.svg';
+  try { localStorage.setItem('scds-theme', mode); } catch(e) {}
+}
+
+themeInput.addEventListener('change', () => {
+  applyTheme(themeInput.checked ? 'dark' : 'light');
+});
+themeSwitch.addEventListener('click', (e) => {
+  /* clicking the visible label flips even though the input is hidden */
+  if (e.target.tagName !== 'INPUT') {
+    e.preventDefault();
+    themeInput.checked = !themeInput.checked;
+    applyTheme(themeInput.checked ? 'dark' : 'light');
+  }
+});
+
+/* persistence */
+let stored = null;
+try { stored = localStorage.getItem('scds-theme'); } catch(e) {}
+if (stored === 'dark' || stored === 'light') applyTheme(stored);
+else applyTheme('light');
+
+/* initial render */
+renderChecker();
+</script>
+</body>
+</html>
