@@ -166,10 +166,10 @@
   --sc-p-font-text-120: var(--sc-p-font-weight-light) var(--sc-p-font-size-120)/var(--sc-p-font-line-height-flat) var(--sc-p-font-family-sans);
   --sc-p-font-text-mono-11-family: var(--sc-p-font-family-mono);
   --sc-p-font-text-mono-11-size: var(--sc-p-font-size-11);
-  --sc-p-font-text-mono-11-weight: var(--sc-p-font-weight-medium);
+  --sc-p-font-text-mono-11-weight: var(--sc-p-font-weight-semibold);
   --sc-p-font-text-mono-11-line-height: var(--sc-p-font-line-height-base);
   --sc-p-font-text-mono-11-letter-spacing: var(--sc-p-font-tracking-wider);
-  --sc-p-font-text-mono-11: var(--sc-p-font-weight-medium) var(--sc-p-font-size-11)/var(--sc-p-font-line-height-base) var(--sc-p-font-family-mono);
+  --sc-p-font-text-mono-11: var(--sc-p-font-weight-semibold) var(--sc-p-font-size-11)/var(--sc-p-font-line-height-base) var(--sc-p-font-family-mono);
   --sc-p-font-text-mono-12-family: var(--sc-p-font-family-mono);
   --sc-p-font-text-mono-12-size: var(--sc-p-font-size-12);
   --sc-p-font-text-mono-12-weight: var(--sc-p-font-weight-medium);

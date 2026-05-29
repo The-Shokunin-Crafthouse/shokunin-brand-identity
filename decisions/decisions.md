@@ -255,3 +255,14 @@ The pass/fail signal requirement (≥1 quoted line per principle, sourced from `
 **Scope guard.** Typography tracking and motion/elevation were left at their canonical values — the design export's zeroed tracking is an export artifact, not a design decision. Only colour primitives/semantics + the warm-gray step + the two surfaces changed.
 
 **Consequences.** Error styling no longer matches the brand accent anywhere it is consumed (Badge/Alert/Input error states now render oxblood, not vermilion). `token-map.md` is now stale on the status palette and should be re-synced on the next `sync-figma-token` pass. Figma Variables mirror should be updated to match.
+
+## 2026-05-28 — Type pass: Color page hierarchy fix + mono/chrome weight widened to 600
+
+**Context.** Type recheck of the brand-site Color section against Figma node `2144:24` (`Color — DL`) surfaced (a) an implementation bug and (b) a token/Figma divergence.
+
+**Decisions.**
+- **Hierarchy bug (fixed, no token change).** A responsive rule had scaled chapter headings to `display/lg` (84px) at ≥1280, flattening them against the hero. Chapter headings now stay `display/sm` (44px) at all breakpoints; the contrast-checker `Aa` preview + ratio value now use `display/lg` (84px) at ≥768 (were `display/md` 60px). Matches Figma `display/sm` 44 vs `display/lg` 84.
+- **Offscale sizes (no change — modular scale wins).** Figma draws lead/premise/glyph at offscale 22/18/200 (its `offscale/*` group). We keep the 1.25 modular scale: lead/premise on `body/lead` (20), glyph on `display/xl` (120). Editorial offscale sizes are treated as one-off debt and not adopted.
+- **Mono chrome weight 500 → 600 (design wins; rule widened).** Figma `mono/chrome` is weight 600. `font.text.mono.11` changed from `{font.weight.medium}` to `{font.weight.semibold}`; added the Cascadia Mono 600 `@font-face`. The prior rule "weight 600 reserved exclusively for the secondary-button hover bump" is **widened** to also cover the mono chrome label step. Updated in `_config/design-system/type-system.md`, `token-map.md` (weight table + zone summary + mono/11 row), and `tokens/primitives.json` metadata.
+
+**Consequences.** System-wide: every mono chrome label (eyebrows, badges, nav numbers, metabar, captions) renders semibold, including across the Sprint-4 component primitives. The global `studio-memory.md` does not carry this rule, so no studio-level edit was required. Figma Variables mirror + `token-map.md` were aligned; re-sync on the next `sync-figma-token` pass.

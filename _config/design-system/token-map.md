@@ -193,7 +193,7 @@ Type primitives map to family / size / weight / line height / tracking. Composit
 | `font/weight/light` | 300 | Display weight. |
 | `font/weight/regular` | 400 | Body default. |
 | `font/weight/medium` | 500 | UI labels, button text, eyebrows. |
-| `font/weight/semibold` | 600 | Secondary-button hover bump only. No other approved use. |
+| `font/weight/semibold` | 600 | Mono chrome labels (mono/11) + secondary-button hover bump. Widened 2026-05-28. |
 
 ### font/lineHeight · unitless multiplier
 
@@ -237,13 +237,13 @@ Composed `typography` tokens that resolve family + size + weight + lineHeight + 
 | `font/text/60`  | sans | 60  | 300 | 1.1  | -0.025em | Mid display, hero alt. |
 | `font/text/84`  | sans | 84  | 300 | 1.1  | -0.04em  | Large display, hero primary. |
 | `font/text/120` | sans | 120 | 300 | 1.0  | -0.04em  | Maximum display, hero monumental. |
-| `font/text/mono/11` | mono | 11 | 500 | 1.5  | 0.06em | Mono caps in chrome at 11px. |
+| `font/text/mono/11` | mono | 11 | 600 | 1.5  | 0.06em | Mono caps in chrome at 11px · semibold (widened 2026-05-28). |
 | `font/text/mono/12` | mono | 12 | 500 | 1.5  | 0.04em | Mono labels at 12px. |
 | `font/text/mono/13` | mono | 13 | 400 | 1.55 | 0      | Mono captions, token references, timestamps. |
 | `font/text/mono/14` | mono | 14 | 400 | 1.5  | 0      | Mono inline code, dense mono cells. |
 | `font/text/mono/16` | mono | 16 | 400 | 1.55 | 0      | Mono code block body (use Cascadia Code for ligatures inside `<code>`/`<pre>`). |
 
-**Weight zone summary.** Chrome (11–12) = medium · Body and reading (13–20) = regular · Mid-headline (24–32) = medium · Display (44–120) = light. Weight 600 reserved exclusively for the secondary-button hover bump — no scale step uses it.
+**Weight zone summary.** Mono chrome (11) = semibold (600) · other chrome (12) = medium · Body and reading (13–20) = regular · Mid-headline (24–32) = medium · Display (44–120) = light. Weight 600 carries mono chrome (11) and the secondary-button hover bump. (Widened 2026-05-28 — see decisions/decisions.md.)
 
 ---
 

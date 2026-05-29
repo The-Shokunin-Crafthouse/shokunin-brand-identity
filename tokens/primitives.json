@@ -12,7 +12,7 @@
     },
     "spacingBase": "Hybrid 4/8pt layout ladder + 2pt micro ladder. Layout: 4·8·12·16·24·32·48·64·80·96·120 px. Micro (chrome only): 2·6·10·14·18·22 px. Arbitrary px outside these ladders is a bug.",
     "typeScale": "Modular ratio 1.25 · 12 steps · 11/12/13/14/16/20/24/32/44/60/84/120 px.",
-    "fontStrategy": "Two families. Sans = Neue Haas Grotesk Display Pro / Text Pro (self-hosted woff2 in /fonts/ when shipped; Helvetica Neue → Inter fallback until then). Mono = Cascadia Mono (Google Fonts CDN). Weights 300/400/500 in active use across both families; weight 600 reserved for the secondary-button hover bump only — no other approved use. Per-step composition tokens at font.text.{step} bind size + weight + lineHeight + tracking + family default; surfaces should reach for those, not the underlying axes. Full weight-per-step rationale + screen optical compensation in _config/design-system/type-system.md. Mono evaluation re-run Sprint 2 across Cascadia / Geist / JetBrains / IBM Plex — Cascadia re-affirmed; see decisions/decisions.md Sprint 2 entry."
+    "fontStrategy": "Two families. Sans = Neue Haas Grotesk Display Pro / Text Pro (self-hosted woff2 in /fonts/ when shipped; Helvetica Neue → Inter fallback until then). Mono = Cascadia Mono (Google Fonts CDN). Weights 300/400/500 in active use across both families; weight 600 carries mono chrome labels (font.text.mono.11) and the secondary-button hover bump (restriction widened 2026-05-28). Per-step composition tokens at font.text.{step} bind size + weight + lineHeight + tracking + family default; surfaces should reach for those, not the underlying axes. Full weight-per-step rationale + screen optical compensation in _config/design-system/type-system.md. Mono evaluation re-run Sprint 2 across Cascadia / Geist / JetBrains / IBM Plex — Cascadia re-affirmed; see decisions/decisions.md Sprint 2 entry."
   },
   "color": {
     "warmGray": {
@@ -265,7 +265,7 @@
       "light":    { "$type": "fontWeight", "$value": 300, "$description": "Light · 300. Display weight for premise statements and large headlines." },
       "regular":  { "$type": "fontWeight", "$value": 400, "$description": "Regular · 400. Body copy default." },
       "medium":   { "$type": "fontWeight", "$value": 500, "$description": "Medium · 500. UI labels, button text, section titles, eyebrows." },
-      "semibold": { "$type": "fontWeight", "$value": 600, "$description": "Semibold · 600. Secondary button hover weight bump only — no other approved use." }
+      "semibold": { "$type": "fontWeight", "$value": 600, "$description": "Semibold · 600. Mono chrome labels (font.text.mono.11) and the secondary-button hover bump. Restriction widened 2026-05-28 to match Figma Color page mono/chrome — see decisions/decisions.md (brand-site-shell type pass)." }
     },
     "lineHeight": {
       "flat":    { "$type": "number", "$value": 1.0,  "$description": "Flat · 1.0. Display specimens at 120px, vertical alignment." },
@@ -426,7 +426,7 @@
           "$value": {
             "fontFamily": "{font.family.mono}",
             "fontSize": "{font.size.11}",
-            "fontWeight": "{font.weight.medium}",
+            "fontWeight": "{font.weight.semibold}",
             "lineHeight": "{font.lineHeight.base}",
             "letterSpacing": "{font.tracking.wider}"
           },

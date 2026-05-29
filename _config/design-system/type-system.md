@@ -8,7 +8,7 @@ Secondary face: **Cascadia Mono** (loaded via Google Fonts CDN; see `decisions/d
 
 Type scale: 12 steps · modular ratio 1.25 · 11 / 12 / 13 / 14 / 16 / 20 / 24 / 32 / 44 / 60 / 84 / 120 px.
 
-Both faces share the active weight set 300 / 400 / 500. Weight 600 is reserved exclusively for the secondary-button hover bump — no other approved use, no scale step uses it.
+Both faces share the active weight set 300 / 400 / 500. Weight 600 carries the mono chrome label step (`font.text.mono.11`) and the secondary-button hover bump. (Widened 2026-05-28 to match the Figma Color page `mono/chrome` — see `decisions/decisions.md`; previously reserved to the hover bump alone.)
 
 ---
 
