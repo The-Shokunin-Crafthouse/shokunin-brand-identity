@@ -23,10 +23,10 @@ const warmVar = (s) => `--sc-p-color-warm-gray-${s}`;
 const shuVar = (s) => `--sc-p-color-shu-${s}`;
 
 const STATUS = [
-  { key: 'success', label: 'Success', hue: 'Forest green · AA on ground', light: '--sc-p-color-status-success-light', dark: '--sc-p-color-status-success-dark' },
+  { key: 'success', label: 'Success', hue: 'Forest green · AA on ground 4.9 : 1', light: '--sc-p-color-status-success-light', dark: '--sc-p-color-status-success-dark' },
   { key: 'warning', label: 'Warning', hue: 'Burnt orange · hue ~20°', light: '--sc-p-color-status-warning-light', dark: '--sc-p-color-status-warning-dark' },
   { key: 'error', label: 'Error', hue: 'Oxblood · deep · not shu', light: '--sc-p-color-status-error-light', dark: '--sc-p-color-status-error-dark' },
-  { key: 'info', label: 'Info', hue: 'Royal blue · AA on ground', light: '--sc-p-color-status-info-light', dark: '--sc-p-color-status-info-dark' },
+  { key: 'info', label: 'Info', hue: 'Royal blue · AA on ground 7.5 : 1', light: '--sc-p-color-status-info-light', dark: '--sc-p-color-status-info-dark' },
 ];
 
 const QUICK_FG = [
@@ -139,7 +139,7 @@ export function ColorSection() {
   const r = result.ratio;
   const passes = { aaN: r >= 4.5, aaL: r >= 3.0, aaaN: r >= 7.0, aaaL: r >= 4.5 };
   const verdict =
-    r >= 7 ? ['Strong.', 'Cleanly passes AAA for normal body. Safe for legal and disclosure.']
+    r >= 7 ? ['Strong.', 'Cleanly passes AAA for normal and large body. Safe for legal and disclosure.']
     : r >= 4.5 ? ['Sufficient.', 'Passes AA for body. Reach for a deeper pairing for legal copy.']
     : r >= 3 ? ['Large text only.', 'Below AA for body. Permissible at 18px / 14px-bold and above.']
     : ['Insufficient.', 'Fails all WCAG tiers. Reserve for decoration; never for type.'];
@@ -152,34 +152,34 @@ export function ColorSection() {
 
       {/* META BAR */}
       <div className={styles.metabar}>
-        <div className={styles.crumb}><span className={styles.crumbAccent}>01 / 05</span>Foundations · Color</div>
+        <div className={styles.crumb}><span className={styles.crumbAccent}>01</span>Foundations / Color</div>
         <div className={styles.metaRight}>
-          <span><b>Last revised</b> 2026.05.28</span>
-          <span><b>Mode</b> {theme === 'dark' ? 'Dark' : 'Light'}</span>
-          <span><b>Spec</b> v1.3</span>
+          <span><b>Last revised</b> 2026.05.27</span>
+          <span><b>Tokens</b> 88</span>
+          <span><b>Spec</b> v1.2</span>
         </div>
       </div>
 
       {/* HERO */}
       <header className={styles.hero}>
         <span className={styles.heroEyebrow}>Color · the room and the signal</span>
-        <h1 id="color-title" className={styles.heroTitle}>Color earns its place by doing work.</h1>
+        <h1 id="color-title" className={styles.heroTitle}>Color <span className={styles.heroAccent}>earns</span> its place by <span className={styles.heroEm}>doing work.</span></h1>
         <p className={styles.lead}>
           Two warm grays carry the room. One vermilion does the signaling. Status pulls its hue from
-          outside the brand band so the brand and the danger can never be confused.{' '}
-          <em>Every value below was placed to solve a specific problem.</em>
+          outside the brand band so the brand and the danger can never be confused. Every value below
+          was placed to solve a specific problem.
         </p>
       </header>
 
       {/* i · THE ROOM */}
       <section className={styles.chapter}>
         <div className={styles.chapterHead}>
-          <div className={styles.chapterEyebrow}><span className={styles.ord}>i</span><span className={styles.dot} /><span>The room · warm-gray ladder</span></div>
+          <div className={styles.chapterEyebrow}><span className={styles.ord}>i</span><span className={styles.dot} /><span>The room / warm-gray Ladder</span></div>
           <h2 className={styles.chapterTitle}>Thirteen steps. One hue. Built to absorb friction.</h2>
           <p className={styles.premise}>The page sits at warmGray.100. Ink sits at warmGray.800. The other eleven steps exist so the surface between them never has to fight to read.</p>
         </div>
         <div className={styles.chapterBody}>
-          <div className={styles.rowEyebrow}><span><b>Ladder</b> · warmGray · single warm hue · 13 steps</span><span>Click any step to load it into the checker</span></div>
+          <div className={styles.rowEyebrow}><span><b>Ladder</b> · warmGray · single warm hue · 13 steps</span><span>Click any step to load into the contrast checker below</span></div>
           <div className={styles.ramp} role="group" aria-label="Warm gray ladder">
             {WARM.map((s) => (
               <button
@@ -195,7 +195,10 @@ export function ColorSection() {
           </div>
           <div className={styles.rampLabels}>
             {WARM.map((s) => (
-              <div key={s} className={styles.rampLabel}><span className={styles.rampStep}>{s}</span></div>
+              <div key={s} className={styles.rampLabel}>
+                <span className={styles.rampStep}>{s}</span>
+                <span className={styles.rampHex}>{(hex[warmVar(s)] || '').replace('#', '')}</span>
+              </div>
             ))}
           </div>
           <div className={styles.rampKey}>
@@ -208,16 +211,16 @@ export function ColorSection() {
           </div>
         </div>
         <aside className={styles.gutter}>
-          <Annotation title="No pure white">warmGray.25 is the lightest value in the system. Pure white is not a token.</Annotation>
-          <Annotation title="No pure black">warmGray.900 is the deepest. The warmth at the extremes is the signature.</Annotation>
-          <Annotation title="Hairline">250, not 200. A small lift from page reads as structure, not decoration.</Annotation>
+          <Annotation title="No pure white">warmGray.25 ({hex[warmVar('25')] || ''}) is the lightest value in the system. Pure white is not a token.</Annotation>
+          <Annotation title="No pure black">warmGray.900 ({hex[warmVar('900')] || ''}) is the deepest. The warmth at the extremes is the signature.</Annotation>
+          <Annotation title="Hairline">250, not 200. A 4-point lift from page is enough to read as structure, not decoration.</Annotation>
         </aside>
       </section>
 
       {/* ii · THE SIGNAL */}
       <section className={styles.chapter}>
         <div className={styles.chapterHead}>
-          <div className={styles.chapterEyebrow}><span className={styles.ord}>ii</span><span className={styles.dot} /><span>The signal · 朱 shu</span></div>
+          <div className={styles.chapterEyebrow}><span className={styles.ord}>ii</span><span className={styles.dot} /><span>The signal / 朱 shu</span></div>
           <h2 className={styles.chapterTitle}>One vermilion. Three jobs. Nothing else.</h2>
           <p className={styles.premise}>Shu marks the cursor&rsquo;s intent — hover, focus, the studio mark&rsquo;s accent surface. If you catch it doing decorative work on a page, the page is wrong.</p>
         </div>
@@ -226,7 +229,7 @@ export function ColorSection() {
             <button type="button" className={styles.shuPlate} style={{ background: 'var(--sc-p-color-shu-500)' }} onClick={() => load('--sc-p-color-shu-500')} aria-label="Load shu 500 into checker">
               <span className={styles.plateHead}>朱 · shu · vermilion</span>
               <span className={styles.plateGlyph}>500</span>
-              <span className={styles.plateFoot}><b>{hex['--sc-p-color-shu-500'] || ''}</b> · brand-accent<span>load →</span></span>
+              <span className={styles.plateFoot}><b>{hex['--sc-p-color-shu-500'] || ''}</b> · sc-color-brand-accent<span>load →</span></span>
             </button>
             <div className={styles.shuRail}>
               {SHU.map((s) => (
@@ -238,8 +241,8 @@ export function ColorSection() {
             </div>
           </div>
           <div className={styles.threeJobs}>
-            <div className={styles.job}><div className={styles.jobLabel}>Job 01 · hover</div><div className={styles.jobDemo}><a className={styles.demoHover} href="#color" onClick={(e) => e.preventDefault()}>Pass your cursor here.</a></div><div className={styles.jobCaption}>interactive-hover → shu.500</div></div>
-            <div className={styles.job}><div className={styles.jobLabel}>Job 02 · focus</div><div className={styles.jobDemo}><input className={styles.demoFocus} defaultValue="Tab to here" aria-label="Focus demo" /></div><div className={styles.jobCaption}>border-focus → shu.500</div></div>
+            <div className={styles.job}><div className={styles.jobLabel}>Job 01 · hover</div><div className={styles.jobDemo}><a className={styles.demoHover} href="#color" onClick={(e) => e.preventDefault()}>Pass your cursor here.</a></div><div className={styles.jobCaption}>--sc-color-interactive-hover → shu.500</div></div>
+            <div className={styles.job}><div className={styles.jobLabel}>Job 02 · focus</div><div className={styles.jobDemo}><input className={styles.demoFocus} defaultValue="Tab to here" aria-label="Focus demo" /></div><div className={styles.jobCaption}>--sc-color-border-focus → shu.500</div></div>
             <div className={styles.job}><div className={styles.jobLabel}>Job 03 · mark accent</div><div className={styles.jobDemo}><span className={styles.demoMark} aria-hidden="true" /></div><div className={styles.jobCaption}>studio mark · accent surface only</div></div>
           </div>
         </div>
@@ -253,9 +256,9 @@ export function ColorSection() {
       {/* iii · OUTSIDE THE BAND */}
       <section className={styles.chapter}>
         <div className={styles.chapterHead}>
-          <div className={styles.chapterEyebrow}><span className={styles.ord}>iii</span><span className={styles.dot} /><span>Outside the band · status</span></div>
+          <div className={styles.chapterEyebrow}><span className={styles.ord}>iii</span><span className={styles.dot} /><span>Outside the band / status</span></div>
           <h2 className={styles.chapterTitle}>Four independent hues. None of them shu.</h2>
-          <p className={styles.premise}>Error is oxblood, not vermilion. When a screen says danger, the brand and the warning cannot be mistaken for each other. Each status carries a light pair and a dark pair, both calibrated AA on the ground beneath them.</p>
+          <p className={styles.premise}>Error is oxblood, not red. When a screen says danger, the brand and the warning cannot be mistaken for each other. Each status carries a light pair and a dark pair, both calibrated AA on the ground beneath them.</p>
         </div>
         <div className={styles.chapterBody}>
           <div className={styles.statusRow}>
@@ -280,20 +283,27 @@ export function ColorSection() {
       {/* iv · THREE-TIER */}
       <section className={styles.chapter}>
         <div className={styles.chapterHead}>
-          <div className={styles.chapterEyebrow}><span className={styles.ord}>iv</span><span className={styles.dot} /><span>Resolution · three tiers</span></div>
+          <div className={styles.chapterEyebrow}><span className={styles.ord}>iv</span><span className={styles.dot} /><span>Resolution / three tiers</span></div>
           <h2 className={styles.chapterTitle}>A primitive holds the value. A semantic gives it a role.</h2>
           <p className={styles.premise}>Components consume only the middle column. Raw hex at the call site is a bug, not a shortcut. The resolution path below is the only path the system permits.</p>
         </div>
         <div className={styles.chapterBody}>
           <div className={styles.tierTable}>
+            <div className={`${styles.tierRow} ${styles.tierHeadRow}`}>
+              <div className={styles.tierHead}><span className={styles.tierNum}>01</span><span className={styles.tierHeadLabel}>Primitive</span><span className={styles.tierHeadSub}>raw value · token-map.json</span></div>
+              <span className={styles.tierArrow} aria-hidden="true" />
+              <div className={styles.tierHead}><span className={styles.tierNum}>02</span><span className={styles.tierHeadLabel}>Semantic</span><span className={styles.tierHeadSub}>role · what it means</span></div>
+              <span className={styles.tierArrow} aria-hidden="true" />
+              <div className={styles.tierHead}><span className={styles.tierNum}>03</span><span className={styles.tierHeadLabel}>Component</span><span className={styles.tierHeadSub}>read-site only</span></div>
+            </div>
             {[
-              { p: '--sc-p-color-warm-gray-100', s: '--sc-color-surface-page', c: 'body { background }' },
-              { p: '--sc-p-color-warm-gray-800', s: '--sc-color-text-primary', c: 'h1, p { color }' },
+              { p: '--sc-p-color-warm-gray-100', s: '--sc-color-surface-page', c: 'body { background: … }' },
+              { p: '--sc-p-color-warm-gray-800', s: '--sc-color-text-primary', c: 'h1, p { color: … }' },
               { p: '--sc-p-color-shu-500', s: '--sc-color-interactive-hover', c: 'a:hover, .sc-button:hover' },
-              { p: '--sc-p-color-status-error-light', s: '--sc-color-status-error', c: '.sc-alert--error' },
+              { p: '--sc-p-color-status-error-light', s: '--sc-color-status-error', c: '.sc-alert--error, .sc-badge--error' },
             ].map((row) => (
               <div key={row.s} className={styles.tierRow}>
-                <div className={styles.tierCell}><span className={styles.swatchDot} style={{ background: `var(${row.p})` }} /><code className={styles.tok}>{row.p}</code></div>
+                <div className={styles.tierCell}><span className={styles.swatchDot} style={{ background: `var(${row.p})` }} /><code className={styles.tok}>{row.p}<span className={styles.tokHex}>{hex[row.p] || ''}</span></code></div>
                 <span className={styles.tierArrow} aria-hidden="true">→</span>
                 <div className={styles.tierCell}><span className={styles.swatchDot} style={{ background: `var(${row.s})` }} /><code className={styles.tok}>{row.s}</code></div>
                 <span className={styles.tierArrow} aria-hidden="true">→</span>
@@ -311,7 +321,7 @@ export function ColorSection() {
       {/* v · THE CHECKER */}
       <section className={styles.chapter}>
         <div className={styles.chapterHead}>
-          <div className={styles.chapterEyebrow}><span className={styles.ord}>v</span><span className={styles.dot} /><span>Contrast · the measurement</span></div>
+          <div className={styles.chapterEyebrow}><span className={styles.ord}>v</span><span className={styles.dot} /><span>Contrast / the measurement</span></div>
           <h2 className={styles.chapterTitle}>Contrast is a measurement, not an instinct.</h2>
           <p className={styles.premise}>Every text-and-surface pairing has a number. The number decides. Body must pass AA; legal passes AAA. Pick any two values above, then read the verdict.</p>
         </div>
@@ -364,8 +374,9 @@ export function ColorSection() {
           </div>
         </div>
         <aside className={styles.gutter}>
-          <Annotation title="Pick a swatch above">Click any color in the ladder, shu rail, or status row to load it. First click loads foreground, second loads background, then it alternates.</Annotation>
-          <Annotation title="Theme-aware">Switch the mode in the sidebar — the same tokens re-resolve and the ratio recomputes live.</Annotation>
+          <Annotation title="Pick a swatch above">Click any color in the warm-gray ladder, shu rail, or status row to load it as foreground or background.</Annotation>
+          <Annotation title="Last clicked wins">The first click loads foreground. The second loads background. Then it alternates.</Annotation>
+          <Annotation title="Quick presets">The eight chips on each side are the most-used pairings. text-primary on surface-page is the page default.</Annotation>
         </aside>
       </section>
     </section>

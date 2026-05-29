@@ -259,7 +259,13 @@
       "44":  { "$type": "dimension", "$value": { "value": 44,  "unit": "px" }, "$description": "44px · type scale step. Premise statements." },
       "60":  { "$type": "dimension", "$value": { "value": 60,  "unit": "px" }, "$description": "60px · type scale step. Mid display." },
       "84":  { "$type": "dimension", "$value": { "value": 84,  "unit": "px" }, "$description": "84px · type scale step. Large display." },
-      "120": { "$type": "dimension", "$value": { "value": 120, "unit": "px" }, "$description": "120px · type scale step. Maximum display." }
+      "120": { "$type": "dimension", "$value": { "value": 120, "unit": "px" }, "$description": "120px · type scale step. Maximum display." },
+      "offscale": {
+        "$description": "OFFSCALE · sizes deliberately off the 1.25 modular ladder. Editorial one-offs used only on the brand-site Color page — NOT general-use. Added 2026-05-28 (ADR brand-site-shell type pass).",
+        "18":  { "$type": "dimension", "$value": { "value": 18,  "unit": "px" }, "$description": "18px · OFFSCALE · Color-page chapter premise text." },
+        "22":  { "$type": "dimension", "$value": { "value": 22,  "unit": "px" }, "$description": "22px · OFFSCALE · Color-page hero lead." },
+        "200": { "$type": "dimension", "$value": { "value": 200, "unit": "px" }, "$description": "200px · OFFSCALE · Color-page shu plate glyph." }
+      }
     },
     "weight": {
       "light":    { "$type": "fontWeight", "$value": 300, "$description": "Light · 300. Display weight for premise statements and large headlines." },
@@ -475,6 +481,46 @@
             "letterSpacing": "{font.tracking.normal}"
           },
           "$description": "Mono code block body. Use Cascadia Code companion for ligatures inside <code>/<pre> surfaces."
+        }
+      },
+      "offscale": {
+        "$description": "OFFSCALE · type compositions off the modular scale. Brand-site Color page only — NOT general-use. Added 2026-05-28 (ADR brand-site-shell type pass).",
+        "body": {
+          "18": {
+            "$type": "typography",
+            "$value": {
+              "fontFamily": "{font.family.sans}",
+              "fontSize": "{font.size.offscale.18}",
+              "fontWeight": "{font.weight.regular}",
+              "lineHeight": "{font.lineHeight.relaxed}",
+              "letterSpacing": "{font.tracking.normal}"
+            },
+            "$description": "OFFSCALE · 18px chapter premise on the Color page."
+          },
+          "22": {
+            "$type": "typography",
+            "$value": {
+              "fontFamily": "{font.family.sans}",
+              "fontSize": "{font.size.offscale.22}",
+              "fontWeight": "{font.weight.regular}",
+              "lineHeight": "{font.lineHeight.relaxed}",
+              "letterSpacing": "{font.tracking.normal}"
+            },
+            "$description": "OFFSCALE · 22px hero lead on the Color page."
+          }
+        },
+        "display": {
+          "200": {
+            "$type": "typography",
+            "$value": {
+              "fontFamily": "{font.family.sans}",
+              "fontSize": "{font.size.offscale.200}",
+              "fontWeight": "{font.weight.light}",
+              "lineHeight": 0.9,
+              "letterSpacing": "{font.tracking.tightest}"
+            },
+            "$description": "OFFSCALE · 200px shu plate glyph on the Color page."
+          }
         }
       }
     }
