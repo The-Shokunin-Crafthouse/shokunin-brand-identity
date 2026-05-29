@@ -266,6 +266,8 @@
 
 /* ── ≥ sm ────────────────────────────────────────────────── */
 @media (min-width: 768px) {
+  .heroTitle { font: var(--sc-font-text-display-md); letter-spacing: var(--sc-font-text-display-md-letter-spacing); }
+  .pAa, .ratioValue { font: var(--sc-font-text-display-lg); letter-spacing: var(--sc-font-text-display-lg-letter-spacing); }
   .shuBlock { grid-template-columns: 2fr 1fr; }
   .threeJobs { grid-template-columns: repeat(3, 1fr); }
   .job { border-bottom: 0; border-right: var(--sc-border-width-default) solid var(--sc-color-border-default); }
@@ -279,7 +281,7 @@
 
 /* ── ≥ md: scale display type + content/gutter grid ──────── */
 @media (min-width: 1280px) {
-  .heroTitle, .chapterTitle { font: var(--sc-font-text-display-lg); letter-spacing: var(--sc-font-text-display-lg-letter-spacing); }
+  .heroTitle { font: var(--sc-font-text-display-lg); letter-spacing: var(--sc-font-text-display-lg-letter-spacing); }
   .statusRow { grid-template-columns: repeat(4, 1fr); }
   .chapter {
     display: grid;
