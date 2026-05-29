@@ -1,0 +1,28 @@
+/* ============================================================
+ * fonts.css — self-hosted faces.
+ *
+ * Family names match the first entry of the token font stacks
+ * (--sc-p-font-family-sans → 'Neue Haas Grotesk Display Pro' /
+ * 'Neue Haas Grotesk Text Pro'; --sc-p-font-family-mono →
+ * 'Cascadia Mono'). woff2 live in src/fonts/ so Vite fingerprints
+ * them and rewrites the URL under the active base (root AND
+ * /_previews/<PR>/).
+ *
+ * font-display: optional for NHG (avoids late-render flash; falls
+ * back to the stack if not cached in ~100ms). swap for Cascadia.
+ * ============================================================ */
+
+/* Neue Haas Grotesk Display Pro — display + UI */
+@font-face { font-family: 'Neue Haas Grotesk Display Pro'; font-weight: 300; font-style: normal; font-display: optional; src: url('../fonts/NeueHaasGrotDisp-45Light.woff2') format('woff2'); }
+@font-face { font-family: 'Neue Haas Grotesk Display Pro'; font-weight: 400; font-style: normal; font-display: optional; src: url('../fonts/NeueHaasGrotDisp-55Roman.woff2') format('woff2'); }
+@font-face { font-family: 'Neue Haas Grotesk Display Pro'; font-weight: 500; font-style: normal; font-display: optional; src: url('../fonts/NeueHaasGrotDisp-65Medium.woff2') format('woff2'); }
+@font-face { font-family: 'Neue Haas Grotesk Display Pro'; font-weight: 700; font-style: normal; font-display: optional; src: url('../fonts/NeueHaasGrotDisp-75Bold.woff2') format('woff2'); }
+
+/* Neue Haas Grotesk Text Pro — body cut */
+@font-face { font-family: 'Neue Haas Grotesk Text Pro'; font-weight: 400; font-style: normal; font-display: optional; src: url('../fonts/NeueHaasGrotText-55Roman.woff2') format('woff2'); }
+@font-face { font-family: 'Neue Haas Grotesk Text Pro'; font-weight: 500; font-style: normal; font-display: optional; src: url('../fonts/NeueHaasGrotText-65Medium.woff2') format('woff2'); }
+@font-face { font-family: 'Neue Haas Grotesk Text Pro'; font-weight: 700; font-style: normal; font-display: optional; src: url('../fonts/NeueHaasGrotText-75Bold.woff2') format('woff2'); }
+
+/* Cascadia Mono — chrome + code */
+@font-face { font-family: 'Cascadia Mono'; font-weight: 400; font-style: normal; font-display: swap; src: url('../fonts/cascadia-code-latin-400-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Cascadia Mono'; font-weight: 500; font-style: normal; font-display: swap; src: url('../fonts/cascadia-code-latin-500-normal.woff2') format('woff2'); }

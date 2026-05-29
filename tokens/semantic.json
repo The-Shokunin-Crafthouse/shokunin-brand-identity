@@ -49,6 +49,28 @@
             "dark":  "{color.dark.surfaceDeepSunk}"
           }
         }
+      },
+      "raised": {
+        "$type": "color",
+        "$value": "{color.warmGray.50}",
+        "$description": "Lifted-above-page surface · default card ground. Light = warmGray.50, dark = perceptually-lifted surfaceSunk. Added 2026-05-28 for the brand-site Color page (ADR brand-site-shell).",
+        "$extensions": {
+          "modes": {
+            "light": "{color.warmGray.50}",
+            "dark":  "{color.dark.surfaceSunk}"
+          }
+        }
+      },
+      "floating": {
+        "$type": "color",
+        "$value": "{color.warmGray.25}",
+        "$description": "Highest surface · popovers, interactive-card hover. Light = warmGray.25, dark = surfaceDeepSunk. Added 2026-05-28 (ADR brand-site-shell).",
+        "$extensions": {
+          "modes": {
+            "light": "{color.warmGray.25}",
+            "dark":  "{color.dark.surfaceDeepSunk}"
+          }
+        }
       }
     },
     "text": {
@@ -209,12 +231,12 @@
       },
       "error": {
         "$type": "color",
-        "$value": "{color.shu.500}",
-        "$description": "Error state · vermilion in both modes (lifted to shu.400 in dark). Same as brand accent — error and brand share the chromatic signal.",
+        "$value": "{color.status.error.light}",
+        "$description": "Error state · oxblood on light, lifted rose on dark. Pulled deliberately off the shu vermilion band so error and brand-accent can never be confused. Rebound 2026-05-28 from {color.shu.500} (ADR brand-site-shell).",
         "$extensions": {
           "modes": {
-            "light": "{color.shu.500}",
-            "dark":  "{color.shu.400}"
+            "light": "{color.status.error.light}",
+            "dark":  "{color.status.error.dark}"
           }
         }
       },

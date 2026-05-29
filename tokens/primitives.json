@@ -16,6 +16,11 @@
   },
   "color": {
     "warmGray": {
+      "25": {
+        "$type": "color",
+        "$value": "#F8F6F2",
+        "$description": "Near-cream · lighter than 50 · floating surface (popovers, interactive hover top layer). Added 2026-05-28 for the brand-site Color page (ADR brand-site-shell)."
+      },
       "50": {
         "$type": "color",
         "$value": "#F1EFEB",
@@ -133,37 +138,49 @@
       "success": {
         "light": {
           "$type": "color",
-          "$value": "#4F5C2A",
-          "$description": "Warm olive · success states on light ground. Passes AA on warmGray.100 (~4.7:1)."
+          "$value": "#2F855A",
+          "$description": "Forest green · success states on light ground. AA ~4.9:1 on warmGray.100. Repainted 2026-05-28 to match brand-site Color design (ADR brand-site-shell)."
         },
         "dark": {
           "$type": "color",
-          "$value": "#A8BE6E",
-          "$description": "Lifted olive · success states on dark ground. Inverted-mode equivalent of success.light."
+          "$value": "#6EE7B7",
+          "$description": "Lifted green · success states on dark ground."
         }
       },
       "warning": {
         "light": {
           "$type": "color",
-          "$value": "#8A5E10",
-          "$description": "Deep ochre · warning states on light ground. Passes AA on warmGray.100 (~4.5:1)."
+          "$value": "#C2410C",
+          "$description": "Burnt orange · warning states on light ground · hue ~20°. Repainted 2026-05-28 to match brand-site Color design (ADR brand-site-shell)."
         },
         "dark": {
           "$type": "color",
-          "$value": "#D9B265",
-          "$description": "Lifted ochre · warning states on dark ground."
+          "$value": "#FB923C",
+          "$description": "Lifted orange · warning states on dark ground."
         }
       },
       "info": {
         "light": {
           "$type": "color",
-          "$value": "#3B5C7A",
-          "$description": "Warm slate · info states on light ground. Passes AA on warmGray.100 (~5.1:1)."
+          "$value": "#1D4ED8",
+          "$description": "Royal blue · info states on light ground · AA ~7.5:1 on warmGray.100. Repainted 2026-05-28 to match brand-site Color design (ADR brand-site-shell)."
         },
         "dark": {
           "$type": "color",
-          "$value": "#8FB1D0",
-          "$description": "Lifted slate · info states on dark ground."
+          "$value": "#93C5FD",
+          "$description": "Lifted blue · info states on dark ground."
+        }
+      },
+      "error": {
+        "light": {
+          "$type": "color",
+          "$value": "#7F1D1D",
+          "$description": "Oxblood · error states on light ground · deep + serious, pulled deliberately off the shu vermilion band so brand-accent and danger can never be confused. Added 2026-05-28 (ADR brand-site-shell)."
+        },
+        "dark": {
+          "$type": "color",
+          "$value": "#FCA5A5",
+          "$description": "Lifted rose · error states on dark ground."
         }
       }
     },

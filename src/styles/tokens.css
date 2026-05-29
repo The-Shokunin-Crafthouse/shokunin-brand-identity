@@ -20,6 +20,7 @@
 
 :root {
   /* --- Primitives (--sc-p-*) ----------------------------- */
+  --sc-p-color-warm-gray-25: #F8F6F2;
   --sc-p-color-warm-gray-50: #F1EFEB;
   --sc-p-color-warm-gray-100: #E3DFD8;
   --sc-p-color-warm-gray-200: #D9D5CE;
@@ -42,12 +43,14 @@
   --sc-p-color-shu-700: #9E1F15;
   --sc-p-color-shu-800: #771A11;
   --sc-p-color-shu-900: #4F100B;
-  --sc-p-color-status-success-light: #4F5C2A;
-  --sc-p-color-status-success-dark: #A8BE6E;
-  --sc-p-color-status-warning-light: #8A5E10;
-  --sc-p-color-status-warning-dark: #D9B265;
-  --sc-p-color-status-info-light: #3B5C7A;
-  --sc-p-color-status-info-dark: #8FB1D0;
+  --sc-p-color-status-success-light: #2F855A;
+  --sc-p-color-status-success-dark: #6EE7B7;
+  --sc-p-color-status-warning-light: #C2410C;
+  --sc-p-color-status-warning-dark: #FB923C;
+  --sc-p-color-status-info-light: #1D4ED8;
+  --sc-p-color-status-info-dark: #93C5FD;
+  --sc-p-color-status-error-light: #7F1D1D;
+  --sc-p-color-status-error-dark: #FCA5A5;
   --sc-p-color-dark-surface-page: #0D0C0B;
   --sc-p-color-dark-surface-sunk: #181512;
   --sc-p-color-dark-surface-deep-sunk: #221F1B;
@@ -230,6 +233,8 @@
   --sc-color-surface-page: var(--sc-p-color-warm-gray-100);
   --sc-color-surface-sunk: var(--sc-p-color-warm-gray-200);
   --sc-color-surface-deep-sunk: var(--sc-p-color-warm-gray-300);
+  --sc-color-surface-raised: var(--sc-p-color-warm-gray-50);
+  --sc-color-surface-floating: var(--sc-p-color-warm-gray-25);
   --sc-color-text-primary: var(--sc-p-color-warm-gray-800);
   --sc-color-text-secondary: var(--sc-p-color-warm-gray-500);
   --sc-color-text-disabled: var(--sc-p-color-warm-gray-400);
@@ -243,7 +248,7 @@
   --sc-color-interactive-active: var(--sc-p-color-shu-700);
   --sc-color-status-success: var(--sc-p-color-status-success-light);
   --sc-color-status-warning: var(--sc-p-color-status-warning-light);
-  --sc-color-status-error: var(--sc-p-color-shu-500);
+  --sc-color-status-error: var(--sc-p-color-status-error-light);
   --sc-color-status-info: var(--sc-p-color-status-info-light);
   --sc-color-brand-accent: var(--sc-p-color-shu-500);
   --sc-color-brand-accent-deep: var(--sc-p-color-shu-700);
@@ -392,6 +397,8 @@
   --sc-color-surface-page: var(--sc-p-color-dark-surface-page);
   --sc-color-surface-sunk: var(--sc-p-color-dark-surface-sunk);
   --sc-color-surface-deep-sunk: var(--sc-p-color-dark-surface-deep-sunk);
+  --sc-color-surface-raised: var(--sc-p-color-dark-surface-sunk);
+  --sc-color-surface-floating: var(--sc-p-color-dark-surface-deep-sunk);
   --sc-color-text-primary: var(--sc-p-color-dark-text-primary);
   --sc-color-text-secondary: var(--sc-p-color-warm-gray-400);
   --sc-color-text-disabled: var(--sc-p-color-dark-text-disabled);
@@ -405,7 +412,7 @@
   --sc-color-interactive-active: var(--sc-p-color-shu-500);
   --sc-color-status-success: var(--sc-p-color-status-success-dark);
   --sc-color-status-warning: var(--sc-p-color-status-warning-dark);
-  --sc-color-status-error: var(--sc-p-color-shu-400);
+  --sc-color-status-error: var(--sc-p-color-status-error-dark);
   --sc-color-status-info: var(--sc-p-color-status-info-dark);
   --sc-color-brand-accent: var(--sc-p-color-shu-500);
   --sc-color-brand-accent-deep: var(--sc-p-color-shu-700);
