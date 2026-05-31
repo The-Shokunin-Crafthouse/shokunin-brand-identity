@@ -18,16 +18,19 @@ import markLight from '../assets/logo/mark-icon-light.svg';
 import markDark from '../assets/logo/mark-icon-dark.svg';
 import styles from './App.module.css';
 
+// Slash separator — always lighter than adjacent text per design rule.
+function Slash() { return <span className={styles.slash}> / </span>; }
+
 const NAV = [
   {
     ord: '01',
     label: 'Foundations',
     items: [
-      { id: 'color', label: 'Color', num: '01' },
-      { id: 'type', label: 'Type', num: '02' },
-      { id: 'spacing', label: 'Spacing', num: '03' },
-      { id: 'motion', label: 'Motion', num: '04' },
-      { id: 'mark', label: 'Mark', num: '05' },
+      { id: 'color', label: 'Color' },
+      { id: 'type', label: 'Type' },
+      { id: 'spacing', label: 'Spacing' },
+      { id: 'motion', label: 'Motion' },
+      { id: 'mark', label: 'Mark' },
     ],
   },
   {
@@ -58,6 +61,17 @@ const NAV = [
     ],
   },
 ];
+
+// Chapter list per page id — drives the mobile slide-up menu.
+const CHAPTERS = {
+  color: [
+    { id: 'ramp', label: 'The room', sub: 'warm-gray ladder', count: 13 },
+    { id: 'shu', label: 'The signal', sub: '朱 shu', count: 10 },
+    { id: 'status', label: 'Outside the band', sub: 'status', count: 4 },
+    { id: 'tiers', label: 'Resolution', sub: 'three tiers', count: 4 },
+    { id: 'contrast', label: 'Contrast', sub: 'measurement', count: 4 },
+  ],
+};
 
 // id → { groupOrd, groupLabel, label } for stub headers + metabar crumbs.
 const SECTION_INDEX = NAV.reduce((acc, group, gi) => {
@@ -99,7 +113,6 @@ function Sidebar({ active }) {
         <img className={styles.brandMark} src={isDark ? markDark : markLight} alt="" width="22" height="22" />
         <span className={styles.brandLockup}>
           <span className={styles.brandName}>Shokunin Crafthouse</span>
-          <span className={styles.brandSub}>design system · v1.2</span>
         </span>
       </a>
 
@@ -137,11 +150,117 @@ function Sidebar({ active }) {
         <Switch checked={isDark} onChange={toggle} label="" className={styles.modeSwitch} />
       </div>
 
+      <div className={styles.versionRow}>design system<Slash />v1.2</div>
+
       <div className={styles.sidebarFoot}>
-        <span>edition · 2026.05</span>
+        <span>edition<Slash />2026.05</span>
         <span>SCDS-01</span>
       </div>
     </aside>
+  );
+}
+
+function MobileHeader({ active, isDark }) {
+  const meta = SECTION_INDEX[active];
+  return (
+    <header className={styles.mobileHeader}>
+      <div className={styles.mobileCrumb}>
+        <span className={styles.mobileCrumbOrd}>{meta.groupOrd}</span>
+        {meta.groupLabel}<Slash />{meta.label}
+      </div>
+      <div className={styles.mobileMeta}>
+        <span>Spec<Slash />v1.2</span>
+        <img className={styles.mobileMark} src={isDark ? markDark : markLight} alt="" />
+      </div>
+    </header>
+  );
+}
+
+function MobileMenu({ active, open, onClose, onNav }) {
+  const isOpen = open !== null;
+  const chapters = CHAPTERS[active] || [];
+  return (
+    <>
+      <div
+        className={`${styles.mobileOverlay} ${isOpen ? styles.mobileOverlayOpen : ''}`}
+        onClick={onClose}
+        aria-hidden="true"
+      />
+      <div
+        className={`${styles.mobileMenu} ${isOpen ? styles.mobileMenuOpen : ''}`}
+        role="dialog"
+        aria-modal={isOpen}
+        aria-hidden={!isOpen}
+      >
+        {open === 'pages' ? (
+          <ul className={styles.mobileMenuList}>
+            {NAV.flatMap((group) =>
+              group.items.map((item) => (
+                <li
+                  key={item.id}
+                  className={item.id === active ? styles.mobileMenuItemActive : undefined}
+                >
+                  <button
+                    type="button"
+                    className={styles.mobileMenuLink}
+                    onClick={() => onNav(item.id)}
+                  >
+                    <span className={styles.mobileMenuLabel}>
+                      {group.label}<Slash />{item.label}
+                    </span>
+                  </button>
+                </li>
+              ))
+            )}
+          </ul>
+        ) : (
+          <ul className={styles.mobileMenuList}>
+            {chapters.length === 0 && <li className={styles.mobileMenuEmpty}>No chapters yet.</li>}
+            {chapters.map((c, i) => (
+              <li key={c.id}>
+                <button type="button" className={styles.mobileMenuLink} onClick={onClose}>
+                  <span className={styles.mobileMenuLabel}>
+                    <span className={styles.mobileMenuStep}>{String(i + 1).padStart(2, '0')}</span>
+                    {c.label}<Slash />{c.sub}
+                  </span>
+                  <span className={styles.mobileMenuCount}>{c.count}</span>
+                </button>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </>
+  );
+}
+
+function MobileBottomNav({ active, open, setOpen }) {
+  const meta = SECTION_INDEX[active];
+  const toggle = (id) => setOpen(open === id ? null : id);
+  return (
+    <nav className={styles.mobileBottomNav} aria-label="Mobile navigation">
+      <button
+        type="button"
+        className={`${styles.mobileTab} ${open === 'crumb' ? styles.mobileTabActive : ''}`}
+        onClick={() => toggle('crumb')}
+      >
+        {meta.groupLabel}<Slash />{meta.label}
+      </button>
+      <button
+        type="button"
+        className={`${styles.mobileTab} ${open === 'chapters' ? styles.mobileTabActive : ''}`}
+        onClick={() => toggle('chapters')}
+      >
+        Chapters
+      </button>
+      <button
+        type="button"
+        className={`${styles.mobileTab} ${open === 'pages' ? styles.mobileTabActive : ''}`}
+        onClick={() => toggle('pages')}
+      >
+        Pages
+      </button>
+    </nav>
   );
 }
 
@@ -152,7 +271,7 @@ function StubSection({ id }) {
       <div className={styles.metabar}>
         <div className={styles.crumb}>
           <span className={styles.crumbAccent}>{meta.crumb}</span>
-          {meta.groupLabel} · {meta.label}
+          {meta.groupLabel}<Slash />{meta.label}
         </div>
         <div className={styles.metaRight}>
           <span><b>Status</b> stub</span>
@@ -162,7 +281,7 @@ function StubSection({ id }) {
 
       <header className={styles.stubHead}>
         <span className={styles.stubEyebrow}>
-          {meta.groupLabel} · {meta.label}
+          {meta.groupLabel}<Slash />{meta.label}
         </span>
         <h1 id={`${id}-title`} className={styles.stubTitle}>{meta.label}</h1>
       </header>
@@ -183,12 +302,28 @@ function StubSection({ id }) {
 
 export default function App() {
   const active = useHashRoute();
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
+  const [mobileOpen, setMobileOpen] = useState(null);
+  const isMobileOpen = mobileOpen !== null;
+  const goTo = (id) => {
+    window.location.hash = id;
+    setMobileOpen(null);
+  };
   return (
     <div className={styles.site}>
       <Sidebar active={active} />
-      <main className={styles.main}>
+      <MobileHeader active={active} isDark={isDark} />
+      <main className={`${styles.main} ${isMobileOpen ? styles.mainBlurred : ''}`}>
         {active === 'color' ? <ColorSection /> : <StubSection id={active} />}
       </main>
+      <MobileMenu
+        active={active}
+        open={mobileOpen}
+        onClose={() => setMobileOpen(null)}
+        onNav={goTo}
+      />
+      <MobileBottomNav active={active} open={mobileOpen} setOpen={setMobileOpen} />
     </div>
   );
 }

@@ -268,6 +268,7 @@
       }
     },
     "weight": {
+      "thin":     { "$type": "fontWeight", "$value": 250, "$description": "Thin · 250. Display weight for font.text.44 (display/sm) per Figma Color page. Active weight set widened 2026-05-31 (ADR brand-site-shell type recheck)." },
       "light":    { "$type": "fontWeight", "$value": 300, "$description": "Light · 300. Display weight for premise statements and large headlines." },
       "regular":  { "$type": "fontWeight", "$value": 400, "$description": "Regular · 400. Body copy default." },
       "medium":   { "$type": "fontWeight", "$value": 500, "$description": "Medium · 500. UI labels, button text, section titles, eyebrows." },
@@ -386,9 +387,9 @@
         "$value": {
           "fontFamily": "{font.family.sans}",
           "fontSize": "{font.size.44}",
-          "fontWeight": "{font.weight.light}",
+          "fontWeight": "{font.weight.thin}",
           "lineHeight": "{font.lineHeight.tight}",
-          "letterSpacing": "{font.tracking.tighter}"
+          "letterSpacing": "{font.tracking.normal}"
         },
         "$description": "Premise statements, hero subhead. Crosses into display register — NHG Light carries open counters; tighter tracking closes the rhythm so light doesn't read loose."
       },
@@ -410,7 +411,7 @@
           "fontSize": "{font.size.84}",
           "fontWeight": "{font.weight.light}",
           "lineHeight": "{font.lineHeight.tight}",
-          "letterSpacing": "{font.tracking.tightest}"
+          "letterSpacing": "{font.tracking.normal}"
         },
         "$description": "Large display, hero primary. At this size, regular reads as bold — light is the considered weight."
       },
@@ -421,7 +422,7 @@
           "fontSize": "{font.size.120}",
           "fontWeight": "{font.weight.light}",
           "lineHeight": "{font.lineHeight.flat}",
-          "letterSpacing": "{font.tracking.tightest}"
+          "letterSpacing": "{font.tracking.normal}"
         },
         "$description": "Maximum display, hero monumental. Flat 1.0 line-height for vertical alignment in two-line displays."
       },
@@ -434,7 +435,7 @@
             "fontSize": "{font.size.11}",
             "fontWeight": "{font.weight.semibold}",
             "lineHeight": "{font.lineHeight.base}",
-            "letterSpacing": "{font.tracking.wider}"
+            "letterSpacing": "{font.tracking.normal}"
           },
           "$description": "Mono caps in chrome at 11px. tracking.wider (0.06em) not widest (0.08em) — at this scale Cascadia caps loosen unevenly under widest with NHG."
         },

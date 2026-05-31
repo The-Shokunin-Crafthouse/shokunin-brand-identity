@@ -13,9 +13,19 @@
  * active theme automatically.
  */
 
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { Fragment, useEffect, useMemo, useRef, useState } from 'react';
 import { useTheme } from '../theme/ThemeProvider.jsx';
 import styles from './ColorSection.module.css';
+
+// Slash separator — always lighter than adjacent text per design rule.
+function Slash() { return <span className={styles.slash}> / </span>; }
+// Split a string on '·' or '/' and render each separator as a Slash.
+function withSlash(str) {
+  const parts = String(str).split(/\s*[·/]\s*/);
+  return parts.map((p, i) => (
+    <Fragment key={i}>{p}{i < parts.length - 1 && <Slash />}</Fragment>
+  ));
+}
 
 const WARM = ['25', '50', '100', '200', '250', '300', '350', '400', '500', '600', '700', '800', '900'];
 const SHU = ['50', '100', '200', '300', '400', '500', '600', '700', '800', '900'];
@@ -23,10 +33,10 @@ const warmVar = (s) => `--sc-p-color-warm-gray-${s}`;
 const shuVar = (s) => `--sc-p-color-shu-${s}`;
 
 const STATUS = [
-  { key: 'success', label: 'Success', hue: 'Forest green · AA on ground 4.9 : 1', light: '--sc-p-color-status-success-light', dark: '--sc-p-color-status-success-dark' },
-  { key: 'warning', label: 'Warning', hue: 'Burnt orange · hue ~20°', light: '--sc-p-color-status-warning-light', dark: '--sc-p-color-status-warning-dark' },
-  { key: 'error', label: 'Error', hue: 'Oxblood · deep · not shu', light: '--sc-p-color-status-error-light', dark: '--sc-p-color-status-error-dark' },
-  { key: 'info', label: 'Info', hue: 'Royal blue · AA on ground 7.5 : 1', light: '--sc-p-color-status-info-light', dark: '--sc-p-color-status-info-dark' },
+  { key: 'success', label: 'Success', hue: 'Forest green / AA on ground 4.9 : 1', light: '--sc-p-color-status-success-light', dark: '--sc-p-color-status-success-dark' },
+  { key: 'warning', label: 'Warning', hue: 'Burnt orange / hue ~20°', light: '--sc-p-color-status-warning-light', dark: '--sc-p-color-status-warning-dark' },
+  { key: 'error', label: 'Error', hue: 'Oxblood / deep / not shu', light: '--sc-p-color-status-error-light', dark: '--sc-p-color-status-error-dark' },
+  { key: 'info', label: 'Info', hue: 'Royal blue / AA on ground 7.5 : 1', light: '--sc-p-color-status-info-light', dark: '--sc-p-color-status-info-dark' },
 ];
 
 const QUICK_FG = [
@@ -50,8 +60,8 @@ const ROLE = {
   '--sc-p-color-warm-gray-500': 'text-secondary',
   '--sc-p-color-warm-gray-400': 'text-disabled',
   '--sc-p-color-warm-gray-250': 'border-default',
-  '--sc-p-color-shu-500': 'brand-accent · hover · focus',
-  '--sc-p-color-shu-700': 'brand-accent-deep · active',
+  '--sc-p-color-shu-500': 'brand-accent / hover / focus',
+  '--sc-p-color-shu-700': 'brand-accent-deep / active',
   '--sc-p-color-status-error-light': 'status-error',
   '--sc-p-color-status-success-light': 'status-success',
   '--sc-p-color-status-info-light': 'status-info',
@@ -162,7 +172,7 @@ export function ColorSection() {
 
       {/* HERO */}
       <header className={styles.hero}>
-        <span className={styles.heroEyebrow}>Color · the room and the signal</span>
+        <span className={styles.heroEyebrow}>Color<Slash />the room and the signal</span>
         <h1 id="color-title" className={styles.heroTitle}>Color <span className={styles.heroAccent}>earns</span> its place by <span className={styles.heroEm}>doing work.</span></h1>
         <p className={styles.lead}>
           Two warm grays carry the room. One vermilion does the signaling. Status pulls its hue from
@@ -174,12 +184,12 @@ export function ColorSection() {
       {/* i · THE ROOM */}
       <section className={styles.chapter}>
         <div className={styles.chapterHead}>
-          <div className={styles.chapterEyebrow}><span className={styles.ord}>i</span><span className={styles.dot} /><span>The room / warm-gray Ladder</span></div>
+          <div className={styles.chapterEyebrow}><span className={styles.ord}>i</span><span className={styles.dot} /><span>The room<Slash />warm-gray Ladder</span></div>
           <h2 className={styles.chapterTitle}>Thirteen steps. One hue. Built to absorb friction.</h2>
           <p className={styles.premise}>The page sits at warmGray.100. Ink sits at warmGray.800. The other eleven steps exist so the surface between them never has to fight to read.</p>
         </div>
         <div className={styles.chapterBody}>
-          <div className={styles.rowEyebrow}><span><b>Ladder</b> · warmGray · single warm hue · 13 steps</span><span>Click any step to load into the contrast checker below</span></div>
+          <div className={styles.rowEyebrow}><span><b>Ladder</b><Slash />warmGray<Slash />single warm hue<Slash />13 steps</span><span>Click any step to load into the contrast checker below</span></div>
           <div className={styles.ramp} role="group" aria-label="Warm gray ladder">
             {WARM.map((s) => (
               <button
@@ -188,7 +198,7 @@ export function ColorSection() {
                 className={`${styles.stop} ${isSel(warmVar(s)) ? styles.stopSel : ''}`}
                 style={{ background: `var(${warmVar(s)})` }}
                 onClick={() => load(warmVar(s))}
-                title={`warmGray.${s} · ${hex[warmVar(s)] || ''}`}
+                title={`warmGray.${s} / ${hex[warmVar(s)] || ''}`}
                 aria-label={`Load warmGray ${s}`}
               />
             ))}
@@ -202,12 +212,12 @@ export function ColorSection() {
             ))}
           </div>
           <div className={styles.rampKey}>
-            <span><b>100</b> · page ground</span>
-            <span><b>250</b> · hairline</span>
-            <span><b>400</b> · disabled (fails AA by design)</span>
-            <span><b>500</b> · secondary text</span>
-            <span><b>800</b> · ink</span>
-            <span><b>900</b> · dark ground</span>
+            <span><b>100</b><Slash />page ground</span>
+            <span><b>250</b><Slash />hairline</span>
+            <span><b>400</b><Slash />disabled (fails AA by design)</span>
+            <span><b>500</b><Slash />secondary text</span>
+            <span><b>800</b><Slash />ink</span>
+            <span><b>900</b><Slash />dark ground</span>
           </div>
         </div>
         <aside className={styles.gutter}>
@@ -220,16 +230,16 @@ export function ColorSection() {
       {/* ii · THE SIGNAL */}
       <section className={styles.chapter}>
         <div className={styles.chapterHead}>
-          <div className={styles.chapterEyebrow}><span className={styles.ord}>ii</span><span className={styles.dot} /><span>The signal / 朱 shu</span></div>
+          <div className={styles.chapterEyebrow}><span className={styles.ord}>ii</span><span className={styles.dot} /><span>The signal<Slash />朱 shu</span></div>
           <h2 className={styles.chapterTitle}>One vermilion. Three jobs. Nothing else.</h2>
           <p className={styles.premise}>Shu marks the cursor&rsquo;s intent — hover, focus, the studio mark&rsquo;s accent surface. If you catch it doing decorative work on a page, the page is wrong.</p>
         </div>
         <div className={styles.chapterBody}>
           <div className={styles.shuBlock}>
             <button type="button" className={styles.shuPlate} style={{ background: 'var(--sc-p-color-shu-500)' }} onClick={() => load('--sc-p-color-shu-500')} aria-label="Load shu 500 into checker">
-              <span className={styles.plateHead}>朱 · shu · vermilion</span>
+              <span className={styles.plateHead}>朱<Slash />shu<Slash />vermilion</span>
               <span className={styles.plateGlyph}>500</span>
-              <span className={styles.plateFoot}><b>{hex['--sc-p-color-shu-500'] || ''}</b> · sc-color-brand-accent<span>load →</span></span>
+              <span className={styles.plateFoot}><b>{hex['--sc-p-color-shu-500'] || ''}</b><Slash />sc-color-brand-accent<span>load →</span></span>
             </button>
             <div className={styles.shuRail}>
               {SHU.map((s) => (
@@ -241,9 +251,9 @@ export function ColorSection() {
             </div>
           </div>
           <div className={styles.threeJobs}>
-            <div className={styles.job}><div className={styles.jobLabel}>Job 01 · hover</div><div className={styles.jobDemo}><a className={styles.demoHover} href="#color" onClick={(e) => e.preventDefault()}>Pass your cursor here.</a></div><div className={styles.jobCaption}>--sc-color-interactive-hover → shu.500</div></div>
-            <div className={styles.job}><div className={styles.jobLabel}>Job 02 · focus</div><div className={styles.jobDemo}><input className={styles.demoFocus} defaultValue="Tab to here" aria-label="Focus demo" /></div><div className={styles.jobCaption}>--sc-color-border-focus → shu.500</div></div>
-            <div className={styles.job}><div className={styles.jobLabel}>Job 03 · mark accent</div><div className={styles.jobDemo}><span className={styles.demoMark} aria-hidden="true" /></div><div className={styles.jobCaption}>studio mark · accent surface only</div></div>
+            <div className={styles.job}><div className={styles.jobLabel}>Job 01<Slash />hover</div><div className={styles.jobDemo}><a className={styles.demoHover} href="#color" onClick={(e) => e.preventDefault()}>Pass your cursor here.</a></div><div className={styles.jobCaption}>--sc-color-interactive-hover → shu.500</div></div>
+            <div className={styles.job}><div className={styles.jobLabel}>Job 02<Slash />focus</div><div className={styles.jobDemo}><input className={styles.demoFocus} defaultValue="Tab to here" aria-label="Focus demo" /></div><div className={styles.jobCaption}>--sc-color-border-focus → shu.500</div></div>
+            <div className={styles.job}><div className={styles.jobLabel}>Job 03<Slash />mark accent</div><div className={styles.jobDemo}><span className={styles.demoMark} aria-hidden="true" /></div><div className={styles.jobCaption}>studio mark<Slash />accent surface only</div></div>
           </div>
         </div>
         <aside className={styles.gutter}>
@@ -256,7 +266,7 @@ export function ColorSection() {
       {/* iii · OUTSIDE THE BAND */}
       <section className={styles.chapter}>
         <div className={styles.chapterHead}>
-          <div className={styles.chapterEyebrow}><span className={styles.ord}>iii</span><span className={styles.dot} /><span>Outside the band / status</span></div>
+          <div className={styles.chapterEyebrow}><span className={styles.ord}>iii</span><span className={styles.dot} /><span>Outside the band<Slash />status</span></div>
           <h2 className={styles.chapterTitle}>Four independent hues. None of them shu.</h2>
           <p className={styles.premise}>Error is oxblood, not red. When a screen says danger, the brand and the warning cannot be mistaken for each other. Each status carries a light pair and a dark pair, both calibrated AA on the ground beneath them.</p>
         </div>
@@ -267,7 +277,7 @@ export function ColorSection() {
                 <button type="button" className={styles.statusSwatch} style={{ background: `var(${s.light})` }} onClick={() => load(s.light)} aria-label={`Load ${s.label} (light)`} />
                 <div className={styles.statusMeta}>
                   <div className={styles.statusName}>{s.label}</div>
-                  <div className={styles.statusHue}>{s.hue}</div>
+                  <div className={styles.statusHue}>{withSlash(s.hue)}</div>
                   <div className={styles.statusHexes}><span><b>L</b> {hex[s.light] || ''}</span><span><b>D</b> {hex[s.dark] || ''}</span></div>
                 </div>
               </div>
@@ -283,16 +293,16 @@ export function ColorSection() {
       {/* iv · THREE-TIER */}
       <section className={styles.chapter}>
         <div className={styles.chapterHead}>
-          <div className={styles.chapterEyebrow}><span className={styles.ord}>iv</span><span className={styles.dot} /><span>Resolution / three tiers</span></div>
+          <div className={styles.chapterEyebrow}><span className={styles.ord}>iv</span><span className={styles.dot} /><span>Resolution<Slash />three tiers</span></div>
           <h2 className={styles.chapterTitle}>A primitive holds the value. A semantic gives it a role.</h2>
           <p className={styles.premise}>Components consume only the middle column. Raw hex at the call site is a bug, not a shortcut. The resolution path below is the only path the system permits.</p>
         </div>
         <div className={styles.chapterBody}>
           <div className={styles.tierTable}>
             <div className={`${styles.tierRow} ${styles.tierHeadRow}`}>
-              <div className={styles.tierHead}><span className={styles.tierNum}>01</span><span className={styles.tierHeadLabel}>Primitive</span><span className={styles.tierHeadSub}>raw value · token-map.json</span></div>
+              <div className={styles.tierHead}><span className={styles.tierNum}>01</span><span className={styles.tierHeadLabel}>Primitive</span><span className={styles.tierHeadSub}>raw value<Slash />token-map.json</span></div>
               <span className={styles.tierArrow} aria-hidden="true" />
-              <div className={styles.tierHead}><span className={styles.tierNum}>02</span><span className={styles.tierHeadLabel}>Semantic</span><span className={styles.tierHeadSub}>role · what it means</span></div>
+              <div className={styles.tierHead}><span className={styles.tierNum}>02</span><span className={styles.tierHeadLabel}>Semantic</span><span className={styles.tierHeadSub}>role<Slash />what it means</span></div>
               <span className={styles.tierArrow} aria-hidden="true" />
               <div className={styles.tierHead}><span className={styles.tierNum}>03</span><span className={styles.tierHeadLabel}>Component</span><span className={styles.tierHeadSub}>read-site only</span></div>
             </div>
@@ -321,7 +331,7 @@ export function ColorSection() {
       {/* v · THE CHECKER */}
       <section className={styles.chapter}>
         <div className={styles.chapterHead}>
-          <div className={styles.chapterEyebrow}><span className={styles.ord}>v</span><span className={styles.dot} /><span>Contrast / the measurement</span></div>
+          <div className={styles.chapterEyebrow}><span className={styles.ord}>v</span><span className={styles.dot} /><span>Contrast<Slash />the measurement</span></div>
           <h2 className={styles.chapterTitle}>Contrast is a measurement, not an instinct.</h2>
           <p className={styles.premise}>Every text-and-surface pairing has a number. The number decides. Body must pass AA; legal passes AAA. Pick any two values above, then read the verdict.</p>
         </div>
@@ -330,12 +340,12 @@ export function ColorSection() {
             <div className={styles.checkerTop}>
               {[{ role: 'fg', token: fg, hexv: result.fgHex, label: 'Foreground', list: QUICK_FG }, { role: 'bg', token: bg, hexv: result.bgHex, label: 'Background', list: QUICK_BG }].map((side) => (
                 <div key={side.role} className={styles.checkerSide}>
-                  <div className={styles.checkerRole}><span>{side.label} · <b>{ROLE[side.token] || tokenName(side.token)}</b></span><span className={styles.checkerHexVal}>{side.hexv}</span></div>
+                  <div className={styles.checkerRole}><span>{side.label}<Slash /><b>{withSlash(ROLE[side.token] || tokenName(side.token))}</b></span><span className={styles.checkerHexVal}>{side.hexv}</span></div>
                   <div className={styles.checkerSwatch} style={{ background: `var(${side.token})` }} />
                   <div className={styles.pickerRow}>
                     <span className={styles.pickerLabel}>Quick</span>
                     {side.list.map((t) => (
-                      <button key={t} type="button" className={`${styles.px} ${side.token === t ? styles.pxSel : ''}`} style={{ background: `var(${t})` }} onClick={() => load(t, side.role)} title={`${tokenName(t)} · ${hex[t] || ''}`} aria-label={`Load ${tokenName(t)} as ${side.label}`} />
+                      <button key={t} type="button" className={`${styles.px} ${side.token === t ? styles.pxSel : ''}`} style={{ background: `var(${t})` }} onClick={() => load(t, side.role)} title={`${tokenName(t)} / ${hex[t] || ''}`} aria-label={`Load ${tokenName(t)} as ${side.label}`} />
                     ))}
                   </div>
                 </div>
@@ -345,7 +355,7 @@ export function ColorSection() {
             <div className={styles.checkerPreview} style={{ background: `var(${bg})`, color: `var(${fg})` }}>
               <div className={styles.pAa}>Aa — Shokunin</div>
               <div className={styles.pBody}>Sentences hold 4–28 words by register. The main verb arrives in the first nine. If it doesn&rsquo;t, the sentence is fighting the reader.</div>
-              <div className={styles.pChrome}>11px · mono · chrome label · 0.08em tracking</div>
+              <div className={styles.pChrome}>11px<Slash />mono<Slash />chrome label<Slash />0.08em tracking</div>
             </div>
 
             <div className={styles.checkerBottom}>
@@ -356,13 +366,13 @@ export function ColorSection() {
               </div>
               <div className={styles.verdicts}>
                 {[
-                  { h: 'AA · normal', pass: passes.aaN, req: '≥ 4.5' },
-                  { h: 'AA · large', pass: passes.aaL, req: '≥ 3.0' },
-                  { h: 'AAA · normal', pass: passes.aaaN, req: '≥ 7.0' },
-                  { h: 'AAA · large', pass: passes.aaaL, req: '≥ 4.5' },
+                  { h: 'AA / normal', pass: passes.aaN, req: '≥ 4.5' },
+                  { h: 'AA / large', pass: passes.aaL, req: '≥ 3.0' },
+                  { h: 'AAA / normal', pass: passes.aaaN, req: '≥ 7.0' },
+                  { h: 'AAA / large', pass: passes.aaaL, req: '≥ 4.5' },
                 ].map((v) => (
                   <div key={v.h} className={styles.verdict}>
-                    <span className={styles.vHead}>{v.h}</span>
+                    <span className={styles.vHead}>{withSlash(v.h)}</span>
                     <div className={styles.badgeRow}>
                       <span className={`${styles.scBadge} ${v.pass ? styles.badgePass : styles.badgeFail}`}>{v.pass ? 'Pass' : 'Fail'}</span>
                       <span className={styles.req}>{v.req}</span>

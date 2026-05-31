@@ -13,6 +13,7 @@
  * ============================================================ */
 
 /* Neue Haas Grotesk Display Pro — display + UI */
+@font-face { font-family: 'Neue Haas Grotesk Display Pro'; font-weight: 250; font-style: normal; font-display: optional; src: url('../fonts/NeueHaasGrotDisp-35Thin.woff2') format('woff2'); }
 @font-face { font-family: 'Neue Haas Grotesk Display Pro'; font-weight: 300; font-style: normal; font-display: optional; src: url('../fonts/NeueHaasGrotDisp-45Light.woff2') format('woff2'); }
 @font-face { font-family: 'Neue Haas Grotesk Display Pro'; font-weight: 400; font-style: normal; font-display: optional; src: url('../fonts/NeueHaasGrotDisp-55Roman.woff2') format('woff2'); }
 @font-face { font-family: 'Neue Haas Grotesk Display Pro'; font-weight: 500; font-style: normal; font-display: optional; src: url('../fonts/NeueHaasGrotDisp-65Medium.woff2') format('woff2'); }

@@ -17,6 +17,9 @@
 
 .probe { position: absolute; width: 0; height: 0; overflow: hidden; opacity: 0; pointer-events: none; }
 
+/* Slash separator — lighter than adjacent text */
+.slash { color: var(--sc-color-text-disabled); }
+
 /* ── Metabar / hero ──────────────────────────────────────── */
 .metabar {
   display: flex; flex-wrap: wrap; gap: var(--sc-space-component-gap-md);
@@ -74,7 +77,7 @@
   margin-bottom: var(--sc-space-layout-stack-md);
 }
 .ord { color: var(--sc-color-text-secondary); }
-.dot { width: var(--sc-p-space-4); height: var(--sc-p-space-4); background: var(--sc-color-text-disabled); align-self: center; }
+.dot { width: var(--sc-p-space-4); height: var(--sc-p-space-4); background: var(--sc-color-brand-accent); align-self: center; }
 .chapterTitle {
   font: var(--sc-font-text-display-sm);
   letter-spacing: var(--sc-font-text-display-sm-letter-spacing);

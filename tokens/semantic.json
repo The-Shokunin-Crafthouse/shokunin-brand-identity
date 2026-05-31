@@ -71,6 +71,28 @@
             "dark":  "{color.dark.surfaceDeepSunk}"
           }
         }
+      },
+      "rail": {
+        "$type": "color",
+        "$value": "{color.warmGray.300}",
+        "$description": "Sidebar / left-rail ground. Light = surface-deep-sunk equivalent (warmGray.300); dark = surface-sunk equivalent (dark.surfaceSunk). Two-step asymmetry by design — rail reads as sunk in light, lifted in dark. Added 2026-05-31 (ADR brand-site-shell sidebar pass).",
+        "$extensions": {
+          "modes": {
+            "light": "{color.warmGray.300}",
+            "dark":  "{color.dark.surfaceSunk}"
+          }
+        }
+      },
+      "hover": {
+        "$type": "color",
+        "$value": "{color.warmGray.250}",
+        "$description": "Hover-highlight ground for nav links and similar row-level affordances. Light = warmGray.250, dark = warmGray.800. Added 2026-05-31 (ADR brand-site-shell sidebar pass).",
+        "$extensions": {
+          "modes": {
+            "light": "{color.warmGray.250}",
+            "dark":  "{color.warmGray.800}"
+          }
+        }
       }
     },
     "text": {
