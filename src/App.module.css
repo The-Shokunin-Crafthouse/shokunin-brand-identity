@@ -81,28 +81,62 @@
   color: var(--sc-color-text-primary);
   font: var(--sc-font-text-caption);
   padding: var(--sc-p-space-micro-6) var(--sc-p-space-12);
+  /* Negative left/right margin pulls the link box back so the label text
+   * aligns to the section eyebrow above it while the hover-highlight rect
+   * still has horizontal breathing room around the text. */
+  margin-inline: calc(-1 * var(--sc-p-space-12));
   border-radius: var(--sc-radius-control);
   transition:
-    color var(--sc-motion-hover-duration) var(--sc-motion-hover-easing),
-    background-color var(--sc-motion-hover-duration) var(--sc-motion-hover-easing);
+    background-color var(--sc-motion-hover-duration) var(--sc-motion-hover-easing),
+    transform var(--sc-motion-press-duration) var(--sc-motion-press-easing);
+  will-change: transform;
 }
-.navLink:hover { color: var(--sc-color-interactive-hover); background: var(--sc-color-surface-hover); }
+.navLink:hover { background: var(--sc-color-surface-hover); }
+.navLink:active { transform: scale(var(--sc-motion-press-scale)); }
 .navNum {
   font: var(--sc-font-text-mono-chrome);
   letter-spacing: 0;
   color: var(--sc-color-text-disabled);
 }
-.navLinkActive { color: var(--sc-color-text-primary); font-weight: var(--sc-p-font-weight-medium); }
-.navLinkActive::before {
-  content: "";
+.navLinkActive { color: var(--sc-color-brand-accent); font-weight: var(--sc-p-font-weight-medium); }
+
+/* Per-character slot-machine animation — each char wrapped in an
+ * overflow:hidden container with two stacked layers (default visible,
+ * shu-colored layer parked below). On link hover, both layers translate
+ * up by 100% — top slides out, bottom slides in. Stagger via per-char
+ * --nav-char-delay set inline. */
+.navLabel {
+  display: inline-flex;
+  align-items: baseline;
+}
+.navLabelSr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.navChar {
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+  height: 1lh;
+  vertical-align: bottom;
+}
+.navCharLayer {
+  display: block;
+  transition: transform var(--sc-motion-mode-duration) var(--sc-motion-hover-easing);
+  transition-delay: var(--nav-char-delay, 0ms);
+}
+.navCharLayerHover {
   position: absolute;
   left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  width: var(--sc-border-width-focus);
-  height: var(--sc-p-space-16);
-  background: var(--sc-color-brand-accent);
+  top: 100%;
+  color: var(--sc-color-interactive-hover);
 }
+.navLink:hover .navCharLayer { transform: translateY(-100%); }
 
 .navSpacer { display: none; }
 

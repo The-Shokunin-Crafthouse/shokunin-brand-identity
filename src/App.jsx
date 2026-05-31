@@ -21,6 +21,32 @@ import styles from './App.module.css';
 // Slash separator — always lighter than adjacent text per design rule.
 function Slash() { return <span className={styles.slash}> / </span>; }
 
+// Per-character slot-machine layers for nav-link labels.
+// On link hover, every char's top layer slides up out of its overflow:hidden
+// container; an identical-but-shu-colored bottom layer slides up into view.
+// Per-character transition-delay creates the slot stagger.
+function NavChars({ label }) {
+  const chars = Array.from(label);
+  return (
+    <>
+      {chars.map((ch, i) => (
+        <span
+          key={i}
+          className={styles.navChar}
+          style={{ '--nav-char-delay': `${i * 24}ms` }}
+          aria-hidden="true"
+        >
+          <span className={styles.navCharLayer}>{ch === ' ' ? ' ' : ch}</span>
+          <span className={`${styles.navCharLayer} ${styles.navCharLayerHover}`}>
+            {ch === ' ' ? ' ' : ch}
+          </span>
+        </span>
+      ))}
+      <span className={styles.navLabelSr}>{label}</span>
+    </>
+  );
+}
+
 const NAV = [
   {
     ord: '01',
@@ -132,7 +158,7 @@ function Sidebar({ active }) {
                   href={`#${item.id}`}
                   aria-current={isActive ? 'page' : undefined}
                 >
-                  {item.label}
+                  <span className={styles.navLabel}><NavChars label={item.label} /></span>
                   {item.num && <span className={styles.navNum}>{item.num}</span>}
                 </a>
               );
