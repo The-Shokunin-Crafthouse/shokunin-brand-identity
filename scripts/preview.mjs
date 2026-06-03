@@ -12,8 +12,8 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 const projectRoot = resolve(__dirname, '..')
 
-const VIEWPORTS = [360, 768, 1024, 1440]
-const DARK_MODE_IN_SCOPE = true
+const VIEWPORTS = [390, 768, 1280, 1920]
+const DARK_MODE_IN_SCOPE = false
 const DIST_DIR = resolve(projectRoot, 'dist')
 const MIME = {
   '.html': 'text/html; charset=utf-8',

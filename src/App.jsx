@@ -1,327 +1,355 @@
 /**
- * App.jsx — Sprint 4 component-primitives showcase.
+ * App.jsx — Living brand reference site · shell.
  *
- * One section per component (12 total). Each section shows all
- * documented states (per sc-brand-system-spec.md §2 Tier 3) plus a
- * mono caption listing the tokens the component consumes. Real copy
- * throughout — voice register: studio/marketing.
+ * Layout mirrors the Sandbox "Color — DL" design: a sticky left rail
+ * (brand lockup, three nav groups, mode toggle, colophon foot) and a
+ * hash-routed main column. The Color section is fully built; every
+ * other section renders a stub (heading + placeholder, never blank).
  *
- * Theme toggle in the header flips data-theme on <html>; every
- * component re-resolves from --sc-* semantic vars without remount.
+ * Theme is owned by ThemeProvider — the mode toggle flips data-theme
+ * on <html>; every surface re-resolves from --sc-* without remount.
  */
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTheme } from './theme/ThemeProvider.jsx';
-import { Alert } from './components/Alert/Alert.jsx';
-import { Avatar } from './components/Avatar/Avatar.jsx';
-import { Badge } from './components/Badge/Badge.jsx';
-import { Button } from './components/Button/Button.jsx';
-import { Card } from './components/Card/Card.jsx';
-import { Divider } from './components/Divider/Divider.jsx';
-import { Input } from './components/Input/Input.jsx';
-import { NavBar } from './components/NavBar/NavBar.jsx';
-import { ProgressIndicator } from './components/ProgressIndicator/ProgressIndicator.jsx';
 import { Switch } from './components/Switch/Switch.jsx';
-import { Tooltip } from './components/Tooltip/Tooltip.jsx';
-import { TypographySpecimen } from './components/TypographySpecimen/TypographySpecimen.jsx';
+import { ColorSection } from './sections/ColorSection.jsx';
+import markLight from '../assets/logo/mark-icon-light.svg';
+import markDark from '../assets/logo/mark-icon-dark.svg';
 import styles from './App.module.css';
 
-function ThemeToggle() {
-  const { theme, toggle } = useTheme();
+// Slash separator — always lighter than adjacent text per design rule.
+function Slash() { return <span className={styles.slash}> / </span>; }
+
+// Per-character slot-machine layers for nav-link labels.
+// On link hover, every char's top layer slides up out of its overflow:hidden
+// container; an identical-but-shu-colored bottom layer slides up into view.
+// Per-character transition-delay creates the slot stagger.
+function NavChars({ label }) {
+  const chars = Array.from(label);
   return (
-    <button
-      type="button"
-      onClick={toggle}
-      className={styles.toggle}
-      aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
-      aria-pressed={theme === 'dark'}
-    >
-      <span className={styles.toggleIcon} aria-hidden="true">◐</span>
-      <span className={styles.toggleLabel}>{theme} mode</span>
-    </button>
+    <>
+      {chars.map((ch, i) => (
+        <span
+          key={i}
+          className={styles.navChar}
+          style={{ '--nav-char-delay': `${i * 24}ms` }}
+          aria-hidden="true"
+        >
+          <span className={styles.navCharLayer}>{ch === ' ' ? ' ' : ch}</span>
+          <span className={`${styles.navCharLayer} ${styles.navCharLayerHover}`}>
+            {ch === ' ' ? ' ' : ch}
+          </span>
+        </span>
+      ))}
+      <span className={styles.navLabelSr}>{label}</span>
+    </>
   );
 }
 
-function Section({ id, n, title, tokens, children }) {
+const NAV = [
+  {
+    ord: '01',
+    label: 'Foundations',
+    items: [
+      { id: 'color', label: 'Color' },
+      { id: 'type', label: 'Type' },
+      { id: 'spacing', label: 'Spacing' },
+      { id: 'motion', label: 'Motion' },
+      { id: 'mark', label: 'Mark' },
+    ],
+  },
+  {
+    ord: '02',
+    label: 'Components',
+    items: [
+      { id: 'button', label: 'Button', num: '12' },
+      { id: 'badge', label: 'Badge' },
+      { id: 'card', label: 'Card' },
+      { id: 'input', label: 'Input' },
+      { id: 'alert', label: 'Alert' },
+      { id: 'switch', label: 'Switch' },
+      { id: 'avatar', label: 'Avatar' },
+      { id: 'progress', label: 'Progress' },
+      { id: 'tooltip', label: 'Tooltip' },
+      { id: 'divider', label: 'Divider' },
+      { id: 'navbar', label: 'NavBar' },
+      { id: 'specimen', label: 'Specimen' },
+    ],
+  },
+  {
+    ord: '03',
+    label: 'Voice',
+    items: [
+      { id: 'register', label: 'Register' },
+      { id: 'density', label: 'Density' },
+      { id: 'hard-rules', label: 'Hard rules' },
+    ],
+  },
+];
+
+// Chapter list per page id — drives the mobile slide-up menu.
+const CHAPTERS = {
+  color: [
+    { id: 'ramp', label: 'The room', sub: 'warm-gray ladder', count: 13 },
+    { id: 'shu', label: 'The signal', sub: '朱 shu', count: 10 },
+    { id: 'status', label: 'Outside the band', sub: 'status', count: 4 },
+    { id: 'tiers', label: 'Resolution', sub: 'three tiers', count: 4 },
+    { id: 'contrast', label: 'Contrast', sub: 'measurement', count: 4 },
+  ],
+};
+
+// id → { groupOrd, groupLabel, label } for stub headers + metabar crumbs.
+const SECTION_INDEX = NAV.reduce((acc, group, gi) => {
+  group.items.forEach((item, ii) => {
+    acc[item.id] = {
+      groupOrd: group.ord,
+      groupLabel: group.label,
+      label: item.label,
+      crumb: `${group.ord} / ${String(group.items.length).padStart(2, '0')}`,
+      position: `${String(ii + 1).padStart(2, '0')}`,
+    };
+  });
+  return acc;
+}, {});
+
+const DEFAULT_SECTION = 'color';
+
+function currentHash() {
+  const id = window.location.hash.replace(/^#/, '');
+  return SECTION_INDEX[id] ? id : DEFAULT_SECTION;
+}
+
+function useHashRoute() {
+  const [section, setSection] = useState(currentHash);
+  useEffect(() => {
+    const onChange = () => setSection(currentHash());
+    window.addEventListener('hashchange', onChange);
+    return () => window.removeEventListener('hashchange', onChange);
+  }, []);
+  return section;
+}
+
+function Sidebar({ active }) {
+  const { theme, toggle } = useTheme();
+  const isDark = theme === 'dark';
   return (
-    <section id={id} className={styles.section} aria-labelledby={`${id}-title`}>
-      <header className={styles.sectionHeader}>
-        <span className={styles.sectionNumber}>{n}</span>
-        <div className={styles.sectionMeta}>
-          <h2 id={`${id}-title`} className={styles.sectionTitle}>{title}</h2>
-          <p className={styles.sectionTokens}>tokens · {tokens}</p>
+    <aside className={styles.sidebar} aria-label="Documentation navigation">
+      <a className={styles.brand} href="#color" aria-label="Shokunin Crafthouse — home">
+        <img className={styles.brandMark} src={isDark ? markDark : markLight} alt="" width="22" height="22" />
+        <span className={styles.brandLockup}>
+          <span className={styles.brandName}>Shokunin Crafthouse</span>
+        </span>
+      </a>
+
+      <nav className={styles.nav} aria-label="Sections">
+        {NAV.map((group) => (
+          <div key={group.ord} className={styles.navGroup}>
+            <div className={styles.navEyebrow}>
+              <span className={styles.navOrd}>{group.ord}</span>
+              {group.label}
+            </div>
+            {group.items.map((item) => {
+              const isActive = item.id === active;
+              return (
+                <a
+                  key={item.id}
+                  className={`${styles.navLink} ${isActive ? styles.navLinkActive : ''}`}
+                  href={`#${item.id}`}
+                  aria-current={isActive ? 'page' : undefined}
+                >
+                  <span className={styles.navLabel}><NavChars label={item.label} /></span>
+                  {item.num && <span className={styles.navNum}>{item.num}</span>}
+                </a>
+              );
+            })}
+          </div>
+        ))}
+      </nav>
+
+      <div className={styles.navSpacer} />
+
+      <div className={styles.modeRow}>
+        <span className={styles.modeLabel}>
+          Mode <span className={styles.modeState}>{isDark ? 'Dark' : 'Light'}</span>
+        </span>
+        <Switch checked={isDark} onChange={toggle} label="" className={styles.modeSwitch} />
+      </div>
+
+      <div className={styles.versionRow}>design system<Slash />v1.2</div>
+
+      <div className={styles.sidebarFoot}>
+        <span>edition<Slash />2026.05</span>
+        <span>SCDS-01</span>
+      </div>
+    </aside>
+  );
+}
+
+function MobileHeader({ active, isDark }) {
+  const meta = SECTION_INDEX[active];
+  return (
+    <header className={styles.mobileHeader}>
+      <div className={styles.mobileCrumb}>
+        <span className={styles.mobileCrumbOrd}>{meta.groupOrd}</span>
+        {meta.groupLabel}<Slash />{meta.label}
+      </div>
+      <div className={styles.mobileMeta}>
+        <span>Spec<Slash />v1.2</span>
+        <img className={styles.mobileMark} src={isDark ? markDark : markLight} alt="" />
+      </div>
+    </header>
+  );
+}
+
+function MobileMenu({ active, open, onClose, onNav }) {
+  const isOpen = open !== null;
+  const chapters = CHAPTERS[active] || [];
+  return (
+    <>
+      <div
+        className={`${styles.mobileOverlay} ${isOpen ? styles.mobileOverlayOpen : ''}`}
+        onClick={onClose}
+        aria-hidden="true"
+      />
+      <div
+        className={`${styles.mobileMenu} ${isOpen ? styles.mobileMenuOpen : ''}`}
+        role="dialog"
+        aria-modal={isOpen}
+        aria-hidden={!isOpen}
+      >
+        {open === 'pages' ? (
+          <ul className={styles.mobileMenuList}>
+            {NAV.flatMap((group) =>
+              group.items.map((item) => (
+                <li
+                  key={item.id}
+                  className={item.id === active ? styles.mobileMenuItemActive : undefined}
+                >
+                  <button
+                    type="button"
+                    className={styles.mobileMenuLink}
+                    onClick={() => onNav(item.id)}
+                  >
+                    <span className={styles.mobileMenuLabel}>
+                      {group.label}<Slash />{item.label}
+                    </span>
+                  </button>
+                </li>
+              ))
+            )}
+          </ul>
+        ) : (
+          <ul className={styles.mobileMenuList}>
+            {chapters.length === 0 && <li className={styles.mobileMenuEmpty}>No chapters yet.</li>}
+            {chapters.map((c, i) => (
+              <li key={c.id}>
+                <button type="button" className={styles.mobileMenuLink} onClick={onClose}>
+                  <span className={styles.mobileMenuLabel}>
+                    <span className={styles.mobileMenuStep}>{String(i + 1).padStart(2, '0')}</span>
+                    {c.label}<Slash />{c.sub}
+                  </span>
+                  <span className={styles.mobileMenuCount}>{c.count}</span>
+                </button>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </>
+  );
+}
+
+function MobileBottomNav({ active, open, setOpen }) {
+  const meta = SECTION_INDEX[active];
+  const toggle = (id) => setOpen(open === id ? null : id);
+  return (
+    <nav className={styles.mobileBottomNav} aria-label="Mobile navigation">
+      <button
+        type="button"
+        className={`${styles.mobileTab} ${open === 'crumb' ? styles.mobileTabActive : ''}`}
+        onClick={() => toggle('crumb')}
+      >
+        {meta.groupLabel}<Slash />{meta.label}
+      </button>
+      <button
+        type="button"
+        className={`${styles.mobileTab} ${open === 'chapters' ? styles.mobileTabActive : ''}`}
+        onClick={() => toggle('chapters')}
+      >
+        Chapters
+      </button>
+      <button
+        type="button"
+        className={`${styles.mobileTab} ${open === 'pages' ? styles.mobileTabActive : ''}`}
+        onClick={() => toggle('pages')}
+      >
+        Pages
+      </button>
+    </nav>
+  );
+}
+
+function StubSection({ id }) {
+  const meta = SECTION_INDEX[id];
+  return (
+    <section className={styles.stub} aria-labelledby={`${id}-title`}>
+      <div className={styles.metabar}>
+        <div className={styles.crumb}>
+          <span className={styles.crumbAccent}>{meta.crumb}</span>
+          {meta.groupLabel}<Slash />{meta.label}
         </div>
+        <div className={styles.metaRight}>
+          <span><b>Status</b> stub</span>
+          <span><b>Sprint</b> shell</span>
+        </div>
+      </div>
+
+      <header className={styles.stubHead}>
+        <span className={styles.stubEyebrow}>
+          {meta.groupLabel}<Slash />{meta.label}
+        </span>
+        <h1 id={`${id}-title`} className={styles.stubTitle}>{meta.label}</h1>
       </header>
-      <div className={styles.sectionBody}>{children}</div>
+
+      <div className={styles.placeholder} role="note">
+        <span className={styles.placeholderMark} aria-hidden="true">◧</span>
+        <p className={styles.placeholderLead}>
+          <b>{meta.label}</b> is scaffolded — the shell, route, and heading are in place.
+        </p>
+        <p className={styles.placeholderBody}>
+          Built content lands in a later sprint. Color is the fully-built reference; this
+          section is intentionally a placeholder, not an empty or broken page.
+        </p>
+      </div>
     </section>
   );
 }
 
-function StateGrid({ children }) {
-  return <div className={styles.stateGrid}>{children}</div>;
-}
-
-function StateCell({ label, children }) {
-  return (
-    <div className={styles.stateCell}>
-      <div className={styles.stateLabel}>{label}</div>
-      <div className={styles.stateVisual}>{children}</div>
-    </div>
-  );
-}
-
 export default function App() {
-  const [switchOn, setSwitchOn] = useState(true);
-  const [switchOff, setSwitchOff] = useState(false);
-  const [inputFilled] = useState('levi@levibahn.com');
-
+  const active = useHashRoute();
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
+  const [mobileOpen, setMobileOpen] = useState(null);
+  const isMobileOpen = mobileOpen !== null;
+  const goTo = (id) => {
+    window.location.hash = id;
+    setMobileOpen(null);
+  };
   return (
-    <div className={styles.page}>
-      <header className={styles.masthead}>
-        <div className={styles.mastheadInner}>
-          <div className={styles.brand}>
-            <span className={styles.brandMark} aria-hidden="true">⌬</span>
-            <span className={styles.brandLockup}>
-              <span className={styles.brandTitle}>Shokunin Crafthouse</span>
-              <span className={styles.brandSubtitle}>Sprint 4 · Component primitives</span>
-            </span>
-          </div>
-          <ThemeToggle />
-        </div>
-      </header>
-
-      <main className={styles.main}>
-        <section className={styles.intro}>
-          <h1 className={styles.heroTitle}>Twelve components, built from tokens.</h1>
-          <p className={styles.heroLead}>
-            Every value on this page resolves to a semantic token in <code>tokens/semantic.json</code>.
-            Component code references <code>var(--sc-*)</code> only — never a hex, never a magic number.
-            Toggle the theme above; every component re-resolves from the cascade without remount.
-          </p>
-        </section>
-
-        <Section id="button" n="3.1" title="Button"
-          tokens="--sc-color-interactive-* · --sc-color-brand-accent · --sc-space-component-padding-* · --sc-radius-surface · --sc-motion-press-*">
-          <StateGrid>
-            <StateCell label="primary"><Button variant="primary">Open the system</Button></StateCell>
-            <StateCell label="secondary"><Button variant="secondary">Read the brief</Button></StateCell>
-            <StateCell label="ghost"><Button variant="ghost">Skip ahead</Button></StateCell>
-            <StateCell label="destructive"><Button variant="destructive">Discard changes</Button></StateCell>
-            <StateCell label="disabled"><Button variant="primary" disabled>Awaiting approval</Button></StateCell>
-            <StateCell label="loading"><Button variant="primary" loading>Building specimen</Button></StateCell>
-          </StateGrid>
-        </Section>
-
-        <Section id="badge" n="3.2" title="Badge"
-          tokens="--sc-color-brand-accent · --sc-color-status-* · --sc-radius-control · --sc-font-text-mono-chrome-*">
-          <StateGrid>
-            <StateCell label="default"><Badge>Sprint 4</Badge></StateCell>
-            <StateCell label="success"><Badge variant="success">Shipped</Badge></StateCell>
-            <StateCell label="warning"><Badge variant="warning">In review</Badge></StateCell>
-            <StateCell label="error"><Badge variant="error">Blocked</Badge></StateCell>
-            <StateCell label="neutral"><Badge variant="neutral">Draft</Badge></StateCell>
-          </StateGrid>
-        </Section>
-
-        <Section id="card" n="3.3" title="Card"
-          tokens="--sc-color-surface-sunk · --sc-color-surface-deep-sunk · --sc-color-surface-page · --sc-radius-surface · --sc-border-width-default">
-          <StateGrid>
-            <StateCell label="default">
-              <Card>
-                <strong>Token Architecture</strong>
-                <p className={styles.cardBody}>One primitive layer. One semantic layer. Every component reads from semantic — primitives stay invisible to surfaces.</p>
-              </Card>
-            </StateCell>
-            <StateCell label="interactive">
-              <Card variant="interactive" onClick={() => {}}>
-                <strong>Type System</strong>
-                <p className={styles.cardBody}>Neue Haas Grotesk · twelve scale steps · per-step composition tokens. Hover this card.</p>
-              </Card>
-            </StateCell>
-            <StateCell label="elevated">
-              <Card variant="elevated">
-                <strong>Voice Framework</strong>
-                <p className={styles.cardBody}>Four registers, seven principles, a checker skill that scores both. Resolved in Sprint 3.</p>
-              </Card>
-            </StateCell>
-          </StateGrid>
-        </Section>
-
-        <Section id="input" n="3.4" title="Input"
-          tokens="--sc-color-surface-page · --sc-color-border-* · --sc-color-status-error · --sc-font-text-body-default · --sc-font-text-caption">
-          <StateGrid>
-            <StateCell label="default">
-              <Input label="Project name" placeholder="Living brand reference site" />
-            </StateCell>
-            <StateCell label="filled">
-              <Input label="Contact" defaultValue={inputFilled} helper="We reply within one working day." />
-            </StateCell>
-            <StateCell label="error">
-              <Input label="Domain" defaultValue="not a domain" error="Use a fully qualified domain — e.g. brand.shokunincrafthouse.com" />
-            </StateCell>
-            <StateCell label="disabled">
-              <Input label="Lead" defaultValue="Levi Bahn" disabled helper="Locked while the engagement is active." />
-            </StateCell>
-          </StateGrid>
-        </Section>
-
-        <Section id="divider" n="3.5" title="Divider"
-          tokens="--sc-color-border-default · --sc-border-width-default · --sc-font-text-mono-chrome-*">
-          <StateGrid>
-            <StateCell label="horizontal">
-              <div className={styles.dividerExample}>
-                <p>Above the line — preceding section.</p>
-                <Divider />
-                <p>Below the line — following section.</p>
-              </div>
-            </StateCell>
-            <StateCell label="vertical">
-              <div className={styles.verticalRow}>
-                <span>Stage 02</span>
-                <Divider orientation="vertical" />
-                <span>Design</span>
-                <Divider orientation="vertical" />
-                <span>Approved</span>
-              </div>
-            </StateCell>
-            <StateCell label="with label">
-              <div className={styles.dividerExample}>
-                <p>Above the labelled rule.</p>
-                <Divider label="Sprint break" />
-                <p>Below the labelled rule.</p>
-              </div>
-            </StateCell>
-          </StateGrid>
-        </Section>
-
-        <Section id="avatar" n="3.6" title="Avatar"
-          tokens="--sc-size-avatar-* · --sc-radius-pill · --sc-color-surface-sunk · --sc-font-text-label-chrome-*">
-          <StateGrid>
-            <StateCell label="xs"><Avatar size="xs" name="Levi Bahn" /></StateCell>
-            <StateCell label="sm"><Avatar size="sm" name="Levi Bahn" /></StateCell>
-            <StateCell label="md"><Avatar size="md" name="Shokunin Crafthouse" /></StateCell>
-            <StateCell label="lg"><Avatar size="lg" name="Asuka Tanaka" /></StateCell>
-            <StateCell label="image (md)"><Avatar size="md" src="/assets/logo/mark-icon-light.svg" name="Studio mark" /></StateCell>
-            <StateCell label="initials fallback"><Avatar size="md" name="" /></StateCell>
-          </StateGrid>
-        </Section>
-
-        <Section id="navbar" n="3.7" title="NavBar"
-          tokens="--sc-color-surface-page · --sc-color-border-default · --sc-color-interactive-hover · --sc-color-brand-accent · --sc-font-text-body-dense-*">
-          <div className={styles.navbarStack}>
-            <div className={styles.navbarFrame}>
-              <span className={styles.navbarLabel}>desktop</span>
-              <NavBar
-                brand="Shokunin"
-                links={[
-                  { href: '#button', label: 'Components', current: true },
-                  { href: '#typography', label: 'Type' },
-                  { href: '#alert', label: 'Voice' },
-                  { href: '#avatar', label: 'Mark' },
-                ]}
-                trailing={<Button variant="ghost">Sign in</Button>}
-              />
-            </div>
-            <div className={styles.navbarFrame}>
-              <span className={styles.navbarLabel}>compact</span>
-              <NavBar
-                compact
-                brand="Shokunin"
-                links={[
-                  { href: '#button', label: 'Components', current: true },
-                  { href: '#typography', label: 'Type' },
-                  { href: '#alert', label: 'Voice' },
-                  { href: '#avatar', label: 'Mark' },
-                ]}
-              />
-            </div>
-          </div>
-        </Section>
-
-        <Section id="tooltip" n="3.8" title="Tooltip"
-          tokens="--sc-color-surface-inverse · --sc-color-text-on-inverse · --sc-radius-control · --sc-motion-reveal-*">
-          <StateGrid>
-            <StateCell label="single-line">
-              <Tooltip content="Anchored to the brand mark">
-                <Button variant="secondary">Hover here</Button>
-              </Tooltip>
-            </StateCell>
-            <StateCell label="multi-line">
-              <Tooltip
-                multiline
-                content="Multi-line tooltips wrap at a token-derived max-width and keep the same arrow, padding, and inverted ground as the single-line variant."
-              >
-                <Button variant="secondary">Hover the long one</Button>
-              </Tooltip>
-            </StateCell>
-          </StateGrid>
-        </Section>
-
-        <Section id="switch" n="3.9" title="Switch"
-          tokens="--sc-size-switch-* · --sc-color-brand-accent · --sc-color-surface-deep-sunk · --sc-radius-pill">
-          <StateGrid>
-            <StateCell label="on">
-              <Switch checked={switchOn} onChange={() => setSwitchOn((v) => !v)} label="Reveal tokens panel" />
-            </StateCell>
-            <StateCell label="off">
-              <Switch checked={switchOff} onChange={() => setSwitchOff((v) => !v)} label="Auto-publish on green CI" />
-            </StateCell>
-            <StateCell label="disabled">
-              <Switch checked disabled label="Locked while engagement is active" />
-            </StateCell>
-          </StateGrid>
-        </Section>
-
-        <Section id="progress" n="3.10" title="ProgressIndicator"
-          tokens="--sc-size-progress-* · --sc-color-brand-accent · --sc-color-surface-deep-sunk · --sc-radius-pill">
-          <StateGrid>
-            <StateCell label="bar">
-              <div className={styles.progressBlock}>
-                <ProgressIndicator variant="bar" value={0.62} label="Sprint 4 build progress" />
-                <p className={styles.progressCaption}>Sprint 4 · 62% complete</p>
-              </div>
-            </StateCell>
-            <StateCell label="circular">
-              <ProgressIndicator variant="circular" value={0.78} label="Token coverage" />
-            </StateCell>
-            <StateCell label="step">
-              <ProgressIndicator variant="step" steps={6} current={3} />
-            </StateCell>
-          </StateGrid>
-        </Section>
-
-        <Section id="alert" n="3.11" title="Alert"
-          tokens="--sc-color-surface-sunk · --sc-color-status-* · --sc-border-width-accent · --sc-font-text-title-card · --sc-font-text-body-dense">
-          <div className={styles.stack}>
-            <Alert variant="info" title="Theme toggle is live.">
-              The toggle at the top swaps every component to its dark-mode resolution without remount. Click it, then come back here.
-            </Alert>
-            <Alert variant="success" title="Token gap closed.">
-              All 65 semantic + 3 primitive additions landed in tokens.css. Component build resumes against the expanded layer.
-            </Alert>
-            <Alert variant="warning" title="Shadow tokens deferred.">
-              Card elevated state uses surface + border contrast instead of a drop shadow. Reasoning lives in Card.tokens.md.
-            </Alert>
-            <Alert variant="error" title="Lorem ipsum on staging.">
-              No lorem reaches staging. This alert is here so the variant ships its real copy register, not as a live error.
-            </Alert>
-          </div>
-        </Section>
-
-        <Section id="typography" n="3.12" title="TypographySpecimen"
-          tokens="--sc-font-text-display-* · --sc-font-text-title-* · --sc-font-text-body-* · --sc-font-text-caption · --sc-font-text-label-* · --sc-font-text-mono-*">
-          <TypographySpecimen />
-        </Section>
+    <div className={styles.site}>
+      <Sidebar active={active} />
+      <MobileHeader active={active} isDark={isDark} />
+      <main className={`${styles.main} ${isMobileOpen ? styles.mainBlurred : ''}`}>
+        {active === 'color' ? <ColorSection /> : <StubSection id={active} />}
       </main>
-
-      <footer className={styles.footer}>
-        <p className={styles.footerLine}>
-          Sprint 4 · Component primitives · branch <code>feat/sprint-4-components</code>
-        </p>
-        <p className={styles.footerLine}>
-          Token CSS · {/* counts surface below via the cascade */}<code>365 root · 158 dark</code>
-        </p>
-      </footer>
+      <MobileMenu
+        active={active}
+        open={mobileOpen}
+        onClose={() => setMobileOpen(null)}
+        onNav={goTo}
+      />
+      <MobileBottomNav active={active} open={mobileOpen} setOpen={setMobileOpen} />
     </div>
   );
 }

@@ -240,3 +240,125 @@ The pass/fail signal requirement (≥1 quoted line per principle, sourced from `
 
 **Verification.** `npm run build` exits 0. `node -e` parse-checks both JSON files OK. Generated CSS sample-verified at the new namespace (`--sc-p-color-warm-gray-100`, `--sc-color-surface-page` resolving to `var(--sc-p-color-warm-gray-100)`, semantic `border/width/focus` resolving to `var(--sc-p-border-width-focus)` without recursion). Sprint 4 audit criterion 4e — "If a semantic token had to be added or modified during Sprint 4, it is documented in an ADR" — satisfied by this entry. Component build resumes against the expanded semantic layer with no further token-gap stops anticipated.
 
+
+## 2026-05-28 — Brand-site Color palette adopted into tokens (design wins)
+
+**Context.** Building the living brand site shell (sprint `brand-site-shell`), the canonical token source (`tokens/primitives.json` + `semantic.json`, mirrored by `token-map.md`) disagreed with the Stage-02 Color page design (`stages/02-design/claude-design/scds-documentation-site-desktop/project/Color.html` + `system/colors_and_type.css`). The design renders a status palette pulled deliberately off the shu vermilion band (its own copy argues "error is oxblood, not shu"), a 13-step warm-gray ladder, and `surface-raised`/`floating` surfaces — none of which existed in the token source, where `status.error` aliased `{color.shu.500}`.
+
+**Decision.** The design wins; the token source is updated to match (studio sign-off, 2026-05-28). Changes to `tokens/primitives.json` + `tokens/semantic.json`:
+- `+ color.warmGray.25` = `#F8F6F2` (13-step ladder).
+- Status repaint: success `#2F855A`/`#6EE7B7`, warning `#C2410C`/`#FB923C`, info `#1D4ED8`/`#93C5FD`; **new** `color.status.error.light` `#7F1D1D` (oxblood) / `.dark` `#FCA5A5`.
+- `+ semantic color.surface.raised` (warmGray.50 → dark.surfaceSunk) and `color.surface.floating` (warmGray.25 → dark.surfaceDeepSunk).
+- `color.status.error` rebound from `{color.shu.500}` → `{color.status.error.*}` so brand-accent and danger can never share a hue.
+- Regenerated `src/styles/tokens.css` via `npm run tokens:build`.
+
+**Scope guard.** Typography tracking and motion/elevation were left at their canonical values — the design export's zeroed tracking is an export artifact, not a design decision. Only colour primitives/semantics + the warm-gray step + the two surfaces changed.
+
+**Consequences.** Error styling no longer matches the brand accent anywhere it is consumed (Badge/Alert/Input error states now render oxblood, not vermilion). `token-map.md` is now stale on the status palette and should be re-synced on the next `sync-figma-token` pass. Figma Variables mirror should be updated to match.
+
+## 2026-05-28 — Type pass: Color page hierarchy fix + mono/chrome weight widened to 600
+
+**Context.** Type recheck of the brand-site Color section against Figma node `2144:24` (`Color — DL`) surfaced (a) an implementation bug and (b) a token/Figma divergence.
+
+**Decisions.**
+- **Hierarchy bug (fixed, no token change).** A responsive rule had scaled chapter headings to `display/lg` (84px) at ≥1280, flattening them against the hero. Chapter headings now stay `display/sm` (44px) at all breakpoints; the contrast-checker `Aa` preview + ratio value now use `display/lg` (84px) at ≥768 (were `display/md` 60px). Matches Figma `display/sm` 44 vs `display/lg` 84.
+- **Offscale sizes (no change — modular scale wins).** Figma draws lead/premise/glyph at offscale 22/18/200 (its `offscale/*` group). We keep the 1.25 modular scale: lead/premise on `body/lead` (20), glyph on `display/xl` (120). Editorial offscale sizes are treated as one-off debt and not adopted.
+- **Mono chrome weight 500 → 600 (design wins; rule widened).** Figma `mono/chrome` is weight 600. `font.text.mono.11` changed from `{font.weight.medium}` to `{font.weight.semibold}`; added the Cascadia Mono 600 `@font-face`. The prior rule "weight 600 reserved exclusively for the secondary-button hover bump" is **widened** to also cover the mono chrome label step. Updated in `_config/design-system/type-system.md`, `token-map.md` (weight table + zone summary + mono/11 row), and `tokens/primitives.json` metadata.
+
+**Consequences.** System-wide: every mono chrome label (eyebrows, badges, nav numbers, metabar, captions) renders semibold, including across the Sprint-4 component primitives. The global `studio-memory.md` does not carry this rule, so no studio-level edit was required. Figma Variables mirror + `token-map.md` were aligned; re-sync on the next `sync-figma-token` pass.
+
+## 2026-05-28 — Color page type: full Figma parity pass (offscale adopted)
+
+**Context.** Side-by-side of the rendered Color page against the Figma screenshot of node `2144:24` surfaced ~15 divergences (copy, structure, type sizes).
+
+**Decisions / changes.**
+- **Offscale sizes — adopted (reverses the 2026-05-28 "keep modular scale" call above).** Added a clearly-labeled `offscale` group to `tokens/primitives.json`: `font.size.offscale.{18,22,200}` + `font.text.offscale.{body.18, body.22, display.200}`, each described "OFFSCALE · … NOT general-use." Wired hero lead → 22, chapter premise → 18, shu plate glyph → 200 (200 at ≥768; 120 on mobile to avoid overflow). The modular scale stays the default; offscale is fenced off and named so it reads as deliberate editorial debt, not drift.
+- **Hero** — "earns" now renders in shu (`--sc-color-brand-accent`); "doing work." steps up to medium weight; lead emphasis (`<em>`) removed to match the uniform-secondary mock.
+- **Metabar** — crumb "01 Foundations / Color"; right block restored to "Last revised 2026.05.27 · Tokens 88 · Spec v1.2" (was "… · Mode Light · Spec v1.3").
+- **Ladder** — step labels now show step + hex (resolved at runtime, no literal); gutter annotations include resolved hex; "4-point lift" copy.
+- **Three-tier table** — added the "01 Primitive / 02 Semantic / 03 Component" header row + sublabels; hex under each primitive token; error component cell now "`.sc-alert--error, .sc-badge--error`".
+- **Status** — premise "not red"; success/info sublabels carry their AA ratios again.
+- **Checker** — gutter back to three notes (Pick a swatch / Last clicked wins / Quick presets); verdict copy "AAA for normal and large body".
+- **Copy** — chapter eyebrows use "/" separators; token captions restored to full `--sc-color-*` / `sc-color-*` names.
+
+**Left intentionally divergent.** Contrast ratio shows **13.34:1** (the mathematically correct WCAG value for `#1A1815` on `#E3DFD8`), not the mock's stale **12.40**. `display/lg` line-height stays 1.1 (vs Figma 1.05) — negligible, and our optical-tracking display values match the *rendered* mock.
+
+## 2026-05-31 — Brand-site polish pass: sidebar / type recheck / mobile nav / slash separator
+
+Eight related fixes landing in one pass against Figma node `2144:24` (desktop) + `2207:3155`/`2207:2604` (mobile ML/MD).
+
+**Tokens added (semantic, labeled).**
+- `color.surface.rail` — sidebar/left-rail ground. Light = `{color.warmGray.300}` (= surface-deep-sunk equivalent), dark = `{color.dark.surfaceSunk}` (= surface-sunk equivalent). Two-step asymmetry by design: rail reads as sunk in light, lifted in dark.
+- `color.surface.hover` — hover-highlight ground for nav links. Light = `{color.warmGray.250}`, dark = `{color.warmGray.800}`.
+
+**Tokens added (primitive).**
+- `font.weight.thin` = 250. Active weight set widened to 250 / 300 / 400 / 500 (+ 600 mono chrome + secondary-button hover). Required by `display/sm` (Figma `35 Thin`). `@font-face` for NHG Display Pro 250 added (woff2 already in `src/fonts/`).
+
+**Tokens repainted (weight + letter-spacing recheck vs Figma).**
+- `font.text.44` (display/sm): weight `light` → `thin`; letter-spacing `tighter` → `normal`.
+- `font.text.84` (display/lg): letter-spacing `tightest` → `normal`.
+- `font.text.120` (display/xl): letter-spacing `tightest` → `normal`.
+- `font.text.mono.11` (mono/chrome): letter-spacing `wider (0.06em)` → `normal`. Aligns to the Figma variable (per-element CSS may still track where the design renders tracked).
+
+Line-heights left as-is per scope ("recheck weight + letter spacing"). `token-map.md`, `type-system.md`, `primitives.json` metadata updated for the widened active-weight set.
+
+**Color page CSS.**
+- Sidebar `background` now references `surface-rail`.
+- Nav links gain padding-inline + `radius-control` + `surface-hover` background on hover; active accent bar repositioned from sidebar outer edge to link inner left (`left: 0`).
+- Chapter-eyebrow square dots flipped from `text-disabled` to `brand-accent` (shu).
+- Main content area at `>= 1280` switches to `display: flex; justify-content: center; padding-inline: 96px` — content max-width 1080 with a hard 96-min margin.
+- Foundation nav items lose their trailing `01..05` numbers (Button keeps `12`).
+
+**Layout / footer.**
+- Sidebar header now mark + "Shokunin Crafthouse" only.
+- "design system / v1.2" moved into a new `.versionRow` line directly below the mode toggle, above the existing `edition / 2026.05` + `SCDS-01` colophon.
+
+**Mobile rebuild (new — Figma `Color — ML/MD`).**
+- Sidebar hidden at `< 768`.
+- New mobile top header: brand crumb (`<accent>01</accent> Foundations / Color`) + `Spec / v1.2` + mark icon. Sticky.
+- New bottom sticky nav with 3 tabs: current-page crumb / `Chapters` / `Pages`. Tapping any tab slides up a menu (translateY 100% → 0, easing on mode-easing).
+- Menu content: `Chapters` (and current-page tab) shows the current page's chapter list with counts (from a new `CHAPTERS` map; populated for Color, empty otherwise). `Pages` shows the flat NAV list with section / item names.
+- When the menu is open, `main` gets `filter: blur(15px)` and `pointer-events: none`; a transparent overlay above main captures taps to close.
+- Mobile nav, header, menu, overlay are hidden at `>= 768`.
+
+**Separator (`/`) styling.**
+- All visible `·` separators across the shell + Color page replaced with `/`. A small `Slash` helper renders `<span class="slash"> / </span>`, where `.slash` resolves to `text-disabled` — always a step lighter than the adjacent text. String-rendered values (status hue, role labels, verdict heads, token names) pass through a `withSlash` helper that splits on `·` or `/` and inserts the styled separator. JSX comments and CSS-doc comments left alone (not user-visible).
+
+Zero hex in src (excl. generated `tokens.css`) held. `npm run build` and `npm run preview brand-site-shell` exit 0. Both 1280 + 390 PNGs render the new state without regression.
+
+## 2026-06-02 — Code → Figma sync: "Color — DL" variable repaint (text styles blocked)
+
+Pushed the design-system variable updates that had accrued in the token files back
+into the Figma file (`ufNlysCwWz7y2FBk61DxbN`), so the Sandbox `Color — DL` frame
+(node `2144:24`) and the shared variable collections match the shipped build. Direction
+was code → Figma; code/token files are the source of truth.
+
+**Primitives collection (synced):**
+- `status/success/light` `#2e8559` → `#2F855A`; `status/success/dark` `#44ab77` → `#6EE7B7`.
+- `status/warning/light` `#db6300` → `#C2410C`; `status/warning/dark` `#c77f44` → `#FB923C`.
+- `status/info/light` `#325dd8` → `#1D4ED8`; `status/info/dark` `#4f8ad6` → `#93C5FD`.
+- `status/error/dark` `#b23232` → `#FCA5A5` (`error/light` `#7F1D1D` already matched).
+- Added `color/warmGray/25` = `#F8F6F2` (scopes/codeSyntax cloned from `warmGray/50`).
+
+The status tiles' printed hex labels already read the target values while the bound
+fills were stale — Figma was internally inconsistent. The repaint reconciled fill ↔ label.
+
+**Semantic collection (synced):**
+- Added `surface/floating` (L `warmGray/25` · D `dark/surfaceDeepSunk`).
+- Added `surface/rail` (L `warmGray/300` · D `dark/surfaceSunk`).
+- Added `surface/hover` (L `warmGray/250` · D `warmGray/800`).
+- `interactive/hover` Dark `shu/500` → `shu/400`.
+
+**BLOCKED — display text styles (could not write via MCP).** `use_figma` cannot load the
+brand trial fonts (`listAvailableFontsAsync` returns the family empty; `loadFontAsync`
+throws "font family does not exist"). Editing any TextStyle requires its font loaded, so
+these three remain stale in Figma and must be hand-edited in the desktop app:
+- `display/sm` (44): letter-spacing `2%` → `0%`.
+- `display/lg` (84): font `35 Thin` → `45 Light`; line-height `105%` → `110%`; ls `-2%` → `0%`.
+- `offscale/display/200`: font `35 Thin` → `45 Light`; ls `-2%` → `-4%`.
+
+**Build parity.** `tokens.css` regenerated with zero drift — the build already carried
+every synced value. Remaining build↔Figma divergences are called out (display type above;
+contrast figure `13.34:1` live vs Figma's stale `12.40`; nav slot-machine + press-scale are
+build-only motion, not statically representable). Figma-only extras (`status/*/text`,
+`surface/overlay`) left intact — not deleted, not in the token files.
