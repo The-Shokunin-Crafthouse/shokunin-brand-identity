@@ -33,3 +33,16 @@ jobs:
           remote_port: 65002
           remote_user: ${{ secrets.HOSTINGER_USER }}
           remote_key: ${{ secrets.HOSTINGER_SSH_KEY }}
+
+      # Brand → Portal bridge: once the design system is live, tell the client
+      # portal its _brand/ submodule moved so it can pull, rebuild, and restart.
+      # Receiver: client-portal/.github/workflows/deploy.yml (repository_dispatch
+      # type: brand-updated). Needs PORTAL_DISPATCH_TOKEN (a fine-grained PAT) —
+      # the built-in GITHUB_TOKEN is scoped to this repo and cannot dispatch out.
+      - name: Trigger client-portal rebuild
+        if: success()
+        uses: peter-evans/repository-dispatch@v3
+        with:
+          token: ${{ secrets.PORTAL_DISPATCH_TOKEN }}
+          repository: The-Shokunin-Crafthouse/client-portal
+          event-type: brand-updated

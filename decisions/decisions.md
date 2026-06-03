@@ -362,3 +362,25 @@ every synced value. Remaining build↔Figma divergences are called out (display 
 contrast figure `13.34:1` live vs Figma's stale `12.40`; nav slot-machine + press-scale are
 build-only motion, not statically representable). Figma-only extras (`status/*/text`,
 `surface/overlay`) left intact — not deleted, not in the token files.
+
+---
+
+## 2026-06-03 — Brand → Portal deploy bridge (brand side)
+
+**Decision.** After the brand site deploys to Hostinger on a push to `main`, `deploy.yml`
+fires a `repository_dispatch` (`event-type: brand-updated`) to
+`The-Shokunin-Crafthouse/client-portal`. The portal's `deploy.yml` already listens for that
+event and re-deploys (SSH → `git pull` → `git submodule update` → `npm ci` → build →
+`pm2 restart`). A design-system change here now auto-propagates to the live portal — the
+studio's "brand updates, portal follows" pipeline.
+
+**Why a PAT, not `GITHUB_TOKEN`.** A workflow's built-in `GITHUB_TOKEN` is scoped to its own
+repository and cannot dispatch cross-repo. The dispatch step reads `PORTAL_DISPATCH_TOKEN`,
+a fine-grained PAT scoped to `client-portal` (Contents: write · Metadata: read), stored as a
+secret on this repo. The secret is added separately; the workflow is otherwise complete.
+
+**Portal-side prerequisites (handled in client-portal Sprint 1).** (1) Add
+`shokunin-brand-identity` as a submodule at `_brand/`. (2) The portal deploy should run
+`git submodule update --remote` so the dispatch pulls the latest brand *tip* — the current
+`--init --recursive` checks out the recorded SHA and would otherwise rebuild against a stale
+pin. Tracked in the portal repo, not here.
