@@ -325,3 +325,40 @@ Line-heights left as-is per scope ("recheck weight + letter spacing"). `token-ma
 - All visible `·` separators across the shell + Color page replaced with `/`. A small `Slash` helper renders `<span class="slash"> / </span>`, where `.slash` resolves to `text-disabled` — always a step lighter than the adjacent text. String-rendered values (status hue, role labels, verdict heads, token names) pass through a `withSlash` helper that splits on `·` or `/` and inserts the styled separator. JSX comments and CSS-doc comments left alone (not user-visible).
 
 Zero hex in src (excl. generated `tokens.css`) held. `npm run build` and `npm run preview brand-site-shell` exit 0. Both 1280 + 390 PNGs render the new state without regression.
+
+## 2026-06-02 — Code → Figma sync: "Color — DL" variable repaint (text styles blocked)
+
+Pushed the design-system variable updates that had accrued in the token files back
+into the Figma file (`ufNlysCwWz7y2FBk61DxbN`), so the Sandbox `Color — DL` frame
+(node `2144:24`) and the shared variable collections match the shipped build. Direction
+was code → Figma; code/token files are the source of truth.
+
+**Primitives collection (synced):**
+- `status/success/light` `#2e8559` → `#2F855A`; `status/success/dark` `#44ab77` → `#6EE7B7`.
+- `status/warning/light` `#db6300` → `#C2410C`; `status/warning/dark` `#c77f44` → `#FB923C`.
+- `status/info/light` `#325dd8` → `#1D4ED8`; `status/info/dark` `#4f8ad6` → `#93C5FD`.
+- `status/error/dark` `#b23232` → `#FCA5A5` (`error/light` `#7F1D1D` already matched).
+- Added `color/warmGray/25` = `#F8F6F2` (scopes/codeSyntax cloned from `warmGray/50`).
+
+The status tiles' printed hex labels already read the target values while the bound
+fills were stale — Figma was internally inconsistent. The repaint reconciled fill ↔ label.
+
+**Semantic collection (synced):**
+- Added `surface/floating` (L `warmGray/25` · D `dark/surfaceDeepSunk`).
+- Added `surface/rail` (L `warmGray/300` · D `dark/surfaceSunk`).
+- Added `surface/hover` (L `warmGray/250` · D `warmGray/800`).
+- `interactive/hover` Dark `shu/500` → `shu/400`.
+
+**BLOCKED — display text styles (could not write via MCP).** `use_figma` cannot load the
+brand trial fonts (`listAvailableFontsAsync` returns the family empty; `loadFontAsync`
+throws "font family does not exist"). Editing any TextStyle requires its font loaded, so
+these three remain stale in Figma and must be hand-edited in the desktop app:
+- `display/sm` (44): letter-spacing `2%` → `0%`.
+- `display/lg` (84): font `35 Thin` → `45 Light`; line-height `105%` → `110%`; ls `-2%` → `0%`.
+- `offscale/display/200`: font `35 Thin` → `45 Light`; ls `-2%` → `-4%`.
+
+**Build parity.** `tokens.css` regenerated with zero drift — the build already carried
+every synced value. Remaining build↔Figma divergences are called out (display type above;
+contrast figure `13.34:1` live vs Figma's stale `12.40`; nav slot-machine + press-scale are
+build-only motion, not statically representable). Figma-only extras (`status/*/text`,
+`surface/overlay`) left intact — not deleted, not in the token files.
