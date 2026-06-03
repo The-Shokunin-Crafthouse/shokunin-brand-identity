@@ -23,16 +23,27 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Deploy to Hostinger via rsync
-        uses: burnett01/rsync-deployments@7.0.1
+      # SSH/rsync from GitHub Actions to Hostinger times out intermittently —
+      # retry is the standing studio pattern (the client-portal deploy does the
+      # same). A single timeout used to kill the whole deploy.
+      - name: Deploy to Hostinger via rsync (with retry)
+        uses: nick-fields/retry@v2
         with:
-          switches: -avzr --delete
-          path: dist/
-          remote_path: ~/domains/shokunincrafthouse.com/public_html/brand/
-          remote_host: ${{ secrets.HOSTINGER_HOST }}
-          remote_port: 65002
-          remote_user: ${{ secrets.HOSTINGER_USER }}
-          remote_key: ${{ secrets.HOSTINGER_SSH_KEY }}
+          max_attempts: 3
+          timeout_minutes: 5
+          retry_wait_seconds: 15
+          command: |
+            KEY="$(mktemp)"
+            printf '%s\n' "$HOSTINGER_SSH_KEY" > "$KEY"
+            chmod 600 "$KEY"
+            rsync -avzr --delete \
+              -e "ssh -p 65002 -i $KEY -o StrictHostKeyChecking=accept-new" \
+              dist/ \
+              "$HOSTINGER_USER@$HOSTINGER_HOST:~/domains/shokunincrafthouse.com/public_html/brand/"
+        env:
+          HOSTINGER_HOST: ${{ secrets.HOSTINGER_HOST }}
+          HOSTINGER_USER: ${{ secrets.HOSTINGER_USER }}
+          HOSTINGER_SSH_KEY: ${{ secrets.HOSTINGER_SSH_KEY }}
 
       # Brand → Portal bridge: once the design system is live, tell the client
       # portal its _brand/ submodule moved so it can pull, rebuild, and restart.
