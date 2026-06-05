@@ -14,6 +14,18 @@ import { useEffect, useState } from 'react';
 import { useTheme } from './theme/ThemeProvider.jsx';
 import { Switch } from './components/Switch/Switch.jsx';
 import { ColorSection } from './sections/ColorSection.jsx';
+import { TypeSection } from './sections/TypeSection.jsx';
+import { SpacingSection } from './sections/SpacingSection.jsx';
+import { MotionSection } from './sections/MotionSection.jsx';
+import { MarkSection } from './sections/MarkSection.jsx';
+import {
+  ButtonPage, BadgePage, CardPage, InputPage, AlertPage, SwitchPage,
+  AvatarPage, ProgressPage, TooltipPage, DividerPage, NavBarPage,
+} from './sections/ComponentSections.jsx';
+import { SpecimenSection } from './sections/SpecimenSection.jsx';
+import { RegisterSection } from './sections/RegisterSection.jsx';
+import { DensitySection } from './sections/DensitySection.jsx';
+import { HardRulesSection } from './sections/HardRulesSection.jsx';
 import markLight from '../assets/logo/mark-icon-light.svg';
 import markDark from '../assets/logo/mark-icon-dark.svg';
 import styles from './App.module.css';
@@ -114,6 +126,31 @@ const SECTION_INDEX = NAV.reduce((acc, group, gi) => {
 }, {});
 
 const DEFAULT_SECTION = 'color';
+
+// Built sections render their own component; every id not present here
+// still falls through to the StubSection placeholder (never blank).
+const SECTIONS = {
+  color: ColorSection,
+  type: TypeSection,
+  spacing: SpacingSection,
+  motion: MotionSection,
+  mark: MarkSection,
+  button: ButtonPage,
+  badge: BadgePage,
+  card: CardPage,
+  input: InputPage,
+  alert: AlertPage,
+  switch: SwitchPage,
+  avatar: AvatarPage,
+  progress: ProgressPage,
+  tooltip: TooltipPage,
+  divider: DividerPage,
+  navbar: NavBarPage,
+  specimen: SpecimenSection,
+  register: RegisterSection,
+  density: DensitySection,
+  'hard-rules': HardRulesSection,
+};
 
 function currentHash() {
   const id = window.location.hash.replace(/^#/, '');
@@ -341,7 +378,10 @@ export default function App() {
       <Sidebar active={active} />
       <MobileHeader active={active} isDark={isDark} />
       <main className={`${styles.main} ${isMobileOpen ? styles.mainBlurred : ''}`}>
-        {active === 'color' ? <ColorSection /> : <StubSection id={active} />}
+        {(() => {
+          const Active = SECTIONS[active];
+          return Active ? <Active /> : <StubSection id={active} />;
+        })()}
       </main>
       <MobileMenu
         active={active}

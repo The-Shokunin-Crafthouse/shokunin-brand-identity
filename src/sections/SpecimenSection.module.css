@@ -1,0 +1,19 @@
+/* ============================================================
+ * SpecimenSection.module.css — the whole library on one page.
+ * Component blocks in a responsive grid; live instances laid out
+ * in rows/stacks. Every value resolves through a --sc-* token.
+ * ============================================================ */
+
+.blocks { display: grid; grid-template-columns: 1fr; gap: var(--sc-space-layout-stack-sm); }
+.blockWide { grid-column: 1 / -1; }
+.blockBody { padding: var(--sc-space-component-padding-lg); }
+
+.row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sc-space-component-gap-lg); }
+.rowEnd { display: flex; flex-wrap: wrap; align-items: flex-end; gap: var(--sc-space-component-gap-lg); }
+.stack { display: flex; flex-direction: column; gap: var(--sc-space-layout-stack-sm); }
+.progressRow { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sc-space-layout-stack-sm); }
+.typeWrap { padding: var(--sc-space-component-padding-lg); }
+
+@media (min-width: 768px) {
+  .blocks { grid-template-columns: 1fr 1fr; }
+}

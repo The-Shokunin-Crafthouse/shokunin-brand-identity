@@ -1,0 +1,75 @@
+/* ============================================================
+ * DensitySection.module.css — Voice · Density content.
+ * Density specimens, the word-range scale, component copy demos.
+ * All --sc-* tokens; bar positions are chart percentages.
+ * ============================================================ */
+
+/* ── Three density levels ────────────────────────────────── */
+.levels { display: flex; flex-direction: column; gap: var(--sc-space-layout-stack-sm); }
+.level {
+  margin: 0;
+  border: var(--sc-border-width-default) solid var(--sc-color-border-default);
+  border-radius: var(--sc-radius-control); overflow: hidden;
+  background: var(--sc-color-surface-raised);
+}
+.levelHead {
+  display: flex; flex-wrap: wrap; align-items: center; gap: var(--sc-space-component-gap-md);
+  padding: var(--sc-space-component-padding-md) var(--sc-space-component-padding-lg);
+  background: var(--sc-color-surface-sunk);
+  border-bottom: var(--sc-border-width-default) solid var(--sc-color-border-default);
+}
+.levelTag { font: var(--sc-font-text-mono-chrome); letter-spacing: var(--sc-font-text-mono-chrome-letter-spacing); text-transform: uppercase; color: var(--sc-color-text-primary); }
+.levelCount { margin-left: auto; font: var(--sc-font-text-mono-chrome); letter-spacing: 0; color: var(--sc-color-text-disabled); }
+.levelCopy { margin: 0; padding: var(--sc-space-component-padding-lg); font: var(--sc-font-text-body-lead); color: var(--sc-color-text-primary); text-wrap: pretty; }
+.levelNote {
+  padding: var(--sc-space-component-padding-md) var(--sc-space-component-padding-lg);
+  font: var(--sc-font-text-mono-caption); color: var(--sc-color-text-secondary);
+  border-top: var(--sc-border-width-default) solid var(--sc-color-border-subtle);
+}
+
+/* ── Word-range scale ────────────────────────────────────── */
+.scale { display: flex; flex-direction: column; }
+.scaleRow {
+  display: grid; grid-template-columns: 1fr; gap: var(--sc-space-component-gap-sm);
+  padding: var(--sc-space-component-padding-md) var(--sc-space-component-padding-lg);
+  border-bottom: var(--sc-border-width-default) solid var(--sc-color-border-subtle);
+}
+.scaleRow:last-child { border-bottom: 0; }
+.scaleReg { font: var(--sc-font-text-body-dense); color: var(--sc-color-text-primary); }
+.scaleTrack {
+  position: relative; display: block; height: var(--sc-p-space-24);
+  background: var(--sc-color-surface-deep-sunk); border-radius: var(--sc-radius-pill);
+}
+.scaleBar {
+  position: relative; display: flex; align-items: center; justify-content: space-between;
+  height: 100%; box-sizing: border-box;
+  padding-inline: var(--sc-space-component-padding-inline-sm);
+  background: var(--sc-color-brand-accent); border-radius: var(--sc-radius-pill);
+  min-width: var(--sc-p-space-48);
+}
+.scaleMin, .scaleMax { font: var(--sc-font-text-mono-chrome); letter-spacing: 0; color: var(--sc-color-text-on-accent); }
+.scaleSweet { font: var(--sc-font-text-mono-chrome); letter-spacing: 0; color: var(--sc-color-text-disabled); }
+
+/* ── Components ──────────────────────────────────────────── */
+.compGrid { display: grid; grid-template-columns: 1fr; gap: var(--sc-space-layout-stack-sm); }
+.compDemo {
+  display: flex; align-items: center; flex-wrap: wrap; gap: var(--sc-space-component-gap-md);
+  padding: var(--sc-space-component-padding-lg); min-height: var(--sc-p-space-96);
+  background: var(--sc-color-surface-floating);
+}
+.compRule {
+  padding: var(--sc-space-component-padding-md) var(--sc-space-component-padding-lg);
+  font: var(--sc-font-text-caption); color: var(--sc-color-text-secondary);
+  border-top: var(--sc-border-width-default) solid var(--sc-color-border-subtle);
+}
+.tipTarget { font: var(--sc-font-text-body-default); color: var(--sc-color-text-primary); border-bottom: var(--sc-border-width-default) dashed var(--sc-color-border-strong); cursor: help; }
+
+.emptyState { display: flex; flex-direction: column; align-items: center; gap: var(--sc-space-component-gap-sm); text-align: center; width: 100%; }
+.emptyMark { font-size: var(--sc-p-font-size-24); color: var(--sc-color-text-disabled); }
+.emptyHead { font: var(--sc-font-text-title-card); color: var(--sc-color-text-primary); }
+.emptyBody { font: var(--sc-font-text-body-dense); color: var(--sc-color-text-secondary); }
+
+@media (min-width: 768px) {
+  .scaleRow { grid-template-columns: var(--sc-p-space-120) 1fr auto; align-items: center; gap: var(--sc-space-component-gap-lg); }
+  .compGrid { grid-template-columns: repeat(2, 1fr); }
+}

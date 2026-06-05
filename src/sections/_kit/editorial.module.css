@@ -1,0 +1,221 @@
+/* ============================================================
+ * editorial.module.css — shared editorial scaffold for every
+ * built section EXCEPT Color (which keeps its own port).
+ *
+ * Reproduces the Color page contract: metabar → hero → numbered
+ * chapters (head / body / right-gutter annotations). Mobile-first
+ * single column; the content+gutter grid engages at >=1280px.
+ *
+ * On-scale only. The Color page uses three OFFSCALE editorial
+ * sizes (18/22/200) that the token spec marks Color-page-only;
+ * this kit substitutes the nearest on-scale composition tokens
+ * (body-lead for the hero lede, body-default for the premise).
+ * Every value resolves through a --sc-* token.
+ * ============================================================ */
+
+.section {
+  --col-content: 880px;
+  --col-gutter: 168px;
+  --col-max: 1080px;
+  max-width: var(--col-max);
+}
+
+.probe { position: absolute; width: 0; height: 0; overflow: hidden; opacity: 0; pointer-events: none; }
+
+/* Slash separator — lighter than adjacent text */
+.slash { color: var(--sc-color-text-disabled); }
+
+/* ── Metabar ─────────────────────────────────────────────── */
+.metabar {
+  display: flex; flex-wrap: wrap; gap: var(--sc-space-component-gap-md);
+  align-items: baseline; justify-content: space-between;
+  padding-bottom: var(--sc-space-layout-stack-md);
+  border-bottom: var(--sc-border-width-default) solid var(--sc-color-border-default);
+  margin-bottom: var(--sc-space-layout-stack-lg);
+}
+.crumb, .metaRight {
+  font: var(--sc-font-text-mono-chrome);
+  letter-spacing: var(--sc-font-text-mono-chrome-letter-spacing);
+  text-transform: uppercase;
+}
+.crumb { color: var(--sc-color-text-secondary); }
+.crumbAccent { color: var(--sc-color-brand-accent); margin-right: var(--sc-space-component-gap-md); }
+.metaRight { display: flex; flex-wrap: wrap; gap: var(--sc-space-layout-stack-md); color: var(--sc-color-text-disabled); }
+.metaRight b { font-weight: var(--sc-p-font-weight-medium); color: var(--sc-color-text-secondary); }
+.statusComplete { color: var(--sc-color-status-success); }
+
+/* ── Hero ────────────────────────────────────────────────── */
+.hero { max-width: var(--col-content); margin-bottom: var(--sc-space-layout-stack-xl); }
+.heroEyebrow {
+  display: inline-block;
+  font: var(--sc-font-text-mono-chrome);
+  letter-spacing: var(--sc-font-text-mono-chrome-letter-spacing);
+  text-transform: uppercase; color: var(--sc-color-text-secondary);
+  margin-bottom: var(--sc-space-layout-stack-md);
+}
+.heroTitle {
+  font: var(--sc-font-text-display-sm);
+  letter-spacing: var(--sc-font-text-display-sm-letter-spacing);
+  color: var(--sc-color-text-primary);
+  margin-bottom: var(--sc-space-layout-stack-md);
+  text-wrap: balance;
+}
+.heroAccent { color: var(--sc-color-brand-accent); font-weight: var(--sc-p-font-weight-medium); }
+.heroEm { font-weight: var(--sc-p-font-weight-medium); }
+.lead {
+  font: var(--sc-font-text-body-lead);
+  color: var(--sc-color-text-secondary);
+  max-width: 42em; text-wrap: pretty;
+}
+.lead em { font-style: normal; color: var(--sc-color-text-primary); }
+
+/* ── Chapter ─────────────────────────────────────────────── */
+.chapter {
+  padding-top: var(--sc-space-layout-stack-lg);
+  border-top: var(--sc-border-width-default) solid var(--sc-color-border-default);
+  margin-top: var(--sc-space-layout-stack-lg);
+}
+.chapter:first-of-type { } /* keep first chapter rule for visual rhythm */
+.chapterHead { max-width: var(--col-content); margin-bottom: var(--sc-space-layout-stack-lg); }
+.chapterEyebrow {
+  display: flex; gap: var(--sc-space-component-gap-md); align-items: baseline;
+  font: var(--sc-font-text-mono-chrome);
+  letter-spacing: var(--sc-font-text-mono-chrome-letter-spacing);
+  text-transform: uppercase; color: var(--sc-color-text-disabled);
+  margin-bottom: var(--sc-space-layout-stack-md);
+}
+.ord { color: var(--sc-color-text-secondary); }
+.dot { width: var(--sc-p-space-4); height: var(--sc-p-space-4); background: var(--sc-color-brand-accent); align-self: center; }
+.chapterTitle {
+  font: var(--sc-font-text-display-sm);
+  letter-spacing: var(--sc-font-text-display-sm-letter-spacing);
+  color: var(--sc-color-text-primary); margin-bottom: var(--sc-space-layout-stack-md);
+  text-wrap: balance;
+}
+.premise { font: var(--sc-font-text-body-default); color: var(--sc-color-text-secondary); max-width: 46em; text-wrap: pretty; }
+.chapterBody { display: flex; flex-direction: column; gap: var(--sc-space-layout-stack-md); min-width: 0; }
+
+.rowEyebrow {
+  display: flex; flex-wrap: wrap; gap: var(--sc-space-component-gap-md);
+  justify-content: space-between; align-items: baseline;
+  font: var(--sc-font-text-mono-chrome);
+  letter-spacing: var(--sc-font-text-mono-chrome-letter-spacing);
+  text-transform: uppercase; color: var(--sc-color-text-secondary);
+}
+.rowEyebrow b { color: var(--sc-color-text-primary); font-weight: var(--sc-p-font-weight-medium); }
+
+/* ── Gutter / annotations ────────────────────────────────── */
+.gutter {
+  display: flex; flex-direction: column; gap: var(--sc-space-layout-stack-md);
+  margin-top: var(--sc-space-layout-stack-md);
+}
+.annotation {
+  font: var(--sc-font-text-mono-caption);
+  color: var(--sc-color-text-secondary);
+  padding-left: var(--sc-p-space-12);
+  border-left: var(--sc-border-width-default) solid var(--sc-color-border-default);
+}
+.annotation b { display: block; color: var(--sc-color-text-primary); font-weight: var(--sc-p-font-weight-medium); margin-bottom: var(--sc-space-component-gap-sm); }
+
+/* ── Generic primitives reused across content sections ───── */
+/* Bordered surface — the tier-table / checker container shape. */
+.panel {
+  border: var(--sc-border-width-default) solid var(--sc-color-border-default);
+  border-radius: var(--sc-radius-control);
+  overflow: hidden;
+  background: var(--sc-color-surface-raised);
+}
+.panelHead {
+  display: flex; align-items: baseline; justify-content: space-between; gap: var(--sc-space-component-gap-md);
+  padding: var(--sc-space-component-padding-md) var(--sc-space-component-padding-lg);
+  background: var(--sc-color-surface-sunk);
+  border-bottom: var(--sc-border-width-default) solid var(--sc-color-border-default);
+  font: var(--sc-font-text-mono-chrome);
+  letter-spacing: var(--sc-font-text-mono-chrome-letter-spacing);
+  text-transform: uppercase; color: var(--sc-color-text-secondary);
+}
+.panelHead b { color: var(--sc-color-text-primary); font-weight: var(--sc-p-font-weight-medium); }
+
+/* Data table — token-consumption / weight / rule tables. */
+.dataTable { width: 100%; border-collapse: collapse; font: var(--sc-font-text-mono-caption); }
+.dataTable th {
+  text-align: left; vertical-align: bottom;
+  padding: var(--sc-space-component-padding-block-md) var(--sc-space-component-padding-inline-md);
+  font: var(--sc-font-text-mono-chrome);
+  letter-spacing: var(--sc-font-text-mono-chrome-letter-spacing);
+  text-transform: uppercase; color: var(--sc-color-text-secondary);
+  background: var(--sc-color-surface-sunk);
+  border-bottom: var(--sc-border-width-default) solid var(--sc-color-border-default);
+  white-space: nowrap;
+}
+.dataTable td {
+  padding: var(--sc-space-component-padding-block-md) var(--sc-space-component-padding-inline-md);
+  border-bottom: var(--sc-border-width-default) solid var(--sc-color-border-subtle);
+  color: var(--sc-color-text-secondary);
+  vertical-align: top;
+}
+.dataTable tr:last-child td { border-bottom: 0; }
+.dataTable td b, .dataTable td strong { color: var(--sc-color-text-primary); font-weight: var(--sc-p-font-weight-medium); }
+.tableScroll { overflow-x: auto; }
+
+/* Token reference chip + swatch dot — from the Color tier table. */
+.swatchDot { width: var(--sc-p-space-24); height: var(--sc-p-space-24); border-radius: var(--sc-radius-control); border: var(--sc-border-width-default) solid var(--sc-color-border-default); flex-shrink: 0; display: inline-block; }
+.tok { font: var(--sc-font-text-mono-caption); color: var(--sc-color-text-primary); }
+.tokHex { font: var(--sc-font-text-mono-chrome); letter-spacing: 0; color: var(--sc-color-text-secondary); }
+.tokDim { color: var(--sc-color-text-secondary); }
+.mono { font: var(--sc-font-text-mono-caption); color: var(--sc-color-text-primary); }
+
+/* Status badge — Pass/Fail/state stamps. */
+.scBadge {
+  display: inline-flex; align-items: center;
+  padding-inline: var(--sc-space-component-padding-inline-sm);
+  padding-block: var(--sc-space-component-padding-block-sm);
+  border-radius: var(--sc-radius-control);
+  border: var(--sc-border-width-default) solid currentColor;
+  font: var(--sc-font-text-mono-chrome);
+  letter-spacing: var(--sc-font-text-mono-chrome-letter-spacing);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.badgePass { color: var(--sc-color-status-success); }
+.badgeFail { color: var(--sc-color-status-error); }
+.badgeAccent { color: var(--sc-color-brand-accent); }
+
+/* State-grid — labeled cells for rendering component states side by side. */
+.stateGrid {
+  display: grid; grid-template-columns: 1fr; gap: var(--sc-border-width-default);
+  border: var(--sc-border-width-default) solid var(--sc-color-border-default);
+  border-radius: var(--sc-radius-control); overflow: hidden;
+  background: var(--sc-color-border-default);
+}
+.stateCell {
+  background: var(--sc-color-surface-raised);
+  padding: var(--sc-space-component-padding-lg);
+  display: flex; flex-direction: column; gap: var(--sc-space-component-gap-lg);
+  min-height: var(--sc-p-space-96);
+}
+.stateDemo { display: flex; align-items: center; flex-wrap: wrap; gap: var(--sc-space-component-gap-md); flex: 1; min-height: var(--sc-p-space-48); }
+.stateLabel {
+  font: var(--sc-font-text-mono-chrome);
+  letter-spacing: var(--sc-font-text-mono-chrome-letter-spacing);
+  text-transform: uppercase; color: var(--sc-color-text-primary);
+}
+.stateToken { font: var(--sc-font-text-mono-caption); color: var(--sc-color-text-secondary); }
+
+/* ── >= sm ───────────────────────────────────────────────── */
+@media (min-width: 768px) {
+  .heroTitle { font: var(--sc-font-text-display-md); letter-spacing: var(--sc-font-text-display-md-letter-spacing); }
+  .stateGrid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ── >= md: scale display type + content/gutter grid ─────── */
+@media (min-width: 1280px) {
+  .heroTitle { font: var(--sc-font-text-display-lg); letter-spacing: var(--sc-font-text-display-lg-letter-spacing); }
+  .chapter {
+    display: grid;
+    grid-template-columns: minmax(0, var(--col-content)) var(--sc-p-space-32) var(--col-gutter);
+  }
+  .chapterHead, .chapterBody { grid-column: 1; }
+  .gutter { grid-column: 3; margin-top: 0; }
+  .stateGrid { grid-template-columns: repeat(3, 1fr); }
+}

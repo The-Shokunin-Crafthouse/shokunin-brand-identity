@@ -1,0 +1,131 @@
+/* ============================================================
+ * MotionSection.module.css — Foundations · Motion content.
+ * Easing plots, the shared dot/track, the duration race, and the
+ * real-component pairings. Durations/easings read from tokens; the
+ * bezier path geometry is computed in JS from the same values.
+ * ============================================================ */
+
+/* ── Easing curves ───────────────────────────────────────── */
+.curveGrid { display: grid; grid-template-columns: 1fr; gap: var(--sc-space-layout-stack-sm); }
+.curveCard {
+  appearance: none; text-align: left; cursor: pointer; width: 100%;
+  background: var(--sc-color-surface-raised);
+  border: var(--sc-border-width-default) solid var(--sc-color-border-default);
+  border-radius: var(--sc-radius-control);
+  padding: var(--sc-space-component-padding-lg);
+  display: flex; flex-direction: column; gap: var(--sc-space-component-gap-md);
+  transition: border-color var(--sc-motion-hover-duration) var(--sc-motion-hover-easing);
+}
+.curveCard:hover { border-color: var(--sc-color-interactive-hover); }
+.curveCard:focus-visible { outline: var(--sc-border-width-focus) solid var(--sc-color-border-focus); outline-offset: var(--sc-border-focus-offset); }
+.curveHead { display: flex; align-items: baseline; justify-content: space-between; gap: var(--sc-space-component-gap-md); }
+.curveLabel { font: var(--sc-font-text-title-card); color: var(--sc-color-text-primary); }
+.curveRole {
+  font: var(--sc-font-text-mono-chrome);
+  letter-spacing: var(--sc-font-text-mono-chrome-letter-spacing);
+  text-transform: uppercase; color: var(--sc-color-brand-accent);
+}
+.curvePlotWrap {
+  width: var(--sc-p-space-96); height: var(--sc-p-space-96);
+  background: var(--sc-color-surface-floating);
+  border: var(--sc-border-width-default) solid var(--sc-color-border-subtle);
+  border-radius: var(--sc-radius-control);
+  padding: var(--sc-space-component-padding-sm);
+}
+.curvePlot { width: 100%; height: 100%; display: block; overflow: visible; }
+.curveAxis { stroke: var(--sc-color-border-default); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.curveLine { fill: none; stroke: var(--sc-color-brand-accent); stroke-width: 2; vector-effect: non-scaling-stroke; stroke-linecap: round; }
+
+.track {
+  position: relative; height: var(--sc-p-space-32);
+  background: var(--sc-color-surface-sunk);
+  border-radius: var(--sc-radius-pill);
+  overflow: hidden;
+}
+.dot {
+  position: absolute; top: 50%; left: 0;
+  width: var(--sc-p-space-24); height: var(--sc-p-space-24);
+  margin-top: calc(var(--sc-p-space-24) / -2);
+  margin-left: var(--sc-p-space-4);
+  background: var(--sc-color-brand-accent);
+  border-radius: var(--sc-radius-pill);
+  /* transition-duration + timing-function set inline from tokens */
+  transition-property: left;
+}
+.dotOn { left: calc(100% - var(--sc-p-space-32)); }
+
+.curveBezier { font: var(--sc-font-text-mono-chrome); letter-spacing: 0; color: var(--sc-color-text-secondary); }
+.curveContexts {
+  font: var(--sc-font-text-mono-chrome);
+  letter-spacing: var(--sc-font-text-mono-chrome-letter-spacing);
+  text-transform: uppercase; color: var(--sc-color-text-disabled);
+}
+.curvePrinciple { font: var(--sc-font-text-caption); color: var(--sc-color-text-secondary); }
+.curveReplay {
+  font: var(--sc-font-text-mono-chrome);
+  letter-spacing: var(--sc-font-text-mono-chrome-letter-spacing);
+  text-transform: uppercase; color: var(--sc-color-brand-accent);
+}
+
+/* ── Duration race ───────────────────────────────────────── */
+.race {
+  display: flex; flex-direction: column; gap: var(--sc-space-component-gap-lg);
+  padding: var(--sc-space-component-padding-lg);
+  background: var(--sc-color-surface-raised);
+  border: var(--sc-border-width-default) solid var(--sc-color-border-default);
+  border-radius: var(--sc-radius-control);
+}
+.raceTop { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sc-space-component-gap-lg); }
+.playBtn {
+  appearance: none; cursor: pointer;
+  padding: var(--sc-space-component-padding-block-md) var(--sc-space-component-padding-inline-md);
+  background: var(--sc-color-brand-accent);
+  color: var(--sc-color-text-on-accent);
+  border: var(--sc-border-width-default) solid var(--sc-color-brand-accent);
+  border-radius: var(--sc-radius-control);
+  font: var(--sc-font-text-label-chrome);
+  letter-spacing: var(--sc-font-text-label-chrome-letter-spacing);
+  text-transform: uppercase;
+  transition: filter var(--sc-motion-press-duration) var(--sc-motion-press-easing);
+}
+.playBtn:hover { filter: brightness(1.05); }
+.playBtn:active { transform: scale(var(--sc-motion-press-scale)); }
+.raceHint { font: var(--sc-font-text-caption); color: var(--sc-color-text-secondary); }
+.lane { display: flex; align-items: center; gap: var(--sc-space-component-gap-lg); }
+.laneMeta { display: flex; flex-direction: column; gap: var(--sc-space-component-gap-sm); flex: 0 0 var(--sc-p-space-96); }
+.laneMs { font: var(--sc-font-text-mono-caption); color: var(--sc-color-text-primary); font-variant-numeric: tabular-nums; }
+.laneUnit { color: var(--sc-color-text-disabled); }
+.laneTier {
+  font: var(--sc-font-text-mono-chrome);
+  letter-spacing: var(--sc-font-text-mono-chrome-letter-spacing);
+  text-transform: uppercase; color: var(--sc-color-text-secondary);
+}
+.lane .track { flex: 1; }
+
+/* ── Real pairings ───────────────────────────────────────── */
+.pairings { display: grid; grid-template-columns: 1fr; gap: var(--sc-space-layout-stack-sm); }
+.pairDemo {
+  display: flex; flex-wrap: wrap; align-items: center; gap: var(--sc-space-component-gap-lg);
+  padding: var(--sc-space-component-padding-lg);
+  min-height: var(--sc-p-space-96);
+  background: var(--sc-color-surface-floating);
+}
+.pairNote {
+  padding: var(--sc-space-component-padding-md) var(--sc-space-component-padding-lg);
+  font: var(--sc-font-text-caption); color: var(--sc-color-text-secondary);
+  border-top: var(--sc-border-width-default) solid var(--sc-color-border-subtle);
+}
+.pairNote code { font: var(--sc-font-text-mono-caption); color: var(--sc-color-brand-accent); }
+.tooltipTarget {
+  font: var(--sc-font-text-body-default); color: var(--sc-color-text-primary);
+  border-bottom: var(--sc-border-width-default) dashed var(--sc-color-border-strong);
+  cursor: help;
+}
+
+@media (min-width: 768px) {
+  .curveGrid { grid-template-columns: repeat(2, 1fr); }
+  .pairings { grid-template-columns: repeat(3, 1fr); }
+}
+@media (min-width: 1280px) {
+  .curveGrid { grid-template-columns: repeat(2, 1fr); }
+}

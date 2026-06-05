@@ -1,0 +1,113 @@
+/* ============================================================
+ * SpacingSection.module.css — Foundations · Spacing content.
+ * Scale bars paint their width from the space token they name.
+ * Every value resolves through a --sc-* / --sc-p-* token.
+ * ============================================================ */
+
+.rampGroup { display: flex; flex-direction: column; gap: var(--sc-space-component-gap-lg); }
+
+/* ── Proportional scale ──────────────────────────────────── */
+.scale {
+  display: flex; flex-direction: column;
+  border: var(--sc-border-width-default) solid var(--sc-color-border-default);
+  border-radius: var(--sc-radius-control); overflow: hidden;
+  background: var(--sc-color-surface-raised);
+}
+.scaleRow {
+  display: grid;
+  grid-template-columns: var(--sc-p-space-64) var(--sc-p-space-48) 1fr auto;
+  align-items: center; gap: var(--sc-space-component-gap-md);
+  padding: var(--sc-space-component-padding-block-md) var(--sc-space-component-padding-inline-md);
+  border-bottom: var(--sc-border-width-default) solid var(--sc-color-border-subtle);
+}
+.scaleRow:last-child { border-bottom: 0; }
+.scaleName { font: var(--sc-font-text-mono-caption); color: var(--sc-color-text-primary); }
+.scalePx { font: var(--sc-font-text-mono-chrome); letter-spacing: 0; color: var(--sc-color-text-secondary); font-variant-numeric: tabular-nums; }
+.scaleBarWrap { display: flex; align-items: center; min-width: 0; }
+.scaleBar {
+  display: block; height: var(--sc-p-space-micro-10);
+  background: var(--sc-color-brand-accent);
+  border-radius: var(--sc-radius-control);
+}
+.scaleBarMicro { background: var(--sc-color-text-secondary); }
+.scaleToken { font: var(--sc-font-text-mono-chrome); letter-spacing: 0; color: var(--sc-color-text-disabled); justify-self: end; }
+
+/* ── Base-unit derivation ────────────────────────────────── */
+.deriveGrid {
+  display: grid; grid-template-columns: 1fr; gap: var(--sc-border-width-default);
+  border: var(--sc-border-width-default) solid var(--sc-color-border-default);
+  border-radius: var(--sc-radius-control); overflow: hidden;
+  background: var(--sc-color-border-default);
+}
+.deriveCell {
+  background: var(--sc-color-surface-raised);
+  padding: var(--sc-space-component-padding-lg);
+  display: flex; flex-direction: column; gap: var(--sc-space-component-gap-md);
+}
+.deriveStep {
+  font: var(--sc-font-text-display-sm);
+  letter-spacing: var(--sc-font-text-display-sm-letter-spacing);
+  color: var(--sc-color-brand-accent);
+}
+.deriveRange {
+  font: var(--sc-font-text-mono-chrome);
+  letter-spacing: var(--sc-font-text-mono-chrome-letter-spacing);
+  text-transform: uppercase; color: var(--sc-color-text-primary);
+}
+.deriveNote { font: var(--sc-font-text-caption); color: var(--sc-color-text-secondary); }
+
+/* ── Component anatomy ───────────────────────────────────── */
+.anatomy { display: grid; grid-template-columns: 1fr; gap: var(--sc-space-layout-stack-sm); }
+.anatomyBody { display: flex; flex-direction: column; }
+.anatomyRow {
+  display: grid; grid-template-columns: var(--sc-p-space-48) 1fr auto auto;
+  align-items: center; gap: var(--sc-space-component-gap-md);
+  padding: var(--sc-space-component-padding-block-md) var(--sc-space-component-padding-inline-lg);
+  border-bottom: var(--sc-border-width-default) solid var(--sc-color-border-subtle);
+}
+.anatomyRow:last-child { border-bottom: 0; }
+.anatomySwatch { display: block; height: var(--sc-p-space-micro-10); background: var(--sc-color-brand-accent); border-radius: var(--sc-radius-control); }
+.anatomyLabel { font: var(--sc-font-text-body-dense); color: var(--sc-color-text-primary); }
+.anatomyToken { font: var(--sc-font-text-mono-chrome); letter-spacing: 0; color: var(--sc-color-text-secondary); }
+.anatomyPx { font: var(--sc-font-text-mono-chrome); letter-spacing: 0; color: var(--sc-color-text-disabled); justify-self: end; font-variant-numeric: tabular-nums; }
+
+/* ── Grid tool ───────────────────────────────────────────── */
+.gridTool { display: flex; flex-direction: column; gap: var(--sc-space-component-gap-lg); }
+.bpPicker { display: flex; flex-wrap: wrap; gap: var(--sc-space-component-gap-sm); }
+.bpChip {
+  display: inline-flex; align-items: baseline; gap: var(--sc-space-component-gap-sm);
+  padding: var(--sc-space-component-padding-block-sm) var(--sc-space-component-padding-inline-md);
+  background: var(--sc-color-surface-sunk);
+  border: var(--sc-border-width-default) solid var(--sc-color-border-default);
+  border-radius: var(--sc-radius-control);
+  color: var(--sc-color-text-secondary);
+  font: var(--sc-font-text-mono-caption);
+  cursor: pointer;
+  transition: color var(--sc-motion-hover-duration) var(--sc-motion-hover-easing),
+              border-color var(--sc-motion-hover-duration) var(--sc-motion-hover-easing);
+}
+.bpChip:hover { color: var(--sc-color-interactive-hover); border-color: var(--sc-color-interactive-hover); }
+.bpChipSel { color: var(--sc-color-text-on-accent); background: var(--sc-color-brand-accent); border-color: var(--sc-color-brand-accent); }
+.bpUnit { font: var(--sc-font-text-mono-chrome); letter-spacing: 0; opacity: 0.7; }
+
+.gridStage {
+  background: var(--sc-color-surface-floating);
+  padding-block: var(--sc-space-component-padding-lg);
+  border-bottom: var(--sc-border-width-default) solid var(--sc-color-border-default);
+}
+.gridCols { display: grid; height: var(--sc-p-space-120); }
+.gridCol { background: var(--sc-color-brand-accent); opacity: 0.16; border-radius: var(--sc-radius-control); }
+.gridLegend {
+  display: flex; flex-wrap: wrap; gap: var(--sc-space-layout-stack-sm);
+  padding: var(--sc-space-component-padding-md) var(--sc-space-component-padding-lg);
+  font: var(--sc-font-text-mono-chrome); letter-spacing: 0;
+  color: var(--sc-color-text-disabled);
+  border-bottom: var(--sc-border-width-default) solid var(--sc-color-border-subtle);
+}
+.gridLegend b { color: var(--sc-color-text-secondary); font-weight: var(--sc-p-font-weight-medium); }
+.gridNote { padding: var(--sc-space-component-padding-md) var(--sc-space-component-padding-lg); font: var(--sc-font-text-caption); color: var(--sc-color-text-secondary); }
+
+@media (min-width: 768px) {
+  .deriveGrid { grid-template-columns: repeat(4, 1fr); }
+  .anatomy { grid-template-columns: repeat(3, 1fr); }
+}

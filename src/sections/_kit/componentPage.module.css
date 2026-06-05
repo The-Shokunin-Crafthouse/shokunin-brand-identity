@@ -1,0 +1,51 @@
+/* ============================================================
+ * componentPage.module.css — shared chrome for the 12 component
+ * pages: the token-table probes, value cells, and usage-rule list.
+ * Editorial scaffold + tables come from editorial.module.css.
+ * ============================================================ */
+
+.probe { position: absolute; display: block; width: 0; height: 0; overflow: hidden; opacity: 0; pointer-events: none; }
+
+.stateMeta { display: flex; flex-direction: column; gap: var(--sc-space-component-gap-sm); }
+
+/* Full-width state stack — for wide components (NavBar, Alert). */
+.stateStack {
+  display: grid; grid-template-columns: 1fr; gap: var(--sc-border-width-default);
+  border: var(--sc-border-width-default) solid var(--sc-color-border-default);
+  border-radius: var(--sc-radius-control); overflow: hidden;
+  background: var(--sc-color-border-default);
+}
+
+/* Token table cells */
+.tokenCell { font: var(--sc-font-text-mono-caption); color: var(--sc-color-brand-accent); white-space: nowrap; }
+.valueCell { font: var(--sc-font-text-mono-chrome); letter-spacing: 0; color: var(--sc-color-text-secondary); white-space: nowrap; }
+.swatch {
+  display: inline-block; vertical-align: middle;
+  width: var(--sc-p-space-12); height: var(--sc-p-space-12);
+  margin-right: var(--sc-space-component-gap-sm);
+  border-radius: var(--sc-radius-control);
+  border: var(--sc-border-width-default) solid var(--sc-color-border-default);
+}
+
+/* Usage rules */
+.rules { display: flex; flex-direction: column; gap: var(--sc-border-width-default);
+  border: var(--sc-border-width-default) solid var(--sc-color-border-default);
+  border-radius: var(--sc-radius-control); overflow: hidden;
+  background: var(--sc-color-border-default);
+}
+.rule {
+  display: flex; gap: var(--sc-space-component-gap-lg);
+  padding: var(--sc-space-component-padding-lg);
+  background: var(--sc-color-surface-raised);
+}
+.ruleNum {
+  font: var(--sc-font-text-mono-chrome); letter-spacing: 0;
+  color: var(--sc-color-brand-accent); flex-shrink: 0;
+}
+.ruleBody { display: flex; flex-direction: column; gap: var(--sc-space-component-gap-sm); }
+.ruleName {
+  font: var(--sc-font-text-mono-chrome);
+  letter-spacing: var(--sc-font-text-mono-chrome-letter-spacing);
+  text-transform: uppercase; color: var(--sc-color-text-primary);
+}
+.ruleText { font: var(--sc-font-text-body-dense); color: var(--sc-color-text-secondary); max-width: 56em; }
