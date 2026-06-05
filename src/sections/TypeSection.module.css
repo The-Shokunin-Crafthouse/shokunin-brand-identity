@@ -1,0 +1,156 @@
+/* ============================================================
+ * TypeSection.module.css — Foundations · Type content styles.
+ * Editorial scaffold comes from _kit/editorial.module.css; this
+ * file styles the scale ladder, weight ramp, code + optical demos.
+ * Every value resolves through a --sc-* / --sc-p-* token.
+ * ============================================================ */
+
+/* ── Specimen control ────────────────────────────────────── */
+.specimenControl { display: flex; flex-direction: column; gap: var(--sc-space-component-gap-md); }
+.controlLabel {
+  font: var(--sc-font-text-mono-chrome);
+  letter-spacing: var(--sc-font-text-mono-chrome-letter-spacing);
+  text-transform: uppercase; color: var(--sc-color-text-secondary);
+}
+.specimenInput {
+  width: 100%;
+  padding: var(--sc-space-component-padding-block-md) var(--sc-space-component-padding-inline-md);
+  background: var(--sc-color-surface-sunk);
+  border: var(--sc-border-width-default) solid var(--sc-color-border-default);
+  border-radius: var(--sc-radius-control);
+  color: var(--sc-color-text-primary);
+  font: var(--sc-font-text-body-default);
+}
+.specimenInput::placeholder { color: var(--sc-color-text-disabled); }
+.specimenInput:focus-visible {
+  outline: var(--sc-border-width-focus) solid var(--sc-color-border-focus);
+  outline-offset: var(--sc-border-focus-offset);
+  border-color: transparent;
+}
+
+/* ── Featured preview ────────────────────────────────────── */
+.featured {
+  display: flex; flex-direction: column; gap: var(--sc-space-component-gap-lg);
+  padding: var(--sc-space-component-padding-lg);
+  background: var(--sc-color-surface-raised);
+  border: var(--sc-border-width-default) solid var(--sc-color-border-default);
+  border-radius: var(--sc-radius-control);
+  overflow: hidden;
+}
+.featuredSpecimen {
+  color: var(--sc-color-text-primary);
+  overflow-wrap: anywhere; text-wrap: balance;
+  min-height: var(--sc-p-space-64);
+}
+.stepPicker { display: flex; flex-wrap: wrap; gap: var(--sc-space-component-gap-sm); }
+.stepChip {
+  min-width: var(--sc-p-space-32);
+  padding: var(--sc-space-component-padding-block-sm) var(--sc-space-component-padding-inline-sm);
+  background: var(--sc-color-surface-sunk);
+  border: var(--sc-border-width-default) solid var(--sc-color-border-default);
+  border-radius: var(--sc-radius-control);
+  color: var(--sc-color-text-secondary);
+  font: var(--sc-font-text-mono-chrome); letter-spacing: 0;
+  cursor: pointer;
+  transition: color var(--sc-motion-hover-duration) var(--sc-motion-hover-easing),
+              border-color var(--sc-motion-hover-duration) var(--sc-motion-hover-easing);
+}
+.stepChip:hover { color: var(--sc-color-interactive-hover); border-color: var(--sc-color-interactive-hover); }
+.stepChipSel {
+  color: var(--sc-color-text-on-accent);
+  background: var(--sc-color-brand-accent);
+  border-color: var(--sc-color-brand-accent);
+}
+
+/* ── Scale ladder ────────────────────────────────────────── */
+.ladder {
+  display: flex; flex-direction: column;
+  border: var(--sc-border-width-default) solid var(--sc-color-border-default);
+  border-radius: var(--sc-radius-control); overflow: hidden;
+  background: var(--sc-color-surface-raised);
+}
+.ladderRow {
+  display: flex; flex-direction: column; gap: var(--sc-space-component-gap-md);
+  padding: var(--sc-space-component-padding-md) var(--sc-space-component-padding-lg);
+  border-bottom: var(--sc-border-width-default) solid var(--sc-color-border-subtle);
+}
+.ladderRow:last-child { border-bottom: 0; }
+.ladderMeta { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--sc-space-component-gap-md); }
+.ladderStep { font: var(--sc-font-text-mono-caption); color: var(--sc-color-text-primary); font-variant-numeric: tabular-nums; }
+.ladderUnit { color: var(--sc-color-text-disabled); }
+.ladderToken { font: var(--sc-font-text-mono-chrome); letter-spacing: 0; color: var(--sc-color-brand-accent); }
+.ladderAxes { font: var(--sc-font-text-mono-chrome); letter-spacing: 0; color: var(--sc-color-text-secondary); }
+.ladderUse { font: var(--sc-font-text-caption); color: var(--sc-color-text-disabled); margin-left: auto; }
+.ladderSpecimen {
+  color: var(--sc-color-text-primary);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+
+/* ── Weight ramp ─────────────────────────────────────────── */
+.weightRamp {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--sc-border-width-default);
+  border: var(--sc-border-width-default) solid var(--sc-color-border-default);
+  border-radius: var(--sc-radius-control); overflow: hidden;
+  background: var(--sc-color-border-default);
+}
+.weightSwatch {
+  background: var(--sc-color-surface-raised);
+  padding: var(--sc-space-component-padding-lg);
+  display: flex; flex-direction: column; gap: var(--sc-space-component-gap-md);
+  align-items: flex-start;
+}
+.weightGlyph {
+  font-family: var(--sc-p-font-family-sans);
+  font-size: var(--sc-p-font-size-60);
+  line-height: var(--sc-p-font-line-height-flat);
+  letter-spacing: var(--sc-p-font-tracking-tighter);
+  color: var(--sc-color-text-primary);
+}
+.weightCap {
+  font: var(--sc-font-text-mono-chrome);
+  letter-spacing: var(--sc-font-text-mono-chrome-letter-spacing);
+  text-transform: uppercase; color: var(--sc-color-text-secondary);
+}
+
+/* ── Code specimen ───────────────────────────────────────── */
+.code {
+  margin: 0; padding: var(--sc-space-component-padding-lg);
+  font: var(--sc-font-text-mono-body);
+  color: var(--sc-color-text-primary);
+  background: var(--sc-color-surface-floating);
+  white-space: pre; overflow-x: auto; tab-size: 2;
+}
+
+/* ── Optical before/after ────────────────────────────────── */
+.opticalGrid {
+  display: grid; grid-template-columns: 1fr; gap: var(--sc-border-width-default);
+  border: var(--sc-border-width-default) solid var(--sc-color-border-default);
+  border-radius: var(--sc-radius-control); overflow: hidden;
+  background: var(--sc-color-border-default);
+}
+.opticalCell {
+  background: var(--sc-color-surface-raised);
+  padding: var(--sc-space-component-padding-lg);
+  display: flex; flex-direction: column; gap: var(--sc-space-component-gap-lg);
+}
+.opticalTag { display: flex; align-items: center; gap: var(--sc-space-component-gap-md); }
+.opticalSpecimen {
+  color: var(--sc-color-text-primary);
+  line-height: var(--sc-p-font-line-height-base);
+  -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+  text-rendering: geometricPrecision;
+}
+.opticalNote { font: var(--sc-font-text-caption); color: var(--sc-color-text-secondary); }
+
+@media (min-width: 768px) {
+  .ladderRow { flex-direction: row; align-items: baseline; }
+  .ladderMeta { flex: 0 0 var(--sc-p-space-96); flex-direction: column; gap: var(--sc-space-component-gap-sm); }
+  .ladderUse { margin-left: 0; }
+  .ladderSpecimen { flex: 1; min-width: 0; }
+  .weightRamp { grid-template-columns: repeat(4, 1fr); }
+  .opticalGrid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (min-width: 1280px) {
+  .ladderMeta { flex-basis: var(--sc-p-space-120); }
+}

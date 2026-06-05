@@ -1,0 +1,53 @@
+/* ============================================================
+ * RegisterSection.module.css — Voice · Register content.
+ * Reference cards + canonical specimens. All --sc-* tokens.
+ * ============================================================ */
+
+.cards { display: grid; grid-template-columns: 1fr; gap: var(--sc-space-layout-stack-sm); }
+.card { padding: var(--sc-space-component-padding-lg); display: flex; flex-direction: column; gap: var(--sc-space-component-gap-lg); }
+.who { font: var(--sc-font-text-body-dense); color: var(--sc-color-text-secondary); }
+
+.fields { margin: 0; display: flex; flex-direction: column; gap: var(--sc-space-component-gap-lg); }
+.field { display: flex; flex-direction: column; gap: var(--sc-space-component-gap-sm); }
+.field dt {
+  font: var(--sc-font-text-mono-chrome);
+  letter-spacing: var(--sc-font-text-mono-chrome-letter-spacing);
+  text-transform: uppercase; color: var(--sc-color-brand-accent);
+}
+.field dd { margin: 0; font: var(--sc-font-text-body-dense); color: var(--sc-color-text-primary); }
+
+.lists { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sc-space-component-gap-lg);
+  padding-top: var(--sc-space-component-padding-md);
+  border-top: var(--sc-border-width-default) solid var(--sc-color-border-subtle);
+}
+.listHead { display: block; font: var(--sc-font-text-mono-chrome); letter-spacing: var(--sc-font-text-mono-chrome-letter-spacing); text-transform: uppercase; color: var(--sc-color-text-secondary); margin-bottom: var(--sc-space-component-gap-md); }
+.lists ul { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: var(--sc-space-component-gap-sm); }
+.lists li { font: var(--sc-font-text-caption); color: var(--sc-color-text-secondary); padding-left: var(--sc-p-space-12); position: relative; }
+.allow li::before { content: "+"; position: absolute; left: 0; color: var(--sc-color-status-success); }
+.forbid li::before { content: "−"; position: absolute; left: 0; color: var(--sc-color-status-error); }
+
+/* ── Canonical specimens ─────────────────────────────────── */
+.canon { display: flex; flex-direction: column; gap: var(--sc-space-layout-stack-md); }
+.canonGroup { display: flex; flex-direction: column; gap: var(--sc-space-component-gap-lg); }
+.specimen {
+  margin: 0;
+  border: var(--sc-border-width-default) solid var(--sc-color-border-default);
+  border-radius: var(--sc-radius-control); overflow: hidden;
+  background: var(--sc-color-surface-raised);
+}
+.specimenCopy {
+  margin: 0; padding: var(--sc-space-component-padding-lg);
+  font: var(--sc-font-text-body-lead); color: var(--sc-color-text-primary);
+  text-wrap: pretty;
+}
+.specimenNote {
+  padding: var(--sc-space-component-padding-md) var(--sc-space-component-padding-lg);
+  font: var(--sc-font-text-mono-caption); color: var(--sc-color-text-secondary);
+  background: var(--sc-color-surface-sunk);
+  border-top: var(--sc-border-width-default) solid var(--sc-color-border-default);
+  border-left: var(--sc-border-width-accent) solid var(--sc-color-brand-accent);
+}
+
+@media (min-width: 768px) {
+  .cards { grid-template-columns: 1fr 1fr; }
+}

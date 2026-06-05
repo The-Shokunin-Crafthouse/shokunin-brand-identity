@@ -1,0 +1,52 @@
+/* ============================================================
+ * HardRulesSection.module.css — Voice · Hard rules content.
+ * Rule cards with violation/correction pairs + the anti-pattern
+ * library rows. All --sc-* tokens.
+ * ============================================================ */
+
+.rules { display: flex; flex-direction: column; gap: var(--sc-space-layout-stack-sm); }
+.ruleStatement {
+  padding: var(--sc-space-component-padding-lg) var(--sc-space-component-padding-lg) 0;
+  font: var(--sc-font-text-body-dense); color: var(--sc-color-text-secondary);
+  max-width: 56em;
+}
+.compare {
+  display: grid; grid-template-columns: 1fr;
+  gap: var(--sc-border-width-default);
+  padding: var(--sc-space-component-padding-lg);
+}
+.bad, .good {
+  display: flex; flex-direction: column; gap: var(--sc-space-component-gap-sm);
+  padding: var(--sc-space-component-padding-md);
+  background: var(--sc-color-surface-sunk);
+  border-left: var(--sc-border-width-accent) solid currentColor;
+  border-radius: var(--sc-radius-control);
+}
+.bad { color: var(--sc-color-status-error); }
+.good { color: var(--sc-color-status-success); }
+.compareTag { font: var(--sc-font-text-mono-chrome); letter-spacing: var(--sc-font-text-mono-chrome-letter-spacing); text-transform: uppercase; }
+.compareCopy { font: var(--sc-font-text-body-dense); color: var(--sc-color-text-primary); }
+
+/* ── Anti-pattern library ────────────────────────────────── */
+.libGroup { display: flex; flex-direction: column; gap: var(--sc-space-component-gap-lg); }
+.libRows {
+  display: flex; flex-direction: column;
+  border: var(--sc-border-width-default) solid var(--sc-color-border-default);
+  border-radius: var(--sc-radius-control); overflow: hidden;
+  background: var(--sc-color-surface-raised);
+}
+.libRow {
+  display: grid; grid-template-columns: 1fr; gap: var(--sc-space-component-gap-sm);
+  padding: var(--sc-space-component-padding-md) var(--sc-space-component-padding-lg);
+  border-bottom: var(--sc-border-width-default) solid var(--sc-color-border-subtle);
+}
+.libRow:last-child { border-bottom: 0; }
+.libName { font: var(--sc-font-text-mono-chrome); letter-spacing: var(--sc-font-text-mono-chrome-letter-spacing); text-transform: uppercase; color: var(--sc-color-text-primary); }
+.libBad { font: var(--sc-font-text-caption); color: var(--sc-color-status-error); font-style: italic; }
+.libWhy { font: var(--sc-font-text-caption); color: var(--sc-color-text-secondary); }
+.libGood { font: var(--sc-font-text-mono-caption); color: var(--sc-color-status-success); }
+
+@media (min-width: 768px) {
+  .compare { grid-template-columns: 1fr 1fr; }
+  .libRow { grid-template-columns: var(--sc-p-space-120) 1.2fr 1fr 1.2fr; align-items: baseline; gap: var(--sc-space-component-gap-lg); }
+}
