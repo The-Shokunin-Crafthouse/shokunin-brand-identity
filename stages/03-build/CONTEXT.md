@@ -10,8 +10,8 @@ Status: drafting
 | Brand spec | _config/sc-brand-system-spec.md | §4 Stack, §5 Sprint 5, §6 Sprint 5 criteria | Stack decisions, deliverables, success criteria |
 | Design tokens | _config/design-system/token-map.md | Full | All implementation values |
 | Figma file URL | _config/design-system/figma-links.md | URL only | Source file location |
-| Creative defaults | ~/Projects/shokunin-crafthouse/studio-memory/studio-memory.md | §9 only | Design decisions |
-| Code standards | ~/Projects/shokunin-crafthouse/studio-memory/studio-memory.md | §6 only | Implementation rules |
+| Creative defaults | `../../../studio-memory/playbooks/creative-defaults.md` | all | Design decisions — **moved out of core in Phase 1** (was `studio-memory.md §9`, which no longer holds it) |
+| Code standards | `../../../studio-memory/playbooks/code-standards.md` | all | Implementation rules — **moved out of core in Phase 1** (was `studio-memory.md §6`) |
 
 ## Pre-flight
 
@@ -42,7 +42,7 @@ Status: drafting
 - [ ] Mode toggle switches light/dark — all tokens update without page reload
 - [ ] Color section is fully populated — not stubbed
 - [ ] All other sections render the shell with a placeholder, not a blank page
-- [ ] Site is functional at 360, 768, 1024, and 1440
+- [ ] Site is functional at 390, 768, 1024, and 1440
 - [ ] `npm run build` exits 0
 - [ ] `npm run preview brand-site-shell` exits 0 and produces 4 PNGs
 - [ ] PNGs verified to show rendered site, not blank pages or error states
