@@ -8,8 +8,8 @@ Status: drafting
 | Brand config | _config/brand/ | Full | Brand constraints |
 | Design tokens | _config/design-system/token-map.md | Full | All implementation values |
 | Voice config | _config/voice/ | Full | Copy tone |
-| Code standards | ~/Projects/shokunin-crafthouse/studio-memory/studio-memory.md | §6 Code standards only | Implementation rules |
-| Creative defaults | ~/Projects/shokunin-crafthouse/studio-memory/studio-memory.md | §9 Creative defaults only | Design decisions |
+| Code standards | ~/Projects/shokunin-crafthouse/studio-memory/playbooks/code-standards.md | Full | Implementation rules |
+| Creative defaults | ~/Projects/shokunin-crafthouse/studio-memory/playbooks/creative-defaults.md | Full | Design decisions |
 | Figma sandbox | [Figma file URL] | [Section name] frames on Sandbox page | Build source |
 ## Contract
 (leave blank — Claude proposes this at session start, you fill in after approval)

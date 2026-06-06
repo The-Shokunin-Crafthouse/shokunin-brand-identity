@@ -10,8 +10,8 @@ Status: complete
 | Brand spec | _config/sc-brand-system-spec.md | §4 Stack, §5 Sprint 5, §6 Sprint 5 criteria | Stack decisions, deliverables, success criteria |
 | Design tokens | _config/design-system/token-map.md | Full | All implementation values |
 | Figma file URL | _config/design-system/figma-links.md | URL only | Source file location |
-| Creative defaults | ~/Projects/shokunin-crafthouse/studio-memory/studio-memory.md | §9 only | Design decisions |
-| Code standards | ~/Projects/shokunin-crafthouse/studio-memory/studio-memory.md | §6 only | Implementation rules |
+| Creative defaults | ~/Projects/shokunin-crafthouse/studio-memory/playbooks/creative-defaults.md | Full | Design decisions |
+| Code standards | ~/Projects/shokunin-crafthouse/studio-memory/playbooks/code-standards.md | Full | Implementation rules |
 
 ## Pre-flight
 
