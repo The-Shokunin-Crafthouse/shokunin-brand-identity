@@ -387,6 +387,24 @@ pin. Tracked in the portal repo, not here.
 
 ---
 
+## 2026-06-07 — COO audit note: five entries missing `**Status:**` lines
+
+**Status:** accepted
+
+Logged by the weekly COO audit (sc-coo, item 3, approved 2026-06-07). The following
+entries break the log's own entry format — each is missing its `**Status:**` line:
+
+- 2026-05-28 — Type pass: Color page hierarchy fix + mono/chrome weight widened to 600
+- 2026-05-28 — Color page type: full Figma parity pass (offscale adopted)
+- 2026-05-31 — Brand-site polish pass: sidebar / type recheck / mobile nav / slash separator
+- 2026-06-02 — Code → Figma sync: "Color — DL" variable repaint (text styles blocked)
+- 2026-06-03 — Brand → Portal deploy bridge (brand side)
+
+Per the append-only rule the entries themselves are untouched. Backfill the Status lines
+in the next working session in this repo (all five appear to be accepted-and-shipped).
+
+---
+
 ## 2026-06-10 — Brand site gets its own Hostinger docroot (de-nest)
 
 **Decision.** Move the brand site's deploy target from
