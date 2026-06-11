@@ -411,3 +411,23 @@ studio learning #34 (brand is a standalone property).
 insufficient permissions"). That step runs *after* a successful build + rsync, so it never
 blocked serving. Separate fix: regenerate the fine-grained PAT with access to
 `The-Shokunin-Crafthouse/client-portal`.
+
+---
+
+## 2026-06-11 — Remove the brand → portal dispatch step (portal repo deleted)
+
+**Decision.** Delete the `Trigger client-portal rebuild` step (`peter-evans/repository-dispatch@v3`
+→ `The-Shokunin-Crafthouse/client-portal`, event `brand-updated`) from `deploy.yml`. A breadcrumb
+comment remains in the workflow pointing back to this entry.
+
+**Why.** The client-portal repo no longer exists — deleted deliberately ahead of a ground-up
+rebuild (too many accumulated issues to keep building on). The dispatch step's
+"Repository not found" failure was therefore literal, and it marked every otherwise-successful
+production deploy run red. A dispatch to a nonexistent repo is dead weight; removing it makes
+deploy run status meaningful again. This supersedes the "Not the cause (but noted)" follow-up in
+the 2026-06-10 entry — there is no PAT to regenerate until a portal exists.
+
+**Restore condition.** When the portal is rebuilt: re-add the dispatch step (shape preserved in
+git history at this commit), create a fresh fine-grained PAT scoped to the new portal repo
+(Contents: read/write), store it as `PORTAL_DISPATCH_TOKEN`, and prefer `continue-on-error: true`
+or a separate job so a dispatch failure can never again mask a healthy deploy.
