@@ -36,7 +36,7 @@ jobs:
             KEY="$(mktemp)"
             printf '%s\n' "$HOSTINGER_SSH_KEY" > "$KEY"
             chmod 600 "$KEY"
-            rsync -avzr --delete \
+            rsync -avzr --delete --filter='protect _previews/**' \
               -e "ssh -p 65002 -i $KEY -o StrictHostKeyChecking=accept-new" \
               dist/ \
               "$HOSTINGER_USER@$HOSTINGER_HOST:~/domains/brand.shokunincrafthouse.com/public_html/"
