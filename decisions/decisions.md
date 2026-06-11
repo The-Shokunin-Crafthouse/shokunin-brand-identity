@@ -384,3 +384,30 @@ secret on this repo. The secret is added separately; the workflow is otherwise c
 `git submodule update --remote` so the dispatch pulls the latest brand *tip* — the current
 `--init --recursive` checks out the recorded SHA and would otherwise rebuild against a stale
 pin. Tracked in the portal repo, not here.
+
+---
+
+## 2026-06-10 — Brand site gets its own Hostinger docroot (de-nest)
+
+**Decision.** Move the brand site's deploy target from
+`~/domains/shokunincrafthouse.com/public_html/brand/` (nested inside the **studio**
+site's docroot) to its own sibling docroot `~/domains/brand.shokunincrafthouse.com/public_html/`,
+mirroring `clients.shokunincrafthouse.com`. Updated `deploy.yml`, `preview-deploy.yml`,
+and `preview-cleanup.yml`. The `brand.shokunincrafthouse.com` subdomain document root must be
+repointed to the new folder in hPanel (manual, panel-managed vhost) for this to take effect.
+
+**Why.** `brand.shokunincrafthouse.com` was returning 404. Diagnosis: the brand docroot was
+nested *inside* the studio/apex site's docroot (`…/shokunincrafthouse.com/public_html/`). The
+studio site deploys to that `public_html/` with `rsync --delete`, protecting only `_previews/**`
+(studio learning #26) — not `brand/**`. So every studio deploy **deleted** the brand build.
+Studio shipped 2026-06-09, after brand's 2026-06-05 deploy → brand wiped; subdomain served the
+LiteSpeed default 404. Verified over SSH: no `brand/` dir and no brand build asset anywhere under
+`~/domains`. Two branded properties must never share a docroot tree where one deploys with
+`--delete`. Each property owns its docroot — the `clients.*` pattern, and consistent with
+studio learning #34 (brand is a standalone property).
+
+**Not the cause (but noted).** The brand `deploy.yml` run shows red on the final
+`repository_dispatch` step (`PORTAL_DISPATCH_TOKEN` — "Repository not found, OR token has
+insufficient permissions"). That step runs *after* a successful build + rsync, so it never
+blocked serving. Separate fix: regenerate the fine-grained PAT with access to
+`The-Shokunin-Crafthouse/client-portal`.

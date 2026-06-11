@@ -39,7 +39,7 @@ jobs:
             rsync -avzr --delete \
               -e "ssh -p 65002 -i $KEY -o StrictHostKeyChecking=accept-new" \
               dist/ \
-              "$HOSTINGER_USER@$HOSTINGER_HOST:~/domains/shokunincrafthouse.com/public_html/brand/"
+              "$HOSTINGER_USER@$HOSTINGER_HOST:~/domains/brand.shokunincrafthouse.com/public_html/"
         env:
           HOSTINGER_HOST: ${{ secrets.HOSTINGER_HOST }}
           HOSTINGER_USER: ${{ secrets.HOSTINGER_USER }}
