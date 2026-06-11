@@ -9,10 +9,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: '24'
           cache: 'npm'
@@ -27,7 +27,7 @@ jobs:
       # retry is the standing studio pattern (the client-portal deploy does the
       # same). A single timeout used to kill the whole deploy.
       - name: Deploy to Hostinger via rsync (with retry)
-        uses: nick-fields/retry@v2
+        uses: nick-fields/retry@v4
         with:
           max_attempts: 3
           timeout_minutes: 5

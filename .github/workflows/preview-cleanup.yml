@@ -24,7 +24,7 @@ jobs:
             rm -rf ~/domains/brand.shokunincrafthouse.com/public_html/_previews/${{ github.event.pull_request.number }}/
 
       - name: Comment on PR confirming teardown
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           script: |
             const { owner, repo } = context.repo;

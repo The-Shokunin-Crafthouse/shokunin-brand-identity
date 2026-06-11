@@ -15,12 +15,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout PR head
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           ref: ${{ github.event.pull_request.head.sha }}
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: '24'
           cache: 'npm'
@@ -59,7 +59,7 @@ jobs:
           remote_key: ${{ secrets.HOSTINGER_SSH_KEY }}
 
       - name: Post or update sticky preview comment
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         env:
           PREVIEW_URL: https://brand.shokunincrafthouse.com/_previews/${{ github.event.pull_request.number }}/
         with:
