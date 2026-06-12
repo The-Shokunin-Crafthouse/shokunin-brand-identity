@@ -13,7 +13,7 @@ Status: drafting
 | Decisions log | decisions/decisions.md | Full | ADRs to finalize and verify (criterion 6c, ≥10) |
 | Brand site | src/ | Full | Final review pass — all sections live and accurate |
 | Voice config | _config/voice/ | Full | Onboarding doc voice |
-| Code standards | ~/Projects/shokunin-crafthouse/studio-memory/studio-memory.md | §6 Code standards only | Implementation rules |
+| Code standards | ~/Projects/shokunin-crafthouse/studio-memory/playbooks/code-standards.md | Full | Implementation rules |
 
 ## Contract
 [Leave blank — to be filled before Sprint 6 session begins]

@@ -40,8 +40,8 @@ Claude executes the role of a senior technical reviewer who knows the studio's s
 Prompts produced in this session must come from runbook templates, not invented. Sources in priority order:
 
 1. `Business_Runbook_Claude_Max_v1_7.md` — Section 18 quick reference
-2. `New_Project_Setup_Guide_v2_5.md` — Step-specific prompts
-3. `Cowork_Setup_Guide_v1_2.md` — Part 9 key prompts
+2. `playbooks/new-project-setup.md` — Step-specific prompts
+3. `playbooks/cowork-setup.md` — Part 9 key prompts
 
 When a prompt is adapted (not verbatim), flag it: *"Adapted from [source] — [what changed and why]."*
 
@@ -90,7 +90,7 @@ When Levi asks what to send at sprint close, produce the build-log prompt first.
 | File | When to consult |
 |---|---|
 | `Business_Runbook_Claude_Max_v1_7.md` | Workflow questions, prompt templates, memory rules |
-| `New_Project_Setup_Guide_v2_5.md` | Sprint setup, CONTEXT.md template, Step 13 sequence |
+| `playbooks/new-project-setup.md` | Sprint setup, CONTEXT.md template, Step 13 sequence |
 | `sc-brand-system-spec_v2.md` | Sprint scope, success criteria, token architecture rules |
 | `studio-memory.md` | Standing standards (read), never write to from this session |
 | `cowork-context.md` | Studio identity and output defaults reference |

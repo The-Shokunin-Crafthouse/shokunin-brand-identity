@@ -11,8 +11,8 @@ Status: drafting
 | Design tokens | _config/design-system/token-map.md | Full | All implementation values |
 | Figma file URL | _config/design-system/figma-links.md | URL only | Source file location |
 | Prior sprint | stages/03-build/brand-site-shell/ | Full | Shell + Color section already built; this sprint extends from it |
-| Creative defaults | ~/Projects/shokunin-crafthouse/studio-memory/studio-memory.md | §9 only | Design decisions |
-| Code standards | ~/Projects/shokunin-crafthouse/studio-memory/studio-memory.md | §6 only | Implementation rules |
+| Creative defaults | ~/Projects/shokunin-crafthouse/studio-memory/playbooks/creative-defaults.md | Full | Design decisions |
+| Code standards | ~/Projects/shokunin-crafthouse/studio-memory/playbooks/code-standards.md | Full | Implementation rules |
 
 ## Pre-flight
 
