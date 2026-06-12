@@ -29,7 +29,7 @@ identity:
   decisions: decisions/decisions.md
 
 adapters:
-  claude: adapters/claude/CLAUDE.md
+  claude: CLAUDE.md            # repo-root adapter (1.1.0) — adapters/claude/ is a pointer
   generic: adapters/generic/BOOTSTRAP.md
 
 config:

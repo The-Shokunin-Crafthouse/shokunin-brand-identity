@@ -1,68 +1,86 @@
-# Sprint: brand-site-shell
-Stage: 03-build
-Status: drafting
+<!-- ============================================================ -->
+<!-- CONTEXT.md — 03 BUILD                                        -->
+<!-- ============================================================ -->
+<!-- WHAT THIS FILE IS                                            -->
+<!-- The contract for stage 03 of this project. Directive.        -->
+<!-- Defines the scope of work and Gate-3 criteria.               -->
+<!--                                                              -->
+<!-- WHAT YOU (THE MODEL) MUST DO                                 -->
+<!-- 1. Confirm Gate 2 has closed before writing implementation.  -->
+<!-- 2. Pull values from ../../_config/design-system/token-map.md.-->
+<!-- 3. Follow ../../_config/design-system/ui-rules.md.           -->
+<!-- 4. Surface ambiguity back to stage 02 — do not improvise.    -->
+<!-- 5. Produce implementation in the project codebase.           -->
+<!--    Build-stage artifacts (notes, reports, pointers) go in    -->
+<!--    ./output/. Reference material in ./references/.           -->
+<!--                                                              -->
+<!-- READ NEXT                                                    -->
+<!-- ../../WORKFLOW.md §"03 — Build" for gate criteria.           -->
+<!-- ============================================================ -->
 
----
+# Stage 03 — Build
+
+## Purpose
+
+Implement the design without drift. The build should be a faithful materialization of stage-02 output — not a reinterpretation.
 
 ## Inputs
-| Source | File/Location | Section/Scope | Why |
-|--------|--------------|---------------|-----|
-| Brand spec | _config/sc-brand-system-spec.md | §4 Stack, §5 Sprint 5, §6 Sprint 5 criteria | Stack decisions, deliverables, success criteria |
-| Design tokens | _config/design-system/token-map.md | Full | All implementation values |
-| Figma file URL | _config/design-system/figma-links.md | URL only | Source file location |
-| Creative defaults | `../../../studio-memory/playbooks/creative-defaults.md` | all | Design decisions — **moved out of core in Phase 1** (was `studio-memory.md §9`, which no longer holds it) |
-| Code standards | `../../../studio-memory/playbooks/code-standards.md` | all | Implementation rules — **moved out of core in Phase 1** (was `studio-memory.md §6`) |
 
-## Pre-flight
+| Source | File / Location | Section / Scope | Why |
+|--------|-----------------|-----------------|-----|
+| Studio core | global via `~/.claude/CLAUDE.md` | identity, principles, gates, stack defaults | Loaded globally — do not re-load here |
+| Project identity | `../../WORKSPACE.md` | all | Binding project rules + `Current sprint:` pointer |
+| Canonical workflow | `../../../studio-memory/WORKFLOW.md` | §"03 — Build" | Gate-3 criteria |
+| Design spec | `../02-design/output/` | all | The resolved spec to materialize faithfully |
+| Tokens | `../../_config/design-system/token-map.md` | all | Source of truth for values (or shared DS per `decisions/`) |
+| UI rules | `../../_config/design-system/ui-rules.md` | all | Component + layout rules |
+| **Code standards** | `../../../studio-memory/playbooks/code-standards.md` | all | **Moved out of always-loaded core (Phase 1) — load explicitly here or it silently stops applying** |
+| **Creative defaults** | `../../../studio-memory/playbooks/creative-defaults.md` | all | **Same — moved out of core; explicit load required** |
+| Build references | `./references/` | as needed | Implementation-only material |
+| Decisions | `../../decisions/decisions.md` | relevant | Prior calls; do not reopen without reason |
 
-| Check | Type | Action if failed |
-|---|---|---|
-| `_config/sc-brand-system-spec.md` exists | **BLOCKER** | Stop. Print: `BLOCKER: spec not found at _config/sc-brand-system-spec.md. Commit before continuing.` Do not proceed. |
-| This CONTEXT.md exists with `Status: drafting` or `Status: approved` | **BLOCKER** | Stop and report the missing or malformed file. Do not proceed. |
-| `_config/design-system/token-map.md` exists | **BLOCKER** | Stop. Print: `BLOCKER: token-map.md not found. Run sync-figma-token before this session.` Do not proceed. |
-| Previous sprint CONTEXT.md has `Status: complete` | WARNING | Report the incomplete sprint by name. Continue but note in contract proposal. |
+## Process
 
-## Contract
-(leave blank — Claude proposes at session start, filled after approval)
+1. Confirm Gate 2 has closed before writing implementation.
+2. Materialize the stage-02 spec without reinterpretation — values from the token map, rules from `ui-rules.md`, standards from the code-standards playbook.
+3. If a design value is missing, return to stage 02 — never invent it.
+4. Self-verify against Gate 3 (`sc-verify`) before presenting any build.
+5. Build artifacts (notes, reports, pointers) → `./output/`; reference material → `./references/`.
 
 ## Outputs
-| Artifact | Location | Format |
-|----------|----------|--------|
-| Site shell | brand-site/src/ | React + Vite |
-| Color section | brand-site/src/sections/color/ | React components |
-| All other sections | brand-site/src/sections/ | Stubbed — shell only, no content |
-| Token CSS | brand-site/src/tokens.css | CSS custom properties compiled from token-map.md |
-| Snapshots | /previews/brand-site-shell/ | PNG — 360, 768, 1024, 1440 |
 
-## Audit (Claude runs before opening the PR)
-- [ ] Zero hardcoded hex values — every color references a CSS custom property from tokens.css
-- [ ] Zero magic numbers — every spacing value from the token scale
-- [ ] Site shell matches Color page Sandbox design exactly — nav, layout, mode toggle, footer
-- [ ] Navigation structure matches the Sandbox design — all sections listed, Color active state correct
-- [ ] Mode toggle switches light/dark — all tokens update without page reload
-- [ ] Color section is fully populated — not stubbed
-- [ ] All other sections render the shell with a placeholder, not a blank page
-- [ ] Site is functional at 390, 768, 1024, and 1440
-- [ ] `npm run build` exits 0
-- [ ] `npm run preview brand-site-shell` exits 0 and produces 4 PNGs
-- [ ] PNGs verified to show rendered site, not blank pages or error states
-- [ ] No third-party component library used — every component built from the design system
-- [ ] Sprint 2 CONTEXT.md scaffolded at stages/03-build/brand-site-type/CONTEXT.md with Status: drafting
+- Implementation in the project codebase (link from `./output/README.md`, do not duplicate)
+- Storybook or component index (where applicable)
+- Staging deployment URL
+- `./output/build-notes.md` — deviations from design with reason, performance baselines, known issues
+- `./output/perf-baseline.md` — initial Core Web Vitals measurements
 
-## PR & Preview
+## Working rules
 
-Run the full Audit checklist above before opening the PR. Do not open 
-the PR until every item passes. Update Status to "complete" after all 
-audit items pass.
+- No raw hex. No magic numbers. No lorem.
+- If a design value is missing, do not invent it — return to stage 02.
+- Accessibility is designed in; the build preserves it. Do not regress contrast, focus, or keyboard paths.
+- Performance is a first-class concern, not a post-launch optimization.
+- Names in code match names in design. If the Figma component is `Card/Featured`, the React component is `CardFeatured` — not `FeaturedCard` or `HeroCard`.
+- Commit messages are imperative, atomic, and describe the *why* when non-obvious.
 
-After audit passes:
-1. Open PR against main
-2. Capture PR number: `gh pr view --json number -q .number`
-3. Read production domain from WORKSPACE.md
-4. Print this exact line in chat (raw, cmd-clickable):
-   📱 Preview URL: https://[domain]/_previews/[pr-number]/
-5. Run: `gh run watch --exit-status --workflow=preview-deploy.yml \
-   $(gh run list --branch feat/brand-site-shell \
-   --workflow=preview-deploy.yml \
-   --limit 1 --json databaseId -q '.[0].databaseId')`
-6. Print ✅ on success or ❌ + full failure logs on failure
+## Gate 3 — Build sign-off
+
+Closes when:
+
+- [ ] All interaction states implemented (default, hover, focus, active, disabled)
+- [ ] Core Web Vitals met on representative network: LCP < 2.5s, CLS < 0.1, INP < 200ms
+- [ ] Keyboard navigable end-to-end on every shipped flow
+- [ ] Screen reader verified on launch-critical flows
+- [ ] Contrast passing (AA body, AAA legal/disclosure)
+- [ ] Reduced-motion variant implemented and working
+- [ ] Chrome, Firefox, Safari (desktop + iOS) verified
+- [ ] No raw hex, no magic numbers, no lorem in the build
+- [ ] Staging URL shared with studio for Gate-4 review
+
+## Handoff
+
+Once Gate 3 closes:
+1. Update `workspace.manifest.yaml` `project.stage` to `04-review`.
+2. Log the Gate-3 close in `decisions/decisions.md`.
+3. Move to `stages/04-review/`.
