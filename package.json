@@ -6,7 +6,7 @@
   "scripts": {
     "tokens:build": "node scripts/tokens-to-css.mjs",
     "dev": "npm run tokens:build && vite",
-    "build": "npm run tokens:build && vite build",
+    "build": "npm run tokens:build && mkdir -p public && cp src/styles/tokens.css public/tokens.css && vite build",
     "preview-vite": "vite preview",
     "preview": "node scripts/preview.mjs"
   },
