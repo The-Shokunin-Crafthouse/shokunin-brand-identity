@@ -243,6 +243,8 @@ The pass/fail signal requirement (≥1 quoted line per principle, sourced from `
 
 ## 2026-05-28 — Brand-site Color palette adopted into tokens (design wins)
 
+**Status:** accepted
+
 **Context.** Building the living brand site shell (sprint `brand-site-shell`), the canonical token source (`tokens/primitives.json` + `semantic.json`, mirrored by `token-map.md`) disagreed with the Stage-02 Color page design (`stages/02-design/claude-design/scds-documentation-site-desktop/project/Color.html` + `system/colors_and_type.css`). The design renders a status palette pulled deliberately off the shu vermilion band (its own copy argues "error is oxblood, not shu"), a 13-step warm-gray ladder, and `surface-raised`/`floating` surfaces — none of which existed in the token source, where `status.error` aliased `{color.shu.500}`.
 
 **Decision.** The design wins; the token source is updated to match (studio sign-off, 2026-05-28). Changes to `tokens/primitives.json` + `tokens/semantic.json`:
@@ -258,6 +260,8 @@ The pass/fail signal requirement (≥1 quoted line per principle, sourced from `
 
 ## 2026-05-28 — Type pass: Color page hierarchy fix + mono/chrome weight widened to 600
 
+**Status:** accepted
+
 **Context.** Type recheck of the brand-site Color section against Figma node `2144:24` (`Color — DL`) surfaced (a) an implementation bug and (b) a token/Figma divergence.
 
 **Decisions.**
@@ -268,6 +272,8 @@ The pass/fail signal requirement (≥1 quoted line per principle, sourced from `
 **Consequences.** System-wide: every mono chrome label (eyebrows, badges, nav numbers, metabar, captions) renders semibold, including across the Sprint-4 component primitives. The global `studio-memory.md` does not carry this rule, so no studio-level edit was required. Figma Variables mirror + `token-map.md` were aligned; re-sync on the next `sync-figma-token` pass.
 
 ## 2026-05-28 — Color page type: full Figma parity pass (offscale adopted)
+
+**Status:** accepted
 
 **Context.** Side-by-side of the rendered Color page against the Figma screenshot of node `2144:24` surfaced ~15 divergences (copy, structure, type sizes).
 
@@ -284,6 +290,8 @@ The pass/fail signal requirement (≥1 quoted line per principle, sourced from `
 **Left intentionally divergent.** Contrast ratio shows **13.34:1** (the mathematically correct WCAG value for `#1A1815` on `#E3DFD8`), not the mock's stale **12.40**. `display/lg` line-height stays 1.1 (vs Figma 1.05) — negligible, and our optical-tracking display values match the *rendered* mock.
 
 ## 2026-05-31 — Brand-site polish pass: sidebar / type recheck / mobile nav / slash separator
+
+**Status:** accepted
 
 Eight related fixes landing in one pass against Figma node `2144:24` (desktop) + `2207:3155`/`2207:2604` (mobile ML/MD).
 
@@ -328,6 +336,8 @@ Zero hex in src (excl. generated `tokens.css`) held. `npm run build` and `npm ru
 
 ## 2026-06-02 — Code → Figma sync: "Color — DL" variable repaint (text styles blocked)
 
+**Status:** accepted
+
 Pushed the design-system variable updates that had accrued in the token files back
 into the Figma file (`ufNlysCwWz7y2FBk61DxbN`), so the Sandbox `Color — DL` frame
 (node `2144:24`) and the shared variable collections match the shipped build. Direction
@@ -366,6 +376,8 @@ build-only motion, not statically representable). Figma-only extras (`status/*/t
 ---
 
 ## 2026-06-03 — Brand → Portal deploy bridge (brand side)
+
+**Status:** accepted
 
 **Decision.** After the brand site deploys to Hostinger on a push to `main`, `deploy.yml`
 fires a `repository_dispatch` (`event-type: brand-updated`) to
@@ -407,6 +419,8 @@ in the next working session in this repo (all five appear to be accepted-and-shi
 
 ## 2026-06-10 — Brand site gets its own Hostinger docroot (de-nest)
 
+**Status:** accepted
+
 **Decision.** Move the brand site's deploy target from
 `~/domains/shokunincrafthouse.com/public_html/brand/` (nested inside the **studio**
 site's docroot) to its own sibling docroot `~/domains/brand.shokunincrafthouse.com/public_html/`,
@@ -433,6 +447,8 @@ blocked serving. Separate fix: regenerate the fine-grained PAT with access to
 ---
 
 ## 2026-06-11 — Remove the brand → portal dispatch step (portal repo deleted)
+
+**Status:** accepted
 
 **Decision.** Delete the `Trigger client-portal rebuild` step (`peter-evans/repository-dispatch@v3`
 → `The-Shokunin-Crafthouse/client-portal`, event `brand-updated`) from `deploy.yml`. A breadcrumb
