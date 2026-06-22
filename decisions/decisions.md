@@ -590,3 +590,29 @@ or a separate job so a dispatch failure can never again mask a healthy deploy.
 - *Reuse ink/near-white text color.* Not dedicated; reads as a heavy border, not a ring. Rejected — own primitive, cool cast distinguishes it.
 
 **Consequences.** *Easier.* Focus passes AA everywhere and is hue-distinct from brand + status. *Harder.* One more semantic→primitive pair; Phase 2 routes every `:focus-visible` through `--sc-color-border-focus` (with the existing 2px width + 2px offset). Figma mirror gains a focus variable.
+
+---
+
+## 2026-06-22 — Bump vite 6.4.2 → 6.4.3 (close npm-audit high advisory)
+
+**Status:** accepted
+
+**Decision.** Raise the `vite` devDependency floor `^6.4.2` → `^6.4.3` and refresh
+`package-lock.json` (resolved `vite@6.4.3`). `@vitejs/plugin-react@4.7.0` left unchanged — its
+peer range (`^4.2.0 || ^5.0.0 || ^6.0.0 || ^7.0.0`) already covers 6.4.3, so no second bump.
+
+**Why.** `npm audit` reported one high-severity advisory against `vite <=6.4.2`
+(GHSA-v6wh-96g9-6wx3 — launch-editor NTLMv2 hash disclosure; GHSA-fx2h-pf6j-xcff —
+`server.fs.deny` bypass; both Windows dev-server only). The committed lockfile pinned exactly
+`6.4.2`, the top of the vulnerable range. `6.4.3` is the patched release on the 6.x line (npm
+dist-tag `previous`). Raising the floor — rather than only refreshing the lockfile — stops anyone
+re-pinning back to `6.4.2`.
+
+**Why not vite 8 (current latest).** Jumping two majors (6 → 8) for a Windows-dev-only CVE on a
+static site (vite is build/dev only — no production runtime, real-world risk low) trades a
+known-safe patch for config/plugin-compat regression risk. The minimal in-major bump is the
+surgical close; a major upgrade is revisitable as its own scoped task.
+
+**Verified.** `npm audit` → 0 vulnerabilities; `npm run tokens:build` → exit 0; `npm run build` →
+exit 0 (vite 6.4.3, full module transform, Phosphor present after the SCDS-v2 merge); `npm run
+dev` → serves the showcase HTTP 200 (`Shokunin Crafthouse · Component Primitives`).
