@@ -31,11 +31,11 @@
       "sunk": {
         "$type": "color",
         "$value": "{color.warmGray.200}",
-        "$description": "Set-in component surface · cards, frames, tiles. In light, sits BELOW page (deeper). In dark, sits ABOVE page (lighter). Role-named for light-mode semantics; perceptual direction inverts in dark.",
+        "$description": "Set-in component surface · cards, frames, tiles. scds-v2 elevation: light sits BELOW page (deeper, warmGray.200); dark SINKS to the deepest well (#080807, below page) and rises to page on hover (Phase 2 component model). Role-named for light semantics.",
         "$extensions": {
           "modes": {
             "light": "{color.warmGray.200}",
-            "dark":  "{color.dark.surfaceSunk}"
+            "dark":  "{color.dark.well}"
           }
         }
       },
@@ -46,7 +46,7 @@
         "$extensions": {
           "modes": {
             "light": "{color.warmGray.300}",
-            "dark":  "{color.dark.surfaceDeepSunk}"
+            "dark":  "{color.dark.well}"
           }
         }
       },
@@ -57,7 +57,7 @@
         "$extensions": {
           "modes": {
             "light": "{color.warmGray.50}",
-            "dark":  "{color.dark.surfaceSunk}"
+            "dark":  "{color.dark.raised1}"
           }
         }
       },
@@ -68,18 +68,18 @@
         "$extensions": {
           "modes": {
             "light": "{color.warmGray.25}",
-            "dark":  "{color.dark.surfaceDeepSunk}"
+            "dark":  "{color.dark.raised2}"
           }
         }
       },
       "rail": {
         "$type": "color",
         "$value": "{color.warmGray.300}",
-        "$description": "Sidebar / left-rail ground. Light = surface-deep-sunk equivalent (warmGray.300); dark = surface-sunk equivalent (dark.surfaceSunk). Two-step asymmetry by design — rail reads as sunk in light, lifted in dark. Added 2026-05-31 (ADR brand-site-shell sidebar pass).",
+        "$description": "Sidebar / left-rail ground. Light = warmGray.300; dark = floor (dark.floor — a step below page). scds-v2 remap off the retired warm dark.surfaceSunk. Added 2026-05-31 (ADR brand-site-shell sidebar pass).",
         "$extensions": {
           "modes": {
             "light": "{color.warmGray.300}",
-            "dark":  "{color.dark.surfaceSunk}"
+            "dark":  "{color.dark.floor}"
           }
         }
       },
@@ -90,7 +90,7 @@
         "$extensions": {
           "modes": {
             "light": "{color.warmGray.250}",
-            "dark":  "{color.warmGray.800}"
+            "dark":  "{color.dark.raised1}"
           }
         }
       }
@@ -114,13 +114,30 @@
         "$extensions": {
           "modes": {
             "light": "{color.warmGray.500}",
-            "dark":  "{color.warmGray.400}"
+            "dark":  "{color.dark.textSecondary}"
           },
           "usageRestrictions": {
             "forbiddenSurfaces": ["color.surface.deepSunk"],
             "modes": ["light"],
             "reason": "Contrast ratio 4.04:1 falls below WCAG AA 4.5:1 threshold on this pair only.",
             "substitute": "{color.text.primary}"
+          }
+        }
+      },
+      "tertiary": {
+        "$type": "color",
+        "$value": "{color.warmGray.450}",
+        "$description": "Tertiary text · lowest readable tier (de-emphasized metadata). scds-v2 addition. Light = warmGray.450 (AA 4.63:1 on page); dark = dark.textTertiary (AA 4.58:1 on page). USAGE RESTRICTION: not on the lighter raised / deeper sunk surfaces where contrast compresses below AA — use text.secondary there.",
+        "$extensions": {
+          "modes": {
+            "light": "{color.warmGray.450}",
+            "dark":  "{color.dark.textTertiary}"
+          },
+          "usageRestrictions": {
+            "forbiddenSurfaces": ["color.surface.raised", "color.surface.sunk", "color.surface.deepSunk"],
+            "modes": ["light", "dark"],
+            "reason": "Tertiary contrast compresses below WCAG AA 4.5:1 on the lighter/deeper surfaces (dark raised1 4.40:1; light deepSunk 3.49:1).",
+            "substitute": "{color.text.secondary}"
           }
         }
       },
@@ -183,14 +200,44 @@
       },
       "focus": {
         "$type": "color",
-        "$value": "{color.shu.500}",
-        "$description": "Focus ring color. Shu in light mode, shu.400 (lifted) in dark for visibility.",
+        "$value": "{color.focusRing.light}",
+        "$description": "Focus ring color · scds-v2 dedicated, OFF the brand (shu) band and off every status hue (focus-ring-token). Cool-neutral, AA+++ per mode (light 13.24:1 / dark 15.67:1 on page). Was routed through shu, which failed AA at 11px on some grounds.",
         "$extensions": {
           "modes": {
-            "light": "{color.shu.500}",
-            "dark":  "{color.shu.400}"
+            "light": "{color.focusRing.light}",
+            "dark":  "{color.focusRing.dark}"
           }
         }
+      }
+    },
+    "divider": {
+      "$description": "Content-separator hierarchy · scds-v2. rgba composed from the channel-triplet primitives (channel-triplet-rgba-tokens). Dividers separate CONTENT (rows, sections, list items) — NOT element edges; per slop-blocklist this is a content separator, not an outline-stroke violation. Dark = white 5/9/15%; light = ink 6/10/16%.",
+      "subtle": {
+        "$type": "color",
+        "$value": "rgb(var(--sc-p-color-ink-rgb) / 0.06)",
+        "$description": "Subtle divider · faintest content separation. Light ink .06 / dark white .05.",
+        "$extensions": { "modes": {
+          "light": "rgb(var(--sc-p-color-ink-rgb) / 0.06)",
+          "dark":  "rgb(var(--sc-p-color-white-rgb) / 0.05)"
+        } }
+      },
+      "default": {
+        "$type": "color",
+        "$value": "rgb(var(--sc-p-color-ink-rgb) / 0.10)",
+        "$description": "Default divider · standard content separation. Light ink .10 / dark white .09.",
+        "$extensions": { "modes": {
+          "light": "rgb(var(--sc-p-color-ink-rgb) / 0.10)",
+          "dark":  "rgb(var(--sc-p-color-white-rgb) / 0.09)"
+        } }
+      },
+      "strong": {
+        "$type": "color",
+        "$value": "rgb(var(--sc-p-color-ink-rgb) / 0.16)",
+        "$description": "Strong divider · asserted content separation. Light ink .16 / dark white .15.",
+        "$extensions": { "modes": {
+          "light": "rgb(var(--sc-p-color-ink-rgb) / 0.16)",
+          "dark":  "rgb(var(--sc-p-color-white-rgb) / 0.15)"
+        } }
       }
     },
     "interactive": {
@@ -546,6 +593,26 @@
     }
   },
   "size": {
+    "icon": {
+      "sm": {
+        "$type": "dimension",
+        "$value": "{space.16}",
+        "$description": "scds-v2 · icon sm (16px). Inline icons in dense chrome. Phosphor as the default icon family.",
+        "$extensions": { "modes": { "light": "{space.16}", "dark": "{space.16}" } }
+      },
+      "md": {
+        "$type": "dimension",
+        "$value": "{space.24}",
+        "$description": "scds-v2 · icon md (24px). Default icon size. Set on a wrapper via font-size; Icon renders at 1em.",
+        "$extensions": { "modes": { "light": "{space.24}", "dark": "{space.24}" } }
+      },
+      "lg": {
+        "$type": "dimension",
+        "$value": "{space.32}",
+        "$description": "scds-v2 · icon lg (32px). Prominent / standalone icons.",
+        "$extensions": { "modes": { "light": "{space.32}", "dark": "{space.32}" } }
+      }
+    },
     "avatar": {
       "xs": {
         "$type": "dimension",

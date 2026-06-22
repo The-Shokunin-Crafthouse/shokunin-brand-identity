@@ -465,3 +465,128 @@ the 2026-06-10 entry — there is no PAT to regenerate until a portal exists.
 git history at this commit), create a fresh fine-grained PAT scoped to the new portal repo
 (Contents: read/write), store it as `PORTAL_DISPATCH_TOKEN`, and prefer `continue-on-error: true`
 or a separate job so a dispatch failure can never again mask a healthy deploy.
+
+---
+
+<!-- ============================================================ -->
+<!-- SCDS v2 — design-system redesign · sprint scds-v2 · Phase 1   -->
+<!-- Six ADRs from one PR (tokens + type foundation). Trigger: a   -->
+<!-- Cowork audit found the system shipped 2026-05-27, BEFORE the  -->
+<!-- slop-blocklist (2026-06-16), and matches named banned         -->
+<!-- patterns. Each ADR cites the audit + the rule it answers.     -->
+<!-- ============================================================ -->
+
+## 2026-06-22 — Dark palette: retire warm brown → TRUE NEUTRAL
+**Stage:** 02-design (scds-v2)
+**Type:** UX / design tradeoff
+**Status:** accepted · supersedes the dark-ground values in `2026-05-28 — Brand-site Color palette adopted into tokens` · **overrides** the studio creative-default "Warm-ground palette over neutral gray" for dark mode
+
+**Context.** The Cowork audit found the dark theme (`color.dark.*`: page `#0D0C0B`, set-in `#181512`, deeper `#221F1B` — all warm brown) is a direct match for `slop-blocklist.md` → Color: "Warm neutral ground + single red/vermilion accent (the current AI editorial default)". The system shipped 2026-05-27, before the blocklist existed (2026-06-16). The warm dark ground is the load-bearing half of that match (the vermilion accent stays — it is the brand mark).
+
+**Decision.** Replace the warm dark primitives with a true-neutral (equal-RGB) ladder: well `#080807` · floor `#0A0A0A` · page `#0F0F0F` · raised `#141414 / #1A1A1A / #212121 / #2A2A2A / #333333`; text `#F5F5F5 / #B9B9B7 / #7C7C7A / #565654`; borders neutralised (`#2A2A2A / #1A1A1A`). New dark elevation model: the component **sinks below page** (rest = well `#080807`), and **rises to page on hover** (`#0F0F0F`) — separation is carried by hover, not a resting border. All semantic dark aliases were remapped off the deleted `dark.surfaceSunk/surfaceDeepSunk` onto the new ladder.
+
+**Rationale.** Pure neutral is the cleanest possible departure from the "warm ground" tell while keeping vermilion as the sole chromatic signal — the accent now reads against neutral, not against a warm cast that muddied it. Equal-RGB grounds also make the accent's chroma unambiguous. Rest-state page↔well is **~1.05:1 by design** — the low-contrast "components emerge on interaction" register, not a flat field; hover carries the separation. All text tiers verified AA on the new grounds (primary 17–18:1, secondary 8.9–10.2:1, tertiary 4.58:1 on page).
+
+**Alternatives considered.**
+- *Keep warm, lower saturation only.* Half-measure — still reads warm-neutral, still matches the blocklist line. Rejected.
+- *Cool-neutral (blue-leaning) dark.* Would fight the warm vermilion accent and read "tech-product". Rejected; true neutral lets the accent own the only hue.
+- *Raise rest contrast above ~1.05:1.* Would lose the "emerge on interaction" register the low-contrast model is chosen for. Rejected; hover carries separation.
+
+**Consequences.** *Easier.* Kills the strongest color slop match; accent reads cleanly. *Harder.* (1) **Overrides a studio creative-default** ("warm-ground palette", established 2026-05-20 ai-site) for dark mode — flagged for an `sc-content-sync` pass to propagate the dark-neutral override into `creative-defaults.md`, since other branded properties inherit that default. (2) ⚠ **Gate-2 on-device check (human, cannot self-certify):** pure-neutral near-blacks drift on wide-gamut Chrome (`p3-near-black-drift-chrome`) — verify on a P3 display; if they cast, apply a +1 red whisper at the darkest steps. (3) `token-map.md` + Figma Primitives now stale on `color.dark.*` — re-sync next pass (text styles still blocked, LEARNINGS 2026-06-07).
+
+---
+
+## 2026-06-22 — Light palette: desaturate surfaces to HSB(30,3,B), keep text warm
+**Stage:** 02-design (scds-v2)
+**Type:** UX / design tradeoff
+**Status:** accepted · supersedes the light warm-gray surface values in `2026-05-28 — Brand-site Color palette adopted into tokens`
+
+**Context.** Same audit. The light ground (`warmGray.100 #E3DFD8`, a saturated oatmeal) is the light half of the "warm neutral ground" tell. The brief keeps a warm hue but pulls saturation heavily down.
+
+**Decision.** Desaturate the light **surface** steps toward HSB(30,3,B), keeping each step's brightness: page `#EBE7E4` (HSB 30,3,92) · raised/component `#F4F1ED` · floating `#FBF9F6` · plus the derived in-between surfaces (`warmGray.200/250/300/350` → `#D9D6D2 / #D5D2CF / #CDCAC7 / #C5C2BF`). **Text/ink steps stay warm** — ink remains `#1A1815`; secondary `#5F5C55`, disabled `#9A9388` unchanged. Added `warmGray.450 #6B665E` as a light tertiary tier.
+
+**Rationale.** Splitting the desaturation — grounds recede to near-neutral-warm while ink stays inhabited-warm — reads as deliberate restraint rather than a flat gray repaint, and keeps the system off the saturated-oatmeal tell without going cold. All text/surface pairs re-verified AA (ink 12–17:1; secondary 4.61–6.35:1; the pre-existing "secondary not on deepSunk" restriction at 4.09:1 still holds; tertiary 4.63:1 on page, restricted off the deeper surfaces).
+
+**Alternatives considered.**
+- *Desaturate the whole ladder incl. text.* Ink at S=3% reads cold/digital — loses the warm authority. Rejected; brief explicitly keeps ink warm.
+- *Pure neutral light (match dark).* Light has less dynamic range; a warm whisper on grounds keeps it from reading as a default gray UI. Rejected.
+
+**Consequences.** *Easier.* Light grounds off the slop band; coherent with the neutral dark. *Harder.* The existing Color/Type pages re-render a hair lighter and less warm — expected (no AA regressions). `token-map.md`/Figma stale on `warmGray.*` light steps — re-sync next pass.
+
+---
+
+## 2026-06-22 — Type: thin→Black headers, Display/Text family split, Cascadia ≤10%
+**Stage:** 02-design (scds-v2)
+**Type:** UX / design tradeoff
+**Status:** accepted · supersedes the display-weight direction in `2026-05-31 — Brand-site polish pass` (thin/light display) and the single combined `sans` stack from `2026-05-26 — Type composition tokens`
+
+**Context.** Same audit. The system pairs thin/light display headers (`font.text.44` Thin 250; 60/84/120 Light 300) with a single combined `sans` stack — the "thin editorial headline" register the blocklist flags under Type, and the family that should distinguish heading from body never does (body renders in the Display cut). Cascadia mono also carried chrome labels (eyebrows/badges), over-weighting a code face in non-code chrome.
+
+**Decision.** (1) **Headers thin→Black.** `font.weight.black` (900, NHG 95 Black) added; display `44/60/84/120` and section title `32` → Black; card title `24` → Bold (700). `@font-face` for 95 Black added to `fonts.css`. (2) **Family split.** New `font.family.display` (Display Pro, headings + section/subheads) and `font.family.text` (Text Pro, body + chrome); `sans` kept as a back-compat alias. Composites re-routed: 11–20 → Text, 24–120 → Display. Body stays Text Regular (400); chrome labels Text Medium (500). (3) **Cascadia ≤10%** — mono reduced to hex values / token names / code only; dropped from chrome labels. line-height + tracking kept canonical across the weight change.
+
+**Rationale.** Heavy Black display is the opposite register from thin-editorial — it reads asserted/crafted, not generated. Extending Display below the hero (down to section/card titles) and routing body to the Text cut makes the two families do real work (display vs. body, sharp hierarchy) per the creative-default "one family, full range / two only if they refuse to compete". Pulling mono back to code/tokens stops a code face from speaking in brand chrome. All faces ship self-hosted (Thin→Black, Text 400/500/700) — no fallback gap.
+
+**Alternatives considered.**
+- *Black hero only, keep section/card medium.* Leaves the Display register as a one-off hero gesture. Rejected — brief extends Display to subheads.
+- *Keep one `sans` stack, change weights only.* Body would stay in the Display cut. Rejected — Text cut is the correct body face.
+- *Remove Cascadia entirely.* It earns its place on hex/token/code surfaces (re-affirmed Sprint 2). Rejected; reduced, not removed.
+
+**Consequences.** *Easier.* Headlines read as the studio's, not a framework's; families finally separate. *Harder.* Component/section type re-renders heavier at headings — Phase 2/3 verify optical tracking at Black display sizes. `type-system.md`/Figma text styles stale (Figma text-style writes still blocked, LEARNINGS 2026-06-07) — hand-edit list grows (Black weight, family split). `sc-content-sync` flag: "no mono in chrome labels" is a studio-wide addition.
+
+---
+
+## 2026-06-22 — Divider hierarchy via channel-triplet rgba tokens
+**Stage:** 02-design (scds-v2)
+**Type:** Architecture
+**Status:** accepted
+
+**Context.** The system separated content with solid hairline borders (`warmGray.250` etc.), which blurs into the larger "outline-stroke" problem the audit flags. A content separator is distinct from an element edge, and the new low-contrast dark model needs separators that read at any ground without a hard line.
+
+**Decision.** Add `color.divider.{subtle,default,strong}` semantic tokens composed via the channel-triplet pattern (`channel-triplet-rgba-tokens`): new primitives `color.whiteRgb` (`255 255 255`) and `color.inkRgb` (`26 24 21`), with dividers emitted as `rgb(var(--sc-p-color-{ink,white}-rgb) / <alpha>)` — dark = white 5/9/15%, light = ink 6/10/16%. These are **content separators, not element edges** — explicitly not an outline-stroke violation per the blocklist.
+
+**Rationale.** Alpha-over-ground separators self-adjust to whatever surface they sit on (critical when dark rest grounds sit ~1.05:1 apart) and never read as a hard structural frame. The channel triplet is the studio-sanctioned way to compose alpha from a token without hardcoding channels; modern `rgb(R G B / A)` is fully supported on the Gate-3 browser set. The composed `rgb(var()/a)` lives where the build's color passthrough emits it verbatim — no generator change.
+
+**Alternatives considered.**
+- *Solid neutral hairlines per step.* Re-introduces the hard-line look the redesign is moving away from; needs a separate primitive per mode per ground. Rejected.
+- *Bake alpha into hex primitives (8-digit).* Loses ground-adaptivity (alpha-over-ground is the point) and can't be re-tinted centrally. Rejected.
+
+**Consequences.** *Easier.* One separator system that works on every ground, both modes; Phase 2 moves components from solid borders to these. *Harder.* Semantic `divider.*` values are composed `rgb(var()/a)` strings, not pure DTCG aliases — a documented exception to the alias-only rule (they reference a primitive var, contain no hex/px). Figma has no native equivalent — mirror as solid approximations or skip.
+
+---
+
+## 2026-06-22 — Phosphor as the default icon family
+**Stage:** 02-design (scds-v2)
+**Type:** Stack / tech choice
+**Status:** accepted
+
+**Context.** Icons were hand-authored inline `<svg>` (3 remaining in `src/components` / `src/sections`), with no shared weight/size contract — and stroked icon containers are a named blocklist match. The system needs one icon family with a regular/bold/fill range and a token-driven size.
+
+**Decision.** Adopt `@phosphor-icons/react` (`^2.1.10`) as the studio default icon family. Add `size.icon.{sm,md,lg}` (16/24/32, on the space ladder) and an `Icon` wrapper (`src/components/Icon/`) — default weight `regular`, `bold` + `fill` exposed, color via `currentColor`, size via font-size token. Installed in this worktree (which **is** the shipping feature branch, per `worktree-dependency-installs`) and shipped via `package.json` + lock in this PR. The inline-SVG swap-out is Phase 2.
+
+**Rationale.** Phosphor has a regular/bold/fill/thin/light range at one optical size, MIT-licensed, tree-shakeable (named imports; the wrapper pulls only `IconContext`, so the bundle is unaffected until icons are used). A wrapper centralises the weight/size/color contract so no component reaches for a raw size or a stroked container.
+
+**Alternatives considered.**
+- *Keep hand-authored SVGs.* No shared contract; every icon a one-off; the mark SVGs stay bespoke anyway. Rejected for UI glyphs.
+- *Lucide / Heroicons.* Lucide is stroke-only (wrong register for a fill-elevation system); Heroicons has a narrow weight range. Rejected — Phosphor's fill weight matches the fill-not-stroke direction.
+
+**Consequences.** *Easier.* One icon vocabulary with states; Phase 2 swaps the 3 inline SVGs cleanly. *Harder.* First runtime dependency beyond React; `sc-content-sync` flag — "Phosphor as default icon family" is a studio-wide addition. The brand mark stays bespoke SVG (it is identity, not a UI glyph).
+
+---
+
+## 2026-06-22 — Dedicated off-brand focus-ring token
+**Stage:** 02-design (scds-v2)
+**Type:** UX / design tradeoff
+**Status:** accepted · supersedes routing `color.border.focus` through `{color.shu.*}`
+
+**Context.** Focus was routed through the brand vermilion (`border.focus` → `shu.500/400`), which fails AA at 11px on some grounds (documented exception) and conflates the focus affordance with the brand accent. `focus-ring-token` calls for a dedicated token sized for AA per mode when the accent fails on a ground.
+
+**Decision.** Add a dedicated `color.focusRing.{light,dark}` primitive — cool-neutral, OFF the shu band and off every status hue — light `#1F2024`, dark `#E8E8EA`; repoint semantic `color.border.focus` to it. Verified AA+++ on every ground each mode touches (light 11–15:1, dark 14–16:1).
+
+**Rationale.** Cool-neutral is unmistakably "structural focus": it can never be confused with vermilion (brand) or with green/orange/blue/oxblood (status), and its faint cool cast separates it from the warm content palette. A single chromatic focus (e.g. blue) would collide with the info status hue; neutral sidesteps that and clears AA with huge margin on both near-black and near-white grounds.
+
+**Alternatives considered.**
+- *Keep shu focus.* Fails AA at 11px; conflates focus with brand. Rejected — the reason this token exists.
+- *Chromatic (blue) focus.* Conflates with `status.info` blue. Rejected.
+- *Reuse ink/near-white text color.* Not dedicated; reads as a heavy border, not a ring. Rejected — own primitive, cool cast distinguishes it.
+
+**Consequences.** *Easier.* Focus passes AA everywhere and is hue-distinct from brand + status. *Harder.* One more semantic→primitive pair; Phase 2 routes every `:focus-visible` through `--sc-color-border-focus` (with the existing 2px width + 2px offset). Figma mirror gains a focus variable.

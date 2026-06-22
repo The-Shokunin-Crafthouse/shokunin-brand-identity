@@ -17,7 +17,7 @@ project:
   client: "Internal — Shokunin Crafthouse"
   kind: "brand"       # brand | product | site | app | campaign
   stage: "03-build"   # current stage id
-  current_sprint: "stages/03-build/sprint-4/CONTEXT.md"  # Sprint 4 — Component Primitives, feat/sprint-4-components (mirrors WORKSPACE.md)
+  current_sprint: "stages/02-design/scds-v2/CONTEXT.md"  # SCDS v2 redesign — Phase 1 tokens+type, branch claude/epic-mendeleev-0279e5 (mirrors WORKSPACE.md)
   lead: "Levi Bahn"
   started: "2026-05-26"
   target_launch: ""   # YYYY-MM-DD
