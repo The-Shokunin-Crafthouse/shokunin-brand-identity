@@ -12,54 +12,59 @@
     },
     "spacingBase": "Hybrid 4/8pt layout ladder + 2pt micro ladder. Layout: 4·8·12·16·24·32·48·64·80·96·120 px. Micro (chrome only): 2·6·10·14·18·22 px. Arbitrary px outside these ladders is a bug.",
     "typeScale": "Modular ratio 1.25 · 12 steps · 11/12/13/14/16/20/24/32/44/60/84/120 px.",
-    "fontStrategy": "Two families. Sans = Neue Haas Grotesk Display Pro / Text Pro (self-hosted woff2 in /fonts/ when shipped; Helvetica Neue → Inter fallback until then). Mono = Cascadia Mono (Google Fonts CDN). Weights 300/400/500 in active use across both families; weight 600 carries mono chrome labels (font.text.mono.11) and the secondary-button hover bump (restriction widened 2026-05-28). Per-step composition tokens at font.text.{step} bind size + weight + lineHeight + tracking + family default; surfaces should reach for those, not the underlying axes. Full weight-per-step rationale + screen optical compensation in _config/design-system/type-system.md. Mono evaluation re-run Sprint 2 across Cascadia / Geist / JetBrains / IBM Plex — Cascadia re-affirmed; see decisions/decisions.md Sprint 2 entry."
+    "fontStrategy": "scds-v2: THREE families. Display = Neue Haas Grotesk Display Pro (headings + section/subheads; weights 250/300/400/500/700/900 self-hosted; 95 Black/900 carries the headline register — thin→Black retires thin headers). Text = Neue Haas Grotesk Text Pro (body + chrome labels; 400/500/700). Mono = Cascadia Mono (Google Fonts CDN) — reduced to ~10% of surfaces: hex values / token names / code ONLY, dropped from chrome labels. family.sans kept as a back-compat alias. Heading weights: card title 24=bold(700), section title 32 + display 44/60/84/120 = black(900); body stays Text Regular(400); chrome labels Text Medium(500); weight 600 carries mono token-references + the secondary-button hover bump. Per-step composition tokens at font.text.{step} bind size + weight + lineHeight + tracking + family; surfaces reach for those. line-height + tracking kept canonical across the weight change. Full rationale in _config/design-system/type-system.md (re-sync pending). Mono re-affirmed Sprint 2 (Cascadia / Geist / JetBrains / IBM Plex) — see decisions/decisions.md."
   },
   "color": {
     "warmGray": {
       "25": {
         "$type": "color",
-        "$value": "#F8F6F2",
-        "$description": "Near-cream · lighter than 50 · floating surface (popovers, interactive hover top layer). Added 2026-05-28 for the brand-site Color page (ADR brand-site-shell)."
+        "$value": "#FBF9F6",
+        "$description": "Floating surface (popovers, interactive-card hover top layer). scds-v2: desaturated toward HSB(30,3,B) — warm hue kept, saturation pulled to ~3%. Was #F8F6F2."
       },
       "50": {
         "$type": "color",
-        "$value": "#F1EFEB",
-        "$description": "Lightest cream · derived 50% toward white from step 100. For ultra-soft fills."
+        "$value": "#F4F1ED",
+        "$description": "Raised / component surface — default card ground in light. scds-v2 desaturate HSB(30,3,96). Was #F1EFEB."
       },
       "100": {
         "$type": "color",
-        "$value": "#E3DFD8",
-        "$description": "Oatmeal page ground · anchor from HTML --bg. Foundation of every light surface."
+        "$value": "#EBE7E4",
+        "$description": "Page ground · light. scds-v2 desaturate HSB(30,3,92) — heavily desaturated warm, retires the saturated oatmeal. Was #E3DFD8."
       },
       "200": {
         "$type": "color",
-        "$value": "#D9D5CE",
-        "$description": "Set-in component surface · anchor from HTML --surface. Cards, frames, raised tiles."
+        "$value": "#D9D6D2",
+        "$description": "Set-in component surface · cards, frames, raised tiles. scds-v2 desaturate HSB(30,3,85). Was #D9D5CE."
       },
       "250": {
         "$type": "color",
-        "$value": "#D5D1CA",
-        "$description": "Default hairline rule · anchor from HTML --hairline. 1px solid divisions."
+        "$value": "#D5D2CF",
+        "$description": "Default hairline rule · 1px solid divisions (light). scds-v2 desaturate HSB(30,3,84). Was #D5D1CA."
       },
       "300": {
         "$type": "color",
-        "$value": "#CDC9C2",
-        "$description": "Sunk surface · anchor from HTML --surface-deep. Form inputs, card hover, nested states."
+        "$value": "#CDCAC7",
+        "$description": "Sunk surface · form inputs, card hover, nested states. scds-v2 desaturate HSB(30,3,80). Was #CDC9C2."
       },
       "350": {
         "$type": "color",
-        "$value": "#C5C0B8",
-        "$description": "Subtle hairline · anchor from HTML --hairline-2. Dashed inner divisions."
+        "$value": "#C5C2BF",
+        "$description": "Subtle hairline · dashed inner divisions. scds-v2 desaturate HSB(30,3,77). Was #C5C0B8."
       },
       "400": {
         "$type": "color",
         "$value": "#9A9388",
-        "$description": "Faint warm gray · anchor from HTML --ink-faint. Disabled text and decorative marks (fails AA by spec)."
+        "$description": "Faint warm gray · disabled text and decorative marks (fails AA by spec). Text-tier — kept warm per scds-v2 (surfaces desaturate, ink/text stay warm)."
+      },
+      "450": {
+        "$type": "color",
+        "$value": "#6B665E",
+        "$description": "Tertiary text · light. scds-v2 addition — AA on page/raised/floating (4.63/5.06/5.42:1); restricted off sunk/deepSunk like text.secondary. Mirrors the dark tertiary tier (dark.textTertiary). Text-tier, kept warm."
       },
       "500": {
         "$type": "color",
         "$value": "#5F5C55",
-        "$description": "Muted warm gray · anchor from HTML --ink-muted. Secondary copy, metadata, eyebrows."
+        "$description": "Muted warm gray · secondary copy, metadata. Text-tier — kept warm per scds-v2."
       },
       "600": {
         "$type": "color",
@@ -79,7 +84,7 @@
       "900": {
         "$type": "color",
         "$value": "#0D0C0B",
-        "$description": "Bar deep · anchor from HTML --bg-deep. Dark surface, colophon, future dark mode ground."
+        "$description": "Bar deep · light-mode deep bar / colophon. NOTE: no longer the dark-mode ground — scds-v2 retired the warm dark theme; dark grounds now live under color.dark.* (true neutral)."
       }
     },
     "shu": {
@@ -185,40 +190,76 @@
       }
     },
     "dark": {
+      "$description": "Dark-mode ground ladder · scds-v2 TRUE NEUTRAL (equal RGB on the ladder steps). Retires the warm-brown dark theme that matched slop-blocklist 'warm neutral ground + vermilion'. Elevation model (Phase 2): component sinks BELOW page (well), hover rises to page level. ⚠ Gate-2 on-device check: pure-neutral near-blacks drift on wide-gamut Chrome (p3-near-black-drift-chrome) — verify on a P3 display; if they cast, apply a +1 red whisper at the darkest steps. well already carries a faint warm whisper (#080807).",
+      "well": {
+        "$type": "color",
+        "$value": "#080807",
+        "$description": "Deepest component well · resting component ground in dark (component sinks below page). Faint +1 warm whisper baked at the floor."
+      },
+      "floor": {
+        "$type": "color",
+        "$value": "#0A0A0A",
+        "$description": "Floor · one step above the well. Rail / deepest nested fill above the component well. True neutral."
+      },
       "surfacePage": {
         "$type": "color",
-        "$value": "#0D0C0B",
-        "$description": "Dark-mode page ground · from site --ground. Same value as warmGray.900 but role-named for dark-surface clarity."
+        "$value": "#0F0F0F",
+        "$description": "Page ground · dark. True neutral. Component hover rises to this level (reads flush with page on hover)."
       },
-      "surfaceSunk": {
+      "raised1": {
         "$type": "color",
-        "$value": "#181512",
-        "$description": "Dark-mode set-in surface · from site --tile-filled. Cards in dark mode (visually LIGHTER than page; role inverts perceptually)."
+        "$value": "#141414",
+        "$description": "Raised step 1 · lifts above page (cards/raised that read elevated in dark via lighter fill). True neutral."
       },
-      "surfaceDeepSunk": {
+      "raised2": {
         "$type": "color",
-        "$value": "#221F1B",
-        "$description": "Dark-mode deeper surface · derived. Nested states in dark mode."
+        "$value": "#1A1A1A",
+        "$description": "Raised step 2 · floating / popover ground in dark. True neutral."
+      },
+      "raised3": {
+        "$type": "color",
+        "$value": "#212121",
+        "$description": "Raised step 3 · highest interactive fills. True neutral."
+      },
+      "raised4": {
+        "$type": "color",
+        "$value": "#2A2A2A",
+        "$description": "Raised step 4 · default divider-grade fill / strong-ish separators. True neutral."
+      },
+      "raised5": {
+        "$type": "color",
+        "$value": "#333333",
+        "$description": "Raised step 5 · strongest neutral fill before text tiers. True neutral."
       },
       "border": {
         "$type": "color",
-        "$value": "#201E1A",
-        "$description": "Dark-mode hairline · from site --border."
+        "$value": "#2A2A2A",
+        "$description": "Dark-mode default border / structural separator. Neutral (was warm #201E1A). Content separators now prefer the divider scale (color.divider.*)."
       },
       "borderSubtle": {
         "$type": "color",
-        "$value": "#2F2B26",
-        "$description": "Dark-mode subtle hairline · derived."
+        "$value": "#1A1A1A",
+        "$description": "Dark-mode subtle border · closer to page than default = less visible. Neutral (was warm #2F2B26)."
       },
       "textPrimary": {
         "$type": "color",
-        "$value": "#E2DDD6",
-        "$description": "Dark-mode primary text · from site --text-primary."
+        "$value": "#F5F5F5",
+        "$description": "Dark-mode primary text · 17–18:1 on page/well. scds-v2 (was warm #E2DDD6)."
+      },
+      "textSecondary": {
+        "$type": "color",
+        "$value": "#B9B9B7",
+        "$description": "Dark-mode secondary text · 8.9–10.2:1 on dark grounds (AAA). scds-v2 addition (dark secondary previously aliased warmGray.400)."
+      },
+      "textTertiary": {
+        "$type": "color",
+        "$value": "#7C7C7A",
+        "$description": "Dark-mode tertiary text · AA on page/well (4.58/4.79:1); restricted off the lighter raised surfaces (4.40:1 on raised1 < AA). scds-v2 addition."
       },
       "textDisabled": {
         "$type": "color",
-        "$value": "#6B655C",
-        "$description": "Dark-mode disabled text · derived (fails AA by spec)."
+        "$value": "#565654",
+        "$description": "Dark-mode disabled text · derived (fails AA by spec). scds-v2 (was warm #6B655C)."
       }
     },
     "utility": {
@@ -232,6 +273,29 @@
         "$value": "#000000",
         "$description": "Pure black · utility primitive. Reserved for special shadow alpha bases."
       }
+    },
+    "whiteRgb": {
+      "$type": "color",
+      "$value": "255 255 255",
+      "$description": "Channel triplet (sRGB, space-separated) for rgb()/rgba() alpha composition — channel-triplet-rgba-tokens. Pairs with utility.white. Consumed by the dark divider scale: rgb(var(--sc-p-color-white-rgb) / <alpha>). Emitted verbatim by the build (color passthrough)."
+    },
+    "inkRgb": {
+      "$type": "color",
+      "$value": "26 24 21",
+      "$description": "Channel triplet (sRGB) of warmGray.800 ink (#1A1815) for rgb()/rgba() composition. Consumed by the light divider scale: rgb(var(--sc-p-color-ink-rgb) / <alpha>)."
+    },
+    "focusRing": {
+      "$description": "Dedicated focus-ring color · OFF the brand (shu) band and off every status hue — focus-ring-token. Cool-neutral, AA+++ on every ground its mode touches. Replaces routing :focus through shu.",
+      "light": {
+        "$type": "color",
+        "$value": "#1F2024",
+        "$description": "Focus ring · light mode. Cool near-ink. 11–15:1 on every light ground (page 13.24, raised 14.45, floating 15.49, sunk 11.24)."
+      },
+      "dark": {
+        "$type": "color",
+        "$value": "#E8E8EA",
+        "$description": "Focus ring · dark mode. Cool near-white. 14–16:1 on every dark ground (page 15.67, well 16.37, raised 15.06, floating 14.22)."
+      }
     }
   },
   "font": {
@@ -239,12 +303,22 @@
       "sans": {
         "$type": "fontFamily",
         "$value": ["Neue Haas Grotesk Display Pro", "Neue Haas Grotesk Text Pro", "Helvetica Neue", "Inter", "system-ui", "sans-serif"],
-        "$description": "Primary sans serif · display + body. Self-hosted woff2 from /fonts/; falls back to Helvetica Neue → Inter when NHG not loaded."
+        "$description": "Legacy combined sans stack · kept for back-compat. scds-v2 splits this into family.display (headings) + family.text (body/chrome); new surfaces should reach for those. Self-hosted woff2 from /fonts/."
+      },
+      "display": {
+        "$type": "fontFamily",
+        "$value": ["Neue Haas Grotesk Display Pro", "Helvetica Neue", "Inter", "system-ui", "sans-serif"],
+        "$description": "Display cut · headings + section/subheads. scds-v2 extends Display below the hero (section + card titles). Self-hosted weights 250/300/400/500/700/900; the 95 Black (900) carries the headline register (retires thin headers)."
+      },
+      "text": {
+        "$type": "fontFamily",
+        "$value": ["Neue Haas Grotesk Text Pro", "Helvetica Neue", "Inter", "system-ui", "sans-serif"],
+        "$description": "Text cut · body + chrome labels. NHG Text Pro 400/500/700 self-hosted. Body stays Text Regular (400) per scds-v2; chrome labels use Text Medium (500), no longer mono."
       },
       "mono": {
         "$type": "fontFamily",
         "$value": ["Cascadia Mono", "Cascadia Code", "ui-monospace", "SF Mono", "Menlo", "monospace"],
-        "$description": "Monospace · chrome + code. Eyebrows, badges, buttons, timestamps, code surfaces. Loaded from Google Fonts CDN. Selected over Geist/JetBrains/Plex — see decisions/decisions.md 2026-05-26."
+        "$description": "Monospace · scds-v2 reduced to ~10% of surfaces: hex values, token names, code ONLY. Dropped from chrome labels (eyebrows/badges/buttons → family.text). Loaded from Google Fonts CDN. Selected over Geist/JetBrains/Plex — see decisions/decisions.md 2026-05-26."
       }
     },
     "size": {
@@ -272,7 +346,9 @@
       "light":    { "$type": "fontWeight", "$value": 300, "$description": "Light · 300. Display weight for premise statements and large headlines." },
       "regular":  { "$type": "fontWeight", "$value": 400, "$description": "Regular · 400. Body copy default." },
       "medium":   { "$type": "fontWeight", "$value": 500, "$description": "Medium · 500. UI labels, button text, section titles, eyebrows." },
-      "semibold": { "$type": "fontWeight", "$value": 600, "$description": "Semibold · 600. Mono chrome labels (font.text.mono.11) and the secondary-button hover bump. Restriction widened 2026-05-28 to match Figma Color page mono/chrome — see decisions/decisions.md (brand-site-shell type pass)." }
+      "semibold": { "$type": "fontWeight", "$value": 600, "$description": "Semibold · 600. Mono token-reference labels (font.text.mono.11) and the secondary-button hover bump. Restriction widened 2026-05-28 to match Figma Color page mono/chrome — see decisions/decisions.md (brand-site-shell type pass)." },
+      "bold":     { "$type": "fontWeight", "$value": 700, "$description": "Bold · 700. NHG 75 Bold. scds-v2 subhead tier — card titles (font.text.24) join the Display register one step below section heads." },
+      "black":    { "$type": "fontWeight", "$value": 900, "$description": "Black · 900. NHG Display 95 Black. scds-v2 headline + section register (thin→Black, retires thin headers). @font-face added in src/styles/fonts.css." }
     },
     "lineHeight": {
       "flat":    { "$type": "number", "$value": 1.0,  "$description": "Flat · 1.0. Display specimens at 120px, vertical alignment." },
@@ -297,7 +373,7 @@
       "11": {
         "$type": "typography",
         "$value": {
-          "fontFamily": "{font.family.sans}",
+          "fontFamily": "{font.family.text}",
           "fontSize": "{font.size.11}",
           "fontWeight": "{font.weight.medium}",
           "lineHeight": "{font.lineHeight.base}",
@@ -308,7 +384,7 @@
       "12": {
         "$type": "typography",
         "$value": {
-          "fontFamily": "{font.family.sans}",
+          "fontFamily": "{font.family.text}",
           "fontSize": "{font.size.12}",
           "fontWeight": "{font.weight.medium}",
           "lineHeight": "{font.lineHeight.base}",
@@ -319,7 +395,7 @@
       "13": {
         "$type": "typography",
         "$value": {
-          "fontFamily": "{font.family.sans}",
+          "fontFamily": "{font.family.text}",
           "fontSize": "{font.size.13}",
           "fontWeight": "{font.weight.regular}",
           "lineHeight": "{font.lineHeight.relaxed}",
@@ -330,7 +406,7 @@
       "14": {
         "$type": "typography",
         "$value": {
-          "fontFamily": "{font.family.sans}",
+          "fontFamily": "{font.family.text}",
           "fontSize": "{font.size.14}",
           "fontWeight": "{font.weight.regular}",
           "lineHeight": "{font.lineHeight.base}",
@@ -341,7 +417,7 @@
       "16": {
         "$type": "typography",
         "$value": {
-          "fontFamily": "{font.family.sans}",
+          "fontFamily": "{font.family.text}",
           "fontSize": "{font.size.16}",
           "fontWeight": "{font.weight.regular}",
           "lineHeight": "{font.lineHeight.base}",
@@ -352,7 +428,7 @@
       "20": {
         "$type": "typography",
         "$value": {
-          "fontFamily": "{font.family.sans}",
+          "fontFamily": "{font.family.text}",
           "fontSize": "{font.size.20}",
           "fontWeight": "{font.weight.regular}",
           "lineHeight": "{font.lineHeight.relaxed}",
@@ -363,9 +439,9 @@
       "24": {
         "$type": "typography",
         "$value": {
-          "fontFamily": "{font.family.sans}",
+          "fontFamily": "{font.family.display}",
           "fontSize": "{font.size.24}",
-          "fontWeight": "{font.weight.medium}",
+          "fontWeight": "{font.weight.bold}",
           "lineHeight": "{font.lineHeight.snug}",
           "letterSpacing": "{font.tracking.snug}"
         },
@@ -374,9 +450,9 @@
       "32": {
         "$type": "typography",
         "$value": {
-          "fontFamily": "{font.family.sans}",
+          "fontFamily": "{font.family.display}",
           "fontSize": "{font.size.32}",
-          "fontWeight": "{font.weight.medium}",
+          "fontWeight": "{font.weight.black}",
           "lineHeight": "{font.lineHeight.snug}",
           "letterSpacing": "{font.tracking.tight}"
         },
@@ -385,9 +461,9 @@
       "44": {
         "$type": "typography",
         "$value": {
-          "fontFamily": "{font.family.sans}",
+          "fontFamily": "{font.family.display}",
           "fontSize": "{font.size.44}",
-          "fontWeight": "{font.weight.thin}",
+          "fontWeight": "{font.weight.black}",
           "lineHeight": "{font.lineHeight.tight}",
           "letterSpacing": "{font.tracking.normal}"
         },
@@ -396,9 +472,9 @@
       "60": {
         "$type": "typography",
         "$value": {
-          "fontFamily": "{font.family.sans}",
+          "fontFamily": "{font.family.display}",
           "fontSize": "{font.size.60}",
-          "fontWeight": "{font.weight.light}",
+          "fontWeight": "{font.weight.black}",
           "lineHeight": "{font.lineHeight.tight}",
           "letterSpacing": "{font.tracking.tighter}"
         },
@@ -407,9 +483,9 @@
       "84": {
         "$type": "typography",
         "$value": {
-          "fontFamily": "{font.family.sans}",
+          "fontFamily": "{font.family.display}",
           "fontSize": "{font.size.84}",
-          "fontWeight": "{font.weight.light}",
+          "fontWeight": "{font.weight.black}",
           "lineHeight": "{font.lineHeight.tight}",
           "letterSpacing": "{font.tracking.normal}"
         },
@@ -418,9 +494,9 @@
       "120": {
         "$type": "typography",
         "$value": {
-          "fontFamily": "{font.family.sans}",
+          "fontFamily": "{font.family.display}",
           "fontSize": "{font.size.120}",
-          "fontWeight": "{font.weight.light}",
+          "fontWeight": "{font.weight.black}",
           "lineHeight": "{font.lineHeight.flat}",
           "letterSpacing": "{font.tracking.normal}"
         },
@@ -490,7 +566,7 @@
           "18": {
             "$type": "typography",
             "$value": {
-              "fontFamily": "{font.family.sans}",
+              "fontFamily": "{font.family.text}",
               "fontSize": "{font.size.offscale.18}",
               "fontWeight": "{font.weight.regular}",
               "lineHeight": "{font.lineHeight.relaxed}",
@@ -501,7 +577,7 @@
           "22": {
             "$type": "typography",
             "$value": {
-              "fontFamily": "{font.family.sans}",
+              "fontFamily": "{font.family.text}",
               "fontSize": "{font.size.offscale.22}",
               "fontWeight": "{font.weight.regular}",
               "lineHeight": "{font.lineHeight.relaxed}",
@@ -514,9 +590,9 @@
           "200": {
             "$type": "typography",
             "$value": {
-              "fontFamily": "{font.family.sans}",
+              "fontFamily": "{font.family.display}",
               "fontSize": "{font.size.offscale.200}",
-              "fontWeight": "{font.weight.light}",
+              "fontWeight": "{font.weight.black}",
               "lineHeight": 0.9,
               "letterSpacing": "{font.tracking.tightest}"
             },

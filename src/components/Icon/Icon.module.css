@@ -1,0 +1,9 @@
+/* Icon — wrapper for token-sized Phosphor icons (scds-v2). Fill-only; no frame. */
+.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+  color: currentColor;
+  flex: none;
+}

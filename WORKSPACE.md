@@ -46,7 +46,7 @@ This file is a directive, not documentation. Read it. Follow it.
 - **Start date:** 2026-05-26
 - **Target launch:** TBD
 - **Production domain:** brand.shokunincrafthouse.com
-- **Current sprint: stages/03-build/brand-site-shell/CONTEXT.md
+- **Current sprint:** stages/02-design/scds-v2/CONTEXT.md
 
 ### Purpose
 

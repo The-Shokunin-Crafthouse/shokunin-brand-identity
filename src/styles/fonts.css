@@ -18,6 +18,7 @@
 @font-face { font-family: 'Neue Haas Grotesk Display Pro'; font-weight: 400; font-style: normal; font-display: swap; src: url('../fonts/NeueHaasGrotDisp-55Roman.woff2') format('woff2'); }
 @font-face { font-family: 'Neue Haas Grotesk Display Pro'; font-weight: 500; font-style: normal; font-display: swap; src: url('../fonts/NeueHaasGrotDisp-65Medium.woff2') format('woff2'); }
 @font-face { font-family: 'Neue Haas Grotesk Display Pro'; font-weight: 700; font-style: normal; font-display: swap; src: url('../fonts/NeueHaasGrotDisp-75Bold.woff2') format('woff2'); }
+@font-face { font-family: 'Neue Haas Grotesk Display Pro'; font-weight: 900; font-style: normal; font-display: swap; src: url('../fonts/NeueHaasGrotDisp-95Black.woff2') format('woff2'); }
 
 /* Neue Haas Grotesk Text Pro — body cut */
 @font-face { font-family: 'Neue Haas Grotesk Text Pro'; font-weight: 400; font-style: normal; font-display: swap; src: url('../fonts/NeueHaasGrotText-55Roman.woff2') format('woff2'); }
