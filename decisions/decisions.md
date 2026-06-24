@@ -508,6 +508,22 @@ primitive masters, or accept mapping to the portal kit) — until then the mappi
 parse-valid but not publish-ready, which the file headers and CODE-CONNECT.md call out
 explicitly so no one mistakes a placeholder URL for a live link.
 
+**Correction 2026-06-24 (supersedes the "Publishing is blocked on Figma-side work"
+framing above).** The original entry treated `figma connect publish` as merely
+deferred until the Figma masters exist and the real node URL is filled in — i.e. a
+manual step Levi could run any time. That was wrong for this account's plan. Publishing
+is **plan-gated**: `figma connect publish` needs a personal access token carrying the
+**`code_connect:write`** scope, and that scope is only offered on Figma
+**Organization / Enterprise** plans. This account is on **Professional**, where the
+scope does not appear in the token-creation UI (Figma → Settings → Security → Personal
+access tokens) — confirmed 2026-06-24. No usable token can be minted from this account,
+so publishing is blocked regardless of the Figma masters. The plan gate is therefore the
+**primary** blocker; the missing 1:1 Figma masters (original entry) are a secondary one.
+The setup (dep, `figma.config.json`, `Button.figma.tsx`, npm scripts) is complete and
+`npm run figma:parse` passes (EXIT 0); it is **parked and will publish unchanged** once
+the account is on a qualifying plan. Unblock recipe lives in
+`src/components/CODE-CONNECT.md` → "Publishing — BLOCKED (plan-gated)".
+
 ---
 
 <!-- ============================================================ -->
