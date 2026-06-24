@@ -8,7 +8,9 @@
     "dev": "npm run tokens:build && vite",
     "build": "npm run tokens:build && mkdir -p public && cp src/styles/tokens.css public/tokens.css && vite build",
     "preview-vite": "vite preview",
-    "preview": "node scripts/preview.mjs"
+    "preview": "node scripts/preview.mjs",
+    "figma:parse": "figma connect parse",
+    "figma:publish": "figma connect publish"
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.1.10",
@@ -16,6 +18,7 @@
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
+    "@figma/code-connect": "^1.4.8",
     "@playwright/test": "^1.60.0",
     "@vitejs/plugin-react": "^4.3.1",
     "playwright": "^1.60.0",

@@ -468,6 +468,48 @@ or a separate job so a dispatch failure can never again mask a healthy deploy.
 
 ---
 
+## 2026-06-24 — Figma Code Connect adopted for the SCDS component library
+
+**Stage:** 03-build
+**Type:** Stack / tech choice
+**Status:** accepted
+
+**Context.** This repo authors the shared design system and is upstream of every
+Shokunin-branded property. Designers in Figma Dev Mode had no link back to the real
+React snippet for a given component. Code Connect closes that loop. Setup needed:
+the dependency, a config, a token path that never enters git, one proof mapping, and
+a local validation that runs without a token.
+
+**Decision.** Adopt `@figma/code-connect` (the CLI flow — `figma.config.json` +
+co-located `<Component>.figma.tsx` + `figma connect parse|publish`). Installed as a
+**devDependency** (CLI-only tooling, never imported by app code; the site is a static
+Vite build so prod-vs-dep has no runtime effect, and dev is the correct classification).
+`parser: "react"`, `include: ["src/components/**/*.{jsx,tsx}"]` — the glob matches both
+the mapping files and the `.jsx` sources so Code Connect can resolve the source link.
+Token read from `FIGMA_ACCESS_TOKEN` (env only; `.env` gitignored, `.env.example`
+documents the scopes). Scripts: `figma:parse` (dry check), `figma:publish`.
+
+**Proof mapping is code-complete, Figma-side deferred.** `Button/Button.figma.tsx`
+wires the props 1:1 to `Button.jsx` (`figma.enum` variant · `figma.boolean` disabled/
+loading · `figma.string` label). The SCDS React primitives currently have **no 1:1
+published Figma masters** (verified 2026-06-24 via Figma MCP — `search_design_system`
+for "Button" in `ufNlysCwWz7y2FBk61DxbN` returns empty; the file holds doc/specimen +
+portal-kit `UI/*`/`Portal/*`/`Admin/*` components on different variant axes). So the
+mapping uses a **placeholder node-id (`0-1`)** and best-guess Figma property names.
+`figma connect parse` validates the code side without touching Figma and passes
+(EXIT 0); `figma connect publish` is deferred until the Figma Button master exists and
+its real node URL + property names are filled in. The other 12 components are tracked
+as TODO in `src/components/CODE-CONNECT.md` — authored one at a time against confirmed
+masters, never bulk-authored blind.
+
+**Consequences.** *Easier.* The design↔code bridge convention is established and lives
+next to the components. *Harder.* Publishing is blocked on Figma-side work (create the
+primitive masters, or accept mapping to the portal kit) — until then the mappings are
+parse-valid but not publish-ready, which the file headers and CODE-CONNECT.md call out
+explicitly so no one mistakes a placeholder URL for a live link.
+
+---
+
 <!-- ============================================================ -->
 <!-- SCDS v2 — design-system redesign · sprint scds-v2 · Phase 1   -->
 <!-- Six ADRs from one PR (tokens + type foundation). Trigger: a   -->
