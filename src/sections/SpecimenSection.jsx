@@ -74,7 +74,7 @@ export function SpecimenSection() {
             <div className={styles.row}>
               <Button variant="primary">Primary</Button>
               <Button variant="secondary">Secondary</Button>
-              <Button variant="ghost">Ghost</Button>
+              <Button variant="tertiary">Tertiary</Button>
               <Button variant="destructive">Delete</Button>
               <Button disabled>Disabled</Button>
               <Button loading>Saving</Button>

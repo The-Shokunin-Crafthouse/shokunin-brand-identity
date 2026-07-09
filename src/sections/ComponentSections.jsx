@@ -40,7 +40,7 @@ export function ButtonPage() {
       states={[
         { name: 'Primary', token: '--sc-color-brand-accent', render: <Button variant="primary">Start a project</Button> },
         { name: 'Secondary', token: '--sc-color-interactive-default', render: <Button variant="secondary">View work</Button> },
-        { name: 'Ghost', token: '--sc-color-interactive-default', render: <Button variant="ghost">Cancel</Button> },
+        { name: 'Tertiary', token: '--sc-color-brand-accent-deep', render: <Button variant="tertiary">Cancel</Button> },
         { name: 'Destructive', token: '--sc-color-status-error', render: <Button variant="destructive">Delete draft</Button> },
         { name: 'Disabled', token: '--sc-color-text-disabled', render: <Button disabled>Unavailable</Button> },
         { name: 'Loading', token: '--sc-motion-mode-duration', render: <Button loading>Saving</Button> },
