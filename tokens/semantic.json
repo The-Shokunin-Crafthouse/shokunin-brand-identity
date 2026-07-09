@@ -42,11 +42,11 @@
       "deepSunk": {
         "$type": "color",
         "$value": "{color.warmGray.300}",
-        "$description": "Deeper-step surface · nested states, form inputs, card hover. One step beyond surface.sunk in either mode.",
+        "$description": "Deeper-step surface · nested states, form inputs, card hover. Light: one step beyond surface.sunk (deeper, warmGray.300). Dark: scds-v2 Phase 2 model inverts this — deepSunk is lifted a step beyond surface.raised (raised2, lighter than page), not darker than sunk/well, so nested/hover states stay visually distinct from resting card ground. Fixed 2026-07-08 — was incorrectly aliased to dark.well (collapsed onto surface.sunk, no elevation change).",
         "$extensions": {
           "modes": {
             "light": "{color.warmGray.300}",
-            "dark":  "{color.dark.well}"
+            "dark":  "{color.dark.raised2}"
           }
         }
       },
