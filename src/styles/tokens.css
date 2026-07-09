@@ -443,7 +443,7 @@
   /* --- Semantic · dark mode overrides ------------------- */
   --sc-color-surface-page: var(--sc-p-color-dark-surface-page);
   --sc-color-surface-sunk: var(--sc-p-color-dark-well);
-  --sc-color-surface-deep-sunk: var(--sc-p-color-dark-well);
+  --sc-color-surface-deep-sunk: var(--sc-p-color-dark-raised2);
   --sc-color-surface-raised: var(--sc-p-color-dark-raised1);
   --sc-color-surface-floating: var(--sc-p-color-dark-raised2);
   --sc-color-surface-rail: var(--sc-p-color-dark-floor);

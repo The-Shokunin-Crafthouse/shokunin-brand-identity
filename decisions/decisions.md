@@ -647,6 +647,25 @@ the account is on a qualifying plan. Unblock recipe lives in
 - *Chromatic (blue) focus.* Conflates with `status.info` blue. Rejected.
 - *Reuse ink/near-white text color.* Not dedicated; reads as a heavy border, not a ring. Rejected — own primitive, cool cast distinguishes it.
 
+---
+
+## 2026-07-08 — Fix `surface.deepSunk` dark-mode collapse onto `surface.sunk`
+**Stage:** 03-build
+**Type:** Bug fix / token correction
+**Status:** accepted
+
+**Context.** Auditing the scds-v2 TRUE NEUTRAL repaint (2026-06-22) against a client-portal screenshot (New client / New project / Invite a client cards on pure-black page), `surface.deepSunk` dark mode was found aliased to `{color.dark.well}` — identical to `surface.sunk`'s dark value. Its own description calls for "one step beyond surface.sunk," which held in light mode (`warmGray.300` vs `warmGray.200`) but silently collapsed in dark mode during the repaint, leaving nested/hover states with zero visual separation from resting card ground.
+
+**Decision.** Repoint `color.surface.deepSunk` dark mode from `{color.dark.well}` to `{color.dark.raised2}` (`#1A1A1A`). Confirmed by owner: `deepSunk` should read lighter than `surface.page`, not darker — it belongs to the same lifted-above-page family as `surface.raised` (`raised1`, `#141414`), one step further up (`raised2`). This preserves the Phase 2 elevation model (`color.dark.*`: "component sinks BELOW page (well), hover rises to page level") while giving nested/hover states inside a card a distinct step from both the card ground and the `raised` state.
+
+**Rationale.** The ladder now reads, darkest to lightest: `well` (`#080807`, card/`sunk` resting) → `surfacePage` (`#0F0F0F`) → `raised1` (`#141414`, `raised`) → `raised2` (`#1A1A1A`, `deepSunk`). Every step distinct, page sits between resting-card and lifted states as intended.
+
+**Alternatives considered.**
+- *Point deepSunk to `floor` (`#0A0A0A`, darker than well).* Rejected — floor is darker, not lighter than page; contradicts the confirmed intent and would still collide visually with `well`/`sunk` at a glance.
+- *Leave deepSunk == sunk, treat as intentional simplification.* Rejected — description explicitly promises a distinct step; silent collapse is a token-drift bug, not a design call.
+
+Compiled to `tokens.css` (`scripts/tokens-to-css.mjs`); verify `--sc-color-surface-deep-sunk` resolves to `--sc-p-color-dark-raised2` in the `.dark` block.
+
 **Consequences.** *Easier.* Focus passes AA everywhere and is hue-distinct from brand + status. *Harder.* One more semantic→primitive pair; Phase 2 routes every `:focus-visible` through `--sc-color-border-focus` (with the existing 2px width + 2px offset). Figma mirror gains a focus variable.
 
 ---
