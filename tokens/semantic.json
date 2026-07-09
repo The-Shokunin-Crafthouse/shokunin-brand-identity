@@ -435,6 +435,19 @@
       "$extensions": { "modes": { "light": "{radius.none}", "dark": "{radius.none}" } }
     }
   },
+  "shadow": {
+    "control": {
+      "raised": {
+        "$type": "shadow",
+        "$description": "Button-only neumorphic raise · 4 layers (2 ink bottom-left, 2 white top-right) composed from the channel-triplet primitives. Semantic to controls — NOT a general elevation token; no other element carries a shadow. Added 2026-07-09 with the button redesign.",
+        "$value": "-4px 4px 8px rgb(var(--sc-p-color-ink-rgb) / 0.10), -2px 2px 4px rgb(var(--sc-p-color-ink-rgb) / 0.08), 4px -4px 8px rgb(var(--sc-p-color-white-rgb) / 0.90), 2px -2px 4px rgb(var(--sc-p-color-white-rgb) / 0.70)",
+        "$extensions": { "modes": {
+          "light": "-4px 4px 8px rgb(var(--sc-p-color-ink-rgb) / 0.10), -2px 2px 4px rgb(var(--sc-p-color-ink-rgb) / 0.08), 4px -4px 8px rgb(var(--sc-p-color-white-rgb) / 0.90), 2px -2px 4px rgb(var(--sc-p-color-white-rgb) / 0.70)",
+          "dark":  "-4px 4px 8px rgb(0 0 0 / 0.55), -2px 2px 4px rgb(0 0 0 / 0.45), 4px -4px 8px rgb(var(--sc-p-color-white-rgb) / 0.06), 2px -2px 4px rgb(var(--sc-p-color-white-rgb) / 0.04)"
+        } }
+      }
+    }
+  },
   "motion": {
     "hover": {
       "duration": {

@@ -109,6 +109,10 @@ function formatPrimitive(token) {
     }
     case 'duration':
       return formatDimension(v);
+    case 'shadow':
+      // box-shadow string (may be a multi-layer neumorphic composition
+      // using channel-triplet vars). Emitted verbatim.
+      return typeof v === 'string' ? v : null;
     case 'cubicBezier':
       return `cubic-bezier(${v.join(', ')})`;
     default:

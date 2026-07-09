@@ -307,6 +307,7 @@
   --sc-radius-surface: var(--sc-p-radius-default);
   --sc-radius-pill: var(--sc-p-radius-circle);
   --sc-radius-none: var(--sc-p-radius-none);
+  --sc-shadow-control-raised: -4px 4px 8px rgb(var(--sc-p-color-ink-rgb) / 0.10), -2px 2px 4px rgb(var(--sc-p-color-ink-rgb) / 0.08), 4px -4px 8px rgb(var(--sc-p-color-white-rgb) / 0.90), 2px -2px 4px rgb(var(--sc-p-color-white-rgb) / 0.70);
   --sc-motion-hover-duration: var(--sc-p-motion-duration-micro);
   --sc-motion-hover-easing: var(--sc-p-motion-easing-out);
   --sc-motion-press-duration: var(--sc-p-motion-duration-press);
@@ -481,6 +482,7 @@
   --sc-radius-surface: var(--sc-p-radius-default);
   --sc-radius-pill: var(--sc-p-radius-circle);
   --sc-radius-none: var(--sc-p-radius-none);
+  --sc-shadow-control-raised: -4px 4px 8px rgb(0 0 0 / 0.55), -2px 2px 4px rgb(0 0 0 / 0.45), 4px -4px 8px rgb(var(--sc-p-color-white-rgb) / 0.06), 2px -2px 4px rgb(var(--sc-p-color-white-rgb) / 0.04);
   --sc-motion-hover-duration: var(--sc-p-motion-duration-micro);
   --sc-motion-hover-easing: var(--sc-p-motion-easing-out);
   --sc-motion-press-duration: var(--sc-p-motion-duration-press);

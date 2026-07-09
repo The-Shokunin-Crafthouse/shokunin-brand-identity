@@ -1,22 +1,23 @@
 /* tokens:
- *   --sc-space-component-padding-inline-md  · inline
+ *   --sc-space-component-padding-inline-lg  · inline
  *   --sc-space-component-padding-block-md   · block
- *   --sc-space-component-gap-md             · label ↔ spinner gap
- *   --sc-radius-surface                     · corner
+ *   --sc-space-component-gap-md             · label ↔ arrow gap
+ *   --sc-radius-pill                        · pill corner
  *   --sc-border-width-default               · border
- *   --sc-border-width-focus                 · focus ring (via reset)
- *   --sc-font-text-label-chrome-*           · medium widest caps
- *   --sc-color-interactive-default          · ink in light / near-white in dark · secondary/ghost text + border
- *   --sc-color-interactive-hover            · shu hover
- *   --sc-color-interactive-active           · shu deep press
- *   --sc-color-brand-accent                 · primary fill
- *   --sc-color-brand-accent-deep            · primary press fill
+ *   --sc-color-border-focus / -focus-offset · focus ring
+ *   --sc-font-text-label-chrome-*           · NHG Text medium label
+ *   --sc-color-surface-raised               · primary resting fill (neutral)
+ *   --sc-shadow-control-raised              · primary neumorphic 4-shadow (button-only)
+ *   --sc-color-brand-accent-fill            · primary hover fill (teal.600, white AA 5.2)
+ *   --sc-color-brand-accent-deep            · primary press + tertiary resting text (teal.700, AA)
+ *   --sc-color-interactive-default          · secondary resting ink outline + label
+ *   --sc-color-interactive-hover            · teal hover (documented AA exception, transient)
+ *   --sc-color-interactive-active           · teal press
+ *   --sc-color-text-primary                 · primary resting label (ink)
+ *   --sc-color-text-on-accent               · white label on teal fill
+ *   --sc-color-text-disabled                · disabled label
  *   --sc-color-status-error                 · destructive fill
- *   --sc-color-text-on-accent               · white text on solid fills
- *   --sc-color-text-disabled                · disabled text
- *   --sc-color-surface-deep-sunk            · ghost hover ground
- *   --sc-motion-hover-duration / -easing
- *   --sc-motion-press-duration / -easing / -scale
+ *   --sc-motion-hover-* / -press-*          · transitions
  */
 
 .button {
@@ -24,19 +25,20 @@
   align-items: center;
   justify-content: center;
   gap: var(--sc-space-component-gap-md);
-  padding-inline: var(--sc-space-component-padding-inline-md);
+  padding-inline: var(--sc-space-component-padding-inline-lg);
   padding-block: var(--sc-space-component-padding-block-md);
-  border-radius: var(--sc-radius-surface);
+  border-radius: var(--sc-radius-pill);
   border-width: var(--sc-border-width-default);
   border-style: solid;
+  border-color: transparent;
   background-color: transparent;
   cursor: pointer;
   user-select: none;
-  text-transform: uppercase;
   transition:
     background-color var(--sc-motion-hover-duration) var(--sc-motion-hover-easing),
     border-color var(--sc-motion-hover-duration) var(--sc-motion-hover-easing),
     color var(--sc-motion-hover-duration) var(--sc-motion-hover-easing),
+    box-shadow var(--sc-motion-hover-duration) var(--sc-motion-hover-easing),
     transform var(--sc-motion-press-duration) var(--sc-motion-press-easing);
 }
 
@@ -48,89 +50,100 @@
   letter-spacing: var(--sc-font-text-label-chrome-letter-spacing);
 }
 
-/* --- Variants ----------------------------------------------------- */
+/* Trailing arrow — sits a touch larger than the label, inherits colour. */
+.arrow {
+  flex: none;
+  width: 1.4em;
+  height: 1.4em;
+}
 
+/* --- Focus · cross-variant (styled ring, never the UA default) ---- */
+.button:focus-visible {
+  outline: var(--sc-border-width-focus) solid var(--sc-color-border-focus);
+  outline-offset: var(--sc-border-focus-offset);
+}
+
+/* --- Primary · rests neutral (neumorphic), turns teal on hover ----- */
 .primary {
-  background-color: var(--sc-color-brand-accent);
-  border-color: var(--sc-color-brand-accent);
-  color: var(--sc-color-text-on-accent);
+  background-color: var(--sc-color-surface-raised);
+  border-color: var(--sc-color-surface-raised);
+  color: var(--sc-color-text-primary);
+  box-shadow: var(--sc-shadow-control-raised);
 }
 .primary:hover:not(:disabled) {
-  background-color: var(--sc-color-brand-accent-deep);
-  border-color: var(--sc-color-brand-accent-deep);
+  background-color: var(--sc-color-brand-accent-fill);
+  border-color: var(--sc-color-brand-accent-fill);
+  color: var(--sc-color-text-on-accent);
 }
 .primary:active:not(:disabled) {
+  background-color: var(--sc-color-brand-accent-deep);
+  border-color: var(--sc-color-brand-accent-deep);
+  color: var(--sc-color-text-on-accent);
   transform: scale(var(--sc-motion-press-scale));
 }
 
+/* --- Secondary · ink outline → teal on hover/focus ---------------- */
 .secondary {
   border-color: var(--sc-color-interactive-default);
   color: var(--sc-color-interactive-default);
 }
-.secondary:hover:not(:disabled) {
+.secondary:hover:not(:disabled),
+.secondary:focus-visible:not(:disabled) {
   border-color: var(--sc-color-interactive-hover);
   color: var(--sc-color-interactive-hover);
 }
 .secondary:active:not(:disabled) {
-  transform: scale(var(--sc-motion-press-scale));
-  color: var(--sc-color-interactive-active);
   border-color: var(--sc-color-interactive-active);
+  color: var(--sc-color-interactive-active);
+  transform: scale(var(--sc-motion-press-scale));
 }
 
-.ghost {
+/* --- Tertiary · teal ghost (resting text = accentDeep for AA) ----- */
+.tertiary {
   border-color: transparent;
-  color: var(--sc-color-interactive-default);
+  color: var(--sc-color-brand-accent-deep);
 }
-.ghost:hover:not(:disabled) {
-  background-color: var(--sc-color-surface-deep-sunk);
+.tertiary:hover:not(:disabled) {
   color: var(--sc-color-interactive-hover);
 }
-.ghost:active:not(:disabled) {
+.tertiary:active:not(:disabled) {
+  color: var(--sc-color-interactive-active);
   transform: scale(var(--sc-motion-press-scale));
 }
 
+/* --- Destructive · error fill (not in the mock; kept for parity) --- */
 .destructive {
   background-color: var(--sc-color-status-error);
   border-color: var(--sc-color-status-error);
   color: var(--sc-color-text-on-accent);
-}
-.destructive:hover:not(:disabled) {
-  /* status-error is shu — deepen to brand-accent-deep on press for parity with primary. */
-  background-color: var(--sc-color-brand-accent-deep);
-  border-color: var(--sc-color-brand-accent-deep);
+  box-shadow: var(--sc-shadow-control-raised);
 }
 .destructive:active:not(:disabled) {
   transform: scale(var(--sc-motion-press-scale));
 }
 
 /* --- Disabled · cross-variant ------------------------------------- */
-
 .button:disabled {
   color: var(--sc-color-text-disabled);
   border-color: var(--sc-color-border-default);
   background-color: transparent;
+  box-shadow: none;
   cursor: not-allowed;
   transform: none;
 }
 
 /* --- Loading ------------------------------------------------------ */
-
-.loading .label {
-  opacity: 0.6;
-}
+.loading .label { opacity: 0.6; }
 
 .spinner {
-  width: var(--sc-space-component-gap-md);
-  height: var(--sc-space-component-gap-md);
+  flex: none;
+  width: 1.4em;
+  height: 1.4em;
   border-radius: var(--sc-radius-pill);
   border-width: var(--sc-border-width-default);
   border-style: solid;
   border-color: currentColor;
   border-top-color: transparent;
-  /* Spinner cycle uses --sc-motion-mode-duration (380ms) · the only
-     semantic motion duration in the "long enough to read as spin"
-     register. Faster than ideal (720ms would be the aesthetic match
-     but would require a new motion/continuous token group). */
   animation: spin var(--sc-motion-mode-duration) linear infinite;
 }
 
