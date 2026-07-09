@@ -7,7 +7,7 @@
  * library. The real exported SVGs are loaded from assets/logo; the
  * annotated grid is drawn from the mark-spec geometry (cols 48·104·160·216,
  * rows 49·105·161, absent cell col4/row2). The mark resolves to exactly
- * two values — ink and cream — and never to shu.
+ * two values — ink and cream — and never to the accent.
  */
 
 import { useState } from 'react';
@@ -63,7 +63,7 @@ const LOCKUPS = [
 const SIZES = [16, 24, 32, 48];
 
 const MISUSE = [
-  { kind: 'shu', title: 'Never shu', why: 'Shu is for interaction and the accent surface. Painting the mark itself vermilion confuses brand and signal.' },
+  { kind: 'accent', title: 'Never the accent', why: 'Teal is for interaction and the accent surface. Painting the mark itself teal confuses brand and signal.' },
   { kind: 'filled', title: 'Never complete the grid', why: 'The absent cell is the mark. Fill it and the S and C collapse into a generic 4×3 block.' },
   { kind: 'stretch', title: 'Never distort', why: 'The 56px inter-cell spacing is fixed. Stretching one axis breaks the grid the whole mark depends on.' },
   { kind: 'rotate', title: 'Never rotate', why: 'The mark sits square to the baseline. Off-axis reads as decoration, not a registration mark.' },
@@ -94,7 +94,7 @@ export function MarkSection() {
           <>The mark is a four-by-three grid of crosses with the middle row&rsquo;s right cell deliberately
           absent. That single absence is the studio&rsquo;s signature: read the grid one way and it traces an
           S, read it another and it frames a C. The mark resolves to two values, ink and cream, and never
-          to shu.</>
+          to the accent.</>
         }
       />
 
@@ -107,7 +107,7 @@ export function MarkSection() {
         annotations={[
           { title: 'The detail a trained eye catches', body: 'The missing top-right cell of the middle row. Fill it and both letters vanish — the S straightens, the C closes. The absence is load-bearing.' },
           { title: 'Grid logic', body: '56px between cell centres, down from the rough’s 64px. The 12.5% tightening is what makes eleven crosses cohere as one body rather than twelve marks with one missing.' },
-          { title: 'Why the mark is never shu', body: 'Shu marks intent — hover, focus, the accent surface. The mark is identity, not interaction. Sharing the hue would make the brand and the signal indistinguishable.' },
+          { title: 'Why the mark is never the accent', body: 'Teal marks intent — hover, focus, the accent surface. The mark is identity, not interaction. Sharing the hue would make the brand and the signal indistinguishable.' },
         ]}
       >
         <div className={styles.lockupHero}>
@@ -217,7 +217,7 @@ export function MarkSection() {
           {MISUSE.map((m) => (
             <div key={m.kind} className={styles.misuseCell}>
               <div className={`${styles.misuseStage} ${m.kind === 'contrast' ? styles.misuseDim : styles.plateLight}`}>
-                {m.kind === 'shu' && <MarkGrid mode="plain" fillVar="--sc-color-brand-accent" className={styles.misuseMark} />}
+                {m.kind === 'accent' && <MarkGrid mode="plain" fillVar="--sc-color-brand-accent" className={styles.misuseMark} />}
                 {m.kind === 'filled' && <MarkGrid mode="plain" filled fillVar="--sc-p-color-warm-gray-800" className={styles.misuseMark} />}
                 {m.kind === 'stretch' && <img src={iconLight} alt="" className={styles.misuseImg} style={{ transform: 'scaleX(1.7)' }} />}
                 {m.kind === 'rotate' && <img src={iconLight} alt="" className={styles.misuseImg} style={{ transform: 'rotate(14deg)' }} />}

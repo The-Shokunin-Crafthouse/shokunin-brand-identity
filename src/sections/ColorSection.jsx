@@ -2,7 +2,7 @@
  * ColorSection — Foundations · Color · fully built.
  *
  * Ports the Sandbox "Color — DL" page: metabar, hero, and five
- * chapters (warm-gray ladder, shu signal, status row, three-tier
+ * chapters (warm-gray ladder, teal signal, status row, three-tier
  * resolution, interactive contrast checker) with right-gutter
  * annotations.
  *
@@ -28,14 +28,14 @@ function withSlash(str) {
 }
 
 const WARM = ['25', '50', '100', '200', '250', '300', '350', '400', '500', '600', '700', '800', '900'];
-const SHU = ['50', '100', '200', '300', '400', '500', '600', '700', '800', '900'];
+const TEAL = ['50', '100', '200', '300', '400', '500', '600', '700', '800', '900'];
 const warmVar = (s) => `--sc-p-color-warm-gray-${s}`;
-const shuVar = (s) => `--sc-p-color-teal-${s}`;
+const tealVar = (s) => `--sc-p-color-teal-${s}`;
 
 const STATUS = [
   { key: 'success', label: 'Success', hue: 'Forest green / AA on ground 4.9 : 1', light: '--sc-p-color-status-success-light', dark: '--sc-p-color-status-success-dark' },
   { key: 'warning', label: 'Warning', hue: 'Burnt orange / hue ~20°', light: '--sc-p-color-status-warning-light', dark: '--sc-p-color-status-warning-dark' },
-  { key: 'error', label: 'Error', hue: 'Oxblood / deep / not shu', light: '--sc-p-color-status-error-light', dark: '--sc-p-color-status-error-dark' },
+  { key: 'error', label: 'Error', hue: 'Oxblood / deep / off-brand', light: '--sc-p-color-status-error-light', dark: '--sc-p-color-status-error-dark' },
   { key: 'info', label: 'Info', hue: 'Royal blue / AA on ground 7.5 : 1', light: '--sc-p-color-status-info-light', dark: '--sc-p-color-status-info-dark' },
 ];
 
@@ -112,7 +112,7 @@ export function ColorSection() {
 
   // Hex labels for every swatch token, recomputed on theme change.
   const allTokens = useMemo(
-    () => [...WARM.map(warmVar), ...SHU.map(shuVar), ...STATUS.flatMap((s) => [s.light, s.dark])],
+    () => [...WARM.map(warmVar), ...TEAL.map(tealVar), ...STATUS.flatMap((s) => [s.light, s.dark])],
     [],
   );
   const [hex, setHex] = useState({});
@@ -175,7 +175,7 @@ export function ColorSection() {
         <span className={styles.heroEyebrow}>Color<Slash />the room and the signal</span>
         <h1 id="color-title" className={styles.heroTitle}>Color <span className={styles.heroAccent}>earns</span> its place by <span className={styles.heroEm}>doing work.</span></h1>
         <p className={styles.lead}>
-          Two warm grays carry the room. One vermilion does the signaling. Status pulls its hue from
+          Two warm grays carry the room. One teal does the signaling. Status pulls its hue from
           outside the brand band so the brand and the danger can never be confused. Every value below
           was placed to solve a specific problem.
         </p>
@@ -230,36 +230,36 @@ export function ColorSection() {
       {/* ii · THE SIGNAL */}
       <section className={styles.chapter}>
         <div className={styles.chapterHead}>
-          <div className={styles.chapterEyebrow}><span className={styles.ord}>ii</span><span className={styles.dot} /><span>The signal<Slash />朱 shu</span></div>
-          <h2 className={styles.chapterTitle}>One vermilion. Three jobs. Nothing else.</h2>
-          <p className={styles.premise}>Shu marks the cursor&rsquo;s intent — hover, focus, the studio mark&rsquo;s accent surface. If you catch it doing decorative work on a page, the page is wrong.</p>
+          <div className={styles.chapterEyebrow}><span className={styles.ord}>ii</span><span className={styles.dot} /><span>The signal<Slash />teal</span></div>
+          <h2 className={styles.chapterTitle}>One teal. Three jobs. Nothing else.</h2>
+          <p className={styles.premise}>Teal marks the cursor&rsquo;s intent — hover, focus, the studio mark&rsquo;s accent surface. If you catch it doing decorative work on a page, the page is wrong.</p>
         </div>
         <div className={styles.chapterBody}>
           <div className={styles.shuBlock}>
-            <button type="button" className={styles.shuPlate} style={{ background: 'var(--sc-p-color-teal-500)' }} onClick={() => load('--sc-p-color-teal-500')} aria-label="Load shu 500 into checker">
-              <span className={styles.plateHead}>朱<Slash />shu<Slash />vermilion</span>
+            <button type="button" className={styles.shuPlate} style={{ background: 'var(--sc-p-color-teal-500)' }} onClick={() => load('--sc-p-color-teal-500')} aria-label="Load teal 500 into checker">
+              <span className={styles.plateHead}>teal<Slash />the accent</span>
               <span className={styles.plateGlyph}>500</span>
               <span className={styles.plateFoot}><b>{hex['--sc-p-color-teal-500'] || ''}</b><Slash />sc-color-brand-accent<span>load →</span></span>
             </button>
             <div className={styles.shuRail}>
-              {SHU.map((s) => (
-                <button key={s} type="button" className={`${styles.shuStep} ${isSel(shuVar(s)) ? styles.shuStepSel : ''}`} style={{ background: `var(${shuVar(s)})` }} onClick={() => load(shuVar(s))}>
-                  <span className={styles.shuName}>shu.{s}</span>
-                  <span className={styles.shuHex}>{hex[shuVar(s)] || ''}</span>
+              {TEAL.map((s) => (
+                <button key={s} type="button" className={`${styles.shuStep} ${isSel(tealVar(s)) ? styles.shuStepSel : ''}`} style={{ background: `var(${tealVar(s)})` }} onClick={() => load(tealVar(s))}>
+                  <span className={styles.shuName}>teal.{s}</span>
+                  <span className={styles.shuHex}>{hex[tealVar(s)] || ''}</span>
                 </button>
               ))}
             </div>
           </div>
           <div className={styles.threeJobs}>
-            <div className={styles.job}><div className={styles.jobLabel}>Job 01<Slash />hover</div><div className={styles.jobDemo}><a className={styles.demoHover} href="#color" onClick={(e) => e.preventDefault()}>Pass your cursor here.</a></div><div className={styles.jobCaption}>--sc-color-interactive-hover → shu.500</div></div>
-            <div className={styles.job}><div className={styles.jobLabel}>Job 02<Slash />focus</div><div className={styles.jobDemo}><input className={styles.demoFocus} defaultValue="Tab to here" aria-label="Focus demo" /></div><div className={styles.jobCaption}>--sc-color-border-focus → shu.500</div></div>
+            <div className={styles.job}><div className={styles.jobLabel}>Job 01<Slash />hover</div><div className={styles.jobDemo}><a className={styles.demoHover} href="#color" onClick={(e) => e.preventDefault()}>Pass your cursor here.</a></div><div className={styles.jobCaption}>--sc-color-interactive-hover → teal.500</div></div>
+            <div className={styles.job}><div className={styles.jobLabel}>Job 02<Slash />focus</div><div className={styles.jobDemo}><input className={styles.demoFocus} defaultValue="Tab to here" aria-label="Focus demo" /></div><div className={styles.jobCaption}>--sc-color-border-focus → teal.500</div></div>
             <div className={styles.job}><div className={styles.jobLabel}>Job 03<Slash />mark accent</div><div className={styles.jobDemo}><span className={styles.demoMark} aria-hidden="true" /></div><div className={styles.jobCaption}>studio mark<Slash />accent surface only</div></div>
           </div>
         </div>
         <aside className={styles.gutter}>
           <Annotation title="Used sparingly">Two intentional moments per page is the ceiling. Three is decoration.</Annotation>
-          <Annotation title="Not error">Shu is brand-vermilion. Error is a separate oxblood — see the row below.</Annotation>
-          <Annotation title="The mark itself">The studio mark never resolves to shu. Only the small accent cell carries it.</Annotation>
+          <Annotation title="Not error">Teal is the brand accent. Error is a separate oxblood — see the row below.</Annotation>
+          <Annotation title="The mark itself">The studio mark never resolves to the accent. Only the small accent cell carries it.</Annotation>
         </aside>
       </section>
 
@@ -267,7 +267,7 @@ export function ColorSection() {
       <section className={styles.chapter}>
         <div className={styles.chapterHead}>
           <div className={styles.chapterEyebrow}><span className={styles.ord}>iii</span><span className={styles.dot} /><span>Outside the band<Slash />status</span></div>
-          <h2 className={styles.chapterTitle}>Four independent hues. None of them shu.</h2>
+          <h2 className={styles.chapterTitle}>Four independent hues. None of them the accent.</h2>
           <p className={styles.premise}>Error is oxblood, not red. When a screen says danger, the brand and the warning cannot be mistaken for each other. Each status carries a light pair and a dark pair, both calibrated AA on the ground beneath them.</p>
         </div>
         <div className={styles.chapterBody}>
@@ -285,7 +285,7 @@ export function ColorSection() {
           </div>
         </div>
         <aside className={styles.gutter}>
-          <Annotation title="Why oxblood">Error must read as serious. Shu reads as bright. Share a hue band and the page lies twice — once about brand, once about danger.</Annotation>
+          <Annotation title="Why oxblood">Error must read as serious. The accent reads as brand. Share a hue band and the page lies twice — once about brand, once about danger.</Annotation>
           <Annotation title="Color is not the only carrier">Every status pairs a hue with a copy register and an alert stamp. Pull the color and the message still reads.</Annotation>
         </aside>
       </section>
@@ -384,7 +384,7 @@ export function ColorSection() {
           </div>
         </div>
         <aside className={styles.gutter}>
-          <Annotation title="Pick a swatch above">Click any color in the warm-gray ladder, shu rail, or status row to load it as foreground or background.</Annotation>
+          <Annotation title="Pick a swatch above">Click any color in the warm-gray ladder, teal rail, or status row to load it as foreground or background.</Annotation>
           <Annotation title="Last clicked wins">The first click loads foreground. The second loads background. Then it alternates.</Annotation>
           <Annotation title="Quick presets">The eight chips on each side are the most-used pairings. text-primary on surface-page is the page default.</Annotation>
         </aside>
