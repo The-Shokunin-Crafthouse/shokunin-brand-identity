@@ -62,7 +62,7 @@ const MONO = [
 
 const CODE_SPECIMEN = `// semantic.json — components read roles, never raw values
 const surface = "var(--sc-color-surface-raised)";
-const accent  = "var(--sc-color-brand-accent)"; // 朱 shu
+const accent  = "var(--sc-color-brand-accent)"; // teal accent
 function band(step = 16) {
   return \`var(--sc-p-font-text-\${step})\`;
 }`;
@@ -214,7 +214,7 @@ export function TypeSection() {
       {/* iii · SECONDARY FACE */}
       <Chapter
         ord="iii"
-        eyebrow="Secondary face / 朱 the apparatus"
+        eyebrow="Secondary face / the apparatus"
         title="Cascadia Mono. Chosen for what it does to the chrome, not the code."
         premise="The two faces are not equal partners. Sans is the voice; mono is the apparatus — eyebrows, badges, timestamps, token references, code. Cascadia was re-run against Geist, JetBrains, and IBM Plex in Sprint 2 and re-affirmed. The deciding question was answered by the rest of the system."
         annotations={[

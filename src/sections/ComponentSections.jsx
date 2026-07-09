@@ -69,7 +69,7 @@ export function ButtonPage() {
         { name: 'One primary per view', text: 'The filled button is the single most important action on a surface. Two primaries is no primary — demote one to secondary.' },
         { name: 'Ghost is tertiary only', text: 'No fill, no border. Use it where a bordered button would crowd the layout — toolbars, inline actions, a cancel beside a save. Never for the main action.' },
         { name: 'Loading suppresses the handler', text: 'The click handler is removed while loading, not just visually disabled. A double-submit cannot happen by construction.' },
-        { name: 'The accent is a hover state, never a resting one', text: 'Shu arrives on hover for secondary and deepens on press for primary. A button that rests shu would spend the brand signal on idle chrome.' },
+        { name: 'The accent is a hover state, never a resting one', text: 'Teal arrives on hover for secondary and deepens on press for primary. A button that rests teal would spend the brand signal on idle chrome.' },
       ]}
     />
   );
@@ -86,7 +86,7 @@ export function BadgePage() {
       statesTitle="Five variants, five meanings."
       callouts={[
         { title: 'Why outlined, not filled', body: 'A fill at this scale reads as a button — something to press. The outline reads as a label — something to read. The distinction is load-bearing in dense chrome.' },
-        { title: 'Brand and danger never share a hue', body: 'Default is shu (a brand-signal chip); error is oxblood. A badge marking studio content and a badge marking a failure can never be mistaken for each other.' },
+        { title: 'Brand and danger never share a hue', body: 'Default is teal (a brand-signal chip); error is oxblood. A badge marking studio content and a badge marking a failure can never be mistaken for each other.' },
         { title: 'Neutral decouples colour from border', body: 'Its text reads quieter than its border on purpose — “categorical, not stateful.” The one variant where colour and outline deliberately disagree.' },
       ]}
       states={[
@@ -112,7 +112,7 @@ export function BadgePage() {
       rulesTitle="Four rules for a chip that reads as a label."
       rules={[
         { name: 'Never fill a badge', text: 'The outline is the form. A filled badge reads as a tiny button and invites a press that does nothing.' },
-        { name: 'Default marks brand, not status', text: 'The shu default is for studio-specific content — a brand-signal chip. For state, reach for success / warning / error / neutral.' },
+        { name: 'Default marks brand, not status', text: 'The teal default is for studio-specific content — a brand-signal chip. For state, reach for success / warning / error / neutral.' },
         { name: 'Mono caps, always', text: 'Badges sit in the chrome register with eyebrows and timestamps. Setting one in the sans body face breaks the apparatus voice.' },
         { name: 'Colour is the message; copy stays short', text: 'One or two words. The hue does the categorising; the text only names the category.' },
       ]}
@@ -171,7 +171,7 @@ export function InputPage() {
       id="input" label="Input" tokensN={18}
       eyebrow={<>Input<Slash />the field that earns its frame</>}
       title={<>Empty is quiet. <Accent>Filled</Accent> earns a <Em>darker frame.</Em></>}
-      lead={<>The border tells the story: a resting field sits at the same weight as its card, focus turns the frame shu, and once content lands the frame strengthens to ink. The state is legible from the border alone, no colour wash required.</>}
+      lead={<>The border tells the story: a resting field sits at the same weight as its card, focus turns the frame teal, and once content lands the frame strengthens to ink. The state is legible from the border alone, no colour wash required.</>}
       statesTitle="Five states, read from the border."
       callouts={[
         { title: 'Why filled earns border-strong', body: 'An empty field sits at card weight. Once content lands the field has earned a stronger frame — ink in light, near-white in dark — asserting the active control without changing colour.' },
@@ -180,7 +180,7 @@ export function InputPage() {
       ]}
       states={[
         { name: 'Default', token: '--sc-color-border-default', render: <Input label="Email" placeholder="you@studio.com" /> },
-        { name: 'Focus', token: '--sc-color-border-focus', render: <Input label="Focus (tab in)" placeholder="The border turns shu" /> },
+        { name: 'Focus', token: '--sc-color-border-focus', render: <Input label="Focus (tab in)" placeholder="The border turns teal" /> },
         { name: 'Filled', token: '--sc-color-border-strong', render: <Input label="Filled" defaultValue="levi@levibahn.com" /> },
         { name: 'Error', token: '--sc-color-status-error', render: <Input label="Email" error="That isn’t an email yet." defaultValue="levi@" /> },
         { name: 'Disabled', token: '--sc-color-surface-sunk', render: <Input label="Disabled" disabled placeholder="Unavailable" /> },
@@ -226,7 +226,7 @@ export function AlertPage() {
       callouts={[
         { title: 'Why a left rule, not a tint', body: 'Full tinted alerts read as decoration in a monochrome-with-accent register. A 3px rule signals state at chrome weight; the ground stays sunk and unobtrusive.' },
         { title: 'Colour informs, accessibility announces', body: 'Warning and error are assertive live regions (role="alert"); info and success are polite (role="status"). The category is never carried by colour alone.' },
-        { title: 'Error is oxblood, not shu', body: 'The error rule pulls from status-error, deliberately off the brand vermilion band, so a danger banner and a brand surface can never be confused.' },
+        { title: 'Error is oxblood, not teal', body: 'The error rule pulls from status-error, deliberately off the brand teal band, so a danger banner and a brand surface can never be confused.' },
       ]}
       states={[
         { name: 'Info', token: '--sc-color-status-info', render: <Alert variant="info" title="Heads up">The brand site rebuilds on every push to main.</Alert> },
@@ -266,12 +266,12 @@ export function SwitchPage() {
     <ComponentPage
       id="switch" label="Switch" tokensN={19}
       eyebrow={<>Switch<Slash />geometry from tokens</>}
-      title={<>On is shu. <Em>The thumb travel is pure arithmetic.</Em></>}
+      title={<>On is teal. <Em>The thumb travel is pure arithmetic.</Em></>}
       lead={<>The switch is an immediate binary — it flips instantly and the brand accent fills the track when on. Every measurement, including the thumb’s resting inset and its travel distance, is derived by calc() from the size tokens, so the geometry survives any change to the scale.</>}
       statesTitle="Three states, no magic numbers."
       callouts={[
         { title: 'Thumb math, not thumb constants', body: 'Resting inset is (track-height − thumb) / 2; travel is track-width − thumb − inset. Move the size tokens and the thumb still sits centred with the same 2px ring.' },
-        { title: 'On means brand', body: 'The active track is brand-accent — the one place a control rests on shu, because an on-switch is a committed state, not an idle one.' },
+        { title: 'On means brand', body: 'The active track is brand-accent — the one place a control rests on teal, because an on-switch is a committed state, not an idle one.' },
         { title: 'What it refused', body: 'No size variants. A switch is a switch; scaling it invites it to stand in for a button. One size keeps the affordance unambiguous.' },
       ]}
       states={[
@@ -298,7 +298,7 @@ export function SwitchPage() {
       rulesTitle="Four rules for an honest binary."
       rules={[
         { name: 'Switch is immediate, not deferred', text: 'Flipping it applies the change now. If a setting needs a save step, it is a checkbox in a form, not a switch.' },
-        { name: 'On rests on the accent', text: 'The active track is shu — the deliberate exception to “the accent is never a resting state.” A committed toggle has earned the colour.' },
+        { name: 'On rests on the accent', text: 'The active track is teal — the deliberate exception to “the accent is never a resting state.” A committed toggle has earned the colour.' },
         { name: 'Disabled is visibly off the system', text: 'Disabled drops the track to sunk and the thumb edge to disabled ink. It reads as switched-off-and-locked, never as merely off.' },
         { name: 'Label every switch', text: 'A switch with no label is a state with no name. The label says what is being turned on, in the body register, beside the control.' },
       ]}
@@ -356,13 +356,13 @@ export function ProgressPage() {
     <ComponentPage
       id="progress" label="Progress" tokensN={17}
       eyebrow={<>Progress<Slash />three shapes, one fill</>}
-      title={<>Bar, ring, steps. <Accent>Shu</Accent> is always the <Em>fill.</Em></>}
+      title={<>Bar, ring, steps. <Accent>Teal</Accent> is always the <Em>fill.</Em></>}
       lead={<>Three indicators for three situations: a bar for a single continuous task, a ring for a compact or circular slot, steps for a discrete sequence. All three fill with the brand accent against a deep-sunk track, and the circular ring decouples its drawing from its size by maths, not magic.</>}
       statesTitle="Three variants, one fill colour."
       callouts={[
         { title: 'The ring decouples size from drawing', body: 'The SVG viewBox is a unitless 0–100; real size flows from the size token. Stroke width maps via calc(stroke / diameter * 100) so the ratio holds as either token moves.' },
         { title: 'Steps carry three sub-states', body: 'Done, current, and resting each pull their own ink and border from the semantic layer. The connector fills as each step completes.' },
-        { title: 'Accent fills, never frames', body: 'Shu is the progress itself; the track is always deep-sunk. Progress is the one place the accent measures quantity, not intent.' },
+        { title: 'Accent fills, never frames', body: 'Teal is the progress itself; the track is always deep-sunk. Progress is the one place the accent measures quantity, not intent.' },
       ]}
       states={[
         { name: 'Bar', token: '--sc-size-progress-bar-height', render: <div style={{ width: '100%' }}><ProgressIndicator variant="bar" value={0.62} label="62 percent" /></div> },
@@ -388,7 +388,7 @@ export function ProgressPage() {
       rulesTitle="Four rules for measuring with one colour."
       rules={[
         { name: 'Bar for one task, steps for a sequence', text: 'A continuous bar answers “how far”; numbered steps answer “which stage.” Using a bar for a multi-stage flow hides the stages the user needs to see.' },
-        { name: 'The accent measures, the track holds', text: 'Fill is always shu, track always deep-sunk. Recolouring the fill by status would make progress compete with the alert system.' },
+        { name: 'The accent measures, the track holds', text: 'Fill is always teal, track always deep-sunk. Recolouring the fill by status would make progress compete with the alert system.' },
         { name: 'Circular for compact slots only', text: 'The ring is for a dashboard tile or an inline badge. For a page-width task, the bar reads the distance far better.' },
         { name: 'Steps are zero-based and honest', text: 'Current is the index in progress; everything before it is done, everything after resting. A “done” step the user has not finished is a lie the component must not tell.' },
       ]}
@@ -484,8 +484,8 @@ export function NavBarPage() {
     <ComponentPage
       id="navbar" label="NavBar" tokensN={13} statesVariant="stack"
       eyebrow={<>NavBar<Slash />current is the only accent</>}
-      title={<>Links recede. <Accent>The current page</Accent> is the one that <Em>holds shu.</Em></>}
-      lead={<>The navigation floats on the page ground and stays out of the way: resting links sit in ink, hover turns shu, and the current page — driven entirely by aria-current — is the single link that holds the accent. The compact variant folds the same links into a toggle for narrow chrome.</>}
+      title={<>Links recede. <Accent>The current page</Accent> is the one that <Em>holds teal.</Em></>}
+      lead={<>The navigation floats on the page ground and stays out of the way: resting links sit in ink, hover turns teal, and the current page — driven entirely by aria-current — is the single link that holds the accent. The compact variant folds the same links into a toggle for narrow chrome.</>}
       statesTitle="Two layouts, one link model."
       callouts={[
         { title: 'aria-current drives the colour', body: 'The current link is coloured by the [aria-current="page"] selector, not a class. Accessibility and appearance come from the same source of truth.' },
@@ -513,7 +513,7 @@ export function NavBarPage() {
       rulesTitle="Four rules for navigation that stays out of the way."
       rules={[
         { name: 'One current, marked by aria-current', text: 'Exactly one link carries aria-current="page", and that link — and only that link — holds the accent. The colour follows the attribute, never a hand-set class.' },
-        { name: 'Resting links recede', text: 'Links sit in ink and turn shu only on hover. A nav where every link is coloured has no way to show where you are.' },
+        { name: 'Resting links recede', text: 'Links sit in ink and turn teal only on hover. A nav where every link is coloured has no way to show where you are.' },
         { name: 'Float, do not band', text: 'The bar matches the page ground with a hairline underneath. A tinted nav band belongs to a louder system than this one.' },
         { name: 'Compact keeps the model', text: 'The toggle reveals the same links in the same order. Narrow chrome changes the layout, never the information.' },
       ]}

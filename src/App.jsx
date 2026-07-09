@@ -35,7 +35,7 @@ function Slash() { return <span className={styles.slash}> / </span>; }
 
 // Per-character slot-machine layers for nav-link labels.
 // On link hover, every char's top layer slides up out of its overflow:hidden
-// container; an identical-but-shu-colored bottom layer slides up into view.
+// container; an identical-but-teal-colored bottom layer slides up into view.
 // Per-character transition-delay creates the slot stagger.
 function NavChars({ label }) {
   const chars = Array.from(label);
@@ -104,7 +104,7 @@ const NAV = [
 const CHAPTERS = {
   color: [
     { id: 'ramp', label: 'The room', sub: 'warm-gray ladder', count: 13 },
-    { id: 'shu', label: 'The signal', sub: '朱 shu', count: 10 },
+    { id: 'shu', label: 'The signal', sub: 'teal', count: 10 },
     { id: 'status', label: 'Outside the band', sub: 'status', count: 4 },
     { id: 'tiers', label: 'Resolution', sub: 'three tiers', count: 4 },
     { id: 'contrast', label: 'Contrast', sub: 'measurement', count: 4 },

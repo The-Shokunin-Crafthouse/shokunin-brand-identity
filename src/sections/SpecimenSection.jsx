@@ -166,7 +166,7 @@ export function SpecimenSection() {
         ord="iv"
         eyebrow="Navigation / moves you"
         title="NavBar, Tooltip."
-        premise="The components that orient. The bar floats on the page ground and marks the current page in shu; the tooltip raises an inverse layer on hover."
+        premise="The components that orient. The bar floats on the page ground and marks the current page in teal; the tooltip raises an inverse layer on hover."
         annotations={[{ title: 'Out of the way', body: 'Both recede until needed — the nav until you scan it, the tooltip until you hover.' }]}
       >
         <div className={styles.blocks}>
