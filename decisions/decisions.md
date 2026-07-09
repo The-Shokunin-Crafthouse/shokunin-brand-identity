@@ -693,3 +693,46 @@ surgical close; a major upgrade is revisitable as its own scoped task.
 **Verified.** `npm audit` → 0 vulnerabilities; `npm run tokens:build` → exit 0; `npm run build` →
 exit 0 (vite 6.4.3, full module transform, Phosphor present after the SCDS-v2 merge); `npm run
 dev` → serves the showcase HTTP 200 (`Shokunin Crafthouse · Component Primitives`).
+
+---
+
+## 2026-07-09 — Brand accent rebrand: retire vermilion `shu` → teal `#038E93`
+**Stage:** 02-design / 03-build
+**Type:** Brand direction (owner-directed)
+**Status:** accepted
+
+**Context.** Owner directed a brand-accent change from the vermilion `shu` scale to teal, anchored at `#038E93`, with the full red scale removed. Overrides the standing "vermilion + status hues untouched" constraint — an owner-authorized brand-direction call.
+
+**Decision.** Replace the entire `color.shu.*` primitive scale with `color.teal.*` (10 steps, `#038E93` = 500; 50–900 derived, monotonic, contrast-checked). Repoint semantics `brand.accent`→teal.500, `brand.accentDeep`→teal.700, `interactive.hover`→teal.500/400, `interactive.active`→teal.700/500. **Primitives named `teal`, semantics stay `brand.*`** (owner call). Add **`brand.accentFill`→teal.600** because white text on teal.500 fails AA (3.97:1); teal.600 passes (5.20:1) — 500 stays the mark/non-text color. `status/*` untouched (error stays oxblood, now doubly distinct from teal). Repo-first: authored in `tokens/primitives.json`+`semantic.json`, compiled to `tokens.css`, Figma library `Primitives` renamed shu→teal (aliases auto-followed). Merged PR #23.
+
+**AA.** accentDeep 700 on light 5.78:1 (beat shu's 5.3); accent 500 hover 3.23:1 (documented exception, underline mitigant, learning #67); dark interactive 400/500 on page 5.84/4.83:1.
+
+**Follow-up (Tier 2, open).** ~60 `shu`/`vermilion`/朱 references remain in reference-site *prose* (Color narrative, Mark rationale, component essays, nav labels) + CSS class names — a separate brand-voice copy pass, not done here.
+
+---
+
+## 2026-07-09 — Button redesign: pill + arrow, rest-neutral/hover-teal, neumorphic
+**Stage:** 03-build
+**Type:** Component design (owner-directed)
+**Status:** accepted
+
+**Context.** Owner supplied a button mock. Neither the brand `UI/Button` nor the portal `Button` master survives as-is — one canonical Button is built to the mock.
+
+**Decision.** Pill radius, trailing arrow, NHG Text medium label (no uppercase — owner chose NHG-per-spec over the mock's placeholder mono). Variants: **Primary** rests neutral (`surface-raised`) with a button-only neumorphic 4-shadow and turns teal on hover (`brand.accentFill` teal.600 + white, AA 5.20) → teal.700 press — *the accent is a hover state, never resting*. **Secondary** ink outline → teal on hover/focus. **Tertiary** (renamed from `ghost`) persistent teal ghost via `brand.accentDeep` (teal.700, AA 5.78). New **`shadow` token type** added to the compiler + button-scoped **`shadow.control.raised`** (4 layers composed from ink/white channel-triplets, mode-aware) — semantic to controls only; no other element carries a shadow. Merged PR #24.
+
+**Accepted as-is (owner):** primary rest fill is intentionally low-contrast on the warm ground (shadow carries it); 11px `label-chrome` label reads smaller than the mock.
+
+---
+
+## 2026-07-09 — SCDS library IA restructure + component sort (form-named)
+**Stage:** 03-build
+**Type:** Design-system architecture
+**Status:** accepted (in progress — residuals noted)
+
+**Context.** All three files' component masters were consolidated into the SCDS library file (`0zVoxaLJQkjHENYJlQk1VT`) on one `_Archive` page (167 masters). Owner directed: section-header pages, each section its own pages, one form-named page per component (a page may hold variant siblings), **name by form not function**.
+
+**Decision.** IA = labeled `— SECTION —` header pages (Figma dividers can't carry text labels — API forces dashes; labeled header pages are the workaround). Sections: **Foundations** (Principles/Color/Type/Space/Mark/Motion) · **Global** · **Brand Site** · **Agency Site** · **Client Portal** · **Archive**. Sorted 109 masters into form-named pages, dropping `UI/`/`Portal/`/`Admin/`/`Mobile/` prefixes; Mobile/*→Global `Device/*`; `MarkIcon-Shu`→`MarkIcon-Accent`. Dedup (owner delegated): brand-file masters canonical, portal-file duplicates retired. Screen assemblies not kept as masters (owner: rebuild as auto-layout frames of component instances — deferred). Type/* retired → text styles (deferred, desktop hand-edit, font-load blocked via MCP). Controls/Switch retired (UI/Toggle survives).
+
+**Method note.** Cross-file moves = human cut/paste (Plugin API can't move nodes between files). Intra-file page sort = scriptable via `appendChild`, but text-bearing masters intermittently throw an unloaded-font error on reparent (Haas Grot Text Trial won't load via MCP); per-master `try/catch` moves everything movable and isolates blocks. One block: `UI/Textarea` (→ manual drag to Global `Field`).
+
+**Residuals (open).** UI/Textarea manual move; screen-assembly rebuild as instance-frames; Type text styles (desktop); `MarkIcon-Accent` fill likely still raw vermilion (recolor to teal); dup page names `Row`/`Card` across Agency+Portal sections (accepted — sections disambiguate). Downstream still open: Figma Button master restyle to match code; library publish (Stage 3); consumer rebind (Stage 4); Code Connect re-point (Stage 5).
