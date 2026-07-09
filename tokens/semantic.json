@@ -155,7 +155,7 @@
       "onAccent": {
         "$type": "color",
         "$value": "{color.utility.white}",
-        "$description": "Text on shu/brand fills. Pure white reads strong against vermilion in both modes.",
+        "$description": "Text on brand/accent fills. Pure white reads strong on teal in both modes.",
         "$extensions": {
           "modes": {
             "light": "{color.utility.white}",
@@ -201,7 +201,7 @@
       "focus": {
         "$type": "color",
         "$value": "{color.focusRing.light}",
-        "$description": "Focus ring color · scds-v2 dedicated, OFF the brand (shu) band and off every status hue (focus-ring-token). Cool-neutral, AA+++ per mode (light 13.24:1 / dark 15.67:1 on page). Was routed through shu, which failed AA at 11px on some grounds.",
+        "$description": "Focus ring color · scds-v2 dedicated, OFF the brand (teal) band and off every status hue (focus-ring-token). Cool-neutral, AA+++ per mode (light 13.24:1 / dark 15.67:1 on page). Was routed through the old vermilion accent, which failed AA at 11px on some grounds.",
         "$extensions": {
           "modes": {
             "light": "{color.focusRing.light}",
@@ -254,23 +254,23 @@
       },
       "hover": {
         "$type": "color",
-        "$value": "{color.shu.500}",
-        "$description": "Hover state · primary button text/icon/border turn shu. Documented AA exception at 11px (3.8:1 on bg); brand-signal use justifies. Dark mode uses shu.400 for visibility.",
+        "$value": "{color.teal.500}",
+        "$description": "Hover state · primary button text/icon/border turn brand teal. Documented AA exception at 11px (3.23:1 on bg — widened from vermilion's 3.8:1 since teal is lighter; underline mitigant applies); brand-signal use justifies. Dark mode uses teal.400 for visibility.",
         "$extensions": {
           "modes": {
-            "light": "{color.shu.500}",
-            "dark":  "{color.shu.400}"
+            "light": "{color.teal.500}",
+            "dark":  "{color.teal.400}"
           }
         }
       },
       "active": {
         "$type": "color",
-        "$value": "{color.shu.700}",
+        "$value": "{color.teal.700}",
         "$description": "Pressed/active state · one step deeper than hover. Visual color slot exists; primary press is also a scale transform (motion.scale.pressButton 0.985).",
         "$extensions": {
           "modes": {
-            "light": "{color.shu.700}",
-            "dark":  "{color.shu.500}"
+            "light": "{color.teal.700}",
+            "dark":  "{color.teal.500}"
           }
         }
       }
@@ -301,7 +301,7 @@
       "error": {
         "$type": "color",
         "$value": "{color.status.error.light}",
-        "$description": "Error state · oxblood on light, lifted rose on dark. Pulled deliberately off the shu vermilion band so error and brand-accent can never be confused. Rebound 2026-05-28 from {color.shu.500} (ADR brand-site-shell).",
+        "$description": "Error state · oxblood on light, lifted rose on dark. Pulled deliberately off the brand band so error and brand-accent can never be confused. Originally rebound 2026-05-28 off the then-vermilion accent (ADR brand-site-shell); accent moved to teal 2026-07-09, error stays oxblood (now doubly distinct from teal).",
         "$extensions": {
           "modes": {
             "light": "{color.status.error.light}",
@@ -324,23 +324,34 @@
     "brand": {
       "accent": {
         "$type": "color",
-        "$value": "{color.shu.500}",
-        "$description": "Brand accent · vermilion shu kept consistent across modes for brand-mark continuity. Used for the mark, stamps, and signature surfaces — not body text.",
+        "$value": "{color.teal.500}",
+        "$description": "Brand accent · teal kept consistent across modes for brand-mark continuity. Used for the mark, stamps, and signature surfaces — not body text.",
         "$extensions": {
           "modes": {
-            "light": "{color.shu.500}",
-            "dark":  "{color.shu.500}"
+            "light": "{color.teal.500}",
+            "dark":  "{color.teal.500}"
           }
         }
       },
       "accentDeep": {
         "$type": "color",
-        "$value": "{color.shu.700}",
-        "$description": "Brand accent deep · pressed accent state and AA-passing accent text on light surfaces (5.3:1 on warmGray.100).",
+        "$value": "{color.teal.700}",
+        "$description": "Brand accent deep · pressed accent state and AA-passing accent text on light surfaces (5.78:1 on warmGray.100).",
         "$extensions": {
           "modes": {
-            "light": "{color.shu.700}",
-            "dark":  "{color.shu.700}"
+            "light": "{color.teal.700}",
+            "dark":  "{color.teal.700}"
+          }
+        }
+      },
+      "accentFill": {
+        "$type": "color",
+        "$value": "{color.teal.600}",
+        "$description": "Brand accent fill · the fill for accent surfaces that carry text (primary/accent buttons). teal.600 so white text passes AA (5.20:1). brand.accent (teal.500) fails white-text AA at 3.97:1 and stays for the mark and non-text uses. Added 2026-07-09 with the teal rebrand.",
+        "$extensions": {
+          "modes": {
+            "light": "{color.teal.600}",
+            "dark":  "{color.teal.600}"
           }
         }
       }

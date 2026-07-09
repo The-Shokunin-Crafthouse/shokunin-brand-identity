@@ -87,56 +87,56 @@
         "$description": "Bar deep · light-mode deep bar / colophon. NOTE: no longer the dark-mode ground — scds-v2 retired the warm dark theme; dark grounds now live under color.dark.* (true neutral)."
       }
     },
-    "shu": {
+    "teal": {
       "50": {
         "$type": "color",
-        "$value": "#FCEFEC",
-        "$description": "Lightest vermilion wash · derived. For soft accent backgrounds."
+        "$value": "#E7F4F5",
+        "$description": "Lightest teal wash · derived. For soft accent backgrounds."
       },
       "100": {
         "$type": "color",
-        "$value": "#F7D9D4",
-        "$description": "Pale vermilion · derived. Soft accent fills."
+        "$value": "#C4E7E8",
+        "$description": "Pale teal · derived. Soft accent fills."
       },
       "200": {
         "$type": "color",
-        "$value": "#F0B5AC",
-        "$description": "Light vermilion · derived. Accent surface tints."
+        "$value": "#8FD2D5",
+        "$description": "Light teal · derived. Accent surface tints."
       },
       "300": {
         "$type": "color",
-        "$value": "#E68B7F",
-        "$description": "Mid-light vermilion · derived. Used for dark-mode interactive states."
+        "$value": "#52B8BC",
+        "$description": "Mid-light teal · derived. Used for dark-mode interactive states."
       },
       "400": {
         "$type": "color",
-        "$value": "#DA5C4D",
-        "$description": "Mid vermilion · derived. Dark-mode hover/active accent color."
+        "$value": "#1C9DA2",
+        "$description": "Mid teal · derived. Dark-mode hover/active accent color (5.84:1 on dark.surfacePage)."
       },
       "500": {
         "$type": "color",
-        "$value": "#C8281C",
-        "$description": "Vermilion · 朱 · anchor from HTML --shu. The single chromatic accent. Brand-identity-only (live site uses brass)."
+        "$value": "#038E93",
+        "$description": "Teal · anchor (owner-specified brand color, 2026-07-09 rebrand). The single chromatic accent. Replaces the retired vermilion shu scale."
       },
       "600": {
         "$type": "color",
-        "$value": "#B22318",
-        "$description": "Mid-deep vermilion · derived between 500 and 700."
+        "$value": "#04797D",
+        "$description": "Mid-deep teal · derived. Text-bearing accent fill: white text passes AA at 5.20:1 (500 fails at 3.97, teal is lighter than the old vermilion). Routed via semantic brand.accentFill."
       },
       "700": {
         "$type": "color",
-        "$value": "#9E1F15",
-        "$description": "Deep vermilion · anchor from HTML --shu-deep. Pressed/active accent, AA-passing text on light surfaces."
+        "$value": "#056268",
+        "$description": "Deep teal · derived. Pressed/active accent; AA-passing accent text on light surfaces (5.78:1 on warmGray.100)."
       },
       "800": {
         "$type": "color",
-        "$value": "#771A11",
-        "$description": "Deeper vermilion · derived. Future high-contrast accent uses."
+        "$value": "#05484C",
+        "$description": "Deeper teal · derived. Future high-contrast accent uses."
       },
       "900": {
         "$type": "color",
-        "$value": "#4F100B",
-        "$description": "Darkest vermilion · derived. Reserved."
+        "$value": "#05282B",
+        "$description": "Darkest teal · derived. Reserved."
       }
     },
     "status": {
@@ -180,7 +180,7 @@
         "light": {
           "$type": "color",
           "$value": "#7F1D1D",
-          "$description": "Oxblood · error states on light ground · deep + serious, pulled deliberately off the shu vermilion band so brand-accent and danger can never be confused. Added 2026-05-28 (ADR brand-site-shell)."
+          "$description": "Oxblood · error states on light ground · deep + serious, pulled deliberately off the brand band so brand-accent and danger can never be confused. Added 2026-05-28 (ADR brand-site-shell)."
         },
         "dark": {
           "$type": "color",
@@ -285,7 +285,7 @@
       "$description": "Channel triplet (sRGB) of warmGray.800 ink (#1A1815) for rgb()/rgba() composition. Consumed by the light divider scale: rgb(var(--sc-p-color-ink-rgb) / <alpha>)."
     },
     "focusRing": {
-      "$description": "Dedicated focus-ring color · OFF the brand (shu) band and off every status hue — focus-ring-token. Cool-neutral, AA+++ on every ground its mode touches. Replaces routing :focus through shu.",
+      "$description": "Dedicated focus-ring color · OFF the brand (teal) band and off every status hue — focus-ring-token. Cool-neutral, AA+++ on every ground its mode touches. Replaces routing :focus through the old vermilion accent.",
       "light": {
         "$type": "color",
         "$value": "#1F2024",
@@ -338,7 +338,7 @@
         "$description": "OFFSCALE · sizes deliberately off the 1.25 modular ladder. Editorial one-offs used only on the brand-site Color page — NOT general-use. Added 2026-05-28 (ADR brand-site-shell type pass).",
         "18":  { "$type": "dimension", "$value": { "value": 18,  "unit": "px" }, "$description": "18px · OFFSCALE · Color-page chapter premise text." },
         "22":  { "$type": "dimension", "$value": { "value": 22,  "unit": "px" }, "$description": "22px · OFFSCALE · Color-page hero lead." },
-        "200": { "$type": "dimension", "$value": { "value": 200, "unit": "px" }, "$description": "200px · OFFSCALE · Color-page shu plate glyph." }
+        "200": { "$type": "dimension", "$value": { "value": 200, "unit": "px" }, "$description": "200px · OFFSCALE · Color-page accent plate glyph." }
       }
     },
     "weight": {
@@ -596,7 +596,7 @@
               "lineHeight": 0.9,
               "letterSpacing": "{font.tracking.tightest}"
             },
-            "$description": "OFFSCALE · 200px shu plate glyph on the Color page."
+            "$description": "OFFSCALE · 200px accent plate glyph on the Color page."
           }
         }
       }

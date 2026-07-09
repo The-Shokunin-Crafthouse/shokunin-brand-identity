@@ -30,7 +30,7 @@ function withSlash(str) {
 const WARM = ['25', '50', '100', '200', '250', '300', '350', '400', '500', '600', '700', '800', '900'];
 const SHU = ['50', '100', '200', '300', '400', '500', '600', '700', '800', '900'];
 const warmVar = (s) => `--sc-p-color-warm-gray-${s}`;
-const shuVar = (s) => `--sc-p-color-shu-${s}`;
+const shuVar = (s) => `--sc-p-color-teal-${s}`;
 
 const STATUS = [
   { key: 'success', label: 'Success', hue: 'Forest green / AA on ground 4.9 : 1', light: '--sc-p-color-status-success-light', dark: '--sc-p-color-status-success-dark' },
@@ -41,12 +41,12 @@ const STATUS = [
 
 const QUICK_FG = [
   '--sc-p-color-warm-gray-800', '--sc-p-color-warm-gray-500', '--sc-p-color-warm-gray-50',
-  '--sc-p-color-shu-500', '--sc-p-color-shu-700',
+  '--sc-p-color-teal-500', '--sc-p-color-teal-700',
   '--sc-p-color-status-error-light', '--sc-p-color-status-success-light', '--sc-p-color-status-info-light',
 ];
 const QUICK_BG = [
   '--sc-p-color-warm-gray-100', '--sc-p-color-warm-gray-50', '--sc-p-color-warm-gray-25', '--sc-p-color-warm-gray-200',
-  '--sc-p-color-warm-gray-900', '--sc-p-color-warm-gray-800', '--sc-p-color-shu-500', '--sc-p-color-shu-700',
+  '--sc-p-color-warm-gray-900', '--sc-p-color-warm-gray-800', '--sc-p-color-teal-500', '--sc-p-color-teal-700',
 ];
 
 // Human-readable semantic role for a primitive token var (display only).
@@ -60,8 +60,8 @@ const ROLE = {
   '--sc-p-color-warm-gray-500': 'text-secondary',
   '--sc-p-color-warm-gray-400': 'text-disabled',
   '--sc-p-color-warm-gray-250': 'border-default',
-  '--sc-p-color-shu-500': 'brand-accent / hover / focus',
-  '--sc-p-color-shu-700': 'brand-accent-deep / active',
+  '--sc-p-color-teal-500': 'brand-accent / hover / focus',
+  '--sc-p-color-teal-700': 'brand-accent-deep / active',
   '--sc-p-color-status-error-light': 'status-error',
   '--sc-p-color-status-success-light': 'status-success',
   '--sc-p-color-status-info-light': 'status-info',
@@ -236,10 +236,10 @@ export function ColorSection() {
         </div>
         <div className={styles.chapterBody}>
           <div className={styles.shuBlock}>
-            <button type="button" className={styles.shuPlate} style={{ background: 'var(--sc-p-color-shu-500)' }} onClick={() => load('--sc-p-color-shu-500')} aria-label="Load shu 500 into checker">
+            <button type="button" className={styles.shuPlate} style={{ background: 'var(--sc-p-color-teal-500)' }} onClick={() => load('--sc-p-color-teal-500')} aria-label="Load shu 500 into checker">
               <span className={styles.plateHead}>朱<Slash />shu<Slash />vermilion</span>
               <span className={styles.plateGlyph}>500</span>
-              <span className={styles.plateFoot}><b>{hex['--sc-p-color-shu-500'] || ''}</b><Slash />sc-color-brand-accent<span>load →</span></span>
+              <span className={styles.plateFoot}><b>{hex['--sc-p-color-teal-500'] || ''}</b><Slash />sc-color-brand-accent<span>load →</span></span>
             </button>
             <div className={styles.shuRail}>
               {SHU.map((s) => (
@@ -309,7 +309,7 @@ export function ColorSection() {
             {[
               { p: '--sc-p-color-warm-gray-100', s: '--sc-color-surface-page', c: 'body { background: … }' },
               { p: '--sc-p-color-warm-gray-800', s: '--sc-color-text-primary', c: 'h1, p { color: … }' },
-              { p: '--sc-p-color-shu-500', s: '--sc-color-interactive-hover', c: 'a:hover, .sc-button:hover' },
+              { p: '--sc-p-color-teal-500', s: '--sc-color-interactive-hover', c: 'a:hover, .sc-button:hover' },
               { p: '--sc-p-color-status-error-light', s: '--sc-color-status-error', c: '.sc-alert--error, .sc-badge--error' },
             ].map((row) => (
               <div key={row.s} className={styles.tierRow}>

@@ -195,7 +195,7 @@
   color: var(--sc-color-text-primary); font: var(--sc-font-text-body-dense);
 }
 .demoMark { width: var(--sc-p-space-64); height: var(--sc-p-space-48); background: var(--sc-color-text-primary); position: relative; }
-.demoMark::after { content: ""; position: absolute; right: 0; top: 0; width: var(--sc-p-space-16); height: var(--sc-p-space-16); background: var(--sc-p-color-shu-500); }
+.demoMark::after { content: ""; position: absolute; right: 0; top: 0; width: var(--sc-p-space-16); height: var(--sc-p-space-16); background: var(--sc-p-color-teal-500); }
 
 /* ── Status row ──────────────────────────────────────────── */
 .statusRow {
