@@ -4,7 +4,7 @@ Canonical Figma URLs for this project. Keep in sync with the files actually bein
 
 ## Primary files
 
-- **Design system / library:** https://www.figma.com/design/ufNlysCwWz7y2FBk61DxbN/The-Shokunin-Crafthouse-%E2%80%94-sc-site--Copy-?node-id=1-3&t=ShMjeBf6Ey2NEp81-1
+- **Design system / library:** https://www.figma.com/design/0zVoxaLJQkjHENYJlQk1VT/The-Shokunin-Crafthouse-%E2%80%94-sc-site--Copy-?node-id=1-3&t=ShMjeBf6Ey2NEp81-1
 - **Screens / flows:** [URL]
 - **Prototype:** [URL]
 

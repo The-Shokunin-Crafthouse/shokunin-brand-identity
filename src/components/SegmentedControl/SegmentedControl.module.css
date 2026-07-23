@@ -1,0 +1,103 @@
+/* tokens:
+ *   --sc-color-surface-sunk               · track ground
+ *   --sc-color-surface-floating           · selected segment fill (raised, fill-only — no border/shadow)
+ *   --sc-color-text-secondary             · unselected segment text
+ *   --sc-color-text-primary               · selected segment text ("ink")
+ *   --sc-color-text-disabled              · disabled segment text
+ *   --sc-color-border-focus               · focus ring
+ *   --sc-border-width-focus               · focus ring weight
+ *   --sc-border-focus-offset              · focus ring offset
+ *   --sc-radius-pill                      · track + indicator + segment radius
+ *   --sc-space-component-gap-sm           · inter-segment gap
+ *   --sc-space-component-padding-sm       · track inset (also the indicator's vertical inset)
+ *   --sc-space-component-padding-inline-md / -sm   · segment inline padding (md / sm size)
+ *   --sc-space-component-padding-block-md / -sm    · segment block padding (md / sm size)
+ *   --sc-font-text-body-dense-*           · segment label (md size)
+ *   --sc-font-text-label-ui-*             · segment label (sm size)
+ *   --sc-motion-reveal-duration / -easing · indicator slide
+ *   --sc-motion-hover-duration / -easing  · text color transition
+ */
+
+.track {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sc-space-component-gap-sm);
+  padding: var(--sc-space-component-padding-sm);
+  border-radius: var(--sc-radius-pill);
+  background-color: var(--sc-color-surface-sunk);
+}
+
+.indicator {
+  position: absolute;
+  top: var(--sc-space-component-padding-sm);
+  bottom: var(--sc-space-component-padding-sm);
+  left: 0;
+  border-radius: var(--sc-radius-pill);
+  background-color: var(--sc-color-surface-floating);
+  transition:
+    transform var(--sc-motion-reveal-duration) var(--sc-motion-reveal-easing),
+    width var(--sc-motion-reveal-duration) var(--sc-motion-reveal-easing);
+}
+
+.segment {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  border-radius: var(--sc-radius-pill);
+  color: var(--sc-color-text-secondary);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color var(--sc-motion-hover-duration) var(--sc-motion-hover-easing);
+}
+
+.md .segment {
+  padding-inline: var(--sc-space-component-padding-inline-md);
+  padding-block: var(--sc-space-component-padding-block-md);
+  font-family: var(--sc-font-text-body-dense-family);
+  font-size: var(--sc-font-text-body-dense-size);
+  font-weight: var(--sc-font-text-body-dense-weight);
+  line-height: var(--sc-font-text-body-dense-line-height);
+  letter-spacing: var(--sc-font-text-body-dense-letter-spacing);
+}
+
+.sm .segment {
+  padding-inline: var(--sc-space-component-padding-inline-sm);
+  padding-block: var(--sc-space-component-padding-block-sm);
+  font-family: var(--sc-font-text-label-ui-family);
+  font-size: var(--sc-font-text-label-ui-size);
+  font-weight: var(--sc-font-text-label-ui-weight);
+  line-height: var(--sc-font-text-label-ui-line-height);
+  letter-spacing: var(--sc-font-text-label-ui-letter-spacing);
+}
+
+.segment:hover:not(:disabled) {
+  color: var(--sc-color-text-primary);
+}
+
+.segmentSelected {
+  color: var(--sc-color-text-primary);
+}
+
+.segment:focus-visible {
+  outline: var(--sc-border-width-focus) solid var(--sc-color-border-focus);
+  outline-offset: var(--sc-border-focus-offset);
+}
+
+.segment:disabled {
+  cursor: not-allowed;
+  color: var(--sc-color-text-disabled);
+}
+
+.disabled {
+  cursor: not-allowed;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .indicator { transition: none; }
+  .segment { transition: none; }
+}

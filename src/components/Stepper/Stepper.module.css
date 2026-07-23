@@ -1,0 +1,95 @@
+/* tokens:
+ *   --sc-color-surface-sunk         · control ground
+ *   --sc-color-surface-deep-sunk    · button hover/active ground
+ *   --sc-color-text-primary         · button ink + readout numeral
+ *   --sc-color-text-disabled        · disabled button + readout
+ *   --sc-color-border-focus         · focus ring
+ *   --sc-border-width-focus         · focus ring weight
+ *   --sc-border-focus-offset        · focus ring offset
+ *   --sc-radius-pill                · control + button radius
+ *   --sc-radius-control             · readout focus-ring radius
+ *   --sc-size-icon-md               · glyph box (buttons sized off this via calc, no new size token)
+ *   --sc-space-component-gap-sm     · control → readout gaps
+ *   --sc-space-component-padding-sm · control inset + button hit-area padding
+ *   --sc-font-text-mono-body-*      · numeral readout (mono)
+ *   --sc-motion-hover-duration / -easing  · button bg/color transition
+ *   --sc-motion-press-duration / -easing / -scale  · button press feedback (reuses Button's press pair)
+ */
+
+.stepper {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sc-space-component-gap-sm);
+  padding: var(--sc-space-component-padding-sm);
+  border-radius: var(--sc-radius-pill);
+  background-color: var(--sc-color-surface-sunk);
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  /* Hit area derived from the icon token + the control's own inset
+     padding — no dedicated Stepper size token needed. */
+  width: calc(var(--sc-size-icon-md) + 2 * var(--sc-space-component-padding-sm));
+  height: calc(var(--sc-size-icon-md) + 2 * var(--sc-space-component-padding-sm));
+  border: none;
+  border-radius: var(--sc-radius-pill);
+  background-color: transparent;
+  color: var(--sc-color-text-primary);
+  cursor: pointer;
+  transition:
+    background-color var(--sc-motion-hover-duration) var(--sc-motion-hover-easing),
+    color var(--sc-motion-hover-duration) var(--sc-motion-hover-easing),
+    transform var(--sc-motion-press-duration) var(--sc-motion-press-easing);
+}
+
+.button:hover:not(:disabled) {
+  background-color: var(--sc-color-surface-deep-sunk);
+}
+
+.button:active:not(:disabled) {
+  background-color: var(--sc-color-surface-deep-sunk);
+  transform: scale(var(--sc-motion-press-scale));
+}
+
+.button:focus-visible {
+  outline: var(--sc-border-width-focus) solid var(--sc-color-border-focus);
+  outline-offset: var(--sc-border-focus-offset);
+}
+
+.button:disabled {
+  color: var(--sc-color-text-disabled);
+  cursor: not-allowed;
+}
+
+.readout {
+  min-width: 2ch;
+  text-align: center;
+  font-family: var(--sc-font-text-mono-body-family);
+  font-size: var(--sc-font-text-mono-body-size);
+  font-weight: var(--sc-font-text-mono-body-weight);
+  line-height: var(--sc-font-text-mono-body-line-height);
+  letter-spacing: var(--sc-font-text-mono-body-letter-spacing);
+  color: var(--sc-color-text-primary);
+  padding-inline: var(--sc-space-component-gap-sm);
+  user-select: none;
+}
+
+.readout:focus-visible {
+  outline: var(--sc-border-width-focus) solid var(--sc-color-border-focus);
+  outline-offset: var(--sc-border-focus-offset);
+  border-radius: var(--sc-radius-control);
+}
+
+.disabled {
+  opacity: 0.6;
+}
+.disabled .readout {
+  color: var(--sc-color-text-disabled);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .button { transition: none; }
+  .button:active:not(:disabled) { transform: none; }
+}

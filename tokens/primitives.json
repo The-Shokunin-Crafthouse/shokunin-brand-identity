@@ -148,7 +148,7 @@
         },
         "dark": {
           "$type": "color",
-          "$value": "#6EE7B7",
+          "$value": "#388F63",
           "$description": "Lifted green · success states on dark ground."
         }
       },
@@ -160,19 +160,19 @@
         },
         "dark": {
           "$type": "color",
-          "$value": "#FB923C",
+          "$value": "#C94E28",
           "$description": "Lifted orange · warning states on dark ground."
         }
       },
       "info": {
         "light": {
           "$type": "color",
-          "$value": "#1D4ED8",
+          "$value": "#2D5AD8",
           "$description": "Royal blue · info states on light ground · AA ~7.5:1 on warmGray.100. Repainted 2026-05-28 to match brand-site Color design (ADR brand-site-shell)."
         },
         "dark": {
           "$type": "color",
-          "$value": "#93C5FD",
+          "$value": "#3866E8",
           "$description": "Lifted blue · info states on dark ground."
         }
       },
@@ -184,10 +184,16 @@
         },
         "dark": {
           "$type": "color",
-          "$value": "#FCA5A5",
+          "$value": "#732020",
           "$description": "Lifted rose · error states on dark ground."
         }
       }
+    },
+    "signal": {
+      "$description": "Standalone signal hues (2026-07-23 portal redesign). live is a broadcast/recording signal — deliberately red, off the brand band (learning #39) and distinct from status.error; the retired vermilion pair returns as a SIGNAL, not brand accent (the 2026-07-09 rebrand retired it from the brand tier only). progress is the chartreuse attention hue for in-progress/active states and live indicators.",
+      "live":       { "$type": "color", "$value": "#C8281C" },
+      "liveBright": { "$type": "color", "$value": "#DA5C4D" },
+      "progress":   { "$type": "color", "$value": "#FBFF00" }
     },
     "dark": {
       "$description": "Dark-mode ground ladder · scds-v2 TRUE NEUTRAL (equal RGB on the ladder steps). Retires the warm-brown dark theme that matched slop-blocklist 'warm neutral ground + vermilion'. Elevation model (Phase 2): component sinks BELOW page (well), hover rises to page level. ⚠ Gate-2 on-device check: pure-neutral near-blacks drift on wide-gamut Chrome (p3-near-black-drift-chrome) — verify on a P3 display; if they cast, apply a +1 red whisper at the darkest steps. well already carries a faint warm whisper (#080807).",
@@ -640,12 +646,14 @@
     "duration": {
       "micro":        { "$type": "duration", "$value": { "value": 200, "unit": "ms" }, "$description": "200ms · hover, tap, press. Default micro-interaction." },
       "press":        { "$type": "duration", "$value": { "value": 160, "unit": "ms" }, "$description": "160ms · press/release scale. levibahn.com convention." },
+      "pressRelease": { "$type": "duration", "$value": { "value": 220, "unit": "ms" }, "$description": "220ms · spring-back release overshoot (Drams press-spring, 2026-07-23)." },
       "standard":     { "$type": "duration", "$value": { "value": 380, "unit": "ms" }, "$description": "380ms · state change, cross-fade, surface swap." },
       "orchestrated": { "$type": "duration", "$value": { "value": 720, "unit": "ms" }, "$description": "720ms · page, route, choreographed reveal. Justify anything longer in writing." }
     },
     "easing": {
       "out":       { "$type": "cubicBezier", "$value": [0.22, 1, 0.36, 1],     "$description": "Quint-out · primary easing. Hover, state changes, most things that ease in or out." },
       "outStrong": { "$type": "cubicBezier", "$value": [0.23, 1, 0.32, 1],     "$description": "Strong quint-out · press/release. From levibahn.com convention." },
+      "springOut":  { "$type": "cubicBezier", "$value": [0.34, 1.56, 0.64, 1],  "$description": "Overshoot release · CSS approximation of the studio tap-scale spring (Drams press-spring, 2026-07-23). Interactive release phase only." },
       "inOut":     { "$type": "cubicBezier", "$value": [0.65, 0, 0.35, 1],     "$description": "Symmetric · crossfades, mode switches." },
       "cinematic": { "$type": "cubicBezier", "$value": [0.32, 0.08, 0.12, 1],  "$description": "Long deliberate · orchestrated only. Page transitions." }
     },

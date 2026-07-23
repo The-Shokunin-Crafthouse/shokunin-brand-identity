@@ -16,7 +16,8 @@ Pill-radius control with a trailing arrow. **The accent is a hover state, never 
 | `--sc-font-text-label-chrome-*` | NHG Text medium label (11/500), no uppercase |
 | `--sc-color-border-focus` + `--sc-border-focus-offset` | styled focus ring |
 | `--sc-motion-hover-duration` + `-easing` | bg/border/color/shadow transition |
-| `--sc-motion-press-duration` + `-easing` + `-scale` (0.985) | press feedback |
+| `--sc-motion-press-duration` + `-easing` + `-scale` (0.985) | press-in feedback (fast phase) |
+| `--sc-motion-press-release-duration` + `-easing` | release feedback (spring-overshoot phase) |
 
 ## Per variant
 
@@ -34,6 +35,22 @@ Pill-radius control with a trailing arrow. **The accent is a hover state, never 
 | `disabled` | `--sc-color-text-disabled`, `--sc-color-border-default`, `box-shadow: none`, `cursor: not-allowed`. Cross-variant. |
 | `loading` | label opacity 0.6, spinner ring (currentColor + `--sc-border-width-default` + `--sc-radius-pill` + `--sc-motion-mode-duration`) replaces the arrow. |
 | `focus` | `:focus-visible` styled ring · `--sc-color-border-focus` at `--sc-border-width-focus`, `--sc-border-focus-offset`. Secondary additionally turns its outline teal. |
+
+## The press-spring (Drams #6 · Pushin' Click Button)
+
+The studio standard touch affordance is a spring scale to 0.985 on press. Rather than pull in a JS spring/animation library, the button approximates a k400/d25 spring with a **two-phase CSS transition**, split via a pair of custom properties rather than two competing selectors:
+
+- `--sc-btn-transform-duration` / `--sc-btn-transform-easing` are declared once on `.button` and read by the single `transform` transition. Their *resting* value is the release pair (`--sc-motion-press-release-duration` 220ms + `--sc-motion-press-release-easing` springOut — `cubic-bezier(0.34, 1.56, 0.64, 1)`, y > 1 so it overshoots past 1 before settling).
+- `.button:active:not(:disabled)` re-points those two custom properties at the existing press pair (`--sc-motion-press-duration` 160ms + `--sc-motion-press-easing` outStrong) — no new "press-in" token, reusing what Sprint 4 already shipped.
+
+Net effect: pressing down snaps to `scale(0.985)` in 160ms (fast, decisive); releasing — the moment `:active` drops and the base rule's transform transition takes back over — eases back to `scale(1)` over 220ms with a spring overshoot. This is the accepted CSS approximation of a spring: no physics engine, no per-frame JS, just two durations/easings switched by state.
+
+New tokens (added to `tokens/primitives.json` + `tokens/semantic.json`, regenerated via `tokens:build`):
+
+| Token | Value | Note |
+|---|---|---|
+| `--sc-p-motion-duration-press-release` / `--sc-motion-press-release-duration` | 220ms | Release-phase duration. `--sc-motion-press-duration` (160ms) already existed and is reused for the press-in phase — no duplicate "fast" duration added. |
+| `--sc-p-motion-easing-spring-out` / `--sc-motion-press-release-easing` | `cubic-bezier(0.34, 1.56, 0.64, 1)` | Release-phase easing — the only genuinely new easing curve; the y > 1 overshoot is what makes it read as a spring instead of a linear settle. |
 
 ## The neumorphic shadow (button-only)
 
