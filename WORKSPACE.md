@@ -41,7 +41,7 @@ This file is a directive, not documentation. Read it. Follow it.
 - **Name:** Shokunin Brand Identity
 - **Client:** Internal — Shokunin Crafthouse
 - **Kind:** brand
-- **Current stage:** 01-brief
+- **Current stage:** 02-design
 - **Lead:** Levi Bahn
 - **Start date:** 2026-05-26
 - **Target launch:** TBD

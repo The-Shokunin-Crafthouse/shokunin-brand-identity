@@ -16,7 +16,7 @@ project:
   name: "Shokunin Brand Identity"
   client: "Internal — Shokunin Crafthouse"
   kind: "brand"       # brand | product | site | app | campaign
-  stage: "03-build"   # current stage id
+  stage: "02-design"  # current stage id — reconciled 2026-07-12 COO apply (Flag 12): actual work is 02-design/scds-v2 per current_sprint
   current_sprint: "stages/02-design/scds-v2/CONTEXT.md"  # SCDS v2 redesign — Phase 1 tokens+type, branch claude/epic-mendeleev-0279e5 (mirrors WORKSPACE.md)
   lead: "Levi Bahn"
   started: "2026-05-26"
