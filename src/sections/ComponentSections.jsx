@@ -6,6 +6,7 @@
  * Specimen (3.12) lives in its own file — it composes all twelve.
  */
 
+import { useState } from 'react';
 import { ComponentPage } from './_kit/ComponentPage.jsx';
 import { Slash, Accent, Em } from './_kit/Editorial.jsx';
 import { Button } from '../components/Button/Button.jsx';
@@ -19,6 +20,8 @@ import { ProgressIndicator } from '../components/ProgressIndicator/ProgressIndic
 import { Tooltip } from '../components/Tooltip/Tooltip.jsx';
 import { Divider } from '../components/Divider/Divider.jsx';
 import { NavBar } from '../components/NavBar/NavBar.jsx';
+import { SegmentedControl } from '../components/SegmentedControl/SegmentedControl.jsx';
+import { Stepper } from '../components/Stepper/Stepper.jsx';
 import avatarImg from '../../assets/logo/mark-icon-dark.png';
 
 const noop = () => {};
@@ -351,23 +354,58 @@ export function AvatarPage() {
 }
 
 /* ── 3.10 Progress ───────────────────────────────────────── */
+
+// Interactive bar demo — needs its own controlled value, so it is a
+// small stateful wrapper rather than a bare <ProgressIndicator /> render.
+function InteractiveBarDemo() {
+  const [value, setValue] = useState(0.3);
+  return (
+    <div style={{ width: '100%' }}>
+      <ProgressIndicator variant="bar" interactive value={value} onChange={setValue} label="Volume" />
+    </div>
+  );
+}
+
+function InteractiveBarLowValueDemo() {
+  const [value, setValue] = useState(0.02);
+  return (
+    <div style={{ width: '100%' }}>
+      <ProgressIndicator variant="bar" interactive value={value} onChange={setValue} label="Low value" />
+    </div>
+  );
+}
+
+function InteractiveBarDisabledDemo() {
+  const [value] = useState(0.4);
+  return (
+    <div style={{ width: '100%' }}>
+      <ProgressIndicator variant="bar" interactive value={value} disabled label="Disabled" />
+    </div>
+  );
+}
+
 export function ProgressPage() {
   return (
     <ComponentPage
-      id="progress" label="Progress" tokensN={17}
+      id="progress" label="Progress" tokensN={22}
       eyebrow={<>Progress<Slash />three shapes, one fill</>}
       title={<>Bar, ring, steps. <Accent>Teal</Accent> is always the <Em>fill.</Em></>}
-      lead={<>Three indicators for three situations: a bar for a single continuous task, a ring for a compact or circular slot, steps for a discrete sequence. All three fill with the brand accent against a deep-sunk track, and the circular ring decouples its drawing from its size by maths, not magic.</>}
-      statesTitle="Three variants, one fill colour."
+      lead={<>Three indicators for three situations: a bar for a single continuous task, a ring for a compact or circular slot, steps for a discrete sequence. All three fill with the brand accent against a deep-sunk track, and the circular ring decouples its drawing from its size by maths, not magic. The bar also comes in an interactive form — Drams' Standard Volume reference — that turns the same track into a scrubbable, keyboard-operable slider.</>}
+      statesTitle="Three variants, one fill colour — plus the interactive bar's own five states."
       callouts={[
         { title: 'The ring decouples size from drawing', body: 'The SVG viewBox is a unitless 0–100; real size flows from the size token. Stroke width maps via calc(stroke / diameter * 100) so the ratio holds as either token moves.' },
         { title: 'Steps carry three sub-states', body: 'Done, current, and resting each pull their own ink and border from the semantic layer. The connector fills as each step completes.' },
         { title: 'Accent fills, never frames', body: 'Teal is the progress itself; the track is always deep-sunk. Progress is the one place the accent measures quantity, not intent.' },
+        { title: 'The interactive bar is thumbless', body: 'No handle ever renders. Dragging thickens the track itself (4px → 6px) — the affordance is the track’s own weight changing, not a circle riding on top of it.' },
+        { title: 'Fill never fully disappears', body: 'Both bar forms render fill width as max(value%, track-height) — at 0 the fill still reads as a small pill the size of the track, never a blank line (Drams #3/#4 Line Volume / Volume Visible Track).' },
       ]}
       states={[
         { name: 'Bar', token: '--sc-size-progress-bar-height', render: <div style={{ width: '100%' }}><ProgressIndicator variant="bar" value={0.62} label="62 percent" /></div> },
         { name: 'Circular', token: '--sc-size-progress-circular', render: <ProgressIndicator variant="circular" value={0.7} label="70 percent" /> },
         { name: 'Step', token: '--sc-color-border-strong', render: <ProgressIndicator variant="step" steps={4} current={2} /> },
+        { name: 'Interactive · default/hover', token: '--sc-color-interactive-hover', render: <InteractiveBarDemo /> },
+        { name: 'Interactive · low value (min-fill)', token: '--sc-size-progress-bar-height', render: <InteractiveBarLowValueDemo /> },
+        { name: 'Interactive · disabled', token: '--sc-color-text-disabled', render: <InteractiveBarDisabledDemo /> },
       ]}
       tokenRows={[
         { prop: 'Bar height', token: '--sc-size-progress-bar-height' },
@@ -384,13 +422,20 @@ export function ProgressPage() {
         { prop: 'Step gap', token: '--sc-space-component-gap-md' },
         { prop: 'Numeral type', token: '--sc-font-text-mono-chrome', light: 'mono 11 / caps' },
         { prop: 'Fill motion', token: '--sc-motion-reveal-duration', light: '200ms · quint-out' },
+        { prop: 'Interactive · active track height', token: '--sc-size-progress-bar-height-active' },
+        { prop: 'Interactive · hit-slop padding', token: '--sc-size-progress-hit-slop' },
+        { prop: 'Interactive · hover fill', token: '--sc-color-interactive-hover' },
+        { prop: 'Interactive · disabled fill', token: '--sc-color-text-disabled' },
+        { prop: 'Interactive · disabled track', token: '--sc-color-surface-sunk' },
+        { prop: 'Interactive · focus ring', token: '--sc-color-border-focus' },
       ]}
-      rulesTitle="Four rules for measuring with one colour."
+      rulesTitle="Five rules for measuring with one colour."
       rules={[
         { name: 'Bar for one task, steps for a sequence', text: 'A continuous bar answers “how far”; numbered steps answer “which stage.” Using a bar for a multi-stage flow hides the stages the user needs to see.' },
         { name: 'The accent measures, the track holds', text: 'Fill is always teal, track always deep-sunk. Recolouring the fill by status would make progress compete with the alert system.' },
         { name: 'Circular for compact slots only', text: 'The ring is for a dashboard tile or an inline badge. For a page-width task, the bar reads the distance far better.' },
         { name: 'Steps are zero-based and honest', text: 'Current is the index in progress; everything before it is done, everything after resting. A “done” step the user has not finished is a lie the component must not tell.' },
+        { name: 'Interactive is opt-in, never a silent upgrade', text: 'The static bar keeps role="progressbar" until interactive is passed explicitly. A progress bar a keyboard user can suddenly drag is a bug, not a feature, if it happens without the caller asking for it.' },
       ]}
     />
   );
@@ -521,3 +566,124 @@ export function NavBarPage() {
   );
 }
 const navBrand = { font: 'var(--sc-font-text-label-chrome)', letterSpacing: 'var(--sc-font-text-label-chrome-letter-spacing)', textTransform: 'uppercase', color: 'var(--sc-color-text-primary)' };
+
+/* ── NEW · SegmentedControl ──────────────────────────────── */
+
+const VIEW_OPTIONS = [
+  { value: 'day', label: 'Day' },
+  { value: 'week', label: 'Week' },
+  { value: 'month', label: 'Month' },
+];
+
+function SegmentedControlDemo({ defaultValue = 'week', disabled = false }) {
+  const [value, setValue] = useState(defaultValue);
+  return (
+    <SegmentedControl
+      options={VIEW_OPTIONS}
+      value={value}
+      onChange={setValue}
+      disabled={disabled}
+      label="View"
+    />
+  );
+}
+
+export function SegmentedControlPage() {
+  return (
+    <ComponentPage
+      id="segmented-control" label="Segmented Control" tokensN={13}
+      eyebrow={<>Segmented Control<Slash />new · Drams #7</>}
+      title={<>One of three. <Em>The fill slides, never the border.</Em></>}
+      lead={<>A one-of-N selector for view/mode switches — Drams' 3-Way Switch mapped onto the studio's fill-only elevation model. The track sinks; the selected segment raises on the floating surface with no border or shadow, and a measured indicator slides beneath the label as selection moves.</>}
+      statesTitle="Five states, one radiogroup."
+      callouts={[
+        { title: 'Fill-only elevation, on purpose', body: 'The selected segment lifts via surface-floating alone — no border, no shadow. Cards and Buttons argue depth with contrast and hairlines; this control argues it with fill weight only, because at this scale a border would read as a grid line, not a selection.' },
+        { title: 'The indicator is measured, not divided', body: 'It does not assume equal-width segments. Its left/width come from getBoundingClientRect() on the selected button, re-measured on selection, option-count, size, and resize changes — so "Month" and "Day" can be different widths without the slide looking wrong.' },
+        { title: 'Arrow keys select, not just focus', body: 'This is the WAI-ARIA radiogroup pattern, not a tab-through list: an arrow key both moves focus and changes the value in one action, matching how a native radio group already behaves.' },
+      ]}
+      states={[
+        { name: 'Default (2-way)', token: '--sc-color-surface-floating', render: <SegmentedControlDemo defaultValue="day" /> },
+        { name: 'Selected · middle', token: '--sc-radius-pill', render: <SegmentedControlDemo defaultValue="week" /> },
+        { name: 'Hover (hover a segment)', token: '--sc-color-text-primary', render: <SegmentedControlDemo defaultValue="month" /> },
+        { name: 'Focus (tab to a segment)', token: '--sc-color-border-focus', render: <SegmentedControlDemo defaultValue="day" /> },
+        { name: 'Disabled', token: '--sc-color-text-disabled', render: <SegmentedControlDemo defaultValue="week" disabled /> },
+      ]}
+      tokenRows={[
+        { prop: 'Track ground', token: '--sc-color-surface-sunk' },
+        { prop: 'Selected fill', token: '--sc-color-surface-floating' },
+        { prop: 'Unselected text', token: '--sc-color-text-secondary' },
+        { prop: 'Selected text', token: '--sc-color-text-primary' },
+        { prop: 'Disabled text', token: '--sc-color-text-disabled' },
+        { prop: 'Focus ring', token: '--sc-color-border-focus' },
+        { prop: 'Radius', token: '--sc-radius-pill' },
+        { prop: 'Segment gap', token: '--sc-space-component-gap-sm' },
+        { prop: 'Track inset', token: '--sc-space-component-padding-sm' },
+        { prop: 'Segment inline padding', token: '--sc-space-component-padding-inline-md' },
+        { prop: 'Segment block padding', token: '--sc-space-component-padding-block-md' },
+        { prop: 'Label type', token: '--sc-font-text-body-dense', light: '14 / regular' },
+        { prop: 'Indicator motion', token: '--sc-motion-reveal-duration', light: '200ms · quint-out' },
+      ]}
+      rulesTitle="Four rules for a selector that never argues with a border."
+      rules={[
+        { name: 'One of N, always exactly one', text: 'A segmented control always has a selection — there is no "none" state. If the UI needs an unset/all option, add it as an explicit segment rather than allowing nothing to be checked.' },
+        { name: 'Fill is the only signal', text: 'No border, no shadow, ever — on the track or the indicator. Reaching for a stroke here to "make selection clearer" breaks the elevation model the whole control is built on.' },
+        { name: 'Options stay short', text: 'Segment labels are one word or a short numeral (Day/Week/Month, 1/2/3). A segment that wraps to two lines has outgrown this component — reach for tabs or a select instead.' },
+        { name: 'Never nest a segmented control in a segmented control', text: 'It is a flat, single-level chooser. A control that needs sub-choices per segment is describing a different information architecture, not a sizing problem.' },
+      ]}
+    />
+  );
+}
+
+/* ── NEW · Stepper ───────────────────────────────────────── */
+
+function StepperDemo({ defaultValue = 4, min = 0, max = 10, disabled = false }) {
+  const [value, setValue] = useState(defaultValue);
+  return <Stepper value={value} onChange={setValue} min={min} max={max} label="Quantity" disabled={disabled} />;
+}
+
+export function StepperPage() {
+  return (
+    <ComponentPage
+      id="stepper" label="Stepper" tokensN={15}
+      eyebrow={<>Stepper<Slash />new · Drams #8</>}
+      title={<>Minus. Number. Plus. <Em>Nothing else on the control.</Em></>}
+      lead={<>A bounded numeric increment/decrement — Drams' Plus Minus Knob with the physical dial replaced by a borderless pill and the two ends replaced by Phosphor glyphs. The numeral sits in mono so it never re-flows as it changes width, and holding either end repeats until released.</>}
+      statesTitle="Five states per button, one shared readout."
+      callouts={[
+        { title: 'Bounds disable, they do not just visually gray out', body: '± buttons use native disabled at min/max — computed from value against min/max on every render, never a separate flag a caller has to remember to set.' },
+        { title: 'The readout is a spinbutton, not a label', body: 'role="spinbutton" with Up/Down keys lets a keyboard user step the value without ever tabbing to a ± button — the numeral is the control, not just its display.' },
+        { title: 'Hold-to-repeat cancels on leave, not just on release', body: 'pointerleave clears the repeat interval the same as pointerup — dragging off the button while holding it down cannot leave a runaway repeat firing in the background.' },
+      ]}
+      states={[
+        { name: 'Default', token: '--sc-color-surface-sunk', render: <StepperDemo defaultValue={4} /> },
+        { name: 'Hover (hover a button)', token: '--sc-color-surface-deep-sunk', render: <StepperDemo defaultValue={5} /> },
+        { name: 'Focus (tab to a button)', token: '--sc-color-border-focus', render: <StepperDemo defaultValue={3} /> },
+        { name: 'At min (− disabled)', token: '--sc-color-text-disabled', render: <StepperDemo defaultValue={0} min={0} max={10} /> },
+        { name: 'Disabled', token: '--sc-color-text-disabled', render: <StepperDemo defaultValue={4} disabled /> },
+      ]}
+      tokenRows={[
+        { prop: 'Control ground', token: '--sc-color-surface-sunk' },
+        { prop: 'Button hover/active ground', token: '--sc-color-surface-deep-sunk' },
+        { prop: 'Button ink', token: '--sc-color-text-primary' },
+        { prop: 'Disabled ink', token: '--sc-color-text-disabled' },
+        { prop: 'Focus ring', token: '--sc-color-border-focus' },
+        { prop: 'Radius (control)', token: '--sc-radius-pill' },
+        { prop: 'Readout focus radius', token: '--sc-radius-control' },
+        { prop: 'Glyph size', token: '--sc-size-icon-md' },
+        { prop: 'Control → readout gap', token: '--sc-space-component-gap-sm' },
+        { prop: 'Control inset', token: '--sc-space-component-padding-sm' },
+        { prop: 'Numeral type', token: '--sc-font-text-mono-body', light: 'mono 16 / regular' },
+        { prop: 'Hover motion', token: '--sc-motion-hover-duration', light: '200ms' },
+        { prop: 'Press motion', token: '--sc-motion-press-duration', light: '160ms · outStrong' },
+        { prop: 'Press scale', token: '--sc-motion-press-scale', light: '0.985' },
+      ]}
+      rulesTitle="Four rules for a control that only ever does one thing."
+      rules={[
+        { name: 'The numeral is always the source of truth', text: 'The readout shows the live value, not a formatted approximation. Whatever value onChange last committed is exactly what is on screen.' },
+        { name: 'Never let the control silently clamp past a bound', text: 'Hitting min or max disables that button rather than wrapping or silently refusing the step. A stepper that wraps from max back to min without saying so is a stepper lying about the number.' },
+        { name: 'Hold-to-repeat has one speed, not an accelerating one', text: 'The repeat interval is constant (80ms) after the 400ms arm delay. An accelerating repeat is a nicety this control deliberately skipped — predictability over speed.' },
+        { name: 'No border, ever', text: 'The control reads as a soft, sunk pill — matching the sunk-surface language used elsewhere (Input filled state, Card default). A stroke here would put it in the same register as a bordered input, which it is not.' },
+      ]}
+    />
+  );
+}

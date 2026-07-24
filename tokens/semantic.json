@@ -321,6 +321,32 @@
         }
       }
     },
+    "signal": {
+      "live": {
+        "$type": "color",
+        "$value": "{color.signal.live}",
+        "$extensions": { "modes": { "light": "{color.signal.live}", "dark": "{color.signal.liveBright}" } },
+        "$description": "LIVE badge fill — red broadcast signal; brightens one step on dark ground."
+      },
+      "onLive": {
+        "$type": "color",
+        "$value": "{color.warmGray.100}",
+        "$extensions": { "modes": { "light": "{color.warmGray.100}", "dark": "{color.dark.surfacePage}" } },
+        "$description": "Text on the LIVE badge fill."
+      },
+      "progress": {
+        "$type": "color",
+        "$value": "{color.signal.progress}",
+        "$extensions": { "modes": { "light": "{color.signal.progress}", "dark": "{color.signal.progress}" } },
+        "$description": "In-progress/active pill fill + live dot — chartreuse both modes."
+      },
+      "onProgress": {
+        "$type": "color",
+        "$value": "{color.warmGray.900}",
+        "$extensions": { "modes": { "light": "{color.warmGray.900}", "dark": "{color.warmGray.900}" } },
+        "$description": "Ink on the chartreuse progress fill — warm near-black both modes (chartreuse stays light-valued on dark grounds)."
+      }
+    },
     "brand": {
       "accent": {
         "$type": "color",
@@ -481,6 +507,20 @@
         "$value": "{motion.scale.pressButton}",
         "$description": "Sprint 4 addition · button press scale (0.985). Subtle confirmation.",
         "$extensions": { "modes": { "light": "{motion.scale.pressButton}", "dark": "{motion.scale.pressButton}" } }
+      },
+      "release": {
+        "duration": {
+          "$type": "duration",
+          "$value": "{motion.duration.pressRelease}",
+          "$description": "Sprint 5 addition · Drams #6 press-spring · release-phase duration (220ms). The button's release from scale(0.985) back to 1 — pairs with release.easing's overshoot so the return reads as a spring settle, not a snap.",
+          "$extensions": { "modes": { "light": "{motion.duration.pressRelease}", "dark": "{motion.duration.pressRelease}" } }
+        },
+        "easing": {
+          "$type": "cubicBezier",
+          "$value": "{motion.easing.springOut}",
+          "$description": "Sprint 5 addition · Drams #6 press-spring · release-phase easing, a cubic-bezier CSS approximation of a k400/d25 spring (y > 1 overshoot). Press-in keeps motion.press.duration/.easing (160ms outStrong); only the release swaps to this pair.",
+          "$extensions": { "modes": { "light": "{motion.easing.springOut}", "dark": "{motion.easing.springOut}" } }
+        }
       }
     },
     "mode": {
@@ -701,6 +741,18 @@
         "$value": "{space.4}",
         "$description": "Sprint 4 addition · circular stroke width (4px).",
         "$extensions": { "modes": { "light": "{space.4}", "dark": "{space.4}" } }
+      },
+      "bar-height-active": {
+        "$type": "dimension",
+        "$value": "{space.micro.6}",
+        "$description": "Sprint 5 addition · Drams #4/#5 (Volume Visible Track / Standard Volume) · interactive bar variant, active/dragging track thickness (6px). Thumbless — the track itself thickens one micro-step beyond bar-height (4px) instead of surfacing a drag handle.",
+        "$extensions": { "modes": { "light": "{space.micro.6}", "dark": "{space.micro.6}" } }
+      },
+      "hit-slop": {
+        "$type": "dimension",
+        "$value": "{space.micro.22}",
+        "$description": "Sprint 5 addition · Drams #5 (Standard Volume) · interactive bar variant, invisible hit-area padding above/below the visual track (block padding on the interactive wrapper, not the track itself). Judgment call: the brief asked for a ~44px hit target; 44 has no home on the layout or micro ladder, so this uses micro.22 (22px) top + bottom around the 4px track = 48px total — meets/exceeds the touch-target guideline while staying token-derived. Logged in ProgressIndicator.tokens.md.",
+        "$extensions": { "modes": { "light": "{space.micro.22}", "dark": "{space.micro.22}" } }
       }
     }
   },

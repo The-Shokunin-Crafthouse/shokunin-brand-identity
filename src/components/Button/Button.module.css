@@ -34,12 +34,29 @@
   background-color: transparent;
   cursor: pointer;
   user-select: none;
+  /* Press-spring (Drams #6 Pushin' Click Button) — two-phase transform
+     transition via custom properties, not two competing rules: pressing
+     down uses the fast press pair (--sc-motion-press-*, 160ms outStrong);
+     releasing swaps to the slower spring-overshoot pair
+     (--sc-motion-press-release-*, 220ms springOut) the instant :active
+     drops. Resting value below is the release pair so the *up* motion —
+     which is what a user actually watches settle — carries the spring. */
+  --sc-btn-transform-duration: var(--sc-motion-press-release-duration);
+  --sc-btn-transform-easing: var(--sc-motion-press-release-easing);
   transition:
     background-color var(--sc-motion-hover-duration) var(--sc-motion-hover-easing),
     border-color var(--sc-motion-hover-duration) var(--sc-motion-hover-easing),
     color var(--sc-motion-hover-duration) var(--sc-motion-hover-easing),
     box-shadow var(--sc-motion-hover-duration) var(--sc-motion-hover-easing),
-    transform var(--sc-motion-press-duration) var(--sc-motion-press-easing);
+    transform var(--sc-btn-transform-duration) var(--sc-btn-transform-easing);
+}
+
+/* Swap to the fast press pair only while :active — this is what makes the
+   press feel snappy (160ms) while the release (governed by the base rule
+   above, once :active drops) reads as the spring settle (220ms overshoot). */
+.button:active:not(:disabled) {
+  --sc-btn-transform-duration: var(--sc-motion-press-duration);
+  --sc-btn-transform-easing: var(--sc-motion-press-easing);
 }
 
 .label {
