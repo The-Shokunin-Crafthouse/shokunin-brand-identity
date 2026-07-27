@@ -128,7 +128,7 @@ export function SpecimenSection() {
         eyebrow="Data display / shows what is"
         title="Card, Avatar, Progress, Divider."
         premise="The components that present. Surfaces, identity, measurement, separation — the structural pieces a layout is assembled from."
-        annotations={[{ title: 'Flat by rule', body: 'Card lifts by contrast, Progress fills with the accent, Divider is a single hairline. No shadows anywhere.' }]}
+        annotations={[{ title: 'Flat by rule', body: 'Card lifts by fill weight, Progress fills with the accent, Divider is a single hairline, Avatar seats on a sunk fill. Depth comes from surface, not drop shadows.' }]}
       >
         <div className={styles.blocks}>
           <Block name="Card" count="3 variants">

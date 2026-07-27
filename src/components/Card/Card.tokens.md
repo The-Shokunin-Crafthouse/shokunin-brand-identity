@@ -1,6 +1,7 @@
 # Card · token consumption
 
-Spec ref: §2 Tier 3 · 3.3 · States: default, interactive (hover), elevated.
+Spec ref: §2 Tier 3 · 3.3 · States: default, interactive (hover + focus), elevated.
+scds-v2 Phase 2: fill-only elevation — no resting stroke frame.
 
 ## Shared
 
@@ -8,18 +9,19 @@ Spec ref: §2 Tier 3 · 3.3 · States: default, interactive (hover), elevated.
 |---|---|
 | `--sc-space-component-padding-lg` | internal padding |
 | `--sc-radius-surface` | corner radius |
-| `--sc-border-width-default` | hairline frame |
+| `--sc-shadow-control-inset` | interactive hover/focus feedback (inset ring) |
+| `--sc-color-border-focus` + `--sc-border-width-focus` + `--sc-border-focus-offset` | interactive focus ring |
 | `--sc-color-text-primary` | text color |
-| `--sc-motion-hover-duration` + `-easing` | bg/border transition |
+| `--sc-motion-hover-duration` + `-easing` | bg/box-shadow transition |
 
 ## Per variant
 
-| Variant | bg | border | Notes |
+| Variant | bg | elevation cue | Notes |
 |---|---|---|---|
-| `default` | `--sc-color-surface-sunk` | `--sc-color-border-default` | Plain set-in tile against page. |
-| `interactive` | resting: `--sc-color-surface-sunk`; hover: `--sc-color-surface-deep-sunk` | `--sc-color-border-default` | Renders as `<button>`. Cursor pointer. Inherits `:focus-visible` from reset. |
-| `elevated` | `--sc-color-surface-page` | `--sc-color-border-strong` | Lifts perceptually against sibling sunk cards — page-ground bg + strong frame reads as "asserted." No shadow tokens in the system (deliberate — see decisions log). |
+| `default` | `--sc-color-surface-sunk` | fill only | Plain set-in tile against page. No border. |
+| `interactive` | resting: `--sc-color-surface-sunk`; hover: `--sc-color-surface-deep-sunk` | `--sc-shadow-control-inset` on hover/focus | Renders as `<button>`. Cursor pointer. Explicit `:focus-visible` ring + inset shadow. |
+| `elevated` | `--sc-color-surface-page` | fill only | Lifts perceptually against sibling sunk cards — the step up in fill weight reads as "lifted." No resting frame. |
 
-## Why no shadow
+## Elevation model
 
-Shadow tokens are not defined in `tokens/semantic.json` for Sprint 4. `_config/design-system/token-map.md` mentions `elevation/{1,2,3}` as Figma Effect Styles, but no DTCG primitives exist. Card's `elevated` variant uses bg + border contrast to read as lifted — consistent with the system's "Rams austerity" register (shadows belong to a different visual idiom).
+scds-v2 Phase 2 replaced the resting hairline frame with fill-only elevation: surface weight (sunk → page) separates the variants, and the only shadow is `--sc-shadow-control-inset`, applied to the interactive variant on hover/focus to narrate interactivity without an outline. The `--sc-shadow-control-*` tokens are semantic to controls, composed from the channel-triplet ink/white primitives (see `tokens/semantic.json`).

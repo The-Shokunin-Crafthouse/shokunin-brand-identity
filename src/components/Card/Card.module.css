@@ -2,14 +2,17 @@
  *   --sc-space-component-padding-lg          · generous internal padding
  *   --sc-space-component-gap-lg              · stack rhythm inside card body
  *   --sc-radius-surface                      · corner
- *   --sc-border-width-default                · hairline frame
  *   --sc-color-surface-sunk                  · default + interactive resting bg
  *   --sc-color-surface-deep-sunk             · interactive hover bg
  *   --sc-color-surface-page                  · elevated bg (lifted against sunk)
- *   --sc-color-border-default                · default frame
- *   --sc-color-border-strong                 · elevated frame
  *   --sc-color-text-primary                  · text inherits via reset
+ *   --sc-shadow-control-inset                · hover/focus feedback (fill-only, no resting frame)
+ *   --sc-color-border-focus / -width-focus / -focus-offset · focus ring
  *   --sc-motion-hover-duration / -easing
+ *
+ * scds-v2 Phase 2 — fill-only elevation. The resting stroke frame is gone;
+ * surface fill alone separates default (sunk) / elevated (page). Interactivity
+ * is narrated by an inset shadow on hover/focus, never a resting outline.
  */
 
 .card {
@@ -18,33 +21,34 @@
   text-align: left;
   padding: var(--sc-space-component-padding-lg);
   border-radius: var(--sc-radius-surface);
-  border-width: var(--sc-border-width-default);
-  border-style: solid;
   transition:
     background-color var(--sc-motion-hover-duration) var(--sc-motion-hover-easing),
-    border-color var(--sc-motion-hover-duration) var(--sc-motion-hover-easing);
+    box-shadow var(--sc-motion-hover-duration) var(--sc-motion-hover-easing);
 }
 
 .default {
   background-color: var(--sc-color-surface-sunk);
-  border-color: var(--sc-color-border-default);
   color: var(--sc-color-text-primary);
 }
 
 .interactive {
   background-color: var(--sc-color-surface-sunk);
-  border-color: var(--sc-color-border-default);
   color: var(--sc-color-text-primary);
   cursor: pointer;
   font: inherit;
 }
 .interactive:hover {
   background-color: var(--sc-color-surface-deep-sunk);
+  box-shadow: var(--sc-shadow-control-inset);
+}
+.interactive:focus-visible {
+  outline: var(--sc-border-width-focus) solid var(--sc-color-border-focus);
+  outline-offset: var(--sc-border-focus-offset);
+  box-shadow: var(--sc-shadow-control-inset);
 }
 
 .elevated {
   background-color: var(--sc-color-surface-page);
-  border-color: var(--sc-color-border-strong);
   color: var(--sc-color-text-primary);
 }
 

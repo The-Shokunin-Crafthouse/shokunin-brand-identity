@@ -128,19 +128,19 @@ export function CardPage() {
   return (
     <ComponentPage
       id="card" label="Card" tokensN={9}
-      eyebrow={<>Card<Slash />depth without shadow</>}
-      title={<>Three surfaces. <Em>No shadow anywhere.</Em></>}
-      lead={<>Cards read as lifted or set-in through contrast and a hairline, never through a drop shadow — the system has no shadow tokens by design. Default sinks into the page, interactive responds to the cursor, elevated asserts itself with a strong frame.</>}
-      statesTitle="Three variants, all flat."
+      eyebrow={<>Card<Slash />depth by fill</>}
+      title={<>Three surfaces. <Em>No resting stroke.</Em></>}
+      lead={<>Cards separate by fill alone. Default sinks into the page; elevated lifts to the ground above it — the step in surface weight is the lift a shadow would otherwise fake. Nothing carries a resting frame. Interactivity is the only thing that draws a mark: an inset shadow on hover and focus, never an outline.</>}
+      statesTitle="Three variants, one fill logic."
       callouts={[
-        { title: 'Why no shadow', body: 'Shadows belong to a softer idiom than this one. The Rams-lineage register builds depth from border and spacing. No elevation tokens were defined in Sprint 4, on purpose.' },
-        { title: 'How elevated reads lifted', body: 'It sits on the page ground while its siblings sit sunk, and it carries a strong frame. Contrast against the neighbours does the lifting that a shadow would.' },
-        { title: 'Interactive is a real button', body: 'The interactive variant renders as <button>, not a div with a click handler — so it is keyboard-activatable and focus-ringed for free.' },
+        { title: 'Fill-only elevation', body: 'The Rams-lineage register builds depth from surface weight and spacing, not a stroke around every tile. scds-v2 Phase 2 removed the resting hairline frames; contrast does the separating.' },
+        { title: 'How elevated reads lifted', body: 'It sits on the page ground while its siblings sit sunk. The step up in fill weight does the lifting a shadow would fake — no frame required.' },
+        { title: 'Interactive is a real button', body: 'The interactive variant renders as <button>, not a div with a click handler — so it is keyboard-activatable and focus-ringed for free, and an inset shadow narrates hover and focus without a border.' },
       ]}
       states={[
         { name: 'Default', token: '--sc-color-surface-sunk', render: <Card><CardBody>A set-in tile against the page.</CardBody></Card> },
-        { name: 'Interactive · hover', token: '--sc-color-surface-deep-sunk', render: <Card variant="interactive" onClick={noop}><CardBody>Hover or focus me.</CardBody></Card> },
-        { name: 'Elevated', token: '--sc-color-border-strong', render: <Card variant="elevated"><CardBody>Page ground, strong frame.</CardBody></Card> },
+        { name: 'Interactive · hover', token: '--sc-shadow-control-inset', render: <Card variant="interactive" onClick={noop}><CardBody>Hover or focus me.</CardBody></Card> },
+        { name: 'Elevated', token: '--sc-color-surface-page', render: <Card variant="elevated"><CardBody>Page ground, lifted by fill.</CardBody></Card> },
       ]}
       tokenRows={[
         { prop: 'Padding', token: '--sc-space-component-padding-lg' },
@@ -597,7 +597,7 @@ export function SegmentedControlPage() {
       lead={<>A one-of-N selector for view/mode switches — Drams' 3-Way Switch mapped onto the studio's fill-only elevation model. The track sinks; the selected segment raises on the floating surface with no border or shadow, and a measured indicator slides beneath the label as selection moves.</>}
       statesTitle="Five states, one radiogroup."
       callouts={[
-        { title: 'Fill-only elevation, on purpose', body: 'The selected segment lifts via surface-floating alone — no border, no shadow. Cards and Buttons argue depth with contrast and hairlines; this control argues it with fill weight only, because at this scale a border would read as a grid line, not a selection.' },
+        { title: 'Fill-only elevation, on purpose', body: 'The selected segment lifts via surface-floating alone — no border, no shadow. It shares the fill-only logic Cards and Buttons now carry, taken to its limit here because at this scale even a hairline would read as a grid line, not a selection.' },
         { title: 'The indicator is measured, not divided', body: 'It does not assume equal-width segments. Its left/width come from getBoundingClientRect() on the selected button, re-measured on selection, option-count, size, and resize changes — so "Month" and "Day" can be different widths without the slide looking wrong.' },
         { title: 'Arrow keys select, not just focus', body: 'This is the WAI-ARIA radiogroup pattern, not a tab-through list: an arrow key both moves focus and changes the value in one action, matching how a native radio group already behaves.' },
       ]}

@@ -10,8 +10,9 @@
  *   --sc-shadow-control-raised              · primary neumorphic 4-shadow (button-only)
  *   --sc-color-brand-accent-fill            · primary hover fill (teal.600, white AA 5.2)
  *   --sc-color-brand-accent-deep            · primary press + tertiary resting text (teal.700, AA)
- *   --sc-color-interactive-default          · secondary resting ink outline + label
- *   --sc-color-interactive-hover            · teal hover (documented AA exception, transient)
+ *   --sc-color-surface-sunk                 · secondary resting fill (fill-only) + disabled fill
+ *   --sc-color-surface-hover                · secondary hover/focus fill
+ *   --sc-color-interactive-hover            · teal hover label (documented AA exception, transient)
  *   --sc-color-interactive-active           · teal press
  *   --sc-color-text-primary                 · primary resting label (ink)
  *   --sc-color-text-on-accent               · white label on teal fill
@@ -99,18 +100,21 @@
   transform: scale(var(--sc-motion-press-scale));
 }
 
-/* --- Secondary · ink outline → teal on hover/focus ---------------- */
+/* --- Secondary · fill-only (sunk) → teal ink on hover/focus -------
+   scds-v2 Phase 2: was an ink stroke outline. Now a filled subtle chip —
+   ink label on surface-sunk at rest (AA), lifting to surface-hover with a
+   teal label on hover/focus (the documented transient accent exception). */
 .secondary {
-  border-color: var(--sc-color-interactive-default);
-  color: var(--sc-color-interactive-default);
+  background-color: var(--sc-color-surface-sunk);
+  color: var(--sc-color-text-primary);
 }
 .secondary:hover:not(:disabled),
 .secondary:focus-visible:not(:disabled) {
-  border-color: var(--sc-color-interactive-hover);
+  background-color: var(--sc-color-surface-hover);
   color: var(--sc-color-interactive-hover);
 }
 .secondary:active:not(:disabled) {
-  border-color: var(--sc-color-interactive-active);
+  background-color: var(--sc-color-surface-hover);
   color: var(--sc-color-interactive-active);
   transform: scale(var(--sc-motion-press-scale));
 }
@@ -139,11 +143,11 @@
   transform: scale(var(--sc-motion-press-scale));
 }
 
-/* --- Disabled · cross-variant ------------------------------------- */
+/* --- Disabled · cross-variant (fill-only, no stroke frame) --------- */
 .button:disabled {
   color: var(--sc-color-text-disabled);
-  border-color: var(--sc-color-border-default);
-  background-color: transparent;
+  border-color: transparent;
+  background-color: var(--sc-color-surface-sunk);
   box-shadow: none;
   cursor: not-allowed;
   transform: none;
