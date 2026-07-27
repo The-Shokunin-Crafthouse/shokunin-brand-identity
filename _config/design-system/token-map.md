@@ -505,3 +505,89 @@ Added during Sprint 4 to support the 12 component primitives without raw values 
 | `space/layout/inset/md` | `space/24` | Default page inset. |
 | `space/layout/inset/lg` | `space/48` | Wide-layout page inset. |
 
+---
+
+## Sprint 5 — Brand System page expansion (2026-05-27)
+
+Added during Sprint 5 alongside the build-out of the documentation surface on the **Brand System** Figma page. 11 new semantic aliases (no new primitives). One area flagged as unresolved.
+
+### Semantic additions
+
+#### color/surface · raised + overlay
+
+| Token Name | Alias (light → dark) | Notes |
+|---|---|---|
+| `color/surface/raised`  | `warmGray/50` → `dark/surfaceSunk`     | Raised surface · cards floating over the page ground. |
+| `color/surface/overlay` | `warmGray/50` → `dark/surfaceDeepSunk` | Modal / toast / dialog surface · maximum lift. |
+
+#### color/text · tertiary + inverse
+
+| Token Name | Alias (light → dark) | Notes |
+|---|---|---|
+| `color/text/tertiary` | `warmGray/400` → `warmGray/500` | Tertiary muted copy · captions, metadata. Fails AA by spec (documented exception). |
+| `color/text/inverse`  | `warmGray/50` → `warmGray/800`  | Text on inverse-mode surfaces (alongside legacy `text-on-inverse`). |
+
+#### color/interactive · disabled
+
+| Token Name | Alias (light → dark) | Notes |
+|---|---|---|
+| `color/interactive/disabled` | `warmGray/400` → `dark/textDisabled` | Non-interactive state. Pairs with `text/disabled`. |
+
+#### color/brand · primary + secondary
+
+| Token Name | Alias (light → dark) | Notes |
+|---|---|---|
+| `color/brand/primary`   | `warmGray/800` → `warmGray/50` | Ink mark · the studio's primary brand anchor. |
+| `color/brand/secondary` | `warmGray/500` → `warmGray/400` | Muted brand · secondary marks, subtle ink. |
+
+#### color/status · -text variants
+
+`-text` variants alias the existing status primitives directly. These exist so semantic intent ("status on a tinted surface") can be expressed even when the `-surface` variant is not yet defined.
+
+| Token Name | Alias (light → dark) | Notes |
+|---|---|---|
+| `color/status/success/text` | `status/success/light` → `status/success/dark` | Success text · readable on light or dark grounds. |
+| `color/status/warning/text` | `status/warning/light` → `status/warning/dark` | Warning text. |
+| `color/status/error/text`   | `shu/700` → `shu/400` | Error text · same chromatic family as `status/error`. |
+| `color/status/info/text`    | `status/info/light` → `status/info/dark` | Info text. |
+
+### Flagged · still missing
+
+`color/status/{success,warning,error,info}/surface` were requested by the Brand System spec but **not added**: rendering a tinted surface (e.g. pale olive for success) requires new primitive tints in the `color/status/*` ramp that don't exist yet. Defer to a dedicated status-surface sprint that adds:
+
+| Needed primitive | Suggested derivation |
+|---|---|
+| `color/status/success/surface/light` | warmGray/100 mixed 15% toward status/success/light |
+| `color/status/success/surface/dark`  | dark/surfacePage mixed 15% toward status/success/dark |
+| (same pattern for warning, error, info) | |
+
+Until those land, components needing a status-tinted surface should use `color/surface/sunk` with a strong-coloured left rule (`status/X` at full chroma), per the pattern used in the Brand System page's Section 06 reduced-motion callout.
+
+### Effect / sizing additions
+
+None this sprint. All Brand System frames inherit existing `elevation/*` styles and `space/*` ladders.
+
+### Iconography
+
+Phosphor regular-weight icon set imported as Figma components on the Components page (Icons section). 22 icons in this first pass: `arrow-{up,down,left,right}`, `caret-{up,down}`, `check`, `check-circle`, `x`, `x-circle`, `plus`, `minus`, `magnifying-glass`, `gear`, `user`, `bell`, `calendar`, `info`, `warning`, `dots-three`, `sparkle`, `code`.
+
+Naming convention: `Icon/<phosphor-name>`. Stroke bound to `color/text/primary` by default; recolor to `color/brand/accent` per use site. Standard sizes 16 / 24 / 32 px.
+
+### Helper / documentation components
+
+The Brand System page is assembled from a set of `DS-*` helper components living on the Components page under the **Design System Primitives** section. These are documentation primitives only — they should not be used in product UI. Inventory:
+
+| Component | Purpose |
+|---|---|
+| `DS-SectionHeader` | Section title + eyebrow number + mode pill |
+| `DS-ModePill`      | Cosmetic Light / Dark indicator |
+| `DS-ColorSwatch`   | Primitive color tile (80×80) with token name + hex caption |
+| `DS-SemanticColorRow` | Semantic token row with light + dark alias swatches |
+| `DS-ContrastBadge` | Ratio + AA / AAA / FAIL pill |
+| `DS-TypeRow`       | Type specimen row · name / sample / meta / use-case |
+| `DS-SpacingBar`    | Spacing-token bar · width = px value |
+| `DS-RadiusSwatch`  | Corner-radius swatch with radius var bound |
+| `DS-ElevationSwatch` | Elevation card with effect style applied |
+| `DS-EasingCurve`   | Cubic-bezier curve plotted as a vector path |
+| `DS-MotionToken`   | Motion token table row |
+
