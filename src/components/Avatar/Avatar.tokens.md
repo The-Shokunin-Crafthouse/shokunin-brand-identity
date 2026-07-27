@@ -10,7 +10,8 @@ Spec ref: §2 Tier 3 · 3.6 · States: 4 sizes (xs/sm/md/lg), image, initials fa
 | `--sc-color-surface-sunk` | initials fallback ground |
 | `--sc-color-text-primary` | initials ink |
 | `--sc-font-text-label-chrome-*` | initials font family + weight + tracking |
-| `--sc-border-width-default` + `--sc-color-border-default` | subtle outline so avatar reads as inscribed against page |
+
+scds-v2 Phase 2: fill-only — the resting outline was removed. The sunk fill seats the avatar against the page; the image or initials carry the shape.
 
 ## Sizes
 
@@ -29,6 +30,6 @@ Initials sized at ~40% of avatar diameter via `calc(var(--sc-size-avatar-*) * 0.
 
 | State | Tokens |
 |---|---|
-| `image` | size token + radius-pill + border (img fills via `object-fit: cover`) |
-| `initials fallback` | size token + radius-pill + border + surface-sunk + text-primary + font-text-label-chrome family/weight/tracking |
+| `image` | size token + radius-pill (img fills via `object-fit: cover`) |
+| `initials fallback` | size token + radius-pill + surface-sunk + text-primary + font-text-label-chrome family/weight/tracking |
 | `image-load-failure` | identical to initials fallback; React state flips to fallback on `<img onError>` |

@@ -1,10 +1,10 @@
 /**
  * Card — 3.3 · default, interactive (hover), elevated.
  *
- * Default: sunk surface with a hairline. Interactive: same resting,
- * deep-sunk on hover, cursor pointer, keyboard-activatable. Elevated:
- * page-ground bg with a strong frame — uses contrast against the sunk
- * default to read as lifted (no shadow tokens in the system).
+ * scds-v2 Phase 2 — fill-only elevation, no resting stroke frame. Default:
+ * sunk surface. Interactive: same resting, deep-sunk + inset shadow on
+ * hover/focus, cursor pointer, keyboard-activatable (renders a <button>).
+ * Elevated: page-ground bg, lifted by fill contrast against the sunk default.
  */
 
 import styles from './Card.module.css';

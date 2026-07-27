@@ -753,3 +753,26 @@ dev` → serves the showcase HTTP 200 (`Shokunin Crafthouse · Component Primiti
 **Out of scope / open.** Drams LOW tier (motion references only); Switch (owner's); motion-duration retune to 120/220/450 (still pending from v2); SCDS Figma library sync of the four component changes + signal variables (tracked with the library restructure Stages 3–5).
 
 **Addendum (same day) — status-hue drift resolved Figma→code.** The SCDS library file's status variables carried five values the token JSON didn't: `info/light #2D5AD8`, and dark-mode `success #388F63 · warning #C94E28 · info #3866E8 · error #732020` (deep fills, replacing the pastel dark set). Owner directive "code matches the Figma" applied: JSON updated to the Figma values, `tokens.css` recompiled. Note: dark-mode status hues now read as fills (consistent with the new filled-pill language); any dark-surface usage of status color as body TEXT should get an `-ink`/on-token check at next contrast pass (learning #56). The Figma Color-page swatch tiles' printed hexes are regenerated to match as part of the Color-page build-out.
+
+---
+
+## 2026-07-27 — SCDS v2 Phase 2: fill-only elevation (component de-framing)
+**Stage:** 02-design → 03-build (scds-v2 sprint, Phase 2)
+**Type:** Component design / token architecture
+**Status:** accepted (reversible, in-standard, in-scope — decide-and-log)
+
+**Context.** scds-v2 targets the slop-blocklist match "outline / stroke borders" (the shipped DS's resting `border: 1px solid` frames on Card/Input/Badge etc.). Phase 1 (tokens + type, PR #18) is merged; Phase 2 refactors the components off resting strokes onto fill-only elevation. The 2026-07-25 SCDS audit (`SCDS-AUDIT-2026-07-25.md`, PR #31) confirmed the direction and surfaced that the *tinted-fill* conversion of status components depends on colour tokens that don't exist in code yet.
+
+**Decision — hue-independent slice (this PR).** Removed resting stroke frames; elevation now carried by surface fill alone.
+- **New token** `shadow.control.inset` (`--sc-shadow-control-inset`, `$type: shadow`, mode-aware, composed from the ink/white channel-triplet primitives — learning #15). Sibling to `shadow.control.raised`; semantic to controls.
+- **Card** — all three variants lose the resting border. default (sunk) / elevated (page) separate by fill weight; `interactive` gains an inset shadow **and an explicit `:focus-visible` ring** (closes a Gate-3 five-states gap — it previously had none) on hover/focus.
+- **Input** — box frame → filled well (`surface-sunk`) + single bottom rule. Focus lifts fill to `surface-page` and doubles the bottom rule to `border-focus` (2px via inset shadow, no reflow); filled → `border-strong`; error → `status-error`. "fill-shift + bottom-border" per the sprint contract.
+- **Button** — `secondary` ink outline → fill-only chip (`surface-sunk` rest, ink label AA; `surface-hover` + teal label on hover/focus, the documented transient AA exception, learning #67); `disabled` → transparent border + `surface-sunk` fill (no stroke frame). Inline `<svg>` arrow → Phosphor `ArrowRight` (scds-v2 default icon family — closes the Phase-2 inline-SVG→Phosphor item; Icon wrapper's own docstring flagged this).
+- **Avatar** — resting outline dropped; sunk fill seats it.
+- Reference-site demo copy corrected (Card section "no shadow anywhere / hairline / strong frame" was now false; SegmentedControl + Specimen cross-refs to "Cards/Buttons use hairlines"). `.tokens.md` docs + CSS headers updated to match.
+
+**Deferred (NOT done here) — needs gated colour tokens.** Badge (outline → tinted fill) and Alert (hairline frame → tinted surface) require status `-bg`/`-ink` colour tokens that do not exist in the token JSON. Those are the audit's **Block 2** colour work, which is **Figma-first and gated on the Gate-1 brand-hue decision (red `shu` vs teal)**. Per the studio rule "never improvise a token value," these conversions are held until Block 2 lands rather than hand-authoring colour values. Badge/Alert keep their current outline treatment for now.
+
+**Gate-2 on-device (human, not self-certified).** Rest-state page↔component separation is ~1.05:1 by design (fill-only); pure-neutral near-blacks drift on wide-gamut Chrome (learning #11). Dark-mode rest legibility must be confirmed on Levi's P3 display; if it fails, apply the +1 red-whisper at the darkest steps per the sprint CONTEXT. Not claimed as a pass on this sRGB session.
+
+**Verification.** `tokens:build` + `build` exit 0; computed-style checks in the running showcase confirm all five components render fill-only with correct state tokens (Card sunk/page + inset; Input filled + bottom rule + focus; Button Phosphor arrow viewBox 256 + secondary/disabled fill; Avatar no border). Reduced-motion paths intact.

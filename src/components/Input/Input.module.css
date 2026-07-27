@@ -3,18 +3,24 @@
  *   --sc-space-component-padding-block-md   · 8 block
  *   --sc-space-component-gap-sm             · label ↔ input gap (4)
  *   --sc-radius-control                     · 3 corner — inscribed register
- *   --sc-border-width-default               · 1 border
+ *   --sc-border-width-default               · 1 bottom rule
  *   --sc-font-text-body-default-*           · 16 input value
  *   --sc-font-text-label-ui-*               · 12 label
  *   --sc-font-text-caption-*                · 13 helper/error
- *   --sc-color-surface-page                 · input bg
- *   --sc-color-surface-sunk                 · disabled bg
- *   --sc-color-border-default               · resting border
- *   --sc-color-border-strong                · filled / focused border (semantic via :focus-visible)
+ *   --sc-color-surface-sunk                 · resting fill (inset well)
+ *   --sc-color-surface-page                 · focus fill-shift (lifts)
+ *   --sc-color-border-default               · resting bottom rule
+ *   --sc-color-border-strong                · filled bottom rule
+ *   --sc-color-border-focus                 · focus bottom rule
  *   --sc-color-text-primary                 · value ink
  *   --sc-color-text-secondary               · label + helper
  *   --sc-color-text-disabled                · disabled value
- *   --sc-color-status-error                 · error border + helper
+ *   --sc-color-status-error                 · error bottom rule + helper
+ *
+ * scds-v2 Phase 2 — filled field, no box frame. The input is an inset fill
+ * (surface-sunk) with a single bottom rule. Focus lifts the fill to
+ * surface-page and doubles the bottom rule to the focus colour (2px via an
+ * inset shadow, no reflow). "fill-shift + bottom-border" carries every state.
  */
 
 .field {
@@ -36,11 +42,10 @@
 .input {
   padding-inline: var(--sc-space-component-padding-inline-md);
   padding-block: var(--sc-space-component-padding-block-md);
+  border: none;
   border-radius: var(--sc-radius-control);
-  border-width: var(--sc-border-width-default);
-  border-style: solid;
-  border-color: var(--sc-color-border-default);
-  background-color: var(--sc-color-surface-page);
+  border-bottom: var(--sc-border-width-default) solid var(--sc-color-border-default);
+  background-color: var(--sc-color-surface-sunk);
   color: var(--sc-color-text-primary);
   font-family: var(--sc-font-text-body-default-family);
   font-size: var(--sc-font-text-body-default-size);
@@ -48,21 +53,28 @@
   line-height: var(--sc-font-text-body-default-line-height);
   letter-spacing: var(--sc-font-text-body-default-letter-spacing);
   width: 100%;
-  transition: border-color var(--sc-motion-hover-duration) var(--sc-motion-hover-easing);
+  transition:
+    background-color var(--sc-motion-hover-duration) var(--sc-motion-hover-easing),
+    border-bottom-color var(--sc-motion-hover-duration) var(--sc-motion-hover-easing),
+    box-shadow var(--sc-motion-hover-duration) var(--sc-motion-hover-easing);
 }
 
 .input::placeholder {
   color: var(--sc-color-text-disabled);
 }
 
-/* Filled state — when input has content, border darkens to strong */
+/* Filled — content present: bottom rule darkens to strong. */
 .input:not(:placeholder-shown):not(:disabled) {
-  border-color: var(--sc-color-border-strong);
+  border-bottom-color: var(--sc-color-border-strong);
 }
 
+/* Focus — fill lifts to page, bottom rule goes focus colour, doubled to 2px
+   via an inset shadow so the underline reads at AA without reflowing. */
 .input:focus {
   outline: none;
-  border-color: var(--sc-color-border-focus);
+  background-color: var(--sc-color-surface-page);
+  border-bottom-color: var(--sc-color-border-focus);
+  box-shadow: inset 0 -1px 0 0 var(--sc-color-border-focus);
 }
 
 .helper {
@@ -81,11 +93,12 @@
 /* --- Error state -------------------------------------------------- */
 
 .errored .input {
-  border-color: var(--sc-color-status-error);
+  border-bottom-color: var(--sc-color-status-error);
 }
 
 .errored .input:focus {
-  border-color: var(--sc-color-status-error);
+  border-bottom-color: var(--sc-color-status-error);
+  box-shadow: inset 0 -1px 0 0 var(--sc-color-status-error);
 }
 
 /* --- Disabled state ----------------------------------------------- */
@@ -96,6 +109,7 @@
 
 .input:disabled {
   background-color: var(--sc-color-surface-sunk);
+  border-bottom-color: transparent;
   color: var(--sc-color-text-disabled);
   cursor: not-allowed;
 }

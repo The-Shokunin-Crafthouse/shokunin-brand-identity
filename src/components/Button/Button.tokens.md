@@ -2,7 +2,7 @@
 
 Spec ref: §2 Tier 3 · 4.0 · Variants: primary, secondary, tertiary, destructive, disabled, loading.
 
-Pill-radius control with a trailing arrow. **The accent is a hover state, never a resting one** — primary rests neutral (neumorphic raise) and turns teal on hover; secondary is an ink outline that goes teal on hover/focus; tertiary is a persistent teal ghost.
+Pill-radius control with a trailing arrow (Phosphor `ArrowRight`, scds-v2 default icon family, `currentColor`). **The accent is a hover state, never a resting one** — primary rests neutral (neumorphic raise) and turns teal on hover; secondary is a fill-only subtle chip (scds-v2 Phase 2 — was an ink outline) that goes teal on hover/focus; tertiary is a persistent teal ghost.
 
 ## Shared (every variant)
 
@@ -24,7 +24,7 @@ Pill-radius control with a trailing arrow. **The accent is a hover state, never 
 | Variant | Resting | Hover | Active |
 |---|---|---|---|
 | `primary` | fill = `surface-raised` (neutral), text = `text-primary`, **shadow = `shadow-control-raised`** (button-only neumorphic 4-layer) | fill → `brand-accent-fill` (teal.600), text → `text-on-accent` (white, AA 5.2) | fill → `brand-accent-deep` (teal.700) + scale |
-| `secondary` | border + text = `interactive-default` (ink) | → `interactive-hover` (teal, transient AA exception); focus also turns teal | text + border → `interactive-active` + scale |
+| `secondary` | fill = `surface-sunk`, text = `text-primary` (ink, AA) — fill-only, no stroke | fill → `surface-hover`, text → `interactive-hover` (teal, transient AA exception); focus matches | text → `interactive-active` + scale |
 | `tertiary` | text = `brand-accent-deep` (teal.700, AA 5.78), no border/fill | text → `interactive-hover` (teal) | text → `interactive-active` + scale |
 | `destructive` | fill + border = `status-error`, text = `text-on-accent`, shadow = `shadow-control-raised` | — | + scale |
 
@@ -32,9 +32,9 @@ Pill-radius control with a trailing arrow. **The accent is a hover state, never 
 
 | State | Tokens |
 |---|---|
-| `disabled` | `--sc-color-text-disabled`, `--sc-color-border-default`, `box-shadow: none`, `cursor: not-allowed`. Cross-variant. |
+| `disabled` | `--sc-color-text-disabled`, fill `--sc-color-surface-sunk`, transparent border (fill-only, no stroke frame), `box-shadow: none`, `cursor: not-allowed`. Cross-variant. |
 | `loading` | label opacity 0.6, spinner ring (currentColor + `--sc-border-width-default` + `--sc-radius-pill` + `--sc-motion-mode-duration`) replaces the arrow. |
-| `focus` | `:focus-visible` styled ring · `--sc-color-border-focus` at `--sc-border-width-focus`, `--sc-border-focus-offset`. Secondary additionally turns its outline teal. |
+| `focus` | `:focus-visible` styled ring · `--sc-color-border-focus` at `--sc-border-width-focus`, `--sc-border-focus-offset`. Secondary additionally shifts fill + turns its label teal. |
 
 ## The press-spring (Drams #6 · Pushin' Click Button)
 

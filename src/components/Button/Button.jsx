@@ -11,28 +11,15 @@
  * handler and renders an inline pulse in place of the arrow.
  */
 
+import { ArrowRight } from '@phosphor-icons/react';
 import styles from './Button.module.css';
 
 const VARIANTS = ['primary', 'secondary', 'tertiary', 'destructive'];
 
-// Trailing arrow — inherits the label colour via currentColor.
+// Trailing arrow — Phosphor glyph (scds-v2 default icon family), inherits
+// the label colour via currentColor. Sized by .arrow (1.4em).
 function Arrow() {
-  return (
-    <svg
-      className={styles.arrow}
-      width="1em"
-      height="1em"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      <path d="M5 12h14M13 6l6 6-6 6" />
-    </svg>
-  );
+  return <ArrowRight className={styles.arrow} aria-hidden="true" />;
 }
 
 export function Button({

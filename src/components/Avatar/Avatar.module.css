@@ -4,8 +4,9 @@
  *   --sc-color-surface-sunk                · initials fallback ground
  *   --sc-color-text-primary                · initials ink
  *   --sc-font-text-label-chrome-*          · initials font composition
- *   --sc-border-width-default              · subtle outline (optional contrast)
- *   --sc-color-border-default              · outline color
+ *
+ * scds-v2 Phase 2 — fill-only, no resting outline. The sunk fill alone seats
+ * the avatar against the page; the image or initials carry the shape.
  */
 
 .avatar {
@@ -15,9 +16,6 @@
   overflow: hidden;
   border-radius: var(--sc-radius-pill);
   background-color: var(--sc-color-surface-sunk);
-  border-width: var(--sc-border-width-default);
-  border-style: solid;
-  border-color: var(--sc-color-border-default);
   flex-shrink: 0;
 }
 
