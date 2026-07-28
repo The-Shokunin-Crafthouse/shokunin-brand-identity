@@ -892,3 +892,56 @@ dev` → serves the showcase HTTP 200 (`Shokunin Crafthouse · Component Primiti
 **Contrast consequence (verified, not assumed).** `border/default` (aliases `350` post-Block-2-swap) vs `surface/page` (aliases `100`, `#ebe7e4`): **1.22:1 → 2.52:1**. `border/subtle` (aliases `250`): **1.44:1 → 1.53:1** (measured pre-Block-2-swap value was 1.44; post-swap+rebuild is 1.53). Relative order preserved and *amplified* — `default` reads distinctly stronger than `subtle`, closing the residual near-indistinguishability the audit's screenshot-level check would still have shown even after the Block 2 alias swap alone. Neither crosses 3:1 (non-text minimum) — acceptable for a border-only role (no text-contrast requirement applies), and pushing further would have made 400/450 collide instead.
 
 **Verified.** Fresh `screenshot()` of the Color foundations page's neutral-ramp swatch row (bound live to the variables, not hand-picked hex) confirms even visual steps end-to-end with no plateau-then-cliff. `500` (`#5f5854`) sits immediately below the new `450`/`400` without a visible seam.
+
+---
+
+## 2026-07-28 — SCDS Block 4 preflight: components were bound to THREE foreign variable libraries, not this file's collections
+
+**Stage:** 02-design (scds-v2, Figma + code sync)
+**Type:** Structural defect discovered mid-sprint; corrected in full
+**Status:** accepted
+
+**Context — how it surfaced.** While reading `StatusPill` (`9:767`) to plan the Block 4.7 consolidation, its bound variable IDs came back in the `VariableID:<libraryKey>/<id>` form rather than the local `VariableID:4:3` form. `getVariableByIdAsync().remote` confirmed `true`. The audit (2026-07-25) never caught this: it resolved bindings *by name*, and the foreign variables carry the same names, so a name-level read looks correct.
+
+**Finding.** SCDS components were bound to **three distinct remote (library) variable collections**, not the local `Primitives` / `Semantic` collections this repo authors from `tokens/*.json`:
+
+| Remote collection key | Naming style | Example |
+|---|---|---|
+| `43e6af37…/2017:11` | `color/*`, `radius/xxs`, `radius/xs`, `radius/s` | `color/surface/page` |
+| `2d038dfc…/24:2` | unprefixed semantic | `text/primary`, `text/on-accent` |
+| `93ae9511…/22:0` | kebab primitives | `warm-gray/400` = `#9a9388` |
+
+Census across all 27 non-archive pages holding bindings: **~3,250 remote bindings vs ~490 local**. Only the four newest component pages (`SegmentedControl`, `Stepper`, `Progress`, `Link`) were fully local.
+
+**Why this mattered — three consequences, all live:**
+1. **Every token fix this sprint was invisible in the components.** Blocks 2/3/5 and the P2-8 warmGray rebuild edited *local* variables; the components read *remote* ones. The proof is exact: `Tab` was bound to `warm-gray/400 = #9a9388` — the precise pre-rebuild value P2-8 replaced with `#847c71`.
+2. **Publishing SCDS (Block 7) would have shipped a broken library.** Consumers subscribing to SCDS would inherit components whose variables live in three other files. `getAvailableLibraryVariableCollectionsAsync()` returns `[]` from this file — those libraries are not even subscribable here.
+3. **Code and Figma had already silently diverged.** `tokens/*.json` mirrors the local collections; the components did not consume them, so the "Figma is the single source of truth" contract (CC-PROMPT §Decisions 3) was not actually true for any component.
+
+**Decision — local collections are truth; rebind everything to them.** `CLAUDE.md` states the Primitives collection + `_config/design-system/token-map.md` are the authoring surface compiled to `tokens.css`; the local collections were created from the repo JSON. The remote bindings are residue from the three branded files these components were consolidated out of. Rebound all bindings to the local variable of the same name, resolving name drift through an explicit remap plus a generic fallback chain (`exact` → `color/` prefix → kebab→camel leaf).
+
+**Explicit remaps (value-preserving unless noted):**
+
+| Remote name | Local target | Note |
+|---|---|---|
+| `color/text/inverse`, `color/text-on-inverse` | `color/text/onInverse` | Block 5 rename |
+| `color/brand/primary` / `secondary` | `color/brand/accent` / `accentDeep` | |
+| `color/status/warning/text` | `color/status/warning-ink` | Block 2 `-ink` tier |
+| `color/interactive/disabled` | `color/text/disabled` | |
+| `text/primary`, `text/secondary`, `text/on-accent` | `color/text/*` | unprefixed library |
+| `warm-gray/{100,400,800}` | `color/warmGray/*` | **picks up the P2-8 rebuild** |
+| `dark-surface/sunk` | `color/dark/well` | `#080807` exact |
+| `radius/xs` (8) | `radius/surface` | exact |
+| `radius/xxs` (4) | `radius/control` (3) | **−1px**; local scale is 0/3/8/9999 — no 4 exists, and adding one would break the declared scale. Affects Badge corners. |
+| `radius/s` (16) | `radius/surfaceLarge` (new) | see below |
+| `color/surface/overlay` | `color/surface/floating` | 1 node (portal Lightbox). Dark matches exactly (`#1a1a1a`); light shifts `#f1efeb`→`#fbf9f6`. |
+
+**Decision — two tokens added, not faked.** `radius/s` = 16px was used by 48 bindings (portal `Row`, `Editor`) and the local scale genuinely lacked a large step. Mapping it to `radius/surface` (8) would have silently halved 48 radii. Added **primitive `radius/large` = 16px** and **semantic `radius/surfaceLarge` → `{radius.large}`**, synced to `tokens/primitives.json` + `tokens/semantic.json`, regenerated (`--sc-p-radius-large`, `--sc-radius-surface-large` in both `src/styles/tokens.css` and `public/tokens.css`). `npm run tokens:build` + `npm run build` both exit 0.
+
+**Verified.** Per-page census re-run with the same counting method after each pass: **0 remote bindings remaining on all 27 pages, 0 unresolved names.** Totals: 3,247 bindings rebound across 27 pages.
+
+**Platform note — gradient stops bind per-stop.** `setBoundVariableForPaint(paint,'color',v)` only reaches a SOLID paint's colour. A `GRADIENT_LINEAR` paint reports its bindings at node level (`boundVariables.strokes` lists one entry per stop) but stores them on `gradientStops[i].boundVariables.color`. The first rebind pass silently missed 4 Toggle stroke bindings because of this; caught by the canary's post-write re-read. Handled by deep-cloning the paint array and rewriting each stop's alias directly.
+
+**Consequence for the audit.** `SCDS-AUDIT-2026-07-25.md` §9's "zero unbound fills and zero unbound strokes across ~1,400 nodes … the hard part is already done" is correct on *unbound*-ness but wrong on *whose system* those bindings pointed at. The audit also enumerated only 14 component pages in its node-ID reference; 18 further pages carrying bindings (`Icons`, `Device`, `Doc`, agency `Card`/`Stat`/`Row`/`Decision`/`Step`, and the 10 client-portal pages) were rebound here too.
+
+**Block 4 status.** Item 4.1 landed for `Pulse` and `NavLink` (`state`→`State`, values capitalised). `Badge`/`Pill` deliberately left for 4.7 (consolidation supersedes a rename). Items 4.2–4.6, 4.8–4.10 not started — this preflight took the session.

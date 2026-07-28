@@ -668,6 +668,7 @@
     "none":    { "$type": "dimension", "$value": { "value": 0,    "unit": "px" }, "$description": "No radius. Reserved for special structural rectangles." },
     "input":   { "$type": "dimension", "$value": { "value": 3,    "unit": "px" }, "$description": "Form input + badge radius. Small, just enough to read as soft." },
     "default": { "$type": "dimension", "$value": { "value": 8,    "unit": "px" }, "$description": "Default radius. Cards, buttons, frames, stamps." },
+    "large":   { "$type": "dimension", "$value": { "value": 16,   "unit": "px" }, "$description": "Large surface radius. Portal Row, Editor panel. Added 2026-07-28 with the SCDS remote-variable rebind — components carried a 16px step the local scale lacked." },
     "circle":  { "$type": "dimension", "$value": { "value": 9999, "unit": "px" }, "$description": "Pill / full circle. Status dots, brand stamp." }
   },
   "border": {
