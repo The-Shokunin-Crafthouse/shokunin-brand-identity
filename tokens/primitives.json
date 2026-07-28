@@ -184,8 +184,8 @@
         },
         "dark": {
           "$type": "color",
-          "$value": "#732020",
-          "$description": "Lifted rose · error states on dark ground."
+          "$value": "#DD4C4C",
+          "$description": "Lifted rose · error states on dark ground. 2026-07-25 SCDS audit P0-4: was #732020 (1.79:1, unreadable — inverted the light→dark lift every peer status hue follows). #DD4C4C measures 4.76:1 on dark.surfacePage, alongside success/dark's 4.82 (the peer band). Hue held at 0° (14.2° separation from warning/dark, max available). Fixed in Figma 2026-07-25 (VariableID:2:52); this is the code-side propagation (audit 8.8)."
         }
       }
     },
