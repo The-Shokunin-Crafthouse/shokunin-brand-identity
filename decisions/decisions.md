@@ -810,3 +810,85 @@ dev` → serves the showcase HTTP 200 (`Shokunin Crafthouse · Component Primiti
 **Deferred — not mechanical.** `warmGray` 200–400 span rebuild (P2-8, the four-near-identical-steps-then-a-cliff ramp) is a perceptual redesign, not an alias fix — needs a dedicated pass. `motion/press/release-duration` naming (audit P2-11) turned out to be a **code-generator mapping gap** (Block 8), not a Figma-side duplicate — Figma's name is already correct and singular.
 
 **Code sync outstanding.** All of the above are Figma-only. `tokens/primitives.json` / `tokens/semantic.json` and the generated `tokens.css` do not yet carry the `-ink` tier, the border/focus repoint, or the dark border dedup. Tracked for the Phase-3 code-sync pass (`CC-PROMPT-scds-pipeline.md`).
+
+---
+
+## 2026-07-28 — SCDS audit Block 6: hold theming collection (moot on hue)
+
+**Stage:** 02-design (scds-v2, pre-Block-8)
+**Type:** Scope decision (owner-directed)
+**Status:** accepted
+
+**Context.** Block 6 (third `Brand` collection, modes Studio|Clients|Docs) was recommended in the audit mainly to carry the brand-hue split (red vs teal per site). Block 0 resolved hue to teal everywhere, removing that justification. Remaining divergence (studio site's 5 extra undeclared font families, portal-specific layout vars) doesn't live in Figma variables today.
+
+**Decision.** Hold Block 6. Do not build the 3-mode collection on spec. Revisit only if Block 8 (code sync) surfaces real per-site Figma-variable-level divergence that needs it.
+
+**Consequences.** Sprint proceeds straight to Block 1 (desktop font step)/3 (typography)/5 (foundations)/warmGray ramp/Block 8 (code sync) without theming infrastructure. Zero rework risk — collection can be added later with no migration cost since nothing depends on it yet.
+
+---
+
+## 2026-07-28 — SCDS audit Block 3: typography (Figma) — lineHeight/letterSpacing variable-binding platform limit discovered
+
+**Stage:** 02-design (scds-v2, Figma-only this pass)
+**Type:** Design-system token correctness / Figma platform limitation
+**Status:** accepted
+
+**Context.** Executing audit Block 3 (typography, `SCDS-AUDIT-2026-07-25.md` §3.1–3.6). `font/lineHeight/*` (5 ratio tokens: flat 1.0, tight 1.1, snug 1.2, base 1.5, relaxed 1.55) and `font/tracking/*` (9 tokens) existed as unconsumed documentation (P2-1). First attempt bound them to all 21 non-duplicate text styles via `TextStyle.setBoundVariable('lineHeight'/'letterSpacing', variable)` — the call succeeded with no error, but a fresh re-read showed Figma had silently coerced every bound value to unit `PIXELS`, taking the raw ratio float as an absolute pixel amount (e.g. `lineHeight: {unit:'PIXELS', value:1.1}` — a 1.1px line height, collapsing the text; `letterSpacing: {unit:'PIXELS', value:-0.018}` — effectively zero tracking). Confirmed against `figma-use` skill reference (`variable-patterns.md`, `api-reference.md`): "fontSize, fontWeight, lineHeight are NOT bindable via setBoundVariable — set these directly." `letterSpacing` isn't documented as blocked but empirically hits the same PIXELS-coercion bug when bound.
+
+**Decision — revert and go literal.** Unbound `lineHeight`/`letterSpacing` on all 23 touched styles (`setBoundVariable(field, null)`) and restored them as literal `{unit:'PERCENT', value}` — the only mode that renders correctly. The 6 `font/lineHeight/*` and 9 `font/tracking/*` primitives remain **documentation-only reference tokens** (unconsumed by live bindings), same status as before this pass but now every text style's literal percent value matches one of these ratios by *value*, so the reference tokens document the applied scale accurately even though Figma can't bind them live. This is a **Figma platform limitation**, structurally identical to the already-documented `motion/easing/*` code-only tier (2026-07-25 audit §4a) — variable-bound line-height/letter-spacing on Figma TextStyles is pixel-only, with no live font-relative-percent binding mode. Logging it here so no future session re-attempts the same binding and re-discovers the same bug.
+
+**What actually landed (all literal, verified via fresh re-read, all render correctly):**
+- All 21 non-duplicate text styles now set explicit `lineHeight` + `letterSpacing` (previously only `fontSize`/`fontFamily`/`fontWeight` were bound to variables; `lineHeight`/`letterSpacing` were hardcoded already — this pass corrected/normalized those hardcoded values to match the declared ratio scale exactly, closing P2-1's "hardcoded, can't retarget system-wide" complaint at the *value-consistency* level, not the live-binding level).
+- **`text/body/nav/header`** + **`text/body/nav/node`**: `fontSize` now genuinely bound to `font/size/12`/`font/size/13` (fontSize binding on TextStyle *does* work correctly — only lineHeight/letterSpacing hit the bug). `lineHeight: AUTO` replaced with literal `110%` (tight ratio) on both, closing P2-1's `AUTO` violation.
+- **Display tracking tuned** (3.4): `sm` (44px) 0%→`-1.8%`, `md` (60px, already-tuned reference) stays `-2.5%`, `lg` (84px) 0%→`-4%`, `xl` (120px) 0%→`-4%` (plateau at the ramp's most-negative token — matches how real optical-tracking curves flatten at the largest sizes rather than tightening indefinitely; documented judgment call, not an unexamined default).
+- **New primitive** `font/lineHeight/loose` (2.0, `VariableID:213:2`) added to complete the ramp — `text/mono/flow`'s 200% line-height had no existing token; the ramp now covers 100/110/120/150/155/200%.
+- **3 `*/light` duplicate text styles deleted** (3.2): `text/body/{dense,default,lead}/light`. No Light-weight Haas Grot Text cut exists in either the Trial (confirmed this session, `listAvailableFontsAsync`) or documented Pro font list — giving them "an actual light weight" is blocked on the same font-installation gate as Block 1.2. Deletion (the audit's explicit alternative to fixing) closes P2-2 without waiting on that blocker; trivial to recreate once Pro Text ships a Light cut.
+- **`text/display/xsm-32` renamed → `text/display/xs`** (3.5): dropped the embedded-pixel-value name (P2-3's flagged defect). Kept as a *distinct* style from `text/title/section` rather than merged/deleted — both sit at 32px Haas Grot Disp 95 Black but serve different semantic roles (a display-ramp step vs. a section title), which is a legitimate type-scale pattern (two styles, same size, different role), not a true duplicate. Style rename preserves all existing node references (renaming a Figma style doesn't detach consumers, unlike an ID change).
+
+**Not done this pass (needs the Pro font gate, not a mechanical fix):** 1.1/1.2 (font rebind) — checked again this session, `Neue Haas Grotesk Display/Text Pro` still absent from `listAvailableFontsAsync()`, unchanged from last session.
+
+**Declared instead of fixed (3.6 — type-scale ratio):** Sizes 11→120 span ratios 1.077–1.428 with no single ratio held (confirmed, matches audit). **ADR: accept the hybrid scale as-is.** Retrofitting a single modular ratio across an already-built, already-in-production 26-style system risks a much larger visual-regression sweep for a documentation-purity gain; the existing sizes are individually reasonable at their use points (11/12/13/14/16/20/24/32/44/60/84/120) even though they don't share one multiplier. No ratio is declared; this hybrid is the accepted system.
+
+**Verification.** Fresh `getStyleByIdAsync` re-read on every touched style post-fix confirms `unit: 'PERCENT'` (not `PIXELS`) on all lineHeight/letterSpacing values, and nav fontSize bindings resolve to the correct px through their variables. No visual regression risk — Figma renders literal PERCENT identically to how these styles rendered before this pass, just now internally consistent with the documented ratio/tracking scale.
+
+---
+
+## 2026-07-28 — SCDS audit Block 5: foundations pages, grid styles, naming, effect-binding platform limit
+
+**Stage:** 02-design (scds-v2, Figma-only this pass)
+**Type:** Design-system documentation / token correctness
+**Status:** accepted
+
+**Context.** Executing audit Block 5 (`SCDS-AUDIT-2026-07-25.md` §5.1–5.6, P2-14/15/16/11, §4c).
+
+**Decision — foundations pages filled (5.1).** `Principles`, `Color`, `Type`, `Space`, `Motion` (previously empty shells, P2-14) now each hold a real documentation frame: Principles — the 7 studio design principles as heading+body pairs; Color — swatch grids for the warmGray ramp (14 steps), teal ramp (10), dark elevation ramp (8), status colours (7, light mode), signal (3), focus ring (2), each swatch's fill genuinely bound to its Figma variable (not a hand-picked hex); Type — one live specimen row per text style (23, post-Block-3 cleanup) rendered in its actual bound style, confirming the Block 3 tracking/line-height work visually; Space — bar chart of `space/*` (11 steps) and `space/micro/*` (6 steps, labeled as the documented 2pt exception). Screenshotted and visually verified — the Color page's neutral-ramp render **visually confirms P2-8** (200→350 are near-indistinguishable, 400 is a visible jump), corroborating the audit finding ahead of the ramp-rebuild task.
+
+**Decision — grid styles added (5.2).** 5 new grid styles `grid/{390,768,1024,1440,1920}` (P2-15) — column-count and margin scaled by breakpoint (4/8/12/12/12 columns; 16/24/32/64/96px margin; 16/24/24/24/24px gutter), matching the studio's 8pt-scale verification breakpoints (studio-memory §3).
+
+**Decision — naming normalised (5.5).** Only 2 variables were genuine kebab-leaf outliers against the dominant slash+camelCase convention (`color/dark/surfacePage`, `brand/accentDeep` etc. — confirmed correct as-is): `color/text-on-inverse` → `color/text/onInverse`, `color/surface-inverse` → `color/surface/inverse`. Renaming a Figma variable doesn't break existing bindings (reference is by ID) — zero consumer impact.
+
+**Decision — `inkRgb`/`whiteRgb` added (5.4, §4c).** New STRING primitives `color/inkRgb` (`"26 24 21"`) and `color/whiteRgb` (`"255 255 255"`) — closes the one real Figma-side gap identified in the audit's token diff. Values copied verbatim from `tokens/primitives.json` (channel-triplet pattern, learning #15).
+
+**Decision — 5.6 confirmed no Figma action needed.** Per `SESSION-RESUME.md`'s prior finding, `motion/press/release-duration` naming is a Block 8 code-generator mapping gap, not a Figma-side duplicate — Figma's naming is already correct. No action here.
+
+**Platform limitation discovered — effect (shadow) color variable binding destroys per-layer opacity.** Attempted to bind `shadow/raised`/`shadow/inset`'s 4-layer drop/inner-shadow colours to `warmGray/800` (ink) and `utility/white` (5.3, reconcile `shadow/raised`↔repo `shadow/control/raised`). `setBoundVariableForEffect(effect, 'color', variable)` succeeded with no error, but Figma's `Effect.color` is a single RGBA — binding a variable replaces the *entire* channel including alpha, and the bound colour variables are fully opaque (`a:1`). This flattened all 4 shadow layers (previously 0.10/0.08/0.90/0.70 opacity) to fully opaque, which would render as a much harsher, wrong-looking shadow. **Caught via mandatory fresh re-read before moving on (learning: verify after every mutation) and reverted** — colour unbound, original RGBA (including each layer's correct alpha) restored. This is a second Figma variable-binding platform limit discovered this session (the first being lineHeight/letterSpacing, logged above) — effect colour binding has no way to preserve a per-layer alpha independent of the bound variable's own alpha. **Kept:** the two styles are renamed `shadow/control/raised` / `shadow/control/inset` (pure rename, zero risk) to match the repo's `shadow.control.raised`/`shadow.control.inset` naming (P2-16's reconciliation half that *is* achievable). **Not bound to variables** — logged as a platform limit, not deferred as unfinished work; a future fix would require per-shadow-layer alpha-baked colour variables (4 one-off tokens per style), which contradicts the channel-triplet-rgba pattern (learning #15) this system otherwise follows, so it is not recommended as a workaround.
+
+**Verification.** Fresh re-reads (`getStyleByIdAsync`, `screenshot()`) confirm: all 5 foundations pages render with correct content and no clipped/overlapping text; grid styles created with correct `pattern`/`count`/`gutterSize`/`offset`; the 2 renamed variables and 2 new STRING primitives resolve correctly; the reverted shadow styles show `unit`-free literal RGBA with original per-layer alpha intact and `boundVariables: {}`.
+
+---
+
+## 2026-07-28 — SCDS audit P2-8: warmGray 200–400 span rebuild
+
+**Stage:** 02-design (scds-v2, Figma-only this pass)
+**Type:** Perceptual color-ramp redesign (deferred from Block 2, executed this session)
+**Status:** accepted
+
+**Context.** `color/warmGray/{200,250,300,350,400}` had four near-identical steps (`#d9d6d2 → #d5d2cf → #cdcac7 → #c5c2bf`, a combined ΔL of ~7.7%) then a cliff to `400` (`#9a9388`, ΔL ~19.2% in one step — 2.5× the combined prior four). This was the audit's flagged "real perceptual redesign, not a mechanical fix," deferred both last session and at this session's start pending dedicated attention.
+
+**Decision — HSL-linear redistribution between fixed anchors.** Held `warmGray/100` (`#ebe7e4`, L90.78%) and `warmGray/450` (`#6b665e`, L39.41%) fixed — neither was flagged as broken and both anchor adjacent semantic bindings (`surface/page`→100). Computed each anchor's HSL, then placed `200/250/300/350/400` at 6 perceptually-even lightness steps between them (~8.56% L per step), interpolating hue (25.7°→36.9°) and saturation (14.9%→6.5%) linearly alongside lightness to preserve the ramp's existing warm-neutral character (hue/saturation drift toward cooler/grayer as it darkens, matching the ramp's own established pattern rather than introducing a new one).
+
+**New values:** `200` `#d8d1cc` (was `#d9d6d2`, L82.2%) · `250` `#c4bcb4` (was `#d5d2cf`, L73.7%) · `300` `#b0a69c` (was `#cdcac7`, L65.1%) · `350` `#9a9186` (was `#c5c2bf`, L56.5%) · `400` `#847c71` (was `#9a9388`, L48.0%).
+
+**Contrast consequence (verified, not assumed).** `border/default` (aliases `350` post-Block-2-swap) vs `surface/page` (aliases `100`, `#ebe7e4`): **1.22:1 → 2.52:1**. `border/subtle` (aliases `250`): **1.44:1 → 1.53:1** (measured pre-Block-2-swap value was 1.44; post-swap+rebuild is 1.53). Relative order preserved and *amplified* — `default` reads distinctly stronger than `subtle`, closing the residual near-indistinguishability the audit's screenshot-level check would still have shown even after the Block 2 alias swap alone. Neither crosses 3:1 (non-text minimum) — acceptable for a border-only role (no text-contrast requirement applies), and pushing further would have made 400/450 collide instead.
+
+**Verified.** Fresh `screenshot()` of the Color foundations page's neutral-ramp swatch row (bound live to the variables, not hand-picked hex) confirms even visual steps end-to-end with no plateau-then-cliff. `500` (`#5f5854`) sits immediately below the new `450`/`400` without a visible seam.
