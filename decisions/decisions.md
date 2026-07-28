@@ -945,3 +945,47 @@ Census across all 27 non-archive pages holding bindings: **~3,250 remote binding
 **Consequence for the audit.** `SCDS-AUDIT-2026-07-25.md` §9's "zero unbound fills and zero unbound strokes across ~1,400 nodes … the hard part is already done" is correct on *unbound*-ness but wrong on *whose system* those bindings pointed at. The audit also enumerated only 14 component pages in its node-ID reference; 18 further pages carrying bindings (`Icons`, `Device`, `Doc`, agency `Card`/`Stat`/`Row`/`Decision`/`Step`, and the 10 client-portal pages) were rebound here too.
 
 **Block 4 status.** Item 4.1 landed for `Pulse` and `NavLink` (`state`→`State`, values capitalised). `Badge`/`Pill` deliberately left for 4.7 (consolidation supersedes a rename). Items 4.2–4.6, 4.8–4.10 not started — this preflight took the session.
+
+---
+
+## 2026-07-28 — SCDS audit Block 4.5: geometry bound to the scale (2,362 bindings)
+
+**Stage:** 02-design (scds-v2, Figma-only)
+**Type:** Mechanical binding pass + off-scale audit
+**Status:** accepted
+
+**Context.** Audit P2-6 counted ~85 unbound corner radii and ~98 unbound padding/gap values across the 14 component pages it enumerated. The true figure across all 27 pages carrying components is far higher.
+
+**Decision — bind by exact value, semantic tier first.** Every unbound `topLeft/topRight/bottomLeft/bottomRightRadius`, `paddingLeft/Right/Top/Bottom`, `itemSpacing` and (where wrapping) `counterAxisSpacing` was bound to the local variable whose resolved value matches **exactly**. No value was changed. Resolution order:
+
+- **Radius** → `radius/none`(0) · `radius/control`(3) · `radius/surface`(8) · `radius/surfaceLarge`(16) · `radius/pill`(9999)
+- **Inline padding** (L/R) → `space/component/padding-inline/{sm 6, md 12, lg 16}` → `space/component/padding/{sm 8, md 16, lg 24}` → primitive `space/*`
+- **Block padding** (T/B) → `space/component/padding-block/{sm 2, md 8, lg 12}` → `space/component/padding/*` → primitive `space/*`
+- **Gap** → `space/component/gap/{sm 4, md 8, lg 12}` → primitive `space/*`
+
+**Result: 2,362 bindings across 27 pages, 0 errors, 0 visual change** (every binding carries the value the node already had).
+
+Per page: Icons 292 · Row (portal) 252 · Editor 172 · Field 163 · Doc 163 · Nav 161 · Card (portal) 135 · Empty State 128 · Tab 124 · Badge 105 · Stepper 96 · Toolbar 90 · Button 89 · SegmentedControl 56 · Navigation 44 · Link 44 · Gallery 40 · Toast 39 · Progress 36 · Card (agency) 35 · Decision 16 · Header 16 · Search 13 · Invite 12 · Stat 11 · Row (agency) 11 · Step 10 · Toggle 9.
+
+**Scope decisions.**
+- **`COMPONENT_SET` wrappers excluded.** Figma gives the variant-set container its own radius (5) and grid spacing (200/40), which surfaced on every page as a false positive in the first pass. That chrome is editor scaffolding, never published — excluded, not bound.
+- **`INSTANCE` subtrees skipped.** Binding inside an instance writes an override rather than fixing the source; the main components are what publish.
+- **Zero values left unbound.** `padding: 0` / `gap: 0` is the absence of spacing, not a scale step, and the scale has no `space/0`.
+
+**Off-scale values found — NOT snapped, reported instead.** These are genuine P2-7 violations ("arbitrary px values are a bug"). Snapping them changes rendered geometry, which is a design call, not a binding call, so each is left unbound and listed here:
+
+| Value | Where | Count |
+|---|---|---|
+| `radius 1` | Stepper | 12 nodes |
+| `radius 2` | Doc | 2 nodes |
+| `radius 12` | Field | 1 |
+| `radius 20` | Row (portal) | 1 |
+| `radius 28` | Card (portal) | 1 |
+| `radius 24/28/20` (mixed corners on one node) | Doc | 1 |
+| `padding 5` | Badge, Nav | 2 |
+| `padding 20`, `padding 28` | Nav, Doc | 3 |
+| `padding 36` | Stat | 2 |
+
+Nearest on-scale targets would be `radius/control`(3) for 1–2, `radius/surfaceLarge`(16) for 12/20, and `space/24`/`space/32` for 28/36 — but each is a 1–8px visual change and several sit on shipped portal surfaces. Recommend resolving them as a single deliberate pass with a screenshot check, not folded into a binding sweep.
+
+**Verified.** Every page returned `errorCount: 0`. Binding by exact value means the pass is visually inert by construction; the only nodes that changed rendering in this whole Block-4 session are the two logged in the remote-variable rebind ADR (Badge `radius/xxs` 4→3, one Lightbox surface).
