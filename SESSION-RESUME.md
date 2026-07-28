@@ -4,35 +4,42 @@ Multi-session job (CC-PROMPT-scds-pipeline.md). Started 2026-07-28. Read that fi
 
 ## Gate 1 — RESOLVED 2026-07-28
 - Brand hue: **teal everywhere**. Flagship site (`shokunincrafthouse.com`) red `shu` ramp retires at token level — layout/WebGL/scroll untouched.
-- Theming: **3rd `Brand` collection approved** (Studio|Clients|Docs modes) — **but see "Open question" below, may be moot now.**
+- Theming: **3rd `Brand` collection approved** — **but see "Block 6 — HELD" below.**
 - `space/micro/*`: rule widened (2pt tier kept as a documented exception), not retired.
 - All 3 logged: `decisions/decisions.md` → "2026-07-28 — SCDS audit Block 0".
 
-## Done this session
+## Block 6 — HELD (owner decision, this session)
+Owner chose **Hold** when asked: the hue split that mainly justified the 3-mode Brand collection is now moot (teal won everywhere). Do not build Block 6 on spec. Revisit only if Block 8 (code sync) surfaces real per-site Figma-variable-level divergence. Logged: `decisions/decisions.md` → "2026-07-28 — SCDS audit Block 6: hold theming collection (moot on hue)".
+
+## Done — session 1 (2026-07-28, earlier)
 | Item | Status |
 |---|---|
-| Audit 0.1 (bare tokens.css URL) | ✅ verified — 200, not 404. No incident. |
-| Audit 8.8 (`#732020`→`#dd4c4c` propagate to code) | ✅ `tokens/primitives.json` + `tokens:build` + `build` — both exit 0. |
-| Figma: `font/family/sans` deduped (now aliases `font/family/display` instead of a literal duplicate value) | ✅ |
-| Figma Block 2.3 (border/subtle↔default light-mode swap) | ✅ |
-| Figma Block 2.5 (border/focus → focusRing/light+dark, was teal) | ✅ |
-| Figma Block 2.6 partial (dark/border→alias raised4, dark/borderSubtle→alias raised2, dedup) | ✅ |
-| Figma Block 2.1 (`-ink` tier, learning #56) | ✅ New semantic tokens: `color/status/success-ink`, `color/status/warning-ink`, `color/status/info-ink`, `color/interactive/hover-ink`. All computed hue-locked, ≥4.5:1 on their declared ground. 5 new backing primitives (`*InkLight`/`*InkDark`). **Not yet consumed by any component — that's Block 4 wiring, separate pass.** |
-| Figma Block 2.2 (text/onAccent vs brand/accent) | ✅ documented via variable descriptions (pair `text.onAccent` with `accentFill` only) — no value change, no component wiring yet. |
-| `learnings/brand-accent-hover-aa-exception.md` #67 ratio | ✅ corrected ~3.8 → 3.23 |
+| Audit 0.1 (bare tokens.css URL) | ✅ verified — 200, not 404. |
+| Audit 8.8 (`#732020`→`#dd4c4c` propagate to code) | ✅ done, code+build verified. |
+| Figma Block 2 (colour): `-ink` tier, border/subtle↔default swap, border/focus repoint, dark border dedup, text/onAccent docs | ✅ Figma-only, code sync was outstanding until this session. |
 
-## Blocked — needs Levi at the desktop Figma app
-- **1.1** Move `_Archive` (page `1:7`) → new `SCDS Archive` file. Plugin API cannot move nodes cross-file (confirmed, matches the 2026-07-09 decisions.md method note). Human cut/paste only.
-- **1.2** Font rebind Trial→Pro. Confirmed blocked: `Neue Haas Grotesk Display Pro` / `...Text Pro` don't exist in this Figma session's font list at all (not a license/loadFontAsync quirk — the machine running Figma doesn't have them installed). **The fix is small once at a desktop with the Pro fonts installed: only 2 variable edits needed**, not 26 per-style edits — `font/family/display` (`VariableID:3:3`) and `font/family/text` (`VariableID:3:4`) are STRING variables bound by all 26 text styles, so editing those 2 values cascades everywhere. Do this from Figma desktop with the Pro `.otf`/`.ttf` installed locally, then re-run a fresh `use_figma` read to confirm.
+## Done — session 2 (2026-07-28, this session)
+| Item | Status |
+|---|---|
+| Block 6 open question | ✅ Asked Levi — **Hold**. Logged. |
+| Block 1.2 font check | ✅ Re-checked `listAvailableFontsAsync()` — Pro fonts (`Neue Haas Grotesk Display/Text Pro`) still absent from this Figma session, unchanged. Still blocked on desktop-app step with Pro fonts installed locally (VariableID:3:3 / VariableID:3:4, 2 edits cascade to all 26 text styles). |
+| **Block 3 (typography)** — full | ✅ All 21 non-duplicate text styles: lineHeight+letterSpacing normalized to literal PERCENT values matching the declared ratio/tracking scale (see platform-limit note below). `nav/header`+`nav/node`: fontSize genuinely bound to variables, `AUTO` line-height replaced with literal 110%. Display tracking tuned: sm −1.8%, md −2.5% (unchanged), lg/xl −4% (plateau). New primitive `font/lineHeight/loose` (2.0) added for `mono/flow`. 3 dead `*/light` duplicate styles deleted (no Light Text font cut exists, Trial or Pro). `display/xsm-32` renamed → `display/xs` (dropped embedded pixel value; kept distinct from `title/section` — different semantic role, not a true duplicate). Type-scale ratio: **ADR accepts the hybrid** (1.077–1.428 span), not worth retrofitting a single ratio across a shipped 26-style system. Logged: `decisions/decisions.md` → "2026-07-28 — SCDS audit Block 3". |
+| **Block 5 (foundations)** — full | ✅ Filled all 5 empty pages (Principles/Color/Type/Space/Motion) with real content — swatches bound live to variables, live text-style specimens, space-scale bars, motion token docs. Added 5 grid styles (`grid/390…1920`). Renamed 2 naming outliers (`text-on-inverse`→`text/onInverse`, `surface-inverse`→`surface/inverse` — Figma-side only, see code-sync note). Added `color/inkRgb`/`color/whiteRgb` STRING primitives. Attempted to bind `shadow/raised`/`shadow/inset` effect colours to variables — **reverted** (platform limit, see below); renamed to `shadow/control/raised`/`shadow/control/inset` only (matches repo naming), left colour unbound. Logged: `decisions/decisions.md` → "2026-07-28 — SCDS audit Block 5". |
+| **warmGray 200–400 ramp rebuild (P2-8)** | ✅ HSL-linear redistribution between fixed anchors `100`/`450`, 6 even ~8.56% lightness steps. New: `200 #D8D1CC · 250 #C4BCB4 · 300 #B0A69C · 350 #9A9186 · 400 #847C71`. Verified via screenshot (even steps, no more cliff) and contrast math (`border/default` 1.22→2.52:1, `border/subtle` 1.44→1.53:1, order preserved). Logged: `decisions/decisions.md` → "2026-07-28 — SCDS audit P2-8". |
+| **Code sync (Block 2 colour + this session's Figma changes)** | ✅ `tokens/primitives.json` + `tokens/semantic.json` updated: 5 new `-ink` backing primitives (`successInkLight`, `warningInkLight`/`Dark`, `infoInkDark`, `interactive.hoverInk.light`), 4 new semantic `-ink` tokens (`status.success-ink`/`warning-ink`/`info-ink`, `interactive.hover-ink`), `border.default`↔`border.subtle` alias swap, warmGray 200–400 rebuild values. `border.focus` was **already correct in code** (already aliased `focusRing.*` — only Figma had the teal/500 bug, now fixed both sides). `npm run tokens:build` + `npm run build` both exit 0; `src/styles/tokens.css` + `public/tokens.css` regenerated and spot-checked (border-default/subtle swap, all -ink vars, warmGray ramp all present with correct resolved values). **Not renamed in code:** `text-on-inverse`/`surface-inverse` — Figma variable rename has zero consumer impact (bindings are by ID), but the code-side CSS custom property (`--sc-color-text-on-inverse`) is actively consumed by `Tooltip.module.css`, `ComponentSections.jsx`, and the doc-site builds. Renaming the JSON key would be a real breaking rename requiring updates across all those consumers — out of scope for a colour-value sync pass. Deferred as its own scoped task if the naming inconsistency needs closing code-side. |
 
-## Still open (not started, ranked by audit dependency order)
-- **Block 2 remainder:** 2.4 divider realias — **already correct**, audit was stale (found genuine alpha-graduated hierarchy already in place, likely landed in scds-v2 Phase 1). 2.6 remainder — warmGray 200–400 span rebuild (P2-8) is a real perceptual-ramp redesign, not a mechanical alias fix; deferred, needs a dedicated pass. 2.7 done (see above).
-- **Block 3** (typography): lineHeight/tracking binding across 26 text styles, `*/light` dupes, `nav/header`/`nav/node`, display tracking, type-scale ratio ADR. Not started — untouched this session.
-- **Block 5** (foundations): empty Principles/Color/Type/Space/Motion pages, grid styles, `inkRgb`/`whiteRgb` STRING primitives (repo has them, Figma doesn't — confirmed still missing), naming normalization, `motion/press/release-duration` — this one is actually a **code-generator mapping gap** (Block 8), not a Figma duplicate; Figma's naming is already fine.
-- **Block 6** (Brand collection): **open question below — check with Levi before building.**
+## Platform limitations discovered this session (both logged as ADRs, do not re-attempt)
+1. **`TextStyle.lineHeight`/`letterSpacing` cannot be live-bound to a variable and stay PERCENT.** `setBoundVariable` succeeds with no error but silently coerces the resolved value to raw `PIXELS` (e.g. a ratio of `1.1` becomes `1.1px`, collapsing the line). Caught via mandatory fresh re-read before moving on, reverted, redone as literal `PERCENT` values matching the same ratio scale. Same limitation class as the already-documented `motion/easing/*` code-only tier.
+2. **`Effect.color` binding on effect styles overwrites the FULL RGBA including alpha.** Binding `shadow/raised`/`shadow/inset` layer colours to `warmGray/800`/`utility/white` (both fully opaque) flattened all 4 layers' intended 0.10/0.08/0.90/0.70 opacity to fully opaque. Caught via fresh re-read, reverted, colour left unbound (rename-only fix applied instead).
 
-## Open question for Levi before Block 6
-The Brand-collection rationale in the audit was mostly the **hue split** (red vs teal per site). That's gone now — teal won, unified. The only remaining per-site divergence is font-family (studio site's 5 extra undeclared families) and some client-portal layout vars, neither of which lives in Figma variables today. Building a 3-mode collection for ~zero real Figma-level divergence risks being unused infrastructure. Recommend: hold Block 6 until Block 8 (code sync) clarifies whether anything Figma-side actually needs a per-site mode, rather than build it now on spec.
+## Blocked — needs Levi at the desktop Figma app (unchanged)
+- **1.1** Move `_Archive` (page `1:7`) → new `SCDS Archive` file. Plugin API cannot move nodes cross-file.
+- **1.2** Font rebind Trial→Pro. `Neue Haas Grotesk Display/Text Pro` still absent from `listAvailableFontsAsync()` this session — confirmed unchanged from last session, not a re-check artifact. Once available: only 2 variable edits (`font/family/display` `VariableID:3:3`, `font/family/text` `VariableID:3:4`) cascade to all 26 text styles.
+
+## Still open (not started)
+- **Block 4** (components): `state`→`State` normalization, five-state Toggle/Stepper/NavItem, Tab `Selected` boolean remodel, ~85 radii + ~98 padding/gap bindings, 25 unstyled text nodes, Badge/StatusPill/Pill consolidation, Mark rebuild, component descriptions. Not started — untouched.
+- **Block 8 remainder** (code sync beyond colour): `font/text/*` ↔ Text Style name mapping in the generator (11 Figma-only text styles need export), `.nav__brand`'s `--sc-p-font-size-18`→`offscale-18` fix, `shokunincrafthouse.com` fork retirement + teal re-skin, `brand.shokunincrafthouse.com` `@font-face` addition, `clients` hardcoded hex/px cleanup, `motion/press/release-duration` naming resolution in the generator (confirmed Block 8 gap, not Figma-side).
+- Publish (Block 7), Phase 2 Figma re-link, Phase 3 full code sync, Phase 4 cascade test, Phase 5 `/update-design-system` skill install — all downstream of Block 4 + Block 8 remainder landing first.
 
 ## Not touched
-- Publish (Block 7), Phase 2 Figma re-link, Phase 3 code sync, Phase 5 `/update-design-system` skill — all downstream of Blocks 1/3/5/6 landing first.
+- `text-on-inverse`/`surface-inverse` code-side rename (deliberately deferred, see above).

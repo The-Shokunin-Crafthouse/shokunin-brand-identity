@@ -33,28 +33,28 @@
       },
       "200": {
         "$type": "color",
-        "$value": "#D9D6D2",
-        "$description": "Set-in component surface · cards, frames, raised tiles. scds-v2 desaturate HSB(30,3,85). Was #D9D5CE."
+        "$value": "#D8D1CC",
+        "$description": "Set-in component surface · cards, frames, raised tiles. 2026-07-28 SCDS audit P2-8: rebuilt as part of the 200–400 span redistribution (was #D9D6D2, four near-identical steps then a cliff to 400). HSL-linear interpolation between fixed anchors warmGray.100 and warmGray.450, 6 even ~8.56% lightness steps, hue/sat drift preserved. Fixed in Figma same day; this is the code-side propagation."
       },
       "250": {
         "$type": "color",
-        "$value": "#D5D2CF",
-        "$description": "Default hairline rule · 1px solid divisions (light). scds-v2 desaturate HSB(30,3,84). Was #D5D1CA."
+        "$value": "#C4BCB4",
+        "$description": "Default hairline rule · 1px solid divisions (light). 2026-07-28 SCDS audit P2-8 rebuild (was #D5D2CF). border/subtle now 1.53:1 vs surface/page (was 1.44:1)."
       },
       "300": {
         "$type": "color",
-        "$value": "#CDCAC7",
-        "$description": "Sunk surface · form inputs, card hover, nested states. scds-v2 desaturate HSB(30,3,80). Was #CDC9C2."
+        "$value": "#B0A69C",
+        "$description": "Sunk surface · form inputs, card hover, nested states. 2026-07-28 SCDS audit P2-8 rebuild (was #CDCAC7)."
       },
       "350": {
         "$type": "color",
-        "$value": "#C5C2BF",
-        "$description": "Subtle hairline · dashed inner divisions. scds-v2 desaturate HSB(30,3,77). Was #C5C0B8."
+        "$value": "#9A9186",
+        "$description": "Subtle hairline · dashed inner divisions. 2026-07-28 SCDS audit P2-8 rebuild (was #C5C2BF). border/default now 2.52:1 vs surface/page (was 1.22:1)."
       },
       "400": {
         "$type": "color",
-        "$value": "#9A9388",
-        "$description": "Faint warm gray · disabled text and decorative marks (fails AA by spec). Text-tier — kept warm per scds-v2 (surfaces desaturate, ink/text stay warm)."
+        "$value": "#847C71",
+        "$description": "Faint warm gray · disabled text and decorative marks (fails AA by spec). Text-tier — kept warm per scds-v2 (surfaces desaturate, ink/text stay warm). 2026-07-28 SCDS audit P2-8 rebuild (was #9A9388)."
       },
       "450": {
         "$type": "color",
@@ -150,6 +150,13 @@
           "$type": "color",
           "$value": "#388F63",
           "$description": "Lifted green · success states on dark ground."
+        },
+        "ink": {
+          "light": {
+            "$type": "color",
+            "$value": "#28724D",
+            "$description": "2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier, hue-locked to success, 4.73:1 on warmGray.100 (base success/light fails at 3.69:1 for body text). Dark mode has no separate ink — success/dark (#388F63, 4.82:1) already clears AA as text and is reused directly."
+          }
         }
       },
       "warning": {
@@ -162,6 +169,18 @@
           "$type": "color",
           "$value": "#C94E28",
           "$description": "Lifted orange · warning states on dark ground."
+        },
+        "ink": {
+          "light": {
+            "$type": "color",
+            "$value": "#B83E0B",
+            "$description": "2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier, hue-locked to warning, 4.57:1 on warmGray.100 (base warning/light fails at 4.21:1 for body text)."
+          },
+          "dark": {
+            "$type": "color",
+            "$value": "#D2512A",
+            "$description": "2026-07-28 SCDS audit Block 2 (learning #56) · text-only tier, hue-locked to warning, 4.51:1 on dark.surfacePage (base warning/dark fails at 4.20:1 for body text)."
+          }
         }
       },
       "info": {
@@ -174,6 +193,13 @@
           "$type": "color",
           "$value": "#3866E8",
           "$description": "Lifted blue · info states on dark ground."
+        },
+        "ink": {
+          "dark": {
+            "$type": "color",
+            "$value": "#4A74EA",
+            "$description": "2026-07-28 SCDS audit Block 2 (learning #56) · text-only tier, hue-locked to info, 4.55:1 on dark.surfacePage (base info/dark fails at 3.86:1 for body text). Light mode has no separate ink — info/light (#2D5AD8, 4.79:1) already clears AA as text and is reused directly."
+          }
         }
       },
       "error": {
@@ -301,6 +327,15 @@
         "$type": "color",
         "$value": "#E8E8EA",
         "$description": "Focus ring · dark mode. Cool near-white. 14–16:1 on every dark ground (page 15.67, well 16.37, raised 15.06, floating 14.22)."
+      }
+    },
+    "interactive": {
+      "hoverInk": {
+        "light": {
+          "$type": "color",
+          "$value": "#027175",
+          "$description": "2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier for interactive/hover, hue-locked to teal, 4.71:1 on warmGray.100 (base interactive.hover/teal.500 fails at 3.23:1 for body text — the documented AA exception, learning #67). Dark mode has no separate ink — interactive.hover/dark already uses teal.400, which clears AA as text and is reused directly."
+        }
       }
     }
   },

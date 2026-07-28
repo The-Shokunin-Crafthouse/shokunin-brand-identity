@@ -167,22 +167,22 @@
     "border": {
       "default": {
         "$type": "color",
-        "$value": "{color.warmGray.250}",
-        "$description": "Default 1px solid hairline. Structural dividers, title block, section rules.",
+        "$value": "{color.warmGray.350}",
+        "$description": "Default 1px solid hairline. Structural dividers, title block, section rules. 2026-07-28 SCDS audit Block 2 (P1-2): swapped alias with border.subtle — light mode had subtle (1.44:1) measurably stronger than default (1.22:1), inverted from dark mode's correct direction. Now 2.52:1 post warmGray P2-8 rebuild.",
         "$extensions": {
           "modes": {
-            "light": "{color.warmGray.250}",
+            "light": "{color.warmGray.350}",
             "dark":  "{color.dark.border}"
           }
         }
       },
       "subtle": {
         "$type": "color",
-        "$value": "{color.warmGray.350}",
-        "$description": "Dashed inner divisions. Secondary structural rules inside cards and sections.",
+        "$value": "{color.warmGray.250}",
+        "$description": "Dashed inner divisions. Secondary structural rules inside cards and sections. 2026-07-28 SCDS audit Block 2 (P1-2): swapped alias with border.default (see above). Now 1.53:1 post warmGray P2-8 rebuild.",
         "$extensions": {
           "modes": {
-            "light": "{color.warmGray.350}",
+            "light": "{color.warmGray.250}",
             "dark":  "{color.dark.borderSubtle}"
           }
         }
@@ -263,6 +263,17 @@
           }
         }
       },
+      "hover-ink": {
+        "$type": "color",
+        "$value": "{color.interactive.hoverInk.light}",
+        "$description": "2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier for interactive.hover — use when the hover color renders as body text (not icon/border), 4.71:1 on warmGray.100. Base interactive.hover fails AA for text at 3.23:1 (documented exception, learning #67) but is fine for icon/border use. Dark mode reuses teal.400 (already AA as text).",
+        "$extensions": {
+          "modes": {
+            "light": "{color.interactive.hoverInk.light}",
+            "dark":  "{color.teal.400}"
+          }
+        }
+      },
       "active": {
         "$type": "color",
         "$value": "{color.teal.700}",
@@ -317,6 +328,39 @@
           "modes": {
             "light": "{color.status.info.light}",
             "dark":  "{color.status.info.dark}"
+          }
+        }
+      },
+      "success-ink": {
+        "$type": "color",
+        "$value": "{color.status.success.ink.light}",
+        "$description": "2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier for status.success — use when rendered as body text, 4.73:1 on warmGray.100. Base status.success fails AA for text at 3.69:1 but is fine for fill/border/dot use. Dark mode reuses status.success.dark (already AA as text, 4.82:1).",
+        "$extensions": {
+          "modes": {
+            "light": "{color.status.success.ink.light}",
+            "dark":  "{color.status.success.dark}"
+          }
+        }
+      },
+      "warning-ink": {
+        "$type": "color",
+        "$value": "{color.status.warning.ink.light}",
+        "$description": "2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier for status.warning — use when rendered as body text, 4.57:1 (L) / 4.51:1 (D) on their respective grounds. Base status.warning fails AA for text in both modes (3.69:1 L / 4.20:1 D) but is fine for fill/border/dot use.",
+        "$extensions": {
+          "modes": {
+            "light": "{color.status.warning.ink.light}",
+            "dark":  "{color.status.warning.ink.dark}"
+          }
+        }
+      },
+      "info-ink": {
+        "$type": "color",
+        "$value": "{color.status.info.light}",
+        "$description": "2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier for status.info — light mode reuses status.info.light directly (already AA as text, 4.79:1); dark mode gets a dedicated ink (4.55:1) since base status.info.dark fails AA for text at 3.86:1.",
+        "$extensions": {
+          "modes": {
+            "light": "{color.status.info.light}",
+            "dark":  "{color.status.info.ink.dark}"
           }
         }
       }
