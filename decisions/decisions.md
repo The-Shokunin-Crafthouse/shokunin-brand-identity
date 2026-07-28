@@ -776,3 +776,37 @@ dev` → serves the showcase HTTP 200 (`Shokunin Crafthouse · Component Primiti
 **Gate-2 on-device (human, not self-certified).** Rest-state page↔component separation is ~1.05:1 by design (fill-only); pure-neutral near-blacks drift on wide-gamut Chrome (learning #11). Dark-mode rest legibility must be confirmed on Levi's P3 display; if it fails, apply the +1 red-whisper at the darkest steps per the sprint CONTEXT. Not claimed as a pass on this sRGB session.
 
 **Verification.** `tokens:build` + `build` exit 0; computed-style checks in the running showcase confirm all five components render fill-only with correct state tokens (Card sunk/page + inset; Input filled + bottom rule + focus; Button Phosphor arrow viewBox 256 + secondary/disabled fill; Avatar no border). Reduced-motion paths intact.
+
+---
+
+## 2026-07-28 — SCDS audit Block 0: brand hue, theming architecture, space/micro rule (Gate 1)
+**Stage:** 02-design (scds-v2, pre-Block-2/6)
+**Type:** Brand direction / design-system architecture (owner-directed, Gate 1)
+**Status:** accepted
+
+**Context.** The 2026-07-25 SCDS audit (`SCDS-AUDIT-2026-07-25.md` §6, backlog 0.2–0.4) found three unresolved Gate-1 questions blocking Block 2 (colour), Block 6 (theming), and Phase 3 (site reskin): the flagship site (`shokunincrafthouse.com`) ships a red `shu` ramp while SCDS + the shared token file ship teal; no theming mechanism exists to express any per-site divergence; and `space/micro/*` sits on a 2pt grid against the stated 4/8pt rule. Owner decided all three in one pass.
+
+**Decision — brand hue: teal, everywhere.** Confirms and extends the 2026-07-09 rebrand (`color.teal.*`, this repo) to the flagship site. `shokunincrafthouse.com`'s `--sc-p-color-shu-*` red ramp is retired at the token level — re-skin to teal, layout/WebGL/scroll-scenes untouched (already-exempt experiential surface, per `CC-PROMPT-scds-pipeline.md` decision 2). No `shu`/red ramp enters SCDS as a primitive. Unblocks audit Block 2 (colour correctness) and Block 6 (theming) — both were gated on this.
+
+**Decision — theming architecture: third `Brand` collection.** Approved as recommended (audit §6): `Brand` collection, modes `Studio | Clients | Docs`, holding only the ~12 genuinely divergent aliases (accent ramp, font families). `Semantic` stays `Light | Dark` only — does not grow site modes. Figma Professional's mode-per-collection cap must be re-verified against current billing before Block 6 executes (audit flagged 4/collection at time of writing; unverified since).
+
+**Decision — `space/micro/*`: widen the rule, keep the tier.** The 2pt ladder (`2·6·10·14·18·22`) is retained for its existing real uses (switch thumb, progress hit-slop, `padding-block/sm` and similar chrome-only cases) rather than retired and re-derived onto 4/8pt. The studio 4/8pt rule (studio-memory §3, `WORKSPACE.md` §3) is amended with a formal exception: a 2pt micro-tier is permitted for sub-8px chrome geometry where an 8pt (or even 4pt) step would be visually too coarse. This is a rule-widening, not a one-off — future sub-8px chrome values should route through `space.micro.*`, not a new ad-hoc px value.
+
+**Unblocks.** Task queue for this sprint: Figma Block 2 (colour, `-ink` tier, divider/border realias, warmGray ramp rebuild), Block 6 (Brand collection build), and eventually Phase 3 (vermilion→teal chapter grounds, motion philosophy pick via `sc-motion`). `shokunincrafthouse.com` re-skin itself is a separate scoped pass — token-level only, tracked outside this sprint's Figma-side blocks.
+
+---
+
+## 2026-07-28 — SCDS audit Block 2: colour correctness fixes (Figma, code-side pending)
+**Stage:** 02-design (scds-v2, Figma-only this pass)
+**Type:** Design-system token correctness
+**Status:** accepted (reversible, in-standard, in-scope — decide-and-log)
+
+**Context.** Unblocked by the same-day Block 0 hue/theming ADR above. Fixed the audit's Block 2 items that are pure Figma variable operations (no font dependency, no component rewiring). Full detail in `SESSION-RESUME.md`.
+
+**Decision.** (1) **`-ink` tier added** (learning #56): new semantic tokens `color/status/{success,warning,info}-ink` + `color/interactive/hover-ink`, each hue-locked and computed to clear AA (≥4.5:1) on their declared ground — success-ink 4.73:1 (L), warning-ink 4.57:1 (L) / 4.51:1 (D), info-ink aliases the already-passing light value / 4.55:1 (D), hover-ink 4.71:1 (L). Modes that already passed as base hue (success/dark, info/light, hover/dark) alias the existing token rather than introduce a redundant near-duplicate. Base hues are untouched — still the fill/border/dot color. **Not yet wired into any component; that's Block 4.** (2) **`border/subtle`↔`border/default` light-mode aliases swapped** — subtle was measurably stronger (1.44:1) than default (1.22:1), inverted from dark mode; now matches dark's correct direction. (3) **`border/focus` repointed** from `teal/500` (3.23:1, the weaker non-text-minimum-only value) to the previously-orphaned `focusRing/light`+`focusRing/dark` primitives (11–15:1 range) — the correct token was already sitting in the file (learning #32) and simply wasn't referenced. (4) **`dark/border`/`dark/borderSubtle` deduped** — both were exact-value standalone primitives duplicating `dark/raised4`/`dark/raised2`; now alias them instead, single source of truth. (5) **`text/onAccent` vs `brand/accent`** resolved via variable descriptions, not a value change — documents that `text.onAccent` (white) must pair with `brand.accentFill` (5.20:1), never `brand.accent` (3.97:1, the mark/non-text color).
+
+**Found already fixed / not actually broken.** Audit P1-3 (`color/divider/*` raw/identical hex) — re-verified in Figma and found genuine alpha-graduated hierarchy already in place (light: ink-rgba at 0.06/0.10/0.16 alpha; dark: white-rgba at 0.05/0.09/0.15), almost certainly landed as part of scds-v2 Phase 1's "divider hierarchy (channel-triplet rgba)" line item. The audit was current as of 2026-07-25; this was fixed sometime between then and now. No action needed — audit item can be closed as already-resolved.
+
+**Deferred — not mechanical.** `warmGray` 200–400 span rebuild (P2-8, the four-near-identical-steps-then-a-cliff ramp) is a perceptual redesign, not an alias fix — needs a dedicated pass. `motion/press/release-duration` naming (audit P2-11) turned out to be a **code-generator mapping gap** (Block 8), not a Figma-side duplicate — Figma's name is already correct and singular.
+
+**Code sync outstanding.** All of the above are Figma-only. `tokens/primitives.json` / `tokens/semantic.json` and the generated `tokens.css` do not yet carry the `-ink` tier, the border/focus repoint, or the dark border dedup. Tracked for the Phase-3 code-sync pass (`CC-PROMPT-scds-pipeline.md`).
