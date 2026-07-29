@@ -76,8 +76,28 @@ Root cause of those two: `color/text/onAccent` is `#ffffff` in *both* modes, so 
 - **1.2** Font rebind Trial→Pro. `Neue Haas Grotesk Display/Text Pro` still absent from `listAvailableFontsAsync()` this session — confirmed unchanged from last session, not a re-check artifact. Once available: only 2 variable edits (`font/family/display` `VariableID:3:3`, `font/family/text` `VariableID:3:4`) cascade to all 26 text styles.
 
 ## Still open (not started)
-- **Block 4** (components) — 4.1 partial + **4.4, 4.5, 4.6, 4.10 DONE**. Remaining: **4.2** five-state Toggle/Stepper/NavItem · **4.3** Tab `Selected` boolean (match Segment) · **4.7** build the StatusPill consolidation (design + contrast settled above) · **4.8** Mark → one Type×Theme set · **4.9** Progress `BarActive` off the Variant axis.
-  - All four remaining items are **design-modelling work, not mechanical** — each invents or restructures variants. The mechanical sweep of Block 4 is finished.
+- **Block 4** (components) — 4.1 partial + **4.4, 4.5, 4.6, 4.10 DONE**. Remaining: **4.2** five-state Toggle/Stepper/NavItem · **4.3** Tab `Selected` boolean · **4.7** StatusPill consolidation · **4.8** Mark → one Type×Theme set · **4.9** Progress `BarActive` off the Variant axis.
+  - 🚧 **4.2 + 4.3 are BLOCKED on a Gate-2 decision — see below.** 4.7 / 4.8 / 4.9 are unblocked design-modelling work.
+  - All remaining items are **design work, not mechanical** — each invents or restructures variants. The mechanical sweep of Block 4 is finished.
+
+## 🚧 BLOCKER (Gate 2, owner) — nine sets ship states that render identically
+Found while starting 4.3. Before cloning Tab's states into `Selected=True` copies, read Default vs Selected to get the delta — **there is no delta.** Fingerprinted every variant subtree file-wide (bound-variable names + opacity + visibility + text style + fill/stroke shape, recursive):
+
+| Set | Variants | Distinct | Identical |
+|---|---|---|---|
+| `Tab` | 6 | **3** | Default = Hover = Focus = Selected |
+| `Link` | 5 | **3** | Default = Active · Hover = Focus |
+| `Segment` | 10 | **7** | sel=false: Hover = Active · sel=true: Default = Hover = Active |
+| `PortalRow` | 4 | **2** | Default = Hover = Active |
+| `InviteRow` | 4 | **2** | Default = Hover = Active |
+| `GalleryThumb` | 2 | **1** | Default = Hover |
+| `TextField` | 5 | 4 | Focus = Active |
+| `Select` | 6 | 5 | Hover = Active |
+| `iPhone` | 2 | 1 | Black = White |
+
+The audit's P2-4 measured *which state names exist*, not whether they differ. A state identical to Default is the same defect as a missing one — worse, because the picker says it is done. **`Tab` ships an invisible focus state; `Link` renders Hover and Focus the same** — those are a11y defects against the studio criteria ("focus is visible and styled"). Focus tokens already exist and are correct post-Block-2: `color/border/focus` (focusRing tier), `border/width/focus` 2, `border/focus/offset` 2.
+
+**Why it blocks:** 4.3 executed as written would produce **10 identical Tab variants** instead of 6. 4.2 means *designing* Hover/Focus/Active for Toggle/Stepper/NavItem — there is no established pattern in the file to copy. Choosing what hover/focus/active/selected look like library-wide is Gate 2 (interaction patterns documented), not decide-and-log. Logged in `decisions/decisions.md`; nothing changed.
   - Follow-ups spun out of Block 4: off-scale geometry (4.5 list), off-scale type (4.6 list), descriptions for ~34 agency/portal composites, and the Block 2 per-tone on-fill tokens.
   - **4.9 data already read:** `Progress` `Variant` = Bar/BarActive/Circular/Step. `Bar` is 320×4 (fill 24), `BarActive` is 320×6 (fill 190) — they differ only in bar height and fill length, so `BarActive` is an emphasis of `Bar`, not a fourth type. Two-axis model (`Type` Bar/Circular/Step × `Emphasis` Default/Active) needs a real visual delta invented for Circular/Step Active — that is design work, not a rename; don't fake it with identical clones. `size/progress/bar-height`(4) and `bar-height-active`(6) tokens already exist.
   - **4.3 data already read:** `Tab` `State` = Default/Hover/Focus/Active/Disabled/**Selected** (6 flat). Each variant is `Frame 2`(→`Frame 4` + `Icon/arrow-right` instance) + `Rectangle 1` (147×1 underline). Target: 5 states × `Selected` boolean = 10 variants, matching `Segment`. Disabled carries `opacity 0.5` at component level.

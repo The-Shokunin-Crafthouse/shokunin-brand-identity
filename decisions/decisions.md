@@ -1022,3 +1022,37 @@ Every audited set returned `description = NO`. On a published library that is th
 Each needs a decision (does `75 Bold 11` become `label/chrome` at 11/65 Medium, or `label/ui` at 12/75 Bold?), and each decision changes rendered type. That is a typography call, not a binding call — deferred as a scoped pass, not silently snapped.
 
 **Wider finding:** 361 TEXT nodes across the whole file carry no text style. The audit's 25 counted only the pages it enumerated. The bulk sit on the `Color` foundations page — specimen labels written during Block 5 at sizes off the type scale (13 Medium, mono 11 Regular, Disp 16 Black). Those are self-inflicted and should be corrected when the off-scale type decision above is made.
+
+---
+
+## 2026-07-28 — SCDS Block 4.3 preflight: nine component sets ship states that render identically
+
+**Stage:** 02-design (scds-v2)
+**Type:** Finding — blocks 4.2/4.3 as scoped; needs a Gate-2 decision
+**Status:** open (documented, not fixed)
+
+**How it surfaced.** Item 4.3 is "re-model `Tab` with a separate `Selected` boolean matching `Segment`". Before cloning the five state variants into `Selected=True` copies, the Default and Selected variants were read in full to derive the visual delta to apply. **There is no delta.** `Tab`'s `State=Default`, `State=Hover`, `State=Focus` and `State=Selected` are byte-identical: same bound variables on every node (`text/secondary` on Flow, `text/primary` on Label and icon, `warmGray/400` on the underline), same opacity, same geometry.
+
+**Systemic check.** Fingerprinting every variant subtree (bound-variable names + opacity + visibility + text style + fill/stroke shape, recursively) and grouping identical siblings, across every component set in the file:
+
+| Set | Variants | Distinct | Identical group(s) |
+|---|---|---|---|
+| `Tab` | 6 | **3** | Default = Hover = Focus = Selected |
+| `Link` | 5 | **3** | Default = Active · Hover = Focus |
+| `Segment` | 10 | **7** | Selected=false: Hover = Active · Selected=true: Default = Hover = Active |
+| `PortalRow` | 4 | **2** | Default = Hover = Active |
+| `InviteRow` | 4 | **2** | Default = Hover = Active |
+| `GalleryThumb` | 2 | **1** | Default = Hover |
+| `TextField` | 5 | 4 | Focus = Active |
+| `Select` | 6 | 5 | Hover = Active |
+| `iPhone` | 2 | 1 | Color=Black = Color=White |
+
+**Why this matters more than the audit's framing.** The audit (P2-4) measured *which state names exist* and flagged the short sets (`Toggle` 2 values, `Stepper` missing hover/focus/active, `NavItem` missing disabled). It did not check whether the declared states differ. A state that renders identically to Default is the same defect as a missing state — and worse, because the variant picker says it is done.
+
+**Two of these are accessibility defects, not modelling defects.** `Tab` has **no focus treatment** (`Focus` = `Default`), and `Link` renders `Hover` and `Focus` the same. Studio quality criteria are explicit: *five states on every interactive element* and *focus is visible and styled — never an unstyled browser default*. `Tab` currently ships an invisible focus state. The tokens to fix it already exist and are already correct after Block 2: `color/border/focus` (repointed to the focusRing tier), `border/width/focus` (2), `border/focus/offset` (2).
+
+**Consequence for Block 4.** 4.3 as written — "give `Tab` a `Selected` boolean" — would produce **10 identical variants** instead of 6. The remodel is correct but cannot be executed as a mechanical clone; it requires the state treatments to exist first. Same for 4.2: adding Hover/Focus/Active to `Toggle`/`Stepper`/`NavItem` means *designing* them, not copying an existing pattern, because the pattern is not established anywhere in the file.
+
+**Decision deferred to Gate 2 (owner).** Choosing the interaction-state vocabulary — what hover, focus, active and selected each *look* like across the library — is a design decision under studio-memory §5 Gate 2 ("interaction patterns documented"), not a decide-and-log call. Logged here with the evidence; asked as a single decision packet. Nothing was changed.
+
+**Not blocked by this:** the focus-ring half is arguably rule-execution rather than design choice (the studio criteria mandate a visible focus ring and the tokens are already declared), but applying it changes rendering on nine components, so it is bundled into the same question rather than pre-empted.
