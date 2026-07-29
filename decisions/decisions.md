@@ -989,3 +989,36 @@ Per page: Icons 292 · Row (portal) 252 · Editor 172 · Field 163 · Doc 163 ·
 Nearest on-scale targets would be `radius/control`(3) for 1–2, `radius/surfaceLarge`(16) for 12/20, and `space/24`/`space/32` for 28/36 — but each is a 1–8px visual change and several sit on shipped portal surfaces. Recommend resolving them as a single deliberate pass with a screenshot check, not folded into a binding sweep.
 
 **Verified.** Every page returned `errorCount: 0`. Binding by exact value means the pass is visually inert by construction; the only nodes that changed rendering in this whole Block-4 session are the two logged in the remote-variable rebind ADR (Badge `radius/xxs` 4→3, one Lightbox surface).
+
+---
+
+## 2026-07-28 — SCDS audit Block 4.4 / 4.6 / 4.10
+
+**Stage:** 02-design (scds-v2, Figma-only)
+**Status:** accepted
+
+### 4.10 — descriptions on all 21 core component sets (P2-5)
+
+Every audited set returned `description = NO`. On a published library that is the text consumers read in the assets panel. All 21 now carry a description stating **what it is · which states it models · when to use it · what to use instead**, and — where a Block-4 item is still open — an explicit note of the known gap (e.g. Toggle has no hover/focus/disabled yet; Tab models `Selected` on the wrong axis). A design system that names its own gaps is more useful than one that hides them.
+
+**Platform bug found — the MCP transport HTML-escapes apostrophes.** `'` arrives at Figma as the literal string `&#39;`, and Figma stores it verbatim, so `the studio's raise` renders as `the studio&#39;s raise` in the assets panel. Five descriptions were corrupted this way. Caught by comparing `node.description === desc` immediately after each write (the equality check failed while the write "succeeded"), then confirmed by reading the stored strings back. **Rule: never put `'` or `"` in a string written to Figma through `use_figma`.** Rewritten apostrophe-free; all 21 verified against `/&#\d+;|&amp;|&quot;/` with zero hits. Em dashes and `~` pass through cleanly.
+
+**Also useful:** `getNodeByIdAsync`, `node.description = …` and `page.findAllWithCriteria` all work **across pages without `setCurrentPageAsync`**. All 21 descriptions were written in a single call, and a whole-file component census ran in one more. The one-page-switch-per-call rule applies to page *mutation* context, not to these APIs.
+
+**Census — 114 top-level components/sets in the file, 43 now carry descriptions, 71 do not.** The 71 break down as: Mark page 10 (deferred to 4.8, which rebuilds them), Icons 15 (the name *is* the description for a glyph — recommend excluding by rule, not writing 15 stubs), Device 7 (mockup chrome, not consumable components), and ~34 agency/portal composites (`ArtifactRow`, `MilestoneEditor`, `PublishBar`, `SummaryCard`, …). The composites deserve real descriptions but writing them from names alone would be plausible-and-unverified — they need a pass with the components actually inspected, after 4.7/4.8 settle.
+
+### 4.4 — SearchInput state vocabulary
+
+`State` value `Filled` → `Active`, bringing SearchInput in line with Button / IconButton / TextField / Textarea / Segment / Link. Variants also reordered to the canonical sequence **Default / Hover / Focus / Active / Disabled** so the variant picker reads the same on every field component.
+
+### 4.6 — text styles applied to unstyled text nodes (P2-6)
+
+**26 nodes styled** on component pages by exact `family + weight + size` match — no visual change, since an exact match is the same type by definition. Distribution: `text/body/dense/regular` 12 · `text/caption` 5 · `text/mono/chrome` 4 · `text/body/default/regular` 3 · `text/body/dense/bold` 2. This closes the audit's estimate of ~25.
+
+**42 nodes left unstyled — deliberately.** Their type combination has no corresponding text style, so they are off the declared scale rather than merely unbound:
+
+`Haas Grot Text 65 Medium 13` ×11 · `Haas Grot Text 75 Bold 11` ×8 · `Cascadia Mono SemiBold 14` ×4 · `Haas Grot Text 65 Medium 12` ×4 · `Haas Grot Disp 75 Bold 11` ×2 · `Haas Grot Text 65 Medium 24` ×2 · `Haas Grot Text 75 Bold 13` ×2 · `Haas Grot Disp 65 Medium 13` ×2 · `Haas Grot Disp 95 Black 11` ×2 · plus 5 singletons.
+
+Each needs a decision (does `75 Bold 11` become `label/chrome` at 11/65 Medium, or `label/ui` at 12/75 Bold?), and each decision changes rendered type. That is a typography call, not a binding call — deferred as a scoped pass, not silently snapped.
+
+**Wider finding:** 361 TEXT nodes across the whole file carry no text style. The audit's 25 counted only the pages it enumerated. The bulk sit on the `Color` foundations page — specimen labels written during Block 5 at sizes off the type scale (13 Medium, mono 11 Regular, Disp 16 Black). Those are self-inflicted and should be corrected when the off-scale type decision above is made.
