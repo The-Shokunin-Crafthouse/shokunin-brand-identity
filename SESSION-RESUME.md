@@ -80,7 +80,23 @@ Root cause of those two: `color/text/onAccent` is `#ffffff` in *both* modes, so 
   - 🚧 **4.2 + 4.3 are BLOCKED on a Gate-2 decision — see below.** 4.7 / 4.8 / 4.9 are unblocked design-modelling work.
   - All remaining items are **design work, not mechanical** — each invents or restructures variants. The mechanical sweep of Block 4 is finished.
 
-## 🚧 BLOCKER (Gate 2, owner) — nine sets ship states that render identically
+## ✅ RESOLVED (Gate 2, owner approved 2026-07-29) — state vocabulary derived from existing tokens
+Owner chose "derive from existing tokens". Spec is in `decisions/decisions.md` → "interaction-state vocabulary". Summary:
+`Default` interactive/default + border/default · `Hover` interactive/hover + border/strong (text controls) or surface/hover (surface controls) · `Focus` = Default **plus** 2px `border/focus` ring, `strokeAlign OUTSIDE`, composable · `Active` interactive/active · `Selected` brand/accent indicator + text/primary · `Disabled` = Default at 50% opacity (opacity is the single mechanism; inks stay on resting tokens).
+**No focus-ring offset possible** — `border/focus/offset` exists but Figma has no outline-offset; `OUTSIDE` is the closest form. Code-tier concern, like `motion/easing/*`. Do NOT fake it with a wrapper frame (changes layout).
+
+**Applied: `Tab` (6/3 → 6/6) and `Link` (5/3 → 5/5).** Bugs caught by post-write verification reads (not visible from variant names): Tab Disabled label was `text/onAccent` (white at 50% opacity on a light page); Link Default was bound to `interactive/active` (resting rendered as pressed); Link Disabled was bound to `color/dark/textDisabled` (a dark-mode primitive in a mode-agnostic component); and learning #67's mitigating underline was only on Focus, not persistent — so the documented exception was not actually mitigated. All fixed.
+
+**ALL 9 APPLIED. Fingerprint audit now: 1 of 39 sets carries identical variants (was 9).**
+`Segment` 10/10 · `PortalRow` 4/4 · `InviteRow` 4/4 · `GalleryThumb` 2/2 · `TextField` 5/5 · `Select` 6/6 · `Tab` 6/6 · `Link` 5/5.
+More bugs the duplicate-check surfaced as a side effect: **TextField `Hover` had NO border** (hover removed the frame) while Default had `border/default`; **Select `Default` had no border either** — the two field components disagreed on what a resting field looks like; **Disabled inked only the value text**, leaving the label at `text/primary` so a disabled field read half-enabled. Field family normalised to one rule (Default `border/default` · Hover `border/strong` · Focus +2px ring · Active +`surface/deepSunk` · Disabled `border/subtle` + all text `text/disabled` · Open `border/strong`).
+
+**Left deliberately:** `iPhone` (Device page) 2/1 — `Color=Black` and `Color=White` are byte-identical, i.e. White was never styled. Device mockup asset, not an interactive component; a real white shell is illustration work. Style it or collapse to one variant next time the Device page is touched.
+**Also open:** `GalleryThumb` has only Default+Hover — no Focus/Active/Disabled at all. Adding them is net-new variant work.
+**Follow-up:** `color/surface/hover` resolves to `warmGray/250` `#c4bcb4` in light — a heavy darkening on a `surface/raised` card (`#f4f1ed`). Correct token by name (used per spec), but the *value* wants review with the neutral-ramp work. Changing it repaints every hover at once.
+**Re-verify with the fingerprint script** (in the 4.3-preflight ADR) after any state change.
+
+## Original blocker writeup (kept for context) — nine sets ship states that render identically
 Found while starting 4.3. Before cloning Tab's states into `Selected=True` copies, read Default vs Selected to get the delta — **there is no delta.** Fingerprinted every variant subtree file-wide (bound-variable names + opacity + visibility + text style + fill/stroke shape, recursive):
 
 | Set | Variants | Distinct | Identical |

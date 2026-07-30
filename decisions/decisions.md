@@ -1103,3 +1103,20 @@ Three real bugs, none of which the audit could see by reading names:
 `Segment` (10/7) · `PortalRow` (4/2) · `InviteRow` (4/2) · `GalleryThumb` (2/1) · `TextField` (5/4, Focus = Active) · `Select` (6/5, Hover = Active) · `iPhone` (2/1, Black = White — a mockup asset, not an interactive component; likely correct to collapse to one variant rather than differentiate).
 
 Verified by re-running the fingerprint audit: `Tab` and `Link` no longer appear.
+
+**Applied — remaining 7 sets (same session).** Fingerprint audit now reports **1 of 39 component sets** carrying identical variants, down from 9.
+
+- **`Segment`** (10/7 → 10/10). Unselected: `Hover` → `surface/hover`, `Active` → `surface/deepSunk`. Selected: `Hover` → `surface/raised`, `Active` → `surface/sunk` — so a selected segment still reads as selected while responding to pointer, and both tracks darken progressively under press.
+- **`PortalRow`, `InviteRow`** (4/2 → 4/4 each). `Hover` → `surface/hover`, `Active` → `surface/sunk`.
+- **`GalleryThumb`** (2/1 → 2/2). `Hover` → `surface/hover`. **Note:** this set has only Default and Hover — no Focus, Active or Disabled at all. Adding them is net-new variant work, not covered here.
+- **`TextField`, `Select`** — the field family had inconsistent and in places broken border treatment, which the duplicate-variant check surfaced as a side effect:
+  - **`TextField` `Hover` had no border at all** (`strokes` empty) while `Default` had `border/default` — hover *removed* the frame. Almost certainly an editing accident.
+  - **`Select` `Default` had no border either**, so the two field components disagreed about what a resting field looks like.
+  - `Focus` and `Active` were identical on `TextField`; `Hover` and `Active` identical on `Select`.
+  - **`Disabled` inked only the value text** — the field label stayed at `text/primary`, so a disabled field read as half-enabled.
+
+  Normalised both to one family rule: `Default` `border/default` · `Hover` `border/strong` · `Focus` `border/strong` + 2px `border/focus` ring · `Active` `border/strong` + ring + box fill `surface/deepSunk` (pressed sinks) · `Disabled` `border/subtle` + **all** text on `text/disabled` · `Open` (Select) `border/strong` + menu. Stroke weights bound to `border/width/default`.
+
+- **`iPhone` (Device page) — left as-is, 2 variants / 1 distinct.** `Color=Black` and `Color=White` are byte-identical, i.e. the White variant was never styled. This is a device mockup asset, not an interactive component, and giving it a real white shell is illustration work rather than a state fix. Recommend either styling it properly or collapsing to a single variant when the Device page is next touched; flagged, not guessed at.
+
+**Follow-up finding — `color/surface/hover` may be mis-valued.** Light mode resolves it to `warmGray/250` (`#c4bcb4`), which is a heavy darkening to apply as a hover on a `surface/raised` card (`#f4f1ed`). It is the correct *token* for the job by name, so it was used per the approved spec, but the *value* deserves a look alongside the other neutral-ramp work. Not changed here — a token-value change would repaint every hover in the library at once.
