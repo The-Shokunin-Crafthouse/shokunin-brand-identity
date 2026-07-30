@@ -1056,3 +1056,50 @@ Each needs a decision (does `75 Bold 11` become `label/chrome` at 11/65 Medium, 
 **Decision deferred to Gate 2 (owner).** Choosing the interaction-state vocabulary — what hover, focus, active and selected each *look* like across the library — is a design decision under studio-memory §5 Gate 2 ("interaction patterns documented"), not a decide-and-log call. Logged here with the evidence; asked as a single decision packet. Nothing was changed.
 
 **Not blocked by this:** the focus-ring half is arguably rule-execution rather than design choice (the studio criteria mandate a visible focus ring and the tokens are already declared), but applying it changes rendering on nine components, so it is bundled into the same question rather than pre-empted.
+
+---
+
+## 2026-07-29 — SCDS interaction-state vocabulary (Gate 2, approved) + applied to Tab and Link
+
+**Stage:** 02-design (scds-v2)
+**Type:** Gate-2 design decision — owner approved
+**Status:** accepted; 2 of 9 sets applied
+
+**Decision (owner, asked as a decision packet).** Derive one systematic state treatment from tokens the system already declares — no new tokens, no invented visual language — and apply it uniformly to the nine sets carrying identical variants. Approved.
+
+### The vocabulary
+
+| State | Treatment | Tokens |
+|---|---|---|
+| **Default** | resting ink / resting rule | `color/interactive/default`, `color/border/default` |
+| **Hover** | ink strengthens; rule strengthens on text controls, surface lifts on surface controls | `color/interactive/hover`, `color/border/strong`, `color/surface/hover` |
+| **Focus** | Default **plus** a 2px ring, `strokeAlign: OUTSIDE`. Composable — never replaces the state's own treatment | `color/border/focus` (focusRing tier post-Block-2), `border/width/focus` (2) |
+| **Active** | pressed ink | `color/interactive/active` |
+| **Selected** | persistent, not transient: accent indicator + primary ink | `color/brand/accent`, `color/text/primary` |
+| **Disabled** | Default at 50% opacity — opacity is the single mechanism, so inks stay on their resting tokens rather than double-dimming | `opacity 0.5` |
+
+**Known limitation — no focus-ring offset.** `border/focus/offset` (2) exists as a token, but Figma has no outline-offset equivalent; `strokeAlign: OUTSIDE` is the closest expressible form. The offset is a code-tier concern, like `motion/easing/*`. Do not attempt to fake it with a wrapper frame — that changes layout.
+
+**Not represented in Figma:** the press-scale (`motion/scale/pressButton` 0.985, `pressTap` 0.92) is a code-only tier; Active is expressed as ink only.
+
+### Applied — `Tab` (was 6 variants / 3 distinct → now 6 / 6)
+
+`Default` rule → `border/default` (was the raw primitive `warmGray/400`) · `Hover` label → `interactive/hover`, rule → `border/strong` · **`Focus` gained the 2px `border/focus` ring — it previously rendered identically to Default, i.e. the component shipped an invisible focus state** · `Active` label → `interactive/active`, rule → `border/default` · `Selected` rule → `brand/accent` · `Disabled` rule → `border/default`.
+
+**Bug caught by the post-write verification read:** `Tab`'s Disabled label was bound to `color/text/onAccent` — pure white — under 50% opacity on a light page, i.e. all but invisible. Repointed to `color/text/primary` so Disabled is genuinely Default-at-50%.
+
+### Applied — `Link` (was 5 variants / 3 distinct → now 5 / 5)
+
+Three real bugs, none of which the audit could see by reading names:
+
+1. **`Default` was bound to `color/interactive/active`** — the resting state rendered as the pressed state. Now `interactive/default`.
+2. **`Disabled` was bound to `color/dark/textDisabled`** — a *dark-mode primitive* in a mode-agnostic component, so in light mode it rendered the dark theme's disabled grey (`#565654`) and did not follow the mode at all. Now `color/text/disabled`.
+3. **The underline that mitigates learning #67 existed only on `Focus`.** Learning #67 documents the brand-accent hover as a sub-AA exception (~3.8:1) accepted *because* a persistent underline carries the affordance. The underline was not persistent — Default, Hover, Active and Disabled all had `textDecoration: NONE`, so the documented mitigation was not actually in place. `UNDERLINE` is now persistent across all five states, matching both the learning and the component description written in 4.10.
+
+`Focus` also gained the 2px ring; per-state icon stroke follows the label ink.
+
+### Remaining — 7 sets still carrying identical variants
+
+`Segment` (10/7) · `PortalRow` (4/2) · `InviteRow` (4/2) · `GalleryThumb` (2/1) · `TextField` (5/4, Focus = Active) · `Select` (6/5, Hover = Active) · `iPhone` (2/1, Black = White — a mockup asset, not an interactive component; likely correct to collapse to one variant rather than differentiate).
+
+Verified by re-running the fingerprint audit: `Tab` and `Link` no longer appear.
