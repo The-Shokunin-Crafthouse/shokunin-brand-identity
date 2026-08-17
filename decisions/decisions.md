@@ -987,3 +987,56 @@ The same outage 503'd every Actions secrets/variables call and all of GraphQL fo
 **Consequence handled: `continue-on-error` on every mint step.** During the fallback era the mint step was gated on `if: vars.SCDS_DISPATCH_APP_ID != ''`, so a missing credential skipped harmlessly. Removing the fallback also removed that gate, which would have made `create-github-app-token` **fail the job** on any credential problem — turning a successful deploy or an already-published release red, the exact failure mode this repo keeps legislating against (studio learning: a CI step that fails before the build gives no signal). Each mint step is now `continue-on-error: true`, and the consuming step detects the empty token and warns with the specific remediation. In `dispatch-preflight.yml` failing IS the signal, so it still exits non-zero — but via its own reporting step, which distinguishes "app id unset" from "key not visible to this repo" from "key malformed", rather than a raw action error.
 
 **Still outstanding.** The `brand → client portal dispatch` and `portal CI · read brand` PATs still exist on the account and are now both dead — the first is superseded, the second never used (it was for the `_brand/` submodule architecture that was never built). Neither consumer has a `repository_dispatch` receiver yet, so delivered events currently land and do nothing.
+
+---
+
+## 2026-08-17 — text.secondary re-derived to clear AA on surface.sunk; every quoted contrast figure re-verified and guarded
+
+**Stage:** 02-design (scds-v2)
+**Type:** token value change + accessibility correction + CI guard
+**Status:** accepted
+**Slug:** text-secondary-aa-sunk
+
+**Context.** `tokens/semantic.json` documented `color.text.secondary` as "AA on surface.page (5.0:1) and surface.sunk (4.6:1)". Both figures were stale. The 2026-07-28 SCDS audit P2-8 rebuild redistributed the warmGray 200–400 span, darkening `warmGray.200` from `#D9D6D2` to `#D8D1CC` — `surface.sunk`, the default card ground in light mode. The text tier rendered on it was never re-derived, so the real ratio fell to **4.42:1, below WCAG AA 4.5:1**, while the description kept asserting it passed. Found downstream while reconciling `shokunin-crafthouse-site` (PR #34 there), where four rules rendering secondary text on a panel/sunk ground had to be moved to `text.primary` as a local workaround. That workaround is a symptom; this repo is the upstream of every Shokunin-branded property, so the fix belongs here.
+
+**Decision — darken the text tier (option a), not forbid the surface (option b).**
+
+`surface.sunk` is the default card ground in light mode. Forbidding secondary text on it would forbid metadata on cards — the single most common secondary-text placement — and collapse the tier onto `text.primary` across every consumer. That is not a usable system; it is the consumer workaround promoted to policy.
+
+`color.warmGray.500` `#5F5C55` → **`#5A5750`**. Hue (42°) and saturation (5.6%) held exactly; HSL lightness 35.3% → 33.3%, one step down.
+
+Two properties made this contained and safe:
+- **One semantic consumer.** `warmGray.500` is aliased only by `color.text.secondary`. Nothing else moves.
+- **Outside the rebuilt span.** P2-8 interpolated `warmGray.100 → warmGray.450`. Step 500 sits *below* that span, so re-deriving it does not disturb the ladder P2-8 built.
+
+Resulting light-mode figures: sunk **4.42 → 4.77:1**, page **5.43 → 5.86:1**, raised 6.40:1, floating 6.86:1. Dark mode is unaffected (`dark.textSecondary`, 8.85–10.20:1, AAA throughout). Secondary/tertiary tier separation also improves, 1.17 → 1.27.
+
+**Rejected: `#5C5953`.** The smallest value that clears AA (4.62:1) — rejected as a rounding cliff. `#5A5750` carries 0.27 of headroom, which is what keeps the next ramp move from silently re-breaking it.
+
+**Restrictions kept where the pair is genuinely unfixable.** `surface.deepSunk` and `surface.rail` (both `warmGray.300`) measure 3.01:1 and `surface.hover` (`warmGray.250`) 3.84:1. No plausible darkening of a *secondary* tier clears AA on those without becoming ink. They stay restricted, with `text.primary` as the substitute.
+
+**Schema change: `forbiddenSurfaces` is now keyed by mode.** It was a flat array plus a separate `modes` list, which can only express one union across both modes. That was measurably wrong in both directions on `text.tertiary`: it forbade `surface.raised` in light where the pair passes at 5.06:1, and permitted `rail`, `hover` and `floating` where they fail. Now `{ light: [...], dark: [...] }`. No build step reads this field (`tokens-to-css.mjs` ignores it); the readers are the `sc-token-explorer` skill, updated here, and agents reading the token file directly.
+
+**Re-verification of every quoted figure.** 78 contrast figures are quoted across both token files. Twelve were wrong. They fall into three kinds, and the distinction matters:
+
+1. **Rotted by a ramp move** (accurate when written): `text.secondary` on page/sunk/deepSunk, the `text.tertiary` light-deepSunk restriction figure (3.49 → 2.38), `focusRing.light` on sunk (11.24 → 10.78).
+2. **Never accurate**: `status.success.light` "AA ~4.9:1" measures **3.69:1** and `status.info.light` "AA ~7.5:1" measures **4.79:1**. Neither reproduces against `warmGray.100` in any era (3.42 / 4.43 against the pre-desaturation `#E3DFD8` page). The success one is the more serious: it asserted AA for a pair that fails it, and was contradicted eleven lines later by its own `ink` token, which correctly recorded 3.69:1. Both descriptions now state the measured figure and the fill-only role. **The status hues themselves are not repainted** — the `-ink` text tiers already exist for text use, and repainting status colors does not belong in a contrast-hygiene change.
+3. **Wrong about a retired value**: the `status.warning-ink` note cited 3.69:1 for base warning-light (that is *success*'s number copy-pasted; warning measures 4.21:1 — the verdict held, the figure did not), and `interactive.hover` claimed the retired vermilion was 3.8:1 when `shu.500 #C8281C` measures **4.52:1** on page, meaning the teal rebrand widened that documented AA exception considerably more than the note admitted.
+
+Two figures I first flagged as stale were not: the pre-swap border ratios 1.22:1 and 1.44:1 reproduce exactly once measured against their own era's ground. A historical figure has to be checked against the values of its own moment, not today's.
+
+**Guard — `scripts/verify-contrast.mjs`, wired into `pr-check.yml`.** Correcting prose fixes today and guarantees nothing; a `$description` is a claim that rots the moment a ramp moves (learnings #131, #162). Three checks:
+
+1. **AA, derived from the token tree.** Every text tier × every surface × every mode must clear 4.5:1 unless the pair is declared in `forbiddenSurfaces`. Nothing here reads prose, so the *next* ramp move fails CI on its own. Verified against the real bug: reverting `warmGray.500` reproduces `text.secondary on surface.sunk (light): 4.42:1 < AA 4.5:1`.
+2. **Live claims.** All 78 registered figures must match their measured value.
+3. **Orphans.** Any `N.NN:1` in any `$description` must be registered as either a live claim or an explicitly-pinned historical figure. A new prose figure cannot be added unguarded. This check caught four figures I had missed and two I had introduced.
+
+It also warns (non-fatally) when a restriction is over-broad — a pair listed as forbidden that actually clears AA — since that silently costs a legal combination, which is how the `text.tertiary` list went wrong.
+
+**Consequences.**
+- A token value changed. Consumers pinning `@the-shokunin-crafthouse/scds` need snapshot-refresh PRs after this deploys — visual diffs on secondary text are expected and correct.
+- `shokunin-crafthouse-site` PR #34's local workaround (four rules moved to `text.primary`) can be reverted once it takes the new version; secondary text on a sunk ground is legal again at 4.77:1.
+- `_config/design-system/token-map.md` is updated only on the rows this change touches. It remains stale elsewhere (pre-scds-v2 hexes throughout, e.g. `warmGray/300 #CDC9C2`, `dark/textPrimary #E2DDD6`, "shu/brand fills") and still needs the full re-sync noted in the 2026-05-28 ADR.
+- **Figma synced 2026-08-17 (done).** `color/warmGray/500` set to `#5A5750` in the SCDS library Primitives collection (`0zVoxaLJQkjHENYJlQk1VT`, `VariableID:2:12`). Figma independently corroborated the blast radius: exactly one variable aliases it, `Semantic color/text/secondary` (Light) — the same single consumer the code has. All 42 text-tier × surface × mode pairs re-derived from the live Figma variables afterwards match the repo exactly, zero AA violations.
+
+  Three things went with it. (a) `color/text/secondary` and `color/text/tertiary` gained descriptions. They previously had none — while `text/onAccent`, `brand/accent` and every `-ink` tier carry their AA constraint in the description, which is this file's established convention for a token that fails accessibility when picked wrong. Those two were exactly the tokens whose restrictions are mode-dependent and invisible, so a designer picking them in Figma had nothing to read. That gap is the design-side half of this bug. (b) `warmGray/500` gained a description recording the re-derivation. (c) Four `-ink` descriptions quoted figures 0.01 off the re-verified values (`success-ink` 4.73→4.74, `warning-ink` 4.57/4.51→4.58/4.52, `info-ink` 4.55→4.54, `hover-ink` 4.71→4.72) and were corrected, so Figma and the repo quote identical numbers. Leaving them would have reintroduced exactly the drift the 2026-08-16 sync ADR closed.

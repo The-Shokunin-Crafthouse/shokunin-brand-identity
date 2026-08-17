@@ -38,7 +38,7 @@ Raw color values. Semantic tokens below alias these — designers and developers
 | `color/warmGray/300` | `#CDC9C2` | 100% | Sunk surface · anchor from HTML --surface-deep. |
 | `color/warmGray/350` | `#C5C0B8` | 100% | Subtle hairline · anchor from HTML --hairline-2. |
 | `color/warmGray/400` | `#9A9388` | 100% | Faint warm gray · anchor from HTML --ink-faint. Fails AA by spec (disabled use). |
-| `color/warmGray/500` | `#5F5C55` | 100% | Muted warm gray · anchor from HTML --ink-muted. |
+| `color/warmGray/500` | `#5A5750` | 100% | Muted warm gray · secondary text. Re-derived 2026-08-17 from `#5F5C55` (ADR text-secondary-aa-sunk) — the old value measured 4.42:1 on `surface/sunk`, below AA, after the P2-8 rebuild moved `warmGray/200`. |
 | `color/warmGray/600` | `#484640` | 100% | Mid-deep · derived between 500 and 800. |
 | `color/warmGray/700` | `#312F2A` | 100% | Near-ink · derived between 500 and 800. |
 | `color/warmGray/800` | `#1A1815` | 100% | Ink · anchor from HTML --ink. |
@@ -110,7 +110,7 @@ Every value below is an alias to a primitive. No raw hex appears in this layer.
 | Token Name | Light alias | Light hex | Dark alias | Dark hex | Notes |
 |---|---|---|---|---|---|
 | `color/text/primary` | `color/warmGray/800` | `#1A1815` | `color/dark/textPrimary` | `#E2DDD6` | Body, headlines, strong rules. AAA on every surface. |
-| `color/text/secondary` | `color/warmGray/500` | `#5F5C55` | `color/warmGray/400` | `#9A9388` | Secondary copy. **RESTRICTION: must not render on `color/surface/deepSunk` in light mode (4.04:1 fails AA). Use `color/text/primary` on deepest light surface.** Dark mode passes AA on all surfaces. |
+| `color/text/secondary` | `color/warmGray/500` | `#5A5750` | `color/dark/textSecondary` | `#B9B9B7` | Secondary copy. **RESTRICTION (light mode only): must not render on `color/surface/deepSunk` (3.01:1), `color/surface/rail` (3.01:1) or `color/surface/hover` (3.84:1) — all fail AA. Use `color/text/primary` there.** Light passes AA on page (5.86:1), sunk (4.77:1), raised (6.40:1), floating (6.86:1). Dark passes AA on all surfaces. Re-measured 2026-08-17. |
 | `color/text/disabled` | `color/warmGray/400` | `#9A9388` | `color/dark/textDisabled` | `#6B655C` | Disabled / placeholder. Documented exception: fails AA by spec. |
 | `color/text/onAccent` | `color/utility/white` | `#FFFFFF` | `color/utility/white` | `#FFFFFF` | Text on shu/brand fills. |
 

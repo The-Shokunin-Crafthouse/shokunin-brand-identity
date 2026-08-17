@@ -27,6 +27,8 @@ After loading, confirm to yourself that:
 - Primitives are organized as `color.<scale>.<step>`, `font.<axis>.<name>`, `space.<step>`, `radius.<name>`, `motion.<axis>.<name>`
 - Semantic tokens carry both `light` and `dark` mode aliases in `$extensions.modes`
 - Some semantic tokens carry a `$extensions.usageRestrictions` field — **always check this before recommending a token**
+- `usageRestrictions.forbiddenSurfaces` is keyed **by mode** (`{ light: [...], dark: [...] }`), not a flat array — a surface
+  forbidden in one mode is often legal in the other, so read the list for the mode you are recommending into. (Shape changed 2026-08-17; the old flat array could only express one union across both modes.)
 
 Only then proceed to query logic.
 
