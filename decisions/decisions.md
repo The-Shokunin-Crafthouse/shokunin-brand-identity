@@ -1040,3 +1040,41 @@ It also warns (non-fatally) when a restriction is over-broad — a pair listed a
 - **Figma synced 2026-08-17 (done).** `color/warmGray/500` set to `#5A5750` in the SCDS library Primitives collection (`0zVoxaLJQkjHENYJlQk1VT`, `VariableID:2:12`). Figma independently corroborated the blast radius: exactly one variable aliases it, `Semantic color/text/secondary` (Light) — the same single consumer the code has. All 42 text-tier × surface × mode pairs re-derived from the live Figma variables afterwards match the repo exactly, zero AA violations.
 
   Three things went with it. (a) `color/text/secondary` and `color/text/tertiary` gained descriptions. They previously had none — while `text/onAccent`, `brand/accent` and every `-ink` tier carry their AA constraint in the description, which is this file's established convention for a token that fails accessibility when picked wrong. Those two were exactly the tokens whose restrictions are mode-dependent and invisible, so a designer picking them in Figma had nothing to read. That gap is the design-side half of this bug. (b) `warmGray/500` gained a description recording the re-derivation. (c) Four `-ink` descriptions quoted figures 0.01 off the re-verified values (`success-ink` 4.73→4.74, `warning-ink` 4.57/4.51→4.58/4.52, `info-ink` 4.55→4.54, `hover-ink` 4.71→4.72) and were corrected, so Figma and the repo quote identical numbers. Leaving them would have reintroduced exactly the drift the 2026-08-16 sync ADR closed.
+
+---
+
+## 2026-08-17 — token-map.md inverted: generated mirror, not source of truth
+
+**Stage:** 02-design (scds-v2)
+**Type:** Documentation architecture / drift elimination
+**Status:** accepted
+**Slug:** token-map-generated
+
+**Context.** `_config/design-system/token-map.md` declared itself the source of truth — "Both are downstream of this file" — while nothing generated from it and nothing checked it. It drifted for roughly three months. At the point of this change it still documented:
+
+- the `color/shu/*` vermilion scale **retired on 2026-07-09**, including `border/focus`, `status/error`, `brand/accent` and `interactive/hover` all still bound to it
+- the pre-desaturation page ground `#E3DFD8` and the pre-P2-8 warmGray ramp
+- "Primitives · 100 variables · Semantic · 23 variables" against a real 133 / 88 in the Figma library
+- "No components have been defined in Figma yet" against 167 consolidated masters
+- a `Breakpoints` collection that does not exist in the current SCDS library
+
+and omitted teal, signal, focusRing, divider, every `-ink` tier, four of the seven surfaces, and the entire tertiary text tier.
+
+This is the mirror-rot pattern exactly (studio learning #178: a pasted mirror needs a generator and a stamped count, not discipline). It is the same failure as the contrast figures fixed earlier today, one layer up: a hand-maintained restatement of a value that moves independently of it.
+
+**Decision — invert the dependency and generate the file.** `tokens/*.json` is upstream. `token-map.md` is a generated mirror, emitted by `scripts/gen-token-map.mjs` (`npm run tokens:map`), carrying a `DO NOT EDIT BY HAND` header and a **stamped source fingerprint** (sha256 of both token files, truncated) plus primitive/semantic counts.
+
+`npm run tokens:map:check` regenerates in memory and fails if the committed file differs. Wired into `pr-check.yml`, so staleness is a build failure rather than a chore nobody owns. Verified by mutating a token and confirming the check exits 1.
+
+**Correctness checks that matter more than the prose.**
+- Every one of the 268 CSS variable names the document prints was cross-checked against the built `src/styles/tokens.css`: **zero mismatches**. The generator reuses `tokens-to-css.mjs`'s exact `kebab`/`varName` logic rather than reimplementing it, so the doc cannot drift from the build's naming.
+- The accessibility restrictions now render as their own table at the top, generated from `$extensions.usageRestrictions` — the same field `verify-contrast.mjs` enforces. One source, two readers.
+
+**Hand-authored content preserved deliberately.** Three blocks are not derivable from the token files and live as literals in the generator: the Figma-naming differences, Effect Styles / elevation (shadows cannot be Figma variables), and breakpoints. Breakpoints are now explicitly flagged as unverified — they are absent from both `tokens/*.json` and the SCDS library, so the section states that rather than implying it is synced.
+
+**Count difference with Figma is expected and now documented in the file.** Code counts 158 primitives / 110 semantic against Figma's 133 / 88 because `motion/easing/*`, `shadow/*` and the `font/text/*` composition tokens are composites with no variable representation. A count mismatch is expected; a *value* mismatch is not.
+
+**Consequences.**
+- Never hand-edit `token-map.md` again. Edit the token files and run `npm run tokens:map`.
+- The "token-map is stale" caveat carried by the 2026-05-28 and 2026-08-17 `text-secondary-aa-sunk` ADRs is now discharged.
+- CLAUDE.md describes `_config/design-system/token-map.md` as part of the *authoring* surface. That is now inaccurate — it is a generated artifact, and the authoring surface is `tokens/*.json` plus the Figma Primitives collection. Flagged, not silently rewritten: the adapter is owner-maintained.
