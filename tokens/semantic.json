@@ -110,16 +110,19 @@
       "secondary": {
         "$type": "color",
         "$value": "{color.warmGray.500}",
-        "$description": "Secondary text · eyebrows, metadata, descriptions. AA on surface.page (5.0:1) and surface.sunk (4.6:1). USAGE RESTRICTION: must not render on surface.deepSunk in light mode — the pair drops to 4.04:1 (below AA). On deepest surface, use text.primary instead. Dark mode passes AA on all three surfaces.",
+        "$description": "Secondary text · eyebrows, metadata, descriptions. Light (warmGray.500 #5A5750): AA on surface.page (5.86:1), surface.sunk (4.77:1), surface.raised (6.40:1), surface.floating (6.86:1). USAGE RESTRICTION: must not render on surface.deepSunk, surface.rail, or surface.hover in light mode — see $extensions.usageRestrictions. Dark (dark.textSecondary): AAA on every surface (8.85–10.20:1), no restrictions. All figures re-measured 2026-08-17 (ADR text-secondary-aa-sunk).",
         "$extensions": {
           "modes": {
             "light": "{color.warmGray.500}",
             "dark":  "{color.dark.textSecondary}"
           },
           "usageRestrictions": {
-            "forbiddenSurfaces": ["color.surface.deepSunk"],
-            "modes": ["light"],
-            "reason": "Contrast ratio 4.04:1 falls below WCAG AA 4.5:1 threshold on this pair only.",
+            "$description": "forbiddenSurfaces is keyed BY MODE — a surface forbidden in light may be legal in dark and vice versa. Shape changed 2026-08-17 (was a flat array + a separate `modes` list, which could only express one union across both modes and was measurably wrong in each). Figures re-measured 2026-08-17 and guarded by scripts/verify-contrast.mjs.",
+            "forbiddenSurfaces": {
+              "light": ["color.surface.deepSunk", "color.surface.rail", "color.surface.hover"],
+              "dark": []
+            },
+            "reason": "Light mode: deepSunk and rail (both warmGray.300) measure 3.01:1 and hover (warmGray.250) measures 3.84:1 — all below WCAG AA 4.5:1. Dark mode clears AA on every surface (8.85:1 worst case).",
             "substitute": "{color.text.primary}"
           }
         }
@@ -127,16 +130,19 @@
       "tertiary": {
         "$type": "color",
         "$value": "{color.warmGray.450}",
-        "$description": "Tertiary text · lowest readable tier (de-emphasized metadata). scds-v2 addition. Light = warmGray.450 (AA 4.63:1 on page); dark = dark.textTertiary (AA 4.58:1 on page). USAGE RESTRICTION: not on the lighter raised / deeper sunk surfaces where contrast compresses below AA — use text.secondary there.",
+        "$description": "Tertiary text · lowest readable tier (de-emphasized metadata). scds-v2 addition. Light = warmGray.450 (AA 4.63:1 on page, 5.06:1 raised, 5.42:1 floating); dark = dark.textTertiary (AA 4.58:1 on page, 4.79:1 sunk, 4.73:1 rail). USAGE RESTRICTION: the failing surfaces DIFFER BY MODE — see $extensions.usageRestrictions. Use text.secondary there. All figures re-measured 2026-08-17 (ADR text-secondary-aa-sunk).",
         "$extensions": {
           "modes": {
             "light": "{color.warmGray.450}",
             "dark":  "{color.dark.textTertiary}"
           },
           "usageRestrictions": {
-            "forbiddenSurfaces": ["color.surface.raised", "color.surface.sunk", "color.surface.deepSunk"],
-            "modes": ["light", "dark"],
-            "reason": "Tertiary contrast compresses below WCAG AA 4.5:1 on the lighter/deeper surfaces (dark raised1 4.40:1; light deepSunk 3.49:1).",
+            "$description": "forbiddenSurfaces is keyed BY MODE — see the note on text.secondary. The previous flat list (raised/sunk/deepSunk, both modes) was wrong in BOTH directions: it forbade surface.raised in light where the pair passes at 5.06:1, and permitted rail, hover and floating where they fail. Corrected 2026-08-17.",
+            "forbiddenSurfaces": {
+              "light": ["color.surface.sunk", "color.surface.deepSunk", "color.surface.rail", "color.surface.hover"],
+              "dark": ["color.surface.raised", "color.surface.deepSunk", "color.surface.floating", "color.surface.hover"]
+            },
+            "reason": "Tertiary contrast compresses below WCAG AA 4.5:1 on the compressed pairs — light: sunk 3.77:1, deepSunk/rail 2.38:1, hover 3.03:1. Dark: raised/hover 4.40:1, deepSunk/floating 4.16:1.",
             "substitute": "{color.text.secondary}"
           }
         }
@@ -255,7 +261,7 @@
       "hover": {
         "$type": "color",
         "$value": "{color.teal.500}",
-        "$description": "Hover state · primary button text/icon/border turn brand teal. Documented AA exception at 11px (3.23:1 on bg — widened from vermilion's 3.8:1 since teal is lighter; underline mitigant applies); brand-signal use justifies. Dark mode uses teal.400 for visibility.",
+        "$description": "Hover state · primary button text/icon/border turn brand teal. ICON/BORDER ONLY as a documented AA exception (3.23:1 on surface.page — underline mitigant applies, learning #67); brand-signal use justifies. When the hover color renders as body text use interactive.hover-ink (4.72:1). Dark mode uses teal.400 for visibility. 2026-08-17 re-verification: the retired vermilion this is compared against (shu.500 #C8281C) measured 4.52:1 on surface.page, not the 3.8:1 quoted here — the rebrand widened the exception considerably more than the note claimed.",
         "$extensions": {
           "modes": {
             "light": "{color.teal.500}",
@@ -266,7 +272,7 @@
       "hover-ink": {
         "$type": "color",
         "$value": "{color.interactive.hoverInk.light}",
-        "$description": "2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier for interactive.hover — use when the hover color renders as body text (not icon/border), 4.71:1 on warmGray.100. Base interactive.hover fails AA for text at 3.23:1 (documented exception, learning #67) but is fine for icon/border use. Dark mode reuses teal.400 (already AA as text).",
+        "$description": "2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier for interactive.hover — use when the hover color renders as body text (not icon/border), 4.72:1 on warmGray.100. Base interactive.hover fails AA for text at 3.23:1 (documented exception, learning #67) but is fine for icon/border use. Dark mode reuses teal.400 (already AA as text).",
         "$extensions": {
           "modes": {
             "light": "{color.interactive.hoverInk.light}",
@@ -334,7 +340,7 @@
       "success-ink": {
         "$type": "color",
         "$value": "{color.status.success.ink.light}",
-        "$description": "2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier for status.success — use when rendered as body text, 4.73:1 on warmGray.100. Base status.success fails AA for text at 3.69:1 but is fine for fill/border/dot use. Dark mode reuses status.success.dark (already AA as text, 4.82:1).",
+        "$description": "2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier for status.success — use when rendered as body text, 4.74:1 on warmGray.100. Base status.success fails AA for text at 3.69:1 but is fine for fill/border/dot use. Dark mode reuses status.success.dark (already AA as text, 4.82:1).",
         "$extensions": {
           "modes": {
             "light": "{color.status.success.ink.light}",
@@ -345,7 +351,7 @@
       "warning-ink": {
         "$type": "color",
         "$value": "{color.status.warning.ink.light}",
-        "$description": "2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier for status.warning — use when rendered as body text, 4.57:1 (L) / 4.51:1 (D) on their respective grounds. Base status.warning fails AA for text in both modes (3.69:1 L / 4.20:1 D) but is fine for fill/border/dot use.",
+        "$description": "2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier for status.warning — use when rendered as body text, 4.58:1 (L) / 4.52:1 (D) on their respective grounds. Base status.warning fails AA for text in both modes (4.21:1 L / 4.20:1 D) but is fine for fill/border/dot use. 2026-08-17 re-verification: the light-mode base figure read 3.69:1, which is status.success.light's number copy-pasted onto the warning line — the verdict (fails AA) held, the figure did not.",
         "$extensions": {
           "modes": {
             "light": "{color.status.warning.ink.light}",
@@ -356,7 +362,7 @@
       "info-ink": {
         "$type": "color",
         "$value": "{color.status.info.light}",
-        "$description": "2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier for status.info — light mode reuses status.info.light directly (already AA as text, 4.79:1); dark mode gets a dedicated ink (4.55:1) since base status.info.dark fails AA for text at 3.86:1.",
+        "$description": "2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier for status.info — light mode reuses status.info.light directly (already AA as text, 4.79:1); dark mode gets a dedicated ink (4.54:1) since base status.info.dark fails AA for text at 3.86:1.",
         "$extensions": {
           "modes": {
             "light": "{color.status.info.light}",

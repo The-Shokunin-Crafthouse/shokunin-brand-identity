@@ -19,5 +19,10 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      # Runs before the build so a contrast regression in the token source
+      # reports as its own failure rather than being buried in build output.
+      - name: Verify token contrast
+        run: npm run tokens:verify
+
       - name: Build
         run: npm run build
