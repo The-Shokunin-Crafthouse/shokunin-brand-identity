@@ -492,6 +492,12 @@
       "$description": "Sprint 4 addition · raised surfaces (8px). Card, Button, Alert.",
       "$extensions": { "modes": { "light": "{radius.default}", "dark": "{radius.default}" } }
     },
+    "surfaceLarge": {
+      "$type": "dimension",
+      "$value": "{radius.large}",
+      "$description": "2026-08-16 Figma variable sync · large raised surfaces (16px). Present in the SCDS Semantic collection (radius/surfaceLarge), absent from code. Mode-invariant. No component binds it yet — added for Figma↔code parity.",
+      "$extensions": { "modes": { "light": "{radius.large}", "dark": "{radius.large}" } }
+    },
     "pill": {
       "$type": "dimension",
       "$value": "{radius.circle}",

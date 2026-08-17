@@ -892,3 +892,23 @@ dev` → serves the showcase HTTP 200 (`Shokunin Crafthouse · Component Primiti
 **Contrast consequence (verified, not assumed).** `border/default` (aliases `350` post-Block-2-swap) vs `surface/page` (aliases `100`, `#ebe7e4`): **1.22:1 → 2.52:1**. `border/subtle` (aliases `250`): **1.44:1 → 1.53:1** (measured pre-Block-2-swap value was 1.44; post-swap+rebuild is 1.53). Relative order preserved and *amplified* — `default` reads distinctly stronger than `subtle`, closing the residual near-indistinguishability the audit's screenshot-level check would still have shown even after the Block 2 alias swap alone. Neither crosses 3:1 (non-text minimum) — acceptable for a border-only role (no text-contrast requirement applies), and pushing further would have made 400/450 collide instead.
 
 **Verified.** Fresh `screenshot()` of the Color foundations page's neutral-ramp swatch row (bound live to the variables, not hand-picked hex) confirms even visual steps end-to-end with no plateau-then-cliff. `500` (`#5f5854`) sits immediately below the new `450`/`400` without a visible seam.
+
+---
+
+## 2026-08-16 — Token sync: code ↔ SCDS Figma library variables
+
+**Stage:** 02-design (scds-v2)
+**Type:** Token sync / Figma→code propagation
+**Status:** accepted
+
+**Context.** Full pull of the SCDS — Shokunin Design System Library variable set (file `0zVoxaLJQkjHENYJlQk1VT`, node `18:4`) via the Figma Plugin API: 2 collections, 221 variables — Primitives (133, single `Value` mode) and Semantic (88, `Light`/`Dark` modes). Diffed against `tokens/primitives.json` + `tokens/semantic.json` before editing.
+
+**Finding — zero value drift.** Every colour, size, weight, tracking, line-height, radius, spacing, motion-duration and motion-scale token that exists on both sides already carries an identical value. The teal family including `#038E93` (`color/teal/500`, the brand accent) was already propagated in the 2026-07-09 rebrand; this sync did not move it. No removals, no renames with a CSS-surface consequence.
+
+**Decision — three tokens added for parity.** Present in Figma, absent from code: primitive `font.lineHeight.loose` (2.0), primitive `radius.large` (16px), semantic `radius.surfaceLarge` → `{radius.large}` (mode-invariant). Added in the file's existing conventions (size-ordered within their group, DTCG alias for the semantic, `$extensions.modes` for both modes). No component binds any of them yet — they exist so the two surfaces agree.
+
+**Decision — `font.family.*` deliberately NOT synced.** Figma stores the *trial* family names (`Haas Grot Disp Trial`, `Haas Grot Text Trial`) because the licensed faces will not load in Figma (studio learning: Figma MCP cannot load the brand fonts). The repo stores the licensed CSS stacks (`Neue Haas Grotesk Display Pro`, …) with fallbacks. Figma is the source of truth for token VALUES; it is not the source of truth for the served font stack. Syncing these would break the deployed stylesheet. Standing exception — re-affirm, do not "fix", on future syncs.
+
+**Authoring differences recorded, no action.** (a) `color/dark/border` and `color/dark/borderSubtle` are aliases in Figma (`→raised4` / `→raised2`) and literals in code — same resolved values (`#2A2A2A` / `#1A1A1A`). (b) The `-ink` text tier is flat in Figma (`color/status/successInkLight`) and nested in code (`color.status.success.ink.light`) — both kebab to the identical CSS custom property, so there is nothing to rename. (c) `color/divider/*` is baked hex8 in Figma and composed from the channel-triplet primitives in code — the alpha steps match exactly (`.06/.10/.16` light, `.05/.09/.15` dark). (d) `motion.easing.*`, `shadow.control.*` and the `font.text.*` composition tokens have no Figma-variable equivalent (cubic-bezier, shadow and typography composites are not variable-representable) and remain code-only.
+
+**Guardrails verified, numbers printed in the PR.** Focus ring holds 6.80–16.37:1 across every ground in both modes (3:1 floor). Brand accent sits at hue 182°; `status.error` at 0° (177.9° apart), warning 14–18°, success 150°, info 224° — no status hue shares a band with teal. Every text-facing pair passes AA, `text.primary` passes AAA in both modes. The only two sub-4.5 pairs are the pre-existing documented exceptions (`interactive.hover` base at 3.23:1, icon/border only; white on `brand.accent` at 3.97:1, mark only) — unchanged by this sync.
