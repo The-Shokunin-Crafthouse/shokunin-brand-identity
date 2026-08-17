@@ -1,23 +1,23 @@
 name: Dispatch preflight
 
 # Answers one question without anyone reading a secret: can the configured
-# dispatch token actually reach each consumer repo?
+# dispatch credential actually reach each consumer repo?
 #
 # Run it from the Actions tab (or `gh workflow run dispatch-preflight.yml`).
 # It prints a per-repo verdict and fails if any consumer is unreachable, so the
-# result is a signal rather than something to read logs for.
+# result is a signal rather than something to go read logs for.
 #
-# Why this exists: PORTAL_DISPATCH_TOKEN was created 2026-06-03 for the
-# brand -> portal bridge alone. The client-portal repo it was granted on was
-# deleted 2026-06-11 and recreated 2026-06-20 as a NEW repo (id 1275430803).
-# Fine-grained PAT access is a repository SELECTION stored by repo id, so that
-# grant does not carry over, and the token was never scoped to
-# shokunin-crafthouse-site. Rather than assume either way, test it.
+# Credential order: the SCDS Dispatch GitHub App first, then the legacy PAT
+# secrets as a fallback. The App is preferred because it is org-scoped, minted
+# fresh each run (~1h life, nothing long-lived in a secret), never expires as a
+# credential, and covering a NEW consumer repo means installing the App on it —
+# not editing a token's repository selection.
 #
-# Fix when a repo comes back unreachable: either widen the existing token's
-# repository selection (fine-grained PATs are editable after creation — no
-# re-mint needed) or mint a fresh one selecting both consumers and store it as
-# CONSUMER_DISPATCH_TOKEN.
+# Why the PAT route was abandoned: a fine-grained PAT's repository selection is
+# stored by repo id, so the grant did not survive client-portal being deleted
+# (2026-06-11) and recreated (2026-06-20). Widening the selection then sent the
+# token back to PENDING ORG APPROVAL, and an unapproved fine-grained token
+# returns 404 — not 403 — on org repos, so it cannot even see them.
 
 on:
   workflow_dispatch:
@@ -30,65 +30,81 @@ on:
 jobs:
   preflight:
     runs-on: ubuntu-latest
-    env:
-      TOKEN: ${{ secrets.CONSUMER_DISPATCH_TOKEN || secrets.PORTAL_DISPATCH_TOKEN }}
-      HAS_CONSUMER: ${{ secrets.CONSUMER_DISPATCH_TOKEN != '' }}
-      HAS_PORTAL: ${{ secrets.PORTAL_DISPATCH_TOKEN != '' }}
-      SEND_REAL: ${{ inputs.send_real_dispatch }}
     steps:
-      - name: Report which secret is in play
+      - name: Mint App token
+        id: app-token
+        if: ${{ vars.SCDS_DISPATCH_APP_ID != '' }}
+        continue-on-error: true
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id: ${{ vars.SCDS_DISPATCH_APP_ID }}
+          private-key: ${{ secrets.SCDS_DISPATCH_APP_KEY }}
+          owner: The-Shokunin-Crafthouse
+
+      - name: Report which credential is in play
+        env:
+          HAS_APP_ID: ${{ vars.SCDS_DISPATCH_APP_ID != '' }}
+          HAS_APP_KEY: ${{ secrets.SCDS_DISPATCH_APP_KEY != '' }}
+          APP_MINTED: ${{ steps.app-token.outputs.token != '' }}
+          HAS_CONSUMER: ${{ secrets.CONSUMER_DISPATCH_TOKEN != '' }}
+          HAS_PORTAL: ${{ secrets.PORTAL_DISPATCH_TOKEN != '' }}
         run: |
-          echo "CONSUMER_DISPATCH_TOKEN present: $HAS_CONSUMER"
-          echo "PORTAL_DISPATCH_TOKEN present:   $HAS_PORTAL"
-          if [ "$HAS_CONSUMER" = "true" ]; then
-            echo "Using CONSUMER_DISPATCH_TOKEN."
-          elif [ "$HAS_PORTAL" = "true" ]; then
-            echo "Using PORTAL_DISPATCH_TOKEN (fallback)."
+          echo "SCDS_DISPATCH_APP_ID  set: $HAS_APP_ID"
+          echo "SCDS_DISPATCH_APP_KEY set: $HAS_APP_KEY"
+          echo "App token minted:          $APP_MINTED"
+          echo "CONSUMER_DISPATCH_TOKEN:   $HAS_CONSUMER"
+          echo "PORTAL_DISPATCH_TOKEN:     $HAS_PORTAL"
+          echo
+          if [ "$APP_MINTED" = "true" ]; then
+            echo "Using the SCDS Dispatch App (preferred)."
+          elif [ "$HAS_APP_ID" = "true" ]; then
+            echo "::error::App id is set but no token was minted — the private key is"
+            echo "missing, malformed, or does not belong to that App. Re-paste the full"
+            echo "PEM (including the BEGIN/END lines) into SCDS_DISPATCH_APP_KEY."
+            exit 1
+          elif [ "$HAS_CONSUMER" = "true" ] || [ "$HAS_PORTAL" = "true" ]; then
+            echo "::warning::Falling back to a PAT — the App is not configured yet."
           else
-            echo "::error::Neither secret is set. Nothing to test."
+            echo "::error::No credential configured at all. Nothing to test."
             exit 1
           fi
 
-      - name: Check token identity and expiry
+      - name: List where the App is installed
+        if: ${{ steps.app-token.outputs.token != '' }}
+        env:
+          TOKEN: ${{ steps.app-token.outputs.token }}
         run: |
-          # /user works for a classic PAT; a fine-grained PAT may 403 here while
-          # still being valid for its selected repos. Either way the response
-          # headers carry the expiry, which is the thing worth surfacing.
-          HDRS="$(mktemp)"
-          curl -s -o /dev/null -D "$HDRS" \
-            -H "Authorization: Bearer $TOKEN" \
+          # An App token is scoped to the repos the App is installed on. Listing
+          # them turns "unreachable" into a specific, actionable cause: a missing
+          # installation rather than a missing permission.
+          echo "Repositories this App installation can reach:"
+          curl -s -H "Authorization: Bearer $TOKEN" \
             -H "Accept: application/vnd.github+json" \
-            https://api.github.com/user || true
-          EXP="$(grep -i '^github-authentication-token-expiration:' "$HDRS" | cut -d' ' -f2- | tr -d '\r' || true)"
-          if [ -n "$EXP" ]; then
-            echo "Token expires: $EXP"
-            echo "::notice::Dispatch token expires $EXP"
-          else
-            echo "No expiry header returned (token may be classic, or non-expiring)."
-          fi
+            "https://api.github.com/installation/repositories?per_page=100" \
+            | jq -r '.repositories[]?.full_name // empty' | sed 's/^/  /' \
+            || echo "  (could not list — continuing to the per-repo probe)"
 
       - name: Test reachability of each consumer repo
+        env:
+          TOKEN: ${{ steps.app-token.outputs.token || secrets.CONSUMER_DISPATCH_TOKEN || secrets.PORTAL_DISPATCH_TOKEN }}
+          USING_APP: ${{ steps.app-token.outputs.token != '' }}
+          SEND_REAL: ${{ inputs.send_real_dispatch }}
         run: |
           FAILED=0
           for repo in client-portal shokunin-crafthouse-site; do
             echo "──────── $repo ────────"
 
-            # metadata:read — can the token see the repo at all?
             READ="$(curl -s -o /dev/null -w '%{http_code}' \
               -H "Authorization: Bearer $TOKEN" \
               -H "Accept: application/vnd.github+json" \
               "https://api.github.com/repos/The-Shokunin-Crafthouse/$repo")"
-            echo "  read  (GET /repos)      -> HTTP $READ"
+            echo "  read  (GET /repos)       -> HTTP $READ"
 
-            # contents:write — the dispatch endpoint itself. 204 = accepted.
-            # 404 here with a 200 read means the token can see the repo but
-            # lacks contents:write; 404 on both means it is not in the token's
-            # repository selection.
             if [ "$SEND_REAL" = "true" ]; then
               PAYLOAD='{"event_type":"scds-preflight"}'
             else
-              # Deliberately malformed event_type: exercises auth + permission
-              # without delivering an event. 422 = authorised, payload rejected.
+              # Deliberately missing event_type: exercises auth + permission
+              # without delivering an event.
               PAYLOAD='{}'
             fi
             WRITE="$(curl -s -o /dev/null -w '%{http_code}' -X POST \
@@ -99,18 +115,40 @@ jobs:
             echo "  write (POST /dispatches) -> HTTP $WRITE"
 
             case "$WRITE" in
-              204) echo "  VERDICT: reachable — dispatch delivered." ;;
-              400|422) echo "  VERDICT: reachable — authorised (payload intentionally rejected in auth-only mode)." ;;
-              403) echo "  VERDICT: UNREACHABLE — token lacks contents:write on this repo."; FAILED=1 ;;
-              404) echo "  VERDICT: UNREACHABLE — repo not in this token's repository selection (or token cannot see it)."; FAILED=1 ;;
-              401) echo "  VERDICT: UNREACHABLE — token invalid or expired."; FAILED=1 ;;
-              *)   echo "  VERDICT: UNREACHABLE — unexpected HTTP $WRITE."; FAILED=1 ;;
+              204)
+                echo "  VERDICT: reachable — dispatch delivered." ;;
+              400|422)
+                echo "  VERDICT: reachable — authorised (payload intentionally rejected in auth-only mode)." ;;
+              403)
+                echo "  VERDICT: UNREACHABLE — credential lacks Contents: write on this repo."
+                if [ "$USING_APP" = "true" ]; then
+                  echo "           Fix: the App's Contents permission is not Read and write, OR the"
+                  echo "           installation predates that permission change and needs the new"
+                  echo "           permission accepted on the org's installation page."
+                fi
+                FAILED=1 ;;
+              404)
+                if [ "$USING_APP" = "true" ]; then
+                  echo "  VERDICT: UNREACHABLE — the App is not installed on this repo."
+                  echo "           Fix: org Settings -> GitHub Apps -> SCDS Dispatch -> Configure ->"
+                  echo "           add this repository."
+                else
+                  echo "  VERDICT: UNREACHABLE — repo not in this PAT's selection, or the PAT is"
+                  echo "           pending org approval (unapproved fine-grained tokens 404 on org repos)."
+                fi
+                FAILED=1 ;;
+              401)
+                echo "  VERDICT: UNREACHABLE — credential invalid or expired."
+                FAILED=1 ;;
+              *)
+                echo "  VERDICT: UNREACHABLE — unexpected HTTP $WRITE."
+                FAILED=1 ;;
             esac
           done
 
           echo
           if [ "$FAILED" = "1" ]; then
-            echo "::error::At least one consumer is unreachable. Widen the token's repository selection to cover client-portal AND shokunin-crafthouse-site (fine-grained PATs are editable after creation), or mint a new one as CONSUMER_DISPATCH_TOKEN."
+            echo "::error::At least one consumer is unreachable — see the per-repo verdict above for the specific cause and fix."
             exit 1
           fi
           echo "::notice::All consumers reachable — automatic propagation is wired."
