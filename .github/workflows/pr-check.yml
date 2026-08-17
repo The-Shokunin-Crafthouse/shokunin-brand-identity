@@ -24,5 +24,10 @@ jobs:
       - name: Verify token contrast
         run: npm run tokens:verify
 
+      # token-map.md is generated from tokens/*.json. It drifted for ~3 months
+      # while hand-maintained, so staleness is a build failure, not a chore.
+      - name: Verify token-map is current
+        run: npm run tokens:map:check
+
       - name: Build
         run: npm run build
