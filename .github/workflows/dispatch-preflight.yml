@@ -1,0 +1,116 @@
+name: Dispatch preflight
+
+# Answers one question without anyone reading a secret: can the configured
+# dispatch token actually reach each consumer repo?
+#
+# Run it from the Actions tab (or `gh workflow run dispatch-preflight.yml`).
+# It prints a per-repo verdict and fails if any consumer is unreachable, so the
+# result is a signal rather than something to read logs for.
+#
+# Why this exists: PORTAL_DISPATCH_TOKEN was created 2026-06-03 for the
+# brand -> portal bridge alone. The client-portal repo it was granted on was
+# deleted 2026-06-11 and recreated 2026-06-20 as a NEW repo (id 1275430803).
+# Fine-grained PAT access is a repository SELECTION stored by repo id, so that
+# grant does not carry over, and the token was never scoped to
+# shokunin-crafthouse-site. Rather than assume either way, test it.
+#
+# Fix when a repo comes back unreachable: either widen the existing token's
+# repository selection (fine-grained PATs are editable after creation — no
+# re-mint needed) or mint a fresh one selecting both consumers and store it as
+# CONSUMER_DISPATCH_TOKEN.
+
+on:
+  workflow_dispatch:
+    inputs:
+      send_real_dispatch:
+        description: 'Fire a real scds-preflight event (default; harmless — no receiver listens for it). Uncheck for an auth-only probe.'
+        type: boolean
+        default: true
+
+jobs:
+  preflight:
+    runs-on: ubuntu-latest
+    env:
+      TOKEN: ${{ secrets.CONSUMER_DISPATCH_TOKEN || secrets.PORTAL_DISPATCH_TOKEN }}
+      HAS_CONSUMER: ${{ secrets.CONSUMER_DISPATCH_TOKEN != '' }}
+      HAS_PORTAL: ${{ secrets.PORTAL_DISPATCH_TOKEN != '' }}
+      SEND_REAL: ${{ inputs.send_real_dispatch }}
+    steps:
+      - name: Report which secret is in play
+        run: |
+          echo "CONSUMER_DISPATCH_TOKEN present: $HAS_CONSUMER"
+          echo "PORTAL_DISPATCH_TOKEN present:   $HAS_PORTAL"
+          if [ "$HAS_CONSUMER" = "true" ]; then
+            echo "Using CONSUMER_DISPATCH_TOKEN."
+          elif [ "$HAS_PORTAL" = "true" ]; then
+            echo "Using PORTAL_DISPATCH_TOKEN (fallback)."
+          else
+            echo "::error::Neither secret is set. Nothing to test."
+            exit 1
+          fi
+
+      - name: Check token identity and expiry
+        run: |
+          # /user works for a classic PAT; a fine-grained PAT may 403 here while
+          # still being valid for its selected repos. Either way the response
+          # headers carry the expiry, which is the thing worth surfacing.
+          HDRS="$(mktemp)"
+          curl -s -o /dev/null -D "$HDRS" \
+            -H "Authorization: Bearer $TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            https://api.github.com/user || true
+          EXP="$(grep -i '^github-authentication-token-expiration:' "$HDRS" | cut -d' ' -f2- | tr -d '\r' || true)"
+          if [ -n "$EXP" ]; then
+            echo "Token expires: $EXP"
+            echo "::notice::Dispatch token expires $EXP"
+          else
+            echo "No expiry header returned (token may be classic, or non-expiring)."
+          fi
+
+      - name: Test reachability of each consumer repo
+        run: |
+          FAILED=0
+          for repo in client-portal shokunin-crafthouse-site; do
+            echo "──────── $repo ────────"
+
+            # metadata:read — can the token see the repo at all?
+            READ="$(curl -s -o /dev/null -w '%{http_code}' \
+              -H "Authorization: Bearer $TOKEN" \
+              -H "Accept: application/vnd.github+json" \
+              "https://api.github.com/repos/The-Shokunin-Crafthouse/$repo")"
+            echo "  read  (GET /repos)      -> HTTP $READ"
+
+            # contents:write — the dispatch endpoint itself. 204 = accepted.
+            # 404 here with a 200 read means the token can see the repo but
+            # lacks contents:write; 404 on both means it is not in the token's
+            # repository selection.
+            if [ "$SEND_REAL" = "true" ]; then
+              PAYLOAD='{"event_type":"scds-preflight"}'
+            else
+              # Deliberately malformed event_type: exercises auth + permission
+              # without delivering an event. 422 = authorised, payload rejected.
+              PAYLOAD='{}'
+            fi
+            WRITE="$(curl -s -o /dev/null -w '%{http_code}' -X POST \
+              -H "Authorization: Bearer $TOKEN" \
+              -H "Accept: application/vnd.github+json" \
+              "https://api.github.com/repos/The-Shokunin-Crafthouse/$repo/dispatches" \
+              -d "$PAYLOAD")"
+            echo "  write (POST /dispatches) -> HTTP $WRITE"
+
+            case "$WRITE" in
+              204) echo "  VERDICT: reachable — dispatch delivered." ;;
+              400|422) echo "  VERDICT: reachable — authorised (payload intentionally rejected in auth-only mode)." ;;
+              403) echo "  VERDICT: UNREACHABLE — token lacks contents:write on this repo."; FAILED=1 ;;
+              404) echo "  VERDICT: UNREACHABLE — repo not in this token's repository selection (or token cannot see it)."; FAILED=1 ;;
+              401) echo "  VERDICT: UNREACHABLE — token invalid or expired."; FAILED=1 ;;
+              *)   echo "  VERDICT: UNREACHABLE — unexpected HTTP $WRITE."; FAILED=1 ;;
+            esac
+          done
+
+          echo
+          if [ "$FAILED" = "1" ]; then
+            echo "::error::At least one consumer is unreachable. Widen the token's repository selection to cover client-portal AND shokunin-crafthouse-site (fine-grained PATs are editable after creation), or mint a new one as CONSUMER_DISPATCH_TOKEN."
+            exit 1
+          fi
+          echo "::notice::All consumers reachable — automatic propagation is wired."

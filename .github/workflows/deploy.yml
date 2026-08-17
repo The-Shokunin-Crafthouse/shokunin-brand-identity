@@ -45,7 +45,43 @@ jobs:
           HOSTINGER_USER: ${{ secrets.HOSTINGER_USER }}
           HOSTINGER_SSH_KEY: ${{ secrets.HOSTINGER_SSH_KEY }}
 
-      # The brand → portal repository_dispatch bridge lived here until 2026-06.
-      # The client-portal repo was deleted ahead of a ground-up rebuild; when the
-      # new portal exists, restore the dispatch step (see decisions.md 2026-06-11)
-      # with a fresh fine-grained PAT in PORTAL_DISPATCH_TOKEN.
+      # Consumer propagation — restored 2026-08-16. The original brand → portal
+      # bridge was removed in 2026-06 when client-portal was deleted ahead of a
+      # ground-up rebuild; the portal is back, and the studio site is a consumer
+      # too, so the bridge now fans out to both.
+      #
+      # This fires on every main deploy and means "the served tokens.css just
+      # changed" — it is the CSS path, for consumers that snapshot the
+      # stylesheet at build time. The React component path is versioned instead:
+      # publish-package.yml dispatches `scds-released` on a version tag.
+      #
+      # GITHUB_TOKEN cannot fire a cross-repo dispatch — this needs a
+      # fine-grained PAT with contents:write + metadata:read on BOTH consumer
+      # repos. CONSUMER_DISPATCH_TOKEN is the correct name; PORTAL_DISPATCH_TOKEN
+      # is accepted as a fallback because that secret predates this fan-out
+      # (created 2026-06-03, when the bridge went to the portal alone). Note it
+      # was minted before the CURRENT client-portal repo existed (that repo was
+      # recreated 2026-06-20), so its repository selection must be widened to
+      # both consumers before it can work — see dispatch-preflight.yml, which
+      # tests exactly that without anyone reading the secret.
+      #
+      # Absent token warns rather than failing the deploy — the deploy itself
+      # already succeeded by this point, and failing here would mark good work
+      # red.
+      - name: Notify consumers that tokens.css changed
+        env:
+          TOKEN: ${{ secrets.CONSUMER_DISPATCH_TOKEN || secrets.PORTAL_DISPATCH_TOKEN }}
+        run: |
+          if [ -z "$TOKEN" ]; then
+            echo "::warning::No dispatch token set (CONSUMER_DISPATCH_TOKEN or PORTAL_DISPATCH_TOKEN) — consumers were NOT notified."
+            exit 0
+          fi
+          for repo in client-portal shokunin-crafthouse-site; do
+            echo "dispatching brand-tokens-updated -> $repo"
+            curl -sf -X POST \
+              -H "Authorization: Bearer $TOKEN" \
+              -H "Accept: application/vnd.github+json" \
+              "https://api.github.com/repos/The-Shokunin-Crafthouse/$repo/dispatches" \
+              -d '{"event_type":"brand-tokens-updated"}' \
+              || echo "::warning::dispatch to $repo failed"
+          done

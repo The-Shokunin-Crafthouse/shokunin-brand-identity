@@ -1,27 +1,58 @@
 {
-  "name": "shokunin-brand-identity",
-  "private": true,
-  "version": "0.0.0",
+  "name": "@the-shokunin-crafthouse/scds",
+  "version": "0.1.0",
   "type": "module",
+  "description": "Shokunin Crafthouse Design System — tokens, text styles, and React components. Source of truth for every Shokunin-branded property.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/The-Shokunin-Crafthouse/shokunin-brand-identity.git"
+  },
+  "license": "UNLICENSED",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "files": [
+    "dist-lib",
+    "src/styles",
+    "src/fonts",
+    "tokens"
+  ],
+  "exports": {
+    ".": "./dist-lib/index.js",
+    "./styles/components.css": "./dist-lib/components.css",
+    "./styles/tokens.css": "./src/styles/tokens.css",
+    "./styles/fonts.css": "./src/styles/fonts.css",
+    "./styles/reset.css": "./src/styles/reset.css",
+    "./tokens/primitives.json": "./tokens/primitives.json",
+    "./tokens/semantic.json": "./tokens/semantic.json",
+    "./package.json": "./package.json"
+  },
+  "sideEffects": [
+    "*.css"
+  ],
   "scripts": {
     "tokens:build": "node scripts/tokens-to-css.mjs",
     "dev": "npm run tokens:build && vite",
     "build": "npm run tokens:build && mkdir -p public && cp src/styles/tokens.css public/tokens.css && vite build",
+    "build:lib": "npm run tokens:build && vite build --config vite.lib.config.js",
     "preview-vite": "vite preview",
     "preview": "node scripts/preview.mjs",
     "figma:parse": "figma connect parse",
     "figma:publish": "figma connect publish"
   },
-  "dependencies": {
-    "@phosphor-icons/react": "^2.1.10",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+  "peerDependencies": {
+    "@phosphor-icons/react": ">=2.1.0",
+    "react": ">=18",
+    "react-dom": ">=18"
   },
   "devDependencies": {
     "@figma/code-connect": "^1.4.8",
+    "@phosphor-icons/react": "^2.1.10",
     "@playwright/test": "^1.60.0",
     "@vitejs/plugin-react": "^4.3.1",
     "playwright": "^1.60.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "vite": "^6.4.3"
   }
 }
