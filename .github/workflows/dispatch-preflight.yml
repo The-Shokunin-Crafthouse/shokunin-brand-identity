@@ -7,17 +7,19 @@ name: Dispatch preflight
 # It prints a per-repo verdict and fails if any consumer is unreachable, so the
 # result is a signal rather than something to go read logs for.
 #
-# Credential order: the SCDS Dispatch GitHub App first, then the legacy PAT
-# secrets as a fallback. The App is preferred because it is org-scoped, minted
-# fresh each run (~1h life, nothing long-lived in a secret), never expires as a
-# credential, and covering a NEW consumer repo means installing the App on it —
-# not editing a token's repository selection.
+# The credential is the SCDS Dispatch GitHub App (app id 4626082): org-scoped,
+# minted fresh each run (~1h life, nothing long-lived in a secret), no expiry to
+# calendar, and covering a NEW consumer means installing the App on that repo
+# rather than editing a credential here. Run this after adding a consumer.
 #
 # Why the PAT route was abandoned: a fine-grained PAT's repository selection is
 # stored by repo id, so the grant did not survive client-portal being deleted
 # (2026-06-11) and recreated (2026-06-20). Widening the selection then sent the
 # token back to PENDING ORG APPROVAL, and an unapproved fine-grained token
-# returns 404 — not 403 — on org repos, so it cannot even see them.
+# returns 404 — not 403 — on org repos, so it cannot even see them. This
+# workflow is what distinguished those two failures from each other, and from
+# the 503s of the 2026-08-17 GitHub outage: read 404 = credential/approval,
+# read 200 + write 503 = upstream, read 200 + write 204 = wired.
 
 on:
   workflow_dispatch:
@@ -31,9 +33,10 @@ jobs:
   preflight:
     runs-on: ubuntu-latest
     steps:
+      # continue-on-error so a mint failure reaches the reporting step below,
+      # which explains it, rather than dying with a raw action error.
       - name: Mint App token
         id: app-token
-        if: ${{ vars.SCDS_DISPATCH_APP_ID != '' }}
         continue-on-error: true
         uses: actions/create-github-app-token@v2
         with:
@@ -41,36 +44,37 @@ jobs:
           private-key: ${{ secrets.SCDS_DISPATCH_APP_KEY }}
           owner: The-Shokunin-Crafthouse
 
-      - name: Report which credential is in play
+      - name: Report credential state
         env:
           HAS_APP_ID: ${{ vars.SCDS_DISPATCH_APP_ID != '' }}
           HAS_APP_KEY: ${{ secrets.SCDS_DISPATCH_APP_KEY != '' }}
           APP_MINTED: ${{ steps.app-token.outputs.token != '' }}
-          HAS_CONSUMER: ${{ secrets.CONSUMER_DISPATCH_TOKEN != '' }}
-          HAS_PORTAL: ${{ secrets.PORTAL_DISPATCH_TOKEN != '' }}
         run: |
           echo "SCDS_DISPATCH_APP_ID  set: $HAS_APP_ID"
           echo "SCDS_DISPATCH_APP_KEY set: $HAS_APP_KEY"
           echo "App token minted:          $APP_MINTED"
-          echo "CONSUMER_DISPATCH_TOKEN:   $HAS_CONSUMER"
-          echo "PORTAL_DISPATCH_TOKEN:     $HAS_PORTAL"
           echo
           if [ "$APP_MINTED" = "true" ]; then
-            echo "Using the SCDS Dispatch App (preferred)."
-          elif [ "$HAS_APP_ID" = "true" ]; then
-            echo "::error::App id is set but no token was minted — the private key is"
-            echo "missing, malformed, or does not belong to that App. Re-paste the full"
-            echo "PEM (including the BEGIN/END lines) into SCDS_DISPATCH_APP_KEY."
-            exit 1
-          elif [ "$HAS_CONSUMER" = "true" ] || [ "$HAS_PORTAL" = "true" ]; then
-            echo "::warning::Falling back to a PAT — the App is not configured yet."
-          else
-            echo "::error::No credential configured at all. Nothing to test."
+            echo "SCDS Dispatch App token minted."
+            exit 0
+          fi
+          if [ "$HAS_APP_ID" != "true" ]; then
+            echo "::error::vars.SCDS_DISPATCH_APP_ID is not set. Settings -> Secrets and"
+            echo "variables -> Actions -> Variables. The App id is on the App's page."
             exit 1
           fi
+          if [ "$HAS_APP_KEY" != "true" ]; then
+            echo "::error::secrets.SCDS_DISPATCH_APP_KEY is not set or is not visible to"
+            echo "this repo. If it is an ORG secret, its repository access must include"
+            echo "shokunin-brand-identity."
+            exit 1
+          fi
+          echo "::error::Both inputs are set but no token was minted — the private key is"
+          echo "malformed or does not belong to App id $HAS_APP_ID. Re-paste the full PEM,"
+          echo "including the BEGIN and END lines."
+          exit 1
 
       - name: List where the App is installed
-        if: ${{ steps.app-token.outputs.token != '' }}
         env:
           TOKEN: ${{ steps.app-token.outputs.token }}
         run: |
@@ -86,8 +90,7 @@ jobs:
 
       - name: Test reachability of each consumer repo
         env:
-          TOKEN: ${{ steps.app-token.outputs.token || secrets.CONSUMER_DISPATCH_TOKEN || secrets.PORTAL_DISPATCH_TOKEN }}
-          USING_APP: ${{ steps.app-token.outputs.token != '' }}
+          TOKEN: ${{ steps.app-token.outputs.token }}
           SEND_REAL: ${{ inputs.send_real_dispatch }}
         run: |
           FAILED=0
@@ -120,25 +123,22 @@ jobs:
               400|422)
                 echo "  VERDICT: reachable — authorised (payload intentionally rejected in auth-only mode)." ;;
               403)
-                echo "  VERDICT: UNREACHABLE — credential lacks Contents: write on this repo."
-                if [ "$USING_APP" = "true" ]; then
-                  echo "           Fix: the App's Contents permission is not Read and write, OR the"
-                  echo "           installation predates that permission change and needs the new"
-                  echo "           permission accepted on the org's installation page."
-                fi
+                echo "  VERDICT: UNREACHABLE — the App lacks Contents: write on this repo."
+                echo "           Fix: the App's Contents permission is not Read and write, OR the"
+                echo "           installation predates that permission change and needs the new"
+                echo "           permission accepted on the org's installation page."
                 FAILED=1 ;;
               404)
-                if [ "$USING_APP" = "true" ]; then
-                  echo "  VERDICT: UNREACHABLE — the App is not installed on this repo."
-                  echo "           Fix: org Settings -> GitHub Apps -> SCDS Dispatch -> Configure ->"
-                  echo "           add this repository."
-                else
-                  echo "  VERDICT: UNREACHABLE — repo not in this PAT's selection, or the PAT is"
-                  echo "           pending org approval (unapproved fine-grained tokens 404 on org repos)."
-                fi
+                echo "  VERDICT: UNREACHABLE — the App is not installed on this repo."
+                echo "           Fix: org Settings -> GitHub Apps -> SCDS Dispatch -> Configure ->"
+                echo "           add this repository."
                 FAILED=1 ;;
               401)
-                echo "  VERDICT: UNREACHABLE — credential invalid or expired."
+                echo "  VERDICT: UNREACHABLE — App token invalid or expired mid-run."
+                FAILED=1 ;;
+              502|503|504)
+                echo "  VERDICT: INCONCLUSIVE — GitHub returned $WRITE (upstream error, not a"
+                echo "           permission problem). Check githubstatus.com and re-run."
                 FAILED=1 ;;
               *)
                 echo "  VERDICT: UNREACHABLE — unexpected HTTP $WRITE."

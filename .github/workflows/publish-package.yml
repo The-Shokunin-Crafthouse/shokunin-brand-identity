@@ -61,28 +61,29 @@ jobs:
       VERSION: ${{ github.ref_name }}
     steps:
       # Credentials come from the SCDS Dispatch GitHub App — org-scoped, minted
-      # per run, ~1h life. PAT secrets stay as a fallback until the App is
-      # confirmed working, then they get deleted.
+      # per run, ~1h life. `owner:` is required: without it the token scopes to
+      # THIS repo, which is deliberately not an App installation target.
+      #
+      # continue-on-error because the package is already published by the time
+      # this job runs. A credential problem must not turn a good release red —
+      # the next step detects the empty token and warns.
       - name: Mint App token
         id: app-token
-        if: ${{ vars.SCDS_DISPATCH_APP_ID != '' }}
+        continue-on-error: true
         uses: actions/create-github-app-token@v2
         with:
           app-id: ${{ vars.SCDS_DISPATCH_APP_ID }}
           private-key: ${{ secrets.SCDS_DISPATCH_APP_KEY }}
           owner: The-Shokunin-Crafthouse
 
-      # Absent credential warns instead of failing — a published package with no
-      # notification is recoverable; a red release is noise that trains everyone
-      # to ignore the badge.
       - name: Notify consumer repos of the new version
         env:
-          TOKEN: ${{ steps.app-token.outputs.token || secrets.CONSUMER_DISPATCH_TOKEN || secrets.PORTAL_DISPATCH_TOKEN }}
+          TOKEN: ${{ steps.app-token.outputs.token }}
         run: |
           if [ -z "$TOKEN" ]; then
-            echo "::warning::No dispatch credential available (SCDS Dispatch App or a PAT fallback) — consumers were NOT notified."
-            echo "Install the SCDS Dispatch App on the consumer repos and set"
-            echo "vars.SCDS_DISPATCH_APP_ID + secrets.SCDS_DISPATCH_APP_KEY, then re-run this job."
+            echo "::warning::No App token minted — consumers were NOT notified."
+            echo "Check vars.SCDS_DISPATCH_APP_ID and secrets.SCDS_DISPATCH_APP_KEY,"
+            echo "run dispatch-preflight.yml to diagnose, then re-run this job."
             exit 0
           fi
           for repo in client-portal shokunin-crafthouse-site; do

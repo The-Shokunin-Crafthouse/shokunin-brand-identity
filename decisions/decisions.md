@@ -967,3 +967,23 @@ dev` → serves the showcase HTTP 200 (`Shokunin Crafthouse · Component Primiti
 **Preflight now names the cause, not just the symptom.** It lists the App installation's reachable repositories, and its 403/404 branches print different fixes depending on whether an App or a PAT is in play — 404 under an App means "not installed on this repo", 404 under a PAT means "not in the selection, or pending org approval".
 
 **Blocked step (owner-only).** Creating the App and installing it is GUI + credential work: org Settings → Developer settings → GitHub Apps → New, `Contents: Read and write` + `Metadata: Read-only`, install on both consumer repos, then set the repo variable and the private-key secret here.
+
+---
+
+## 2026-08-17 — Dispatch App verified; PAT fallback removed
+
+**Stage:** 02-design (scds-v2)
+**Type:** CI credential cleanup
+**Status:** accepted
+
+**Verified.** `dispatch-preflight.yml` against the SCDS Dispatch App (app id 4626082): token minted, installation resolves to exactly `client-portal` + `shokunin-crafthouse-site`, and **HTTP 204 / reachable on both** with a real event delivered. Read went **404 → 200** versus the PAT — that transition is the proof the credential and installation are right, independent of the write result.
+
+**The 503 detour is worth recording.** The first App run returned read 200 / write 503 on both consumers, during a GitHub "Partial System Outage" (critical, 2026-08-17). A 503 on write is an upstream error, not a permission failure, but the preflight's `*)` branch reported it as `UNREACHABLE — unexpected HTTP 503`, which reads like a misconfiguration. Fixed: a dedicated `502|503|504` branch now reports **INCONCLUSIVE** and points at githubstatus.com. The diagnostic triad is now explicit in the workflow header — read 404 = credential or approval; read 200 + write 503 = upstream; read 200 + write 204 = wired.
+
+The same outage 503'd every Actions secrets/variables call and all of GraphQL for roughly 30 minutes while REST stayed up. Two workarounds that are worth remembering: `gh pr merge` goes through GraphQL and was unusable, but `PUT /repos/{o}/{r}/pulls/{n}/merge` over REST succeeded on the 5th retry — writes were failing intermittently, not absolutely, so a bounded retry loop got through. The Actions secrets UI kept working when its REST endpoint did not.
+
+**Decision — PAT fallback removed entirely.** `PORTAL_DISPATCH_TOKEN` (the secret) is deleted; the App is the only credential. All three workflows now read `steps.app-token.outputs.token` alone.
+
+**Consequence handled: `continue-on-error` on every mint step.** During the fallback era the mint step was gated on `if: vars.SCDS_DISPATCH_APP_ID != ''`, so a missing credential skipped harmlessly. Removing the fallback also removed that gate, which would have made `create-github-app-token` **fail the job** on any credential problem — turning a successful deploy or an already-published release red, the exact failure mode this repo keeps legislating against (studio learning: a CI step that fails before the build gives no signal). Each mint step is now `continue-on-error: true`, and the consuming step detects the empty token and warns with the specific remediation. In `dispatch-preflight.yml` failing IS the signal, so it still exits non-zero — but via its own reporting step, which distinguishes "app id unset" from "key not visible to this repo" from "key malformed", rather than a raw action error.
+
+**Still outstanding.** The `brand → client portal dispatch` and `portal CI · read brand` PATs still exist on the account and are now both dead — the first is superseded, the second never used (it was for the `_brand/` submodule architecture that was never built). Neither consumer has a `repository_dispatch` receiver yet, so delivered events currently land and do nothing.
