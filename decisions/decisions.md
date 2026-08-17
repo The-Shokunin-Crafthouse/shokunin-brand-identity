@@ -937,3 +937,33 @@ dev` → serves the showcase HTTP 200 (`Shokunin Crafthouse · Component Primiti
 **Verification.** Library build externalises correctly (`import ... from "react"` in the output, not a bundled copy). SPA build unaffected. Packed the tarball and installed it into a clean project as a real consumer would: **all 18 exports resolve** (15 components + `IconProvider`, `ThemeProvider`, `useTheme`) and all five subpath entries resolve (`./styles/{tokens,components,fonts,reset}.css`, `./tokens/primitives.json`).
 
 **Not done here, tracked.** The studio-site fork reconciliation is a brand-visible change requiring before/after review at three breakpoints in both modes — it gets its own PR in that repo, not a drive-by. Neither consumer has its `repository_dispatch` receiver yet. Font files ship inside the package; this adds no exposure beyond the woff2 the brand site already serves publicly, but the package must stay private to the org.
+
+---
+
+## 2026-08-17 — Cross-repo dispatch moves from a fine-grained PAT to a GitHub App
+
+**Stage:** 02-design (scds-v2)
+**Type:** CI credential architecture
+**Status:** accepted
+
+**Context.** The consumer-propagation fan-out (ADR 2026-08-16) needed a credential that can fire `repository_dispatch` at `client-portal` and `shokunin-crafthouse-site`. `GITHUB_TOKEN` cannot cross repos. The obvious move was to reuse the existing `PORTAL_DISPATCH_TOKEN` secret (a fine-grained PAT, created 2026-06-03, expiring 2027-06-04).
+
+**It did not work, and the failure was diagnosed rather than guessed.** A `dispatch-preflight.yml` workflow was written to test the credential against both consumers and print per-repo HTTP verdicts — no one has to read a secret to know whether it works. Two runs established:
+
+1. First run: **404 on read and write for both consumers.** The PAT's repository access is a selection stored by repo **id**, and the `client-portal` it was granted on was deleted 2026-06-11 and recreated 2026-06-20 as a new repo object (id `1275430803`). The grant did not carry over, and the token had never covered the studio site.
+2. After widening the selection to both repos (Contents: read and write, Metadata: read-only — visually confirmed): **still 404 on read and write for both.** Cause: on an org, changing a fine-grained PAT's repository selection sends it back to **pending approval**, and an unapproved fine-grained token returns **404 rather than 403** on org repos — deliberately, so it cannot be used to probe which repos exist. The "read also 404s" signature is what separates this from a mere permission gap.
+
+**Decision — a GitHub App, not a PAT.** `actions/create-github-app-token@v2` mints a token per run from `vars.SCDS_DISPATCH_APP_ID` + `secrets.SCDS_DISPATCH_APP_KEY`. Reasons, in order of weight:
+
+- **Adding a consumer is an App installation, not a credential edit.** More branded properties are expected. Installing the App on a new repo needs no re-selection and no re-approval; widening a PAT needs both, and the re-approval is the exact trap above.
+- **No expiry to manage.** The PAT dies 2027-06-04 and would fail silently-ish on a date nobody has calendared. An App credential does not expire; the minted token lives ~1h.
+- **Nothing long-lived sits in a secret.** The private key mints short-lived tokens rather than the secret *being* the access.
+- **Not subject to org PAT policy** at all, so the pending-approval failure mode cannot recur.
+
+**Decision — PAT secrets stay as a fallback, temporarily.** All three workflows resolve `steps.app-token.outputs.token || secrets.CONSUMER_DISPATCH_TOKEN || secrets.PORTAL_DISPATCH_TOKEN`. The App mint step is gated on `vars.SCDS_DISPATCH_APP_ID != ''` so an unconfigured App skips cleanly instead of failing the run. Delete both PAT secrets once the preflight confirms the App path, and delete the now-dead `portal CI · read brand` PAT (never used — it was for the `_brand/` submodule architecture that was never built).
+
+**Absent credential warns, never fails.** In `deploy.yml` the deploy has already succeeded by the dispatch step; in `publish-package.yml` the package is already published. Failing there would mark good work red, which trains everyone to ignore the badge (studio learning: a CI step that fails before the build gives no signal).
+
+**Preflight now names the cause, not just the symptom.** It lists the App installation's reachable repositories, and its 403/404 branches print different fixes depending on whether an App or a PAT is in play — 404 under an App means "not installed on this repo", 404 under a PAT means "not in the selection, or pending org approval".
+
+**Blocked step (owner-only).** Creating the App and installing it is GUI + credential work: org Settings → Developer settings → GitHub Apps → New, `Contents: Read and write` + `Metadata: Read-only`, install on both consumer repos, then set the repo variable and the private-key secret here.
