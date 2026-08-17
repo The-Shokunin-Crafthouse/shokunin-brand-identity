@@ -3,9 +3,18 @@ name: Publish SCDS package
 # Publishes @the-shokunin-crafthouse/scds to GitHub Packages on a version tag,
 # then tells every consumer repo a new version exists.
 #
-# Release flow:
-#   npm version minor        # bumps package.json + creates the v* tag
-#   git push --follow-tags   # this workflow fires on the tag
+# Release flow — main is PROTECTED, so the version bump must land via PR before
+# the tag is pushed. `git push --follow-tags` alone is rejected with GH013 and
+# leaves the tag on the remote pointing at a commit that is not on main:
+#
+#   1. npm version minor --no-git-tag-version   # bump package.json only
+#   2. land that bump via a PR (branch, push, review, squash-merge)
+#   3. git checkout main && git pull
+#   4. git tag -a "v$(node -p 'require("./package.json").version')" -m 'release'
+#   5. git push origin --tags                   # this workflow fires here
+#
+# The tag must point at a commit ON main, or the published artifact will not
+# correspond to anything reviewable.
 #
 # GITHUB_TOKEN can publish to GitHub Packages inside the same org (packages:
 # write below), so publishing needs no PAT. The cross-repo dispatch DOES —
