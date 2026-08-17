@@ -111,6 +111,7 @@
   --sc-p-font-line-height-snug: 1.2;
   --sc-p-font-line-height-base: 1.5;
   --sc-p-font-line-height-relaxed: 1.55;
+  --sc-p-font-line-height-loose: 2;
   --sc-p-font-tracking-tightest: -0.04em;
   --sc-p-font-tracking-tighter: -0.025em;
   --sc-p-font-tracking-tight: -0.018em;
@@ -260,6 +261,7 @@
   --sc-p-radius-none: 0px;
   --sc-p-radius-input: 3px;
   --sc-p-radius-default: 8px;
+  --sc-p-radius-large: 16px;
   --sc-p-radius-circle: 9999px;
   --sc-p-border-width-hairline: 1px;
   --sc-p-border-width-focus: 2px;
@@ -323,6 +325,7 @@
   --sc-border-focus-offset: var(--sc-p-space-micro-2);
   --sc-radius-control: var(--sc-p-radius-input);
   --sc-radius-surface: var(--sc-p-radius-default);
+  --sc-radius-surface-large: var(--sc-p-radius-large);
   --sc-radius-pill: var(--sc-p-radius-circle);
   --sc-radius-none: var(--sc-p-radius-none);
   --sc-shadow-control-raised: -4px 4px 8px rgb(var(--sc-p-color-ink-rgb) / 0.10), -2px 2px 4px rgb(var(--sc-p-color-ink-rgb) / 0.08), 4px -4px 8px rgb(var(--sc-p-color-white-rgb) / 0.90), 2px -2px 4px rgb(var(--sc-p-color-white-rgb) / 0.70);
@@ -511,6 +514,7 @@
   --sc-border-focus-offset: var(--sc-p-space-micro-2);
   --sc-radius-control: var(--sc-p-radius-input);
   --sc-radius-surface: var(--sc-p-radius-default);
+  --sc-radius-surface-large: var(--sc-p-radius-large);
   --sc-radius-pill: var(--sc-p-radius-circle);
   --sc-radius-none: var(--sc-p-radius-none);
   --sc-shadow-control-raised: -4px 4px 8px rgb(0 0 0 / 0.55), -2px 2px 4px rgb(0 0 0 / 0.45), 4px -4px 8px rgb(var(--sc-p-color-white-rgb) / 0.06), 2px -2px 4px rgb(var(--sc-p-color-white-rgb) / 0.04);
