@@ -55,18 +55,25 @@ jobs:
       # stylesheet at build time. The React component path is versioned instead:
       # publish-package.yml dispatches `scds-released` on a version tag.
       #
-      # GITHUB_TOKEN cannot fire a cross-repo dispatch. Credentials come from
-      # the SCDS Dispatch GitHub App: org-scoped, minted fresh per run with a
-      # ~1h life, and covered for a new consumer by installing the App on that
-      # repo — no token re-selection and no re-approval. It replaces a
-      # fine-grained PAT that 404'd on both consumers because changing a PAT's
-      # repository selection sends it back to pending org approval.
+      # GITHUB_TOKEN cannot fire a cross-repo dispatch. Credentials come from the
+      # SCDS Dispatch GitHub App (app id in vars.SCDS_DISPATCH_APP_ID, signing
+      # key in secrets.SCDS_DISPATCH_APP_KEY): org-scoped, minted fresh per run
+      # with a ~1h life. Adding a consumer means installing the App on that repo
+      # — no credential edit here.
       #
-      # The PAT secrets remain as a fallback so propagation keeps working while
-      # the App is being set up. Delete them once the App is confirmed.
+      # `owner:` is required. Without it the action scopes the token to the
+      # CURRENT repo, which would need the App installed here too; with it, the
+      # token covers the org installation (currently client-portal and
+      # shokunin-crafthouse-site — brand is deliberately not installed, since
+      # nothing here needs the App's write access).
+      #
+      # Verified 2026-08-17 via dispatch-preflight.yml: HTTP 204 on both.
+      # continue-on-error replaces the `if: vars.… != ''` gate the fallback era
+      # relied on: a bad or missing credential must not turn a SUCCESSFUL deploy
+      # red. The next step detects the empty token and warns instead.
       - name: Mint App token
         id: app-token
-        if: ${{ vars.SCDS_DISPATCH_APP_ID != '' }}
+        continue-on-error: true
         uses: actions/create-github-app-token@v2
         with:
           app-id: ${{ vars.SCDS_DISPATCH_APP_ID }}
@@ -78,10 +85,10 @@ jobs:
       # work red.
       - name: Notify consumers that tokens.css changed
         env:
-          TOKEN: ${{ steps.app-token.outputs.token || secrets.CONSUMER_DISPATCH_TOKEN || secrets.PORTAL_DISPATCH_TOKEN }}
+          TOKEN: ${{ steps.app-token.outputs.token }}
         run: |
           if [ -z "$TOKEN" ]; then
-            echo "::warning::No dispatch credential available (SCDS Dispatch App or a PAT fallback) — consumers were NOT notified."
+            echo "::warning::No App token minted — consumers were NOT notified. Check vars.SCDS_DISPATCH_APP_ID and secrets.SCDS_DISPATCH_APP_KEY, then run dispatch-preflight.yml."
             exit 0
           fi
           for repo in client-portal shokunin-crafthouse-site; do
