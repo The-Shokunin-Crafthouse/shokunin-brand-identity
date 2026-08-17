@@ -45,7 +45,35 @@ jobs:
           HOSTINGER_USER: ${{ secrets.HOSTINGER_USER }}
           HOSTINGER_SSH_KEY: ${{ secrets.HOSTINGER_SSH_KEY }}
 
-      # The brand → portal repository_dispatch bridge lived here until 2026-06.
-      # The client-portal repo was deleted ahead of a ground-up rebuild; when the
-      # new portal exists, restore the dispatch step (see decisions.md 2026-06-11)
-      # with a fresh fine-grained PAT in PORTAL_DISPATCH_TOKEN.
+      # Consumer propagation — restored 2026-08-16. The original brand → portal
+      # bridge was removed in 2026-06 when client-portal was deleted ahead of a
+      # ground-up rebuild; the portal is back, and the studio site is a consumer
+      # too, so the bridge now fans out to both.
+      #
+      # This fires on every main deploy and means "the served tokens.css just
+      # changed" — it is the CSS path, for consumers that snapshot the
+      # stylesheet at build time. The React component path is versioned instead:
+      # publish-package.yml dispatches `scds-released` on a version tag.
+      #
+      # GITHUB_TOKEN cannot fire a cross-repo dispatch. CONSUMER_DISPATCH_TOKEN
+      # is a fine-grained PAT with contents:write + metadata:read on both
+      # consumer repos. Absent token warns rather than failing the deploy — the
+      # deploy itself already succeeded by this point, and failing here would
+      # mark a good deploy red.
+      - name: Notify consumers that tokens.css changed
+        env:
+          TOKEN: ${{ secrets.CONSUMER_DISPATCH_TOKEN }}
+        run: |
+          if [ -z "$TOKEN" ]; then
+            echo "::warning::CONSUMER_DISPATCH_TOKEN is not set — consumers were NOT notified."
+            exit 0
+          fi
+          for repo in client-portal shokunin-crafthouse-site; do
+            echo "dispatching brand-tokens-updated -> $repo"
+            curl -sf -X POST \
+              -H "Authorization: Bearer $TOKEN" \
+              -H "Accept: application/vnd.github+json" \
+              "https://api.github.com/repos/The-Shokunin-Crafthouse/$repo/dispatches" \
+              -d '{"event_type":"brand-tokens-updated"}' \
+              || echo "::warning::dispatch to $repo failed"
+          done
