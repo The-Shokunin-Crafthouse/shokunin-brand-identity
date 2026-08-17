@@ -55,17 +55,25 @@ jobs:
       # stylesheet at build time. The React component path is versioned instead:
       # publish-package.yml dispatches `scds-released` on a version tag.
       #
-      # GITHUB_TOKEN cannot fire a cross-repo dispatch. CONSUMER_DISPATCH_TOKEN
-      # is a fine-grained PAT with contents:write + metadata:read on both
-      # consumer repos. Absent token warns rather than failing the deploy — the
-      # deploy itself already succeeded by this point, and failing here would
-      # mark a good deploy red.
+      # GITHUB_TOKEN cannot fire a cross-repo dispatch — this needs a
+      # fine-grained PAT with contents:write + metadata:read on BOTH consumer
+      # repos. CONSUMER_DISPATCH_TOKEN is the correct name; PORTAL_DISPATCH_TOKEN
+      # is accepted as a fallback because that secret predates this fan-out
+      # (created 2026-06-03, when the bridge went to the portal alone). Note it
+      # was minted before the CURRENT client-portal repo existed (that repo was
+      # recreated 2026-06-20), so its repository selection must be widened to
+      # both consumers before it can work — see dispatch-preflight.yml, which
+      # tests exactly that without anyone reading the secret.
+      #
+      # Absent token warns rather than failing the deploy — the deploy itself
+      # already succeeded by this point, and failing here would mark good work
+      # red.
       - name: Notify consumers that tokens.css changed
         env:
-          TOKEN: ${{ secrets.CONSUMER_DISPATCH_TOKEN }}
+          TOKEN: ${{ secrets.CONSUMER_DISPATCH_TOKEN || secrets.PORTAL_DISPATCH_TOKEN }}
         run: |
           if [ -z "$TOKEN" ]; then
-            echo "::warning::CONSUMER_DISPATCH_TOKEN is not set — consumers were NOT notified."
+            echo "::warning::No dispatch token set (CONSUMER_DISPATCH_TOKEN or PORTAL_DISPATCH_TOKEN) — consumers were NOT notified."
             exit 0
           fi
           for repo in client-portal shokunin-crafthouse-site; do

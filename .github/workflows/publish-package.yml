@@ -58,22 +58,24 @@ jobs:
     needs: publish
     runs-on: ubuntu-latest
     env:
-      # CONSUMER_DISPATCH_TOKEN is a fine-grained PAT with contents:write +
-      # metadata:read on client-portal and shokunin-crafthouse-site. Mapped to
-      # an env var here because the `secrets` context is not reliably readable
-      # from a step-level `if`. Absent token warns instead of failing — a
-      # published package with no notification is recoverable; a red release is
-      # noise that trains everyone to ignore the badge.
-      TOKEN: ${{ secrets.CONSUMER_DISPATCH_TOKEN }}
+      # Fine-grained PAT with contents:write + metadata:read on client-portal
+      # and shokunin-crafthouse-site. PORTAL_DISPATCH_TOKEN is accepted as a
+      # fallback (it predates this fan-out) but its repository selection must
+      # cover BOTH consumers — run dispatch-preflight.yml to confirm.
+      #
+      # Mapped to an env var because the `secrets` context is not reliably
+      # readable from a step-level `if`. Absent token warns instead of failing —
+      # a published package with no notification is recoverable; a red release
+      # is noise that trains everyone to ignore the badge.
+      TOKEN: ${{ secrets.CONSUMER_DISPATCH_TOKEN || secrets.PORTAL_DISPATCH_TOKEN }}
       VERSION: ${{ github.ref_name }}
     steps:
       - name: Notify consumer repos of the new version
         run: |
           if [ -z "$TOKEN" ]; then
-            echo "::warning::CONSUMER_DISPATCH_TOKEN is not set — consumers were NOT notified."
-            echo "Create a fine-grained PAT (contents:write + metadata:read on"
-            echo "client-portal and shokunin-crafthouse-site), add it as a repo secret,"
-            echo "and re-run this job."
+            echo "::warning::No dispatch token set (CONSUMER_DISPATCH_TOKEN or PORTAL_DISPATCH_TOKEN) — consumers were NOT notified."
+            echo "Add a fine-grained PAT (contents:write + metadata:read on"
+            echo "client-portal and shokunin-crafthouse-site) and re-run this job."
             exit 0
           fi
           for repo in client-portal shokunin-crafthouse-site; do
