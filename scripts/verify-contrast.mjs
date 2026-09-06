@@ -95,7 +95,7 @@ function hexOf(path, mode) {
 // Text tiers that must clear AA. text.disabled is a documented spec exception
 // (ghosted controls are not readable content) and text.onAccent renders only on
 // accent fills, never on a surface — both are excluded by design.
-const TEXT_TIERS = ['color.text.primary', 'color.text.secondary', 'color.text.tertiary'];
+const TEXT_TIERS = ['color.text.primary', 'color.text.secondary', 'color.text.tertiary', 'color.brand.accentInk'];
 const SURFACES = Object.keys(semantic.color.surface);
 const MODES = semantic.$metadata.modes;
 
@@ -154,19 +154,20 @@ const CLAIMS = [
   ['semantic', 'color.text.tertiary', 3.77, 'color.text.tertiary', 'color.surface.sunk', 'light'],
   ['semantic', 'color.text.tertiary', 2.38, 'color.text.tertiary', 'color.surface.deepSunk', 'light'],
   ['semantic', 'color.text.tertiary', 3.03, 'color.text.tertiary', 'color.surface.hover', 'light'],
-  ['semantic', 'color.text.tertiary', 4.58, 'color.text.tertiary', 'color.surface.page', 'dark'],
-  ['semantic', 'color.text.tertiary', 4.79, 'color.text.tertiary', 'color.surface.sunk', 'dark'],
-  ['semantic', 'color.text.tertiary', 4.73, 'color.text.tertiary', 'color.surface.rail', 'dark'],
-  ['semantic', 'color.text.tertiary', 4.40, 'color.text.tertiary', 'color.surface.raised', 'dark'],
-  ['semantic', 'color.text.tertiary', 4.16, 'color.text.tertiary', 'color.surface.deepSunk', 'dark'],
+  ['semantic', 'color.text.tertiary', 5.18, 'color.text.tertiary', 'color.surface.page', 'dark'],
+  ['semantic', 'color.text.tertiary', 5.42, 'color.text.tertiary', 'color.surface.sunk', 'dark'],
+  ['semantic', 'color.text.tertiary', 5.35, 'color.text.tertiary', 'color.surface.rail', 'dark'],
+  ['semantic', 'color.text.tertiary', 4.98, 'color.text.tertiary', 'color.surface.raised', 'dark'],
+  ['semantic', 'color.text.tertiary', 4.71, 'color.text.tertiary', 'color.surface.deepSunk', 'dark'],
   ['primitives', 'color.warmGray.500', 4.77, 'color.warmGray.500', 'color.warmGray.200', null],
   ['primitives', 'color.warmGray.500', 5.86, 'color.warmGray.500', 'color.warmGray.100', null],
   ['primitives', 'color.warmGray.450', 4.63, 'color.warmGray.450', 'color.warmGray.100', null],
   ['primitives', 'color.warmGray.450', 5.06, 'color.warmGray.450', 'color.warmGray.50', null],
   ['primitives', 'color.warmGray.450', 5.42, 'color.warmGray.450', 'color.warmGray.25', null],
-  ['primitives', 'color.dark.textTertiary', 4.58, 'color.dark.textTertiary', 'color.dark.surfacePage', null],
-  ['primitives', 'color.dark.textTertiary', 4.79, 'color.dark.textTertiary', 'color.dark.well', null],
-  ['primitives', 'color.dark.textTertiary', 4.40, 'color.dark.textTertiary', 'color.dark.raised1', null],
+  ['primitives', 'color.dark.textTertiary', 5.18, 'color.dark.textTertiary', 'color.dark.surfacePage', null],
+  ['primitives', 'color.dark.textTertiary', 5.42, 'color.dark.textTertiary', 'color.dark.well', null],
+  ['primitives', 'color.dark.textTertiary', 4.98, 'color.dark.textTertiary', 'color.dark.raised1', null],
+  ['primitives', 'color.dark.textTertiary', 4.71, 'color.dark.textTertiary', 'color.dark.raised2', null],
 
   // --- borders --------------------------------------------------------------
   ['primitives', 'color.warmGray.250', 1.53, 'color.warmGray.250', 'color.warmGray.100', null],
@@ -194,6 +195,16 @@ const CLAIMS = [
   ['primitives', 'color.teal.600', 3.97, 'color.utility.white', 'color.teal.500', null],
   ['primitives', 'color.teal.700', 5.78, 'color.teal.700', 'color.warmGray.100', null],
   ['semantic', 'color.brand.accentDeep', 5.78, 'color.teal.700', 'color.warmGray.100', null],
+  ['semantic', 'color.brand.accentDeep', 2.59, 'color.brand.accentDeep', 'color.surface.raised', 'dark'],
+  ['semantic', 'color.brand.accentInk', 5.78, 'color.brand.accentInk', 'color.surface.page', 'light'],
+  ['semantic', 'color.brand.accentInk', 6.32, 'color.brand.accentInk', 'color.surface.raised', 'light'],
+  ['semantic', 'color.brand.accentInk', 6.77, 'color.brand.accentInk', 'color.surface.floating', 'light'],
+  ['semantic', 'color.brand.accentInk', 4.71, 'color.brand.accentInk', 'color.surface.sunk', 'light'],
+  ['semantic', 'color.brand.accentInk', 5.84, 'color.brand.accentInk', 'color.surface.page', 'dark'],
+  ['semantic', 'color.brand.accentInk', 6.10, 'color.brand.accentInk', 'color.surface.sunk', 'dark'],
+  ['semantic', 'color.brand.accentInk', 5.61, 'color.brand.accentInk', 'color.surface.raised', 'dark'],
+  ['semantic', 'color.brand.accentInk', 5.30, 'color.brand.accentInk', 'color.surface.deepSunk', 'dark'],
+  ['semantic', 'color.brand.accentInk', 6.03, 'color.brand.accentInk', 'color.surface.rail', 'dark'],
   ['semantic', 'color.brand.accentFill', 5.20, 'color.utility.white', 'color.teal.600', null],
   ['semantic', 'color.brand.accentFill', 3.97, 'color.utility.white', 'color.teal.500', null],
   ['primitives', 'color.interactive.hoverInk.light', 4.72, 'color.interactive.hoverInk.light', 'color.warmGray.100', null],
@@ -244,6 +255,11 @@ const HISTORICAL = [
   [3.80, 'the unreproducible vermilion figure this ADR corrects'],
   [4.90, 'status.success.light’s never-reproducible “~4.9:1 AA” claim, corrected by this ADR'],
   [7.50, 'status.info.light’s never-reproducible “~7.5:1” claim, corrected by this ADR'],
+  [4.58, 'dark.textTertiary pre-WQ-040: #7C7C7A on dark.surfacePage #0F0F0F — retired 2026-09-06 when re-derived to #858583'],
+  [4.79, 'dark.textTertiary pre-WQ-040: #7C7C7A on dark.well #080807 — retired 2026-09-06'],
+  [4.73, 'dark.textTertiary pre-WQ-040: #7C7C7A on dark.floor #0A0A0A (surface.rail) — retired 2026-09-06'],
+  [4.40, 'dark.textTertiary pre-WQ-040: #7C7C7A on dark.raised1 #141414 (surface.raised, the default card ground) — the forbidden, sub-AA pair the WQ-040 re-derivation clears'],
+  [4.16, 'dark.textTertiary pre-WQ-040: #7C7C7A on dark.raised2 #1A1A1A (surface.deepSunk/floating) — the forbidden, sub-AA pair the WQ-040 re-derivation clears'],
 ];
 
 function checkClaims() {

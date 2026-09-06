@@ -285,8 +285,8 @@
       },
       "textTertiary": {
         "$type": "color",
-        "$value": "#7C7C7A",
-        "$description": "Dark-mode tertiary text · AA on page/well (4.58/4.79:1); restricted off the lighter raised surfaces (4.40:1 on raised1 < AA). scds-v2 addition."
+        "$value": "#858583",
+        "$description": "Dark-mode tertiary text · re-derived 2026-09-06 (WQ-040) from #7C7C7A to clear WCAG AA on every dark surface, including surface.raised (the default card ground): 5.18:1 page, 5.42:1 well, 4.98:1 raised1, 4.71:1 raised2. Retires #7C7C7A, which failed AA on raised1 (4.40:1) and raised2 (4.16:1) — see decisions.md 2026-09-06. scds-v2 addition, superseded 2026-09-06."
       },
       "textDisabled": {
         "$type": "color",
