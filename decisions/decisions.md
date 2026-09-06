@@ -1094,3 +1094,32 @@ This is the mirror-rot pattern exactly (studio learning #178: a pasted mirror ne
 **Alternatives considered.** Leaving consumers bound to primitives directly (status quo) — rejected per the Gate-2 spec's own complaint that this hides intent and makes a later motion-language change a primitive hunt across every consumer, not a token rebind. Reusing `motion.mode.*` for the continuity cut — rejected; same duration/easing values, but a different semantic meaning (mode-switch vs. in-place content change) that would collide the day either one needs to diverge.
 
 **Consequences.** Easier: any component consuming these tokens (studio-pm's board today; any future consumer) rebinds to `--sc-size-touch-target`, `--sc-motion-entrance-duration/-easing`, `--sc-motion-cut-duration/-easing` instead of primitives — one rebind PR per consumer, tracked as a follow-up, not done in this change. Harder: none — purely additive, zero existing consumers touched, `tokens:verify` reports no new or changed contrast claims (these are size/duration/easing tokens, out of scope for the contrast checker). `_config/design-system/token-map.md` regenerated (fingerprint `53b91e90481f`, 110→115 semantic tokens); no Figma sync run — the SCDS Figma Primitives collection already has the underlying primitive variables, but the new semantic aliases as named Figma variables are not yet mirrored (flagged for the next code→Figma variable sync pass, same class of gap as the 2026-08-16 sync ADR).
+
+## 2026-09-06 — brand.accentInk added; dark text.tertiary re-derived to clear AA on the default card ground
+
+**Stage:** 02-design (scds-v2)
+**Type:** token addition + token value change + accessibility correction
+**Status:** accepted
+**Slug:** accent-ink-dark-tertiary
+
+**Context.** WQ-037 shipped mode-following dark mode on Studio PM (a consumer of SCDS) and measured every text node in dark. Every failure reduced to two SCDS pairs on `color.surface.raised` in dark (`dark.raised1` `#141414`), which `semantic.json` itself calls the "default card ground":
+
+1. `color.brand.accentDeep` used as text: `teal.700` `#056268` on `#141414` measures **2.59:1**. Its `$description` called it "AA-passing accent text on light surfaces," but its dark-mode value maps to the same `teal.700` — there was no mode-following accent text ink in the system at all. `interactive.hoverInk` is the only teal that passes AA as text in both modes, and it is a hover-state token, not a general accent ink.
+2. `color.text.tertiary` dark = `dark.textTertiary` `#7C7C7A` on `#141414` measures **4.40:1**, below WCAG AA 4.5:1. `semantic.json` declared `surface.raised` a `forbiddenSurfaces` entry for tertiary in dark, so `npm run tokens:verify` passed — but a tertiary tier forbidden on the default card ground in dark is a system defect, not a consumer bug.
+
+**Decision.**
+
+Added `color.brand.accentInk` (CSS `--sc-color-brand-accent-ink`): light `{color.teal.700}`, dark `{color.teal.400}`. It is the mode-following counterpart of `accentDeep`'s light-only text claim. Measured: light — page 5.78:1, raised 6.32:1, floating 6.77:1, sunk 4.71:1 (passes); deepSunk/rail 2.97:1, hover 3.79:1 (fail, declared in `usageRestrictions.forbiddenSurfaces.light`). Dark — page 5.84:1, sunk 6.10:1, raised 5.61:1, deepSunk/floating 5.30:1, rail 6.03:1 — every dark surface clears AA, so `forbiddenSurfaces.dark` is empty. `accentDeep`'s `$description` now points to `accentInk` for text use and states its own 2.59:1 dark-on-raised failure; its values are unchanged — it remains the pressed-state fill.
+
+Re-derived `color.dark.textTertiary` from `#7C7C7A` to **`#858583`** — smallest step in the true-neutral ladder pattern (equal R/G, B two lower, matching `#7C7C7A`'s own pattern) that clears AA with real margin on `raised1`, the tightest dark surface. New dark figures: page 5.18:1, well(sunk) 5.42:1, floor(rail) 5.35:1, raised1(raised) 4.98:1, raised2(deepSunk/floating) 4.71:1 — every dark surface now clears AA, so `text.tertiary`'s `forbiddenSurfaces.dark` is now empty (light restrictions unchanged: sunk, deepSunk, rail, hover still fail there). The retired `#7C7C7A` figures (4.58, 4.79, 4.73, 4.40, 4.16) moved to `HISTORICAL` in `scripts/verify-contrast.mjs`, named against the retired hex. `npm run tokens:verify` passes all four sections (AA, live claims, orphans, no over-broad restriction) with `color.brand.accentInk` added to `TEXT_TIERS` so check 1 guards it going forward.
+
+**Consequences.**
+- Every dark consumer's tertiary text lightens by one step (`#7C7C7A` → `#858583`). Visual diffs on dark tertiary text are expected and correct.
+- `accentDeep` is unchanged — it stays `teal.700`/`teal.700` because it is also the pressed-state fill and other consumers depend on that value; do not repaint it.
+- Consumers that used `accentDeep` as text (accepting its 2.59:1 dark failure, or restricting it to light-only by convention) should rebind to `accentInk`, which is mode-following and AA-safe by declared restriction.
+- `_config/design-system/token-map.md` regenerated after this branch rebased over the WQ-038 aliases (fingerprint `80c881745ece`, 116 semantic tokens); the two changes are additive and do not overlap.
+- The on-device P3 near-black-drift check of the dark ladder (studio learning #11) remains Levi's — this change re-derives a text-tier value, not the ladder's near-black anchors, but any future ladder move should re-run that check before shipping.
+
+**Alternatives considered.**
+- **Keep the restriction and tell consumers to use `text.secondary` on cards.** Rejected: it erases the tertiary tier on the default card ground in dark, which is exactly the defect WQ-037 surfaced, not a fix for it.
+- **Map `accentDeep` itself to `teal.400` in dark.** Rejected: `accentDeep` is also the pressed-state fill, and other consumers depend on its current value; changing it would be a breaking repaint disguised as an accessibility fix.
