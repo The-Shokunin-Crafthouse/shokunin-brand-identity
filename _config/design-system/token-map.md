@@ -5,7 +5,7 @@
 # Design Token Map — The Shokunin Crafthouse · Brand Identity
 
 **Generated** from `tokens/primitives.json` + `tokens/semantic.json`.
-**Source fingerprint:** `80c881745ece` · **158 primitives · 116 semantic tokens.**
+**Source fingerprint:** `049ae679c0da` · **159 primitives · 116 semantic tokens.**
 
 > **This file is a mirror, not the source.** `tokens/*.json` is upstream; this document and the Figma
 > library are generated from / synced to it. It previously claimed the opposite — that both were
@@ -49,6 +49,9 @@ Pairs that fail WCAG AA and must not be used together. Generated from
 |---|---|---|---|---|
 | `color/text/secondary` | light | `color/surface/deepSunk`, `color/surface/rail`, `color/surface/hover` | `color/text/primary` | Light mode: deepSunk and rail (both warmGray.300) measure 3.01:1 and hover (warmGray.250) measures 3.84:1 — all below WCAG AA 4.5:1. Dark mode clears AA on every surface (8.85:1 worst case). |
 | `color/text/tertiary` | light | `color/surface/sunk`, `color/surface/deepSunk`, `color/surface/rail`, `color/surface/hover` | `color/text/secondary` | Tertiary contrast compresses below WCAG AA 4.5:1 on the compressed pairs — light: sunk 3.77:1, deepSunk/rail 2.38:1, hover 3.03:1. Dark (pre-2026-09-06, #7C7C7A) failed on raised/hover 4.40:1 and deepSunk/floating 4.16:1 — both cleared by the re-derivation to #858583 (WQ-040). |
+| `color/status/success-ink` | light | `color/surface/sunk`, `color/surface/deepSunk`, `color/surface/rail`, `color/surface/hover` | `color/text/primary` | Light: sunk 3.86:1, deepSunk/rail 2.44:1, hover 3.11:1 — every one below AA for the success hue. Dark cleared 2026-09-06 by the re-derivation to #3C9366; the reused status.success.dark it replaced read 4.37:1 on surface.deepSunk and surface.floating. |
+| `color/status/warning-ink` | light | `color/surface/sunk`, `color/surface/deepSunk`, `color/surface/rail`, `color/surface/hover` | `color/text/primary` | Light: sunk 3.73:1, deepSunk/rail 2.35:1, hover 3.00:1 — every one below AA for the warning hue. Dark cleared 2026-09-06 by the re-derivation to #DC5A33; the retired #D2512A read 4.34:1 on surface.raised and 4.10:1 on surface.deepSunk. |
+| `color/status/info-ink` | light | `color/surface/sunk`, `color/surface/deepSunk`, `color/surface/rail`, `color/surface/hover` | `color/text/primary` | Light: sunk 3.90:1, deepSunk/rail 2.46:1, hover 3.14:1 — every one below AA for the info hue. Dark cleared 2026-09-06 by the re-derivation to #517DF3; the retired #4A74EA read 4.37:1 on surface.raised and 4.13:1 on surface.deepSunk. |
 | `color/brand/accentInk` | light | `color/surface/deepSunk`, `color/surface/rail`, `color/surface/hover` | `color/text/secondary` | Accent-as-text compresses below WCAG AA 4.5:1 in light on the low-contrast grounds — deepSunk/rail 2.97:1, hover 3.79:1. Dark (teal.400) clears AA everywhere, lowest 5.30:1 on deepSunk/floating. |
 
 ---
@@ -101,13 +104,14 @@ primitives directly. Surfaced here for traceability.
 | `color/status/success/light` | `--sc-p-color-status-success-light` | `#2F855A` | Forest green · success states on light ground. |
 | `color/status/success/dark` | `--sc-p-color-status-success-dark` | `#388F63` | Lifted green · success states on dark ground. |
 | `color/status/success/ink/light` | `--sc-p-color-status-success-ink-light` | `#28724D` | 2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier, hue-locked to success, 4.74:1 on warmGray.100 (base success/light fails at 3.69:1 for body text). |
+| `color/status/success/ink/dark` | `--sc-p-color-status-success-ink-dark` | `#3C9366` | 2026-09-06 (WQ-041) · text-only tier, hue-locked to success, lifted one OKLab step off status.success.dark (#388F63) so every dark surface clears AA — the old arrangement reused success/dark directly and read 4.37:1 on dark.raised2 (deepSunk/floating). |
 | `color/status/warning/light` | `--sc-p-color-status-warning-light` | `#C2410C` | Burnt orange · warning states on light ground · hue ~20°. |
 | `color/status/warning/dark` | `--sc-p-color-status-warning-dark` | `#C94E28` | Lifted orange · warning states on dark ground. |
 | `color/status/warning/ink/light` | `--sc-p-color-status-warning-ink-light` | `#B83E0B` | 2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier, hue-locked to warning, 4.58:1 on warmGray.100 (base warning/light fails at 4.21:1 for body text). |
-| `color/status/warning/ink/dark` | `--sc-p-color-status-warning-ink-dark` | `#D2512A` | 2026-07-28 SCDS audit Block 2 (learning #56) · text-only tier, hue-locked to warning, 4.52:1 on dark.surfacePage (base warning/dark fails at 4.20:1 for body text). |
+| `color/status/warning/ink/dark` | `--sc-p-color-status-warning-ink-dark` | `#DC5A33` | 2026-07-28 SCDS audit Block 2 (learning #56) · text-only tier, hue-locked to warning (base warning/dark fails at 4.20:1 for body text). |
 | `color/status/info/light` | `--sc-p-color-status-info-light` | `#2D5AD8` | Royal blue · info states on light ground · AA 4.79:1 on warmGray.100 (clears AA as text, which is why status.info-ink reuses it directly in light mode). |
 | `color/status/info/dark` | `--sc-p-color-status-info-dark` | `#3866E8` | Lifted blue · info states on dark ground. |
-| `color/status/info/ink/dark` | `--sc-p-color-status-info-ink-dark` | `#4A74EA` | 2026-07-28 SCDS audit Block 2 (learning #56) · text-only tier, hue-locked to info, 4.54:1 on dark.surfacePage (base info/dark fails at 3.86:1 for body text). |
+| `color/status/info/ink/dark` | `--sc-p-color-status-info-ink-dark` | `#517DF3` | 2026-07-28 SCDS audit Block 2 (learning #56) · text-only tier, hue-locked to info (base info/dark fails at 3.86:1 for body text). |
 | `color/status/error/light` | `--sc-p-color-status-error-light` | `#7F1D1D` | Oxblood · error states on light ground · deep + serious, pulled deliberately off the brand band so brand-accent and danger can never be confused. |
 | `color/status/error/dark` | `--sc-p-color-status-error-dark` | `#DD4C4C` | Lifted rose · error states on dark ground. |
 
@@ -438,13 +442,13 @@ channel-triplet primitives) rather than an alias to a single primitive.
 
 | Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
 |---|---|---|---|---|---|---|
-| `color/status/success` | `--sc-color-status-success` | `color/status/success/light` | `#2F855A` | `color/status/success/dark` | `#388F63` | Success state · warm olive on light, lifted olive on dark. |
+| `color/status/success` | `--sc-color-status-success` | `color/status/success/light` | `#2F855A` | `color/status/success/ink/dark` | `#3C9366` | Success state · warm olive on light, lifted olive on dark. |
 | `color/status/warning` | `--sc-color-status-warning` | `color/status/warning/light` | `#C2410C` | `color/status/warning/dark` | `#C94E28` | Warning state · deep ochre on light, lifted ochre on dark. |
 | `color/status/error` | `--sc-color-status-error` | `color/status/error/light` | `#7F1D1D` | `color/status/error/dark` | `#DD4C4C` | Error state · oxblood on light, lifted rose on dark. |
 | `color/status/info` | `--sc-color-status-info` | `color/status/info/light` | `#2D5AD8` | `color/status/info/dark` | `#3866E8` | Info state · warm slate on light, lifted slate on dark. |
-| `color/status/success-ink` | `--sc-color-status-success-ink` | `color/status/success/ink/light` | `#28724D` | `color/status/success/dark` | `#388F63` | 2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier for status.success — use when rendered as body text, 4.74:1 on warmGray.100. |
-| `color/status/warning-ink` | `--sc-color-status-warning-ink` | `color/status/warning/ink/light` | `#B83E0B` | `color/status/warning/ink/dark` | `#D2512A` | 2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier for status.warning — use when rendered as body text, 4.58:1 (L) / 4.52:1 (D) on their respective grounds. |
-| `color/status/info-ink` | `--sc-color-status-info-ink` | `color/status/info/light` | `#2D5AD8` | `color/status/info/ink/dark` | `#4A74EA` | 2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier for status.info — light mode reuses status.info.light directly (already AA as text, 4.79:1); dark mode gets a dedicated ink (4.54:1) since base status.info.dark fails AA for text at 3.86:1. |
+| `color/status/success-ink` | `--sc-color-status-success-ink` | `color/status/success/ink/light` | `#28724D` | `color/status/success/ink/dark` | `#3C9366` | 2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier for status.success — use when rendered as body text, 4.74:1 (L) / 5.07:1 (D) on their respective page grounds. |
+| `color/status/warning-ink` | `--sc-color-status-warning-ink` | `color/status/warning/ink/light` | `#B83E0B` | `color/status/warning/ink/dark` | `#DC5A33` | 2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier for status.warning — use when rendered as body text, 4.58:1 (L) / 5.07:1 (D) on their respective page grounds. |
+| `color/status/info-ink` | `--sc-color-status-info-ink` | `color/status/info/light` | `#2D5AD8` | `color/status/info/ink/dark` | `#517DF3` | 2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier for status.info — light mode reuses status.info.light directly (already AA as text, 4.79:1); dark mode gets a dedicated ink (5.09:1 on its page ground, re-derived 2026-09-06 under WQ-041) since base status.info.dark fails AA for text at 3.86:1. |
 
 #### `color/signal`
 

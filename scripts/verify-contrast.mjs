@@ -95,7 +95,13 @@ function hexOf(path, mode) {
 // Text tiers that must clear AA. text.disabled is a documented spec exception
 // (ghosted controls are not readable content) and text.onAccent renders only on
 // accent fills, never on a surface — both are excluded by design.
-const TEXT_TIERS = ['color.text.primary', 'color.text.secondary', 'color.text.tertiary', 'color.brand.accentInk'];
+const TEXT_TIERS = [
+  'color.text.primary', 'color.text.secondary', 'color.text.tertiary', 'color.brand.accentInk',
+  // The status *-ink tiers are text-only by their own $description (learning #56) and were
+  // outside this sweep until 2026-09-06 (WQ-041) — nothing checked them, and every one of
+  // them was failing AA on dark surface.raised, the default card ground.
+  'color.status.success-ink', 'color.status.warning-ink', 'color.status.info-ink',
+];
 const SURFACES = Object.keys(semantic.color.surface);
 const MODES = semantic.$metadata.modes;
 
@@ -216,26 +222,52 @@ const CLAIMS = [
   // --- status ---------------------------------------------------------------
   ['primitives', 'color.status.success.light', 3.69, 'color.status.success.light', 'color.warmGray.100', null],
   ['primitives', 'color.status.success.ink.light', 4.74, 'color.status.success.ink.light', 'color.warmGray.100', null],
-  ['primitives', 'color.status.success.ink.light', 4.82, 'color.status.success.dark', 'color.dark.surfacePage', null],
+  ['primitives', 'color.status.success.ink.dark', 5.07, 'color.status.success.ink.dark', 'color.dark.surfacePage', null],
+  ['primitives', 'color.status.success.ink.dark', 5.30, 'color.status.success.ink.dark', 'color.dark.well', null],
+  ['primitives', 'color.status.success.ink.dark', 5.24, 'color.status.success.ink.dark', 'color.dark.floor', null],
+  ['primitives', 'color.status.success.ink.dark', 4.88, 'color.status.success.ink.dark', 'color.dark.raised1', null],
+  ['primitives', 'color.status.success.ink.dark', 4.61, 'color.status.success.ink.dark', 'color.dark.raised2', null],
+  ['primitives', 'color.status.success.ink.dark', 4.37, 'color.status.success.dark', 'color.dark.raised2', null],
   ['primitives', 'color.status.warning.ink.light', 4.58, 'color.status.warning.ink.light', 'color.warmGray.100', null],
   ['primitives', 'color.status.warning.ink.light', 4.21, 'color.status.warning.light', 'color.warmGray.100', null],
-  ['primitives', 'color.status.warning.ink.dark', 4.52, 'color.status.warning.ink.dark', 'color.dark.surfacePage', null],
+  ['primitives', 'color.status.warning.ink.dark', 5.07, 'color.status.warning.ink.dark', 'color.dark.surfacePage', null],
+  ['primitives', 'color.status.warning.ink.dark', 5.30, 'color.status.warning.ink.dark', 'color.dark.well', null],
+  ['primitives', 'color.status.warning.ink.dark', 5.24, 'color.status.warning.ink.dark', 'color.dark.floor', null],
+  ['primitives', 'color.status.warning.ink.dark', 4.87, 'color.status.warning.ink.dark', 'color.dark.raised1', null],
+  ['primitives', 'color.status.warning.ink.dark', 4.60, 'color.status.warning.ink.dark', 'color.dark.raised2', null],
   ['primitives', 'color.status.warning.ink.dark', 4.20, 'color.status.warning.dark', 'color.dark.surfacePage', null],
   ['primitives', 'color.status.info.light', 4.79, 'color.status.info.light', 'color.warmGray.100', null],
-  ['primitives', 'color.status.info.ink.dark', 4.54, 'color.status.info.ink.dark', 'color.dark.surfacePage', null],
+  ['primitives', 'color.status.info.ink.dark', 5.09, 'color.status.info.ink.dark', 'color.dark.surfacePage', null],
+  ['primitives', 'color.status.info.ink.dark', 5.32, 'color.status.info.ink.dark', 'color.dark.well', null],
+  ['primitives', 'color.status.info.ink.dark', 5.26, 'color.status.info.ink.dark', 'color.dark.floor', null],
+  ['primitives', 'color.status.info.ink.dark', 4.89, 'color.status.info.ink.dark', 'color.dark.raised1', null],
+  ['primitives', 'color.status.info.ink.dark', 4.62, 'color.status.info.ink.dark', 'color.dark.raised2', null],
   ['primitives', 'color.status.info.ink.dark', 3.86, 'color.status.info.dark', 'color.dark.surfacePage', null],
   ['primitives', 'color.status.info.ink.dark', 4.79, 'color.status.info.light', 'color.warmGray.100', null],
   ['primitives', 'color.status.error.dark', 4.76, 'color.status.error.dark', 'color.dark.surfacePage', null],
   ['primitives', 'color.status.error.dark', 4.82, 'color.status.success.dark', 'color.dark.surfacePage', null],
   ['semantic', 'color.status.success-ink', 4.74, 'color.status.success.ink.light', 'color.warmGray.100', null],
   ['semantic', 'color.status.success-ink', 3.69, 'color.status.success.light', 'color.warmGray.100', null],
-  ['semantic', 'color.status.success-ink', 4.82, 'color.status.success.dark', 'color.dark.surfacePage', null],
+  ['semantic', 'color.status.success-ink', 5.07, 'color.status.success.ink.dark', 'color.dark.surfacePage', null],
+  ['primitive', 'color.status.success.ink.dark', 5.30, 'color.status.success.ink.dark', 'color.dark.well', null],
+  ['primitive', 'color.status.success.ink.dark', 5.24, 'color.status.success.ink.dark', 'color.dark.floor', null],
+  ['primitive', 'color.status.success.ink.dark', 4.88, 'color.status.success.ink.dark', 'color.dark.raised1', null],
+  ['primitive', 'color.status.success.ink.dark', 4.61, 'color.status.success.ink.dark', 'color.dark.raised2', null],
+  ['semantic', 'color.status.success-ink', 4.37, 'color.status.success.dark', 'color.dark.raised2', null],
   ['semantic', 'color.status.warning-ink', 4.58, 'color.status.warning.ink.light', 'color.warmGray.100', null],
-  ['semantic', 'color.status.warning-ink', 4.52, 'color.status.warning.ink.dark', 'color.dark.surfacePage', null],
+  ['semantic', 'color.status.warning-ink', 5.07, 'color.status.warning.ink.dark', 'color.dark.surfacePage', null],
+  ['primitive', 'color.status.warning.ink.dark', 5.30, 'color.status.warning.ink.dark', 'color.dark.well', null],
+  ['primitive', 'color.status.warning.ink.dark', 5.24, 'color.status.warning.ink.dark', 'color.dark.floor', null],
+  ['primitive', 'color.status.warning.ink.dark', 4.87, 'color.status.warning.ink.dark', 'color.dark.raised1', null],
+  ['primitive', 'color.status.warning.ink.dark', 4.60, 'color.status.warning.ink.dark', 'color.dark.raised2', null],
   ['semantic', 'color.status.warning-ink', 4.21, 'color.status.warning.light', 'color.warmGray.100', null],
   ['semantic', 'color.status.warning-ink', 4.20, 'color.status.warning.dark', 'color.dark.surfacePage', null],
   ['semantic', 'color.status.info-ink', 4.79, 'color.status.info.light', 'color.warmGray.100', null],
-  ['semantic', 'color.status.info-ink', 4.54, 'color.status.info.ink.dark', 'color.dark.surfacePage', null],
+  ['semantic', 'color.status.info-ink', 5.09, 'color.status.info.ink.dark', 'color.dark.surfacePage', null],
+  ['primitive', 'color.status.info.ink.dark', 5.32, 'color.status.info.ink.dark', 'color.dark.well', null],
+  ['primitive', 'color.status.info.ink.dark', 5.26, 'color.status.info.ink.dark', 'color.dark.floor', null],
+  ['primitive', 'color.status.info.ink.dark', 4.89, 'color.status.info.ink.dark', 'color.dark.raised1', null],
+  ['primitive', 'color.status.info.ink.dark', 4.62, 'color.status.info.ink.dark', 'color.dark.raised2', null],
   ['semantic', 'color.status.info-ink', 3.86, 'color.status.info.dark', 'color.dark.surfacePage', null],
 ];
 
@@ -260,6 +292,12 @@ const HISTORICAL = [
   [4.73, 'dark.textTertiary pre-WQ-040: #7C7C7A on dark.floor #0A0A0A (surface.rail) — retired 2026-09-06'],
   [4.40, 'dark.textTertiary pre-WQ-040: #7C7C7A on dark.raised1 #141414 (surface.raised, the default card ground) — the forbidden, sub-AA pair the WQ-040 re-derivation clears'],
   [4.16, 'dark.textTertiary pre-WQ-040: #7C7C7A on dark.raised2 #1A1A1A (surface.deepSunk/floating) — the forbidden, sub-AA pair the WQ-040 re-derivation clears'],
+  [4.52, 'warning-ink dark pre-WQ-041: #D2512A on dark.surfacePage — the page-only figure that hid the card-ground failure'],
+  [4.34, 'warning-ink dark pre-WQ-041: #D2512A on dark.raised1 (surface.raised, the default card ground) — the sub-AA pair WQ-041 clears'],
+  [4.10, 'warning-ink dark pre-WQ-041: #D2512A on dark.raised2 (surface.deepSunk/floating) — retired 2026-09-06'],
+  [4.13, 'info-ink dark pre-WQ-041: #4A74EA on dark.raised2 — retired 2026-09-06'],
+  [4.54, 'info-ink dark pre-WQ-041: #4A74EA on dark.surfacePage — the page-only figure that hid the card-ground failure'],
+  [4.37, 'info-ink dark pre-WQ-041: #4A74EA on dark.raised1 (surface.raised, the default card ground) — the sub-AA pair WQ-041 clears'],
 ];
 
 function checkClaims() {

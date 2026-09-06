@@ -300,7 +300,7 @@
         "$extensions": {
           "modes": {
             "light": "{color.status.success.light}",
-            "dark":  "{color.status.success.dark}"
+            "dark":  "{color.status.success.ink.dark}"
           }
         }
       },
@@ -340,33 +340,75 @@
       "success-ink": {
         "$type": "color",
         "$value": "{color.status.success.ink.light}",
-        "$description": "2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier for status.success — use when rendered as body text, 4.74:1 on warmGray.100. Base status.success fails AA for text at 3.69:1 but is fine for fill/border/dot use. Dark mode reuses status.success.dark (already AA as text, 4.82:1).",
+        "$description": "2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier for status.success — use when rendered as body text, 4.74:1 (L) / 5.07:1 (D) on their respective page grounds. Base status.success fails AA for text at 3.69:1 but is fine for fill/border/dot use. Dark mode gained its own ink 2026-09-06 (WQ-041); it had reused status.success.dark, which reads 4.37:1 on dark surface.deepSunk and surface.floating.",
         "$extensions": {
           "modes": {
             "light": "{color.status.success.ink.light}",
-            "dark":  "{color.status.success.dark}"
+            "dark":  "{color.status.success.ink.dark}"
+          },
+          "usageRestrictions": {
+            "$description": "forbiddenSurfaces is keyed BY MODE. A status ink is tuned against the page ground of its own mode; the compressed light surfaces are unreachable for any status hue without abandoning the hue. Added 2026-09-06 (WQ-041), when the *-ink tiers entered check 1's AA sweep for the first time — until then no check guarded them and dark raised1, the default card ground, was failing unnoticed.",
+            "forbiddenSurfaces": {
+              "light": [
+                "color.surface.sunk",
+                "color.surface.deepSunk",
+                "color.surface.rail",
+                "color.surface.hover"
+              ],
+              "dark": []
+            },
+            "reason": "Light: sunk 3.86:1, deepSunk/rail 2.44:1, hover 3.11:1 — every one below AA for the success hue. Dark cleared 2026-09-06 by the re-derivation to #3C9366; the reused status.success.dark it replaced read 4.37:1 on surface.deepSunk and surface.floating.",
+            "substitute": "{color.text.primary}"
           }
         }
       },
       "warning-ink": {
         "$type": "color",
         "$value": "{color.status.warning.ink.light}",
-        "$description": "2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier for status.warning — use when rendered as body text, 4.58:1 (L) / 4.52:1 (D) on their respective grounds. Base status.warning fails AA for text in both modes (4.21:1 L / 4.20:1 D) but is fine for fill/border/dot use. 2026-08-17 re-verification: the light-mode base figure read 3.69:1, which is status.success.light's number copy-pasted onto the warning line — the verdict (fails AA) held, the figure did not.",
+        "$description": "2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier for status.warning — use when rendered as body text, 4.58:1 (L) / 5.07:1 (D) on their respective page grounds. Base status.warning fails AA for text in both modes (4.21:1 L / 4.20:1 D) but is fine for fill/border/dot use. 2026-08-17 re-verification: the light-mode base figure read 3.69:1, which is status.success.light's number copy-pasted onto the warning line — the verdict (fails AA) held, the figure did not.",
         "$extensions": {
           "modes": {
             "light": "{color.status.warning.ink.light}",
             "dark":  "{color.status.warning.ink.dark}"
+          },
+          "usageRestrictions": {
+            "$description": "forbiddenSurfaces is keyed BY MODE. A status ink is tuned against the page ground of its own mode; the compressed light surfaces are unreachable for any status hue without abandoning the hue. Added 2026-09-06 (WQ-041), when the *-ink tiers entered check 1's AA sweep for the first time — until then no check guarded them and dark raised1, the default card ground, was failing unnoticed.",
+            "forbiddenSurfaces": {
+              "light": [
+                "color.surface.sunk",
+                "color.surface.deepSunk",
+                "color.surface.rail",
+                "color.surface.hover"
+              ],
+              "dark": []
+            },
+            "reason": "Light: sunk 3.73:1, deepSunk/rail 2.35:1, hover 3.00:1 — every one below AA for the warning hue. Dark cleared 2026-09-06 by the re-derivation to #DC5A33; the retired #D2512A read 4.34:1 on surface.raised and 4.10:1 on surface.deepSunk.",
+            "substitute": "{color.text.primary}"
           }
         }
       },
       "info-ink": {
         "$type": "color",
         "$value": "{color.status.info.light}",
-        "$description": "2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier for status.info — light mode reuses status.info.light directly (already AA as text, 4.79:1); dark mode gets a dedicated ink (4.54:1) since base status.info.dark fails AA for text at 3.86:1.",
+        "$description": "2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier for status.info — light mode reuses status.info.light directly (already AA as text, 4.79:1); dark mode gets a dedicated ink (5.09:1 on its page ground, re-derived 2026-09-06 under WQ-041) since base status.info.dark fails AA for text at 3.86:1.",
         "$extensions": {
           "modes": {
             "light": "{color.status.info.light}",
             "dark":  "{color.status.info.ink.dark}"
+          },
+          "usageRestrictions": {
+            "$description": "forbiddenSurfaces is keyed BY MODE. A status ink is tuned against the page ground of its own mode; the compressed light surfaces are unreachable for any status hue without abandoning the hue. Added 2026-09-06 (WQ-041), when the *-ink tiers entered check 1's AA sweep for the first time — until then no check guarded them and dark raised1, the default card ground, was failing unnoticed.",
+            "forbiddenSurfaces": {
+              "light": [
+                "color.surface.sunk",
+                "color.surface.deepSunk",
+                "color.surface.rail",
+                "color.surface.hover"
+              ],
+              "dark": []
+            },
+            "reason": "Light: sunk 3.90:1, deepSunk/rail 2.46:1, hover 3.14:1 — every one below AA for the info hue. Dark cleared 2026-09-06 by the re-derivation to #517DF3; the retired #4A74EA read 4.37:1 on surface.raised and 4.13:1 on surface.deepSunk.",
+            "substitute": "{color.text.primary}"
           }
         }
       }
