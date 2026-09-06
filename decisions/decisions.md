@@ -1123,3 +1123,34 @@ Re-derived `color.dark.textTertiary` from `#7C7C7A` to **`#858583`** — smalles
 **Alternatives considered.**
 - **Keep the restriction and tell consumers to use `text.secondary` on cards.** Rejected: it erases the tertiary tier on the default card ground in dark, which is exactly the defect WQ-037 surfaced, not a fix for it.
 - **Map `accentDeep` itself to `teal.400` in dark.** Rejected: `accentDeep` is also the pressed-state fill, and other consumers depend on its current value; changing it would be a breaking repaint disguised as an accessibility fix.
+
+## 2026-09-06 — The status `*-ink` tiers enter the AA sweep; all three dark inks re-derived off the card ground
+
+**Stage:** 02-design (scds-v2)
+**Type:** verifier scope correction + token addition + token value change
+**Status:** accepted
+**Slug:** status-ink-aa-guard
+
+**Context.** WQ-037 re-measured Studio PM in dark after the WQ-040 tokens landed. The two pairs WQ-040 fixed were gone; a third appeared — `color.status.warning-ink` on `color.surface.raised`, **4.34:1**, rendering the session-state chip and the contended-repo warning on every card. `npm run tokens:verify` was green throughout, because check 1's `TEXT_TIERS` list held four entries (`text.primary`, `text.secondary`, `text.tertiary`, `brand.accentInk`) and none of the three `status.*-ink` tokens. Those tokens are text-only by their own `$description` — that is the entire reason learning #56 created them — and nothing in the repo checked them against a single surface. The figures each one quoted were measured against `dark.surfacePage` alone, which is the lightest-contrast dark ground in the set and therefore the one that hides a card-ground failure.
+
+Measured before this change, dark: `warning-ink` raised1 4.34:1 / raised2 4.10:1; `info-ink` raised1 4.37:1 / raised2 4.13:1; `success-ink` (which had no dark ink and reused `status.success.dark`) raised2 4.37:1. Three of three below AA on the default card ground or the surface directly under it.
+
+**Decision.**
+
+Added `color.status.success-ink` a dark primitive of its own (`status.success.ink.dark` `#3C9366`) — it had been aliasing the fill token. Re-derived `status.warning.ink.dark` `#D2512A` → **`#DC5A33`** and `status.info.ink.dark` `#4A74EA` → **`#517DF3`**. Each is one OKLab lightness step with hue and chroma held, sized so the tightest dark ground (`dark.raised2` `#1A1A1A`, `surface.deepSunk`/`surface.floating`) clears AA with margin. Every dark surface now passes for all three: warning 4.60–5.30:1, info 4.62–5.32:1, success 4.61–5.30:1.
+
+Added all three to `TEXT_TIERS`, taking check 1 from 56 to **98 pairs**. That immediately demanded honest `usageRestrictions` on each: light `sunk` / `deepSunk` / `rail` / `hover` are forbidden (3.73–2.35:1 for warning, and the same shape for the other two hues — the compressed light surfaces are unreachable for any status hue without abandoning the hue), dark is empty. The retired figures moved to `HISTORICAL` named against the retired hex, and the new per-surface figures are registered in `CLAIMS`, so check 2 now guards 115 claims.
+
+**Rationale.** A token whose `$description` says "text-only tier" and which no text-tier check covers is the exact shape of studio learning #181 — a gate line with no producing artifact. The fix is not the three new hexes; it is that `TEXT_TIERS` now contains every token the system calls text, so the next status hue that drifts fails in CI instead of in a consumer's Gate-3 measurement three repos downstream.
+
+**Consequences.**
+- Warning, info and success text lighten by one step in dark for every consumer. Visual diffs on dark status text are expected and correct.
+- The base `status.*` tokens are unchanged — they remain fill/border/dot tiers and remain outside the sweep, as `text.disabled` and `text.onAccent` are.
+- `status.error` still has no `-ink` tier. It is the one status hue that clears AA as text unaided in both modes (light 8.15:1 on page, dark 4.76:1), so it is not in `TEXT_TIERS` and is not guarded by check 1. It reads 4.32:1 on dark `raised2` — a consumer rendering error text on a floating surface in dark is outside AA today. Named here, not fixed here: adding `error-ink` is a fourth hue derivation and belongs to its own change.
+- `_config/design-system/token-map.md` regenerated (fingerprint `049ae679c0da`, 159 primitives / 116 semantic).
+- No Figma sync run; the three re-derived values are primitives that exist as Figma variables and are now out of date there, same class of gap as the 2026-08-16 sync ADR.
+
+**Alternatives considered.**
+- **Declare `surface.raised` forbidden for the inks in dark.** Rejected for the reason WQ-040 rejected it a day earlier: `surface.raised` is the default card ground. A status tier that cannot render on a card is not a status tier.
+- **Add the inks to `TEXT_TIERS` without re-deriving, and restrict what fails.** Rejected — it would encode the defect as policy. The restriction list is for surfaces a hue genuinely cannot serve, not for the ones it happens to fail today.
+- **Re-derive against `dark.surfacePage` only, matching how the values were originally tuned.** Rejected: that is the practice that produced the bug. A tier is tuned against the tightest ground it is permitted on, not the loosest.

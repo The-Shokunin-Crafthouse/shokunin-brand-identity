@@ -155,7 +155,12 @@
           "light": {
             "$type": "color",
             "$value": "#28724D",
-            "$description": "2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier, hue-locked to success, 4.74:1 on warmGray.100 (base success/light fails at 3.69:1 for body text). Dark mode has no separate ink — success/dark (#388F63, 4.82:1) already clears AA as text and is reused directly."
+            "$description": "2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier, hue-locked to success, 4.74:1 on warmGray.100 (base success/light fails at 3.69:1 for body text)."
+          },
+          "dark": {
+            "$type": "color",
+            "$value": "#3C9366",
+            "$description": "2026-09-06 (WQ-041) · text-only tier, hue-locked to success, lifted one OKLab step off status.success.dark (#388F63) so every dark surface clears AA — the old arrangement reused success/dark directly and read 4.37:1 on dark.raised2 (deepSunk/floating). Now: page 5.07:1, well 5.30:1, floor 5.24:1, raised1 4.88:1, raised2 4.61:1."
           }
         }
       },
@@ -178,8 +183,8 @@
           },
           "dark": {
             "$type": "color",
-            "$value": "#D2512A",
-            "$description": "2026-07-28 SCDS audit Block 2 (learning #56) · text-only tier, hue-locked to warning, 4.52:1 on dark.surfacePage (base warning/dark fails at 4.20:1 for body text)."
+            "$value": "#DC5A33",
+            "$description": "2026-07-28 SCDS audit Block 2 (learning #56) · text-only tier, hue-locked to warning (base warning/dark fails at 4.20:1 for body text). Re-derived 2026-09-06 from #D2512A (WQ-041): the old value was tuned against dark.surfacePage alone at 4.52:1 and read 4.34:1 on dark.raised1, the default card ground. Lifted one OKLab step, hue and chroma held: page 5.07:1, well 5.30:1, floor 5.24:1, raised1 4.87:1, raised2 4.60:1."
           }
         }
       },
@@ -197,8 +202,8 @@
         "ink": {
           "dark": {
             "$type": "color",
-            "$value": "#4A74EA",
-            "$description": "2026-07-28 SCDS audit Block 2 (learning #56) · text-only tier, hue-locked to info, 4.54:1 on dark.surfacePage (base info/dark fails at 3.86:1 for body text). Light mode has no separate ink — info/light (#2D5AD8, 4.79:1) already clears AA as text and is reused directly."
+            "$value": "#517DF3",
+            "$description": "2026-07-28 SCDS audit Block 2 (learning #56) · text-only tier, hue-locked to info (base info/dark fails at 3.86:1 for body text). Re-derived 2026-09-06 from #4A74EA (WQ-041): the old value was tuned against dark.surfacePage alone at 4.54:1 and read 4.37:1 on dark.raised1, the default card ground. Lifted one OKLab step, hue and chroma held: page 5.09:1, well 5.32:1, floor 5.26:1, raised1 4.89:1, raised2 4.62:1."
           }
         }
       },
