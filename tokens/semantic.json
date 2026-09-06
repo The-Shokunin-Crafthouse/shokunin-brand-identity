@@ -602,6 +602,34 @@
         "$extensions": { "modes": { "light": "{motion.easing.inOut}", "dark": "{motion.easing.inOut}" } }
       }
     },
+    "entrance": {
+      "duration": {
+        "$type": "duration",
+        "$value": "{motion.duration.orchestrated}",
+        "$description": "WQ-038 addition · act-one entrance choreography (Cinematic Direction); runs once per document (720ms). Source: studio-pm Gate-2 motion-spec — was binding directly to primitive motion.duration.orchestrated.",
+        "$extensions": { "modes": { "light": "{motion.duration.orchestrated}", "dark": "{motion.duration.orchestrated}" } }
+      },
+      "easing": {
+        "$type": "cubicBezier",
+        "$value": "{motion.easing.cinematic}",
+        "$description": "WQ-038 addition · act-one entrance choreography (Cinematic Direction); runs once per document. Source: studio-pm Gate-2 motion-spec — was binding directly to primitive motion.easing.cinematic.",
+        "$extensions": { "modes": { "light": "{motion.easing.cinematic}", "dark": "{motion.easing.cinematic}" } }
+      }
+    },
+    "cut": {
+      "duration": {
+        "$type": "duration",
+        "$value": "{motion.duration.standard}",
+        "$description": "WQ-038 addition · continuity cut — in-place content change between states (380ms). Source: studio-pm Gate-2 motion-spec — was binding directly to primitive motion.duration.standard via --sc-motion-mode-* tokens.",
+        "$extensions": { "modes": { "light": "{motion.duration.standard}", "dark": "{motion.duration.standard}" } }
+      },
+      "easing": {
+        "$type": "cubicBezier",
+        "$value": "{motion.easing.inOut}",
+        "$description": "WQ-038 addition · continuity cut — in-place content change between states. Source: studio-pm Gate-2 motion-spec — was binding directly to primitive motion.easing.inOut via --sc-motion-mode-* tokens.",
+        "$extensions": { "modes": { "light": "{motion.easing.inOut}", "dark": "{motion.easing.inOut}" } }
+      }
+    },
     "reveal": {
       "duration": {
         "$type": "duration",
@@ -819,6 +847,12 @@
         "$description": "Sprint 5 addition · Drams #5 (Standard Volume) · interactive bar variant, invisible hit-area padding above/below the visual track (block padding on the interactive wrapper, not the track itself). Judgment call: the brief asked for a ~44px hit target; 44 has no home on the layout or micro ladder, so this uses micro.22 (22px) top + bottom around the 4px track = 48px total — meets/exceeds the touch-target guideline while staying token-derived. Logged in ProgressIndicator.tokens.md.",
         "$extensions": { "modes": { "light": "{space.micro.22}", "dark": "{space.micro.22}" } }
       }
+    },
+    "touch-target": {
+      "$type": "dimension",
+      "$value": "{space.48}",
+      "$description": "WQ-038 addition · minimum interactive hit area, 44×44 rule (#112 hit-test), nearest 8pt value. Source: studio-pm Gate-2 responsive-spec §R3 — was binding directly to primitive space.48 with no semantic alias.",
+      "$extensions": { "modes": { "light": "{space.48}", "dark": "{space.48}" } }
     }
   },
   "space": {

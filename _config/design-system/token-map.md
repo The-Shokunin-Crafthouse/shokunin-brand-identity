@@ -5,7 +5,7 @@
 # Design Token Map — The Shokunin Crafthouse · Brand Identity
 
 **Generated** from `tokens/primitives.json` + `tokens/semantic.json`.
-**Source fingerprint:** `aab74577eac0` · **158 primitives · 110 semantic tokens.**
+**Source fingerprint:** `53b91e90481f` · **158 primitives · 115 semantic tokens.**
 
 > **This file is a mirror, not the source.** `tokens/*.json` is upstream; this document and the Figma
 > library are generated from / synced to it. It previously claimed the opposite — that both were
@@ -549,17 +549,48 @@ channel-triplet primitives) rather than an alias to a single primitive.
 
 ### Motion · Semantic
 
+#### `motion/hover`
+
 | Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
 |---|---|---|---|---|---|---|
 | `motion/hover/duration` | `--sc-motion-hover-duration` | `motion/duration/micro` | `200ms` | `motion/duration/micro` | `200ms` | Sprint 4 addition · hover state-change duration (200ms). |
 | `motion/hover/easing` | `--sc-motion-hover-easing` | `motion/easing/out` | `cubic-bezier(0.22, 1, 0.36, 1)` | `motion/easing/out` | `cubic-bezier(0.22, 1, 0.36, 1)` | Sprint 4 addition · quint-out · hover entrance. |
+
+#### `motion/press`
+
+| Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
+|---|---|---|---|---|---|---|
 | `motion/press/duration` | `--sc-motion-press-duration` | `motion/duration/press` | `160ms` | `motion/duration/press` | `160ms` | Sprint 4 addition · press/release scale (160ms). |
 | `motion/press/easing` | `--sc-motion-press-easing` | `motion/easing/outStrong` | `cubic-bezier(0.23, 1, 0.32, 1)` | `motion/easing/outStrong` | `cubic-bezier(0.23, 1, 0.32, 1)` | Sprint 4 addition · strong quint-out · press feedback. |
 | `motion/press/scale` | `--sc-motion-press-scale` | `motion/scale/pressButton` | `0.985` | `motion/scale/pressButton` | `0.985` | Sprint 4 addition · button press scale (0.985). |
 | `motion/press/release/duration` | `--sc-motion-press-release-duration` | `motion/duration/pressRelease` | `220ms` | `motion/duration/pressRelease` | `220ms` | Sprint 5 addition · Drams #6 press-spring · release-phase duration (220ms). |
 | `motion/press/release/easing` | `--sc-motion-press-release-easing` | `motion/easing/springOut` | `cubic-bezier(0.34, 1.56, 0.64, 1)` | `motion/easing/springOut` | `cubic-bezier(0.34, 1.56, 0.64, 1)` | Sprint 5 addition · Drams #6 press-spring · release-phase easing, a cubic-bezier CSS approximation of a k400/d25 spring (y > 1 overshoot). |
+
+#### `motion/mode`
+
+| Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
+|---|---|---|---|---|---|---|
 | `motion/mode/duration` | `--sc-motion-mode-duration` | `motion/duration/standard` | `380ms` | `motion/duration/standard` | `380ms` | Sprint 4 addition · theme switch surface + color cross-fade (380ms). |
 | `motion/mode/easing` | `--sc-motion-mode-easing` | `motion/easing/inOut` | `cubic-bezier(0.65, 0, 0.35, 1)` | `motion/easing/inOut` | `cubic-bezier(0.65, 0, 0.35, 1)` | Sprint 4 addition · symmetric · mode switches and crossfades. |
+
+#### `motion/entrance`
+
+| Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
+|---|---|---|---|---|---|---|
+| `motion/entrance/duration` | `--sc-motion-entrance-duration` | `motion/duration/orchestrated` | `720ms` | `motion/duration/orchestrated` | `720ms` | WQ-038 addition · act-one entrance choreography (Cinematic Direction); runs once per document (720ms). |
+| `motion/entrance/easing` | `--sc-motion-entrance-easing` | `motion/easing/cinematic` | `cubic-bezier(0.32, 0.08, 0.12, 1)` | `motion/easing/cinematic` | `cubic-bezier(0.32, 0.08, 0.12, 1)` | WQ-038 addition · act-one entrance choreography (Cinematic Direction); runs once per document. |
+
+#### `motion/cut`
+
+| Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
+|---|---|---|---|---|---|---|
+| `motion/cut/duration` | `--sc-motion-cut-duration` | `motion/duration/standard` | `380ms` | `motion/duration/standard` | `380ms` | WQ-038 addition · continuity cut — in-place content change between states (380ms). |
+| `motion/cut/easing` | `--sc-motion-cut-easing` | `motion/easing/inOut` | `cubic-bezier(0.65, 0, 0.35, 1)` | `motion/easing/inOut` | `cubic-bezier(0.65, 0, 0.35, 1)` | WQ-038 addition · continuity cut — in-place content change between states. |
+
+#### `motion/reveal`
+
+| Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
+|---|---|---|---|---|---|---|
 | `motion/reveal/duration` | `--sc-motion-reveal-duration` | `motion/duration/micro` | `200ms` | `motion/duration/micro` | `200ms` | Sprint 4 addition · Tooltip enter, Alert enter, Switch thumb slide (200ms). |
 | `motion/reveal/easing` | `--sc-motion-reveal-easing` | `motion/easing/out` | `cubic-bezier(0.22, 1, 0.36, 1)` | `motion/easing/out` | `cubic-bezier(0.22, 1, 0.36, 1)` | Sprint 4 addition · quint-out · reveal entrance. |
 
@@ -606,6 +637,12 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | `size/progress/circular-stroke` | `--sc-size-progress-circular-stroke` | `space/4` | `4px` | `space/4` | `4px` | Sprint 4 addition · circular stroke width (4px). |
 | `size/progress/bar-height-active` | `--sc-size-progress-bar-height-active` | `space/micro/6` | `6px` | `space/micro/6` | `6px` | Sprint 5 addition · Drams #4/#5 (Volume Visible Track / Standard Volume) · interactive bar variant, active/dragging track thickness (6px). |
 | `size/progress/hit-slop` | `--sc-size-progress-hit-slop` | `space/micro/22` | `22px` | `space/micro/22` | `22px` | Sprint 5 addition · Drams #5 (Standard Volume) · interactive bar variant, invisible hit-area padding above/below the visual track (block padding on the interactive wrapper, not the track itself). |
+
+#### `size/touch-target`
+
+| Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
+|---|---|---|---|---|---|---|
+| `size/touch-target` | `--sc-size-touch-target` | `space/48` | `48px` | `space/48` | `48px` | WQ-038 addition · minimum interactive hit area, 44×44 rule (#112 hit-test), nearest 8pt value. |
 
 ---
 

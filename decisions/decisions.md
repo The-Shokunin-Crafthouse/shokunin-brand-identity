@@ -1078,3 +1078,19 @@ This is the mirror-rot pattern exactly (studio learning #178: a pasted mirror ne
 - Never hand-edit `token-map.md` again. Edit the token files and run `npm run tokens:map`.
 - The "token-map is stale" caveat carried by the 2026-05-28 and 2026-08-17 `text-secondary-aa-sunk` ADRs is now discharged.
 - CLAUDE.md describes `_config/design-system/token-map.md` as part of the *authoring* surface. That is now inaccurate — it is a generated artifact, and the authoring surface is `tokens/*.json` plus the Figma Primitives collection. Flagged, not silently rewritten: the adapter is owner-maintained.
+
+## 2026-09-05 — Semantic touch-target size + entrance/cut motion aliases (WQ-038)
+
+**Stage:** 03-build
+**Type:** Token architecture
+**Status:** accepted
+
+**Context.** Studio PM's Gate-2 specs (`studio-pm/references/responsive-spec.md` §R3, `motion-spec.md`) needed to bind a 44×44 touch minimum and a two-act motion sequence (cinematic entrance + continuity cut) into SCDS-consuming components, but SCDS had no semantic alias for either — the board was binding primitives directly: `--sc-p-space-48` standing in for the touch minimum, `--sc-p-motion-duration-orchestrated` / `--sc-p-motion-easing-cinematic` for the entrance, and `--sc-motion-mode-*` (theme-switch semantics, wrong intent) reused for the continuity cut. Per the studio principle "every decision is a rule," an unaliased primitive binding is a decision with no name.
+
+**Decision.** Add five semantic tokens to `tokens/semantic.json`: `size.touch-target` (→ `space.48`, 48px, nearest 8pt value above the 44px minimum), `motion.entrance.duration` / `motion.entrance.easing` (→ `motion.duration.orchestrated` 720ms / `motion.easing.cinematic`, act-one entrance, runs once per document), and `motion.cut.duration` / `motion.cut.easing` (→ `motion.duration.standard` 380ms / `motion.easing.inOut`, continuity cut — in-place content change between states). All five alias existing primitives; no new primitive values were introduced.
+
+**Rationale.** `size.touch-target` sits beside the existing `size.avatar.*`/`size.progress.*` sizing group so touch-target sizing has the same first-class home as every other dimensioned UI concern. `motion.entrance`/`motion.cut` sit beside `motion.mode` (both siblings in the existing `motion.*` semantic group) rather than overloading `motion.mode.*`, which is reserved for theme-switch crossfades and was never the right semantic for a content-continuity cut.
+
+**Alternatives considered.** Leaving consumers bound to primitives directly (status quo) — rejected per the Gate-2 spec's own complaint that this hides intent and makes a later motion-language change a primitive hunt across every consumer, not a token rebind. Reusing `motion.mode.*` for the continuity cut — rejected; same duration/easing values, but a different semantic meaning (mode-switch vs. in-place content change) that would collide the day either one needs to diverge.
+
+**Consequences.** Easier: any component consuming these tokens (studio-pm's board today; any future consumer) rebinds to `--sc-size-touch-target`, `--sc-motion-entrance-duration/-easing`, `--sc-motion-cut-duration/-easing` instead of primitives — one rebind PR per consumer, tracked as a follow-up, not done in this change. Harder: none — purely additive, zero existing consumers touched, `tokens:verify` reports no new or changed contrast claims (these are size/duration/easing tokens, out of scope for the contrast checker). `_config/design-system/token-map.md` regenerated (fingerprint `53b91e90481f`, 110→115 semantic tokens); no Figma sync run — the SCDS Figma Primitives collection already has the underlying primitive variables, but the new semantic aliases as named Figma variables are not yet mirrored (flagged for the next code→Figma variable sync pass, same class of gap as the 2026-08-16 sync ADR).
