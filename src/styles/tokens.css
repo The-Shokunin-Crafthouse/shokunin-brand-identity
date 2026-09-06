@@ -499,7 +499,7 @@
   --sc-color-interactive-hover: var(--sc-p-color-teal-400);
   --sc-color-interactive-hover-ink: var(--sc-p-color-teal-400);
   --sc-color-interactive-active: var(--sc-p-color-teal-500);
-  --sc-color-status-success: var(--sc-p-color-status-success-ink-dark);
+  --sc-color-status-success: var(--sc-p-color-status-success-dark);
   --sc-color-status-warning: var(--sc-p-color-status-warning-dark);
   --sc-color-status-error: var(--sc-p-color-status-error-dark);
   --sc-color-status-info: var(--sc-p-color-status-info-dark);
