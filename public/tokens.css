@@ -339,6 +339,10 @@
   --sc-motion-press-release-easing: var(--sc-p-motion-easing-spring-out);
   --sc-motion-mode-duration: var(--sc-p-motion-duration-standard);
   --sc-motion-mode-easing: var(--sc-p-motion-easing-in-out);
+  --sc-motion-entrance-duration: var(--sc-p-motion-duration-orchestrated);
+  --sc-motion-entrance-easing: var(--sc-p-motion-easing-cinematic);
+  --sc-motion-cut-duration: var(--sc-p-motion-duration-standard);
+  --sc-motion-cut-easing: var(--sc-p-motion-easing-in-out);
   --sc-motion-reveal-duration: var(--sc-p-motion-duration-micro);
   --sc-motion-reveal-easing: var(--sc-p-motion-easing-out);
   --sc-font-text-label-chrome-family: var(--sc-p-font-text-11-family);
@@ -446,6 +450,7 @@
   --sc-size-progress-circular-stroke: var(--sc-p-space-4);
   --sc-size-progress-bar-height-active: var(--sc-p-space-micro-6);
   --sc-size-progress-hit-slop: var(--sc-p-space-micro-22);
+  --sc-size-touch-target: var(--sc-p-space-48);
   --sc-space-component-padding-sm: var(--sc-p-space-8);
   --sc-space-component-padding-md: var(--sc-p-space-16);
   --sc-space-component-padding-lg: var(--sc-p-space-24);
@@ -528,6 +533,10 @@
   --sc-motion-press-release-easing: var(--sc-p-motion-easing-spring-out);
   --sc-motion-mode-duration: var(--sc-p-motion-duration-standard);
   --sc-motion-mode-easing: var(--sc-p-motion-easing-in-out);
+  --sc-motion-entrance-duration: var(--sc-p-motion-duration-orchestrated);
+  --sc-motion-entrance-easing: var(--sc-p-motion-easing-cinematic);
+  --sc-motion-cut-duration: var(--sc-p-motion-duration-standard);
+  --sc-motion-cut-easing: var(--sc-p-motion-easing-in-out);
   --sc-motion-reveal-duration: var(--sc-p-motion-duration-micro);
   --sc-motion-reveal-easing: var(--sc-p-motion-easing-out);
   --sc-font-text-label-chrome-family: var(--sc-p-font-text-11-family);
@@ -635,6 +644,7 @@
   --sc-size-progress-circular-stroke: var(--sc-p-space-4);
   --sc-size-progress-bar-height-active: var(--sc-p-space-micro-6);
   --sc-size-progress-hit-slop: var(--sc-p-space-micro-22);
+  --sc-size-touch-target: var(--sc-p-space-48);
   --sc-space-component-padding-sm: var(--sc-p-space-8);
   --sc-space-component-padding-md: var(--sc-p-space-16);
   --sc-space-component-padding-lg: var(--sc-p-space-24);
