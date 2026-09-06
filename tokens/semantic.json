@@ -300,7 +300,7 @@
         "$extensions": {
           "modes": {
             "light": "{color.status.success.light}",
-            "dark":  "{color.status.success.ink.dark}"
+            "dark":  "{color.status.success.dark}"
           }
         }
       },

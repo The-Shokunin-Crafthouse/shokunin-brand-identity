@@ -5,7 +5,7 @@
 # Design Token Map — The Shokunin Crafthouse · Brand Identity
 
 **Generated** from `tokens/primitives.json` + `tokens/semantic.json`.
-**Source fingerprint:** `049ae679c0da` · **159 primitives · 116 semantic tokens.**
+**Source fingerprint:** `6db8d4ad28bd` · **159 primitives · 116 semantic tokens.**
 
 > **This file is a mirror, not the source.** `tokens/*.json` is upstream; this document and the Figma
 > library are generated from / synced to it. It previously claimed the opposite — that both were
@@ -442,7 +442,7 @@ channel-triplet primitives) rather than an alias to a single primitive.
 
 | Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
 |---|---|---|---|---|---|---|
-| `color/status/success` | `--sc-color-status-success` | `color/status/success/light` | `#2F855A` | `color/status/success/ink/dark` | `#3C9366` | Success state · warm olive on light, lifted olive on dark. |
+| `color/status/success` | `--sc-color-status-success` | `color/status/success/light` | `#2F855A` | `color/status/success/dark` | `#388F63` | Success state · warm olive on light, lifted olive on dark. |
 | `color/status/warning` | `--sc-color-status-warning` | `color/status/warning/light` | `#C2410C` | `color/status/warning/dark` | `#C94E28` | Warning state · deep ochre on light, lifted ochre on dark. |
 | `color/status/error` | `--sc-color-status-error` | `color/status/error/light` | `#7F1D1D` | `color/status/error/dark` | `#DD4C4C` | Error state · oxblood on light, lifted rose on dark. |
 | `color/status/info` | `--sc-color-status-info` | `color/status/info/light` | `#2D5AD8` | `color/status/info/dark` | `#3866E8` | Info state · warm slate on light, lifted slate on dark. |
