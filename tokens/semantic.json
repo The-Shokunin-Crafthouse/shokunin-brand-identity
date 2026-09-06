@@ -130,19 +130,19 @@
       "tertiary": {
         "$type": "color",
         "$value": "{color.warmGray.450}",
-        "$description": "Tertiary text · lowest readable tier (de-emphasized metadata). scds-v2 addition. Light = warmGray.450 (AA 4.63:1 on page, 5.06:1 raised, 5.42:1 floating); dark = dark.textTertiary (AA 4.58:1 on page, 4.79:1 sunk, 4.73:1 rail). USAGE RESTRICTION: the failing surfaces DIFFER BY MODE — see $extensions.usageRestrictions. Use text.secondary there. All figures re-measured 2026-08-17 (ADR text-secondary-aa-sunk).",
+        "$description": "Tertiary text · lowest readable tier (de-emphasized metadata). scds-v2 addition. Light = warmGray.450 (AA 4.63:1 on page, 5.06:1 raised, 5.42:1 floating); dark = dark.textTertiary, re-derived 2026-09-06 (WQ-040) to #858583 — AA 5.18:1 on page, 5.42:1 sunk, 4.98:1 raised, 4.71:1 deepSunk/floating, 5.35:1 rail, clearing every dark surface including surface.raised, the default card ground. USAGE RESTRICTION: light only now — see $extensions.usageRestrictions. All figures re-measured 2026-08-17 (ADR text-secondary-aa-sunk) and 2026-09-06 (ADR brand.accentInk / dark tertiary re-derivation).",
         "$extensions": {
           "modes": {
             "light": "{color.warmGray.450}",
             "dark":  "{color.dark.textTertiary}"
           },
           "usageRestrictions": {
-            "$description": "forbiddenSurfaces is keyed BY MODE — see the note on text.secondary. The previous flat list (raised/sunk/deepSunk, both modes) was wrong in BOTH directions: it forbade surface.raised in light where the pair passes at 5.06:1, and permitted rail, hover and floating where they fail. Corrected 2026-08-17.",
+            "$description": "forbiddenSurfaces is keyed BY MODE — see the note on text.secondary. The previous flat list (raised/sunk/deepSunk, both modes) was wrong in BOTH directions: it forbade surface.raised in light where the pair passes at 5.06:1, and permitted rail, hover and floating where they fail. Corrected 2026-08-17. Dark emptied 2026-09-06 once dark.textTertiary was re-derived — every dark surface now clears AA.",
             "forbiddenSurfaces": {
               "light": ["color.surface.sunk", "color.surface.deepSunk", "color.surface.rail", "color.surface.hover"],
-              "dark": ["color.surface.raised", "color.surface.deepSunk", "color.surface.floating", "color.surface.hover"]
+              "dark": []
             },
-            "reason": "Tertiary contrast compresses below WCAG AA 4.5:1 on the compressed pairs — light: sunk 3.77:1, deepSunk/rail 2.38:1, hover 3.03:1. Dark: raised/hover 4.40:1, deepSunk/floating 4.16:1.",
+            "reason": "Tertiary contrast compresses below WCAG AA 4.5:1 on the compressed pairs — light: sunk 3.77:1, deepSunk/rail 2.38:1, hover 3.03:1. Dark (pre-2026-09-06, #7C7C7A) failed on raised/hover 4.40:1 and deepSunk/floating 4.16:1 — both cleared by the re-derivation to #858583 (WQ-040).",
             "substitute": "{color.text.secondary}"
           }
         }
@@ -412,11 +412,31 @@
       "accentDeep": {
         "$type": "color",
         "$value": "{color.teal.700}",
-        "$description": "Brand accent deep · pressed accent state and AA-passing accent text on light surfaces (5.78:1 on warmGray.100).",
+        "$description": "Brand accent deep · pressed accent state. teal.700 in both modes (5.78:1 on warmGray.100), unchanged. For accent as text, use color.brand.accentInk (added 2026-09-06, WQ-040) instead — accentDeep has no mode-following text ink: its dark value is the same teal.700, which measures only 2.59:1 on surface.raised (dark.raised1 #141414), well below AA. accentDeep stays teal.700/teal.700 because consumers depend on it as a pressed-state fill.",
         "$extensions": {
           "modes": {
             "light": "{color.teal.700}",
             "dark":  "{color.teal.700}"
+          }
+        }
+      },
+      "accentInk": {
+        "$type": "color",
+        "$value": "{color.teal.700}",
+        "$description": "Brand accent as text ink · mode-following counterpart of accentDeep's light-only text claim (added 2026-09-06, WQ-040). Light = teal.700 (AA 5.78:1 on surface.page, 6.32:1 raised, 6.77:1 floating, 4.71:1 sunk); dark = teal.400 (AA 5.84:1 on surface.page, 6.10:1 sunk, 5.61:1 raised, 5.30:1 deepSunk/floating, 6.03:1 rail) — every dark surface clears AA. USAGE RESTRICTION: light only — see $extensions.usageRestrictions.",
+        "$extensions": {
+          "modes": {
+            "light": "{color.teal.700}",
+            "dark":  "{color.teal.400}"
+          },
+          "usageRestrictions": {
+            "$description": "forbiddenSurfaces is keyed BY MODE — see the note on text.tertiary. Light fails on deepSunk/rail (both warmGray.300) and hover (warmGray.250); dark clears AA on every surface (lowest measured 5.30:1).",
+            "forbiddenSurfaces": {
+              "light": ["color.surface.deepSunk", "color.surface.rail", "color.surface.hover"],
+              "dark": []
+            },
+            "reason": "Accent-as-text compresses below WCAG AA 4.5:1 in light on the low-contrast grounds — deepSunk/rail 2.97:1, hover 3.79:1. Dark (teal.400) clears AA everywhere, lowest 5.30:1 on deepSunk/floating.",
+            "substitute": "{color.text.secondary}"
           }
         }
       },

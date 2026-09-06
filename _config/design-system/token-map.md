@@ -5,7 +5,7 @@
 # Design Token Map — The Shokunin Crafthouse · Brand Identity
 
 **Generated** from `tokens/primitives.json` + `tokens/semantic.json`.
-**Source fingerprint:** `53b91e90481f` · **158 primitives · 115 semantic tokens.**
+**Source fingerprint:** `80c881745ece` · **158 primitives · 116 semantic tokens.**
 
 > **This file is a mirror, not the source.** `tokens/*.json` is upstream; this document and the Figma
 > library are generated from / synced to it. It previously claimed the opposite — that both were
@@ -48,8 +48,8 @@ Pairs that fail WCAG AA and must not be used together. Generated from
 | Token | Mode | Forbidden surfaces | Substitute | Reason |
 |---|---|---|---|---|
 | `color/text/secondary` | light | `color/surface/deepSunk`, `color/surface/rail`, `color/surface/hover` | `color/text/primary` | Light mode: deepSunk and rail (both warmGray.300) measure 3.01:1 and hover (warmGray.250) measures 3.84:1 — all below WCAG AA 4.5:1. Dark mode clears AA on every surface (8.85:1 worst case). |
-| `color/text/tertiary` | light | `color/surface/sunk`, `color/surface/deepSunk`, `color/surface/rail`, `color/surface/hover` | `color/text/secondary` | Tertiary contrast compresses below WCAG AA 4.5:1 on the compressed pairs — light: sunk 3.77:1, deepSunk/rail 2.38:1, hover 3.03:1. Dark: raised/hover 4.40:1, deepSunk/floating 4.16:1. |
-| `color/text/tertiary` | dark | `color/surface/raised`, `color/surface/deepSunk`, `color/surface/floating`, `color/surface/hover` | `color/text/secondary` | Tertiary contrast compresses below WCAG AA 4.5:1 on the compressed pairs — light: sunk 3.77:1, deepSunk/rail 2.38:1, hover 3.03:1. Dark: raised/hover 4.40:1, deepSunk/floating 4.16:1. |
+| `color/text/tertiary` | light | `color/surface/sunk`, `color/surface/deepSunk`, `color/surface/rail`, `color/surface/hover` | `color/text/secondary` | Tertiary contrast compresses below WCAG AA 4.5:1 on the compressed pairs — light: sunk 3.77:1, deepSunk/rail 2.38:1, hover 3.03:1. Dark (pre-2026-09-06, #7C7C7A) failed on raised/hover 4.40:1 and deepSunk/floating 4.16:1 — both cleared by the re-derivation to #858583 (WQ-040). |
+| `color/brand/accentInk` | light | `color/surface/deepSunk`, `color/surface/rail`, `color/surface/hover` | `color/text/secondary` | Accent-as-text compresses below WCAG AA 4.5:1 in light on the low-contrast grounds — deepSunk/rail 2.97:1, hover 3.79:1. Dark (teal.400) clears AA everywhere, lowest 5.30:1 on deepSunk/floating. |
 
 ---
 
@@ -135,7 +135,7 @@ primitives directly. Surfaced here for traceability.
 | `color/dark/borderSubtle` | `--sc-p-color-dark-border-subtle` | `#1A1A1A` | Dark-mode subtle border · closer to page than default = less visible. |
 | `color/dark/textPrimary` | `--sc-p-color-dark-text-primary` | `#F5F5F5` | Dark-mode primary text · 17–18:1 on page/well. scds-v2 (was warm #E2DDD6). |
 | `color/dark/textSecondary` | `--sc-p-color-dark-text-secondary` | `#B9B9B7` | Dark-mode secondary text · 8.9–10.2:1 on dark grounds (AAA). scds-v2 addition (dark secondary previously aliased warmGray.400). |
-| `color/dark/textTertiary` | `--sc-p-color-dark-text-tertiary` | `#7C7C7A` | Dark-mode tertiary text · AA on page/well (4.58/4.79:1); restricted off the lighter raised surfaces (4.40:1 on raised1 < AA). scds-v2 addition. |
+| `color/dark/textTertiary` | `--sc-p-color-dark-text-tertiary` | `#858583` | Dark-mode tertiary text · re-derived 2026-09-06 (WQ-040) from #7C7C7A to clear WCAG AA on every dark surface, including surface.raised (the default card ground): 5.18:1 page, 5.42:1 well, 4.98:1 raised1, 4.71:1 raised2. |
 | `color/dark/textDisabled` | `--sc-p-color-dark-text-disabled` | `#565654` | Dark-mode disabled text · derived (fails AA by spec). scds-v2 (was warm #6B655C). |
 
 #### `color/utility`
@@ -404,7 +404,7 @@ channel-triplet primitives) rather than an alias to a single primitive.
 |---|---|---|---|---|---|---|
 | `color/text/primary` | `--sc-color-text-primary` | `color/warmGray/800` | `#1A1815` | `color/dark/textPrimary` | `#F5F5F5` | Primary text · body, headlines, strong rules. |
 | `color/text/secondary` | `--sc-color-text-secondary` | `color/warmGray/500` | `#5A5750` | `color/dark/textSecondary` | `#B9B9B7` | Secondary text · eyebrows, metadata, descriptions. |
-| `color/text/tertiary` | `--sc-color-text-tertiary` | `color/warmGray/450` | `#6B665E` | `color/dark/textTertiary` | `#7C7C7A` | Tertiary text · lowest readable tier (de-emphasized metadata). scds-v2 addition. |
+| `color/text/tertiary` | `--sc-color-text-tertiary` | `color/warmGray/450` | `#6B665E` | `color/dark/textTertiary` | `#858583` | Tertiary text · lowest readable tier (de-emphasized metadata). scds-v2 addition. |
 | `color/text/disabled` | `--sc-color-text-disabled` | `color/warmGray/400` | `#847C71` | `color/dark/textDisabled` | `#565654` | Disabled text · placeholders, ghosted controls. |
 | `color/text/onAccent` | `--sc-color-text-on-accent` | `color/utility/white` | `#FFFFFF` | `color/utility/white` | `#FFFFFF` | Text on brand/accent fills. |
 
@@ -460,7 +460,8 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
 |---|---|---|---|---|---|---|
 | `color/brand/accent` | `--sc-color-brand-accent` | `color/teal/500` | `#038E93` | `color/teal/500` | `#038E93` | Brand accent · teal kept consistent across modes for brand-mark continuity. |
-| `color/brand/accentDeep` | `--sc-color-brand-accent-deep` | `color/teal/700` | `#056268` | `color/teal/700` | `#056268` | Brand accent deep · pressed accent state and AA-passing accent text on light surfaces (5.78:1 on warmGray.100). |
+| `color/brand/accentDeep` | `--sc-color-brand-accent-deep` | `color/teal/700` | `#056268` | `color/teal/700` | `#056268` | Brand accent deep · pressed accent state. teal.700 in both modes (5.78:1 on warmGray.100), unchanged. |
+| `color/brand/accentInk` | `--sc-color-brand-accent-ink` | `color/teal/700` | `#056268` | `color/teal/400` | `#1C9DA2` | Brand accent as text ink · mode-following counterpart of accentDeep's light-only text claim (added 2026-09-06, WQ-040). |
 | `color/brand/accentFill` | `--sc-color-brand-accent-fill` | `color/teal/600` | `#04797D` | `color/teal/600` | `#04797D` | Brand accent fill · the fill for accent surfaces that carry text (primary/accent buttons). teal.600 so white text passes AA (5.20:1). brand.accent (teal.500) fails white-text AA at 3.97:1 and stays for the mark and non-text uses. |
 
 #### `color/text-on-inverse`
