@@ -14,6 +14,7 @@
   "files": [
     "dist-lib",
     "src/styles",
+    "src/swift",
     "src/fonts",
     "tokens"
   ],
@@ -21,6 +22,7 @@
     ".": "./dist-lib/index.js",
     "./styles/components.css": "./dist-lib/components.css",
     "./styles/tokens.css": "./src/styles/tokens.css",
+    "./swift/SCDSTokens.swift": "./src/swift/SCDSTokens.swift",
     "./styles/fonts.css": "./src/styles/fonts.css",
     "./styles/reset.css": "./src/styles/reset.css",
     "./tokens/primitives.json": "./tokens/primitives.json",
@@ -35,6 +37,8 @@
     "tokens:verify": "node scripts/verify-contrast.mjs",
     "tokens:map": "node scripts/gen-token-map.mjs",
     "tokens:map:check": "node scripts/gen-token-map.mjs --check",
+    "tokens:swift": "node scripts/tokens-to-swift.mjs",
+    "tokens:swift:check": "node scripts/tokens-to-swift.mjs --check",
     "dev": "npm run tokens:build && vite",
     "build": "npm run tokens:build && mkdir -p public && cp src/styles/tokens.css public/tokens.css && vite build",
     "build:lib": "npm run tokens:build && vite build --config vite.lib.config.js",
