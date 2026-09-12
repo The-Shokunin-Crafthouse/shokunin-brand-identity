@@ -4,7 +4,9 @@
  * Pill-radius control with a monospace-free NHG label and a trailing
  * arrow. Primary rests neutral (neumorphic raise) and turns teal on
  * hover — the accent is a hover state, never a resting one. Secondary is
- * an ink outline that goes teal on hover/focus; tertiary is a teal ghost.
+ * a fill-only chip on surface-sunk whose label goes teal on hover/focus
+ * (the ink outline was retired in scds-v2 Phase 2, 2026-07-27); tertiary
+ * is a teal ghost.
  *
  * `arrow` (default true) toggles the trailing arrow. `disabled` and
  * `loading` are independent of variant; loading suppresses the click
