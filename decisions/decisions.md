@@ -1205,3 +1205,90 @@ Added all three to `TEXT_TIERS`, taking check 1 from 56 to **98 pairs**. That im
 **Still open.** Rows 10–11 — no `Destructive` variant and no `Loading` state in the Figma set. Those are new component work rather than corrections, and want their own sprint including the spinner's motion spec.
 
 **Consequences.** *Easier.* Figma and code agree for the first time since Phase 2; a branded property reading either source now gets the same button. *Harder.* The library still needs a human publish for any of it to reach consumers, so until then the two sources disagree in a *new* way — file correct, published version stale. *Cost.* Two rows deferred; the Figma set still cannot express `destructive` or `loading`.
+
+---
+
+## 2026-09-11 — Swift is the third emitter off the same two token files; it raises rather than skips
+
+**Status:** Accepted
+**Consumer:** studio-pm, which is rebuilt as a native macOS app (its ADR-029) and vendors
+this output as a Swift package (its ADR-046)
+**Builds on:** the 2026-08-17 inversion that made `token-map.md` a generated mirror rather
+than a source, learning #178 (a pasted mirror needs a generator and a stamped count), #162
+(make the illegal state unrepresentable), #213 (classify by exclusion and raise), #131
+(a pin ships with its verifier), #186 (a rule whose log nobody reads is a convention)
+
+### Context
+
+A Shokunin-branded property is being built natively for the first time. It needs SCDS
+colour, type, spacing, radius, motion and shadow in Swift.
+
+The failure mode is known and this repo has already paid for it once: `token-map.md`
+drifted for about three months while it was hand-maintained, which is why its staleness is
+now a build failure. A hand-transcribed Swift token set would be the same defect in a
+language nothing here compiles.
+
+### Decision
+
+**`scripts/tokens-to-swift.mjs`, a third sibling beside `tokens-to-css.mjs` and
+`gen-token-map.mjs`.** Same two inputs, no new source. It emits
+`src/swift/SCDSTokens.swift`, which is committed and checked.
+
+Four rules the generator holds, each of which is a rule this repo already keeps elsewhere:
+
+1. **Semantic tokens only.** Primitives are resolved through during generation and never
+   emitted. A primitive reachable from view code is the same defect as a raw hex, one
+   level of indirection later — the Sprint 4 contract's rule, enforced by a language
+   boundary rather than by review.
+2. **It raises rather than skips.** An unknown `$type`, an unresolvable alias, a duplicate
+   symbol, a font weight with no SCDS weight name behind it, a colour in an unrecognised
+   form, a shadow layer the parser cannot read — every one stops the build. A generator
+   that skips what it does not recognise reports its own ignorance as success (#213).
+3. **Typography travels whole.** The emitted type carries family, size, weight,
+   line-height and tracking together, and exposes no way to take a size without them. It
+   has no `font` property either: `font(relativeTo:)` requires a system text style,
+   because the scaling anchor is the consuming app's call and SCDS does not hold it.
+4. **The stamp carries no wall-clock time.** It carries both source hashes, both
+   `$metadata.version` values, the tokens' own `generated` date, and the token count. A
+   generated-at timestamp would make every drift check report drift, which disables the
+   check that gives a stamp its value (#131).
+
+**`tokens:swift:check` joins `tokens:map:check` in `pr-check.yml`.** A drift check with no
+reader is a convention (#186), and a native consumer cannot see a CSS build break.
+
+### What the CSS emitter carries that Swift cannot
+
+Recorded rather than discovered later by whoever needs one:
+
+- **Inset shadows and spread radii.** `shadow.control.inset` is two inset layers, one with
+  a spread. SwiftUI's `.shadow` draws a plain outer shadow only. Both values are **carried
+  on the layer** rather than dropped or faked: `scdsShadow(_:)` refuses to draw them and
+  `needsExplicitBuild` says so before a consumer reaches for the modifier. A silent skip
+  would be an invisible lie and drawing an inset layer outside would be a visible one.
+- **Channel-triplet compositions** (`rgb(var(--sc-p-color-ink-rgb) / 0.06)`) resolve at
+  generation to literal channels plus an alpha, because Swift has no cascade to resolve
+  them in. The triplet primitives stay unemitted; only the resolved result ships.
+
+### Consequences
+
+**Easier.** A native consumer gets the design system by building, not by transcribing, and
+a token rename breaks its compile inside the change that renamed it.
+
+**Harder.** A third emitter is a third thing that must keep passing. The upkeep clause
+(#199): the generator walks the DTCG tree, so a **new** token appears with no edit and only
+a **removed or renamed** one can break it — which surfaces in CI, in the same PR.
+
+**Cost.** Every future token whose `$type` this generator has no rule for fails the build
+rather than being skipped. That is the intent, and it will occasionally be inconvenient.
+
+### Raised, not acted on
+
+**The dark surface ramp is neutral, not warm.** `color.dark.surfacePage` is `#0F0F0F`,
+`floor` `#0A0A0A`, and `raised1`–`raised5` are pure greys. Only `well` (`#080807`) carries
+any warmth. Studio learning #11 anchors a dark base warm (`#0D0C0B`) specifically because
+near-black neutrals cast on wide-gamut Chrome, and studio-pm's own colour spec describes
+SCDS's dark page as "a warm near-black", which it is not.
+
+This is an observation from reading the values, not a decision. Changing a dark ramp is a
+brand-direction call and it repaints every consumer, so it is logged here for Levi rather
+than acted on inside a generator PR.

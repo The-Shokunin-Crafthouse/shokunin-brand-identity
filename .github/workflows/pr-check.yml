@@ -29,5 +29,11 @@ jobs:
       - name: Verify token-map is current
         run: npm run tokens:map:check
 
+      # SCDSTokens.swift is generated from the same tokens/*.json. Same reason
+      # as the line above: a generated file nothing checks is a to-do wearing a
+      # guarantee's costume, and native consumers cannot see a CSS build break.
+      - name: Verify SCDSTokens.swift is current
+        run: npm run tokens:swift:check
+
       - name: Build
         run: npm run build
