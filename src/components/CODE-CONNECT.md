@@ -32,7 +32,7 @@ value that names a variant on neither side. Corrected in `Button.figma.tsx`.
 
 Two code props have no Figma counterpart: `variant="destructive"` (no Destructive
 variant in the set) and `loading` (no Loading state). Both are unmapped and
-tracked in "Known Figma-side gaps" below.
+tracked in "Figma-side drift" below (rows 10-11).
 
 The remaining SCDS React primitives still have **no 1:1 published Figma masters**.
 The brand file `ufNlysCwWz7y2FBk61DxbN` holds doc/specimen components and a
@@ -72,31 +72,47 @@ Author the rest one at a time against confirmed Figma masters — do not bulk-au
 blind. Copy the `Button.figma.tsx` shape: map `figma.enum` for variant props,
 `figma.boolean` for flags, `figma.string`/`figma.children` for content.
 
-## Known Figma-side gaps — Button (`0zVoxaLJQkjHENYJlQk1VT` → `9:438`)
+## Figma-side drift — Button (`0zVoxaLJQkjHENYJlQk1VT` → `9:438`)
 
 Found by the 2026-09-11 authenticated compare of the library component against
-`Button.tokens.md` / `Button.module.css`. **Code is current; the Figma master is
-behind.** Each row is a Figma-side edit, not a code change.
+`Button.tokens.md` / `Button.module.css`. **Code was current; the Figma master was
+behind.** Rows 1–9 and 12 were **applied to Figma on 2026-09-11** and verified
+15/15 against the spec. Rows 10–11 remain open.
 
-| # | Figma today | Should be (per `Button.tokens.md`) | Nodes |
+### Applied ✅
+
+| # | Figma was | Now (per `Button.tokens.md`) | Nodes |
 | --- | --- | --- | --- |
-| 1 | Secondary = ink stroke `color/interactive/default`, no fill | Fill-only chip: `color/surface/sunk` fill, `color/text/primary` label, **no stroke** | `9:455` + label `9:456` |
-| 2 | Secondary Hover/Focus/Active = teal stroke, no fill | `color/surface/hover` fill, no stroke (labels already correct) | `9:458`, `9:461`, `9:465` |
-| 3 | Secondary Disabled = `color/border/default` stroke, no fill | `color/surface/sunk` fill, transparent border | `9:468` |
-| 4 | Primary Disabled = `color/border/default` stroke, no fill | `color/surface/sunk` fill, transparent border | `9:452` |
+| 1 | Secondary = ink stroke `color/interactive/default`, no fill | Fill-only chip: `color/surface/sunk` fill, `color/text/primary` label, no stroke | `9:455` + label `9:456` |
+| 2 | Secondary Hover/Focus/Active = teal stroke, no fill | `color/surface/hover` fill, no stroke | `9:458`, `9:461`, `9:465` |
+| 3 | Secondary Disabled = `color/border/default` stroke, no fill | `color/surface/sunk` fill, no stroke | `9:468` |
+| 4 | Primary Disabled = `color/border/default` stroke, no fill | `color/surface/sunk` fill, no stroke | `9:452` |
 | 5 | Tertiary Disabled = no fill | `color/surface/sunk` fill (`.button:disabled` is cross-variant) | `9:484` |
-| 6 | Primary Focus = `brand/accentFill` (hover) fill | Resting `surface/raised` + focus ring only — the accent is a hover state | `9:445` |
-| 7 | Tertiary Focus label = `interactive/hover` | Resting `brand/accentDeep` + focus ring only | `9:478` |
-| 8 | Label text style = **Cascadia Mono SemiBold 11** (`S:09dbbe27…`) | `font.text.label.chrome` — NHG Text medium 11/500. Owner chose NHG over the mock's placeholder mono (decisions, 2026-07-09) | every `Button` TEXT child |
-| 9 | Secondary Default/Disabled bind the **primitive** `space/16` for inline padding | Semantic `space/component/padding-inline/lg` (same value, wrong tier) | `9:455`, `9:468` |
-| 10 | No `Destructive` variant option | Code ships `variant="destructive"` | set `9:438` |
-| 11 | No `Loading` state option | Code ships `loading` (spinner replaces the arrow) | set `9:438` |
+| 6 | Primary Focus = `brand/accentFill` fill + white ink | Resting `surface/raised` + `text/primary`; the `focus-ring` child carries the ring | `9:445`, `9:446` |
+| 7 | Tertiary Focus ink = `interactive/hover` | Resting `brand/accentDeep` + ring | `9:478` |
+| 8 | Label text style = **Cascadia Mono SemiBold 11** (`text/mono/chrome`) | `text/label/chrome` — NHG Text 65 Medium 11. Owner chose NHG over the mock's placeholder mono (decisions, 2026-07-09) | all 15 label nodes |
+| 9 | Secondary Default/Disabled bound the **primitive** `space/16` for inline padding | Semantic `space/component/padding-inline/lg` | `9:455`, `9:468` |
+| 12 | Arrow bound a **different token from its own label** in 8 states — Secondary Hover/Focus drew `#056268` against a `#038e93` label, and Primary Hover/Active bound the raw primitive `color/warmGray/25` | Arrow binds its label's token everywhere. The code arrow is `currentColor`, so arrow and label can never diverge; Figma could, and did | 16 arrow vectors |
 
-Rows 1–7 and 9 are **corrections** — transcriptions of an already-approved
-decision (scds-v2 Phase 2, `decisions/decisions.md` 2026-07-27) into Figma.
-Row 8 needs NHG Text loadable by the Figma MCP (`loadFontAsync` has failed for
-the brand faces before — see `LEARNINGS.md`). Rows 10–11 are **new component
-work**, not corrections, and want their own sprint.
+Row 12 was not in the original report — it surfaced only once the arrow instances
+were read. Two of its eight states were a visible colour mismatch, not a tiering nit.
+
+### Still open ☐
+
+| # | Gap | Why it is not a correction |
+| --- | --- | --- |
+| 10 | No `Destructive` variant option; code ships `variant="destructive"` | New component work — a variant that has never existed in Figma, not a drifted one |
+| 11 | No `Loading` state option; code ships `loading` (spinner replaces the arrow) | Same — wants its own sprint, including the spinner's motion spec |
+
+### Verification
+
+A read-back asserted each of the 15 variants' fill, stroke, label token, arrow
+token, font and focus-ring presence against a table transcribed from
+`Button.tokens.md`: **15 PASS / 0 FAIL**.
+
+**The library was not published.** The edits are in the file; consumers keep seeing
+the old component until someone publishes the library from the Figma UI. That
+step is deliberately left to a human.
 
 ## Publishing — BLOCKED (plan-gated)
 

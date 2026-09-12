@@ -1180,3 +1180,28 @@ Added all three to `TEXT_TIERS`, taking check 1 from 56 to **98 pairs**. That im
 **A resting-accent primary is not wanted, and nothing is actually asking for one.** The premise that studio-pm requested one is stale by one revision. ADR-041's own same-day correction withdraws it: *"the accent is a hover state, so a resting teal control is not available without changing SCDS … If Levi wants a resting teal control, that is an SCDS change, not a studio-pm deviation."* studio-pm now follows the rule and lists the four legitimate homes for teal on its board. WQ-055 is a **different** conflict — the slop blocklist versus the pill and the arrow — and says nothing about resting accent. So: **no**, absent a new brand-direction call from Levi. The rule is load-bearing rather than decorative — it is what makes hover legible as *the thing that acts*, and it is why `tertiary` exists as the one persistent teal.
 
 **Consequences.** *Easier.* The upstream question closes with a node-level list instead of a screenshot disagreement, and the Code Connect mapping stops naming a file, a node, and a variant that never existed. *Harder.* The Figma master stays wrong until a writable session lands rows 1–7 and 9; every branded property reading Figma rather than code keeps seeing an outlined secondary until then. *Cost.* Eight of eleven rows are still open.
+
+---
+
+## 2026-09-11 — Button: the Figma master is brought onto the code spec (ten of twelve drift rows applied)
+
+**Stage:** 02-design → 03-build (scds-v2 follow-up)
+**Type:** UX / design tradeoff
+**Status:** accepted
+**Amends:** the entry immediately above (2026-09-11, "the Figma library is the stale side"), which recorded the Figma edit as blocked.
+
+**Context.** The preceding entry settled *which side was stale* — code — and left the Figma correction unapplied because this session's permission classifier refused the `use_figma` write. Levi authorised the write directly. It was retried and succeeded.
+
+**Decision.** Rows 1–9 of that entry's drift table are applied to the SCDS library master (`0zVoxaLJQkjHENYJlQk1VT`, page `24:3`, set `9:438`). Secondary is now a fill-only chip in all five states; all three disabled variants take the `surface/sunk` fill and lose their stroke frame; Primary and Tertiary Focus revert to their resting colour with only the `focus-ring` child carrying the ring; every label moved off the retired Cascadia Mono `text/mono/chrome` onto `text/label/chrome` (NHG Text 65 Medium 11); Secondary's inline padding moved from the primitive `space/16` to the semantic `space/component/padding-inline/lg`. None of this is a new design call — each row transcribes the already-approved scds-v2 Phase 2 decision (this log, 2026-07-27) and the 2026-07-09 NHG-over-mono choice.
+
+**Row 8 was mis-scoped as blocked.** The prior entry held the font swap back on the recollection that the Figma MCP cannot load the brand faces. That recollection is about *authoring* TextStyles. `Haas Grot Text Trial 65 Medium` loads fine and the `text/label/chrome` style already existed, so **applying** it was never blocked. The memory note has been corrected. Learning #45's shape: a remembered failure at one layer was read as a constraint at another.
+
+**A twelfth row surfaced during the fix.** The arrow is not `currentColor` in Figma — it is two stroked vectors overridden per variant, and in eight states they bound a *different* token from the label beside them. Two of those were a visible mismatch: Secondary Hover and Focus drew a `#056268` arrow against a `#038e93` label. Primary Hover and Active bound `color/warmGray/25` — a raw primitive — where the label bound `text/onAccent`. All sixteen vectors now bind their own label's token. The code cannot express this defect (`currentColor` makes arrow and label the same value by construction), which is exactly why nobody caught it: the drift had no code-side counterpart to disagree with.
+
+**Verification.** A read-back asserted fill, stroke, label token, arrow token, font and focus-ring presence for each of the 15 variants against a table transcribed from `Button.tokens.md`: **15 PASS / 0 FAIL**.
+
+**Deliberately not done — publishing the library.** The edits sit in the file. Consumers (`client-portal`, `studio-pm`, every branded property) keep resolving the old component until the library is published from the Figma UI. Publishing is the outward-facing step and is left to Levi.
+
+**Still open.** Rows 10–11 — no `Destructive` variant and no `Loading` state in the Figma set. Those are new component work rather than corrections, and want their own sprint including the spinner's motion spec.
+
+**Consequences.** *Easier.* Figma and code agree for the first time since Phase 2; a branded property reading either source now gets the same button. *Harder.* The library still needs a human publish for any of it to reach consumers, so until then the two sources disagree in a *new* way — file correct, published version stale. *Cost.* Two rows deferred; the Figma set still cannot express `destructive` or `loading`.
