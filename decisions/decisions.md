@@ -1155,3 +1155,28 @@ Added all three to `TEXT_TIERS`, taking check 1 from 56 to **98 pairs**. That im
 - **Declare `surface.raised` forbidden for the inks in dark.** Rejected for the reason WQ-040 rejected it a day earlier: `surface.raised` is the default card ground. A status tier that cannot render on a card is not a status tier.
 - **Add the inks to `TEXT_TIERS` without re-deriving, and restrict what fails.** Rejected — it would encode the defect as policy. The restriction list is for surfaces a hue genuinely cannot serve, not for the ones it happens to fail today.
 - **Re-derive against `dark.surfacePage` only, matching how the values were originally tuned.** Rejected: that is the practice that produced the bug. A tier is tuned against the tightest ground it is permitted on, not the loosest.
+
+---
+
+## 2026-09-11 — Button: the Figma library is the stale side; code stands, and the drift list goes back to Figma
+
+**Stage:** 02-design → 03-build (scds-v2 follow-up)
+**Type:** UX / design tradeoff
+**Status:** accepted
+
+**Context.** studio-pm's ADR-041 flagged upstream that its reference screenshot showed an **outlined** secondary button while `Button.tokens.md` records that outline as retired — "scds-v2 Phase 2 — was an ink outline" — and asked this repo to settle it via Code Connect. Two claims in that ask did not survive contact:
+
+1. **Code Connect could not perform the comparison.** `Button.figma.tsx` pointed at `ufNlysCwWz7y2FBk61DxbN` (the *brand* file) with the placeholder `node-id=0-1`, guessed property names, and a `Ghost` enum value that names a variant on **neither** side — `Button.jsx` `VARIANTS` is `primary | secondary | tertiary | destructive`, so a `Ghost` selection would have silently rendered `primary`. Publish is also still plan-gated: `code_connect:write` is Org/Enterprise-only and this account is Professional (re-confirmed 2026-09-11, MCP `whoami` → plan "Studio", tier `pro`).
+2. **The Figma MCP is not unauthenticated.** ADR-041 recorded it as unauthenticated and derived its values from tokens instead. It authenticates from this session, so the compare was done by direct read rather than inference.
+
+**Decision — code is current, Figma is stale.** The fill-only secondary is an approved, merged decision (this log, 2026-07-27, "SCDS v2 Phase 2: fill-only elevation"): *"Button — `secondary` ink outline → fill-only chip (`surface-sunk` rest, ink label AA; `surface-hover` + teal label on hover/focus …)"*. `Button.module.css` and `Button.tokens.md` implement it. The Figma master — SCDS library file `0zVoxaLJQkjHENYJlQk1VT`, page `24:3`, component set `9:438` — never received Phase 2 and still strokes every secondary state. **Nothing in the code changes.**
+
+**What the compare actually found.** Eleven drift rows, not one. Beyond the reported secondary outline: disabled strokes on all three variants, a Focus state modelled as "hover + ring" (correct for secondary only — the accent is a hover state, so primary and tertiary focus must rest), a label still set in **Cascadia Mono SemiBold 11** when the owner chose NHG per spec (this log, 2026-07-09), a primitive `space/16` binding where the semantic `space/component/padding-inline/lg` belongs, and no `Destructive` variant or `Loading` state at all. The full table with node ids is in `src/components/CODE-CONNECT.md` → "Known Figma-side gaps".
+
+**Landed here.** (1) `Button.figma.tsx` repointed at the real file + node with the component set's real properties (`Variant`, `State`, `Label`, `Show Icon`, `Icon`); `destructive` and `loading` left explicitly unmapped because Figma has no counterpart. (2) `Button.jsx`'s docblock still described secondary as "an ink outline" — the same stale sentence, in code, one file from the CSS that contradicts it. Corrected. (3) `CODE-CONNECT.md` records Button's Figma side as confirmed and carries the drift table.
+
+**Blocked — the Figma edit itself.** The `use_figma` write was refused by this session's permission classifier, so rows 1–7 and 9 are **not** applied. They are transcriptions of an already-approved decision, so they need no further design call — only a session that can write. Row 8 additionally needs NHG Text loadable by the MCP (`loadFontAsync` has failed for the brand faces before). Rows 10–11 (Destructive, Loading) are new component work and want their own sprint, not a correction pass.
+
+**A resting-accent primary is not wanted, and nothing is actually asking for one.** The premise that studio-pm requested one is stale by one revision. ADR-041's own same-day correction withdraws it: *"the accent is a hover state, so a resting teal control is not available without changing SCDS … If Levi wants a resting teal control, that is an SCDS change, not a studio-pm deviation."* studio-pm now follows the rule and lists the four legitimate homes for teal on its board. WQ-055 is a **different** conflict — the slop blocklist versus the pill and the arrow — and says nothing about resting accent. So: **no**, absent a new brand-direction call from Levi. The rule is load-bearing rather than decorative — it is what makes hover legible as *the thing that acts*, and it is why `tertiary` exists as the one persistent teal.
+
+**Consequences.** *Easier.* The upstream question closes with a node-level list instead of a screenshot disagreement, and the Code Connect mapping stops naming a file, a node, and a variant that never existed. *Harder.* The Figma master stays wrong until a writable session lands rows 1–7 and 9; every branded property reading Figma rather than code keeps seeing an outlined secondary until then. *Cost.* Eight of eleven rows are still open.

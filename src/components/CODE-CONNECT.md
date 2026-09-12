@@ -20,12 +20,24 @@ npm run figma:parse     # local dry check — validates mappings, no token, no n
 npm run figma:publish   # BLOCKED (plan-gated) — needs an Org/Enterprise token. See "Publishing"
 ```
 
-## ⚠️ Figma side is not confirmed yet
+## ⚠️ Figma side — Button confirmed, the rest are not
 
-The SCDS React primitives currently have **no 1:1 published Figma masters**. The
-SCDS Figma file (`ufNlysCwWz7y2FBk61DxbN`) holds doc/specimen components and a
+**Button is confirmed** (2026-09-11). Its Figma master is in the **SCDS library
+file `0zVoxaLJQkjHENYJlQk1VT`**, page `24:3` → component set `9:438`, with
+properties `Variant` (Primary | Secondary | Tertiary), `State` (Default | Hover |
+Focus | Active | Disabled), `Label`, `Show Icon`, `Icon`. The original mapping
+pointed at the wrong file (`ufNlysCwWz7y2FBk61DxbN`, the *brand* file) with a
+placeholder `node-id=0-1` and guessed property names — including a `Ghost` enum
+value that names a variant on neither side. Corrected in `Button.figma.tsx`.
+
+Two code props have no Figma counterpart: `variant="destructive"` (no Destructive
+variant in the set) and `loading` (no Loading state). Both are unmapped and
+tracked in "Known Figma-side gaps" below.
+
+The remaining SCDS React primitives still have **no 1:1 published Figma masters**.
+The brand file `ufNlysCwWz7y2FBk61DxbN` holds doc/specimen components and a
 portal-kit (`UI/*`, `Portal/*`, `Admin/*`) on **different variant axes** than
-these components. So every mapping below needs its Figma side confirmed before
+these components. So every other mapping needs its Figma side confirmed before
 it will resolve on publish:
 
 1. Create (or locate) the matching component in Figma.
@@ -42,7 +54,7 @@ that needs the real node URLs.
 
 | Component | Mapping file | Status |
 | --- | --- | --- |
-| Button | `Button/Button.figma.tsx` | ✅ code wired 1:1 · ⚠️ Figma node-id + prop names TODO |
+| Button | `Button/Button.figma.tsx` | ✅ code wired 1:1 · ✅ Figma node-id + prop names confirmed (2026-09-11) · publish still plan-gated |
 | Alert | — | ☐ TODO |
 | Avatar | — | ☐ TODO |
 | Badge | — | ☐ TODO |
@@ -59,6 +71,32 @@ that needs the real node URLs.
 Author the rest one at a time against confirmed Figma masters — do not bulk-author
 blind. Copy the `Button.figma.tsx` shape: map `figma.enum` for variant props,
 `figma.boolean` for flags, `figma.string`/`figma.children` for content.
+
+## Known Figma-side gaps — Button (`0zVoxaLJQkjHENYJlQk1VT` → `9:438`)
+
+Found by the 2026-09-11 authenticated compare of the library component against
+`Button.tokens.md` / `Button.module.css`. **Code is current; the Figma master is
+behind.** Each row is a Figma-side edit, not a code change.
+
+| # | Figma today | Should be (per `Button.tokens.md`) | Nodes |
+| --- | --- | --- | --- |
+| 1 | Secondary = ink stroke `color/interactive/default`, no fill | Fill-only chip: `color/surface/sunk` fill, `color/text/primary` label, **no stroke** | `9:455` + label `9:456` |
+| 2 | Secondary Hover/Focus/Active = teal stroke, no fill | `color/surface/hover` fill, no stroke (labels already correct) | `9:458`, `9:461`, `9:465` |
+| 3 | Secondary Disabled = `color/border/default` stroke, no fill | `color/surface/sunk` fill, transparent border | `9:468` |
+| 4 | Primary Disabled = `color/border/default` stroke, no fill | `color/surface/sunk` fill, transparent border | `9:452` |
+| 5 | Tertiary Disabled = no fill | `color/surface/sunk` fill (`.button:disabled` is cross-variant) | `9:484` |
+| 6 | Primary Focus = `brand/accentFill` (hover) fill | Resting `surface/raised` + focus ring only — the accent is a hover state | `9:445` |
+| 7 | Tertiary Focus label = `interactive/hover` | Resting `brand/accentDeep` + focus ring only | `9:478` |
+| 8 | Label text style = **Cascadia Mono SemiBold 11** (`S:09dbbe27…`) | `font.text.label.chrome` — NHG Text medium 11/500. Owner chose NHG over the mock's placeholder mono (decisions, 2026-07-09) | every `Button` TEXT child |
+| 9 | Secondary Default/Disabled bind the **primitive** `space/16` for inline padding | Semantic `space/component/padding-inline/lg` (same value, wrong tier) | `9:455`, `9:468` |
+| 10 | No `Destructive` variant option | Code ships `variant="destructive"` | set `9:438` |
+| 11 | No `Loading` state option | Code ships `loading` (spinner replaces the arrow) | set `9:438` |
+
+Rows 1–7 and 9 are **corrections** — transcriptions of an already-approved
+decision (scds-v2 Phase 2, `decisions/decisions.md` 2026-07-27) into Figma.
+Row 8 needs NHG Text loadable by the Figma MCP (`loadFontAsync` has failed for
+the brand faces before — see `LEARNINGS.md`). Rows 10–11 are **new component
+work**, not corrections, and want their own sprint.
 
 ## Publishing — BLOCKED (plan-gated)
 
