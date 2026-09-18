@@ -1,0 +1,76 @@
+node	page	frame	printed	documents	binding
+129:9	Color	Tile 25#129:7	FBF9F6	color/warmGray/25	swatch-bound
+129:13	Color	Tile 50#129:11	F4F1ED	color/warmGray/50	swatch-bound
+129:17	Color	Tile 100#129:15	EBE7E4	color/warmGray/100	swatch-bound
+129:21	Color	Tile 200#129:19	D9D6D2	color/warmGray/200	swatch-bound
+129:25	Color	Tile 250#129:23	D5D2CF	color/warmGray/250	swatch-bound
+129:29	Color	Tile 300#129:27	CDCAC7	color/warmGray/300	swatch-bound
+129:33	Color	Tile 350#129:31	C5C2BF	color/warmGray/350	swatch-bound
+129:38	Color	Tile 400#129:36	9A9388	color/warmGray/400	swatch-bound
+129:42	Color	Tile 450#129:40	6B665E	color/warmGray/450	swatch-bound
+129:46	Color	Tile 500#129:44	5F5C55	color/warmGray/500	swatch-bound
+129:50	Color	Tile 600#129:48	484640	color/warmGray/600	swatch-bound
+129:54	Color	Tile 700#129:52	312F2A	color/warmGray/700	swatch-bound
+129:58	Color	Tile 800#129:56	1A1815	color/warmGray/800	swatch-bound
+129:62	Color	Tile 900#129:60	0D0C0B	color/warmGray/900	swatch-bound
+129:2068	Color	Tile 50#129:2066	E7F4F5	color/teal/50	swatch-bound
+129:2072	Color	Tile 100#129:2070	C4E7E8	color/teal/100	swatch-bound
+129:2076	Color	Tile 200#129:2074	8FD2D5	color/teal/200	swatch-bound
+129:2080	Color	Tile 300#129:2078	52B8BC	color/teal/300	swatch-bound
+129:2084	Color	Tile 400#129:2082	1C9DA2	color/teal/400	swatch-bound
+129:2089	Color	Tile 500#129:2087	038E93	color/teal/500	swatch-bound
+129:2093	Color	Tile 600#129:2091	04797D	color/teal/600	swatch-bound
+129:2097	Color	Tile 700#129:2095	056268	color/teal/700	swatch-bound
+129:2101	Color	Tile 800#129:2099	05484C	color/teal/800	swatch-bound
+129:2105	Color	Tile 900#129:2103	05282B	color/teal/900	swatch-bound
+130:8	Color	Tile Well#130:6	080807	color/dark/well	swatch-bound
+130:12	Color	Tile Floor#130:10	0A0A0A	color/dark/floor	swatch-bound
+130:16	Color	Tile Surface Page#130:14	0F0F0F	color/dark/surfacePage	swatch-bound
+130:20	Color	Tile Raised 1#130:18	141414	color/dark/raised1	swatch-bound
+130:24	Color	Tile Raised 2#130:22	1A1A1A	color/dark/raised2	swatch-bound
+130:28	Color	Tile Raised 3#130:26	212121	color/dark/raised3	swatch-bound
+130:32	Color	Tile Raised 4#130:30	2A2A2A	color/dark/raised4	swatch-bound
+130:37	Color	Tile Raised 5#130:35	333333	color/dark/raised5	swatch-bound
+130:41	Color	Tile Border#130:39	2A2A2A	color/dark/border	swatch-bound
+130:45	Color	Tile Border Subtle#130:43	1A1A1A	color/dark/borderSubtle	swatch-bound
+130:49	Color	Tile Text Primary#130:47	F5F5F5	color/dark/textPrimary	swatch-bound
+130:53	Color	Tile Text Secondary#130:51	B9B9B7	color/dark/textSecondary	swatch-bound
+130:57	Color	Tile Text Tertiary#130:55	7C7C7A	color/dark/textTertiary	swatch-bound
+130:61	Color	Tile Text Disabled#130:59	565654	color/dark/textDisabled	swatch-bound
+132:2058	Color	Tile Live#132:2055	C8281C	color/signal/live	swatch-bound
+132:2063	Color	Tile Live Bright#132:2060	DA5C4D	color/signal/liveBright	swatch-bound
+132:2068	Color	Tile Progress#132:2065	FBFF00	color/signal/progress	swatch-bound
+I132:5;84:10	Color	StatusTile Success#132:5	L 2F855A	color/status/success/light	swatch-bound
+I132:5;84:13	Color	StatusTile Success#132:5	D 388F63	color/status/success/dark	swatch-bound-to-LIGHT-only
+I132:17;84:10	Color	StatusTile Warning#132:17	L C2410C	color/status/warning/light	swatch-bound
+I132:17;84:13	Color	StatusTile Warning#132:17	D C94E28	color/status/warning/dark	swatch-bound-to-LIGHT-only
+I132:29;84:10	Color	StatusTile Info#132:29	L 2D5AD8	color/status/info/light	swatch-bound
+I132:29;84:13	Color	StatusTile Info#132:29	D 3866E8	color/status/info/dark	swatch-bound-to-LIGHT-only
+I132:41;84:10	Color	StatusTile Error#132:41	L 7F1D1D	color/status/error/light	swatch-HARD-SET
+I132:41;84:13	Color	StatusTile Error#132:41	D 732020	color/status/error/dark	swatch-HARD-SET
+84:10	Color	StatusTile MASTER#9:409	L 2F855A	color/status/success/light	swatch-HARD-SET
+84:13	Color	StatusTile MASTER#9:409	D 6EE7B7	color/status/success/dark	swatch-HARD-SET
+218:276	Space	Frame#218:276	space/4 4px	space/4	unbound
+218:279	Space	Frame#218:279	space/8 8px	space/8	unbound
+218:282	Space	Frame#218:282	space/12 12px	space/12	unbound
+218:285	Space	Frame#218:285	space/16 16px	space/16	unbound
+218:288	Space	Frame#218:288	space/24 24px	space/24	unbound
+218:291	Space	Frame#218:291	space/32 32px	space/32	unbound
+218:294	Space	Frame#218:294	space/48 48px	space/48	unbound
+218:297	Space	Frame#218:297	space/64 64px	space/64	unbound
+218:300	Space	Frame#218:300	space/80 80px	space/80	unbound
+218:303	Space	Frame#218:303	space/96 96px	space/96	unbound
+218:306	Space	Frame#218:306	space/120 120px	space/120	unbound
+218:311	Space	Frame#218:311	space/micro/2 2px	space/micro/2	unbound
+218:314	Space	Frame#218:314	space/micro/6 6px	space/micro/6	unbound
+218:317	Space	Frame#218:317	space/micro/10 10px	space/micro/10	unbound
+218:320	Space	Frame#218:320	space/micro/14 14px	space/micro/14	unbound
+218:323	Space	Frame#218:323	space/micro/18 18px	space/micro/18	unbound
+218:326	Space	Frame#218:326	space/micro/22 22px	space/micro/22	unbound
+218:334	Motion	Frame#218:334	160	motion/duration/press	unbound
+218:338	Motion	Frame#218:338	220	motion/duration/pressRelease	unbound
+218:342	Motion	Frame#218:342	200	motion/duration/micro	unbound
+218:346	Motion	Frame#218:346	380	motion/duration/standard	unbound
+218:350	Motion	Frame#218:350	720	motion/duration/orchestrated	unbound
+218:356	Motion	Frame#218:356	0.985	motion/scale/pressButton	unbound
+218:360	Motion	Frame#218:360	0.92	motion/scale/pressTap	unbound
