@@ -1,0 +1,30 @@
+{
+  "fill" : {
+    "solid" : "srgb:0.01176,0.55686,0.57647,1.00000"
+  },
+  "groups" : [
+    {
+      "layers" : [
+        {
+          "glass" : true,
+          "image-name" : "26405813-96e9-44c8-b76d-7fd1ea68a172.jpeg",
+          "name" : "26405813-96e9-44c8-b76d-7fd1ea68a172"
+        }
+      ],
+      "shadow" : {
+        "kind" : "neutral",
+        "opacity" : 0.5
+      },
+      "translucency" : {
+        "enabled" : true,
+        "value" : 0.5
+      }
+    }
+  ],
+  "supported-platforms" : {
+    "circles" : [
+      "watchOS"
+    ],
+    "squares" : "shared"
+  }
+}
