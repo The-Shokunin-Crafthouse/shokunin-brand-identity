@@ -43,3 +43,24 @@ Owner chose **Hold** when asked: the hue split that mainly justified the 3-mode 
 
 ## Not touched
 - `text-on-inverse`/`surface-inverse` code-side rename (deliberately deferred, see above).
+
+---
+
+# SESSION-RESUME — SCDS Figma/site token parity pass
+
+Separate job from the pipeline above (`CC-PROMPT-figma-site-token-parity.md`).
+Started 2026-09-18 on `chore/figma-site-token-parity`.
+Stamp: `primitives a3d48b48b21c1e8a` · `semantic 662130988070cb6a`.
+
+| phase | state | evidence |
+|---|---|---|
+| 0 — preflight | ✅ done | `main` clean + pulled, primary checkout; branch cut with an empty commit (#239); `tokens:build` / `tokens:verify` / `tokens:swift:check` all exit 0 |
+| 1 — Figma VARIABLES vs `tokens/` | ✅ done | `output/parity/figma-variables.md` — 391 rows (= the emitters' token×mode count). match 298 · figma-stale 7 · json-stale 0 · missing-in-figma 82 · missing-in-json 0 · documented-exception 4 |
+| 2 — Figma SCREENS vs the variables | ✅ done | `output/parity/figma-screens.md` — all 44 pages enumerated; 75 value captions (8 stale), 60 alias captions (4 stale), 5 printed contrast claims (0 supported), 0 of 75 captions bound |
+| GATE 1 | ⏸ **WAITING ON LEVI** | `output/parity/README.md` §4. 4a/4b/4c/4d ready to apply; **4e (contrast claims) is blocking** |
+| 3 — the SITE vs `tokens/` | ✅ done | `output/parity/site.md` — live `tokens.css` byte-identical to the build; 22/22 routes read live; 0 literals in `src/`; 13/13 of the Figma-stale tokens correct on the live site |
+| 4 — apply | ⬜ not started | gated on Gate 1. Site step is a no-op; `tokens/` step has no rows |
+| GATE 2 | ⬜ n/a unless Gate 1 rules a `tokens/` row | no site change is proposed, so there is nothing to re-verify post-deploy |
+
+**Resume point:** Gate 1. Read `output/parity/README.md` §4, then apply 4a → 4b → 4c → 4d
+in that order, re-reading each write (#45). Do not merge (ADR-018/029).

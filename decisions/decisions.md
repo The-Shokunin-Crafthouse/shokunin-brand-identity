@@ -1292,3 +1292,40 @@ SCDS's dark page as "a warm near-black", which it is not.
 This is an observation from reading the values, not a decision. Changing a dark ramp is a
 brand-direction call and it repaints every consumer, so it is logged here for Levi rather
 than acted on inside a generator PR.
+
+## 2026-09-23 — `Button.jsx`'s `arrow=true` default is kept as an intentional exception to the slop blocklist, for now
+
+**Stage:** n/a (studio-memory COO audit response, not a build sprint)
+**Type:** Product / brand-direction call
+**Status:** accepted — intentional, temporary exception (not a rule change)
+
+**Context.** The 2026-09-23 COO audit (Flag item 13; carried from 09-14, tracked as WQ-055)
+found that `Button.jsx` defaults `arrow=true`, shipping the trailing-arrow CTA pattern
+`slop-blocklist.md` names as a banned AI-editorial default, on every branded Button
+instance studio-wide. The packet (`coo.notify-fork-wq055-scds-arrow-2345-2026-09-11`) had
+sat parked 12 days; the pill half of the originally-flagged conflict does not hold up
+(see the 2026-07-09 Button redesign entry above — pill radius was a deliberate, reasoned
+choice), but the arrow-as-default-on-every-CTA half is real and unresolved.
+
+**Decision.** Levi's call: **override the blocklist for now — the `arrow=true` default
+stays as shipped.** This is not a retraction of the blocklist rule and not a considered
+resolution of the conflict; it is a deliberate, logged, temporary exception pending a
+best-practices review Levi has not yet done. No code changes in this pass.
+
+**Consequences.** Easier: no churn on every branded property's primary CTA while the
+question is still open. Harder: the studio's own slop-blocklist rule has a standing,
+named exception until the review happens — and a rule with an unreviewed exception is
+exactly the shape that goes stale silently (learning #186, "a rule whose log nobody
+reads is a convention"). Tracked at `studio-memory/WORK-QUEUE.md` WQ-055, tagged for
+resurfacing at the next COO audit if Levi has not revisited it by then.
+
+**Alternatives considered.** *Change `Button.jsx`'s default to `arrow=false`* — rejected
+for now, per Levi; not a design call made on its own merits, so not applied without one.
+*Leave the FORK packet parked indefinitely* — rejected: parked packets are surfaced not
+answered, and this now has an actual answer (override, revisit later), so the packet is
+closed instead.
+
+**Reconvene signal.** Levi researches trailing-arrow-CTA best practices and either lifts
+the exception (changes the default) or formally amends the blocklist to carve out a
+named exception for `Button.jsx`. Until then this entry is the record of why the default
+does not match the blocklist.
