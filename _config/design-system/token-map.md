@@ -5,7 +5,7 @@
 # Design Token Map — The Shokunin Crafthouse · Brand Identity
 
 **Generated** from `tokens/primitives.json` + `tokens/semantic.json`.
-**Source fingerprint:** `6db8d4ad28bd` · **159 primitives · 116 semantic tokens.**
+**Source fingerprint:** `33e516e7ef3d` · **159 primitives · 116 semantic tokens.**
 
 > **This file is a mirror, not the source.** `tokens/*.json` is upstream; this document and the Figma
 > library are generated from / synced to it. It previously claimed the opposite — that both were
@@ -47,12 +47,12 @@ Pairs that fail WCAG AA and must not be used together. Generated from
 
 | Token | Mode | Forbidden surfaces | Substitute | Reason |
 |---|---|---|---|---|
-| `color/text/secondary` | light | `color/surface/deepSunk`, `color/surface/rail`, `color/surface/hover` | `color/text/primary` | Light mode: deepSunk and rail (both warmGray.300) measure 3.01:1 and hover (warmGray.250) measures 3.84:1 — all below WCAG AA 4.5:1. Dark mode clears AA on every surface (8.85:1 worst case). |
-| `color/text/tertiary` | light | `color/surface/sunk`, `color/surface/deepSunk`, `color/surface/rail`, `color/surface/hover` | `color/text/secondary` | Tertiary contrast compresses below WCAG AA 4.5:1 on the compressed pairs — light: sunk 3.77:1, deepSunk/rail 2.38:1, hover 3.03:1. Dark (pre-2026-09-06, #7C7C7A) failed on raised/hover 4.40:1 and deepSunk/floating 4.16:1 — both cleared by the re-derivation to #858583 (WQ-040). |
-| `color/status/success-ink` | light | `color/surface/sunk`, `color/surface/deepSunk`, `color/surface/rail`, `color/surface/hover` | `color/text/primary` | Light: sunk 3.86:1, deepSunk/rail 2.44:1, hover 3.11:1 — every one below AA for the success hue. Dark cleared 2026-09-06 by the re-derivation to #3C9366; the reused status.success.dark it replaced read 4.37:1 on surface.deepSunk and surface.floating. |
-| `color/status/warning-ink` | light | `color/surface/sunk`, `color/surface/deepSunk`, `color/surface/rail`, `color/surface/hover` | `color/text/primary` | Light: sunk 3.73:1, deepSunk/rail 2.35:1, hover 3.00:1 — every one below AA for the warning hue. Dark cleared 2026-09-06 by the re-derivation to #DC5A33; the retired #D2512A read 4.34:1 on surface.raised and 4.10:1 on surface.deepSunk. |
-| `color/status/info-ink` | light | `color/surface/sunk`, `color/surface/deepSunk`, `color/surface/rail`, `color/surface/hover` | `color/text/primary` | Light: sunk 3.90:1, deepSunk/rail 2.46:1, hover 3.14:1 — every one below AA for the info hue. Dark cleared 2026-09-06 by the re-derivation to #517DF3; the retired #4A74EA read 4.37:1 on surface.raised and 4.13:1 on surface.deepSunk. |
-| `color/brand/accentInk` | light | `color/surface/deepSunk`, `color/surface/rail`, `color/surface/hover` | `color/text/secondary` | Accent-as-text compresses below WCAG AA 4.5:1 in light on the low-contrast grounds — deepSunk/rail 2.97:1, hover 3.79:1. Dark (teal.400) clears AA everywhere, lowest 5.30:1 on deepSunk/floating. |
+| `color/text/secondary` | light | `color/surface/deepSunk`, `color/surface/rail`, `color/surface/hover` | `color/text/primary` | Light mode: deepSunk and rail (both warmGray.300) measure 3.01:1 and hover (warmGray.250) measures 3.84:1 — all below WCAG AA 4.5:1. Dark mode clears AA on every surface (6.04:1 worst case, surface.deepSunk/floating, slate ladder 2026-09-24). |
+| `color/text/tertiary` | light | `color/surface/sunk`, `color/surface/deepSunk`, `color/surface/rail`, `color/surface/hover` | `color/text/secondary` | Tertiary contrast compresses below WCAG AA 4.5:1 on the compressed pairs — light: sunk 3.77:1, deepSunk/rail 2.38:1, hover 3.03:1. Dark (pre-2026-09-06, #7C7C7A) failed on raised/hover 4.40:1 and deepSunk/floating 4.16:1 — both cleared by the re-derivation to #858583 (WQ-040). The 2026-09-24 slate tier #B3B1AD reads 4.76:1 at its worst (deepSunk/floating). |
+| `color/status/success-ink` | light | `color/surface/sunk`, `color/surface/deepSunk`, `color/surface/rail`, `color/surface/hover` | `color/text/primary` | Light: sunk 3.86:1, deepSunk/rail 2.44:1, hover 3.11:1 — every one below AA for the success hue. Dark cleared 2026-09-06 by the re-derivation to #3C9366, and again 2026-09-24 by the slate re-derivation to #6AC090 (4.64:1 worst case, deepSunk/floating); the reused status.success.dark it replaced read 4.37:1 on surface.deepSunk and surface.floating. |
+| `color/status/warning-ink` | light | `color/surface/sunk`, `color/surface/deepSunk`, `color/surface/rail`, `color/surface/hover` | `color/text/primary` | Light: sunk 3.73:1, deepSunk/rail 2.35:1, hover 3.00:1 — every one below AA for the warning hue. Dark cleared 2026-09-06 by the re-derivation to #DC5A33, and again 2026-09-24 by the slate re-derivation to #FE9374 (4.68:1 worst case, deepSunk/floating); the retired #D2512A read 4.34:1 on surface.raised and 4.10:1 on surface.deepSunk. |
+| `color/status/info-ink` | light | `color/surface/sunk`, `color/surface/deepSunk`, `color/surface/rail`, `color/surface/hover` | `color/text/primary` | Light: sunk 3.90:1, deepSunk/rail 2.46:1, hover 3.14:1 — every one below AA for the info hue. Dark cleared 2026-09-06 by the re-derivation to #517DF3, and again 2026-09-24 by the slate re-derivation to #8DAFFD (4.70:1 worst case, deepSunk/floating); the retired #4A74EA read 4.37:1 on surface.raised and 4.13:1 on surface.deepSunk. |
+| `color/brand/accentInk` | light | `color/surface/deepSunk`, `color/surface/rail`, `color/surface/hover` | `color/text/secondary` | Accent-as-text compresses below WCAG AA 4.5:1 in light on the low-contrast grounds — deepSunk/rail 2.97:1, hover 3.79:1. Dark (teal.200 since 2026-09-24) clears AA everywhere, lowest 5.99:1 on deepSunk/floating. |
 
 ---
 
@@ -102,18 +102,18 @@ primitives directly. Surfaced here for traceability.
 | Token Name | CSS var | Value | Notes |
 |---|---|---|---|
 | `color/status/success/light` | `--sc-p-color-status-success-light` | `#2F855A` | Forest green · success states on light ground. |
-| `color/status/success/dark` | `--sc-p-color-status-success-dark` | `#388F63` | Lifted green · success states on dark ground. |
+| `color/status/success/dark` | `--sc-p-color-status-success-dark` | `#57AD7F` | Lifted green · success fill/border/dot on dark ground. |
 | `color/status/success/ink/light` | `--sc-p-color-status-success-ink-light` | `#28724D` | 2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier, hue-locked to success, 4.74:1 on warmGray.100 (base success/light fails at 3.69:1 for body text). |
-| `color/status/success/ink/dark` | `--sc-p-color-status-success-ink-dark` | `#3C9366` | 2026-09-06 (WQ-041) · text-only tier, hue-locked to success, lifted one OKLab step off status.success.dark (#388F63) so every dark surface clears AA — the old arrangement reused success/dark directly and read 4.37:1 on dark.raised2 (deepSunk/floating). |
+| `color/status/success/ink/dark` | `--sc-p-color-status-success-ink-dark` | `#6AC090` | Text-only tier, hue-locked to success (learning #56). |
 | `color/status/warning/light` | `--sc-p-color-status-warning-light` | `#C2410C` | Burnt orange · warning states on light ground · hue ~20°. |
-| `color/status/warning/dark` | `--sc-p-color-status-warning-dark` | `#C94E28` | Lifted orange · warning states on dark ground. |
+| `color/status/warning/dark` | `--sc-p-color-status-warning-dark` | `#F67751` | Lifted orange · warning fill/border/dot on dark ground. |
 | `color/status/warning/ink/light` | `--sc-p-color-status-warning-ink-light` | `#B83E0B` | 2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier, hue-locked to warning, 4.58:1 on warmGray.100 (base warning/light fails at 4.21:1 for body text). |
-| `color/status/warning/ink/dark` | `--sc-p-color-status-warning-ink-dark` | `#DC5A33` | 2026-07-28 SCDS audit Block 2 (learning #56) · text-only tier, hue-locked to warning (base warning/dark fails at 4.20:1 for body text). |
+| `color/status/warning/ink/dark` | `--sc-p-color-status-warning-ink-dark` | `#FE9374` | Text-only tier, hue-locked to warning (learning #56). |
 | `color/status/info/light` | `--sc-p-color-status-info-light` | `#2D5AD8` | Royal blue · info states on light ground · AA 4.79:1 on warmGray.100 (clears AA as text, which is why status.info-ink reuses it directly in light mode). |
-| `color/status/info/dark` | `--sc-p-color-status-info-dark` | `#3866E8` | Lifted blue · info states on dark ground. |
-| `color/status/info/ink/dark` | `--sc-p-color-status-info-ink-dark` | `#517DF3` | 2026-07-28 SCDS audit Block 2 (learning #56) · text-only tier, hue-locked to info (base info/dark fails at 3.86:1 for body text). |
+| `color/status/info/dark` | `--sc-p-color-status-info-dark` | `#709AFD` | Lifted blue · info fill/border/dot on dark ground. |
+| `color/status/info/ink/dark` | `--sc-p-color-status-info-ink-dark` | `#8DAFFD` | Text-only tier, hue-locked to info (learning #56). |
 | `color/status/error/light` | `--sc-p-color-status-error-light` | `#7F1D1D` | Oxblood · error states on light ground · deep + serious, pulled deliberately off the brand band so brand-accent and danger can never be confused. |
-| `color/status/error/dark` | `--sc-p-color-status-error-dark` | `#DD4C4C` | Lifted rose · error states on dark ground. |
+| `color/status/error/dark` | `--sc-p-color-status-error-dark` | `#FE6B67` | Lifted rose · error states on dark ground. |
 
 #### `color/signal`
 
@@ -127,20 +127,20 @@ primitives directly. Surfaced here for traceability.
 
 | Token Name | CSS var | Value | Notes |
 |---|---|---|---|
-| `color/dark/well` | `--sc-p-color-dark-well` | `#080807` | Deepest component well · resting component ground in dark (component sinks below page). |
-| `color/dark/floor` | `--sc-p-color-dark-floor` | `#0A0A0A` | Floor · one step above the well. |
-| `color/dark/surfacePage` | `--sc-p-color-dark-surface-page` | `#0F0F0F` | Page ground · dark. |
-| `color/dark/raised1` | `--sc-p-color-dark-raised1` | `#141414` | Raised step 1 · lifts above page (cards/raised that read elevated in dark via lighter fill). |
-| `color/dark/raised2` | `--sc-p-color-dark-raised2` | `#1A1A1A` | Raised step 2 · floating / popover ground in dark. |
-| `color/dark/raised3` | `--sc-p-color-dark-raised3` | `#212121` | Raised step 3 · highest interactive fills. |
-| `color/dark/raised4` | `--sc-p-color-dark-raised4` | `#2A2A2A` | Raised step 4 · default divider-grade fill / strong-ish separators. |
-| `color/dark/raised5` | `--sc-p-color-dark-raised5` | `#333333` | Raised step 5 · strongest neutral fill before text tiers. |
-| `color/dark/border` | `--sc-p-color-dark-border` | `#2A2A2A` | Dark-mode default border / structural separator. |
-| `color/dark/borderSubtle` | `--sc-p-color-dark-border-subtle` | `#1A1A1A` | Dark-mode subtle border · closer to page than default = less visible. |
-| `color/dark/textPrimary` | `--sc-p-color-dark-text-primary` | `#F5F5F5` | Dark-mode primary text · 17–18:1 on page/well. scds-v2 (was warm #E2DDD6). |
-| `color/dark/textSecondary` | `--sc-p-color-dark-text-secondary` | `#B9B9B7` | Dark-mode secondary text · 8.9–10.2:1 on dark grounds (AAA). scds-v2 addition (dark secondary previously aliased warmGray.400). |
-| `color/dark/textTertiary` | `--sc-p-color-dark-text-tertiary` | `#858583` | Dark-mode tertiary text · re-derived 2026-09-06 (WQ-040) from #7C7C7A to clear WCAG AA on every dark surface, including surface.raised (the default card ground): 5.18:1 page, 5.42:1 well, 4.98:1 raised1, 4.71:1 raised2. |
-| `color/dark/textDisabled` | `--sc-p-color-dark-text-disabled` | `#565654` | Dark-mode disabled text · derived (fails AA by spec). scds-v2 (was warm #6B655C). |
+| `color/dark/well` | `--sc-p-color-dark-well` | `#1F252C` | Deepest component well · resting component ground in dark (component sinks below page). |
+| `color/dark/floor` | `--sc-p-color-dark-floor` | `#252B32` | Floor · one step above the well. |
+| `color/dark/surfacePage` | `--sc-p-color-dark-surface-page` | `#2C3239` | Page ground · dark. |
+| `color/dark/raised1` | `--sc-p-color-dark-raised1` | `#343A41` | Raised step 1 · lifts above page (cards/raised read elevated in dark via lighter fill). |
+| `color/dark/raised2` | `--sc-p-color-dark-raised2` | `#3B4249` | Raised step 2 · floating / popover ground in dark, and the lightest dark UI ground: every dark text and status-ink tier is tuned against it. |
+| `color/dark/raised3` | `--sc-p-color-dark-raised3` | `#434A51` | Raised step 3 · highest interactive fills. |
+| `color/dark/raised4` | `--sc-p-color-dark-raised4` | `#4D535B` | Raised step 4 · default divider-grade fill / strong-ish separators. |
+| `color/dark/raised5` | `--sc-p-color-dark-raised5` | `#565D65` | Raised step 5 · strongest slate fill before the text tiers. |
+| `color/dark/border` | `--sc-p-color-dark-border` | `#4D535B` | Dark-mode default border / structural separator. |
+| `color/dark/borderSubtle` | `--sc-p-color-dark-border-subtle` | `#3B4249` | Dark-mode subtle border · same value as raised2, closer to page than default and so less visible: 1.27:1 on surfacePage. |
+| `color/dark/textPrimary` | `--sc-p-color-dark-text-primary` | `#EAE8E3` | Dark-mode primary text · warm-light (OKLCH hue 84.6°, L 0.931), the Frame 19 blend result of ink #1A1815. |
+| `color/dark/textSecondary` | `--sc-p-color-dark-text-secondary` | `#C9C7C3` | Dark-mode secondary text · warm-light (OKLCH hue 84.6°, L 0.830). |
+| `color/dark/textTertiary` | `--sc-p-color-dark-text-tertiary` | `#B3B1AD` | Dark-mode tertiary text · lowest readable tier, warm-light (OKLCH hue 84.6°, L 0.761), lifted so raised2 (the lightest dark UI ground) clears WCAG AA: page 6.05:1, well 7.22:1, floor 6.67:1, raised1 5.37:1, raised2 4.76:1. |
+| `color/dark/textDisabled` | `--sc-p-color-dark-text-disabled` | `#7C7A76` | Dark-mode disabled text · warm-light (OKLCH hue 84.6°, L 0.580). |
 
 #### `color/utility`
 
@@ -166,7 +166,7 @@ primitives directly. Surfaced here for traceability.
 | Token Name | CSS var | Value | Notes |
 |---|---|---|---|
 | `color/focusRing/light` | `--sc-p-color-focus-ring-light` | `#1F2024` | Focus ring · light mode. |
-| `color/focusRing/dark` | `--sc-p-color-focus-ring-dark` | `#E8E8EA` | Focus ring · dark mode. |
+| `color/focusRing/dark` | `--sc-p-color-focus-ring-dark` | `#E9EBEE` | Focus ring · dark mode. |
 
 #### `color/interactive`
 
@@ -394,32 +394,32 @@ channel-triplet primitives) rather than an alias to a single primitive.
 
 | Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
 |---|---|---|---|---|---|---|
-| `color/surface/page` | `--sc-color-surface-page` | `color/warmGray/100` | `#EBE7E4` | `color/dark/surfacePage` | `#0F0F0F` | Page ground. |
-| `color/surface/sunk` | `--sc-color-surface-sunk` | `color/warmGray/200` | `#D8D1CC` | `color/dark/well` | `#080807` | Set-in component surface · cards, frames, tiles. scds-v2 elevation: light sits BELOW page (deeper, warmGray.200); dark SINKS to the deepest well (#080807, below page) and rises to page on hover (Phase 2 component model). |
-| `color/surface/deepSunk` | `--sc-color-surface-deep-sunk` | `color/warmGray/300` | `#B0A69C` | `color/dark/raised2` | `#1A1A1A` | Deeper-step surface · nested states, form inputs, card hover. |
-| `color/surface/raised` | `--sc-color-surface-raised` | `color/warmGray/50` | `#F4F1ED` | `color/dark/raised1` | `#141414` | Lifted-above-page surface · default card ground. |
-| `color/surface/floating` | `--sc-color-surface-floating` | `color/warmGray/25` | `#FBF9F6` | `color/dark/raised2` | `#1A1A1A` | Highest surface · popovers, interactive-card hover. |
-| `color/surface/rail` | `--sc-color-surface-rail` | `color/warmGray/300` | `#B0A69C` | `color/dark/floor` | `#0A0A0A` | Sidebar / left-rail ground. |
-| `color/surface/hover` | `--sc-color-surface-hover` | `color/warmGray/250` | `#C4BCB4` | `color/dark/raised1` | `#141414` | Hover-highlight ground for nav links and similar row-level affordances. |
+| `color/surface/page` | `--sc-color-surface-page` | `color/warmGray/100` | `#EBE7E4` | `color/dark/surfacePage` | `#2C3239` | Page ground. |
+| `color/surface/sunk` | `--sc-color-surface-sunk` | `color/warmGray/200` | `#D8D1CC` | `color/dark/well` | `#1F252C` | Set-in component surface · cards, frames, tiles. scds-v2 elevation: light sits BELOW page (deeper, warmGray.200); dark SINKS to the deepest well (dark.well, one slate step below page) and rises to page on hover (Phase 2 component model). |
+| `color/surface/deepSunk` | `--sc-color-surface-deep-sunk` | `color/warmGray/300` | `#B0A69C` | `color/dark/raised2` | `#3B4249` | Deeper-step surface · nested states, form inputs, card hover. |
+| `color/surface/raised` | `--sc-color-surface-raised` | `color/warmGray/50` | `#F4F1ED` | `color/dark/raised1` | `#343A41` | Lifted-above-page surface · default card ground. |
+| `color/surface/floating` | `--sc-color-surface-floating` | `color/warmGray/25` | `#FBF9F6` | `color/dark/raised2` | `#3B4249` | Highest surface · popovers, interactive-card hover. |
+| `color/surface/rail` | `--sc-color-surface-rail` | `color/warmGray/300` | `#B0A69C` | `color/dark/floor` | `#252B32` | Sidebar / left-rail ground. |
+| `color/surface/hover` | `--sc-color-surface-hover` | `color/warmGray/250` | `#C4BCB4` | `color/dark/raised1` | `#343A41` | Hover-highlight ground for nav links and similar row-level affordances. |
 
 #### `color/text`
 
 | Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
 |---|---|---|---|---|---|---|
-| `color/text/primary` | `--sc-color-text-primary` | `color/warmGray/800` | `#1A1815` | `color/dark/textPrimary` | `#F5F5F5` | Primary text · body, headlines, strong rules. |
-| `color/text/secondary` | `--sc-color-text-secondary` | `color/warmGray/500` | `#5A5750` | `color/dark/textSecondary` | `#B9B9B7` | Secondary text · eyebrows, metadata, descriptions. |
-| `color/text/tertiary` | `--sc-color-text-tertiary` | `color/warmGray/450` | `#6B665E` | `color/dark/textTertiary` | `#858583` | Tertiary text · lowest readable tier (de-emphasized metadata). scds-v2 addition. |
-| `color/text/disabled` | `--sc-color-text-disabled` | `color/warmGray/400` | `#847C71` | `color/dark/textDisabled` | `#565654` | Disabled text · placeholders, ghosted controls. |
+| `color/text/primary` | `--sc-color-text-primary` | `color/warmGray/800` | `#1A1815` | `color/dark/textPrimary` | `#EAE8E3` | Primary text · body, headlines, strong rules. |
+| `color/text/secondary` | `--sc-color-text-secondary` | `color/warmGray/500` | `#5A5750` | `color/dark/textSecondary` | `#C9C7C3` | Secondary text · eyebrows, metadata, descriptions. |
+| `color/text/tertiary` | `--sc-color-text-tertiary` | `color/warmGray/450` | `#6B665E` | `color/dark/textTertiary` | `#B3B1AD` | Tertiary text · lowest readable tier (de-emphasized metadata). scds-v2 addition. |
+| `color/text/disabled` | `--sc-color-text-disabled` | `color/warmGray/400` | `#847C71` | `color/dark/textDisabled` | `#7C7A76` | Disabled text · placeholders, ghosted controls. |
 | `color/text/onAccent` | `--sc-color-text-on-accent` | `color/utility/white` | `#FFFFFF` | `color/utility/white` | `#FFFFFF` | Text on brand/accent fills. |
 
 #### `color/border`
 
 | Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
 |---|---|---|---|---|---|---|
-| `color/border/default` | `--sc-color-border-default` | `color/warmGray/350` | `#9A9186` | `color/dark/border` | `#2A2A2A` | Default 1px solid hairline. |
-| `color/border/subtle` | `--sc-color-border-subtle` | `color/warmGray/250` | `#C4BCB4` | `color/dark/borderSubtle` | `#1A1A1A` | Dashed inner divisions. |
+| `color/border/default` | `--sc-color-border-default` | `color/warmGray/350` | `#9A9186` | `color/dark/border` | `#4D535B` | Default 1px solid hairline. |
+| `color/border/subtle` | `--sc-color-border-subtle` | `color/warmGray/250` | `#C4BCB4` | `color/dark/borderSubtle` | `#3B4249` | Dashed inner divisions. |
 | `color/border/strong` | `--sc-color-border-strong` | `color/warmGray/800` | `#1A1815` | `color/warmGray/50` | `#F4F1ED` | Strong frame border. |
-| `color/border/focus` | `--sc-color-border-focus` | `color/focusRing/light` | `#1F2024` | `color/focusRing/dark` | `#E8E8EA` | Focus ring color · scds-v2 dedicated, OFF the brand (teal) band and off every status hue (focus-ring-token). |
+| `color/border/focus` | `--sc-color-border-focus` | `color/focusRing/light` | `#1F2024` | `color/focusRing/dark` | `#E9EBEE` | Focus ring color · scds-v2 dedicated, OFF the brand (teal) band and off every status hue (focus-ring-token). |
 
 #### `color/divider`
 
@@ -434,28 +434,28 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
 |---|---|---|---|---|---|---|
 | `color/interactive/default` | `--sc-color-interactive-default` | `color/warmGray/800` | `#1A1815` | `color/warmGray/50` | `#F4F1ED` | Resting state for interactive elements · button text + border. |
-| `color/interactive/hover` | `--sc-color-interactive-hover` | `color/teal/500` | `#038E93` | `color/teal/400` | `#1C9DA2` | Hover state · primary button text/icon/border turn brand teal. |
-| `color/interactive/hover-ink` | `--sc-color-interactive-hover-ink` | `color/interactive/hoverInk/light` | `#027175` | `color/teal/400` | `#1C9DA2` | 2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier for interactive.hover — use when the hover color renders as body text (not icon/border), 4.72:1 on warmGray.100. |
+| `color/interactive/hover` | `--sc-color-interactive-hover` | `color/teal/500` | `#038E93` | `color/teal/300` | `#52B8BC` | Hover state · primary button text/icon/border turn brand teal. |
+| `color/interactive/hover-ink` | `--sc-color-interactive-hover-ink` | `color/interactive/hoverInk/light` | `#027175` | `color/teal/200` | `#8FD2D5` | 2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier for interactive.hover — use when the hover color renders as body text (not icon/border), 4.72:1 on warmGray.100. |
 | `color/interactive/active` | `--sc-color-interactive-active` | `color/teal/700` | `#056268` | `color/teal/500` | `#038E93` | Pressed/active state · one step deeper than hover. |
 
 #### `color/status`
 
 | Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
 |---|---|---|---|---|---|---|
-| `color/status/success` | `--sc-color-status-success` | `color/status/success/light` | `#2F855A` | `color/status/success/dark` | `#388F63` | Success state · warm olive on light, lifted olive on dark. |
-| `color/status/warning` | `--sc-color-status-warning` | `color/status/warning/light` | `#C2410C` | `color/status/warning/dark` | `#C94E28` | Warning state · deep ochre on light, lifted ochre on dark. |
-| `color/status/error` | `--sc-color-status-error` | `color/status/error/light` | `#7F1D1D` | `color/status/error/dark` | `#DD4C4C` | Error state · oxblood on light, lifted rose on dark. |
-| `color/status/info` | `--sc-color-status-info` | `color/status/info/light` | `#2D5AD8` | `color/status/info/dark` | `#3866E8` | Info state · warm slate on light, lifted slate on dark. |
-| `color/status/success-ink` | `--sc-color-status-success-ink` | `color/status/success/ink/light` | `#28724D` | `color/status/success/ink/dark` | `#3C9366` | 2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier for status.success — use when rendered as body text, 4.74:1 (L) / 5.07:1 (D) on their respective page grounds. |
-| `color/status/warning-ink` | `--sc-color-status-warning-ink` | `color/status/warning/ink/light` | `#B83E0B` | `color/status/warning/ink/dark` | `#DC5A33` | 2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier for status.warning — use when rendered as body text, 4.58:1 (L) / 5.07:1 (D) on their respective page grounds. |
-| `color/status/info-ink` | `--sc-color-status-info-ink` | `color/status/info/light` | `#2D5AD8` | `color/status/info/ink/dark` | `#517DF3` | 2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier for status.info — light mode reuses status.info.light directly (already AA as text, 4.79:1); dark mode gets a dedicated ink (5.09:1 on its page ground, re-derived 2026-09-06 under WQ-041) since base status.info.dark fails AA for text at 3.86:1. |
+| `color/status/success` | `--sc-color-status-success` | `color/status/success/light` | `#2F855A` | `color/status/success/dark` | `#57AD7F` | Success state · forest green on light, lifted green on dark. |
+| `color/status/warning` | `--sc-color-status-warning` | `color/status/warning/light` | `#C2410C` | `color/status/warning/dark` | `#F67751` | Warning state · burnt orange on light, lifted orange on dark. |
+| `color/status/error` | `--sc-color-status-error` | `color/status/error/light` | `#7F1D1D` | `color/status/error/dark` | `#FE6B67` | Error state · oxblood on light, lifted rose on dark (4.63:1 on dark surface.page, slate ladder 2026-09-24; below AA as text on dark raised/floating, no -ink tier yet). |
+| `color/status/info` | `--sc-color-status-info` | `color/status/info/light` | `#2D5AD8` | `color/status/info/dark` | `#709AFD` | Info state · royal blue on light, lifted blue on dark. |
+| `color/status/success-ink` | `--sc-color-status-success-ink` | `color/status/success/ink/light` | `#28724D` | `color/status/success/ink/dark` | `#6AC090` | 2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier for status.success — use when rendered as body text, 4.74:1 (L) / 5.89:1 (D) on their respective page grounds. |
+| `color/status/warning-ink` | `--sc-color-status-warning-ink` | `color/status/warning/ink/light` | `#B83E0B` | `color/status/warning/ink/dark` | `#FE9374` | 2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier for status.warning — use when rendered as body text, 4.58:1 (L) / 5.94:1 (D) on their respective page grounds. |
+| `color/status/info-ink` | `--sc-color-status-info-ink` | `color/status/info/light` | `#2D5AD8` | `color/status/info/ink/dark` | `#8DAFFD` | 2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier for status.info — light mode reuses status.info.light directly (already AA as text, 4.79:1); dark mode gets a dedicated ink (5.97:1 on its page ground, 4.70:1 on surface.floating; re-derived 2026-09-24 for the slate ladder) since base status.info.da… |
 
 #### `color/signal`
 
 | Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
 |---|---|---|---|---|---|---|
 | `color/signal/live` | `--sc-color-signal-live` | `color/signal/live` | `#C8281C` | `color/signal/liveBright` | `#DA5C4D` | LIVE badge fill — red broadcast signal; brightens one step on dark ground. |
-| `color/signal/onLive` | `--sc-color-signal-on-live` | `color/warmGray/100` | `#EBE7E4` | `color/dark/surfacePage` | `#0F0F0F` | Text on the LIVE badge fill. |
+| `color/signal/onLive` | `--sc-color-signal-on-live` | `color/warmGray/100` | `#EBE7E4` | `color/dark/surfacePage` | `#2C3239` | Text on the LIVE badge fill. |
 | `color/signal/progress` | `--sc-color-signal-progress` | `color/signal/progress` | `#FBFF00` | `color/signal/progress` | `#FBFF00` | In-progress/active pill fill + live dot — chartreuse both modes. |
 | `color/signal/onProgress` | `--sc-color-signal-on-progress` | `color/warmGray/900` | `#0D0C0B` | `color/warmGray/900` | `#0D0C0B` | Ink on the chartreuse progress fill — warm near-black both modes (chartreuse stays light-valued on dark grounds). |
 
@@ -465,7 +465,7 @@ channel-triplet primitives) rather than an alias to a single primitive.
 |---|---|---|---|---|---|---|
 | `color/brand/accent` | `--sc-color-brand-accent` | `color/teal/500` | `#038E93` | `color/teal/500` | `#038E93` | Brand accent · teal kept consistent across modes for brand-mark continuity. |
 | `color/brand/accentDeep` | `--sc-color-brand-accent-deep` | `color/teal/700` | `#056268` | `color/teal/700` | `#056268` | Brand accent deep · pressed accent state. teal.700 in both modes (5.78:1 on warmGray.100), unchanged. |
-| `color/brand/accentInk` | `--sc-color-brand-accent-ink` | `color/teal/700` | `#056268` | `color/teal/400` | `#1C9DA2` | Brand accent as text ink · mode-following counterpart of accentDeep's light-only text claim (added 2026-09-06, WQ-040). |
+| `color/brand/accentInk` | `--sc-color-brand-accent-ink` | `color/teal/700` | `#056268` | `color/teal/200` | `#8FD2D5` | Brand accent as text ink · mode-following counterpart of accentDeep's light-only text claim (added 2026-09-06, WQ-040). |
 | `color/brand/accentFill` | `--sc-color-brand-accent-fill` | `color/teal/600` | `#04797D` | `color/teal/600` | `#04797D` | Brand accent fill · the fill for accent surfaces that carry text (primary/accent buttons). teal.600 so white text passes AA (5.20:1). brand.accent (teal.500) fails white-text AA at 3.97:1 and stays for the mark and non-text uses. |
 
 #### `color/text-on-inverse`

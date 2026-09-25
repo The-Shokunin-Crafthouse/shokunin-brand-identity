@@ -151,8 +151,8 @@ public enum SCDS {
     public static let primitivesVersion = "0.1.0"
     public static let semanticVersion = "0.1.0"
     public static let sourceGenerated = "2026-05-26"
-    public static let primitivesHash = "a3d48b48b21c1e8a"
-    public static let semanticHash = "662130988070cb6a"
+    public static let primitivesHash = "fd701a9e3da03d8d"
+    public static let semanticHash = "8e623b17f09be715"
     public static let tokenCount = 116
   }
 
@@ -163,67 +163,67 @@ public enum SCDS {
     /// `color.surface.page`
     public static let surfacePage = SwiftUI.Color.scdsDynamic(
         light: (0.921569, 0.905882, 0.894118, 1),
-        dark:  (0.058824, 0.058824, 0.058824, 1)
+        dark:  (0.172549, 0.196078, 0.223529, 1)
     )
 
     /// `color.surface.sunk`
     public static let surfaceSunk = SwiftUI.Color.scdsDynamic(
         light: (0.847059, 0.819608, 0.8, 1),
-        dark:  (0.031373, 0.031373, 0.027451, 1)
+        dark:  (0.121569, 0.145098, 0.172549, 1)
     )
 
     /// `color.surface.deepSunk`
     public static let surfaceDeepSunk = SwiftUI.Color.scdsDynamic(
         light: (0.690196, 0.65098, 0.611765, 1),
-        dark:  (0.101961, 0.101961, 0.101961, 1)
+        dark:  (0.231373, 0.258824, 0.286275, 1)
     )
 
     /// `color.surface.raised`
     public static let surfaceRaised = SwiftUI.Color.scdsDynamic(
         light: (0.956863, 0.945098, 0.929412, 1),
-        dark:  (0.078431, 0.078431, 0.078431, 1)
+        dark:  (0.203922, 0.227451, 0.254902, 1)
     )
 
     /// `color.surface.floating`
     public static let surfaceFloating = SwiftUI.Color.scdsDynamic(
         light: (0.984314, 0.976471, 0.964706, 1),
-        dark:  (0.101961, 0.101961, 0.101961, 1)
+        dark:  (0.231373, 0.258824, 0.286275, 1)
     )
 
     /// `color.surface.rail`
     public static let surfaceRail = SwiftUI.Color.scdsDynamic(
         light: (0.690196, 0.65098, 0.611765, 1),
-        dark:  (0.039216, 0.039216, 0.039216, 1)
+        dark:  (0.145098, 0.168627, 0.196078, 1)
     )
 
     /// `color.surface.hover`
     public static let surfaceHover = SwiftUI.Color.scdsDynamic(
         light: (0.768627, 0.737255, 0.705882, 1),
-        dark:  (0.078431, 0.078431, 0.078431, 1)
+        dark:  (0.203922, 0.227451, 0.254902, 1)
     )
 
     /// `color.text.primary`
     public static let textPrimary = SwiftUI.Color.scdsDynamic(
         light: (0.101961, 0.094118, 0.082353, 1),
-        dark:  (0.960784, 0.960784, 0.960784, 1)
+        dark:  (0.917647, 0.909804, 0.890196, 1)
     )
 
     /// `color.text.secondary`
     public static let textSecondary = SwiftUI.Color.scdsDynamic(
         light: (0.352941, 0.341176, 0.313725, 1),
-        dark:  (0.72549, 0.72549, 0.717647, 1)
+        dark:  (0.788235, 0.780392, 0.764706, 1)
     )
 
     /// `color.text.tertiary`
     public static let textTertiary = SwiftUI.Color.scdsDynamic(
         light: (0.419608, 0.4, 0.368627, 1),
-        dark:  (0.521569, 0.521569, 0.513725, 1)
+        dark:  (0.701961, 0.694118, 0.678431, 1)
     )
 
     /// `color.text.disabled`
     public static let textDisabled = SwiftUI.Color.scdsDynamic(
         light: (0.517647, 0.486275, 0.443137, 1),
-        dark:  (0.337255, 0.337255, 0.329412, 1)
+        dark:  (0.486275, 0.478431, 0.462745, 1)
     )
 
     /// `color.text.onAccent`
@@ -235,13 +235,13 @@ public enum SCDS {
     /// `color.border.default`
     public static let borderDefault = SwiftUI.Color.scdsDynamic(
         light: (0.603922, 0.568627, 0.52549, 1),
-        dark:  (0.164706, 0.164706, 0.164706, 1)
+        dark:  (0.301961, 0.32549, 0.356863, 1)
     )
 
     /// `color.border.subtle`
     public static let borderSubtle = SwiftUI.Color.scdsDynamic(
         light: (0.768627, 0.737255, 0.705882, 1),
-        dark:  (0.101961, 0.101961, 0.101961, 1)
+        dark:  (0.231373, 0.258824, 0.286275, 1)
     )
 
     /// `color.border.strong`
@@ -253,7 +253,7 @@ public enum SCDS {
     /// `color.border.focus`
     public static let borderFocus = SwiftUI.Color.scdsDynamic(
         light: (0.121569, 0.12549, 0.141176, 1),
-        dark:  (0.909804, 0.909804, 0.917647, 1)
+        dark:  (0.913725, 0.921569, 0.933333, 1)
     )
 
     /// `color.divider.subtle`
@@ -283,13 +283,13 @@ public enum SCDS {
     /// `color.interactive.hover`
     public static let interactiveHover = SwiftUI.Color.scdsDynamic(
         light: (0.011765, 0.556863, 0.576471, 1),
-        dark:  (0.109804, 0.615686, 0.635294, 1)
+        dark:  (0.321569, 0.721569, 0.737255, 1)
     )
 
     /// `color.interactive.hover-ink`
     public static let interactiveHoverInk = SwiftUI.Color.scdsDynamic(
         light: (0.007843, 0.443137, 0.458824, 1),
-        dark:  (0.109804, 0.615686, 0.635294, 1)
+        dark:  (0.560784, 0.823529, 0.835294, 1)
     )
 
     /// `color.interactive.active`
@@ -301,43 +301,43 @@ public enum SCDS {
     /// `color.status.success`
     public static let statusSuccess = SwiftUI.Color.scdsDynamic(
         light: (0.184314, 0.521569, 0.352941, 1),
-        dark:  (0.219608, 0.560784, 0.388235, 1)
+        dark:  (0.341176, 0.678431, 0.498039, 1)
     )
 
     /// `color.status.warning`
     public static let statusWarning = SwiftUI.Color.scdsDynamic(
         light: (0.760784, 0.254902, 0.047059, 1),
-        dark:  (0.788235, 0.305882, 0.156863, 1)
+        dark:  (0.964706, 0.466667, 0.317647, 1)
     )
 
     /// `color.status.error`
     public static let statusError = SwiftUI.Color.scdsDynamic(
         light: (0.498039, 0.113725, 0.113725, 1),
-        dark:  (0.866667, 0.298039, 0.298039, 1)
+        dark:  (0.996078, 0.419608, 0.403922, 1)
     )
 
     /// `color.status.info`
     public static let statusInfo = SwiftUI.Color.scdsDynamic(
         light: (0.176471, 0.352941, 0.847059, 1),
-        dark:  (0.219608, 0.4, 0.909804, 1)
+        dark:  (0.439216, 0.603922, 0.992157, 1)
     )
 
     /// `color.status.success-ink`
     public static let statusSuccessInk = SwiftUI.Color.scdsDynamic(
         light: (0.156863, 0.447059, 0.301961, 1),
-        dark:  (0.235294, 0.576471, 0.4, 1)
+        dark:  (0.415686, 0.752941, 0.564706, 1)
     )
 
     /// `color.status.warning-ink`
     public static let statusWarningInk = SwiftUI.Color.scdsDynamic(
         light: (0.721569, 0.243137, 0.043137, 1),
-        dark:  (0.862745, 0.352941, 0.2, 1)
+        dark:  (0.996078, 0.576471, 0.454902, 1)
     )
 
     /// `color.status.info-ink`
     public static let statusInfoInk = SwiftUI.Color.scdsDynamic(
         light: (0.176471, 0.352941, 0.847059, 1),
-        dark:  (0.317647, 0.490196, 0.952941, 1)
+        dark:  (0.552941, 0.686275, 0.992157, 1)
     )
 
     /// `color.signal.live`
@@ -349,7 +349,7 @@ public enum SCDS {
     /// `color.signal.onLive`
     public static let signalOnLive = SwiftUI.Color.scdsDynamic(
         light: (0.921569, 0.905882, 0.894118, 1),
-        dark:  (0.058824, 0.058824, 0.058824, 1)
+        dark:  (0.172549, 0.196078, 0.223529, 1)
     )
 
     /// `color.signal.progress`
@@ -379,7 +379,7 @@ public enum SCDS {
     /// `color.brand.accentInk`
     public static let brandAccentInk = SwiftUI.Color.scdsDynamic(
         light: (0.019608, 0.384314, 0.407843, 1),
-        dark:  (0.109804, 0.615686, 0.635294, 1)
+        dark:  (0.560784, 0.823529, 0.835294, 1)
     )
 
     /// `color.brand.accentFill`
