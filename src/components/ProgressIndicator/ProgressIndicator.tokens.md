@@ -55,7 +55,7 @@ All progress transitions suppressed.
 | State | Trigger | Token shift |
 |---|---|---|
 | Default | resting | fill: `--sc-color-brand-accent` · track: `--sc-color-surface-deep-sunk` |
-| Hover | `:hover` on the wrapper | fill → `--sc-color-interactive-hover` (a genuine brighten in dark mode — teal.400 vs teal.500; held in light mode where the two are close). Reused rather than adding a new hover-fill token, per the brief. |
+| Hover | `:hover` on the wrapper | fill → `--sc-color-interactive-hover` (a genuine brighten in dark mode — teal.300 vs teal.500; held in light mode where the two are close). Reused rather than adding a new hover-fill token, per the brief. |
 | Focus | `:focus-visible` | ring on the **visual track**, not the hit-slop wrapper — `--sc-color-border-focus` at `--sc-border-width-focus` / `--sc-border-focus-offset` |
 | Active / dragging | pointer captured | thumbless: track height `--sc-size-progress-bar-height` (4) → `--sc-size-progress-bar-height-active` (6). No handle ever renders — the track itself is the affordance. |
 | Disabled | `disabled` prop | fill: `--sc-color-text-disabled` · track: `--sc-color-surface-sunk` · `cursor: not-allowed` · not focusable |

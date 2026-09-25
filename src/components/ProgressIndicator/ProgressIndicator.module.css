@@ -98,7 +98,7 @@
 }
 
 /* Hover / default — fill brightens via the existing interactive token
-   (teal.500 in light, teal.400 in dark — a genuine brighten in dark
+   (teal.500 in light, teal.300 in dark — a genuine brighten in dark
    mode, a held value in light) rather than introducing a new hover
    color for this one control. */
 .barInteractiveWrapper:hover:not([aria-disabled='true']) .barInteractiveFill {
