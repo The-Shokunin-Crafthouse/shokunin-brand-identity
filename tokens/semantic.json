@@ -635,6 +635,14 @@
         "$description": "Sprint 4 addition · button press scale (0.985). Subtle confirmation.",
         "$extensions": { "modes": { "light": "{motion.scale.pressButton}", "dark": "{motion.scale.pressButton}" } }
       },
+      "card": {
+        "scale": {
+          "$type": "number",
+          "$value": "{motion.scale.pressCard}",
+          "$description": "Card press scale (0.995). Its own token, never aliased to the button's press: a card is a larger target and moves less. Pairs with press.duration and press.easing.",
+          "$extensions": { "modes": { "light": "{motion.scale.pressCard}", "dark": "{motion.scale.pressCard}" } }
+        }
+      },
       "release": {
         "duration": {
           "$type": "duration",
@@ -648,6 +656,14 @@
           "$description": "Sprint 5 addition · Drams #6 press-spring · release-phase easing, a cubic-bezier CSS approximation of a k400/d25 spring (y > 1 overshoot). Press-in keeps motion.press.duration/.easing (160ms outStrong); only the release swaps to this pair.",
           "$extensions": { "modes": { "light": "{motion.easing.springOut}", "dark": "{motion.easing.springOut}" } }
         }
+      }
+    },
+    "recede": {
+      "scale": {
+        "$type": "number",
+        "$value": "{motion.scale.recedeBoard}",
+        "$description": "Recede scale (0.98). The surface behind a sheet steps back while the sheet is up. Never aliased to press.scale: a recede is a state, not a touch.",
+        "$extensions": { "modes": { "light": "{motion.scale.recedeBoard}", "dark": "{motion.scale.recedeBoard}" } }
       }
     },
     "mode": {

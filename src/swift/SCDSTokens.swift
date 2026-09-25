@@ -151,9 +151,9 @@ public enum SCDS {
     public static let primitivesVersion = "0.1.0"
     public static let semanticVersion = "0.1.0"
     public static let sourceGenerated = "2026-05-26"
-    public static let primitivesHash = "fd701a9e3da03d8d"
-    public static let semanticHash = "8e623b17f09be715"
-    public static let tokenCount = 116
+    public static let primitivesHash = "f1ba52f9664a8e0a"
+    public static let semanticHash = "3edddd2c00d8b6df"
+    public static let tokenCount = 118
   }
 
   // MARK: - Color
@@ -732,11 +732,17 @@ public enum SCDS {
     /// `motion.press.scale`
     public static let pressScale: CGFloat = 0.985
 
+    /// `motion.press.card.scale`
+    public static let pressCardScale: CGFloat = 0.995
+
     /// `motion.press.release.duration` · 220ms
     public static let pressReleaseDuration: TimeInterval = 0.22
 
     /// `motion.press.release.easing`
     public static let pressReleaseEasing = SCDSEasing(0.34, 1.56, 0.64, 1)
+
+    /// `motion.recede.scale`
+    public static let recedeScale: CGFloat = 0.98
 
     /// `motion.mode.duration` · 380ms
     public static let modeDuration: TimeInterval = 0.38

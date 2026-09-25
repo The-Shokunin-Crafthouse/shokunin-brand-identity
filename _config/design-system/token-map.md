@@ -5,7 +5,7 @@
 # Design Token Map — The Shokunin Crafthouse · Brand Identity
 
 **Generated** from `tokens/primitives.json` + `tokens/semantic.json`.
-**Source fingerprint:** `33e516e7ef3d` · **159 primitives · 116 semantic tokens.**
+**Source fingerprint:** `000d1949ef4c` · **161 primitives · 118 semantic tokens.**
 
 > **This file is a mirror, not the source.** `tokens/*.json` is upstream; this document and the Figma
 > library are generated from / synced to it. It previously claimed the opposite — that both were
@@ -366,6 +366,8 @@ primitives directly. Surfaced here for traceability.
 
 ### Motion · Primitives
 
+#### `motion/duration`
+
 | Token Name | CSS var | Value | Notes |
 |---|---|---|---|
 | `motion/duration/micro` | `--sc-p-motion-duration-micro` | `200ms` | 200ms · hover, tap, press. |
@@ -373,13 +375,25 @@ primitives directly. Surfaced here for traceability.
 | `motion/duration/pressRelease` | `--sc-p-motion-duration-press-release` | `220ms` | 220ms · spring-back release overshoot (Drams press-spring, 2026-07-23). |
 | `motion/duration/standard` | `--sc-p-motion-duration-standard` | `380ms` | 380ms · state change, cross-fade, surface swap. |
 | `motion/duration/orchestrated` | `--sc-p-motion-duration-orchestrated` | `720ms` | 720ms · page, route, choreographed reveal. |
+
+#### `motion/easing`
+
+| Token Name | CSS var | Value | Notes |
+|---|---|---|---|
 | `motion/easing/out` | `--sc-p-motion-easing-out` | `cubic-bezier(0.22, 1, 0.36, 1)` | Quint-out · primary easing. |
 | `motion/easing/outStrong` | `--sc-p-motion-easing-out-strong` | `cubic-bezier(0.23, 1, 0.32, 1)` | Strong quint-out · press/release. |
 | `motion/easing/springOut` | `--sc-p-motion-easing-spring-out` | `cubic-bezier(0.34, 1.56, 0.64, 1)` | Overshoot release · CSS approximation of the studio tap-scale spring (Drams press-spring, 2026-07-23). |
 | `motion/easing/inOut` | `--sc-p-motion-easing-in-out` | `cubic-bezier(0.65, 0, 0.35, 1)` | Symmetric · crossfades, mode switches. |
 | `motion/easing/cinematic` | `--sc-p-motion-easing-cinematic` | `cubic-bezier(0.32, 0.08, 0.12, 1)` | Long deliberate · orchestrated only. |
+
+#### `motion/scale`
+
+| Token Name | CSS var | Value | Notes |
+|---|---|---|---|
 | `motion/scale/pressButton` | `--sc-p-motion-scale-press-button` | `0.985` | Button press scale · 0.985. |
 | `motion/scale/pressTap` | `--sc-p-motion-scale-press-tap` | `0.92` | Tap target press scale · 0.92. |
+| `motion/scale/pressCard` | `--sc-p-motion-scale-press-card` | `0.995` | Card press scale · 0.995. |
+| `motion/scale/recedeBoard` | `--sc-p-motion-scale-recede-board` | `0.98` | Board recede scale · 0.98. |
 
 ---
 
@@ -568,8 +582,15 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | `motion/press/duration` | `--sc-motion-press-duration` | `motion/duration/press` | `160ms` | `motion/duration/press` | `160ms` | Sprint 4 addition · press/release scale (160ms). |
 | `motion/press/easing` | `--sc-motion-press-easing` | `motion/easing/outStrong` | `cubic-bezier(0.23, 1, 0.32, 1)` | `motion/easing/outStrong` | `cubic-bezier(0.23, 1, 0.32, 1)` | Sprint 4 addition · strong quint-out · press feedback. |
 | `motion/press/scale` | `--sc-motion-press-scale` | `motion/scale/pressButton` | `0.985` | `motion/scale/pressButton` | `0.985` | Sprint 4 addition · button press scale (0.985). |
+| `motion/press/card/scale` | `--sc-motion-press-card-scale` | `motion/scale/pressCard` | `0.995` | `motion/scale/pressCard` | `0.995` | Card press scale (0.995). |
 | `motion/press/release/duration` | `--sc-motion-press-release-duration` | `motion/duration/pressRelease` | `220ms` | `motion/duration/pressRelease` | `220ms` | Sprint 5 addition · Drams #6 press-spring · release-phase duration (220ms). |
 | `motion/press/release/easing` | `--sc-motion-press-release-easing` | `motion/easing/springOut` | `cubic-bezier(0.34, 1.56, 0.64, 1)` | `motion/easing/springOut` | `cubic-bezier(0.34, 1.56, 0.64, 1)` | Sprint 5 addition · Drams #6 press-spring · release-phase easing, a cubic-bezier CSS approximation of a k400/d25 spring (y > 1 overshoot). |
+
+#### `motion/recede`
+
+| Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
+|---|---|---|---|---|---|---|
+| `motion/recede/scale` | `--sc-motion-recede-scale` | `motion/scale/recedeBoard` | `0.98` | `motion/scale/recedeBoard` | `0.98` | Recede scale (0.98). |
 
 #### `motion/mode`
 

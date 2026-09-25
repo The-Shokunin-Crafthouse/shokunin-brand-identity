@@ -1400,3 +1400,34 @@ Three dark aliases re-pointed in `tokens/semantic.json`. The teal ramp values do
 - **Pure exclusion inversion of the light ladder.** Rejected: it inverts luminance order, so wells read light and raised surfaces read dark, which breaks the Phase 2 elevation model.
 - **Keep `teal.400` and forbid dark `raised2` for accent text.** Rejected: `raised2` is `surface.floating`, the popover ground. The 2026-09-06 rule applies: re-derive the tier, do not forbid a common ground.
 - **Lift the teal ramp.** Rejected: the brand teal is owner-specified and shared by the mark. Re-pointing to an existing lighter step keeps the ramp fixed.
+
+## 2026-09-24 — Two motion scales join the press ladder: `pressCard` 0.995 and `recedeBoard` 0.98
+
+**Stage:** 02-design (scds-v2)
+**Type:** Token addition (values ruled by Levi in studio-pm ADR-074)
+**Status:** accepted
+**Slug:** motion-scale-recede-press-card
+**Builds on:** Sprint 4's `motion.scale.pressButton` / `motion.press.scale` pair, the 2026-09-11 Swift ADR (semantic tokens only are emitted)
+
+**Context.** studio-pm, the studio's native board, needs two scale values SCDS does not carry. Levi ruled both values on 2026-09-24 in studio-pm ADR-074. §25: the board recedes under the answer sheet at 0.98, with a dim, never aliased to the button's press. §29: a card's press gets its own scale, 0.995, with a colour step under Reduce Motion. studio-pm draws every value from SCDS (a Shokunin-branded property), so the values enter here first and are vendored down.
+
+**Decision.** Two primitives and two semantic aliases:
+
+| primitive | value | semantic | Swift |
+|---|---|---|---|
+| `motion.scale.pressCard` | `0.995` | `motion.press.card.scale` | `SCDS.Motion.pressCardScale` |
+| `motion.scale.recedeBoard` | `0.98` | `motion.recede.scale` | `SCDS.Motion.recedeScale` |
+
+The card press sits under `motion.press` so it inherits `press.duration` and `press.easing` by name. The recede is its own group: it is a state held while a sheet is up, not a touch, so it takes no press timing.
+
+**What did not change.** `motion.scale.pressButton` 0.985, `motion.scale.pressTap` 0.92 and `motion.press.scale`. No colour, no contrast claim: `tokens:verify` passes unchanged.
+
+**Named here, not fixed here.**
+- The recede's dim has no ruled value. It is not tokenised in this change; studio-pm's motion unit names it, and it enters here if it needs a new value.
+- The Figma SCDS library (`0zVoxaLJQkjHENYJlQk1VT`) does not carry either variable yet. The parity report reads them as code-only until the next library sync.
+
+**Propagation.** `tokens.css`, `public/tokens.css`, `token-map.md` and `SCDSTokens.swift` are regenerated in the token commit. studio-pm vendors `SCDSTokens.swift` in its own PR. Web consumers receive two new custom properties and use neither.
+
+**Alternatives considered.**
+- **Alias the card press to `motion.press.scale`.** Rejected by the ruling: 0.985 on a full card reads as a lurch.
+- **Primitives only.** Rejected: the Swift emitter emits semantic tokens only, so a primitive-only value never reaches studio-pm.
