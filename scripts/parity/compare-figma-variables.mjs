@@ -93,6 +93,7 @@ const NAME_MAP = {
   'color.status.warning.ink.light':     'color/status/warningInkLight',
   'color.status.warning.ink.dark':      'color/status/warningInkDark',
   'color.status.info.ink.dark':         'color/status/infoInkDark',
+  'color.status.success.ink.dark':      'color/status/successInkDark',
   'color.interactive.hoverInk.light':   'color/interactive/hoverInkLight',
   // Renamed Figma-side on 2026-07-28 (audit Block 5); the code-side rename was
   // deliberately deferred because --sc-color-text-on-inverse has live consumers.
