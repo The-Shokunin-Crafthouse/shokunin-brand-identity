@@ -151,9 +151,9 @@ public enum SCDS {
     public static let primitivesVersion = "0.1.0"
     public static let semanticVersion = "0.1.0"
     public static let sourceGenerated = "2026-05-26"
-    public static let primitivesHash = "f1ba52f9664a8e0a"
-    public static let semanticHash = "3edddd2c00d8b6df"
-    public static let tokenCount = 118
+    public static let primitivesHash = "be9f08363816d442"
+    public static let semanticHash = "59195bafd7bece9b"
+    public static let tokenCount = 119
   }
 
   // MARK: - Color
@@ -743,6 +743,9 @@ public enum SCDS {
 
     /// `motion.recede.scale`
     public static let recedeScale: CGFloat = 0.98
+
+    /// `motion.recede.opacity`
+    public static let recedeOpacity: CGFloat = 0.6
 
     /// `motion.mode.duration` · 380ms
     public static let modeDuration: TimeInterval = 0.38
