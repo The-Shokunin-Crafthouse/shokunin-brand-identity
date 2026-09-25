@@ -5,7 +5,7 @@
 # Design Token Map — The Shokunin Crafthouse · Brand Identity
 
 **Generated** from `tokens/primitives.json` + `tokens/semantic.json`.
-**Source fingerprint:** `000d1949ef4c` · **161 primitives · 118 semantic tokens.**
+**Source fingerprint:** `da0eac2f6753` · **162 primitives · 119 semantic tokens.**
 
 > **This file is a mirror, not the source.** `tokens/*.json` is upstream; this document and the Figma
 > library are generated from / synced to it. It previously claimed the opposite — that both were
@@ -395,6 +395,12 @@ primitives directly. Surfaced here for traceability.
 | `motion/scale/pressCard` | `--sc-p-motion-scale-press-card` | `0.995` | Card press scale · 0.995. |
 | `motion/scale/recedeBoard` | `--sc-p-motion-scale-recede-board` | `0.98` | Board recede scale · 0.98. |
 
+#### `motion/opacity`
+
+| Token Name | CSS var | Value | Notes |
+|---|---|---|---|
+| `motion/opacity/recedeBoard` | `--sc-p-motion-opacity-recede-board` | `0.6` | Board recede opacity · 0.6. |
+
 ---
 
 ## Semantic
@@ -591,6 +597,7 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
 |---|---|---|---|---|---|---|
 | `motion/recede/scale` | `--sc-motion-recede-scale` | `motion/scale/recedeBoard` | `0.98` | `motion/scale/recedeBoard` | `0.98` | Recede scale (0.98). |
+| `motion/recede/opacity` | `--sc-motion-recede-opacity` | `motion/opacity/recedeBoard` | `0.6` | `motion/opacity/recedeBoard` | `0.6` | Recede opacity (0.6). |
 
 #### `motion/mode`
 

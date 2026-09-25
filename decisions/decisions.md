@@ -1431,3 +1431,29 @@ The card press sits under `motion.press` so it inherits `press.duration` and `pr
 **Alternatives considered.**
 - **Alias the card press to `motion.press.scale`.** Rejected by the ruling: 0.985 on a full card reads as a lurch.
 - **Primitives only.** Rejected: the Swift emitter emits semantic tokens only, so a primitive-only value never reaches studio-pm.
+
+## 2026-09-25 — The recede gets its dim: `motion.opacity.recedeBoard` 0.6
+
+**Stage:** 02-design (scds-v2)
+**Type:** Token addition (value chosen by Levi, studio-pm ADR-080)
+**Status:** accepted
+**Slug:** motion-opacity-recede
+**Builds on:** 2026-09-24 motion-scale-recede-press-card, which left the recede's dim unnamed
+
+**Context.** studio-pm ADR-074 §25 ruled that the board recedes under the sheet "with a dim", and gave no value. SCDS has no opacity primitive. Levi chose 0.6 on 2026-09-25 (studio-pm ADR-080).
+
+**Decision.** One primitive group and one semantic alias:
+
+| primitive | value | semantic | Swift |
+|---|---|---|---|
+| `motion.opacity.recedeBoard` | `0.6` | `motion.recede.opacity` | `SCDS.Motion.recedeOpacity` |
+
+The dim is the receding layer's opacity over the page ground, not a scrim colour. It sits beside `recede.scale` because the two move together and hold for the sheet's life.
+
+**What did not change.** Every colour and every contrast claim: `tokens:verify` passes unchanged. The dimmed board is behind a modal sheet and takes no input, so no text contrast claim is made for it.
+
+**Propagation.** `tokens.css`, `public/tokens.css`, `token-map.md` and `SCDSTokens.swift` are regenerated in this commit. studio-pm vendors `SCDSTokens.swift` in its own PR. The Figma library does not carry the variable until the next sync.
+
+**Alternatives considered.**
+- **A scrim colour at an alpha.** Rejected: it needs a colour and an alpha per mode, and fading the layer toward the page ground gives the same read with one number.
+- **No dim, scale only.** Offered and not chosen.

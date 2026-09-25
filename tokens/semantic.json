@@ -664,6 +664,12 @@
         "$value": "{motion.scale.recedeBoard}",
         "$description": "Recede scale (0.98). The surface behind a sheet steps back while the sheet is up. Never aliased to press.scale: a recede is a state, not a touch.",
         "$extensions": { "modes": { "light": "{motion.scale.recedeBoard}", "dark": "{motion.scale.recedeBoard}" } }
+      },
+      "opacity": {
+        "$type": "number",
+        "$value": "{motion.opacity.recedeBoard}",
+        "$description": "Recede opacity (0.6). The dim that goes with recede.scale: the surface behind a sheet fades toward the page ground while the sheet is up. Held for the sheet's life, so it takes the sheet's cut timing, not press timing.",
+        "$extensions": { "modes": { "light": "{motion.opacity.recedeBoard}", "dark": "{motion.opacity.recedeBoard}" } }
       }
     },
     "mode": {

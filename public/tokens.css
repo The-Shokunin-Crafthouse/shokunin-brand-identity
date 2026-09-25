@@ -281,6 +281,7 @@
   --sc-p-motion-scale-press-tap: 0.92;
   --sc-p-motion-scale-press-card: 0.995;
   --sc-p-motion-scale-recede-board: 0.98;
+  --sc-p-motion-opacity-recede-board: 0.6;
 
   /* --- Semantic · light mode (default) (--sc-*) --------- */
   --sc-color-surface-page: var(--sc-p-color-warm-gray-100);
@@ -343,6 +344,7 @@
   --sc-motion-press-release-duration: var(--sc-p-motion-duration-press-release);
   --sc-motion-press-release-easing: var(--sc-p-motion-easing-spring-out);
   --sc-motion-recede-scale: var(--sc-p-motion-scale-recede-board);
+  --sc-motion-recede-opacity: var(--sc-p-motion-opacity-recede-board);
   --sc-motion-mode-duration: var(--sc-p-motion-duration-standard);
   --sc-motion-mode-easing: var(--sc-p-motion-easing-in-out);
   --sc-motion-entrance-duration: var(--sc-p-motion-duration-orchestrated);
@@ -540,6 +542,7 @@
   --sc-motion-press-release-duration: var(--sc-p-motion-duration-press-release);
   --sc-motion-press-release-easing: var(--sc-p-motion-easing-spring-out);
   --sc-motion-recede-scale: var(--sc-p-motion-scale-recede-board);
+  --sc-motion-recede-opacity: var(--sc-p-motion-opacity-recede-board);
   --sc-motion-mode-duration: var(--sc-p-motion-duration-standard);
   --sc-motion-mode-easing: var(--sc-p-motion-easing-in-out);
   --sc-motion-entrance-duration: var(--sc-p-motion-duration-orchestrated);
