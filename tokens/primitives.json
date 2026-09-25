@@ -701,7 +701,9 @@
     },
     "scale": {
       "pressButton": { "$type": "number", "$value": 0.985, "$description": "Button press scale · 0.985. Subtle confirmation press (levibahn.com)." },
-      "pressTap":    { "$type": "number", "$value": 0.92,  "$description": "Tap target press scale · 0.92. Heavier touch affordance." }
+      "pressTap":    { "$type": "number", "$value": 0.92,  "$description": "Tap target press scale · 0.92. Heavier touch affordance." },
+      "pressCard":   { "$type": "number", "$value": 0.995, "$description": "Card press scale · 0.995. A whole card is a large target, so it moves less than a button (studio-pm ADR-074 §29)." },
+      "recedeBoard": { "$type": "number", "$value": 0.98,  "$description": "Board recede scale · 0.98. The surface behind a sheet steps back while the sheet is up (studio-pm ADR-074 §25)." }
     }
   }
 }
