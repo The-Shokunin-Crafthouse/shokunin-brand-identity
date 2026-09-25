@@ -33,10 +33,10 @@ const warmVar = (s) => `--sc-p-color-warm-gray-${s}`;
 const tealVar = (s) => `--sc-p-color-teal-${s}`;
 
 const STATUS = [
-  { key: 'success', label: 'Success', hue: 'Forest green / AA on ground 4.9 : 1', light: '--sc-p-color-status-success-light', dark: '--sc-p-color-status-success-dark' },
+  { key: 'success', label: 'Success', hue: 'Forest green / fill tier, ink for text', light: '--sc-p-color-status-success-light', dark: '--sc-p-color-status-success-dark' },
   { key: 'warning', label: 'Warning', hue: 'Burnt orange / hue ~20°', light: '--sc-p-color-status-warning-light', dark: '--sc-p-color-status-warning-dark' },
   { key: 'error', label: 'Error', hue: 'Oxblood / deep / off-brand', light: '--sc-p-color-status-error-light', dark: '--sc-p-color-status-error-dark' },
-  { key: 'info', label: 'Info', hue: 'Royal blue / AA on ground 7.5 : 1', light: '--sc-p-color-status-info-light', dark: '--sc-p-color-status-info-dark' },
+  { key: 'info', label: 'Info', hue: 'Royal blue / AA on ground 4.79 : 1', light: '--sc-p-color-status-info-light', dark: '--sc-p-color-status-info-dark' },
 ];
 
 const QUICK_FG = [
@@ -217,7 +217,7 @@ export function ColorSection() {
             <span><b>400</b><Slash />disabled (fails AA by design)</span>
             <span><b>500</b><Slash />secondary text</span>
             <span><b>800</b><Slash />ink</span>
-            <span><b>900</b><Slash />dark ground</span>
+            <span><b>900</b><Slash />deep bar</span>
           </div>
         </div>
         <aside className={styles.gutter}>

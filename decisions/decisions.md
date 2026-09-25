@@ -1329,3 +1329,74 @@ closed instead.
 the exception (changes the default) or formally amends the blocklist to carve out a
 named exception for `Button.jsx`. Until then this entry is the record of why the default
 does not match the blocklist.
+
+---
+
+## 2026-09-24 — Dark mode moves to a slate ladder anchored on #2C3239; brand teal ramp untouched
+
+**Stage:** 02-design (scds-v2)
+**Type:** Brand-direction call (Levi) + token value change + alias re-point
+**Status:** accepted
+**Slug:** dark-slate-ladder
+**Builds on:** the 2026-09-11 Swift ADR's "Raised, not acted on" note (the dark ramp was neutral, not warm), 2026-09-06 (status inks tuned against the tightest ground), 2026-08-17 (every prose figure is registered)
+
+**Context.** The scds-v2 dark ladder was true neutral: equal-RGB near-blacks from `#080807` to `#333333`. The 2026-09-11 Swift ADR logged it as an observation for Levi rather than a decision. Levi chose a cool slate dark mode, measured off a Figma comp rather than drawn from a ramp formula.
+
+**Source and measurement.** sc-site Figma file `oIeQl6SlqWjvyZ126f65tn`, Frame 19 (node `156:15`): the light comp under a `#E3DFD8` rectangle in exclusion blend. The page ground reads `#2C3239`. In OKLCH that is hue 252.3°, chroma 0.015. Every ground step holds that hue and chroma and moves only in lightness. The text tiers take the blend's own result: ink `#1A1815` becomes a warm light near `#CFCDC9` (hue 84.6°, chroma 0.006), lifted where a tier needed it for AA.
+
+**The highlight rule.** Luminance order is kept, not inverted. A pure exclusion inversion would make the light ladder's highlights dark and its wells light. The ladder keeps each role's direction instead: `well` stays the darkest step, `raised5` the lightest, text stays light on dark. Only the hue and the anchor come from the blend.
+
+**Decision.** Value changes (source: `final-palette.md`, derived 2026-09-24):
+
+| token | old | new | OKLCH L |
+|---|---|---|---|
+| `color.dark.well` | `#080807` | `#1F252C` | 0.262 |
+| `color.dark.floor` | `#0A0A0A` | `#252B32` | 0.286 |
+| `color.dark.surfacePage` | `#0F0F0F` | `#2C3239` | 0.314 |
+| `color.dark.raised1` | `#141414` | `#343A41` | 0.346 |
+| `color.dark.raised2` | `#1A1A1A` | `#3B4249` | 0.375 |
+| `color.dark.raised3` | `#212121` | `#434A51` | 0.405 |
+| `color.dark.raised4` | `#2A2A2A` | `#4D535B` | 0.440 |
+| `color.dark.raised5` | `#333333` | `#565D65` | 0.475 |
+| `color.dark.border` | `#2A2A2A` | `#4D535B` | 0.440 |
+| `color.dark.borderSubtle` | `#1A1A1A` | `#3B4249` | 0.375 |
+| `color.dark.textPrimary` | `#F5F5F5` | `#EAE8E3` | 0.931 |
+| `color.dark.textSecondary` | `#B9B9B7` | `#C9C7C3` | 0.830 |
+| `color.dark.textTertiary` | `#858583` | `#B3B1AD` | 0.761 |
+| `color.dark.textDisabled` | `#565654` | `#7C7A76` | 0.580 |
+| `color.focusRing.dark` | `#E8E8EA` | `#E9EBEE` | 0.939 |
+| `color.status.success.dark` | `#388F63` | `#57AD7F` | 0.681 |
+| `color.status.success.ink.dark` | `#3C9366` | `#6AC090` | 0.740 |
+| `color.status.warning.dark` | `#C94E28` | `#F67751` | 0.711 |
+| `color.status.warning.ink.dark` | `#DC5A33` | `#FE9374` | 0.770 |
+| `color.status.info.dark` | `#3866E8` | `#709AFD` | 0.700 |
+| `color.status.info.ink.dark` | `#517DF3` | `#8DAFFD` | 0.760 |
+| `color.status.error.dark` | `#DD4C4C` | `#FE6B67` | 0.709 |
+
+Status fills were re-derived, hue held, until each clears 4.5:1 on the new page (success 4.74, warning 4.73, info 4.76, error 4.63). Status inks were re-derived against `raised2`, the lightest dark UI ground, per the 2026-09-06 rule that a tier is tuned against the tightest ground it is permitted on.
+
+Three dark aliases re-pointed in `tokens/semantic.json`. The teal ramp values do not move:
+
+| semantic | old dark | new dark | why |
+|---|---|---|---|
+| `color.brand.accentInk` | `teal.400` | `teal.200` | `teal.400` reads 3.10:1 on `raised2` (surface.deepSunk/floating) and 3.94:1 on the page. `teal.200` reads 5.99:1 at worst. |
+| `color.interactive.hover-ink` | `teal.400` | `teal.200` | Same pair, same reason. |
+| `color.interactive.hover` | `teal.400` | `teal.300` | Icon/border tier. `teal.300` reads 4.34:1 at worst, above the 3:1 non-text bar, and stays visibly more saturated than the text ink. |
+
+**AA sweep.** `npm run tokens:verify`: check 1 passes all 98 text-tier × surface × mode pairs with no dark `forbiddenSurfaces` added. Worst dark case per tier, all on `raised2`: text.primary 8.32:1, text.secondary 6.04:1, text.tertiary 4.76:1, brand.accentInk 5.99:1, success-ink 4.64:1, warning-ink 4.68:1, info-ink 4.70:1. Check 2 guards 142 claims. Check 3 passes. The retired neutral-ladder figures are pinned in `HISTORICAL` against their old hex pairs.
+
+**What did not change.** Light mode: every light value and alias is byte-identical (the `tokens.css` diff touches only `--sc-p-color-dark-*`, the dark status primitives, `focus-ring-dark`, and three lines of the `[data-theme="dark"]` block). The teal ramp. The divider white-alpha scale (5/9/15%). `warmGray.50` as dark `interactive.default` and `border.strong` (11.50:1 on the new page). The dark shadow compositions. `brand.accent`, `brand.accentFill`, `brand.accentDeep`, `interactive.active` aliases.
+
+**Named here, not fixed here.**
+- `color.signal.onLive` in dark is `dark.surfacePage` on `signal.liveBright` `#DA5C4D`. It read 5.13:1 on the neutral page and reads 3.46:1 on the slate one. The LIVE badge text is outside check 1 (signal tokens are not in `TEXT_TIERS`). It needs its own call: a darker dark `onLive`, or a darker dark `liveBright`.
+- `status.error` still has no `-ink` tier. The slate dark fill reads 4.11:1 on `raised1` and 3.64:1 on `raised2`, so error text on a dark card is below AA. The 2026-09-06 ADR named the same gap at 4.32:1 on `raised2`; it is wider now.
+- `brand.accentDeep` dark (`teal.700`) reads 1.62:1 on `surface.raised`. It is a pressed-state fill, not text, and its role is unchanged.
+
+**Propagation.** The Figma SCDS library (`0zVoxaLJQkjHENYJlQk1VT`) variables and Color page are being updated in the same change by a parallel session. `client-portal` and `shokunin-crafthouse-site` receive the change through the existing `brand-tokens-updated` dispatch when this branch merges. `tokens.css`, `token-map.md` and `SCDSTokens.swift` are regenerated in the token commit, so studio-pm's Swift package picks it up on its next vendor bump.
+
+**Consequences.** *Easier.* The dark mode now has a measured brand source instead of a formula, and the near-black P3 drift caveat (studio learning #11) no longer applies: the darkest step sits at OKLCH L 0.262. *Harder.* Every consumer's dark mode repaints. Visual diffs on every dark surface, dark text, focus ring, status colour and dark accent text are expected and correct. *Cost.* Dark contrast headroom is lower than on the near-black ladder (text.primary at its worst fell from 15.96:1 on the neutral raised2 to 8.32:1 on the slate one), so the status and accent tiers sit closer to the AA line and the next ground move will need the same re-derivation.
+
+**Alternatives considered.**
+- **Pure exclusion inversion of the light ladder.** Rejected: it inverts luminance order, so wells read light and raised surfaces read dark, which breaks the Phase 2 elevation model.
+- **Keep `teal.400` and forbid dark `raised2` for accent text.** Rejected: `raised2` is `surface.floating`, the popover ground. The 2026-09-06 rule applies: re-derive the tier, do not forbid a common ground.
+- **Lift the teal ramp.** Rejected: the brand teal is owner-specified and shared by the mark. Re-pointing to an existing lighter step keeps the ramp fixed.
