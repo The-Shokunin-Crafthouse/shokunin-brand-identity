@@ -22,6 +22,7 @@ import { Divider } from '../components/Divider/Divider.jsx';
 import { NavBar } from '../components/NavBar/NavBar.jsx';
 import { SegmentedControl } from '../components/SegmentedControl/SegmentedControl.jsx';
 import { Stepper } from '../components/Stepper/Stepper.jsx';
+import { WorkingMark } from '../components/WorkingMark/WorkingMark.jsx';
 import avatarImg from '../../assets/logo/mark-icon-dark.png';
 
 const noop = () => {};
@@ -683,6 +684,45 @@ export function StepperPage() {
         { name: 'Never let the control silently clamp past a bound', text: 'Hitting min or max disables that button rather than wrapping or silently refusing the step. A stepper that wraps from max back to min without saying so is a stepper lying about the number.' },
         { name: 'Hold-to-repeat has one speed, not an accelerating one', text: 'The repeat interval is constant (80ms) after the 400ms arm delay. An accelerating repeat is a nicety this control deliberately skipped — predictability over speed.' },
         { name: 'No border, ever', text: 'The control reads as a soft, sunk pill — matching the sunk-surface language used elsewhere (Input filled state, Card default). A stroke here would put it in the same register as a bordered input, which it is not.' },
+      ]}
+    />
+  );
+}
+
+/* ── Working Mark ────────────────────────────────────────── */
+export function WorkingMarkPage() {
+  return (
+    <ComponentPage
+      id="working-mark" label="Working Mark" tokensN={7}
+      eyebrow={<>Working Mark<Slash />a scribble that keeps drawing</>}
+      title={<>Something is <Accent>working</Accent> <Em>right now.</Em></>}
+      lead={<>A hand-drawn scribble of eleven loops for the one moment a surface needs to say that work is happening and cannot say how long it will take. Each loop spins and pulses on its own phase, neighbours turning opposite ways, while a highlight sweeps round the whole mark faster than the loops turn. Live vector, seamless every 3.2 seconds, and still under reduced motion.</>}
+      statesTitle="Working, paused, and reduced motion. Three sizes from the icon scale."
+      callouts={[
+        { title: 'Spin, pulse, shimmer', body: 'Each loop turns once per 1.6s beat and shrinks to 80% and back. The highlight goes round 2.5 times per beat, mixing the on-accent ink into the teal up to 80%.' },
+        { title: 'Seamless by construction', body: 'Spin and pulse repeat every beat, the shimmer every two. Frame 0 and frame 3200ms are identical, so the loop never jumps.' },
+        { title: 'The accent means something is acting', body: 'Paused is the same drawing, still, in secondary ink, with no shimmer. Teal appears only while work is actually running.' },
+      ]}
+      states={[
+        { name: 'Working · sm', token: '--sc-color-brand-accent', render: <WorkingMark /> },
+        { name: 'Working · md', token: '--sc-size-icon-md', render: <WorkingMark size="md" /> },
+        { name: 'Working · lg', token: '--sc-size-icon-lg', render: <WorkingMark size="lg" /> },
+        { name: 'Paused', token: '--sc-color-text-secondary', render: <WorkingMark working={false} size="lg" /> },
+      ]}
+      tokenRows={[
+        { prop: 'Working ink', token: '--sc-color-brand-accent' },
+        { prop: 'Shimmer highlight', token: '--sc-color-text-on-accent', light: 'mixed 80% into the accent' },
+        { prop: 'Paused ink', token: '--sc-color-text-secondary' },
+        { prop: 'Size (sm)', token: '--sc-size-icon-sm' },
+        { prop: 'Size (md)', token: '--sc-size-icon-md' },
+        { prop: 'Size (lg)', token: '--sc-size-icon-lg' },
+        { prop: 'Pulse curve', token: '--sc-motion-cut-easing', light: 'in-out · 1600ms beat' },
+      ]}
+      rulesTitle="Three rules for the one mark that moves on its own."
+      rules={[
+        { name: 'Only while it is true', text: 'Render it working only when something is running at this moment. A working mark on a stopped task is a lie the component must not tell; pass working={false} or show the resting marker instead.' },
+        { name: 'One per item, never a field of them', text: 'It marks the current step of one task. A screen of animating marks is noise; if many things are running, mark each item, not the page.' },
+        { name: 'Reduced motion keeps the meaning', text: 'Under prefers-reduced-motion the drawing stays, in accent, at rest. Colour and shape still say working; only the movement goes.' },
       ]}
     />
   );

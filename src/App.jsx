@@ -21,7 +21,7 @@ import { MarkSection } from './sections/MarkSection.jsx';
 import {
   ButtonPage, BadgePage, CardPage, InputPage, AlertPage, SwitchPage,
   AvatarPage, ProgressPage, TooltipPage, DividerPage, NavBarPage,
-  SegmentedControlPage, StepperPage,
+  SegmentedControlPage, StepperPage, WorkingMarkPage,
 } from './sections/ComponentSections.jsx';
 import { SpecimenSection } from './sections/SpecimenSection.jsx';
 import { RegisterSection } from './sections/RegisterSection.jsx';
@@ -89,6 +89,7 @@ const NAV = [
       { id: 'navbar', label: 'NavBar' },
       { id: 'segmented-control', label: 'Segmented Control' },
       { id: 'stepper', label: 'Stepper' },
+      { id: 'working-mark', label: 'Working Mark' },
       { id: 'specimen', label: 'Specimen' },
     ],
   },
@@ -151,6 +152,7 @@ const SECTIONS = {
   navbar: NavBarPage,
   'segmented-control': SegmentedControlPage,
   stepper: StepperPage,
+  'working-mark': WorkingMarkPage,
   specimen: SpecimenSection,
   register: RegisterSection,
   density: DensitySection,

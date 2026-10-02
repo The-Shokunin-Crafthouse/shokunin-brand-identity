@@ -1,0 +1,67 @@
+/* WorkingMark — see WorkingMark.tokens.md for every value's source. */
+
+.mark {
+  /* The beat. 1600ms is studio-pm motion.md's heartbeat. A component constant, not a
+     token, until a second consumer needs it (decisions.md 2026-10-01 working-mark). */
+  --wm-beat: 1600ms;
+  /* Eleven loops, spread evenly across one beat. */
+  --wm-loops: 11;
+  /* The pulse floor and the shimmer's peak, both locked by Levi 2026-10-02. */
+  --wm-pulse-floor: 0.8;
+  --wm-shimmer: 80%;
+
+  display: inline-block;
+  flex: none;
+  overflow: visible;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 0.3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vertical-align: middle;
+}
+
+.sm { width: var(--sc-size-icon-sm); height: var(--sc-size-icon-sm); }
+.md { width: var(--sc-size-icon-md); height: var(--sc-size-icon-md); }
+.lg { width: var(--sc-size-icon-lg); height: var(--sc-size-icon-lg); }
+
+.working { color: var(--sc-color-brand-accent); }
+.paused  { color: var(--sc-color-text-secondary); }
+
+/* The shimmer gradient's stops: the accent, rising to the accent mixed with the
+   on-accent ink at its brightest. */
+.base  { stop-color: currentColor; }
+.glint { stop-color: color-mix(in srgb, currentColor calc(100% - var(--wm-shimmer)), var(--sc-color-text-on-accent)); }
+
+.spin,
+.loop {
+  transform-box: view-box;
+  transform-origin: 8px 8px; /* the box's centre, in viewBox units */
+}
+
+.working .spin { animation: spin var(--wm-beat) linear infinite; }
+/* Neighbouring loops turn opposite ways. `g` siblings only, so the <defs> does not count. */
+.working .spin:nth-of-type(even) { animation-direction: reverse; }
+.working .loop { animation: pulse var(--wm-beat) var(--sc-motion-cut-easing) infinite; }
+
+/* Each loop starts part-way through the beat, so the eleven never move together.
+   Stated after the shorthands, which reset it. */
+.working .spin,
+.working .loop { animation-delay: calc(var(--wm-i) * var(--wm-beat) / var(--wm-loops) * -1); }
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(var(--wm-pulse-floor)); }
+}
+
+/* Reduced motion: the drawing at rest, flat accent, no shimmer. The stroke rule beats
+   the gradient the path names as an attribute. */
+@media (prefers-reduced-motion: reduce) {
+  .working .spin,
+  .working .loop { animation: none; }
+  .working .loop { stroke: currentColor; }
+}
