@@ -34,5 +34,7 @@ export { Stepper } from './components/Stepper/Stepper.jsx';
 export { Switch } from './components/Switch/Switch.jsx';
 export { Tooltip } from './components/Tooltip/Tooltip.jsx';
 export { TypographySpecimen } from './components/TypographySpecimen/TypographySpecimen.jsx';
+export { WorkingMark } from './components/WorkingMark/WorkingMark.jsx';
+export { WORKING_MARK_LOOPS, WORKING_MARK_VIEWBOX } from './components/WorkingMark/workingMarkPaths.js';
 
 export { ThemeProvider, useTheme } from './theme/ThemeProvider.jsx';

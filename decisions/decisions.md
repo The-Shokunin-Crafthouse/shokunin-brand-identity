@@ -1457,3 +1457,36 @@ The dim is the receding layer's opacity over the page ground, not a scrim colour
 **Alternatives considered.**
 - **A scrim colour at an alpha.** Rejected: it needs a colour and an alpha per mode, and fading the layer toward the page ground gives the same read with one number.
 - **No dim, scale only.** Offered and not chosen.
+
+## 2026-10-01 — WorkingMark: an animated scribble for "working right now"
+
+**Stage:** 03-build (scds-v2)
+**Type:** Component addition (asked for by Levi, 2026-10-01; motion locked by Levi, 2026-10-02)
+**Status:** accepted
+**Slug:** working-mark
+**Consumer:** studio-pm ADR-087, the current step's marker while a session is working
+
+**Context.** Studio PM's `Atom/Step marker` gained a new current-state icon in Figma (Studio PM — Screens & States, node 3:4): a chaos-circles scribble of eleven loops, generated at bookofshapes.com (Circle Count 10, Min Radius 100, Noise 0.125). Levi asked for it as an animated SVG, a short seamless loop that reads as something currently working, in the SCDS library and in Studio PM.
+
+**Decision.** `WorkingMark` joins the library: `src/components/WorkingMark/` (component, CSS module, token sheet, path data) and a standalone animated asset at `assets/icons/working-mark.svg`. Motion, as Levi locked it against a live preview:
+
+- **Spin:** each loop turns once per 1600ms beat; neighbouring loops turn opposite ways; the eleven are spread evenly across the beat.
+- **Pulse:** each loop shrinks to 80% and back once per beat, on `motion.cut.easing`.
+- **Shimmer:** a highlight sweeps round the mark 2.5 times per beat, mixing `color.text.onAccent` into the accent up to 80% at its brightest.
+- **Seamless:** everything returns to its start every two beats (3200ms).
+- **Reduced motion:** the Figma drawing at rest, flat accent, no shimmer. **Paused** (`working={false}`): still, secondary ink, no shimmer.
+- Tokens consumed: `color.brand.accent`, `color.text.onAccent`, `color.text.secondary`, `size.icon.sm/md/lg`, `motion.cut.easing`. No new tokens.
+
+**Component constants, not tokens.** The beat, the pulse floor, the sweep rate, the shimmer strength, the stroke. Each is named with its reason in `WorkingMark.tokens.md`. Promote the beat to a `motion.*` token when a second consumer needs it.
+
+**Spinning.** studio-pm `motion.md` forbade spinners because a spinner implies a tracked cycle. Levi chose spinning for this mark on 2026-10-02; studio-pm ADR-087 records the exception.
+
+**Parity.** studio-pm draws the same points (`WorkingMarkGlyph.swift`) with the same spin, pulse and sweep (`WorkingMark.swift`). The Figma library's `WorkingMark` carries spin and pulse on its timeline; Figma keyframes cannot rotate a gradient, so the shimmer lives in code only. Change all three together.
+
+**History.** The first build swung each loop ±14° and breathed it 0.93 to 1. Levi saw no movement: turning a near-circle a few degrees barely changes how it looks. Replaced the same day.
+
+**Alternatives considered.**
+- **Small swings, no full turn.** Built first, rejected: invisible at 16px.
+- **Morph the path data (SMIL `d` keyframes).** Rejected: 119 KB for a 16px icon.
+- **A GIF.** Rejected by Levi: it must stay a crisp vector.
+- **Pulse floor 0.7, sweep 2 turns per beat.** Tried in the preview; 0.7 read as slower, 2 turns as too slow.
