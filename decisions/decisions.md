@@ -1520,3 +1520,20 @@ The dim is the receding layer's opacity over the page ground, not a scrim colour
 **Alternatives considered.**
 - **Keep the style on SegmentedControl.** Rejected: the corrected style would add a ring that code does not have.
 - **Restore the well in code.** Rejected: the spec says fill-only; code is the source.
+
+## 2026-10-03 — Six type composites move to the Figma library's values
+
+**Context.** The library parity check (`npm run parity:figma`, same day) found six text styles whose Figma values differ from `font.text.*`. Levi ruled: "tokens should update to match figma".
+
+**Decision.** Each moves to an existing scale step; no new primitive.
+- `font.text.12` (`text.label.ui`): weight `medium` → `bold`.
+- `font.text.24` (`text.title.card`): weight `bold` → `black`. The Dashboard's tile titles already draw Black (studio-pm ADR-090).
+- `font.text.44` (`text.display.sm`): tracking `normal` → `tight` (−0.018em).
+- `font.text.84` and `font.text.120` (`text.display.lg`, `.xl`): tracking `normal` → `tightest` (−0.04em).
+- `font.text.mono.11` (`text.mono.chrome`): tracking `normal` → `wider` (0.06em), which is what its own description already said.
+
+Each composite has one consumer in `semantic.json`, so nothing else moves. `tokens:build`, `tokens:swift`, `tokens:map` regenerated; their checks and `tokens:verify` pass.
+
+**Consequence.** Every surface on `text.label.ui` turns bold, and every card title turns Black, on the site and in studio-pm once it re-vendors.
+
+**Supersedes** the `2026-08-16 Token sync` line "Figma is the source of truth for token VALUES" only for these six rows, and only as a ruling: `tokens/*.json` stays upstream (2026-08-17), and this change was made in the JSON.

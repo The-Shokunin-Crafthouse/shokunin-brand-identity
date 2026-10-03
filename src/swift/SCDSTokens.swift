@@ -151,7 +151,7 @@ public enum SCDS {
     public static let primitivesVersion = "0.1.0"
     public static let semanticVersion = "0.1.0"
     public static let sourceGenerated = "2026-05-26"
-    public static let primitivesHash = "be9f08363816d442"
+    public static let primitivesHash = "e8c7d8b762c2b541"
     public static let semanticHash = "bddc50330cfd347d"
     public static let tokenCount = 120
   }
@@ -420,7 +420,7 @@ public enum SCDS {
         family: "Neue Haas Grotesk Text Pro",
         fallbacks: ["Helvetica Neue", "Inter", "system-ui", "sans-serif"],
         size: 12,
-        weight: .medium,
+        weight: .bold,
         lineHeightMultiple: 1.5,
         trackingEm: 0.04
     )
@@ -470,7 +470,7 @@ public enum SCDS {
         family: "Neue Haas Grotesk Display Pro",
         fallbacks: ["Helvetica Neue", "Inter", "system-ui", "sans-serif"],
         size: 24,
-        weight: .bold,
+        weight: .black,
         lineHeightMultiple: 1.2,
         trackingEm: -0.012
     )
@@ -492,7 +492,7 @@ public enum SCDS {
         size: 44,
         weight: .black,
         lineHeightMultiple: 1.1,
-        trackingEm: 0
+        trackingEm: -0.018
     )
 
     /// `font.text.display.md` · Neue Haas Grotesk Display Pro 60/1.1
@@ -512,7 +512,7 @@ public enum SCDS {
         size: 84,
         weight: .black,
         lineHeightMultiple: 1.1,
-        trackingEm: 0
+        trackingEm: -0.04
     )
 
     /// `font.text.display.xl` · Neue Haas Grotesk Display Pro 120/1
@@ -522,7 +522,7 @@ public enum SCDS {
         size: 120,
         weight: .black,
         lineHeightMultiple: 1,
-        trackingEm: 0
+        trackingEm: -0.04
     )
 
     /// `font.text.mono.chrome` · Cascadia Mono 11/1.5
@@ -532,7 +532,7 @@ public enum SCDS {
         size: 11,
         weight: .semibold,
         lineHeightMultiple: 1.5,
-        trackingEm: 0
+        trackingEm: 0.06
     )
 
     /// `font.text.mono.caption` · Cascadia Mono 13/1.55
