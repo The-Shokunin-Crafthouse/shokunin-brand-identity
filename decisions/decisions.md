@@ -1507,3 +1507,16 @@ The dim is the receding layer's opacity over the page ground, not a scrim colour
 - **Raise the highlight to meet the shade.** Rejected: Levi named the shade as the problem.
 
 **Figma parity (same day).** Library `0zVoxaLJQkjHENYJlQk1VT`: new effect styles `shadow/control/bevel`, `shadow/control/dark/raised`, `shadow/control/dark/bevel`; `shadow/control/raised` gained a description. Figma effect styles carry no modes and a node takes one style, so the four non-disabled Primary variants (9:439, 9:442, 9:445, 9:449) carry raise + bevel as six raw light-mode layers, as the raise was before. The dark styles are for dark frames by hand. The library has no Destructive variant. Its `shadow/control/inset` style does not match the code token of that name; left for its own fix.
+
+## 2026-10-02 — Figma `shadow/control/inset` matched to code; SegmentedControl master loses its shadow
+
+**Context.** The library's `shadow/control/inset` effect style held four inset layers (an inverted neumorphic well, ink 0.10/0.08 + white 0.90/0.70). The code token `--sc-shadow-control-inset` is two layers: a soft ink inner shade and a 1px ink ring. Its only consumer in Figma was the `SegmentedControl` master (85:3). Code `SegmentedControl` carries no shadow: "fill-only elevation, no border, no shadow, per the spec".
+
+**Decision.**
+- `shadow/control/inset` now holds the code light values: `inset 0 1px 3px ink/0.08`, `inset 0 0 0 1px ink/0.06`.
+- New `shadow/control/dark/inset`: `inset 0 1px 3px black/0.40`, `inset 0 0 0 1px white/0.05`.
+- `SegmentedControl` master: style detached, effects cleared, so Figma matches code (track = `surface.sunk` fill only).
+
+**Alternatives considered.**
+- **Keep the style on SegmentedControl.** Rejected: the corrected style would add a ring that code does not have.
+- **Restore the well in code.** Rejected: the spec says fill-only; code is the source.
