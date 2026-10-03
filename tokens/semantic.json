@@ -445,6 +445,32 @@
         "$description": "Ink on the chartreuse progress fill — warm near-black both modes (chartreuse stays light-valued on dark grounds)."
       }
     },
+    "atmosphere": {
+      "celadon": {
+        "$type": "color",
+        "$value": "{color.atmosphere.celadon}",
+        "$extensions": { "modes": { "light": "{color.atmosphere.celadon}", "dark": "{color.atmosphere.celadon}" } },
+        "$description": "Canvas-light blend, lightest band (SPRING CELADON). A background wash under glass and grids; never text, never a control. Same in both modes; a consumer sets the wash's strength. 2026-10-03."
+      },
+      "river": {
+        "$type": "color",
+        "$value": "{color.atmosphere.river}",
+        "$extensions": { "modes": { "light": "{color.atmosphere.river}", "dark": "{color.atmosphere.river}" } },
+        "$description": "Canvas-light blend, river-blue band (RIVER INDIGO in the export). Wash only. 2026-10-03."
+      },
+      "lapis": {
+        "$type": "color",
+        "$value": "{color.teal.500}",
+        "$extensions": { "modes": { "light": "{color.teal.500}", "dark": "{color.teal.500}" } },
+        "$description": "Canvas-light blend, teal band (INKED LAPIS in the export): teal.500, the brand accent's own value, named here so the blend reads as one set. Wash only. 2026-10-03."
+      },
+      "indigo": {
+        "$type": "color",
+        "$value": "{color.atmosphere.indigo}",
+        "$extensions": { "modes": { "light": "{color.atmosphere.indigo}", "dark": "{color.atmosphere.indigo}" } },
+        "$description": "Canvas-light blend, deepest band (INDIGO). Wash only. 2026-10-03."
+      }
+    },
     "brand": {
       "accent": {
         "$type": "color",

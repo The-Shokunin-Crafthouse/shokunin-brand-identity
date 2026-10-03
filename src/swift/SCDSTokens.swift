@@ -151,9 +151,9 @@ public enum SCDS {
     public static let primitivesVersion = "0.1.0"
     public static let semanticVersion = "0.1.0"
     public static let sourceGenerated = "2026-05-26"
-    public static let primitivesHash = "575b1c7ab1c85009"
-    public static let semanticHash = "62f8260f26dd1260"
-    public static let tokenCount = 129
+    public static let primitivesHash = "6d5cb37cc94184fc"
+    public static let semanticHash = "b7d7a9a607c99b18"
+    public static let tokenCount = 133
   }
 
   // MARK: - Color
@@ -368,6 +368,30 @@ public enum SCDS {
     public static let signalOnProgress = SwiftUI.Color.scdsDynamic(
         light: (0.05098, 0.047059, 0.043137, 1),
         dark:  (0.05098, 0.047059, 0.043137, 1)
+    )
+
+    /// `color.atmosphere.celadon`
+    public static let atmosphereCeladon = SwiftUI.Color.scdsDynamic(
+        light: (0.917647, 0.984314, 0.968627, 1),
+        dark:  (0.917647, 0.984314, 0.968627, 1)
+    )
+
+    /// `color.atmosphere.river`
+    public static let atmosphereRiver = SwiftUI.Color.scdsDynamic(
+        light: (0.333333, 0.8, 0.933333, 1),
+        dark:  (0.333333, 0.8, 0.933333, 1)
+    )
+
+    /// `color.atmosphere.lapis`
+    public static let atmosphereLapis = SwiftUI.Color.scdsDynamic(
+        light: (0.011765, 0.556863, 0.576471, 1),
+        dark:  (0.011765, 0.556863, 0.576471, 1)
+    )
+
+    /// `color.atmosphere.indigo`
+    public static let atmosphereIndigo = SwiftUI.Color.scdsDynamic(
+        light: (0.152941, 0.290196, 0.470588, 1),
+        dark:  (0.152941, 0.290196, 0.470588, 1)
     )
 
     /// `color.brand.accent`

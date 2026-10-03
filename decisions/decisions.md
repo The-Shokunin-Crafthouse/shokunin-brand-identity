@@ -1574,3 +1574,21 @@ Levi: "add tokens for them and update json with the 8 figma text styles". Each t
 `color.interactive.selected` = `#038E931A` (teal.500 at 10%), both modes: the Select open-option row, which held teal at 10% paint opacity with no token. The library's new `color/interactive/selected` variable carries it and the row is bound.
 
 129 semantic tokens (from 120). `tokens:build`, `tokens:swift`, `tokens:map` regenerated; checks and `tokens:verify` pass. The plugin check reads the eight text styles and the variable as in sync.
+
+### 2026-10-03: the canvas-light blend's hues become `color.atmosphere.*`
+
+Levi, on studio-pm's canvas gradient: "add and keep the blend". His exported flow blend (studio-pm ADR-107, source `studio-pm/native/StudioPM/Design/canvas-blend.json`) used three hues no token carried. They become primitives, and the blend's four bands become semantic tokens.
+
+| Semantic | Primitive | Export name | Value |
+|---|---|---|---|
+| `color.atmosphere.celadon` | `color.atmosphere.celadon` | SPRING CELADON | `#EAFBF7` |
+| `color.atmosphere.river` | `color.atmosphere.river` | RIVER INDIGO | `#55CCEE` |
+| `color.atmosphere.lapis` | `color.teal.500` | INKED LAPIS | `#038E93` |
+| `color.atmosphere.indigo` | `color.atmosphere.indigo` | INDIGO | `#274A78` |
+
+- **Role:** a background wash under glass and grids. Never text, never a control fill, so no contrast claim is made; the consumer measures text over its own wash at its own strength.
+- **Modes:** the same value in both. The consumer sets the strength per mode (studio-pm: 55% dark, lighter in light).
+- **Lapis** is `teal.500`, the brand accent's value, aliased rather than repeated.
+- **Figma:** the library has no `color/atmosphere/*` variables yet. The plugin check will read four semantic tokens as missing until they are added.
+
+133 semantic tokens (from 129), 173 primitives (from 170). `tokens:build`, `tokens:swift`, `tokens:map` regenerated; `tokens:verify` passes.

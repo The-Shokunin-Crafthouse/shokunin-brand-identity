@@ -226,6 +226,12 @@
       "liveBright": { "$type": "color", "$value": "#DA5C4D" },
       "progress":   { "$type": "color", "$value": "#FBFF00" }
     },
+    "atmosphere": {
+      "$description": "The canvas-light blend's hues (2026-10-03, studio-pm ADR-107): Levi's exported flow blend, celadon to river blue to the brand teal to indigo. A wash, never text or a control fill. The teal step is teal.500 and is not repeated here.",
+      "celadon": { "$type": "color", "$value": "#EAFBF7" },
+      "river":   { "$type": "color", "$value": "#55CCEE" },
+      "indigo":  { "$type": "color", "$value": "#274A78" }
+    },
     "dark": {
       "$description": "Dark-mode ground ladder · SLATE since 2026-09-24 (replaces the scds-v2 true-neutral ladder). Every ground step holds OKLCH hue 252.3° and chroma 0.015, anchored on surfacePage #2C3239, measured off the sc-site Figma comp (file oIeQl6SlqWjvyZ126f65tn, Frame 19, node-id 156-15: the light comp under a #E3DFD8 exclusion blend). Text tiers are warm-light (hue 84.6°), as the blend produced. Luminance order is kept from the light ladder's roles, not inverted: well is darkest, raised5 is lightest. Elevation model (Phase 2): component sinks BELOW page (well), hover rises to page level. The P3 wide-gamut drift caveat for very dark values (studio learning #11) does not apply at these lightnesses (darkest step OKLCH L 0.262). See decisions.md 2026-09-24.",
       "well": {
