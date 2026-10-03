@@ -8,6 +8,7 @@
  *   --sc-font-text-label-chrome-*           · NHG Text medium label
  *   --sc-color-surface-raised               · primary resting fill (neutral)
  *   --sc-shadow-control-raised              · primary neumorphic 4-shadow (button-only)
+ *   --sc-shadow-control-bevel               · primary inner bevel, 2 inset layers (button-only)
  *   --sc-color-brand-accent-fill            · primary hover fill (teal.600, white AA 5.2)
  *   --sc-color-brand-accent-deep            · primary press + tertiary resting text (teal.700, AA)
  *   --sc-color-surface-sunk                 · secondary resting fill (fill-only) + disabled fill
@@ -86,7 +87,7 @@
   background-color: var(--sc-color-surface-raised);
   border-color: var(--sc-color-surface-raised);
   color: var(--sc-color-text-primary);
-  box-shadow: var(--sc-shadow-control-raised);
+  box-shadow: var(--sc-shadow-control-raised), var(--sc-shadow-control-bevel);
 }
 .primary:hover:not(:disabled) {
   background-color: var(--sc-color-brand-accent-fill);
@@ -137,7 +138,7 @@
   background-color: var(--sc-color-status-error);
   border-color: var(--sc-color-status-error);
   color: var(--sc-color-text-on-accent);
-  box-shadow: var(--sc-shadow-control-raised);
+  box-shadow: var(--sc-shadow-control-raised), var(--sc-shadow-control-bevel);
 }
 .destructive:active:not(:disabled) {
   transform: scale(var(--sc-motion-press-scale));
