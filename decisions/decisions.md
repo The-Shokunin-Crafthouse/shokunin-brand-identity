@@ -1490,3 +1490,20 @@ The dim is the receding layer's opacity over the page ground, not a scrim colour
 - **Morph the path data (SMIL `d` keyframes).** Rejected: 119 KB for a 16px icon.
 - **A GIF.** Rejected by Levi: it must stay a crisp vector.
 - **Pulse floor 0.7, sweep 2 turns per beat.** Tried in the preview; 0.7 read as slower, 2 turns as too slow.
+
+## 2026-10-02 — Primary button: dark-mode shadow matched to its highlight, plus an inner bevel
+
+**Context.** In dark mode the primary button's outer shade (`shadow.control.raised`, black 0.55 / 0.45) read far heavier than its white highlight (0.06 / 0.04). Levi asked for the shade to match the highlight's contrast and for two inner shadows, light and dark, so the pill's edges read rounded.
+
+**Decision.**
+- **Outer shade, dark mode:** black 0.55 / 0.45 → **0.24 / 0.16**. Each now shifts CIE L* on `surface.page` (#2C3239) by the same amount its white highlight does: ΔL* 5.6 and 3.7. Light mode unchanged.
+- **New token `shadow.control.bevel`:** two inset layers. White top-right `inset -2px 2px 4px`, shade bottom-left `inset 2px -2px 4px`. Light: white 0.70 / ink 0.06. Dark: white 0.06 / black 0.20 (black matched to the highlight's ΔL* 5.2 on `surface.raised`).
+- `Button.module.css` composes `raised, bevel` on primary and destructive (destructive shares the raise for parity).
+
+**Why a separate token.** `scdsShadow(_:)` in `SCDSTokens.swift` draws outer layers only and traps on inset. Folding the inset layers into `raised` would break that token on native. `bevel` carries the inset flag and is skipped by the outer-only modifier.
+
+**Alternatives considered.**
+- **Fold the inset layers into `shadow.control.raised`.** Rejected: breaks the SwiftUI path above.
+- **Raise the highlight to meet the shade.** Rejected: Levi named the shade as the problem.
+
+**Figma parity (same day).** Library `0zVoxaLJQkjHENYJlQk1VT`: new effect styles `shadow/control/bevel`, `shadow/control/dark/raised`, `shadow/control/dark/bevel`; `shadow/control/raised` gained a description. Figma effect styles carry no modes and a node takes one style, so the four non-disabled Primary variants (9:439, 9:442, 9:445, 9:449) carry raise + bevel as six raw light-mode layers, as the raise was before. The dark styles are for dark frames by hand. The library has no Destructive variant. Its `shadow/control/inset` style does not match the code token of that name; left for its own fix.
