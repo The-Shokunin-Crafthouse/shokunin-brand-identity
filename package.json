@@ -45,7 +45,8 @@
     "preview-vite": "vite preview",
     "preview": "node scripts/preview.mjs",
     "figma:parse": "figma connect parse",
-    "figma:publish": "figma connect publish"
+    "figma:publish": "figma connect publish",
+    "parity:figma": "node scripts/parity/figma-plugin-check.mjs"
   },
   "peerDependencies": {
     "@phosphor-icons/react": ">=2.1.0",

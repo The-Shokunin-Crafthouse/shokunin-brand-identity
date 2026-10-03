@@ -1520,3 +1520,19 @@ The dim is the receding layer's opacity over the page ground, not a scrim colour
 **Alternatives considered.**
 - **Keep the style on SegmentedControl.** Rejected: the corrected style would add a ring that code does not have.
 - **Restore the well in code.** Rejected: the spec says fill-only; code is the source.
+
+## 2026-10-03 — One plugin call checks the Figma library against tokens/; the library brought to it
+
+**Context.** Levi: "make required updates [to the SCDS library] ... then sync the code so figma and code is always in sync". `compare-figma-variables.mjs` already compares `tokens/*.json` to Figma, but it reads hand-exported TSVs, so it ran only when someone exported. The library's variables cannot be read from CI: Figma's Variables REST API is Enterprise-only and the studio is on Professional. The plugin API can read them.
+
+**Decision.**
+- **`npm run parity:figma`** (`scripts/parity/figma-plugin-check.mjs`) writes one self-contained `use_figma` call. It embeds the expected values resolved from `tokens/*.json`: every Primitives and Semantic variable per mode, every `font.text.*` composite against its text style, every `shadow.*` composite against its effect style, light and `dark/`. Run on the library file, it returns `verdict: "in-sync" | "drift"` and only the disagreements. It reuses `compare-figma-variables.mjs`'s `NAME_MAP`, so the two checks never disagree on a name; `font.family.*` stays the standing exception. Shadow alpha compares at 2dp, since Figma stores 0.9 as 0.8999.
+- **Direction is unchanged:** `tokens/*.json` is upstream (2026-08-17). A drift row is fixed in Figma.
+- **Reader:** the session that publishes the library runs it after every publish and after every `tokens/` change. There is no unattended reader until the plan has the REST API; that gap is named, not papered over (#186).
+
+**Library brought to tokens/ the same day.**
+- 9 variables added, aliased exactly as in JSON: `motion/scale/pressCard`, `motion/scale/recedeBoard`, `motion/opacity/recedeBoard` (Primitives); `motion/press/card/scale`, `motion/recede/scale`, `motion/recede/opacity`, `motion/entrance/duration`, `motion/cut/duration`, `size/touch-target` (Semantic). Variables now 323/323.
+- Raw fills bound: StatusPill Active and Open, and Pulse On, took `color/signal/progress` (the raw `#E5FF1C` was no token; Levi: "use the existing scds color token"); `Icon/info`, `Icon/warning`, `Icon/crosshair` took `color/text/primary`, as the other 33 icon fills do.
+- Effect styles 6/6 match.
+
+**Open for Levi (type direction, not fixed here).** Six text styles disagree with `font.text.*`: `text/label/ui` weight 700 vs 500; `text/title/card` 900 vs 700; tracking on `text/display/sm` −1.8% vs 0, `text/display/lg` and `text/display/xl` −4% vs 0, `text/mono/chrome` 6% vs 0. Each is either Figma stale or a type decision code has not received. Eight Figma-only text styles (`*/bold`, `nav/*`, `label/ui-tight`, `mono/flow`, `display/xs`) have no token. `Select / State=Open`'s option fill is teal at 10% opacity, with no token.
