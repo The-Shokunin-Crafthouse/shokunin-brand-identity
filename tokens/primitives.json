@@ -549,6 +549,92 @@
         },
         "$description": "Maximum display, hero monumental. Flat 1.0 line-height for vertical alignment in two-line displays."
       },
+      "bold": {
+        "$description": "Bold text-face compositions beside the regular scale steps. Matched to the SCDS Figma library text style of the same role, 2026-10-03.",
+        "12": {
+          "$type": "typography",
+          "$value": {
+            "fontFamily": "{font.family.text}",
+            "fontSize": "{font.size.12}",
+            "fontWeight": "{font.weight.bold}",
+            "lineHeight": "{font.lineHeight.base}",
+            "letterSpacing": "{font.tracking.normal}"
+          },
+          "$description": "UI label, tight: 12/bold, no tracking (Figma text/label/ui-tight)."
+        },
+        "14": {
+          "$type": "typography",
+          "$value": {
+            "fontFamily": "{font.family.text}",
+            "fontSize": "{font.size.14}",
+            "fontWeight": "{font.weight.bold}",
+            "lineHeight": "{font.lineHeight.base}",
+            "letterSpacing": "{font.tracking.normal}"
+          },
+          "$description": "Dense body, bold (Figma text/body/dense/bold)."
+        },
+        "16": {
+          "$type": "typography",
+          "$value": {
+            "fontFamily": "{font.family.text}",
+            "fontSize": "{font.size.16}",
+            "fontWeight": "{font.weight.bold}",
+            "lineHeight": "{font.lineHeight.base}",
+            "letterSpacing": "{font.tracking.normal}"
+          },
+          "$description": "Default body, bold (Figma text/body/default/bold)."
+        },
+        "20": {
+          "$type": "typography",
+          "$value": {
+            "fontFamily": "{font.family.text}",
+            "fontSize": "{font.size.20}",
+            "fontWeight": "{font.weight.bold}",
+            "lineHeight": "{font.lineHeight.relaxed}",
+            "letterSpacing": "{font.tracking.normal}"
+          },
+          "$description": "Lead body, bold (Figma text/body/lead/bold)."
+        }
+      },
+      "displayTight": {
+        "$description": "Display-face compositions on the tight 1.1 line, no tracking. Matched to the SCDS Figma library text style of the same role, 2026-10-03.",
+        "12": {
+          "$type": "typography",
+          "$value": {
+            "fontFamily": "{font.family.display}",
+            "fontSize": "{font.size.12}",
+            "fontWeight": "{font.weight.black}",
+            "lineHeight": "{font.lineHeight.tight}",
+            "letterSpacing": "{font.tracking.normal}"
+          },
+          "$description": "Navigation header: 12/black on 1.1 (Figma text/body/nav/header)."
+        },
+        "32": {
+          "$type": "typography",
+          "$value": {
+            "fontFamily": "{font.family.display}",
+            "fontSize": "{font.size.32}",
+            "fontWeight": "{font.weight.black}",
+            "lineHeight": "{font.lineHeight.tight}",
+            "letterSpacing": "{font.tracking.normal}"
+          },
+          "$description": "Extra-small display: 32/black on 1.1, no tracking (Figma text/display/xs)."
+        }
+      },
+      "textTight": {
+        "$description": "Text-face compositions on the tight 1.1 line. Matched to the SCDS Figma library text style of the same role, 2026-10-03.",
+        "13": {
+          "$type": "typography",
+          "$value": {
+            "fontFamily": "{font.family.text}",
+            "fontSize": "{font.size.13}",
+            "fontWeight": "{font.weight.regular}",
+            "lineHeight": "{font.lineHeight.tight}",
+            "letterSpacing": "{font.tracking.normal}"
+          },
+          "$description": "Navigation node: 13/regular on 1.1 (Figma text/body/nav/node)."
+        }
+      },
       "mono": {
         "$description": "Mono variants · chrome tier only. Mono is not a default at headline or display sizes — invoke as a single-axis family override on the sans composition tokens if a larger mono surface is required.",
         "11": {
@@ -594,6 +680,17 @@
             "letterSpacing": "{font.tracking.normal}"
           },
           "$description": "Mono inline code, dense mono cells at 14px."
+        },
+        "14-loose": {
+          "$type": "typography",
+          "$value": {
+            "fontFamily": "{font.family.mono}",
+            "fontSize": "{font.size.14}",
+            "fontWeight": "{font.weight.regular}",
+            "lineHeight": "{font.lineHeight.loose}",
+            "letterSpacing": "{font.tracking.normal}"
+          },
+          "$description": "Mono at 14px on a loose 2.0 line for flowing mono prose (Figma text/mono/flow). Matched to the SCDS Figma library text style of the same role, 2026-10-03."
         },
         "16": {
           "$type": "typography",
