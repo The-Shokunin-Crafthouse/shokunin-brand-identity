@@ -1505,3 +1505,5 @@ The dim is the receding layer's opacity over the page ground, not a scrim colour
 **Alternatives considered.**
 - **Fold the inset layers into `shadow.control.raised`.** Rejected: breaks the SwiftUI path above.
 - **Raise the highlight to meet the shade.** Rejected: Levi named the shade as the problem.
+
+**Figma parity (same day).** Library `0zVoxaLJQkjHENYJlQk1VT`: new effect styles `shadow/control/bevel`, `shadow/control/dark/raised`, `shadow/control/dark/bevel`; `shadow/control/raised` gained a description. Figma effect styles carry no modes and a node takes one style, so the four non-disabled Primary variants (9:439, 9:442, 9:445, 9:449) carry raise + bevel as six raw light-mode layers, as the raise was before. The dark styles are for dark frames by hand. The library has no Destructive variant. Its `shadow/control/inset` style does not match the code token of that name; left for its own fix.
