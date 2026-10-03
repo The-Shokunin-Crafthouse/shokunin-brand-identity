@@ -280,6 +280,12 @@
           }
         }
       },
+      "selected": {
+        "$type": "color",
+        "$value": "#038E931A",
+        "$description": "Selected-option tint: brand teal (teal.500) at 10%. Select's open option row in the Figma library. Same in both modes. 2026-10-03.",
+        "$extensions": { "modes": { "light": "#038E931A", "dark": "#038E931A" } }
+      },
       "active": {
         "$type": "color",
         "$value": "{color.teal.700}",
@@ -752,6 +758,12 @@
           "$value": "{font.text.12}",
           "$description": "Sprint 4 addition · UI labels · 12/medium/wide. Form labels, dense table headers.",
           "$extensions": { "modes": { "light": "{font.text.12}", "dark": "{font.text.12}" } }
+        },
+        "uiTight": {
+          "$type": "typography",
+          "$value": "{font.text.bold.12}",
+          "$description": "UI label, tight: 12/bold, no tracking. Figma text/label/ui-tight. 2026-10-03.",
+          "$extensions": { "modes": { "light": "{font.text.bold.12}", "dark": "{font.text.bold.12}" } }
         }
       },
       "caption": {
@@ -778,6 +790,24 @@
           "$value": "{font.text.20}",
           "$description": "Sprint 4 addition · lead body · 20/regular/relaxed. Intro paragraphs.",
           "$extensions": { "modes": { "light": "{font.text.20}", "dark": "{font.text.20}" } }
+        },
+        "denseBold": {
+          "$type": "typography",
+          "$value": "{font.text.bold.14}",
+          "$description": "Dense body, bold. Figma text/body/dense/bold. 2026-10-03.",
+          "$extensions": { "modes": { "light": "{font.text.bold.14}", "dark": "{font.text.bold.14}" } }
+        },
+        "defaultBold": {
+          "$type": "typography",
+          "$value": "{font.text.bold.16}",
+          "$description": "Default body, bold. Figma text/body/default/bold. 2026-10-03.",
+          "$extensions": { "modes": { "light": "{font.text.bold.16}", "dark": "{font.text.bold.16}" } }
+        },
+        "leadBold": {
+          "$type": "typography",
+          "$value": "{font.text.bold.20}",
+          "$description": "Lead body, bold. Figma text/body/lead/bold. 2026-10-03.",
+          "$extensions": { "modes": { "light": "{font.text.bold.20}", "dark": "{font.text.bold.20}" } }
         }
       },
       "title": {
@@ -795,6 +825,12 @@
         }
       },
       "display": {
+        "xs": {
+          "$type": "typography",
+          "$value": "{font.text.displayTight.32}",
+          "$description": "Extra-small display: 32/black on 1.1. Figma text/display/xs. 2026-10-03.",
+          "$extensions": { "modes": { "light": "{font.text.displayTight.32}", "dark": "{font.text.displayTight.32}" } }
+        },
         "sm": {
           "$type": "typography",
           "$value": "{font.text.44}",
@@ -838,6 +874,27 @@
           "$value": "{font.text.mono.16}",
           "$description": "Sprint 4 addition · mono body · 16px. Inline code, code blocks.",
           "$extensions": { "modes": { "light": "{font.text.mono.16}", "dark": "{font.text.mono.16}" } }
+        },
+        "flow": {
+          "$type": "typography",
+          "$value": "{font.text.mono.14-loose}",
+          "$description": "Mono prose: 14px on a 2.0 line. Figma text/mono/flow. 2026-10-03.",
+          "$extensions": { "modes": { "light": "{font.text.mono.14-loose}", "dark": "{font.text.mono.14-loose}" } }
+        }
+      },
+      "nav": {
+        "$description": "Navigation tree type. Figma text/body/nav/*. 2026-10-03.",
+        "header": {
+          "$type": "typography",
+          "$value": "{font.text.displayTight.12}",
+          "$description": "Navigation header: 12/black on 1.1. Figma text/body/nav/header.",
+          "$extensions": { "modes": { "light": "{font.text.displayTight.12}", "dark": "{font.text.displayTight.12}" } }
+        },
+        "node": {
+          "$type": "typography",
+          "$value": "{font.text.textTight.13}",
+          "$description": "Navigation node: 13/regular on 1.1. Figma text/body/nav/node.",
+          "$extensions": { "modes": { "light": "{font.text.textTight.13}", "dark": "{font.text.textTight.13}" } }
         }
       }
     }

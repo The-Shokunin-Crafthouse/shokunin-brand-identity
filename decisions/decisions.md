@@ -1536,3 +1536,41 @@ The dim is the receding layer's opacity over the page ground, not a scrim colour
 - Effect styles 6/6 match.
 
 **Open for Levi (type direction, not fixed here).** Six text styles disagree with `font.text.*`: `text/label/ui` weight 700 vs 500; `text/title/card` 900 vs 700; tracking on `text/display/sm` −1.8% vs 0, `text/display/lg` and `text/display/xl` −4% vs 0, `text/mono/chrome` 6% vs 0. Each is either Figma stale or a type decision code has not received. Eight Figma-only text styles (`*/bold`, `nav/*`, `label/ui-tight`, `mono/flow`, `display/xs`) have no token. `Select / State=Open`'s option fill is teal at 10% opacity, with no token.
+
+## 2026-10-03 — Six type composites move to the Figma library's values
+
+**Context.** The library parity check (`npm run parity:figma`, same day) found six text styles whose Figma values differ from `font.text.*`. Levi ruled: "tokens should update to match figma".
+
+**Decision.** Each moves to an existing scale step; no new primitive.
+- `font.text.12` (`text.label.ui`): weight `medium` → `bold`.
+- `font.text.24` (`text.title.card`): weight `bold` → `black`. The Dashboard's tile titles already draw Black (studio-pm ADR-090).
+- `font.text.44` (`text.display.sm`): tracking `normal` → `tight` (−0.018em).
+- `font.text.84` and `font.text.120` (`text.display.lg`, `.xl`): tracking `normal` → `tightest` (−0.04em).
+- `font.text.mono.11` (`text.mono.chrome`): tracking `normal` → `wider` (0.06em), which is what its own description already said.
+
+Each composite has one consumer in `semantic.json`, so nothing else moves. `tokens:build`, `tokens:swift`, `tokens:map` regenerated; their checks and `tokens:verify` pass.
+
+**Consequence.** Every surface on `text.label.ui` turns bold, and every card title turns Black, on the site and in studio-pm once it re-vendors.
+
+**Supersedes** the `2026-08-16 Token sync` line "Figma is the source of truth for token VALUES" only for these six rows, and only as a ruling: `tokens/*.json` stays upstream (2026-08-17), and this change was made in the JSON.
+
+### 2026-10-03 amendment: the library's other eight text styles, and the selected tint, become tokens
+
+Levi: "add tokens for them and update json with the 8 figma text styles". Each takes the Figma style's exact values; nine primitives carry them, beside the scale rather than in it.
+
+| Semantic | Primitive | Figma style | Value |
+|---|---|---|---|
+| `font.text.label.uiTight` | `font.text.bold.12` | `text/label/ui-tight` | text 12 / bold / 1.5 / 0 |
+| `font.text.body.denseBold` | `font.text.bold.14` | `text/body/dense/bold` | text 14 / bold / 1.5 / 0 |
+| `font.text.body.defaultBold` | `font.text.bold.16` | `text/body/default/bold` | text 16 / bold / 1.5 / 0 |
+| `font.text.body.leadBold` | `font.text.bold.20` | `text/body/lead/bold` | text 20 / bold / 1.55 / 0 |
+| `font.text.display.xs` | `font.text.displayTight.32` | `text/display/xs` | display 32 / black / 1.1 / 0 |
+| `font.text.nav.header` | `font.text.displayTight.12` | `text/body/nav/header` | display 12 / black / 1.1 / 0 |
+| `font.text.nav.node` | `font.text.textTight.13` | `text/body/nav/node` | text 13 / regular / 1.1 / 0 |
+| `font.text.mono.flow` | `font.text.mono.14-loose` | `text/mono/flow` | mono 14 / regular / 2.0 / 0 |
+
+`body.dense` and its siblings are leaf tokens, so the bold variants are siblings (`denseBold`), not children; `figma-plugin-check.mjs` maps the six names that are not the path with dots as slashes.
+
+`color.interactive.selected` = `#038E931A` (teal.500 at 10%), both modes: the Select open-option row, which held teal at 10% paint opacity with no token. The library's new `color/interactive/selected` variable carries it and the row is bound.
+
+129 semantic tokens (from 120). `tokens:build`, `tokens:swift`, `tokens:map` regenerated; checks and `tokens:verify` pass. The plugin check reads the eight text styles and the variable as in sync.

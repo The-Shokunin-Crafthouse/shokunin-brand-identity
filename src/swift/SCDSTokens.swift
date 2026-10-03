@@ -151,9 +151,9 @@ public enum SCDS {
     public static let primitivesVersion = "0.1.0"
     public static let semanticVersion = "0.1.0"
     public static let sourceGenerated = "2026-05-26"
-    public static let primitivesHash = "be9f08363816d442"
-    public static let semanticHash = "bddc50330cfd347d"
-    public static let tokenCount = 120
+    public static let primitivesHash = "575b1c7ab1c85009"
+    public static let semanticHash = "62f8260f26dd1260"
+    public static let tokenCount = 129
   }
 
   // MARK: - Color
@@ -292,6 +292,12 @@ public enum SCDS {
         dark:  (0.560784, 0.823529, 0.835294, 1)
     )
 
+    /// `color.interactive.selected`
+    public static let interactiveSelected = SwiftUI.Color.scdsDynamic(
+        light: (0.011765, 0.556863, 0.576471, 0.101961),
+        dark:  (0.011765, 0.556863, 0.576471, 0.101961)
+    )
+
     /// `color.interactive.active`
     public static let interactiveActive = SwiftUI.Color.scdsDynamic(
         light: (0.019608, 0.384314, 0.407843, 1),
@@ -420,9 +426,19 @@ public enum SCDS {
         family: "Neue Haas Grotesk Text Pro",
         fallbacks: ["Helvetica Neue", "Inter", "system-ui", "sans-serif"],
         size: 12,
-        weight: .medium,
+        weight: .bold,
         lineHeightMultiple: 1.5,
         trackingEm: 0.04
+    )
+
+    /// `font.text.label.uiTight` · Neue Haas Grotesk Text Pro 12/1.5
+    public static let textLabelUiTight = SCDSTypeStyle(
+        family: "Neue Haas Grotesk Text Pro",
+        fallbacks: ["Helvetica Neue", "Inter", "system-ui", "sans-serif"],
+        size: 12,
+        weight: .bold,
+        lineHeightMultiple: 1.5,
+        trackingEm: 0
     )
 
     /// `font.text.caption` · Neue Haas Grotesk Text Pro 13/1.55
@@ -465,12 +481,42 @@ public enum SCDS {
         trackingEm: 0
     )
 
+    /// `font.text.body.denseBold` · Neue Haas Grotesk Text Pro 14/1.5
+    public static let textBodyDenseBold = SCDSTypeStyle(
+        family: "Neue Haas Grotesk Text Pro",
+        fallbacks: ["Helvetica Neue", "Inter", "system-ui", "sans-serif"],
+        size: 14,
+        weight: .bold,
+        lineHeightMultiple: 1.5,
+        trackingEm: 0
+    )
+
+    /// `font.text.body.defaultBold` · Neue Haas Grotesk Text Pro 16/1.5
+    public static let textBodyDefaultBold = SCDSTypeStyle(
+        family: "Neue Haas Grotesk Text Pro",
+        fallbacks: ["Helvetica Neue", "Inter", "system-ui", "sans-serif"],
+        size: 16,
+        weight: .bold,
+        lineHeightMultiple: 1.5,
+        trackingEm: 0
+    )
+
+    /// `font.text.body.leadBold` · Neue Haas Grotesk Text Pro 20/1.55
+    public static let textBodyLeadBold = SCDSTypeStyle(
+        family: "Neue Haas Grotesk Text Pro",
+        fallbacks: ["Helvetica Neue", "Inter", "system-ui", "sans-serif"],
+        size: 20,
+        weight: .bold,
+        lineHeightMultiple: 1.55,
+        trackingEm: 0
+    )
+
     /// `font.text.title.card` · Neue Haas Grotesk Display Pro 24/1.2
     public static let textTitleCard = SCDSTypeStyle(
         family: "Neue Haas Grotesk Display Pro",
         fallbacks: ["Helvetica Neue", "Inter", "system-ui", "sans-serif"],
         size: 24,
-        weight: .bold,
+        weight: .black,
         lineHeightMultiple: 1.2,
         trackingEm: -0.012
     )
@@ -485,6 +531,16 @@ public enum SCDS {
         trackingEm: -0.018
     )
 
+    /// `font.text.display.xs` · Neue Haas Grotesk Display Pro 32/1.1
+    public static let textDisplayXs = SCDSTypeStyle(
+        family: "Neue Haas Grotesk Display Pro",
+        fallbacks: ["Helvetica Neue", "Inter", "system-ui", "sans-serif"],
+        size: 32,
+        weight: .black,
+        lineHeightMultiple: 1.1,
+        trackingEm: 0
+    )
+
     /// `font.text.display.sm` · Neue Haas Grotesk Display Pro 44/1.1
     public static let textDisplaySm = SCDSTypeStyle(
         family: "Neue Haas Grotesk Display Pro",
@@ -492,7 +548,7 @@ public enum SCDS {
         size: 44,
         weight: .black,
         lineHeightMultiple: 1.1,
-        trackingEm: 0
+        trackingEm: -0.018
     )
 
     /// `font.text.display.md` · Neue Haas Grotesk Display Pro 60/1.1
@@ -512,7 +568,7 @@ public enum SCDS {
         size: 84,
         weight: .black,
         lineHeightMultiple: 1.1,
-        trackingEm: 0
+        trackingEm: -0.04
     )
 
     /// `font.text.display.xl` · Neue Haas Grotesk Display Pro 120/1
@@ -522,7 +578,7 @@ public enum SCDS {
         size: 120,
         weight: .black,
         lineHeightMultiple: 1,
-        trackingEm: 0
+        trackingEm: -0.04
     )
 
     /// `font.text.mono.chrome` · Cascadia Mono 11/1.5
@@ -532,7 +588,7 @@ public enum SCDS {
         size: 11,
         weight: .semibold,
         lineHeightMultiple: 1.5,
-        trackingEm: 0
+        trackingEm: 0.06
     )
 
     /// `font.text.mono.caption` · Cascadia Mono 13/1.55
@@ -552,6 +608,36 @@ public enum SCDS {
         size: 16,
         weight: .regular,
         lineHeightMultiple: 1.55,
+        trackingEm: 0
+    )
+
+    /// `font.text.mono.flow` · Cascadia Mono 14/2
+    public static let textMonoFlow = SCDSTypeStyle(
+        family: "Cascadia Mono",
+        fallbacks: ["Cascadia Code", "ui-monospace", "SF Mono", "Menlo", "monospace"],
+        size: 14,
+        weight: .regular,
+        lineHeightMultiple: 2,
+        trackingEm: 0
+    )
+
+    /// `font.text.nav.header` · Neue Haas Grotesk Display Pro 12/1.1
+    public static let textNavHeader = SCDSTypeStyle(
+        family: "Neue Haas Grotesk Display Pro",
+        fallbacks: ["Helvetica Neue", "Inter", "system-ui", "sans-serif"],
+        size: 12,
+        weight: .black,
+        lineHeightMultiple: 1.1,
+        trackingEm: 0
+    )
+
+    /// `font.text.nav.node` · Neue Haas Grotesk Text Pro 13/1.1
+    public static let textNavNode = SCDSTypeStyle(
+        family: "Neue Haas Grotesk Text Pro",
+        fallbacks: ["Helvetica Neue", "Inter", "system-ui", "sans-serif"],
+        size: 13,
+        weight: .regular,
+        lineHeightMultiple: 1.1,
         trackingEm: 0
     )
   }

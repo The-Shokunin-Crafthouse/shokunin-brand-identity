@@ -88,7 +88,9 @@ for (const [path, t] of js) {
   const v = res(t.value, 'Value');
   const comp = typeof v === 'object' ? v : {};
   const rest = path.slice('font.text.'.length).split('.');
-  const name = 'text/' + rest.join('/') + (rest[0] === 'body' ? '/regular' : '');
+  // Figma's names where they are not the path with dots as slashes (2026-10-03).
+  const FIGMA_TEXT = { 'label.uiTight': 'text/label/ui-tight', 'body.denseBold': 'text/body/dense/bold', 'body.defaultBold': 'text/body/default/bold', 'body.leadBold': 'text/body/lead/bold', 'nav.header': 'text/body/nav/header', 'nav.node': 'text/body/nav/node' };
+  const name = FIGMA_TEXT[rest.join('.')] ?? ('text/' + rest.join('/') + (rest[0] === 'body' ? '/regular' : ''));
   const num = (x) => Number(norm(res(x, 'Value')));
   text.push({ name, weight: num(comp.fontWeight), size: num(comp.fontSize), lineHeight: num(comp.lineHeight), trackingEm: num(comp.letterSpacing) });
 }
