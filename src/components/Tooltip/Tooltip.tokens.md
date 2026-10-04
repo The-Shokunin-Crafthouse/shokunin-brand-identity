@@ -22,7 +22,7 @@ Spec ref: §2 Tier 3 · 3.8 · States: single-line, multi-line.
 | State | Selector | Token shift |
 |---|---|---|
 | `single-line` | `.singleline` | `white-space: nowrap` |
-| `multi-line` | `.multiline` | `white-space: normal` · `max-width: calc(--sc-space-layout-stack-xl * 3)` (240) for readability cap |
+| `multi-line` | `.multiline` | `white-space: normal` · `width: max-content` so the box grows to the cap (an absolute box at `left: 50%` otherwise shrinks to half the trigger) · `max-width: calc(--sc-space-layout-stack-xl * 3)` (240) for readability cap |
 | `open` | `.open` (React state) | `opacity: 1`, transform origin clears |
 | `closed` | default | `opacity: 0`, slightly translated down for slide-in feel |
 
