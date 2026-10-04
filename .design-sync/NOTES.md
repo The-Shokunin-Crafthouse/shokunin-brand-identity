@@ -23,7 +23,7 @@ Sync target: a claude.ai/design design-system project. Converter shape: `package
 
 - All 16 components have authored previews in `.design-sync/previews/`, ported from `src/sections/ComponentSections.jsx` and `SpecimenSection.jsx`.
 - Tooltip opens on hover or focus only. `Open` dispatches a `mouseover` on mount to show the open state.
-- A Tooltip multiline story is left out. The multiline tooltip wraps one word per line upstream (`.multiline` lacks `width: max-content`). Add the story back when that is fixed.
+- Tooltip `MultiLine` sets a fixed 320 width. The open tip (240 cap) is wider than its trigger, and a card that shrink-wraps the story would cut it. The story needs the `.multiline` `width: max-content` fix (PR #66) in the build; without it the tip wraps one word per line.
 - Not shown, cannot render statically: hover, focus and press states; NavBar compact menu open; Stepper press-and-hold.
 - `Card.tsx` export `Composed` mirrors the example in `conventions.md`. Change them together.
 - Avatar `Image` inlines `assets/logo/mark-icon-dark.png` as a data URI.
