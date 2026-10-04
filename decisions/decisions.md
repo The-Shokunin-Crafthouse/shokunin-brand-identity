@@ -1604,3 +1604,14 @@ Levi: "add the atmosphere variables to the figma library". This supersedes the *
 - **Scopes:** frame fill and shape fill only, so the washes and the mark stay out of the text and stroke pickers. Each carries its token's description.
 - **Parity:** the plugin check's comparison, run on the `color/atmosphere/*` rows, read 13 of 13 in sync (3 primitive values, 10 semantic mode values), none missing in either direction.
 - **Publish:** not yet published from the library file. Consumers see the variables after the next library publish.
+
+### 2026-10-04: Tooltip multi-line wraps at its 240 cap, and the demos give the tip room
+
+The multi-line Tooltip rendered about 82 wide, one word per line. `.tooltip` is absolute at `left: 50%` inside an inline-block wrapper, so its auto width shrank to half the trigger and `max-width` never applied. Single-line was unaffected because `nowrap` forces max-content width.
+
+- **Component:** `.multiline` gains `width: max-content`. The existing `max-width: calc(--sc-space-layout-stack-xl * 3)` cap is unchanged. Measured 240 wide in light and dark at 390, 768, 1024, 1440 and 1920.
+- **Demo headroom:** the state grid and the Specimen panel clip their overflow. The single-line tip was already cut 7 at the top and 11 at the left on the Tooltip page; at the correct width the multi-line tip lost 47 at the top. Both demos now centre the trigger and put `--sc-space-layout-stack-xl` above it. No clip at any of the five widths.
+- **Stack variant:** the Tooltip page uses `statesVariant="stack"`. A two-column cell at 768 is about 212 wide, narrower than the 240 cap.
+- **Demo copy:** both demos said "wraps to two lines" and rendered three at the cap. The content is now "A longer note that wraps to two lines at the readable-measure cap." and renders two.
+- **Not changed:** the Density page's single-line tip is still cut 12 at the left by its panel. The Tooltip has no collision handling or portal, so any clipping ancestor cuts it; that is a component limit, not addressed here.
+- **Release:** the fix ships to consumers on the next package tag. No version bump in this change.

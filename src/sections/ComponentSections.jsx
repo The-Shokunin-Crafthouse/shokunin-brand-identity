@@ -446,7 +446,7 @@ export function ProgressPage() {
 export function TooltipPage() {
   return (
     <ComponentPage
-      id="tooltip" label="Tooltip" tokensN={11}
+      id="tooltip" label="Tooltip" tokensN={11} statesVariant="stack"
       eyebrow={<>Tooltip<Slash />always the inverse</>}
       title={<>Dark on light. <Em>Light on dark. Always the opposite.</Em></>}
       lead={<>A tooltip is the one surface that always reads inverted from the page beneath it — ink in light mode, near-white in dark. That inversion is what makes it read as a layer above the document rather than part of it. Hover or focus the targets below to raise them.</>}
@@ -457,8 +457,8 @@ export function TooltipPage() {
         { title: 'Multi-line caps its width', body: 'A wrapping tip is capped at a readable measure via calc() of a layout token, so a long note never stretches into a banner.' },
       ]}
       states={[
-        { name: 'Single-line', token: '--sc-color-surface-inverse', render: <Tooltip content="Saved to the binder."><span style={tooltipTarget}>Hover me</span></Tooltip> },
-        { name: 'Multi-line', token: '--sc-space-layout-stack-xl', render: <Tooltip multiline content="A longer note that wraps to two lines to show the readable-measure cap in action."><span style={tooltipTarget}>Hover for more</span></Tooltip> },
+        { name: 'Single-line', token: '--sc-color-surface-inverse', render: <div style={tooltipStage}><Tooltip content="Saved to the binder."><span style={tooltipTarget}>Hover me</span></Tooltip></div> },
+        { name: 'Multi-line', token: '--sc-space-layout-stack-xl', render: <div style={tooltipStage}><Tooltip multiline content="A longer note that wraps to two lines at the readable-measure cap."><span style={tooltipTarget}>Hover for more</span></Tooltip></div> },
       ]}
       tokenRows={[
         { prop: 'Ground', token: '--sc-color-surface-inverse' },
@@ -481,6 +481,11 @@ export function TooltipPage() {
     />
   );
 }
+/* The state grid clips its overflow, so the raised tip needs room inside the
+   cell: stack-xl above the trigger, and the trigger centred so the tip's
+   overhang clears both edges. The page uses the stack variant because a
+   two-column cell at 768 is narrower than the 240 multi-line cap. */
+const tooltipStage = { flex: 1, display: 'flex', justifyContent: 'center', paddingTop: 'var(--sc-space-layout-stack-xl)' };
 const tooltipTarget = { font: 'var(--sc-font-text-body-default)', color: 'var(--sc-color-text-primary)', borderBottom: 'var(--sc-border-width-default) dashed var(--sc-color-border-strong)', cursor: 'help' };
 
 /* ── 3.5 Divider ─────────────────────────────────────────── */
