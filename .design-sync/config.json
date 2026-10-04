@@ -50,5 +50,24 @@
     "_config/design-system/ui-rules.md",
     "_config/design-system/type-system.md",
     "_config/voice/brand-voice.md"
-  ]
+  ],
+  "overrides": {
+    "Alert": {
+      "cardMode": "column"
+    },
+    "Card": {
+      "cardMode": "column"
+    },
+    "Divider": {
+      "cardMode": "column"
+    },
+    "NavBar": {
+      "cardMode": "column"
+    },
+    "TypographySpecimen": {
+      "cardMode": "single",
+      "primaryStory": "FullScale",
+      "viewport": "920x2000"
+    }
+  }
 }

@@ -31,14 +31,6 @@ export const SingleLine = () => (
   </Hovered>
 );
 
-export const MultiLine = () => (
-  <Hovered>
-    <Tooltip multiline content="A longer note that wraps to two lines to show the readable-measure cap in action.">
-      <span style={target} tabIndex={0} data-trigger>Hover for more</span>
-    </Tooltip>
-  </Hovered>
-);
-
 export const Resting = () => (
   <Tooltip content="Saved to the binder.">
     <span style={target} tabIndex={0}>Hover me</span>
