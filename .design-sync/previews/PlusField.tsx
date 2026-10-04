@@ -72,10 +72,10 @@ export const ImagePlaceholder = () => (
 
 export const Hero = () => (
   <Modes>
-    <section style={{ position: 'relative', height: 400, borderRadius: 'var(--sc-radius-surface)', overflow: 'hidden' }}>
+    <section style={{ position: 'relative', height: 232, borderRadius: 'var(--sc-radius-surface)', overflow: 'hidden' }}>
       <PlusField art="uhero" surface="raised" backdrop />
       <div style={{ position: 'relative', height: '100%', maxWidth: '46%', paddingLeft: 'var(--sc-space-layout-inset-lg)', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-start', gap: 'var(--sc-space-layout-stack-md)' }}>
-        <h1 style={{ font: 'var(--sc-font-text-display-md)', margin: 0 }}>Page headline sits here</h1>
+        <h1 style={{ font: 'var(--sc-font-text-display-sm)', margin: 0 }}>Page headline sits here</h1>
         <Button>View work</Button>
       </div>
     </section>
@@ -121,8 +121,8 @@ export const FormCorner = () => (
 
 export const NotFound = () => (
   <Modes>
-    <div style={{ background: 'var(--sc-color-surface-inverse)', borderRadius: 'var(--sc-radius-surface)', overflow: 'hidden', display: 'grid', justifyItems: 'center', gap: 'var(--sc-space-layout-stack-sm)', paddingBottom: 'var(--sc-space-layout-stack-lg)' }}>
-      <div style={{ width: '100%', height: 280 }}><PlusField art="type" text="404" textScale={0.85} /></div>
+    <div style={{ background: 'var(--sc-color-surface-inverse)', borderRadius: 'var(--sc-radius-surface)', overflow: 'hidden', display: 'grid', justifyItems: 'center', gap: 'var(--sc-space-layout-stack-sm)', paddingBottom: 'var(--sc-space-layout-stack-md)' }}>
+      <div style={{ width: '100%', height: 120 }}><PlusField art="type" text="404" textScale={0.85} /></div>
       <p style={{ font: 'var(--sc-font-text-body-lead)', color: 'var(--sc-color-text-on-inverse)', margin: 0 }}>Page not found</p>
       <Button variant="secondary">Back home</Button>
     </div>

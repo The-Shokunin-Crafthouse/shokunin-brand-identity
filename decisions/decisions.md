@@ -1644,3 +1644,29 @@ Levi ran `/design-sync`, then: "set up an automation that automatically runs des
 **Not verified at decision time.** Whether bypass mode clears the upload approval. Claude Code's safety classifier blocked the session from launching a bypass-mode agent, so the first live run is Levi's: the installer's first firing. The hermetic suite (`scripts/design-sync-auto.test.sh`, 58 checks, stub agent) covers the gates, the baseline, the hold, the watchdog and the artifact check; it cannot cover what a real agent does.
 
 **Rejected:** a GitHub Action (CI has no claude.ai/design login), a cloud routine (same, and no local checkout), and a narrower permission allowlist (does not clear the upload approval).
+
+## 2026-10-04 — PlusField: the plus-sign halftone brand elements join SCDS
+
+**Stage:** 03-build (scds-v2)
+**Type:** Component addition (asked for by Levi, 2026-10-04, from the approved Brand Elements prototype, turn 2)
+**Status:** accepted
+**Slug:** plus-field
+
+**Context.** The Brand Elements prototype (`handoff/Brand Elements.dc.html`, engine `handoff/plus-field.js`) set out a plus-mark halftone system for website and app UI. Turn 2 (ids 2a to 2t) is the approved set: every mark a plus, each element tied to one recurring UI slot, crisp grids in structural slots, loose ribbons in expressive ones, teal only for progress and current state. Turn 1 was exploration and is out of scope.
+
+**Decision.** Eleven components, version 0.4.0:
+
+- `PlusField` is the primitive: one canvas that fills its parent box and draws one art. `plusField.engine.js` holds the turn-2 drawers as pure canvas code (no React, no DOM reads); turn-1 drawers and the WorkingMark loop paths are not ported. Options are typed props, not `data-*`.
+- Ten wrappers: `SectionDivider` (2a), `HeadingRule` (2b), `PlusUnderline` (2j), `PlusProgress` (2h), `PlusLoader` (2i), `PlusSkeleton` (2g), `PlusTimeline` (2o), `PlusBullet` and `PlusSeparator` (2p), `PlusThumbnail` (2r). The other arts (2c, 2d, 2e, 2f, 2k, 2l, 2m, 2n, 2q, 2s, 2t) stay `PlusField art="…"`, with each composition in `PlusField.md`.
+- **The teal rule is a code guard.** A drawer gets no accent colour. It calls `teal(role)`, and any role other than `progress`, `active`, `current` throws. A new teal use needs a new role, which needs an entry here.
+- **Runtime.** ResizeObserver on the root; backing store = CSS size × min(2, devicePixelRatio); a 0×0 box draws nothing. Colours from the semantic tokens via `getComputedStyle` on the field itself, so `[data-theme]` on `<html>` or any ancestor applies; one shared MutationObserver redraws every field on an `<html>` theme change. One shared requestAnimationFrame loop for `uskel`, `uloader`, `usplash`, joined only while on screen (one shared IntersectionObserver); still frame under `prefers-reduced-motion` or `animate={false}`.
+- **Accessibility.** The canvas is always `aria-hidden`. `uprog` adds a visually hidden `role="progressbar"`; `uloader` and `uskel` add a visually hidden `role="status"` when given a `label`. `PlusTimeline` is an `<ol>` with `aria-current="step"`.
+- **Guideline.** `_config/design-system/brand-elements.md` (slot table, crisp versus loose, teal, surface, density, shape, motion). It ships to Claude Design through `guidelinesGlob`, and `SYNC_PATHS` in `scripts/design-sync-auto.sh` now covers it.
+
+**Deviations from the prototype, all to hold the 8pt grid or a token.** Divider heights 16 / 24 / 32 (prototype 20 / 28 / 40). Timeline row pitch 80 (84), rail 48 (64). Loader 240 square (220). Bullet 16 (15). The timeline spaces its nodes evenly by `steps` instead of the prototype's four fixed positions. `uprog` draws one bar per field, `rows` high, instead of the prototype's two demo bars in one canvas. `type` derives its mark pitch and size from the glyph size, so the 404 needs only `textScale`. The engine's geometry constants (7-unit pitch, ribbon widths, path points) stay literal: they are the art.
+
+**Defaults.** `PlusField` defaults to `surface="inverse"` as the prototype did. The crisp wrappers default to `surface="none"`, so they sit on whatever surface holds them; the prototype painted them `paper` on a raised card, which renders the same there and breaks anywhere else.
+
+**Motion over 600ms, justified.** The loader loops every 2.8 s, the skeleton sweep and the splash wave are continuous. They are the continuous-motion category in `ui-rules.md`: each narrates "still working" for as long as the wait lasts.
+
+**Not done here.** Figma masters for the eleven components. Brand reference site sections. A motion philosophy for SCDS is still unpicked (Phase 3); these motions follow the prototype.
