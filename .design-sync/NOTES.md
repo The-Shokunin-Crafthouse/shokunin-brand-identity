@@ -35,4 +35,5 @@ Sync target: claude.ai/design project "SCDS" (`projectId` in `config.json`, http
 - `conventions.md` names tokens, glyphs and exports. Re-run its validation (grep each name against `ds-bundle/_ds_bundle.css` and `_ds_bundle.js`) after any token rename.
 - `guidelinesGlob` ships three `_config/` docs verbatim. A file move breaks the glob quietly (the guideline just stops shipping).
 - A Phosphor major bump changes glyph names on `window.SCDS`.
-- The first run built and verified everything locally before the project existed (DesignSync was not authorized in that session). Check `projectId` in `config.json` to see whether the upload has happened.
+- First upload: 2026-10-04, incremental path into the empty SCDS project, 104 files plus the `_ds_sync.json` anchor. Later syncs are pinned, so they take the atomic path: fetch the anchor to `.design-sync/.cache/remote-sync.json` and pass `--remote`.
+- Two older hand-made projects named "Shokunin Crafthouse Design System" may still exist in the account. They are not sync targets. Never sync into them.
