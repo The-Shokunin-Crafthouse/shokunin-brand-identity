@@ -7,7 +7,7 @@ You are the unattended design sync for the Shokunin Crafthouse Design System. `s
 Bring the claude.ai/design project pinned in `.design-sync/config.json` (`projectId`) into line with this checkout.
 
 1. Read `.design-sync/NOTES.md`. Its "Re-sync risks" section is your watch-list.
-2. Invoke the `design-sync` skill and follow it as a re-sync. The project is pinned, so the skill's atomic upload path applies.
+2. Follow the `design-sync` skill as a re-sync. This run was started as `/design-sync`, so the skill's instructions are already loaded in this turn; do not call the Skill tool for it (the skill is user-invocable only and the call is refused). If the skill's instructions are NOT in this turn, stop with `needs-human` and say so. The project is pinned, so the skill's atomic upload path applies.
 3. Write the result file. This is always your last act, on every path, success or not.
 
 ## Answers to every question the skill would ask
