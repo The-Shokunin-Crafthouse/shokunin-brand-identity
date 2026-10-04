@@ -5,7 +5,7 @@
 # Design Token Map — The Shokunin Crafthouse · Brand Identity
 
 **Generated** from `tokens/primitives.json` + `tokens/semantic.json`.
-**Source fingerprint:** `294ac9177d3c` · **170 primitives · 129 semantic tokens.**
+**Source fingerprint:** `3d03c6341db7` · **173 primitives · 134 semantic tokens.**
 
 > **This file is a mirror, not the source.** `tokens/*.json` is upstream; this document and the Figma
 > library are generated from / synced to it. It previously claimed the opposite — that both were
@@ -122,6 +122,14 @@ primitives directly. Surfaced here for traceability.
 | `color/signal/live` | `--sc-p-color-signal-live` | `#C8281C` | — |
 | `color/signal/liveBright` | `--sc-p-color-signal-live-bright` | `#DA5C4D` | — |
 | `color/signal/progress` | `--sc-p-color-signal-progress` | `#FBFF00` | — |
+
+#### `color/atmosphere`
+
+| Token Name | CSS var | Value | Notes |
+|---|---|---|---|
+| `color/atmosphere/celadon` | `--sc-p-color-atmosphere-celadon` | `#EAFBF7` | — |
+| `color/atmosphere/river` | `--sc-p-color-atmosphere-river` | `#55CCEE` | — |
+| `color/atmosphere/indigo` | `--sc-p-color-atmosphere-indigo` | `#274A78` | — |
 
 #### `color/dark`
 
@@ -487,6 +495,16 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | `color/signal/onLive` | `--sc-color-signal-on-live` | `color/warmGray/100` | `#EBE7E4` | `color/dark/surfacePage` | `#2C3239` | Text on the LIVE badge fill. |
 | `color/signal/progress` | `--sc-color-signal-progress` | `color/signal/progress` | `#FBFF00` | `color/signal/progress` | `#FBFF00` | In-progress/active pill fill + live dot — chartreuse both modes. |
 | `color/signal/onProgress` | `--sc-color-signal-on-progress` | `color/warmGray/900` | `#0D0C0B` | `color/warmGray/900` | `#0D0C0B` | Ink on the chartreuse progress fill — warm near-black both modes (chartreuse stays light-valued on dark grounds). |
+
+#### `color/atmosphere`
+
+| Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
+|---|---|---|---|---|---|---|
+| `color/atmosphere/celadon` | `--sc-color-atmosphere-celadon` | `color/atmosphere/celadon` | `#EAFBF7` | `color/atmosphere/celadon` | `#EAFBF7` | Canvas-light blend, lightest band (SPRING CELADON). |
+| `color/atmosphere/river` | `--sc-color-atmosphere-river` | `color/atmosphere/river` | `#55CCEE` | `color/atmosphere/river` | `#55CCEE` | Canvas-light blend, river-blue band (RIVER INDIGO in the export). |
+| `color/atmosphere/lapis` | `--sc-color-atmosphere-lapis` | `color/teal/500` | `#038E93` | `color/teal/500` | `#038E93` | Canvas-light blend, teal band (INKED LAPIS in the export): teal.500, the brand accent's own value, named here so the blend reads as one set. |
+| `color/atmosphere/indigo` | `--sc-color-atmosphere-indigo` | `color/atmosphere/indigo` | `#274A78` | `color/atmosphere/indigo` | `#274A78` | Canvas-light blend, deepest band (INDIGO). |
+| `color/atmosphere/mark` | `--sc-color-atmosphere-mark` | `color/teal/700` | `#056268` | `color/warmGray/100` | `#EBE7E4` | The plus-mark grid drawn over the atmosphere wash. |
 
 #### `color/brand`
 

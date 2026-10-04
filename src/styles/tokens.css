@@ -60,6 +60,9 @@
   --sc-p-color-signal-live: #C8281C;
   --sc-p-color-signal-live-bright: #DA5C4D;
   --sc-p-color-signal-progress: #FBFF00;
+  --sc-p-color-atmosphere-celadon: #EAFBF7;
+  --sc-p-color-atmosphere-river: #55CCEE;
+  --sc-p-color-atmosphere-indigo: #274A78;
   --sc-p-color-dark-well: #1F252C;
   --sc-p-color-dark-floor: #252B32;
   --sc-p-color-dark-surface-page: #2C3239;
@@ -367,6 +370,11 @@
   --sc-color-signal-on-live: var(--sc-p-color-warm-gray-100);
   --sc-color-signal-progress: var(--sc-p-color-signal-progress);
   --sc-color-signal-on-progress: var(--sc-p-color-warm-gray-900);
+  --sc-color-atmosphere-celadon: var(--sc-p-color-atmosphere-celadon);
+  --sc-color-atmosphere-river: var(--sc-p-color-atmosphere-river);
+  --sc-color-atmosphere-lapis: var(--sc-p-color-teal-500);
+  --sc-color-atmosphere-indigo: var(--sc-p-color-atmosphere-indigo);
+  --sc-color-atmosphere-mark: var(--sc-p-color-teal-700);
   --sc-color-brand-accent: var(--sc-p-color-teal-500);
   --sc-color-brand-accent-deep: var(--sc-p-color-teal-700);
   --sc-color-brand-accent-ink: var(--sc-p-color-teal-700);
@@ -615,6 +623,11 @@
   --sc-color-signal-on-live: var(--sc-p-color-dark-surface-page);
   --sc-color-signal-progress: var(--sc-p-color-signal-progress);
   --sc-color-signal-on-progress: var(--sc-p-color-warm-gray-900);
+  --sc-color-atmosphere-celadon: var(--sc-p-color-atmosphere-celadon);
+  --sc-color-atmosphere-river: var(--sc-p-color-atmosphere-river);
+  --sc-color-atmosphere-lapis: var(--sc-p-color-teal-500);
+  --sc-color-atmosphere-indigo: var(--sc-p-color-atmosphere-indigo);
+  --sc-color-atmosphere-mark: var(--sc-p-color-warm-gray-100);
   --sc-color-brand-accent: var(--sc-p-color-teal-500);
   --sc-color-brand-accent-deep: var(--sc-p-color-teal-700);
   --sc-color-brand-accent-ink: var(--sc-p-color-teal-200);
