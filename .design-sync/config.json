@@ -27,7 +27,18 @@
     "Switch": "src/components/Switch/Switch.jsx",
     "Tooltip": "src/components/Tooltip/Tooltip.jsx",
     "TypographySpecimen": "src/components/TypographySpecimen/TypographySpecimen.jsx",
-    "WorkingMark": "src/components/WorkingMark/WorkingMark.jsx"
+    "WorkingMark": "src/components/WorkingMark/WorkingMark.jsx",
+    "PlusField": "src/components/PlusField/PlusField.jsx",
+    "SectionDivider": "src/components/SectionDivider/SectionDivider.jsx",
+    "HeadingRule": "src/components/HeadingRule/HeadingRule.jsx",
+    "PlusUnderline": "src/components/PlusUnderline/PlusUnderline.jsx",
+    "PlusProgress": "src/components/PlusProgress/PlusProgress.jsx",
+    "PlusLoader": "src/components/PlusLoader/PlusLoader.jsx",
+    "PlusSkeleton": "src/components/PlusSkeleton/PlusSkeleton.jsx",
+    "PlusTimeline": "src/components/PlusTimeline/PlusTimeline.jsx",
+    "PlusBullet": "src/components/PlusBullet/PlusBullet.jsx",
+    "PlusSeparator": "src/components/PlusSeparator/PlusSeparator.jsx",
+    "PlusThumbnail": "src/components/PlusThumbnail/PlusThumbnail.jsx"
   },
   "dtsPropsFor": {
     "Alert": "  /** Status tone. Sets the left-rule colour and the ARIA role (error and warning announce as role=\"alert\", info and success as role=\"status\"). Default 'info'. */\n  variant?: 'info' | 'warning' | 'error' | 'success';\n  /** Optional first line, set above the message. */\n  title?: React.ReactNode;\n  /** The message body. */\n  children?: React.ReactNode;\n  className?: string;",
@@ -45,11 +56,23 @@
     "Switch": "  /** On/off state. Controlled: pair with onChange. Default false. */\n  checked?: boolean;\n  disabled?: boolean;\n  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;\n  /** Visible label beside the track. The whole label is the click target. */\n  label?: React.ReactNode;\n  className?: string;",
     "Tooltip": "  /** Tooltip text. Shown above the child on hover and on keyboard focus. */\n  content: React.ReactNode;\n  /** Allow the content to wrap at a readable measure. Default false (single line). */\n  multiline?: boolean;\n  /** The trigger. Make it focusable (a button, a link, or tabIndex={0}) so keyboard users reach the tooltip. */\n  children: React.ReactNode;",
     "TypographySpecimen": "  /** No content props: renders the full type scale, every semantic text role with its token name. A reference surface, not a building block. */\n  className?: string;",
-    "WorkingMark": "  /** true = accent ink, animated (still under prefers-reduced-motion); false = secondary ink, still (\"current but paused\"). Default true. */\n  working?: boolean;\n  /** sm 16px, md 24px, lg 32px. Default 'sm'. */\n  size?: 'sm' | 'md' | 'lg';\n  /** Accessible name. With it the mark is announced as an image; without it the mark is aria-hidden. */\n  label?: string;\n  className?: string;\n  /** Any other SVG attribute passes through to the element. */\n  [attr: string]: unknown;"
+    "WorkingMark": "  /** true = accent ink, animated (still under prefers-reduced-motion); false = secondary ink, still (\"current but paused\"). Default true. */\n  working?: boolean;\n  /** sm 16px, md 24px, lg 32px. Default 'sm'. */\n  size?: 'sm' | 'md' | 'lg';\n  /** Accessible name. With it the mark is announced as an image; without it the mark is aria-hidden. */\n  label?: string;\n  className?: string;\n  /** Any other SVG attribute passes through to the element. */\n  [attr: string]: unknown;",
+    "PlusField": "  /** The art to draw. Turn-2 brand elements: udiv divider, ucardhead card header, ucard card hover, ucta CTA band, uempty empty state, uskel skeleton (animated), uprog progress, uloader page loader (animated), uline active-tab underline, umedia image placeholder, uhero hero background, ufooter footer edge, uquote pull-quote bracket, utime timeline rail, ubullet list bullet, usep breadcrumb separator, uthumb seeded thumbnail, unews form-card corner, usplash app splash (animated), type halftone text. */\n  art: 'udiv' | 'ucardhead' | 'ucard' | 'ucta' | 'uempty' | 'uskel' | 'uprog' | 'uloader' | 'uline' | 'umedia' | 'uhero' | 'ufooter' | 'uquote' | 'utime' | 'ubullet' | 'usep' | 'uthumb' | 'unews' | 'usplash' | 'type';\n  /** Ground the field paints, which also sets the mark colour: inverse = on-inverse marks; raised, page, sunk = primary-text marks; none = no ground, primary-text marks. Default 'inverse'. */\n  surface?: 'inverse' | 'raised' | 'page' | 'sunk' | 'none';\n  /** Mark shape. plus is the brand mark; square and round are quieter. Default 'plus'. */\n  shape?: 'plus' | 'square' | 'round';\n  /** Spacing between marks, 0.6 (open) to 1.6 (packed). Default 1. */\n  density?: number;\n  /** Animated arts (uskel, uloader, usplash) only. false shows one still frame, as prefers-reduced-motion does. Default true. */\n  animate?: boolean;\n  /** Fixes every random choice: same art + same seed = same picture. Default: the art name. */\n  seed?: string;\n  /** udiv: rows of marks (1, 3 or 5). uprog: 1 (thin) or 3 (band). */\n  rows?: number;\n  /** udiv: which ends fade. Default 'both'. */\n  fade?: 'both' | 'end' | 'none';\n  /** type: the string to draw. Default 'Crafthouse'. */\n  text?: string;\n  /** type: glyph height as a share of the box height. Default 0.62. */\n  textScale?: number;\n  /** uprog: filled share, 0 to 1. */\n  progress?: number;\n  /** ubullet: teal, for the current item only. Default false. */\n  accent?: boolean;\n  /** utime: number of nodes, one per equal row of the box height. */\n  steps?: number;\n  /** utime: 0-based index of the current (teal) node. Earlier nodes render as done. */\n  current?: number;\n  /** Fill the nearest positioned ancestor (position: absolute; inset: 0) instead of the parent box. Put content over it in a positioned element. Default false. */\n  backdrop?: boolean;\n  /** uprog: accessible name of the hidden progressbar. uloader, uskel: text of a hidden role=status. */\n  label?: string;\n  /** Root element. Use 'span' inside phrasing content such as a button or link. Default 'div'. */\n  as?: 'div' | 'span';\n  className?: string;\n  /** Any other attribute passes through to the root element (e.g. style, to give it a height). */\n  [attr: string]: unknown;",
+    "SectionDivider": "  /** hairline = 1 row, faded ends, between paragraphs; band = 3 rows, between sections; block = 5 rows, square ends, a chapter break. Default 'band'. */\n  weight?: 'hairline' | 'band' | 'block';\n  /** Paint a ground behind the marks. Default 'none' (sits on the current surface). */\n  surface?: 'inverse' | 'raised' | 'page' | 'sunk' | 'none';\n  /** Mark shape. plus is the brand mark; square and round are quieter. Default 'plus'. */\n  shape?: 'plus' | 'square' | 'round';\n  /** Spacing between marks, 0.6 (open) to 1.6 (packed). Default 1. */\n  density?: number;\n  className?: string;",
+    "HeadingRule": "  /** title = title-section heading + 3-row band; eyebrow = mono-caption label + 1-row hairline. Default 'title'. */\n  variant?: 'title' | 'eyebrow';\n  /** Heading element. Default 'h2' for title, 'p' for eyebrow. */\n  as?: React.ElementType;\n  /** The heading text. */\n  children?: React.ReactNode;\n  /** Default 'none'. */\n  surface?: 'inverse' | 'raised' | 'page' | 'sunk' | 'none';\n  /** Mark shape. plus is the brand mark; square and round are quieter. Default 'plus'. */\n  shape?: 'plus' | 'square' | 'round';\n  /** Spacing between marks, 0.6 (open) to 1.6 (packed). Default 1. */\n  density?: number;\n  className?: string;",
+    "PlusUnderline": "  /** true draws the teal indicator; false keeps the same height and draws nothing, so tab labels stay level. Default true. */\n  active?: boolean;\n  /** Mark shape. plus is the brand mark; square and round are quieter. Default 'plus'. */\n  shape?: 'plus' | 'square' | 'round';\n  /** Spacing between marks, 0.6 (open) to 1.6 (packed). Default 1. */\n  density?: number;\n  className?: string;",
+    "PlusProgress": "  /** Filled share, 0 to 1. Default 0. */\n  value?: number;\n  /** thin = 1 row; band = 3 rows. Default 'thin'. */\n  variant?: 'thin' | 'band';\n  /** Accessible name of the hidden role=progressbar. Always set it. */\n  label?: string;\n  /** Default 'none'. */\n  surface?: 'inverse' | 'raised' | 'page' | 'sunk' | 'none';\n  /** Mark shape. plus is the brand mark; square and round are quieter. Default 'plus'. */\n  shape?: 'plus' | 'square' | 'round';\n  /** Spacing between marks, 0.6 (open) to 1.6 (packed). Default 1. */\n  density?: number;\n  className?: string;",
+    "PlusLoader": "  /** Announced once through a hidden role=status. Default 'Loading'. */\n  label?: string;\n  /** Default 'inverse'. */\n  surface?: 'inverse' | 'raised' | 'page' | 'sunk' | 'none';\n  /** false shows the drawn zigzag still, as prefers-reduced-motion does. Default true. */\n  animate?: boolean;\n  /** Mark shape. plus is the brand mark; square and round are quieter. Default 'plus'. */\n  shape?: 'plus' | 'square' | 'round';\n  /** Spacing between marks, 0.6 (open) to 1.6 (packed). Default 1. */\n  density?: number;\n  /** Set a width here to resize; the loader stays square. */\n  className?: string;",
+    "PlusSkeleton": "  /** Text of a hidden role=status. Omit when another status already announces the wait. */\n  label?: string;\n  /** Default 'raised'. */\n  surface?: 'inverse' | 'raised' | 'page' | 'sunk' | 'none';\n  /** false holds the shapes at rest, as prefers-reduced-motion does. Default true. */\n  animate?: boolean;\n  /** Mark shape. plus is the brand mark; square and round are quieter. Default 'plus'. */\n  shape?: 'plus' | 'square' | 'round';\n  /** Spacing between marks, 0.6 (open) to 1.6 (packed). Default 1. */\n  density?: number;\n  className?: string;",
+    "PlusTimeline": "  /** Step labels, in order. Rendered as an <ol>. */\n  steps: React.ReactNode[];\n  /** 0-based index of the current step (teal node, aria-current=\"step\"). Earlier steps render as done. Default 0. */\n  current?: number;\n  /** Accessible name for the list. */\n  label?: string;\n  /** Default 'none'. */\n  surface?: 'inverse' | 'raised' | 'page' | 'sunk' | 'none';\n  /** Mark shape. plus is the brand mark; square and round are quieter. Default 'plus'. */\n  shape?: 'plus' | 'square' | 'round';\n  /** Spacing between marks, 0.6 (open) to 1.6 (packed). Default 1. */\n  density?: number;\n  className?: string;",
+    "PlusBullet": "  /** Teal, for the current item only. Default false. */\n  accent?: boolean;\n  /** Mark shape. plus is the brand mark; square and round are quieter. Default 'plus'. */\n  shape?: 'plus' | 'square' | 'round';\n  /** Spacing between marks, 0.6 (open) to 1.6 (packed). Default 1. */\n  density?: number;\n  className?: string;",
+    "PlusSeparator": "  /** Mark shape. plus is the brand mark; square and round are quieter. Default 'plus'. */\n  shape?: 'plus' | 'square' | 'round';\n  /** Spacing between marks, 0.6 (open) to 1.6 (packed). Default 1. */\n  density?: number;\n  className?: string;",
+    "PlusThumbnail": "  /** Decides the whole picture. Use a stable id such as a project slug. */\n  seed: string;\n  /** With it the thumbnail is announced as an image; without it, aria-hidden. */\n  label?: string;\n  /** Default 'inverse'; 'sunk' is the quieter alternative. */\n  surface?: 'inverse' | 'raised' | 'page' | 'sunk' | 'none';\n  /** Mark shape. plus is the brand mark; square and round are quieter. Default 'plus'. */\n  shape?: 'plus' | 'square' | 'round';\n  /** Spacing between marks, 0.6 (open) to 1.6 (packed). Default 1. */\n  density?: number;\n  className?: string;"
   },
   "guidelinesGlob": [
     "_config/design-system/ui-rules.md",
     "_config/design-system/type-system.md",
+    "_config/design-system/brand-elements.md",
     "_config/voice/brand-voice.md"
   ],
   "overrides": {
@@ -69,6 +92,39 @@
       "cardMode": "single",
       "primaryStory": "FullScale",
       "viewport": "920x2000"
+    },
+    "PlusField": {
+      "cardMode": "column"
+    },
+    "SectionDivider": {
+      "cardMode": "column"
+    },
+    "HeadingRule": {
+      "cardMode": "column"
+    },
+    "PlusUnderline": {
+      "cardMode": "column"
+    },
+    "PlusProgress": {
+      "cardMode": "column"
+    },
+    "PlusLoader": {
+      "cardMode": "column"
+    },
+    "PlusSkeleton": {
+      "cardMode": "column"
+    },
+    "PlusTimeline": {
+      "cardMode": "column"
+    },
+    "PlusBullet": {
+      "cardMode": "column"
+    },
+    "PlusSeparator": {
+      "cardMode": "column"
+    },
+    "PlusThumbnail": {
+      "cardMode": "column"
     }
   },
   "readmeHeader": ".design-sync/conventions.md"

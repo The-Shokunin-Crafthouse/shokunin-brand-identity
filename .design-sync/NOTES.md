@@ -24,11 +24,13 @@ Sync target: claude.ai/design project "SCDS" (`projectId` in `config.json`, http
 
 - `[FONT_MISSING] "Inter", "Cascadia Code"`: both are fallback entries in the token font stacks, behind the brand faces that do ship. Not sourced, by design.
 - `[DTS_REACT] @types/react not found`: the repo has no TypeScript. Irrelevant here because every contract is in `dtsPropsFor`.
-- `docs: 0/16 components matched`: the per-component docs are `<Name>.tokens.md` (token consumption tables), which do not match the converter's `<Name>.md` lookup. Left unmapped; each `.prompt.md` is synthesized from the prop contract and the preview examples.
+- `docs: 11/27 components matched` and `[DOCS_UNMAPPED]` for the 16 original components: the brand elements (PlusField and its ten wrappers) ship a sibling `<Name>.md`, which becomes the body of their `.prompt.md`. Their previews wrap every story in a light/dark `Modes` helper, and synthesized examples would carry that helper, so the docs hold clean examples instead. The original 16 still have only `<Name>.tokens.md` (token consumption tables) and stay synthesized from the prop contract and the preview examples.
 
 ## Preview decisions
 
-- All 16 components have authored previews in `.design-sync/previews/`, ported from `src/sections/ComponentSections.jsx` and `SpecimenSection.jsx`.
+- All 16 original components have authored previews in `.design-sync/previews/`, ported from `src/sections/ComponentSections.jsx` and `SpecimenSection.jsx`.
+- The 11 brand elements (PlusField family, 2026-10-04) render every story twice, light then `data-theme="dark"` on a wrapper, through a `Modes` helper inlined in each preview file. The semantic tokens re-resolve on any `[data-theme="dark"]` element and PlusField reads colours from its own computed style, so a dark subtree is a faithful dark render. All 11 use `cardMode: column`.
+- Animated brand elements (PlusLoader, PlusSkeleton, the PlusField Splash story) are captured at whatever frame the capture lands on. Their `Still` stories show the reduced-motion frame.
 - Tooltip opens on hover or focus only. `Open` dispatches a `mouseover` on mount to show the open state.
 - Tooltip `MultiLine` sets a fixed 320 width. The open tip (240 cap) is wider than its trigger, and a card that shrink-wraps the story would cut it. The story needs the `.multiline` `width: max-content` fix (PR #66) in the build; without it the tip wraps one word per line.
 - Not shown, cannot render statically: hover, focus and press states; NavBar compact menu open; Stepper press-and-hold.

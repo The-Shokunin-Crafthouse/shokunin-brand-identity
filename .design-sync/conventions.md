@@ -31,12 +31,13 @@ Type is one composite token per role, set with the `font` shorthand: `font: var(
 - Teal (`brand-accent`) is a hover and current-state colour, not a resting fill. One primary `Button` per view; the rest are `secondary` or `tertiary`.
 - Elevation is fill, not stroke or shadow. Separate regions by stepping surfaces (`page` to `sunk` to `deep-sunk`), or with `Card`. Only controls carry a shadow. Do not add borders or `box-shadow` to your own containers.
 - Copy is short and specific: button labels of two or three words, sentence case, no filler text.
+- Brand graphics are plus fields. Use `SectionDivider`, `HeadingRule`, `PlusUnderline`, `PlusProgress`, `PlusLoader`, `PlusSkeleton`, `PlusTimeline`, `PlusBullet`, `PlusSeparator`, `PlusThumbnail`, or `PlusField art="…"` for the expressive arts. Crisp grids in structural slots, loose ribbons in expressive ones, at most one loose field per view. In a brand element teal marks only progress, the active item and the current step. A field has no size of its own: give its box a height, or pass `backdrop` inside a `position: relative` host.
 
 ## Where the truth lives
 
 - `_ds_bundle.css`: every token, light under `:root` and dark under `[data-theme="dark"]`, then the reset and component styles. Read it before inventing a value.
 - `components/general/<Name>/<Name>.prompt.md` and `<Name>.d.ts`: props and examples per component.
-- `guidelines/_config/design-system/ui-rules.md`, `type-system.md`, and `guidelines/_config/voice/brand-voice.md`: the studio's UI rules, type logic, and copy voice.
+- `guidelines/_config/design-system/ui-rules.md`, `type-system.md`, `brand-elements.md`, and `guidelines/_config/voice/brand-voice.md`: the studio's UI rules, type logic, brand-element rules, and copy voice.
 
 ## Example
 

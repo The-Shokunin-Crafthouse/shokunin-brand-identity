@@ -82,6 +82,7 @@ SYNC_PATHS=(
   package.json package-lock.json
   .design-sync
   _config/design-system/ui-rules.md _config/design-system/type-system.md
+  _config/design-system/brand-elements.md
   _config/voice/brand-voice.md
   ':(exclude).design-sync/NOTES.md'
 )
