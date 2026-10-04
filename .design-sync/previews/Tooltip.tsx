@@ -42,9 +42,9 @@ export const Open = () => (
   </PreviewHoverOnMount>
 );
 
-// Fixed width: the open tip is wider than its trigger, so the card needs room
-// for the 240 multi-line cap on both sides.
 export const MultiLine = () => (
+  // Fixed width: the open tip is wider than its trigger, so the card needs
+  // room for the 240 multi-line cap on both sides.
   <div style={{ width: 320 }}>
     <PreviewHoverOnMount>
       <Tooltip multiline content="A longer note that wraps to two lines at the readable-measure cap.">
