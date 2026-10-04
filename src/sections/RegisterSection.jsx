@@ -82,7 +82,7 @@ export function RegisterSection() {
   return (
     <Section id="register" labelledBy="register-title">
       <Metabar
-        ord="03"
+        ord="04"
         crumb="Voice / Register"
         meta={[['Last revised', '2026.06.05'], ['Registers', '4'], ['Spec', 'v1.2'], ['Status', 'Complete']]}
       />

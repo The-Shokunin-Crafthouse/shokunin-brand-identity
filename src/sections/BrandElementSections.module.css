@@ -1,0 +1,75 @@
+/* BrandElementSections — layout glue for the brand-element pages. Tokens only. */
+
+/* A field fills its box; these give each demo a box inside the flex state cell. */
+.fill { flex: 1 1 100%; min-width: 0; }
+
+.tile {
+  position: relative;
+  flex: 1 1 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--sc-radius-control);
+  overflow: hidden;
+}
+
+.small { width: calc(var(--sc-space-layout-stack-xl) * 1.5); }
+.narrow { flex: 0 1 calc(var(--sc-space-layout-stack-xl) * 3.5); min-width: 0; }
+
+.tabs {
+  display: flex;
+  gap: var(--sc-space-layout-stack-md);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tab {
+  display: grid;
+  gap: var(--sc-space-component-gap-md);
+  font: var(--sc-font-text-label-ui);
+  color: var(--sc-color-text-secondary);
+  text-decoration: none;
+}
+
+.tab[aria-current='page'] { color: var(--sc-color-text-primary); }
+
+.list {
+  display: grid;
+  gap: var(--sc-space-component-gap-lg);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: var(--sc-space-component-gap-lg);
+  font: var(--sc-font-text-body-default);
+  color: var(--sc-color-text-primary);
+}
+
+.crumbs {
+  display: flex;
+  align-items: center;
+  gap: var(--sc-space-component-gap-lg);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font: var(--sc-font-text-label-ui);
+  color: var(--sc-color-text-secondary);
+}
+
+.crumbs [aria-current='page'] { color: var(--sc-color-text-primary); }
+
+.thumbs {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--sc-space-component-gap-lg);
+  flex: 1 1 100%;
+}
+
+.thumbCaption {
+  margin: var(--sc-space-component-gap-sm) 0 0;
+  font: var(--sc-font-text-mono-caption);
+  color: var(--sc-color-text-secondary);
+}

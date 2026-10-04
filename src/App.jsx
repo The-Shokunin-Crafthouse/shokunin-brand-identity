@@ -2,7 +2,7 @@
  * App.jsx — Living brand reference site · shell.
  *
  * Layout mirrors the Sandbox "Color — DL" design: a sticky left rail
- * (brand lockup, three nav groups, mode toggle, colophon foot) and a
+ * (brand lockup, four nav groups, mode toggle, colophon foot) and a
  * hash-routed main column. The Color section is fully built; every
  * other section renders a stub (heading + placeholder, never blank).
  *
@@ -23,6 +23,11 @@ import {
   AvatarPage, ProgressPage, TooltipPage, DividerPage, NavBarPage,
   SegmentedControlPage, StepperPage, WorkingMarkPage,
 } from './sections/ComponentSections.jsx';
+import {
+  PlusFieldPage, SectionDividerPage, HeadingRulePage, PlusUnderlinePage, PlusProgressPage,
+  PlusLoaderPage, PlusSkeletonPage, PlusTimelinePage, PlusBulletPage, PlusSeparatorPage,
+  PlusThumbnailPage,
+} from './sections/BrandElementSections.jsx';
 import { SpecimenSection } from './sections/SpecimenSection.jsx';
 import { RegisterSection } from './sections/RegisterSection.jsx';
 import { DensitySection } from './sections/DensitySection.jsx';
@@ -95,6 +100,23 @@ const NAV = [
   },
   {
     ord: '03',
+    label: 'Brand elements',
+    items: [
+      { id: 'plus-field', label: 'Plus Field' },
+      { id: 'section-divider', label: 'Section Divider' },
+      { id: 'heading-rule', label: 'Heading Rule' },
+      { id: 'plus-underline', label: 'Plus Underline' },
+      { id: 'plus-progress', label: 'Plus Progress' },
+      { id: 'plus-loader', label: 'Plus Loader' },
+      { id: 'plus-skeleton', label: 'Plus Skeleton' },
+      { id: 'plus-timeline', label: 'Plus Timeline' },
+      { id: 'plus-bullet', label: 'Plus Bullet' },
+      { id: 'plus-separator', label: 'Plus Separator' },
+      { id: 'plus-thumbnail', label: 'Plus Thumbnail' },
+    ],
+  },
+  {
+    ord: '04',
     label: 'Voice',
     items: [
       { id: 'register', label: 'Register' },
@@ -154,6 +176,17 @@ const SECTIONS = {
   stepper: StepperPage,
   'working-mark': WorkingMarkPage,
   specimen: SpecimenSection,
+  'plus-field': PlusFieldPage,
+  'section-divider': SectionDividerPage,
+  'heading-rule': HeadingRulePage,
+  'plus-underline': PlusUnderlinePage,
+  'plus-progress': PlusProgressPage,
+  'plus-loader': PlusLoaderPage,
+  'plus-skeleton': PlusSkeletonPage,
+  'plus-timeline': PlusTimelinePage,
+  'plus-bullet': PlusBulletPage,
+  'plus-separator': PlusSeparatorPage,
+  'plus-thumbnail': PlusThumbnailPage,
   register: RegisterSection,
   density: DensitySection,
   'hard-rules': HardRulesSection,

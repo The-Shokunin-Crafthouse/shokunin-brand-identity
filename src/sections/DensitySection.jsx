@@ -44,7 +44,7 @@ export function DensitySection() {
   return (
     <Section id="density" labelledBy="density-title">
       <Metabar
-        ord="03"
+        ord="04"
         crumb="Voice / Density"
         meta={[['Last revised', '2026.06.05'], ['Levels', '3'], ['Spec', 'v1.2'], ['Status', 'Complete']]}
       />
