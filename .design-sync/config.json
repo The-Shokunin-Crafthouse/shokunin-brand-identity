@@ -1,0 +1,54 @@
+{
+  "pkg": "@the-shokunin-crafthouse/scds",
+  "globalName": "SCDS",
+  "shape": "package",
+  "buildCmd": "npm run build:lib && cat src/styles/tokens.css src/styles/reset.css dist-lib/components.css > dist-lib/scds-design.css",
+  "cssEntry": "dist-lib/scds-design.css",
+  "extraFonts": [
+    "src/styles/fonts.css"
+  ],
+  "extraEntries": [
+    "@phosphor-icons/react"
+  ],
+  "componentSrcMap": {
+    "Alert": "src/components/Alert/Alert.jsx",
+    "Avatar": "src/components/Avatar/Avatar.jsx",
+    "Badge": "src/components/Badge/Badge.jsx",
+    "Button": "src/components/Button/Button.jsx",
+    "Card": "src/components/Card/Card.jsx",
+    "Divider": "src/components/Divider/Divider.jsx",
+    "Icon": "src/components/Icon/Icon.jsx",
+    "Input": "src/components/Input/Input.jsx",
+    "NavBar": "src/components/NavBar/NavBar.jsx",
+    "ProgressIndicator": "src/components/ProgressIndicator/ProgressIndicator.jsx",
+    "SegmentedControl": "src/components/SegmentedControl/SegmentedControl.jsx",
+    "Stepper": "src/components/Stepper/Stepper.jsx",
+    "Switch": "src/components/Switch/Switch.jsx",
+    "Tooltip": "src/components/Tooltip/Tooltip.jsx",
+    "TypographySpecimen": "src/components/TypographySpecimen/TypographySpecimen.jsx",
+    "WorkingMark": "src/components/WorkingMark/WorkingMark.jsx"
+  },
+  "dtsPropsFor": {
+    "Alert": "  /** Status tone. Sets the left-rule colour and the ARIA role (error and warning announce as role=\"alert\", info and success as role=\"status\"). Default 'info'. */\n  variant?: 'info' | 'warning' | 'error' | 'success';\n  /** Optional first line, set above the message. */\n  title?: React.ReactNode;\n  /** The message body. */\n  children?: React.ReactNode;\n  className?: string;",
+    "Avatar": "  /** xs 24px, sm 32px, md 48px, lg 64px. Default 'md'. */\n  size?: 'xs' | 'sm' | 'md' | 'lg';\n  /** Image URL. When absent or it fails to load, initials from `name` render instead. */\n  src?: string;\n  /** Person or entity name. Source of the initials fallback and the aria-label. */\n  name?: string;\n  className?: string;",
+    "Badge": "  /** Colour carries the meaning: default = accent, success / warning / error = status hues, neutral = muted. Default 'default'. */\n  variant?: 'default' | 'success' | 'warning' | 'error' | 'neutral';\n  /** Short label, one or two words. */\n  children?: React.ReactNode;\n  className?: string;",
+    "Button": "  /** primary rests neutral and turns teal on hover; secondary is a fill-only chip; tertiary is a teal text ghost; destructive is the error fill. Default 'primary'. */\n  variant?: 'primary' | 'secondary' | 'tertiary' | 'destructive';\n  disabled?: boolean;\n  /** Dims the label, swaps the arrow for a spinner, sets aria-busy, and suppresses onClick. */\n  loading?: boolean;\n  /** Trailing arrow glyph. Default true. */\n  arrow?: boolean;\n  /** Default 'button'. */\n  type?: 'button' | 'submit' | 'reset';\n  /** The label. */\n  children?: React.ReactNode;\n  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;\n  className?: string;\n  /** Any other native <button> attribute passes through to the element. */\n  [attr: string]: unknown;",
+    "Card": "  /** default = sunk tile; interactive = renders a <button>, deepens on hover/focus; elevated = page-ground fill that lifts against sunk surroundings. Default 'default'. */\n  variant?: 'default' | 'interactive' | 'elevated';\n  /** Element to render for the non-interactive variants. Default 'div'. Ignored when variant is 'interactive'. */\n  as?: React.ElementType;\n  /** Fires only when variant is 'interactive'. */\n  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;\n  /** Card content. The card sets its own padding. */\n  children?: React.ReactNode;\n  className?: string;\n  /** Any other HTML attribute passes through to the element. */\n  [attr: string]: unknown;",
+    "Divider": "  /** Default 'horizontal'. A vertical divider is an inline rule that stretches to its flex row's height. */\n  orientation?: 'horizontal' | 'vertical';\n  /** Centred label between two rules. Horizontal only. */\n  label?: React.ReactNode;\n  className?: string;",
+    "Icon": "  /** A Phosphor icon component, e.g. `SCDS.Gear` or `SCDS.MagnifyingGlass`. Renders nothing when missing. */\n  glyph: React.ComponentType<any>;\n  /** Phosphor weight. Default 'regular'. */\n  weight?: 'thin' | 'light' | 'regular' | 'bold' | 'fill' | 'duotone';\n  /** 'sm' 16px, 'md' 24px, 'lg' 32px (token sizes), or any px number / CSS length. Default '1em' (follows the surrounding font-size). */\n  size?: 'sm' | 'md' | 'lg' | number | string;\n  /** Accessible name. With it the icon is announced as an image; without it the icon is aria-hidden. */\n  label?: string;\n  className?: string;\n  /** Any other SVG attribute passes through to the element. */\n  [attr: string]: unknown;",
+    "Input": "  /** Visible label, wired to the input. */\n  label?: React.ReactNode;\n  /** Helper text under the field. */\n  helper?: React.ReactNode;\n  /** Error text. Replaces the helper, turns the field to the error state, and sets aria-invalid. */\n  error?: React.ReactNode;\n  disabled?: boolean;\n  /** Native input type. Default 'text'. */\n  type?: string;\n  /** Controlled value. Pair with onChange; use defaultValue for an uncontrolled field. */\n  value?: string;\n  defaultValue?: string;\n  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;\n  placeholder?: string;\n  className?: string;\n  /** Any other native <input> attribute passes through to the element. */\n  [attr: string]: unknown;",
+    "NavBar": "  /** Brand slot at the leading edge: a wordmark or logo node. */\n  brand?: React.ReactNode;\n  /** Navigation links. Set `current` on the active page (renders aria-current=\"page\"). */\n  links?: Array<{ href: string; label: React.ReactNode; current?: boolean }>;\n  /** Trailing action slot, usually one Button. */\n  trailing?: React.ReactNode;\n  /** Mobile layout: brand plus a Menu toggle that reveals the stacked links. The component does not switch by itself; pass this at narrow widths. */\n  compact?: boolean;\n  className?: string;",
+    "ProgressIndicator": "  /** bar = linear track; circular = ring; step = numbered dots with connectors. Default 'bar'. */\n  variant?: 'bar' | 'circular' | 'step';\n  /** Progress for bar and circular, from 0 to 1. Default 0.5. */\n  value?: number;\n  /** step variant: total number of steps. Default 4. */\n  steps?: number;\n  /** step variant: index of the current step, 0-based. Earlier steps render as done. Default 1. */\n  current?: number;\n  /** Accessible name (aria-label) for bar and circular. */\n  label?: string;\n  /** bar variant only: makes the bar a draggable, keyboard-operable slider (role=\"slider\"). Controlled: pair value with onChange. */\n  interactive?: boolean;\n  /** Interactive bar: receives the new value while dragging or on arrow keys. */\n  onChange?: (value: number) => void;\n  /** Interactive bar bounds and increments. Defaults: min 0, max 1, step 0.01, bigStep 0.05 (Shift + arrow). */\n  min?: number;\n  max?: number;\n  step?: number;\n  bigStep?: number;\n  /** Interactive bar only. */\n  disabled?: boolean;\n  className?: string;",
+    "SegmentedControl": "  /** The segments, in order. Two to four short labels. */\n  options: Array<{ value: string; label: React.ReactNode }>;\n  /** Selected option's value. Controlled: the indicator follows this prop, so pair it with onChange. */\n  value: string;\n  onChange?: (value: string) => void;\n  disabled?: boolean;\n  /** Accessible name for the radiogroup. */\n  label?: string;\n  /** Default 'md'. */\n  size?: 'sm' | 'md';\n  className?: string;",
+    "Stepper": "  /** Current number. Controlled: pair with onChange. */\n  value: number;\n  onChange?: (value: number) => void;\n  /** Lower bound. The minus button disables at it. Default: unbounded. */\n  min?: number;\n  /** Upper bound. The plus button disables at it. Default: unbounded. */\n  max?: number;\n  /** Increment per press. Default 1. */\n  step?: number;\n  /** Accessible name, e.g. \"Quantity\". Also names the buttons (\"Increase Quantity\"). */\n  label?: string;\n  disabled?: boolean;\n  className?: string;",
+    "Switch": "  /** On/off state. Controlled: pair with onChange. Default false. */\n  checked?: boolean;\n  disabled?: boolean;\n  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;\n  /** Visible label beside the track. The whole label is the click target. */\n  label?: React.ReactNode;\n  className?: string;",
+    "Tooltip": "  /** Tooltip text. Shown above the child on hover and on keyboard focus. */\n  content: React.ReactNode;\n  /** Allow the content to wrap at a readable measure. Default false (single line). */\n  multiline?: boolean;\n  /** The trigger. Make it focusable (a button, a link, or tabIndex={0}) so keyboard users reach the tooltip. */\n  children: React.ReactNode;",
+    "TypographySpecimen": "  /** No content props: renders the full type scale, every semantic text role with its token name. A reference surface, not a building block. */\n  className?: string;",
+    "WorkingMark": "  /** true = accent ink, animated (still under prefers-reduced-motion); false = secondary ink, still (\"current but paused\"). Default true. */\n  working?: boolean;\n  /** sm 16px, md 24px, lg 32px. Default 'sm'. */\n  size?: 'sm' | 'md' | 'lg';\n  /** Accessible name. With it the mark is announced as an image; without it the mark is aria-hidden. */\n  label?: string;\n  className?: string;\n  /** Any other SVG attribute passes through to the element. */\n  [attr: string]: unknown;"
+  },
+  "guidelinesGlob": [
+    "_config/design-system/ui-rules.md",
+    "_config/design-system/type-system.md",
+    "_config/voice/brand-voice.md"
+  ]
+}
