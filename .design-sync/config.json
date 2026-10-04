@@ -1,6 +1,7 @@
 {
   "pkg": "@the-shokunin-crafthouse/scds",
   "globalName": "SCDS",
+  "projectId": "10f45739-7b68-4e6e-b964-02ad2027e0e6",
   "shape": "package",
   "buildCmd": "npm run build:lib && cat src/styles/tokens.css src/styles/reset.css dist-lib/components.css > dist-lib/scds-design.css",
   "cssEntry": "dist-lib/scds-design.css",
