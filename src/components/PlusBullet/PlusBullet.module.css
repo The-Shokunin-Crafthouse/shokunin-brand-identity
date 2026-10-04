@@ -1,0 +1,9 @@
+/* PlusBullet — see PlusBullet.tokens.md. */
+
+.bullet {
+  display: inline-block;
+  flex: none;
+  width: var(--sc-size-icon-sm);
+  height: var(--sc-size-icon-sm);
+  vertical-align: middle;
+}

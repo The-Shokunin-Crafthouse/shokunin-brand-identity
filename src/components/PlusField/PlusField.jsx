@@ -171,6 +171,7 @@ export function PlusField({
   textScale,
   backdrop = false,
   label,
+  as: Root = 'div',
   className = '',
   ...rest
 }) {
@@ -246,13 +247,13 @@ export function PlusField({
   const pct = Math.round(Math.max(0, Math.min(1, Number(progress) || 0)) * 100);
 
   return (
-    <div ref={rootRef} className={classes} {...rest}>
+    <Root ref={rootRef} className={classes} {...rest}>
       <canvas ref={canvasRef} className={styles.canvas} aria-hidden="true" />
       {label && (art === 'uloader' || art === 'uskel') && (
         <span role="status" className={styles.srOnly}>{label}</span>
       )}
       {art === 'uprog' && (
-        <div
+        <span
           role="progressbar"
           className={styles.srOnly}
           aria-valuemin={0}
@@ -261,6 +262,6 @@ export function PlusField({
           aria-label={label}
         />
       )}
-    </div>
+    </Root>
   );
 }

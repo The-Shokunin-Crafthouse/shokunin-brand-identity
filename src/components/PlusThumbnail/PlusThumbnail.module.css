@@ -1,0 +1,9 @@
+/* PlusThumbnail — see PlusThumbnail.tokens.md. Width follows the container; always square. */
+
+.thumbnail {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: var(--sc-radius-control);
+  overflow: hidden;
+}

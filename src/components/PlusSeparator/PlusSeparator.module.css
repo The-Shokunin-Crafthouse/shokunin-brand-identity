@@ -1,0 +1,9 @@
+/* PlusSeparator — see PlusSeparator.tokens.md. */
+
+.separator {
+  display: inline-block;
+  flex: none;
+  width: calc(var(--sc-size-icon-sm) * 0.75);
+  height: calc(var(--sc-size-icon-sm) * 0.75);
+  vertical-align: middle;
+}

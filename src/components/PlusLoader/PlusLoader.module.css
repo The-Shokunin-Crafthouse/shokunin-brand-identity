@@ -1,0 +1,10 @@
+/* PlusLoader — see PlusLoader.tokens.md. Square; set a width through className to resize. */
+
+.loader {
+  display: block;
+  width: calc(var(--sc-space-layout-stack-xl) * 3);
+  max-width: 100%;
+  aspect-ratio: 1;
+  border-radius: var(--sc-radius-surface);
+  overflow: hidden;
+}
