@@ -1,6 +1,6 @@
 # design-sync notes: shokunin-brand-identity
 
-Sync target: a claude.ai/design design-system project. Converter shape: `package` (no Storybook in this repo).
+Sync target: claude.ai/design project "SCDS" (`projectId` in `config.json`, https://claude.ai/design/p/10f45739-7b68-4e6e-b964-02ad2027e0e6). Converter shape: `package` (no Storybook in this repo).
 
 ## How this repo maps onto the converter
 
