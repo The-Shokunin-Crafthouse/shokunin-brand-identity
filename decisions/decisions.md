@@ -1594,3 +1594,13 @@ Levi, on studio-pm's canvas gradient: "add and keep the blend". His exported flo
 - **Mark (same day):** Levi: "change the celadon grid icon to the 100 warm grey color". `color.atmosphere.mark` is the plus grid over the wash: light `teal.700` (unchanged), dark `warmGray.100` in place of `teal.200`.
 
 134 semantic tokens (from 129), 173 primitives (from 170). `tokens:build`, `tokens:swift`, `tokens:map` regenerated; `tokens:verify` passes.
+
+### 2026-10-04 amendment: the atmosphere tokens are in the Figma library
+
+Levi: "add the atmosphere variables to the figma library". This supersedes the **Figma** bullet of the 2026-10-03 atmosphere entry above.
+
+- **Primitives:** `color/atmosphere/celadon`, `river`, `indigo`, at the JSON values.
+- **Semantic:** `color/atmosphere/celadon`, `river`, `indigo` alias their primitives in Light and Dark; `lapis` aliases `color/teal/500`; `mark` aliases `color/teal/700` (Light) and `color/warmGray/100` (Dark).
+- **Scopes:** frame fill and shape fill only, so the washes and the mark stay out of the text and stroke pickers. Each carries its token's description.
+- **Parity:** the plugin check's comparison, run on the `color/atmosphere/*` rows, read 13 of 13 in sync (3 primitive values, 10 semantic mode values), none missing in either direction.
+- **Publish:** not yet published from the library file. Consumers see the variables after the next library publish.
