@@ -1670,3 +1670,12 @@ Levi ran `/design-sync`, then: "set up an automation that automatically runs des
 **Motion over 600ms, justified.** The loader loops every 2.8 s, the skeleton sweep and the splash wave are continuous. They are the continuous-motion category in `ui-rules.md`: each narrates "still working" for as long as the wait lasts.
 
 **Not done here.** Figma masters for the eleven components. Brand reference site sections. A motion philosophy for SCDS is still unpicked (Phase 3); these motions follow the prototype.
+
+### 2026-10-04 amendment: the brand elements are on the brand reference site
+
+This closes the "Brand reference site sections" item under **Not done here** in the plus-field entry above. Levi asked for it after the PR #72 preview showed none of the new elements.
+
+- **Nav:** a new group, `03 Brand elements`, between Components and Voice. Voice moves to `04` (rail, metabars of Register, Density, Hard rules).
+- **Pages:** one per component, on the existing `ComponentPage` kit: Plus Field (the eleven unwrapped arts plus shape and density tiles), then the ten wrappers. Each shows the real component in every documented state, the token table resolved live in both modes, and the usage rules from `brand-elements.md`.
+- **Kit change:** `ComponentPage` takes `ord`, `group` and `revised`. The defaults (`02`, `Components`, `2026.06.05`) keep every existing page unchanged.
+- **Copy:** written under `sc-brand-voice` (product register), no em dashes in page copy.

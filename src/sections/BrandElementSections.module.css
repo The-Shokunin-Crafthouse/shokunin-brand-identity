@@ -12,6 +12,8 @@
 }
 
 .small { width: calc(var(--sc-space-layout-stack-xl) * 1.5); }
+.tiny { width: var(--sc-space-layout-stack-xl); }
+.stack { display: grid; gap: var(--sc-space-layout-stack-sm); }
 .narrow { flex: 0 1 calc(var(--sc-space-layout-stack-xl) * 3.5); min-width: 0; }
 
 .tabs {

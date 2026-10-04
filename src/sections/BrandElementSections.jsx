@@ -192,8 +192,7 @@ export function PlusUnderlinePage() {
       states={[
         { name: 'Nav row · Work', token: 'aria-current="page"', render: <TabRow active="Work" /> },
         { name: 'Nav row · Contact', token: 'selection moved', render: <TabRow active="Contact" /> },
-        { name: 'Active', token: '--sc-color-brand-accent', render: <div className={styles.small}><PlusUnderline /></div> },
-        { name: 'Inactive', token: 'same height, no marks', render: <div className={styles.small}><PlusUnderline active={false} /></div> },
+        { name: 'Active alone', token: '--sc-color-brand-accent', render: <div className={styles.small}><PlusUnderline /></div> },
       ]}
       tokenRows={[
         { prop: 'Marks', token: '--sc-color-brand-accent' },
@@ -220,7 +219,7 @@ export function PlusProgressPage() {
       eyebrow={<>Plus Progress<Slash />how far along</>}
       title={<>Teal fills the row as the work <Accent>moves.</Accent> The rest waits in <Em>faint ink.</Em></>}
       lead={<>A row of plus marks that fills with teal from the left. Thin is one row for an upload or a scroll position. Band is three rows for reading or task progress. A hidden progressbar carries the value, so a screen reader hears the number the marks show.</>}
-      statesTitle="Two variants, empty to full."
+      statesTitle="Thin, band, and both ends of the range."
       callouts={[
         { title: 'Progress is current state', body: 'Teal marks how far the work has come right now. That keeps it inside the rule: teal for state, never for decoration.' },
         { title: 'Display, not control', body: 'Nothing here takes a drag or a key press. For a value the user sets, use ProgressIndicator with interactive.' },
@@ -229,8 +228,12 @@ export function PlusProgressPage() {
       states={[
         { name: 'Thin · 64%', token: 'variant="thin"', render: <div className={styles.fill}><PlusProgress value={0.64} label="Upload" /></div> },
         { name: 'Band · 38%', token: 'variant="band"', render: <div className={styles.fill}><PlusProgress variant="band" value={0.38} label="Reading progress" /></div> },
-        { name: 'Empty', token: 'value={0}', render: <div className={styles.fill}><PlusProgress value={0} label="Not started" /></div> },
-        { name: 'Complete', token: 'value={1}', render: <div className={styles.fill}><PlusProgress value={1} label="Complete" /></div> },
+        { name: 'Empty and complete', token: 'value={0} · value={1}', render: (
+          <div className={`${styles.fill} ${styles.stack}`}>
+            <PlusProgress value={0} label="Not started" />
+            <PlusProgress value={1} label="Complete" />
+          </div>
+        ) },
       ]}
       tokenRows={[
         { prop: 'Fill', token: '--sc-color-brand-accent' },
@@ -456,7 +459,7 @@ export function PlusThumbnailPage() {
       eyebrow={<>Plus Thumbnail<Slash />a picture from a name</>}
       title={<>Same seed, <Accent>same</Accent> <Em>picture.</Em></>}
       lead={<>A generated thumbnail for any item that has no image yet. The project’s slug seeds every choice the drawing makes, so “kiln” looks like kiln on every page and at every size. A placeholder with a point of view, not a grey box.</>}
-      statesTitle="Six seeds, and one seed at two sizes."
+      statesTitle="Six seeds, one seed at two sizes, and one on its own."
       callouts={[
         { title: 'Deterministic', body: 'The slug is hashed into the random source. Every bend, width and orientation comes from it, so one seed is one picture.' },
         { title: 'Stable seeds only', body: 'Seed with the slug or id, never the list position. Re-sort the list and an index-seeded thumbnail changes face.' },
@@ -473,9 +476,10 @@ export function PlusThumbnailPage() {
         { name: 'Same seed · two sizes', token: 'seed="kiln"', render: (
           <>
             <div className={styles.small}><PlusThumbnail seed="kiln" /></div>
-            <div className={styles.small}><PlusThumbnail seed="kiln" surface="sunk" /></div>
+            <div className={styles.tiny}><PlusThumbnail seed="kiln" /></div>
           </>
         ) },
+        { name: 'Standing alone', token: 'label · role="img"', render: <div className={styles.small}><PlusThumbnail seed="harbor" surface="sunk" label="Harbor, no image yet" /></div> },
       ]}
       tokenRows={[
         { prop: 'Ground', token: '--sc-color-surface-inverse' },
