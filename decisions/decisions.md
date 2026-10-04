@@ -1615,3 +1615,12 @@ The multi-line Tooltip rendered about 82 wide, one word per line. `.tooltip` is 
 - **Demo copy:** both demos said "wraps to two lines" and rendered three at the cap. The content is now "A longer note that wraps to two lines at the readable-measure cap." and renders two.
 - **Not changed:** the Density page's single-line tip is still cut 12 at the left by its panel. The Tooltip has no collision handling or portal, so any clipping ancestor cuts it; that is a component limit, not addressed here.
 - **Release:** the fix ships to consumers on the next package tag. No version bump in this change.
+
+### 2026-10-04: the Density page's tooltip demo gives the tip room
+
+This closes the **Not changed** bullet of the Tooltip entry above. The Density page's single-line tip was cut 12.6 at the left by the kit `.panel` (`overflow: hidden`), and its top sat 8 over the panel head.
+
+- **Stage:** the demo is wrapped in `.tipStage`, the same shape as the Tooltip page's `tooltipStage`: the trigger centred, `--sc-space-layout-stack-xl` above it. The tip now sits 60 below the panel head and clears both edges.
+- **Row alignment:** the taller Tooltip demo (152 against 96) left the Button panel's rule line 56 higher than its neighbour's. The four component panels take `.compPanel`: `grid-template-rows: subgrid` across three rows, `row-gap: 0`. Head, demo and rule share the grid's rows, so demo tops and rule tops are level in every two-column row. Single-column heights at 390 are unchanged for the other three panels.
+- **Measured:** tip rect against every ancestor with non-visible overflow (only `.panel`), opened by a bubbling `mouseover` and by real hover. No cut on any side at 390, 768, 1024, 1440 and 1920, light and dark.
+- **Not changed:** the Tooltip still has no collision handling or portal. A clipping ancestor cuts it unless the demo makes room; that remains a component limit.
