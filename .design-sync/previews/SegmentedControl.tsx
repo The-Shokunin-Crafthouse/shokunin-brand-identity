@@ -1,33 +1,49 @@
 import { useState } from 'react';
 import { SegmentedControl } from '@the-shokunin-crafthouse/scds';
 
-const VIEW_OPTIONS = [
-  { value: 'day', label: 'Day' },
-  { value: 'week', label: 'Week' },
-  { value: 'month', label: 'Month' },
-];
-
-function Demo({ initial = 'week', disabled = false, size = 'md' as 'sm' | 'md' }) {
-  const [value, setValue] = useState(initial);
+export const Default = () => {
+  const [view, setView] = useState('week');
   return (
-    <SegmentedControl options={VIEW_OPTIONS} value={value} onChange={setValue} disabled={disabled} size={size} label="View" />
+    <SegmentedControl
+      options={[{ value: 'day', label: 'Day' }, { value: 'week', label: 'Week' }, { value: 'month', label: 'Month' }]}
+      value={view}
+      onChange={setView}
+      label="View"
+    />
   );
-}
+};
 
-export const Default = () => <Demo initial="week" />;
-
-export const Small = () => <Demo initial="day" size="sm" />;
+export const Small = () => {
+  const [view, setView] = useState('day');
+  return (
+    <SegmentedControl
+      size="sm"
+      options={[{ value: 'day', label: 'Day' }, { value: 'week', label: 'Week' }, { value: 'month', label: 'Month' }]}
+      value={view}
+      onChange={setView}
+      label="View"
+    />
+  );
+};
 
 export const TwoWay = () => {
-  const [value, setValue] = useState('list');
+  const [layout, setLayout] = useState('list');
   return (
     <SegmentedControl
       options={[{ value: 'list', label: 'List' }, { value: 'grid', label: 'Grid' }]}
-      value={value}
-      onChange={setValue}
+      value={layout}
+      onChange={setLayout}
       label="Layout"
     />
   );
 };
 
-export const Disabled = () => <Demo initial="week" disabled />;
+export const Disabled = () => (
+  <SegmentedControl
+    disabled
+    options={[{ value: 'day', label: 'Day' }, { value: 'week', label: 'Week' }, { value: 'month', label: 'Month' }]}
+    value="week"
+    onChange={() => {}}
+    label="View"
+  />
+);

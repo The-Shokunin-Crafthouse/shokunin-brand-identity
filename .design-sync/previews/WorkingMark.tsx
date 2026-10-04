@@ -1,9 +1,7 @@
 import { WorkingMark } from '@the-shokunin-crafthouse/scds';
 
-const row = { display: 'flex', alignItems: 'center', gap: 'var(--sc-space-component-gap-lg)' } as const;
-
 export const Sizes = () => (
-  <div style={row}>
+  <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--sc-space-component-gap-lg)' }}>
     <WorkingMark size="sm" label="Working" />
     <WorkingMark size="md" label="Working" />
     <WorkingMark size="lg" label="Working" />

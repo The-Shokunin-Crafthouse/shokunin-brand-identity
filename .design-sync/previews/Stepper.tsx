@@ -1,15 +1,19 @@
 import { useState } from 'react';
 import { Stepper } from '@the-shokunin-crafthouse/scds';
 
-function Demo({ initial = 4, min = 0, max = 10, disabled = false }) {
-  const [value, setValue] = useState(initial);
-  return <Stepper value={value} onChange={setValue} min={min} max={max} label="Quantity" disabled={disabled} />;
-}
+export const Default = () => {
+  const [value, setValue] = useState(4);
+  return <Stepper value={value} onChange={setValue} min={0} max={10} label="Quantity" />;
+};
 
-export const Default = () => <Demo initial={4} />;
+export const AtMinimum = () => {
+  const [value, setValue] = useState(0);
+  return <Stepper value={value} onChange={setValue} min={0} max={10} label="Quantity" />;
+};
 
-export const AtMinimum = () => <Demo initial={0} />;
+export const AtMaximum = () => {
+  const [value, setValue] = useState(10);
+  return <Stepper value={value} onChange={setValue} min={0} max={10} label="Quantity" />;
+};
 
-export const AtMaximum = () => <Demo initial={10} />;
-
-export const Disabled = () => <Demo initial={4} disabled />;
+export const Disabled = () => <Stepper value={4} onChange={() => {}} min={0} max={10} label="Quantity" disabled />;

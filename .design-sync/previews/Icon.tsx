@@ -1,10 +1,8 @@
 import { Icon, IconProvider } from '@the-shokunin-crafthouse/scds';
 import { ArrowRight, Gear, MagnifyingGlass, Bell, CheckCircle } from '@phosphor-icons/react';
 
-const row = { display: 'flex', alignItems: 'center', gap: 'var(--sc-space-component-gap-lg)', color: 'var(--sc-color-text-primary)' } as const;
-
 export const Sizes = () => (
-  <div style={row}>
+  <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--sc-space-component-gap-lg)', color: 'var(--sc-color-text-primary)' }}>
     <Icon glyph={Gear} size="sm" />
     <Icon glyph={Gear} size="md" />
     <Icon glyph={Gear} size="lg" />
@@ -12,7 +10,7 @@ export const Sizes = () => (
 );
 
 export const Weights = () => (
-  <div style={row}>
+  <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--sc-space-component-gap-lg)', color: 'var(--sc-color-text-primary)' }}>
     <Icon glyph={Bell} size="md" weight="regular" />
     <Icon glyph={Bell} size="md" weight="bold" />
     <Icon glyph={Bell} size="md" weight="fill" />
@@ -29,7 +27,7 @@ export const InlineWithText = () => (
 
 export const ProviderWeight = () => (
   <IconProvider weight="bold">
-    <div style={row}>
+    <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--sc-space-component-gap-lg)', color: 'var(--sc-color-text-primary)' }}>
       <MagnifyingGlass size={24} />
       <Gear size={24} />
       <Bell size={24} />

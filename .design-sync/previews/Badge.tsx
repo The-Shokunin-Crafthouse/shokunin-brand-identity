@@ -1,9 +1,7 @@
 import { Badge } from '@the-shokunin-crafthouse/scds';
 
-const row = { display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 'var(--sc-space-component-gap-md)' } as const;
-
 export const Variants = () => (
-  <div style={row}>
+  <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 'var(--sc-space-component-gap-md)' }}>
     <Badge>Studio</Badge>
     <Badge variant="success">Shipped</Badge>
     <Badge variant="warning">In review</Badge>
@@ -13,7 +11,7 @@ export const Variants = () => (
 );
 
 export const InContext = () => (
-  <div style={{ ...row, font: 'var(--sc-font-text-title-card)', color: 'var(--sc-color-text-primary)' }}>
+  <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 'var(--sc-space-component-gap-md)', font: 'var(--sc-font-text-title-card)', color: 'var(--sc-color-text-primary)' }}>
     Brand reference site
     <Badge variant="success">Shipped</Badge>
   </div>

@@ -1,16 +1,10 @@
 import { useEffect, useRef } from 'react';
 import { Tooltip } from '@the-shokunin-crafthouse/scds';
 
-const target = {
-  font: 'var(--sc-font-text-body-default)',
-  color: 'var(--sc-color-text-primary)',
-  borderBottom: 'var(--sc-border-width-default) dashed var(--sc-color-border-strong)',
-  cursor: 'help',
-} as const;
-
-// The tooltip opens on hover or focus only. To show the open state in a
-// static card, hover the trigger once on mount.
-function Hovered({ children }: { children: React.ReactNode }) {
+// Preview-only helper, not part of the design system. The tooltip opens on
+// hover or focus; this hovers the trigger once on mount so a static card can
+// show the open state.
+function PreviewHoverOnMount({ children }: { children: React.ReactNode }) {
   const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const trigger = ref.current?.querySelector('[data-trigger]');
@@ -23,16 +17,27 @@ function Hovered({ children }: { children: React.ReactNode }) {
   );
 }
 
-export const SingleLine = () => (
-  <Hovered>
-    <Tooltip content="Saved to the binder.">
-      <span style={target} tabIndex={0} data-trigger>Hover me</span>
-    </Tooltip>
-  </Hovered>
-);
-
 export const Resting = () => (
   <Tooltip content="Saved to the binder.">
-    <span style={target} tabIndex={0}>Hover me</span>
+    <span
+      tabIndex={0}
+      style={{ font: 'var(--sc-font-text-body-default)', color: 'var(--sc-color-text-primary)', borderBottom: 'var(--sc-border-width-default) dashed var(--sc-color-border-strong)', cursor: 'help' }}
+    >
+      Hover me
+    </span>
   </Tooltip>
+);
+
+export const Open = () => (
+  <PreviewHoverOnMount>
+    <Tooltip content="Saved to the binder.">
+      <span
+        tabIndex={0}
+        data-trigger
+        style={{ font: 'var(--sc-font-text-body-default)', color: 'var(--sc-color-text-primary)', borderBottom: 'var(--sc-border-width-default) dashed var(--sc-color-border-strong)', cursor: 'help' }}
+      >
+        Hover me
+      </span>
+    </Tooltip>
+  </PreviewHoverOnMount>
 );
