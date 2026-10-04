@@ -55,6 +55,9 @@ cat > "$T/bin/claude" <<'STUB'
 #!/bin/bash
 # Stub agent. cwd is the sync worktree. Writes what a real run would write.
 echo x >> "$STUB_DIR/calls"
+# argv: -p <prompt> --model ... ; keep the prompt's first line for the test.
+printf '%s\n' "$2" | head -n 1 > "$STUB_DIR/prompt-head"
+printf '%s\n' "$*" > "$STUB_DIR/argv"
 mode="$(cat "$STUB_DIR/mode" 2>/dev/null || echo synced)"
 sha="$(git rev-parse HEAD)"
 verdict(){ mkdir -p ds-bundle; printf '{\n  "ok": true\n}\n' > ds-bundle/.resync-verdict.json; }
@@ -106,6 +109,11 @@ check "baseline is origin/main" [ "$(last)" = "$(head_sha)" ]
 check "sync worktree exists at that commit" [ "$(git -C "$T/state/worktree" rev-parse HEAD)" = "$(head_sha)" ]
 check "done text is a complete no-reply packet" has_packet synced
 check "primary checkout untouched" [ -z "$(git -C "$T/repo" status --porcelain)" ]
+# The skill is user-invocable only. A prompt that asks the agent to invoke it
+# is refused (first live firing, 2026-10-04); the prompt must BE the command.
+check "the prompt is the /design-sync command" grep -q "^/design-sync " "$T/stub/prompt-head"
+check "the contract and run facts ride along" grep -q "Result file (write it last, always)" "$T/stub/argv"
+check "model and ceilings are pinned on the command line" grep -q -- "--model opus --effort high --max-turns 250" "$T/stub/argv"
 
 echo "2. same commit again: nothing runs"
 run

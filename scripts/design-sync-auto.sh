@@ -275,7 +275,14 @@ VERDICT="$WT/ds-bundle/.resync-verdict.json"
 # resolves to the second.)
 rm -f "$RESULT" "$VERDICT"
 
-PROMPT="$(cat "$WT/$PROMPT_REL")
+# The prompt IS the slash command. The design-sync skill is user-invocable
+# only (disable-model-invocation): an agent told to "invoke the skill" is
+# refused, which is what stopped the first live firing on 2026-10-04. A
+# prompt that begins with /design-sync is the user-side invocation, and the
+# contract rides along as its arguments.
+PROMPT="/design-sync Unattended re-sync. No human is present. The contract below replaces every point where the skill would ask the user.
+
+$(cat "$WT/$PROMPT_REL")
 
 ## Run facts (written by design-sync-auto.sh)
 
