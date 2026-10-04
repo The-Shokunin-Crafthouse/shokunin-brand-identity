@@ -374,6 +374,7 @@
   --sc-color-atmosphere-river: var(--sc-p-color-atmosphere-river);
   --sc-color-atmosphere-lapis: var(--sc-p-color-teal-500);
   --sc-color-atmosphere-indigo: var(--sc-p-color-atmosphere-indigo);
+  --sc-color-atmosphere-mark: var(--sc-p-color-teal-700);
   --sc-color-brand-accent: var(--sc-p-color-teal-500);
   --sc-color-brand-accent-deep: var(--sc-p-color-teal-700);
   --sc-color-brand-accent-ink: var(--sc-p-color-teal-700);
@@ -626,6 +627,7 @@
   --sc-color-atmosphere-river: var(--sc-p-color-atmosphere-river);
   --sc-color-atmosphere-lapis: var(--sc-p-color-teal-500);
   --sc-color-atmosphere-indigo: var(--sc-p-color-atmosphere-indigo);
+  --sc-color-atmosphere-mark: var(--sc-p-color-warm-gray-100);
   --sc-color-brand-accent: var(--sc-p-color-teal-500);
   --sc-color-brand-accent-deep: var(--sc-p-color-teal-700);
   --sc-color-brand-accent-ink: var(--sc-p-color-teal-200);

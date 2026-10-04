@@ -469,6 +469,12 @@
         "$value": "{color.atmosphere.indigo}",
         "$extensions": { "modes": { "light": "{color.atmosphere.indigo}", "dark": "{color.atmosphere.indigo}" } },
         "$description": "Canvas-light blend, deepest band (INDIGO). Wash only. 2026-10-03."
+      },
+      "mark": {
+        "$type": "color",
+        "$value": "{color.teal.700}",
+        "$extensions": { "modes": { "light": "{color.teal.700}", "dark": "{color.warmGray.100}" } },
+        "$description": "The plus-mark grid drawn over the atmosphere wash. Light = teal.700 (brand.accentInk's light value, unchanged); dark = warmGray.100, a warm neutral in place of teal.200, which read as celadon over the wash. Decorative, drawn at low opacity; no contrast claim. 2026-10-03."
       }
     },
     "brand": {

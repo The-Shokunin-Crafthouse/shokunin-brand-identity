@@ -152,8 +152,8 @@ public enum SCDS {
     public static let semanticVersion = "0.1.0"
     public static let sourceGenerated = "2026-05-26"
     public static let primitivesHash = "6d5cb37cc94184fc"
-    public static let semanticHash = "b7d7a9a607c99b18"
-    public static let tokenCount = 133
+    public static let semanticHash = "9c779f4db854bf59"
+    public static let tokenCount = 134
   }
 
   // MARK: - Color
@@ -392,6 +392,12 @@ public enum SCDS {
     public static let atmosphereIndigo = SwiftUI.Color.scdsDynamic(
         light: (0.152941, 0.290196, 0.470588, 1),
         dark:  (0.152941, 0.290196, 0.470588, 1)
+    )
+
+    /// `color.atmosphere.mark`
+    public static let atmosphereMark = SwiftUI.Color.scdsDynamic(
+        light: (0.019608, 0.384314, 0.407843, 1),
+        dark:  (0.921569, 0.905882, 0.894118, 1)
     )
 
     /// `color.brand.accent`

@@ -1591,4 +1591,6 @@ Levi, on studio-pm's canvas gradient: "add and keep the blend". His exported flo
 - **Lapis** is `teal.500`, the brand accent's value, aliased rather than repeated.
 - **Figma:** the library has no `color/atmosphere/*` variables yet. The plugin check will read four semantic tokens as missing until they are added.
 
-133 semantic tokens (from 129), 173 primitives (from 170). `tokens:build`, `tokens:swift`, `tokens:map` regenerated; `tokens:verify` passes.
+- **Mark (same day):** Levi: "change the celadon grid icon to the 100 warm grey color". `color.atmosphere.mark` is the plus grid over the wash: light `teal.700` (unchanged), dark `warmGray.100` in place of `teal.200`.
+
+134 semantic tokens (from 129), 173 primitives (from 170). `tokens:build`, `tokens:swift`, `tokens:map` regenerated; `tokens:verify` passes.
