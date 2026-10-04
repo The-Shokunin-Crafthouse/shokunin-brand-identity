@@ -69,5 +69,6 @@
       "primaryStory": "FullScale",
       "viewport": "920x2000"
     }
-  }
+  },
+  "readmeHeader": ".design-sync/conventions.md"
 }
