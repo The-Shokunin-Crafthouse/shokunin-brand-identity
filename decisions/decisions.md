@@ -1604,3 +1604,23 @@ Levi: "add the atmosphere variables to the figma library". This supersedes the *
 - **Scopes:** frame fill and shape fill only, so the washes and the mark stay out of the text and stroke pickers. Each carries its token's description.
 - **Parity:** the plugin check's comparison, run on the `color/atmosphere/*` rows, read 13 of 13 in sync (3 primitive values, 10 semantic mode values), none missing in either direction.
 - **Publish:** not yet published from the library file. Consumers see the variables after the next library publish.
+
+## 2026-10-04 — SCDS syncs to a claude.ai/design project, and the sync runs unattended on every push
+
+Levi ran `/design-sync`, then: "set up an automation that automatically runs design-sync command whenever an update is pushed to SCDS so i dont have to ever manually do it".
+
+**The sync (PR #65).** The library is uploaded to the Claude Design project "SCDS" (`projectId` in `.design-sync/config.json`). Inputs live in `.design-sync/`: converter config with hand-written prop contracts (the library ships no `.d.ts`), one authored preview per component, the conventions header the design agent reads, and `NOTES.md`. The whole Phosphor set is merged onto the bundle global so `Icon` has glyphs; a subset would be smaller but a missing glyph renders nothing with no error.
+
+**The automation.** `com.shokunin.design-sync` (launchd, every 5 minutes) runs `scripts/design-sync-auto.sh` as it is on `origin/main`.
+
+- **Trigger:** `origin/main` moved AND the move touched a path the bundle is built from (components, styles, fonts, tokens, the lib build config, the lockfile, `.design-sync/`, the three shipped guideline docs). Anything else only advances the baseline; no agent starts.
+- **Run:** one headless `claude -p` in a dedicated worktree at `~/.shokunin/design-sync/worktree`, under the contract in `scripts/design-sync-auto.prompt.md`. Model and effort pinned (`opus`, `high`), 250 turns, 90 minutes.
+- **Repo changes go through a PR.** When a sync needs an edit under `.design-sync/` (new component, changed props, broken preview), the agent opens a PR from `design-sync/auto-<sha>`, uploads nothing, and the job holds until that PR is merged. The merge re-triggers the job. The agent never merges and never pushes to `main` (merge authority unchanged).
+- **Graded from artifacts.** The job accepts "synced" only with the driver's own verdict file from that run, a matching commit in the result file, and a clean worktree. A failed commit is not retried without a new push or `touch ~/.shokunin/design-sync/force`.
+- **Texts:** done, needs-merge (with the PR link), failed (with the reason). All no-reply.
+
+**Bypass mode, decided by Levi.** The agent runs with `--dangerously-skip-permissions`. The upload asks for an approval a headless run cannot give, and a DesignSync-only allowlist did not clear it (tested 2026-10-04: no plan returned). Levi was shown three options (full auto in bypass mode, a bash-only job that texts him to run the command, manual) and chose full auto, twice, then added the Bash allow rules that let the session commit it. Same trust level as the night runner.
+
+**Not verified at decision time.** Whether bypass mode clears the upload approval. Claude Code's safety classifier blocked the session from launching a bypass-mode agent, so the first live run is Levi's: the installer's first firing. The hermetic suite (`scripts/design-sync-auto.test.sh`, 58 checks, stub agent) covers the gates, the baseline, the hold, the watchdog and the artifact check; it cannot cover what a real agent does.
+
+**Rejected:** a GitHub Action (CI has no claude.ai/design login), a cloud routine (same, and no local checkout), and a narrower permission allowlist (does not clear the upload approval).
