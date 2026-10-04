@@ -174,9 +174,9 @@ export function SpecimenSection() {
             <NavBar brand={<span style={navBrand}>Shokunin</span>} links={navLinks} trailing={<Button variant="secondary">Start a project</Button>} />
           </Block>
           <Block name="Tooltip" count="2 states" wide>
-            <div className={styles.row}>
+            <div className={`${styles.row} ${styles.tipRow}`}>
               <Tooltip content="Saved to the binder."><span style={tipTarget}>Hover me</span></Tooltip>
-              <Tooltip multiline content="A longer note that wraps to two lines to show the readable-measure cap."><span style={tipTarget}>Hover for more</span></Tooltip>
+              <Tooltip multiline content="A longer note that wraps to two lines at the readable-measure cap."><span style={tipTarget}>Hover for more</span></Tooltip>
             </div>
           </Block>
         </div>

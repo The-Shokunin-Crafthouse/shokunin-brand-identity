@@ -41,3 +41,21 @@ export const Open = () => (
     </Tooltip>
   </PreviewHoverOnMount>
 );
+
+// Fixed width: the open tip is wider than its trigger, so the card needs room
+// for the 240 multi-line cap on both sides.
+export const MultiLine = () => (
+  <div style={{ width: 320 }}>
+    <PreviewHoverOnMount>
+      <Tooltip multiline content="A longer note that wraps to two lines at the readable-measure cap.">
+        <span
+          tabIndex={0}
+          data-trigger
+          style={{ font: 'var(--sc-font-text-body-default)', color: 'var(--sc-color-text-primary)', borderBottom: 'var(--sc-border-width-default) dashed var(--sc-color-border-strong)', cursor: 'help' }}
+        >
+          Hover for more
+        </span>
+      </Tooltip>
+    </PreviewHoverOnMount>
+  </div>
+);

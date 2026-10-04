@@ -9,6 +9,9 @@
 .blockBody { padding: var(--sc-space-component-padding-lg); }
 
 .row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sc-space-component-gap-lg); }
+/* The panel clips its overflow · a raised tip needs stack-xl above the trigger
+   and a centred row so its overhang clears both edges */
+.tipRow { justify-content: center; padding-top: var(--sc-space-layout-stack-xl); }
 .rowEnd { display: flex; flex-wrap: wrap; align-items: flex-end; gap: var(--sc-space-component-gap-lg); }
 .stack { display: flex; flex-direction: column; gap: var(--sc-space-layout-stack-sm); }
 .progressRow { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sc-space-layout-stack-sm); }

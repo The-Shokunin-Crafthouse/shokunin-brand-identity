@@ -61,6 +61,9 @@
 
 .multiline {
   white-space: normal;
+  /* Absolute + left: 50% shrinks the box to half the trigger · max-content
+     lets it grow to the cap instead of wrapping one word per line */
+  width: max-content;
   /* 240 readability cap · built from semantic layout-stack-xl (80) · 3 */
   max-width: calc(var(--sc-space-layout-stack-xl) * 3);
 }
