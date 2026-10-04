@@ -1624,3 +1624,23 @@ This closes the **Not changed** bullet of the Tooltip entry above. The Density p
 - **Row alignment:** the taller Tooltip demo (152 against 96) left the Button panel's rule line 56 higher than its neighbour's. The four component panels take `.compPanel`: `grid-template-rows: subgrid` across three rows, `row-gap: 0`. Head, demo and rule share the grid's rows, so demo tops and rule tops are level in every two-column row. Single-column heights at 390 are unchanged for the other three panels.
 - **Measured:** tip rect against every ancestor with non-visible overflow (only `.panel`), opened by a bubbling `mouseover` and by real hover. No cut on any side at 390, 768, 1024, 1440 and 1920, light and dark.
 - **Not changed:** the Tooltip still has no collision handling or portal. A clipping ancestor cuts it unless the demo makes room; that remains a component limit.
+
+## 2026-10-04 — SCDS syncs to a claude.ai/design project, and the sync runs unattended on every push
+
+Levi ran `/design-sync`, then: "set up an automation that automatically runs design-sync command whenever an update is pushed to SCDS so i dont have to ever manually do it".
+
+**The sync (PR #65).** The library is uploaded to the Claude Design project "SCDS" (`projectId` in `.design-sync/config.json`). Inputs live in `.design-sync/`: converter config with hand-written prop contracts (the library ships no `.d.ts`), one authored preview per component, the conventions header the design agent reads, and `NOTES.md`. The whole Phosphor set is merged onto the bundle global so `Icon` has glyphs; a subset would be smaller but a missing glyph renders nothing with no error.
+
+**The automation.** `com.shokunin.design-sync` (launchd, every 5 minutes) runs `scripts/design-sync-auto.sh` as it is on `origin/main`.
+
+- **Trigger:** `origin/main` moved AND the move touched a path the bundle is built from (components, styles, fonts, tokens, the lib build config, the lockfile, `.design-sync/`, the three shipped guideline docs). Anything else only advances the baseline; no agent starts.
+- **Run:** one headless `claude -p` in a dedicated worktree at `~/.shokunin/design-sync/worktree`, under the contract in `scripts/design-sync-auto.prompt.md`. Model and effort pinned (`opus`, `high`), 250 turns, 90 minutes.
+- **Repo changes go through a PR.** When a sync needs an edit under `.design-sync/` (new component, changed props, broken preview), the agent opens a PR from `design-sync/auto-<sha>`, uploads nothing, and the job holds until that PR is merged. The merge re-triggers the job. The agent never merges and never pushes to `main` (merge authority unchanged).
+- **Graded from artifacts.** The job accepts "synced" only with the driver's own verdict file from that run, a matching commit in the result file, and a clean worktree. A failed commit is not retried without a new push or `touch ~/.shokunin/design-sync/force`.
+- **Texts:** done, needs-merge (with the PR link), failed (with the reason). All no-reply.
+
+**Bypass mode, decided by Levi.** The agent runs with `--dangerously-skip-permissions`. The upload asks for an approval a headless run cannot give, and a DesignSync-only allowlist did not clear it (tested 2026-10-04: no plan returned). Levi was shown three options (full auto in bypass mode, a bash-only job that texts him to run the command, manual) and chose full auto, twice, then added the Bash allow rules that let the session commit it. Same trust level as the night runner.
+
+**Not verified at decision time.** Whether bypass mode clears the upload approval. Claude Code's safety classifier blocked the session from launching a bypass-mode agent, so the first live run is Levi's: the installer's first firing. The hermetic suite (`scripts/design-sync-auto.test.sh`, 58 checks, stub agent) covers the gates, the baseline, the hold, the watchdog and the artifact check; it cannot cover what a real agent does.
+
+**Rejected:** a GitHub Action (CI has no claude.ai/design login), a cloud routine (same, and no local checkout), and a narrower permission allowlist (does not clear the upload approval).

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.shokunin.design-sync</string>
+
+    <!-- A LaunchAgent, not a LaunchDaemon: the claude CLI and gh read their
+         credentials from the login keychain (learning #145).
+
+         The job runs the script AS IT IS ON origin/main, not the copy in the
+         primary checkout. That checkout is routinely parked on a branch that
+         may not carry the script, and a path that is not there fails with
+         nothing but a line in the err log (learning #44, #87). -->
+    <key>ProgramArguments</key>
+    <array>
+        <string>/bin/bash</string>
+        <string>-c</string>
+        <string>R="$HOME/Projects/shokunin-crafthouse/shokunin-brand-identity"; T="$(mktemp)"; if git -C "$R" show origin/main:scripts/design-sync-auto.sh > "$T" 2>/dev/null; then :; else : > "$T"; fi; if [ ! -s "$T" ]; then echo "$(date '+%F %T')  design-sync: scripts/design-sync-auto.sh is not on origin/main" >&amp;2; rm -f "$T"; exit 1; fi; DS_REPO_DIR="$R" /bin/bash "$T"; rc=$?; rm -f "$T"; exit $rc</string>
+    </array>
+
+    <!-- Every 5 minutes. A firing with nothing to do is one git fetch. -->
+    <key>StartInterval</key>
+    <integer>300</integer>
+
+    <!-- RunAtLoad: the install proves itself immediately (learning #87). -->
+    <key>RunAtLoad</key>
+    <true/>
+
+    <key>EnvironmentVariables</key>
+    <dict>
+        <!-- node is resolved by the script (nvm path moves on upgrade). -->
+        <key>PATH</key>
+        <string>/Users/bahnfiya/.local/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+        <key>HOME</key>
+        <string>/Users/bahnfiya</string>
+    </dict>
+
+    <key>StandardOutPath</key>
+    <string>/Users/bahnfiya/.shokunin/design-sync/launchd.out.log</string>
+    <key>StandardErrorPath</key>
+    <string>/Users/bahnfiya/.shokunin/design-sync/launchd.err.log</string>
+</dict>
+</plist>

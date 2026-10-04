@@ -13,6 +13,13 @@ Sync target: claude.ai/design project "SCDS" (`projectId` in `config.json`, http
 - Converter command: `node .ds-sync/resync.mjs --config .design-sync/config.json --node-modules ./node_modules --entry ./dist-lib/index.js --out ./ds-bundle` (add `--remote .design-sync/.cache/remote-sync.json` once the project has an anchor).
 - Render check uses the repo's own Playwright (chromium build 1223, already in the local cache).
 
+## Unattended runs
+
+- `com.shokunin.design-sync` (launchd) runs `scripts/design-sync-auto.sh` when `main` moves on a sync-relevant path. One headless agent per commit, in the worktree at `~/.shokunin/design-sync/worktree`, under `scripts/design-sync-auto.prompt.md`.
+- An unattended run never edits `.design-sync/` on `main`. A needed edit arrives as a PR from `design-sync/auto-<sha>` with nothing uploaded; the upload happens on the run after the merge.
+- State and logs: `~/.shokunin/design-sync/` (`state`, `design-sync-auto.log`, `logs/`). Force a run: `touch ~/.shokunin/design-sync/force`.
+- The gate's path list (`SYNC_PATHS` in the script) must cover every input the bundle is built from. A new input path (a new stylesheet folder, a new guideline doc in `guidelinesGlob`) needs a line there, or pushes to it will not trigger a sync.
+
 ## Known render warns
 
 - `[FONT_MISSING] "Inter", "Cascadia Code"`: both are fallback entries in the token font stacks, behind the brand faces that do ship. Not sourced, by design.
