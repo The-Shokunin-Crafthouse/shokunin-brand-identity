@@ -1,0 +1,42 @@
+/* PlusField — see PlusField.tokens.md for every value's source. */
+
+/* The field fills its parent box. It has no intrinsic size: give the parent (or this root,
+   through className) a height, or use `backdrop` inside a positioned host. */
+.root {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  pointer-events: none;
+  /* Not shown as text. The `type` art reads this family from the computed style. */
+  font: var(--sc-font-text-display-md);
+}
+
+/* Fills the nearest positioned ancestor, behind content that is itself positioned. */
+.backdrop {
+  position: absolute;
+  inset: 0;
+  width: auto;
+  height: auto;
+}
+
+/* Absolute, so the backing store never feeds back into layout. */
+.canvas {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+}
+
+/* Visually hidden, still announced. Holds the progressbar for `uprog`. */
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}

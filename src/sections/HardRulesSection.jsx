@@ -76,7 +76,7 @@ export function HardRulesSection() {
   return (
     <Section id="hard-rules" labelledBy="hard-rules-title">
       <Metabar
-        ord="03"
+        ord="04"
         crumb="Voice / Hard rules"
         meta={[['Last revised', '2026.06.05'], ['Rules', '5'], ['Spec', 'v1.2'], ['Status', 'Complete']]}
       />

@@ -1,0 +1,7 @@
+/* SectionDivider — see SectionDivider.tokens.md. Height grows with the row count. */
+
+.divider { display: block; width: 100%; }
+
+.hairline { height: var(--sc-space-layout-stack-sm); }
+.band     { height: var(--sc-space-layout-stack-md); }
+.block    { height: calc(var(--sc-space-layout-stack-sm) * 2); }

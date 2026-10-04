@@ -1,0 +1,26 @@
+/* PlusTimeline — see PlusTimeline.tokens.md. The rail and the list share one row pitch. */
+
+.timeline {
+  display: grid;
+  grid-template-columns: var(--sc-space-layout-stack-lg) minmax(0, 1fr);
+  column-gap: var(--sc-space-layout-stack-sm);
+}
+
+.rail { position: relative; }
+
+.steps {
+  display: grid;
+  grid-auto-rows: var(--sc-space-layout-stack-xl);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.step {
+  display: flex;
+  align-items: center;
+  font: var(--sc-font-text-label-ui);
+  color: var(--sc-color-text-primary);
+}
+
+.upcoming { color: var(--sc-color-text-tertiary); }

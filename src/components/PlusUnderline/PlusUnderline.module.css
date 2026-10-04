@@ -1,0 +1,7 @@
+/* PlusUnderline — see PlusUnderline.tokens.md. */
+
+.underline {
+  display: block;
+  width: 100%;
+  height: var(--sc-space-component-gap-lg);
+}

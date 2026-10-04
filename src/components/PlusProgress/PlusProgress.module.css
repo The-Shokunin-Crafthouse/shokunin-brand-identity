@@ -1,0 +1,6 @@
+/* PlusProgress — see PlusProgress.tokens.md. */
+
+.progress { display: block; width: 100%; }
+
+.thin { height: var(--sc-space-layout-stack-sm); }
+.band { height: var(--sc-space-layout-stack-md); }

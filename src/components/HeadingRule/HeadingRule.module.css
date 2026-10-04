@@ -1,0 +1,26 @@
+/* HeadingRule — see HeadingRule.tokens.md. */
+
+.row {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.heading {
+  flex: none;
+  margin: 0;
+  color: var(--sc-color-text-primary);
+}
+
+.rule {
+  flex: 1;
+  min-width: 0;
+}
+
+.title { gap: var(--sc-space-layout-stack-md); }
+.title .heading { font: var(--sc-font-text-title-section); }
+.title .rule { height: var(--sc-space-layout-stack-md); }
+
+.eyebrow { gap: var(--sc-space-layout-stack-sm); }
+.eyebrow .heading { font: var(--sc-font-text-mono-caption); color: var(--sc-color-text-secondary); }
+.eyebrow .rule { height: var(--sc-space-layout-stack-sm); }

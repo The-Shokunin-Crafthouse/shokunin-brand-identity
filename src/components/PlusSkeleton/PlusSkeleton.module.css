@@ -1,0 +1,9 @@
+/* PlusSkeleton — see PlusSkeleton.tokens.md. */
+
+.skeleton {
+  display: block;
+  width: 100%;
+  height: calc(var(--sc-space-layout-stack-xl) * 3);
+  border-radius: var(--sc-radius-surface);
+  overflow: hidden;
+}

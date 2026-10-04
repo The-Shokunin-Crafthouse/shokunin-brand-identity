@@ -37,4 +37,17 @@ export { TypographySpecimen } from './components/TypographySpecimen/TypographySp
 export { WorkingMark } from './components/WorkingMark/WorkingMark.jsx';
 export { WORKING_MARK_LOOPS, WORKING_MARK_VIEWBOX } from './components/WorkingMark/workingMarkPaths.js';
 
+// Brand elements: the plus-sign halftone system (decisions.md 2026-10-04 · plus-field).
+export { PlusField } from './components/PlusField/PlusField.jsx';
+export { SectionDivider } from './components/SectionDivider/SectionDivider.jsx';
+export { HeadingRule } from './components/HeadingRule/HeadingRule.jsx';
+export { PlusUnderline } from './components/PlusUnderline/PlusUnderline.jsx';
+export { PlusProgress } from './components/PlusProgress/PlusProgress.jsx';
+export { PlusLoader } from './components/PlusLoader/PlusLoader.jsx';
+export { PlusSkeleton } from './components/PlusSkeleton/PlusSkeleton.jsx';
+export { PlusTimeline } from './components/PlusTimeline/PlusTimeline.jsx';
+export { PlusBullet } from './components/PlusBullet/PlusBullet.jsx';
+export { PlusSeparator } from './components/PlusSeparator/PlusSeparator.jsx';
+export { PlusThumbnail } from './components/PlusThumbnail/PlusThumbnail.jsx';
+
 export { ThemeProvider, useTheme } from './theme/ThemeProvider.jsx';
