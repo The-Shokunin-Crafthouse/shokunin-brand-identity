@@ -25,8 +25,8 @@
  *
  * Output (stages/02-design/figma/plusfield/)
  *   manifest.json   committed: every variant, its params, and its buckets (role, alpha, marks)
- *   svg/*.svg       gitignored: one file per variant, one <path> per bucket, data-role/opacity
- *   transport/*.json gitignored: what the Figma build pastes into use_figma, split ≤ 44 kB
+ *   svg/*.svg       gitignored: one file per variant, one <path> per bucket; layer ids carry
+ *                   role, layer and alpha, and upload_assets imports them as Figma vectors
  *
  * Variant params mirror the brand-site states (src/sections/BrandElementSections.jsx) at the
  * sizes measured at a 1440 px viewport. Decision: decisions/decisions.md · plus-field.
@@ -227,11 +227,15 @@ export function bucketize(ops, x) {
   return { grounds, buckets: list };
 }
 
+/** Layer ids survive Figma's SVG import as layer names, so the build reads role and alpha back
+ *  from them: ground--<role> and <layer>--<role>--<alpha>, role slashes as dots. */
+const layerId = (...parts) => parts.join('--').replaceAll('/', '.');
+
 function toSvg(x, g) {
   const w = n(x.w), h = n(x.h);
-  const rects = g.grounds.map((r) => `  <rect data-role="${r.role}" x="${n(r.x)}" y="${n(r.y)}" width="${n(r.w)}" height="${n(r.h)}"/>`);
-  const paths = g.buckets.map((b) => `  <path data-role="${b.role}" data-layer="${b.layer}" opacity="${b.alpha}" d="${b.d}"/>`);
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" data-variant="${variantName(x.props)}">\n${[...rects, ...paths].join('\n')}\n</svg>\n`;
+  const rects = g.grounds.map((r, i) => `  <rect id="${layerId('ground', r.role, i)}" fill="#000" x="${n(r.x)}" y="${n(r.y)}" width="${n(r.w)}" height="${n(r.h)}"/>`);
+  const paths = g.buckets.map((b) => `  <path id="${layerId(b.layer, b.role, b.alpha)}" fill="#000" opacity="${b.alpha}" d="${b.d}"/>`);
+  return `<svg xmlns="http://www.w3.org/2000/svg" id="${slug(x)}" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">\n${[...rects, ...paths].join('\n')}\n</svg>\n`;
 }
 
 /* ---------------- run ---------------- */
@@ -240,9 +244,7 @@ async function main() {
   const typeJobs = VARIANTS.filter((x) => x.art === 'type');
   const fromBrowser = await recordTypeInBrowser(typeJobs);
   rmSync(join(OUT, 'svg'), { recursive: true, force: true });
-  rmSync(join(OUT, 'transport'), { recursive: true, force: true });
   mkdirSync(join(OUT, 'svg'), { recursive: true });
-  mkdirSync(join(OUT, 'transport'), { recursive: true });
 
   const manifest = { generatedBy: 'scripts/plusfield-to-figma.mjs', engine: 'src/components/PlusField/plusField.engine.js', roles: ROLES, variants: [] };
   for (const x of VARIANTS) {
@@ -251,7 +253,6 @@ async function main() {
     else if (x.art) ops = recordNode(x);
     const g = bucketize(ops, x);
     writeFileSync(join(OUT, 'svg', `${slug(x)}.svg`), toSvg(x, g));
-    writeFileSync(join(OUT, 'transport', `${slug(x)}.json`), JSON.stringify({ name: variantName(x.props), w: x.w, h: x.h, grounds: g.grounds, buckets: g.buckets }));
     manifest.variants.push({
       component: x.component, name: variantName(x.props), file: `${slug(x)}.svg`,
       art: x.art, w: x.w, h: x.h, surface: x.surface, shape: x.shape, density: x.density,
