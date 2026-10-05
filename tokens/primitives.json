@@ -228,8 +228,10 @@
     },
     "atmosphere": {
       "$description": "The canvas-light blend's hues (2026-10-03, studio-pm ADR-107): Levi's exported flow blend, celadon to river blue to the brand teal to indigo. A wash, never text or a control fill. The teal step is teal.500 and is not repeated here.",
-      "celadon": { "$type": "color", "$value": "#EAFBF7" },
-      "river":   { "$type": "color", "$value": "#55CCEE" },
+      "celadon": { "$type": "color", "$value": "#EAFBF7", "$description": "ADR-107's first stop. No semantic token reads it since the FLOW stops (2026-10-04)." },
+      "paleBlueGreen": { "$type": "color", "$value": "#00A3AF", "$description": "FLOW stop 1, PALE BLUE GREEN (studio-pm ADR-110)." },
+      "river":   { "$type": "color", "$value": "#5CE3E6", "$description": "FLOW stop 2, RIVER INDIGO, bright (studio-pm ADR-110). Was #55CCEE." },
+      "riverDeep": { "$type": "color", "$value": "#0F9CC2", "$description": "FLOW stop 3, RIVER INDIGO, deep (studio-pm ADR-110)." },
       "indigo":  { "$type": "color", "$value": "#274A78" }
     },
     "dark": {

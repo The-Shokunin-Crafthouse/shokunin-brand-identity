@@ -151,8 +151,8 @@ public enum SCDS {
     public static let primitivesVersion = "0.1.0"
     public static let semanticVersion = "0.1.0"
     public static let sourceGenerated = "2026-05-26"
-    public static let primitivesHash = "6d5cb37cc94184fc"
-    public static let semanticHash = "9c779f4db854bf59"
+    public static let primitivesHash = "758fbd278e36dab7"
+    public static let semanticHash = "6d7291855ddb7bb4"
     public static let tokenCount = 134
   }
 
@@ -372,20 +372,20 @@ public enum SCDS {
 
     /// `color.atmosphere.celadon`
     public static let atmosphereCeladon = SwiftUI.Color.scdsDynamic(
-        light: (0.917647, 0.984314, 0.968627, 1),
-        dark:  (0.917647, 0.984314, 0.968627, 1)
+        light: (0, 0.639216, 0.686275, 1),
+        dark:  (0, 0.639216, 0.686275, 1)
     )
 
     /// `color.atmosphere.river`
     public static let atmosphereRiver = SwiftUI.Color.scdsDynamic(
-        light: (0.333333, 0.8, 0.933333, 1),
-        dark:  (0.333333, 0.8, 0.933333, 1)
+        light: (0.360784, 0.890196, 0.901961, 1),
+        dark:  (0.360784, 0.890196, 0.901961, 1)
     )
 
     /// `color.atmosphere.lapis`
     public static let atmosphereLapis = SwiftUI.Color.scdsDynamic(
-        light: (0.011765, 0.556863, 0.576471, 1),
-        dark:  (0.011765, 0.556863, 0.576471, 1)
+        light: (0.058824, 0.611765, 0.760784, 1),
+        dark:  (0.058824, 0.611765, 0.760784, 1)
     )
 
     /// `color.atmosphere.indigo`
