@@ -1679,3 +1679,19 @@ This closes the "Brand reference site sections" item under **Not done here** in 
 - **Pages:** one per component, on the existing `ComponentPage` kit: Plus Field (the eleven unwrapped arts plus shape and density tiles), then the ten wrappers. Each shows the real component in every documented state, the token table resolved live in both modes, and the usage rules from `brand-elements.md`.
 - **Kit change:** `ComponentPage` takes `ord`, `group` and `revised`. The defaults (`02`, `Components`, `2026.06.05`) keep every existing page unchanged.
 - **Copy:** written under `sc-brand-voice` (product register), no em dashes in page copy.
+
+### 2026-10-04: the atmosphere tokens take the FLOW export's stops
+
+Levi, at studio-pm's sitting: "make the color change". studio-pm ADR-110 replaced the 2026-10-03 banded blend with Feral's FLOW, whose four stops are new hues; studio-pm drew them from the export's raw values until SCDS carried them. The four semantic names keep their meaning as the blend's four positions and re-point:
+
+| Semantic | Primitive | Export name | Value |
+|---|---|---|---|
+| `color.atmosphere.celadon` | `color.atmosphere.paleBlueGreen` (new) | PALE BLUE GREEN | `#00A3AF` |
+| `color.atmosphere.river` | `color.atmosphere.river` (was `#55CCEE`) | RIVER INDIGO | `#5CE3E6` |
+| `color.atmosphere.lapis` | `color.atmosphere.riverDeep` (new; was `teal.500`) | RIVER INDIGO | `#0F9CC2` |
+| `color.atmosphere.indigo` | `color.atmosphere.indigo` | INDIGO | `#274A78` |
+
+- Same value in both modes; the consumer sets the strength (studio-pm: 35% dark, 20% light, held by its contrast test).
+- `color.atmosphere.celadon`'s primitive `#EAFBF7` stays, unread, so nothing that named it breaks.
+- 134 semantic tokens (unchanged), 175 primitives (from 173). `tokens:build`, `tokens:swift`, `tokens:map` regenerated; `tokens:verify` passes.
+- **Figma:** the library's `color/atmosphere/*` variables follow in the same change (studio-pm's sitting asked for the library to match).

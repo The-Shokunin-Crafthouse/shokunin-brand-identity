@@ -5,7 +5,7 @@
 # Design Token Map — The Shokunin Crafthouse · Brand Identity
 
 **Generated** from `tokens/primitives.json` + `tokens/semantic.json`.
-**Source fingerprint:** `3d03c6341db7` · **173 primitives · 134 semantic tokens.**
+**Source fingerprint:** `69366dc2a573` · **175 primitives · 134 semantic tokens.**
 
 > **This file is a mirror, not the source.** `tokens/*.json` is upstream; this document and the Figma
 > library are generated from / synced to it. It previously claimed the opposite — that both were
@@ -127,8 +127,10 @@ primitives directly. Surfaced here for traceability.
 
 | Token Name | CSS var | Value | Notes |
 |---|---|---|---|
-| `color/atmosphere/celadon` | `--sc-p-color-atmosphere-celadon` | `#EAFBF7` | — |
-| `color/atmosphere/river` | `--sc-p-color-atmosphere-river` | `#55CCEE` | — |
+| `color/atmosphere/celadon` | `--sc-p-color-atmosphere-celadon` | `#EAFBF7` | ADR-107's first stop. |
+| `color/atmosphere/paleBlueGreen` | `--sc-p-color-atmosphere-pale-blue-green` | `#00A3AF` | FLOW stop 1, PALE BLUE GREEN (studio-pm ADR-110). |
+| `color/atmosphere/river` | `--sc-p-color-atmosphere-river` | `#5CE3E6` | FLOW stop 2, RIVER INDIGO, bright (studio-pm ADR-110). |
+| `color/atmosphere/riverDeep` | `--sc-p-color-atmosphere-river-deep` | `#0F9CC2` | FLOW stop 3, RIVER INDIGO, deep (studio-pm ADR-110). |
 | `color/atmosphere/indigo` | `--sc-p-color-atmosphere-indigo` | `#274A78` | — |
 
 #### `color/dark`
@@ -500,10 +502,10 @@ channel-triplet primitives) rather than an alias to a single primitive.
 
 | Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
 |---|---|---|---|---|---|---|
-| `color/atmosphere/celadon` | `--sc-color-atmosphere-celadon` | `color/atmosphere/celadon` | `#EAFBF7` | `color/atmosphere/celadon` | `#EAFBF7` | Canvas-light blend, lightest band (SPRING CELADON). |
-| `color/atmosphere/river` | `--sc-color-atmosphere-river` | `color/atmosphere/river` | `#55CCEE` | `color/atmosphere/river` | `#55CCEE` | Canvas-light blend, river-blue band (RIVER INDIGO in the export). |
-| `color/atmosphere/lapis` | `--sc-color-atmosphere-lapis` | `color/teal/500` | `#038E93` | `color/teal/500` | `#038E93` | Canvas-light blend, teal band (INKED LAPIS in the export): teal.500, the brand accent's own value, named here so the blend reads as one set. |
-| `color/atmosphere/indigo` | `--sc-color-atmosphere-indigo` | `color/atmosphere/indigo` | `#274A78` | `color/atmosphere/indigo` | `#274A78` | Canvas-light blend, deepest band (INDIGO). |
+| `color/atmosphere/celadon` | `--sc-color-atmosphere-celadon` | `color/atmosphere/paleBlueGreen` | `#00A3AF` | `color/atmosphere/paleBlueGreen` | `#00A3AF` | Canvas-light blend, stop 1 of 4 (PALE BLUE GREEN, studio-pm ADR-110's FLOW export). |
+| `color/atmosphere/river` | `--sc-color-atmosphere-river` | `color/atmosphere/river` | `#5CE3E6` | `color/atmosphere/river` | `#5CE3E6` | Canvas-light blend, stop 2 of 4 (RIVER INDIGO, bright, in the FLOW export). |
+| `color/atmosphere/lapis` | `--sc-color-atmosphere-lapis` | `color/atmosphere/riverDeep` | `#0F9CC2` | `color/atmosphere/riverDeep` | `#0F9CC2` | Canvas-light blend, stop 3 of 4 (RIVER INDIGO, deep, in the FLOW export). |
+| `color/atmosphere/indigo` | `--sc-color-atmosphere-indigo` | `color/atmosphere/indigo` | `#274A78` | `color/atmosphere/indigo` | `#274A78` | Canvas-light blend, stop 4 of 4 (INDIGO). |
 | `color/atmosphere/mark` | `--sc-color-atmosphere-mark` | `color/teal/700` | `#056268` | `color/warmGray/100` | `#EBE7E4` | The plus-mark grid drawn over the atmosphere wash. |
 
 #### `color/brand`

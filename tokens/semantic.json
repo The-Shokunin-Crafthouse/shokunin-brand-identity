@@ -448,27 +448,27 @@
     "atmosphere": {
       "celadon": {
         "$type": "color",
-        "$value": "{color.atmosphere.celadon}",
-        "$extensions": { "modes": { "light": "{color.atmosphere.celadon}", "dark": "{color.atmosphere.celadon}" } },
-        "$description": "Canvas-light blend, lightest band (SPRING CELADON). A background wash under glass and grids; never text, never a control. Same in both modes; a consumer sets the wash's strength. 2026-10-03."
+        "$value": "{color.atmosphere.paleBlueGreen}",
+        "$extensions": { "modes": { "light": "{color.atmosphere.paleBlueGreen}", "dark": "{color.atmosphere.paleBlueGreen}" } },
+        "$description": "Canvas-light blend, stop 1 of 4 (PALE BLUE GREEN, studio-pm ADR-110's FLOW export). A background wash under glass and grids; never text, never a control. Same in both modes; a consumer sets the wash's strength. Was SPRING CELADON (2026-10-03); re-pointed 2026-10-04."
       },
       "river": {
         "$type": "color",
         "$value": "{color.atmosphere.river}",
         "$extensions": { "modes": { "light": "{color.atmosphere.river}", "dark": "{color.atmosphere.river}" } },
-        "$description": "Canvas-light blend, river-blue band (RIVER INDIGO in the export). Wash only. 2026-10-03."
+        "$description": "Canvas-light blend, stop 2 of 4 (RIVER INDIGO, bright, in the FLOW export). Wash only. 2026-10-03; value moved to the FLOW stop 2026-10-04."
       },
       "lapis": {
         "$type": "color",
-        "$value": "{color.teal.500}",
-        "$extensions": { "modes": { "light": "{color.teal.500}", "dark": "{color.teal.500}" } },
-        "$description": "Canvas-light blend, teal band (INKED LAPIS in the export): teal.500, the brand accent's own value, named here so the blend reads as one set. Wash only. 2026-10-03."
+        "$value": "{color.atmosphere.riverDeep}",
+        "$extensions": { "modes": { "light": "{color.atmosphere.riverDeep}", "dark": "{color.atmosphere.riverDeep}" } },
+        "$description": "Canvas-light blend, stop 3 of 4 (RIVER INDIGO, deep, in the FLOW export). Wash only. Was teal.500 under ADR-107's bands (2026-10-03); re-pointed 2026-10-04."
       },
       "indigo": {
         "$type": "color",
         "$value": "{color.atmosphere.indigo}",
         "$extensions": { "modes": { "light": "{color.atmosphere.indigo}", "dark": "{color.atmosphere.indigo}" } },
-        "$description": "Canvas-light blend, deepest band (INDIGO). Wash only. 2026-10-03."
+        "$description": "Canvas-light blend, stop 4 of 4 (INDIGO). Wash only. 2026-10-03; unchanged by the FLOW export."
       },
       "mark": {
         "$type": "color",
