@@ -10,9 +10,9 @@ Method: `node scripts/plusfield-to-figma.mjs` (dev server up) → `svg/*.svg` �
 | Generator + manifest committed | done |
 | Pages created | done |
 | Components built (per page) | 11/11 done: PlusField 459:2771, HeadingRule 460:8, Timeline 461:73, Bullet 459:4, SectionDivider 459:2172, Underline 459:2206, Progress 459:2236, Loader 459:2329, Skeleton 459:2350, Separator 459:2370, Thumbnail 459:2400 |
-| Light/Dark frames + screenshots vs site | todo |
-| Code Connect ×11 + figma:parse | todo |
-| decisions.md amendment, PR | todo |
+| Light/Dark frames + screenshots vs site | done: 61/61 counts, 18 accent, 0 unbound, visual match |
+| Code Connect ×11 + figma:parse | done: 13 connects, 0 ❌ |
+| decisions.md amendment, PR | amendment done; PR open |
 
 ---
 

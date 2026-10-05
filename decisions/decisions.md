@@ -1695,3 +1695,43 @@ Levi, at studio-pm's sitting: "make the color change". studio-pm ADR-110 replace
 - `color.atmosphere.celadon`'s primitive `#EAFBF7` stays, unread, so nothing that named it breaks.
 - 134 semantic tokens (unchanged), 175 primitives (from 173). `tokens:build`, `tokens:swift`, `tokens:map` regenerated; `tokens:verify` passes.
 - **Figma:** the library's `color/atmosphere/*` variables follow in the same change (studio-pm's sitting asked for the library to match).
+
+### 2026-10-05 amendment: the eleven brand elements are in the SCDS Figma library
+
+This closes the "Figma masters for the eleven components" item under **Not done here** in the plus-field entry. Brief: `handoff/CC-PROMPT-plusfield-figma.md`.
+
+**Where.** File `0zVoxaLJQkjHENYJlQk1VT` (SCDS library). A `— BRAND ELEMENTS —` header page (`458:2`) after the Global section, then one page per component, named as the code component. Each page holds the set, a title, and a Light frame and a Dark frame (explicit Semantic mode) with an instance of every variant.
+
+| Component | Page | Set | Variants |
+|---|---|---|---|
+| `PlusField` | `458:3` | `459:2771` | 22: `Art` × 20 arts with `Shape=plus`, plus `Art=umedia` × `Shape=square`, `round` |
+| `SectionDivider` | `458:4` | `459:2172` | 3: `Weight` = hairline, band, block |
+| `HeadingRule` | `458:5` | `460:8` | 2: `Variant` = title, eyebrow; `Label` text property |
+| `PlusUnderline` | `458:6` | `459:2206` | 2: `Active` = true, false |
+| `PlusProgress` | `458:7` | `459:2236` | 8: `Variant` thin, band × `Value` 0, 38, 64, 100 |
+| `PlusLoader` | `458:8` | `459:2329` | 1: `Frame` = still (STILL_T 1.96) |
+| `PlusSkeleton` | `458:9` | `459:2350` | 1: `Frame` = rest (STILL_T 0) |
+| `PlusTimeline` | `458:10` | `461:73` | 7: `Steps` 3, 4 × `Current` 0 … steps − 1; `Step 1` … `Step 4` text properties |
+| `PlusBullet` | `458:11` | `459:4` | 2: `Accent` = false, true |
+| `PlusSeparator` | `458:12` | `459:2370` | component, no variant axis |
+| `PlusThumbnail` | `458:13` | `459:2400` | 12: `Seed` atlas, kiln, ledger, harbor, orbit, field × `Surface` inverse, sunk |
+
+**Generation method: the engine draws, nobody redraws.** `scripts/plusfield-to-figma.mjs` runs `drawField` against a recording context that captures every `fillRect` and `arc` with its `fillStyle` and `globalAlpha`. The colours passed in are role sentinels (`ROLE:color/surface/inverse` …), so each mark knows its Semantic variable. Surface-role rects larger than 24 px are grounds; every other mark lands in a (role, alpha) bucket, one SVG path per bucket. `type` runs in Playwright Chromium on the dev server, so the 404 rasterises with the brand face. Seeds, sizes and options are the brand-site states measured at a 1440 px viewport. The SVGs reach Figma through `upload_assets` (the plugin sandbox has no `fetch`, and the paths are too large to inline); a `use_figma` pass turns each imported frame into a variant component, binds every fill to the Semantic variable its layer id names, sets node opacity to the bucket alpha and SCALE constraints on every mark, and replaces the imported ground vectors with rectangles. Light and Dark come from the variable mode, no second drawing. `stages/02-design/figma/plusfield/manifest.json` (committed) lists every variant's buckets.
+
+**Compositing parity.** Canvas paints the crossing of a plus's two arms twice. A Figma path fills its union once, so for buckets with alpha below 1 the crossings sit in a second "overlap" path at the same alpha: a + a(1 − a), what canvas paints.
+
+**Verified.**
+- Generator against the engine, before Figma: every SVG rendered beside the engine's own canvas at 2× in Chromium, both themes. Mean channel difference ≤ 3 / 255 for all 61 variants; the residue is anti-aliasing on mark edges.
+- Figma against the manifest: 61 of 61 variants carry exactly the manifest's bucket and ground count. No solid fill on any created node lacks a variable binding.
+- Teal: `ROLE:color/brand/accent` appears in 18 variants in the manifest and binds `color/brand/accent` in the same 18 in Figma: `PlusField` uprog, uline, utime; `PlusUnderline` Active=true; `PlusProgress` values 38, 64, 100 in both variants; every `PlusTimeline` variant (the current node); `PlusBullet` Accent=true. No other art has one.
+- Visual: each page's Light and Dark frames beside the brand-site states (reduced motion, both themes). Mark positions, counts and teal placement match.
+
+**Deviations, each with its reason.**
+- `SectionDivider` is 742 wide, not the brief's 744: 742 is what the brand site renders at 1440, and the comparison needs the same width.
+- `HeadingRule` title rule fills to 510, the site's 503.3: the Figma file uses the Trial cut of Neue Haas Grotesk, 6.7 px narrower on "Selected work". The marks scale with the rule.
+- `usplash` alphas snap to a 1/40 step (max error 0.0125). Its wave gives every mark its own alpha, which would be one node per mark.
+- `PlusField` holds no density variants. The brief's matrix has none; density stays a code prop.
+- The nine structural arts draw in the 4:3 tile at their wrapper defaults; the site has no tile for them, so they compare against their wrapper pages.
+- `HeadingRule` `Label` and `PlusTimeline` `Step n` defaults are shared across variants, as Figma text properties are. The eyebrow instances in the docs frames override `Label` to "02 / Services".
+
+**Code Connect.** `<Name>.figma.tsx` for all eleven, against the set ids above. `PlusTimeline` has one connect per `Steps` value. `npm run figma:parse` parses 13 connects with no `❌`. Note that `figma connect parse` exits 0 even when a file fails to parse, so the check is the `❌` count, not the exit code. Publishing stays plan-gated.
