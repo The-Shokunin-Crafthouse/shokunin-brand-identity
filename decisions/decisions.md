@@ -1808,3 +1808,7 @@ Done in the SCDS library file the same day (publishing is Levi's step):
 - The gap reads a padding token because the library binds that variable; a dedicated gap token would split code from the library.
 - **Figma:** new variable `size/icon/xs` (→ `space/12`), bound to the Small icons' width and height in place of `space/12`; `space/component/padding-inline/button-sm` deleted (no bindings left); the set description updated. `text/label/button-sm` stays as its own style at 11pt so the library's Small variants keep their link.
 - `tokens:build`, `tokens:swift`, `tokens:map` regenerated; `tokens:verify` passes; `npm run build` exits 0.
+
+### 2026-10-06: PlusSeparator's Code Connect follows the Tone set
+
+The follow-up named under "the library follows" above. `PlusSeparator.figma.tsx` now resolves to the set `474:56316` instead of its Default variant `459:2370`, and maps `Tone` (`Default` | `Muted`) to `tone` (`default` | `muted`). `CODE-CONNECT.md` updated. `figma:parse` validates it; publishing stays plan-gated.

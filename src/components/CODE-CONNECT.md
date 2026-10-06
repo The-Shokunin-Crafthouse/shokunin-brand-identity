@@ -76,7 +76,7 @@ that needs the real node URLs.
 | PlusSkeleton | `PlusSkeleton/PlusSkeleton.figma.tsx` | ✅ code wired · ✅ Figma set `459:2350` built 2026-10-05 from the engine (decisions.md · plus-field) · publish still plan-gated |
 | PlusTimeline | `PlusTimeline/PlusTimeline.figma.tsx` | ✅ code wired · ✅ Figma set `461:73` built 2026-10-05 from the engine (decisions.md · plus-field) · publish still plan-gated |
 | PlusBullet | `PlusBullet/PlusBullet.figma.tsx` | ✅ code wired · ✅ Figma set `459:4` built 2026-10-05 from the engine (decisions.md · plus-field) · publish still plan-gated |
-| PlusSeparator | `PlusSeparator/PlusSeparator.figma.tsx` | ✅ code wired · ✅ Figma set `459:2370` built 2026-10-05 from the engine (decisions.md · plus-field) · publish still plan-gated |
+| PlusSeparator | `PlusSeparator/PlusSeparator.figma.tsx` | ✅ code wired · ✅ Figma set `474:56316` (`Tone` Default | Muted; Default is the original `459:2370`) · publish still plan-gated |
 | PlusThumbnail | `PlusThumbnail/PlusThumbnail.figma.tsx` | ✅ code wired · ✅ Figma set `459:2400` built 2026-10-05 from the engine (decisions.md · plus-field) · publish still plan-gated |
 
 Author the rest one at a time against confirmed Figma masters — do not bulk-author
