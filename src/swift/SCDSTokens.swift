@@ -151,8 +151,8 @@ public enum SCDS {
     public static let primitivesVersion = "0.1.0"
     public static let semanticVersion = "0.1.0"
     public static let sourceGenerated = "2026-05-26"
-    public static let primitivesHash = "8005a78cfdaed667"
-    public static let semanticHash = "25de38c5f0d78a32"
+    public static let primitivesHash = "1f49d61d1412de67"
+    public static let semanticHash = "d4da3bb73718308b"
     public static let tokenCount = 138
   }
 
@@ -471,11 +471,11 @@ public enum SCDS {
         trackingEm: 0
     )
 
-    /// `font.text.label.buttonSm` · Neue Haas Grotesk Text Pro 12/1.5
+    /// `font.text.label.buttonSm` · Neue Haas Grotesk Text Pro 11/1.5
     public static let textLabelButtonSm = SCDSTypeStyle(
         family: "Neue Haas Grotesk Text Pro",
         fallbacks: ["Helvetica Neue", "Inter", "system-ui", "sans-serif"],
-        size: 12,
+        size: 11,
         weight: .medium,
         lineHeightMultiple: 1.5,
         trackingEm: 0.08
@@ -740,9 +740,6 @@ public enum SCDS {
     /// `space.component.padding-inline.lg`
     public static let componentPaddingInlineLg: CGFloat = 16
 
-    /// `space.component.padding-inline.button-sm`
-    public static let componentPaddingInlineButtonSm: CGFloat = 8
-
     /// `space.component.padding-block.sm`
     public static let componentPaddingBlockSm: CGFloat = 2
 
@@ -806,6 +803,9 @@ public enum SCDS {
 
   /// Named element sizes, including the touch-target floor.
   public enum Size {
+    /// `size.icon.xs`
+    public static let iconXs: CGFloat = 12
+
     /// `size.icon.sm`
     public static let iconSm: CGFloat = 16
 

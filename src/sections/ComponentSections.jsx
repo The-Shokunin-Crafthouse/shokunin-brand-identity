@@ -49,9 +49,9 @@ export function ButtonPage() {
         { name: 'Disabled', token: '--sc-color-text-disabled', render: <Button disabled>Unavailable</Button> },
         { name: 'Loading', token: '--sc-motion-mode-duration', render: <Button loading>Saving</Button> },
         { name: 'Small · primary', token: '--sc-font-text-label-button-sm', render: <Button size="sm">Update</Button> },
-        { name: 'Small · secondary', token: '--sc-space-component-padding-inline-button-sm', render: <Button size="sm" variant="secondary">Merge</Button> },
+        { name: 'Small · secondary', token: '--sc-space-component-padding-inline-md', render: <Button size="sm" variant="secondary">Merge</Button> },
         { name: 'Small · tertiary', token: '--sc-space-component-padding-block-button-sm', render: <Button size="sm" variant="tertiary">View all</Button> },
-        { name: 'Small · disabled', token: '--sc-size-icon-sm', render: <Button size="sm" disabled>Unavailable</Button> },
+        { name: 'Small · disabled', token: '--sc-size-icon-xs', render: <Button size="sm" disabled>Unavailable</Button> },
       ]}
       tokenRows={[
         { prop: 'Inline padding', token: '--sc-space-component-padding-inline-md' },

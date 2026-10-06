@@ -13,8 +13,8 @@
  * handler and renders an inline pulse in place of the arrow.
  *
  * `size` is `lg` (default: 11/medium label, 16 × 8 padding, 12px icon) or
- * `sm` (12/medium label, 8 × 4 padding, 16px icon). Every variant and state
- * exists at both sizes (ADR scds-button-size-small, 2026-10-05).
+ * `sm` (11/medium label, 12 × 4 padding, 2px gap, 12px icon). Every variant and state
+ * exists at both sizes (ADR scds-button-size-small, 2026-10-05, amended 2026-10-06).
  */
 
 import { ArrowRight } from '@phosphor-icons/react';

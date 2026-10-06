@@ -799,9 +799,9 @@
         },
         "buttonSm": {
           "$type": "typography",
-          "$value": "{font.text.medium.12}",
-          "$description": "Small Button label: 12/medium/widest. Figma text/label/button-sm. 2026-10-05 (ADR scds-button-size-small).",
-          "$extensions": { "modes": { "light": "{font.text.medium.12}", "dark": "{font.text.medium.12}" } }
+          "$value": "{font.text.11}",
+          "$description": "Small Button label: 11/medium/widest, the chrome label (Figma text/label/button-sm). 2026-10-05 (ADR scds-button-size-small; 12 to 11 amended 2026-10-06).",
+          "$extensions": { "modes": { "light": "{font.text.11}", "dark": "{font.text.11}" } }
         },
         "tab": {
           "$type": "typography",
@@ -945,6 +945,12 @@
   },
   "size": {
     "icon": {
+      "xs": {
+        "$type": "dimension",
+        "$value": "{space.12}",
+        "$description": "Icon xs (12px). The Small Button arrow and spinner (Figma size/icon/xs). 2026-10-06 (ADR scds-button-size-small, amended).",
+        "$extensions": { "modes": { "light": "{space.12}", "dark": "{space.12}" } }
+      },
       "sm": {
         "$type": "dimension",
         "$value": "{space.16}",
@@ -1104,12 +1110,6 @@
           "$value": "{space.16}",
           "$description": "Sprint 4 addition · generous inline padding (16px). Card, Alert.",
           "$extensions": { "modes": { "light": "{space.16}", "dark": "{space.16}" } }
-        },
-        "button-sm": {
-          "$type": "dimension",
-          "$value": "{space.8}",
-          "$description": "Small Button inline padding (8px). 2026-10-05 (ADR scds-button-size-small).",
-          "$extensions": { "modes": { "light": "{space.8}", "dark": "{space.8}" } }
         }
       },
       "padding-block": {

@@ -1728,3 +1728,21 @@ Done in the SCDS library file the same day (publishing is Levi's step):
 - **Progress** (`140:26`): `Tone` and `Track` axes; 5 new Bar variants. Circular and Step carry the defaults only.
 - **Segment** (`137:35`): `Label`, `Count` and `Show Count` properties; a `count` text after the label at `space/component/gap/lg`; both texts on `text/label/tab`. The library Segment was already 16 × 8 and 13pt, the code `lg` size.
 - **PlusSeparator**: now a set (`474:56316`) with `Tone` = `Default` (the original node, `459:2370`, so existing instances keep their link) | `Muted`. PR #74's Code Connect still resolves to `459-2370`; pointing it at the set is a one-line follow-up there.
+
+### 2026-10-06: Small Button respecified (amends scds-button-size-small)
+
+**Status:** Accepted. Levi revised the Small variants in the library on 2026-10-06, before PR #75 merged. The 2026-10-05 Small values above are superseded; Large is unchanged.
+
+| Property | 2026-10-05 | 2026-10-06 | Token |
+| --- | --- | --- | --- |
+| Label | 12/medium/widest | 11/medium/widest | `font.text.label.buttonSm` → `{font.text.11}` (the chrome label's composition) |
+| Inline padding | 8 | 12 | `space.component.padding-inline.md` |
+| Block padding | 4 | 4 | `space.component.padding-block.button-sm` (unchanged) |
+| Label ↔ arrow gap | 8 | 2 | `space.component.padding-block.sm`, the variable the library binds |
+| Icon | 16 | 12 | new `size.icon.xs` → `{space.12}` |
+
+- Small now differs from Large in padding and gap only; the type and icon match. The 2026-10-05 note that Small carries larger type than Large no longer holds.
+- Removed, both unused after the change: primitive `font.text.medium.12` and semantic `space.component.padding-inline.button-sm` (and its library variable).
+- The gap reads a padding token because the library binds that variable; a dedicated gap token would split code from the library.
+- **Figma:** new variable `size/icon/xs` (→ `space/12`), bound to the Small icons' width and height in place of `space/12`; `space/component/padding-inline/button-sm` deleted (no bindings left); the set description updated. `text/label/button-sm` stays as its own style at 11pt so the library's Small variants keep their link.
+- `tokens:build`, `tokens:swift`, `tokens:map` regenerated; `tokens:verify` passes; `npm run build` exits 0.

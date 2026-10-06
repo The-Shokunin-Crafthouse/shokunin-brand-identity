@@ -6,10 +6,11 @@
  *   --sc-border-width-default               · border
  *   --sc-color-border-focus / -focus-offset · focus ring
  *   --sc-font-text-label-chrome-*           · NHG Text medium label (lg)
- *   --sc-font-text-label-button-sm-*        · 12/medium label (sm)
- *   --sc-space-component-padding-inline-button-sm · sm inline (8)
+ *   --sc-font-text-label-button-sm-*        · 11/medium label (sm)
+ *   --sc-space-component-padding-inline-md  · sm inline (12)
  *   --sc-space-component-padding-block-button-sm  · sm block (4)
- *   --sc-size-icon-sm                       · sm icon (16)
+ *   --sc-space-component-padding-block-sm   · sm label ↔ arrow gap (2)
+ *   --sc-size-icon-xs                       · sm icon (12)
  *   --sc-color-border-strong                · secondary outline
  *   --sc-color-surface-raised               · primary resting fill (neutral)
  *   --sc-shadow-control-raised              · primary neumorphic 4-shadow (button-only)
@@ -82,10 +83,12 @@
 }
 
 /* --- Size · sm (ADR scds-button-size-small) ------------------------
-   12/medium label, 8 × 4 padding, 16px icon. The variants below set
+   11/medium label, 12 × 4 padding, 2px gap, 12px icon (amended
+   2026-10-06 to the library's revised spec). The variants below set
    only colour, so every variant and state carries over unchanged. */
 .sm {
-  padding-inline: var(--sc-space-component-padding-inline-button-sm);
+  gap: var(--sc-space-component-padding-block-sm);
+  padding-inline: var(--sc-space-component-padding-inline-md);
   padding-block: var(--sc-space-component-padding-block-button-sm);
 }
 .sm .label {
@@ -97,8 +100,8 @@
 }
 .sm .arrow,
 .sm .spinner {
-  width: var(--sc-size-icon-sm);
-  height: var(--sc-size-icon-sm);
+  width: var(--sc-size-icon-xs);
+  height: var(--sc-size-icon-xs);
 }
 
 /* --- Focus · cross-variant (styled ring, never the UA default) ---- */
