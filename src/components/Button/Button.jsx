@@ -11,12 +11,17 @@
  * `arrow` (default true) toggles the trailing arrow. `disabled` and
  * `loading` are independent of variant; loading suppresses the click
  * handler and renders an inline pulse in place of the arrow.
+ *
+ * `size` is `lg` (default: 11/medium label, 16 × 8 padding, 12px icon) or
+ * `sm` (11/medium label, 12 × 4 padding, 2px gap, 12px icon). Every variant and state
+ * exists at both sizes (ADR scds-button-size-small, 2026-10-05, amended 2026-10-06).
  */
 
 import { ArrowRight } from '@phosphor-icons/react';
 import styles from './Button.module.css';
 
 const VARIANTS = ['primary', 'secondary', 'tertiary', 'destructive'];
+const SIZES = ['lg', 'sm'];
 
 // Trailing arrow — Phosphor glyph (scds-v2 default icon family), inherits
 // the label colour via currentColor. Sized by .arrow (1.4em).
@@ -26,6 +31,7 @@ function Arrow() {
 
 export function Button({
   variant = 'primary',
+  size = 'lg',
   disabled = false,
   loading = false,
   arrow = true,
@@ -36,12 +42,13 @@ export function Button({
   ...rest
 }) {
   const v = VARIANTS.includes(variant) ? variant : 'primary';
+  const sz = SIZES.includes(size) ? size : 'lg';
   const isDisabled = disabled || loading;
 
   return (
     <button
       type={type}
-      className={`${styles.button} ${styles[v]} ${loading ? styles.loading : ''} ${className}`}
+      className={`${styles.button} ${styles[v]} ${sz === 'sm' ? styles.sm : ''} ${loading ? styles.loading : ''} ${className}`}
       disabled={isDisabled}
       aria-busy={loading || undefined}
       onClick={isDisabled ? undefined : onClick}

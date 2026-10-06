@@ -14,6 +14,9 @@
  *   --sc-space-component-padding-block-md / -sm    · segment block padding (md / sm size)
  *   --sc-font-text-body-dense-*           · segment label (md size)
  *   --sc-font-text-label-ui-*             · segment label (sm size)
+ *   --sc-space-component-padding-inline-lg / --sc-space-component-padding-block-md · lg segment padding
+ *   --sc-font-text-label-tab-*            · segment label (lg size)
+ *   --sc-space-component-gap-lg           · label ↔ count gap
  *   --sc-motion-reveal-duration / -easing · indicator slide
  *   --sc-motion-hover-duration / -easing  · text color transition
  */
@@ -73,6 +76,21 @@
   font-weight: var(--sc-font-text-label-ui-weight);
   line-height: var(--sc-font-text-label-ui-line-height);
   letter-spacing: var(--sc-font-text-label-ui-letter-spacing);
+}
+
+.lg .segment {
+  padding-inline: var(--sc-space-component-padding-inline-lg);
+  padding-block: var(--sc-space-component-padding-block-md);
+  font-family: var(--sc-font-text-label-tab-family);
+  font-size: var(--sc-font-text-label-tab-size);
+  font-weight: var(--sc-font-text-label-tab-weight);
+  line-height: var(--sc-font-text-label-tab-line-height);
+  letter-spacing: var(--sc-font-text-label-tab-letter-spacing);
+}
+
+.count {
+  margin-inline-start: var(--sc-space-component-gap-lg);
+  font-variant-numeric: tabular-nums;
 }
 
 .segment:hover:not(:disabled) {

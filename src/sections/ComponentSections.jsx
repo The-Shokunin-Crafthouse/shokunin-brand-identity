@@ -48,6 +48,10 @@ export function ButtonPage() {
         { name: 'Destructive', token: '--sc-color-status-error', render: <Button variant="destructive">Delete draft</Button> },
         { name: 'Disabled', token: '--sc-color-text-disabled', render: <Button disabled>Unavailable</Button> },
         { name: 'Loading', token: '--sc-motion-mode-duration', render: <Button loading>Saving</Button> },
+        { name: 'Small · primary', token: '--sc-font-text-label-button-sm', render: <Button size="sm">Update</Button> },
+        { name: 'Small · secondary', token: '--sc-space-component-padding-inline-md', render: <Button size="sm" variant="secondary">Merge</Button> },
+        { name: 'Small · tertiary', token: '--sc-space-component-padding-block-button-sm', render: <Button size="sm" variant="tertiary">View all</Button> },
+        { name: 'Small · disabled', token: '--sc-size-icon-xs', render: <Button size="sm" disabled>Unavailable</Button> },
       ]}
       tokenRows={[
         { prop: 'Inline padding', token: '--sc-space-component-padding-inline-md' },
@@ -402,6 +406,8 @@ export function ProgressPage() {
       ]}
       states={[
         { name: 'Bar', token: '--sc-size-progress-bar-height', render: <div style={{ width: '100%' }}><ProgressIndicator variant="bar" value={0.62} label="62 percent" /></div> },
+        { name: 'Bar · tone progress, sunk track', token: '--sc-color-signal-progress', render: <div style={{ width: '100%' }}><ProgressIndicator variant="bar" tone="progress" track="sunk" value={0.1} label="All models, 10 percent" /></div> },
+        { name: 'Bar · tone warning, sunk track', token: '--sc-color-status-warning', render: <div style={{ width: '100%' }}><ProgressIndicator variant="bar" tone="warning" track="sunk" value={0.84} label="84 percent" /></div> },
         { name: 'Circular', token: '--sc-size-progress-circular', render: <ProgressIndicator variant="circular" value={0.7} label="70 percent" /> },
         { name: 'Step', token: '--sc-color-border-strong', render: <ProgressIndicator variant="step" steps={4} current={2} /> },
         { name: 'Interactive · default/hover', token: '--sc-color-interactive-hover', render: <InteractiveBarDemo /> },
@@ -581,14 +587,20 @@ const VIEW_OPTIONS = [
   { value: 'month', label: 'Month' },
 ];
 
-function SegmentedControlDemo({ defaultValue = 'week', disabled = false }) {
+const ON_YOU_OPTIONS = [
+  { value: 'waiting', label: 'Waiting on you', count: 1 },
+  { value: 'blocked', label: 'Blocked on you', count: 3 },
+];
+
+function SegmentedControlDemo({ defaultValue = 'week', disabled = false, options = VIEW_OPTIONS, size }) {
   const [value, setValue] = useState(defaultValue);
   return (
     <SegmentedControl
-      options={VIEW_OPTIONS}
+      options={options}
       value={value}
       onChange={setValue}
       disabled={disabled}
+      size={size}
       label="View"
     />
   );
@@ -613,6 +625,7 @@ export function SegmentedControlPage() {
         { name: 'Hover (hover a segment)', token: '--sc-color-text-primary', render: <SegmentedControlDemo defaultValue="month" /> },
         { name: 'Focus (tab to a segment)', token: '--sc-color-border-focus', render: <SegmentedControlDemo defaultValue="day" /> },
         { name: 'Disabled', token: '--sc-color-text-disabled', render: <SegmentedControlDemo defaultValue="week" disabled /> },
+        { name: 'Large · with counts', token: '--sc-font-text-label-tab', render: <SegmentedControlDemo defaultValue="waiting" options={ON_YOU_OPTIONS} size="lg" /> },
       ]}
       tokenRows={[
         { prop: 'Track ground', token: '--sc-color-surface-sunk' },

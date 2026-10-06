@@ -1757,3 +1757,54 @@ Same ask as PlusUnderline (above), with one more constraint: the teal share must
 - **Stretch snaps, Scale does not.** The track first used Stretch. On the 214.66-wide root, Figma snapped the stretched width to W − 0.34 and lost a column at W = 333.3. Scale keeps the exact width, so both rows use Scale.
 - **Known residue.** Teal marks cover the faint marks under them rather than replacing them; at alpha 1 the only trace is anti-aliasing on the edge. A fill narrower than 4 px (Value × width under 4) still shows one teal column, because a wrapping row always places its first item; the engine shows none. It only happens below 10.5 px wide at 38%.
 - Set id, properties and Code Connect unchanged. The fill demo sits in the page's Light and Dark frames.
+
+## 2026-10-05 — Studio PM shell: Button gains a Small size, the Secondary outline returns, three components gain options
+
+**Status:** Accepted. Levi's direction, 2026-10-05, from the Studio PM Dashboard and Kanban redesign (Studio PM Figma file `bfIXIo8Y0s8mTGvhmJBlu1`, section F and the "Shell redesign" component sections).
+**Reads with:** scds-v2 Phase 2 (2026-07-27, Secondary fill-only), the 2026-10-04 PlusField ADR, studio-pm ADR-117.
+
+**Why.** Levi's redesign builds on SCDS library instances and overrides four of them. Each override is promoted into the component so no consumer carries it by hand. He also asked for a Small Button at every variant and state.
+
+**Button · Size (ADR scds-button-size-small).** New `Size` variant axis in the library (`Large` | `Small`) and `size` prop in code (`lg` | `sm`, default `lg`). Small: 12/medium/widest label (`font.text.label.buttonSm` → new primitive `font.text.medium.12`), 8px inline padding (`space.component.padding-inline.button-sm`), 4px block padding (`space.component.padding-block.button-sm`, the dense 4pt step), 16px icon (`size.icon.sm`). Large is unchanged: 11/medium chrome label, 16 × 8, 12px icon. Small carries larger type and icon than Large because Levi specified both values; the size names the control's height, not its type.
+
+**Secondary outline returns (ADR studio-pm-shell-blocklist-exception).** Supersedes the 2026-07-27 fill-only Secondary in code. The library's Secondary kept its 1px `border/strong` stroke and the Studio PM shell is designed on it, so code now matches the library: transparent ground, 1px `--sc-color-border-strong`, teal label on hover/focus. Levi chose to keep the design as drawn when asked about the slop-blocklist matches it carries. Each is an accepted exception here, not a precedent:
+- Outline / stroke borders: Secondary Button only.
+- Arrow CTA: the Button's trailing arrow (`Show Icon`), unchanged; closes the queue item WQ-055 as "keep".
+- Progress bars: the Tokens tile's limit meters, which carry data (percent used per rate-limit window).
+- Pill badges: StatusPill, unchanged.
+
+**ProgressIndicator (Progress) · Tone and Track.** `tone`: `accent` (default) | `progress` (`color.signal.progress`) | `warning` (`color.status.warning`). `track`: `deepSunk` (default) | `sunk`. Bar only. Replaces three fill overrides and one track override in the Tokens tile.
+
+**SegmentedControl · Count and Large.** Options take an optional `count`, set after the label with a 12px gap. New size `lg`: 16 × 8 padding, 13/medium label (`font.text.label.tab` → new primitive `font.text.medium.13`). Replaces the On-you tile's padding, radius and text overrides.
+
+**PlusSeparator · Tone.** `tone`: `default` | `muted` (`color.text.disabled`). Replaces a raw `warmGray/400` primitive override in the PR rows; light `text.disabled` is that same value.
+
+- Tokens: 2 primitives added (`font.text.medium.12`, `font.text.medium.13`), 4 semantics added. `tokens:build`, `tokens:swift`, `tokens:map` regenerated; `tokens:verify` passes; `npm run build` exits 0; `figma:parse` maps `Size`.
+- **Figma:** the library's Button, Progress, Segment and PlusSeparator sets, variables and text styles follow in the same change. Publishing the library is Levi's step.
+
+### 2026-10-05: the library follows
+
+Done in the SCDS library file the same day (publishing is Levi's step):
+- Variables `space/component/padding-inline/button-sm` (→ `space/8`) and `space/component/padding-block/button-sm` (→ `space/4`); text styles `text/label/button-sm` (12/medium) and `text/label/tab` (13/medium, no tracking).
+- **Button** (`9:438`): new `Size` axis, default `Large`; 15 Small variants. The Focus variants' ring was a fixed 96 × 39 absolute frame, so any label longer than "Button" outgrew it at both sizes; it now sits 3px outside the button with STRETCH constraints and tracks the label.
+- **Progress** (`140:26`): `Tone` and `Track` axes; 5 new Bar variants. Circular and Step carry the defaults only.
+- **Segment** (`137:35`): `Label`, `Count` and `Show Count` properties; a `count` text after the label at `space/component/gap/lg`; both texts on `text/label/tab`. The library Segment was already 16 × 8 and 13pt, the code `lg` size.
+- **PlusSeparator**: now a set (`474:56316`) with `Tone` = `Default` (the original node, `459:2370`, so existing instances keep their link) | `Muted`. PR #74's Code Connect still resolves to `459-2370`; pointing it at the set is a one-line follow-up there.
+
+### 2026-10-06: Small Button respecified (amends scds-button-size-small)
+
+**Status:** Accepted. Levi revised the Small variants in the library on 2026-10-06, before PR #75 merged. The 2026-10-05 Small values above are superseded; Large is unchanged.
+
+| Property | 2026-10-05 | 2026-10-06 | Token |
+| --- | --- | --- | --- |
+| Label | 12/medium/widest | 11/medium/widest | `font.text.label.buttonSm` → `{font.text.11}` (the chrome label's composition) |
+| Inline padding | 8 | 12 | `space.component.padding-inline.md` |
+| Block padding | 4 | 4 | `space.component.padding-block.button-sm` (unchanged) |
+| Label ↔ arrow gap | 8 | 2 | `space.component.padding-block.sm`, the variable the library binds |
+| Icon | 16 | 12 | new `size.icon.xs` → `{space.12}` |
+
+- Small now differs from Large in padding and gap only; the type and icon match. The 2026-10-05 note that Small carries larger type than Large no longer holds.
+- Removed, both unused after the change: primitive `font.text.medium.12` and semantic `space.component.padding-inline.button-sm` (and its library variable).
+- The gap reads a padding token because the library binds that variable; a dedicated gap token would split code from the library.
+- **Figma:** new variable `size/icon/xs` (→ `space/12`), bound to the Small icons' width and height in place of `space/12`; `space/component/padding-inline/button-sm` deleted (no bindings left); the set description updated. `text/label/button-sm` stays as its own style at 11pt so the library's Small variants keep their link.
+- `tokens:build`, `tokens:swift`, `tokens:map` regenerated; `tokens:verify` passes; `npm run build` exits 0.

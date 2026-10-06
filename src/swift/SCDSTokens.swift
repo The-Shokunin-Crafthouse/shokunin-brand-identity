@@ -151,9 +151,9 @@ public enum SCDS {
     public static let primitivesVersion = "0.1.0"
     public static let semanticVersion = "0.1.0"
     public static let sourceGenerated = "2026-05-26"
-    public static let primitivesHash = "758fbd278e36dab7"
-    public static let semanticHash = "6d7291855ddb7bb4"
-    public static let tokenCount = 134
+    public static let primitivesHash = "1f49d61d1412de67"
+    public static let semanticHash = "d4da3bb73718308b"
+    public static let tokenCount = 138
   }
 
   // MARK: - Color
@@ -471,6 +471,26 @@ public enum SCDS {
         trackingEm: 0
     )
 
+    /// `font.text.label.buttonSm` · Neue Haas Grotesk Text Pro 11/1.5
+    public static let textLabelButtonSm = SCDSTypeStyle(
+        family: "Neue Haas Grotesk Text Pro",
+        fallbacks: ["Helvetica Neue", "Inter", "system-ui", "sans-serif"],
+        size: 11,
+        weight: .medium,
+        lineHeightMultiple: 1.5,
+        trackingEm: 0.08
+    )
+
+    /// `font.text.label.tab` · Neue Haas Grotesk Text Pro 13/1.5
+    public static let textLabelTab = SCDSTypeStyle(
+        family: "Neue Haas Grotesk Text Pro",
+        fallbacks: ["Helvetica Neue", "Inter", "system-ui", "sans-serif"],
+        size: 13,
+        weight: .medium,
+        lineHeightMultiple: 1.5,
+        trackingEm: 0
+    )
+
     /// `font.text.caption` · Neue Haas Grotesk Text Pro 13/1.55
     public static let textCaption = SCDSTypeStyle(
         family: "Neue Haas Grotesk Text Pro",
@@ -729,6 +749,9 @@ public enum SCDS {
     /// `space.component.padding-block.lg`
     public static let componentPaddingBlockLg: CGFloat = 12
 
+    /// `space.component.padding-block.button-sm`
+    public static let componentPaddingBlockButtonSm: CGFloat = 4
+
     /// `space.component.gap.sm`
     public static let componentGapSm: CGFloat = 4
 
@@ -780,6 +803,9 @@ public enum SCDS {
 
   /// Named element sizes, including the touch-target floor.
   public enum Size {
+    /// `size.icon.xs`
+    public static let iconXs: CGFloat = 12
+
     /// `size.icon.sm`
     public static let iconSm: CGFloat = 16
 

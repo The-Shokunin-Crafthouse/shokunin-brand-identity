@@ -8,6 +8,9 @@
  *   --sc-color-surface-deep-sunk         · bar + ring track (resting)
  *   --sc-color-surface-sunk              · interactive bar, disabled track
  *   --sc-color-brand-accent              · fill (active progress, resting)
+ *   --sc-color-signal-progress           · bar fill, tone="progress"
+ *   --sc-color-status-warning            · bar fill, tone="warning"
+ *   --sc-color-surface-sunk              · bar track, track="sunk"
  *   --sc-color-interactive-hover         · interactive bar, hover/default fill brighten
  *   --sc-color-text-disabled             · interactive bar, disabled fill
  *   --sc-color-text-secondary            · step dot text (resting)
@@ -50,6 +53,11 @@
   background-color: var(--sc-color-brand-accent);
   transition: width var(--sc-motion-reveal-duration) var(--sc-motion-reveal-easing);
 }
+
+/* Tones and track (2026-10-05): meters that rank several windows. */
+.toneProgress .barFill { background-color: var(--sc-color-signal-progress); }
+.toneWarning .barFill { background-color: var(--sc-color-status-warning); }
+.trackSunk { background-color: var(--sc-color-surface-sunk); }
 
 /* --- Bar · interactive (Drams #4/#5) -------------------------------
    Wrapper carries the ARIA + pointer/keyboard contract (role="slider")

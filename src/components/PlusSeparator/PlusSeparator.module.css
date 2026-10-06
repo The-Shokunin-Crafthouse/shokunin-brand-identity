@@ -7,3 +7,9 @@
   height: calc(var(--sc-size-icon-sm) * 0.75);
   vertical-align: middle;
 }
+
+/* Muted tone: the field reads its ink from --sc-color-text-primary on its
+   host, so the tone re-points that one variable. */
+.muted {
+  --sc-color-text-primary: var(--sc-color-text-disabled);
+}
