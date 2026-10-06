@@ -1329,6 +1329,30 @@
    "buckets": []
   },
   {
+   "component": "PlusUnderline",
+   "name": "Atom=column",
+   "file": "PlusUnderline--column.svg",
+   "art": "uline",
+   "w": 10,
+   "h": 12,
+   "surface": "none",
+   "shape": "plus",
+   "density": 1,
+   "seed": "uline",
+   "opts": {},
+   "t": 0,
+   "grounds": [],
+   "buckets": [
+    {
+     "role": "ROLE:color/brand/accent",
+     "alpha": 1,
+     "layer": "marks",
+     "marks": 2,
+     "bytes": 96
+    }
+   ]
+  },
+  {
    "component": "PlusProgress",
    "name": "Variant=thin, Value=0",
    "file": "PlusProgress--thin-0.svg",

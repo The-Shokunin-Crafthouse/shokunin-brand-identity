@@ -1735,3 +1735,12 @@ This closes the "Figma masters for the eleven components" item under **Not done 
 - `HeadingRule` `Label` and `PlusTimeline` `Step n` defaults are shared across variants, as Figma text properties are. The eyebrow instances in the docs frames override `Label` to "02 / Services".
 
 **Code Connect.** `<Name>.figma.tsx` for all eleven, against the set ids above. `PlusTimeline` has one connect per `Steps` value. `npm run figma:parse` parses 13 connects with no `❌`. Note that `figma connect parse` exits 0 even when a file fails to parse, so the check is the `❌` count, not the exit code. Publishing stays plan-gated.
+
+### 2026-10-05 amendment: PlusUnderline fills its container in Figma
+
+Levi: the Figma PlusUnderline stayed at its own width; set to Fill, its single vector stretched instead of adding marks. Code redraws the marks at every width, so Figma has to repeat them, not scale them.
+
+- **Atom.** `_PlusUnderline Column` (`466:4`, private): one column of the `uline` grid, two plus marks, 5 × 12. The generator draws it from the engine (variant `Atom=column`: `uline` at w=10, one column at x=3, cropped to a 5-wide cell centred on it).
+- **Variant `Active=true` (`459:2204`)** is now a horizontal auto-layout row: wrap on, fixed height 12, clip content, padding 0.5 each side, gap 0, holding 384 column instances (enough for 1920). Columns that do not fit wrap to a second row that the clip hides, so only whole columns show.
+- **Why this is exact, not approximate.** `uline` is crisp, grid, jitter 0: columns at x = 3 + 5k for k = 0 … floor((w − 6) / 5). The row puts column k's centre at 0.5 + 5k + 2.5 = 3 + 5k and shows floor((w − 1) / 5) columns, which is the same count. Checked in Figma with the instance set to Fill in parents of 30.67, 46.97, 120, 214.66, 742 and 1440: 5, 9, 23, 42, 148, 287 columns, equal to the engine at each width, Light and Dark. The fill demo stays in the page's Light and Dark frames.
+- Set id, property names and Code Connect are unchanged. `Active=false` was already an empty frame, so it fills as is.

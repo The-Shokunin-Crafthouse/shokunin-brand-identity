@@ -77,7 +77,7 @@ const STRUCTURAL = {
 const v = (component, props, art, w, h, extra = {}) => ({
   component, props, art, w, h,
   surface: extra.surface ?? 'inverse', shape: extra.shape ?? 'plus', density: extra.density ?? 1,
-  seed: extra.seed, opts: extra.opts ?? {}, t: STILL_T[art] ?? 0,
+  seed: extra.seed, opts: extra.opts ?? {}, t: STILL_T[art] ?? 0, view: extra.view,
 });
 
 export const VARIANTS = [
@@ -93,6 +93,10 @@ export const VARIANTS = [
 
   v('PlusUnderline', { Active: 'true' }, 'uline', 120, 12, { surface: 'none' }),
   v('PlusUnderline', { Active: 'false' }, null, 120, 12, { surface: 'none' }),
+  /** The fill atom: uline is a strict grid (pitch 5, two rows, no jitter), so one column is the
+   *  repeat unit. Drawn at w=10 (ribbon length 4: exactly one column, centred at x=3) and cropped to a 5-wide cell
+   *  centred on it. The Figma PlusUnderline wraps these in a clipped auto-layout row. */
+  v('PlusUnderline', { Atom: 'column' }, 'uline', 10, 12, { surface: 'none', view: [0.5, 0, 5, 12] }),
 
   ...[['thin', 16, 1], ['band', 24, 3]].flatMap(([variant, h, rows]) => [0, 38, 64, 100].map((value) =>
     v('PlusProgress', { Variant: variant, Value: String(value) }, 'uprog', 214.66, h, { surface: 'none', opts: { rows, progress: value / 100 } }))),
@@ -232,10 +236,11 @@ export function bucketize(ops, x) {
 const layerId = (...parts) => parts.join('--').replaceAll('/', '.');
 
 function toSvg(x, g) {
-  const w = n(x.w), h = n(x.h);
+  const [vx, vy, vw, vh] = x.view ?? [0, 0, x.w, x.h];
+  const w = n(vw), h = n(vh);
   const rects = g.grounds.map((r, i) => `  <rect id="${layerId('ground', r.role, i)}" fill="#000" x="${n(r.x)}" y="${n(r.y)}" width="${n(r.w)}" height="${n(r.h)}"/>`);
   const paths = g.buckets.map((b) => `  <path id="${layerId(b.layer, b.role, b.alpha)}" fill="#000" opacity="${b.alpha}" d="${b.d}"/>`);
-  return `<svg xmlns="http://www.w3.org/2000/svg" id="${slug(x)}" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">\n${[...rects, ...paths].join('\n')}\n</svg>\n`;
+  return `<svg xmlns="http://www.w3.org/2000/svg" id="${slug(x)}" width="${w}" height="${h}" viewBox="${n(vx)} ${n(vy)} ${w} ${h}">\n${[...rects, ...paths].join('\n')}\n</svg>\n`;
 }
 
 /* ---------------- run ---------------- */
