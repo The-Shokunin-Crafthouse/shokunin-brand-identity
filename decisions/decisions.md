@@ -1744,3 +1744,16 @@ Levi: the Figma PlusUnderline stayed at its own width; set to Fill, its single v
 - **Variant `Active=true` (`459:2204`)** is now a horizontal auto-layout row: wrap on, fixed height 12, clip content, padding 0.5 each side, gap 0, holding 384 column instances (enough for 1920). Columns that do not fit wrap to a second row that the clip hides, so only whole columns show.
 - **Why this is exact, not approximate.** `uline` is crisp, grid, jitter 0: columns at x = 3 + 5k for k = 0 … floor((w − 6) / 5). The row puts column k's centre at 0.5 + 5k + 2.5 = 3 + 5k and shows floor((w − 1) / 5) columns, which is the same count. Checked in Figma with the instance set to Fill in parents of 30.67, 46.97, 120, 214.66, 742 and 1440: 5, 9, 23, 42, 148, 287 columns, equal to the engine at each width, Light and Dark. The fill demo stays in the page's Light and Dark frames.
 - Set id, property names and Code Connect are unchanged. `Active=false` was already an empty frame, so it fills as is.
+
+### 2026-10-05 amendment: PlusProgress fills its container in Figma
+
+Same ask as PlusUnderline (above), with one more constraint: the teal share must stay at `Value` of whatever width the instance takes.
+
+- **Atoms.** `_PlusProgress Column` (`468:13799`, private): `Rows` 1 / 3 × `State` on / off, from the engine (variants `Atom=column, Rows, State`: `uprog` at w=5, one column at x=4). The cell is 4 wide and its right edge is the mark centre; the mark overflows by its half width.
+- **Each variant (`459:2228` … `459:2235`)** is a clipped root holding two wrapping auto-layout rows of 275 columns (enough for 1920), cell 4 + gap 3 = pitch 7:
+  - `track`: off columns (text/primary at 0.2) across the full width, constraint Scale.
+  - `fill`: on columns (brand/accent) in a frame `Value` × width wide, constraint Scale, laid over the track. `Value=0` has no fill row.
+- **Why it matches the engine.** `uprog` draws at x = 4 + 7k while x < w and paints teal while x < Value × w. A wrapping row of cells whose right edge is the mark centre shows a column exactly while its centre fits, so the track shows ceil((w − 4) / 7) columns and the fill ceil((Value × w − 4) / 7). The root clips the last mark where the canvas would. Checked with every variant set to Fill in parents of 30, 120, 333.3, 500.01, 742, 1440, 1920: 56 of 56 counts equal the engine.
+- **Stretch snaps, Scale does not.** The track first used Stretch. On the 214.66-wide root, Figma snapped the stretched width to W − 0.34 and lost a column at W = 333.3. Scale keeps the exact width, so both rows use Scale.
+- **Known residue.** Teal marks cover the faint marks under them rather than replacing them; at alpha 1 the only trace is anti-aliasing on the edge. A fill narrower than 4 px (Value × width under 4) still shows one teal column, because a wrapping row always places its first item; the engine shows none. It only happens below 10.5 px wide at 38%.
+- Set id, properties and Code Connect unchanged. The fill demo sits in the page's Light and Dark frames.

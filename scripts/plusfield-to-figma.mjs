@@ -97,6 +97,13 @@ export const VARIANTS = [
    *  repeat unit. Drawn at w=10 (ribbon length 4: exactly one column, centred at x=3) and cropped to a 5-wide cell
    *  centred on it. The Figma PlusUnderline wraps these in a clipped auto-layout row. */
   v('PlusUnderline', { Atom: 'column' }, 'uline', 10, 12, { surface: 'none', view: [0.5, 0, 5, 12] }),
+  /** PlusProgress fill atoms: uprog marks sit at x = 4 + 7k while x < w. Drawn at w=5 (one column
+   *  at x=4) and cropped to a 4-wide cell whose right edge is the mark centre, so a wrapping row
+   *  with gap 3 shows floor((w + 3) / 7) columns, the engine's count. The mark overflows the cell
+   *  by its half width, as the engine's last mark overflows the canvas. State on = progress 1
+   *  (teal), off = progress 0 (text/primary at 0.2). */
+  ...[['1', 16, 1], ['3', 24, 3]].flatMap(([r, h, rows]) => [['on', 1], ['off', 0]].map(([state, progress]) =>
+    v('PlusProgress', { Atom: 'column', Rows: r, State: state }, 'uprog', 5, h, { surface: 'none', opts: { rows, progress }, view: [0, 0, 4, h] }))),
 
   ...[['thin', 16, 1], ['band', 24, 3]].flatMap(([variant, h, rows]) => [0, 38, 64, 100].map((value) =>
     v('PlusProgress', { Variant: variant, Value: String(value) }, 'uprog', 214.66, h, { surface: 'none', opts: { rows, progress: value / 100 } }))),
