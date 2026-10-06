@@ -557,6 +557,31 @@
         },
         "$description": "Maximum display, hero monumental. Flat 1.0 line-height for vertical alignment in two-line displays."
       },
+      "medium": {
+        "$description": "Medium text-face compositions beside the regular scale steps. Added 2026-10-05 for the Small Button label (Studio PM shell).",
+        "12": {
+          "$type": "typography",
+          "$value": {
+            "fontFamily": "{font.family.text}",
+            "fontSize": "{font.size.12}",
+            "fontWeight": "{font.weight.medium}",
+            "lineHeight": "{font.lineHeight.base}",
+            "letterSpacing": "{font.tracking.widest}"
+          },
+          "$description": "Small Button label: 12/medium/widest, the chrome label one step up (Figma text/label/button-sm)."
+        },
+        "13": {
+          "$type": "typography",
+          "$value": {
+            "fontFamily": "{font.family.text}",
+            "fontSize": "{font.size.13}",
+            "fontWeight": "{font.weight.medium}",
+            "lineHeight": "{font.lineHeight.base}",
+            "letterSpacing": "{font.tracking.normal}"
+          },
+          "$description": "Tab label: 13/medium, no tracking (Figma text/label/tab). Studio PM segment tabs, 2026-10-05."
+        }
+      },
       "bold": {
         "$description": "Bold text-face compositions beside the regular scale steps. Matched to the SCDS Figma library text style of the same role, 2026-10-03.",
         "12": {

@@ -5,13 +5,18 @@
  *   --sc-radius-pill                        · pill corner
  *   --sc-border-width-default               · border
  *   --sc-color-border-focus / -focus-offset · focus ring
- *   --sc-font-text-label-chrome-*           · NHG Text medium label
+ *   --sc-font-text-label-chrome-*           · NHG Text medium label (lg)
+ *   --sc-font-text-label-button-sm-*        · 12/medium label (sm)
+ *   --sc-space-component-padding-inline-button-sm · sm inline (8)
+ *   --sc-space-component-padding-block-button-sm  · sm block (4)
+ *   --sc-size-icon-sm                       · sm icon (16)
+ *   --sc-color-border-strong                · secondary outline
  *   --sc-color-surface-raised               · primary resting fill (neutral)
  *   --sc-shadow-control-raised              · primary neumorphic 4-shadow (button-only)
  *   --sc-shadow-control-bevel               · primary inner bevel, 2 inset layers (button-only)
  *   --sc-color-brand-accent-fill            · primary hover fill (teal.600, white AA 5.2)
  *   --sc-color-brand-accent-deep            · primary press + tertiary resting text (teal.700, AA)
- *   --sc-color-surface-sunk                 · secondary resting fill (fill-only) + disabled fill
+ *   --sc-color-surface-sunk                 · disabled fill
  *   --sc-color-surface-hover                · secondary hover/focus fill
  *   --sc-color-interactive-hover            · teal hover label (documented AA exception, transient)
  *   --sc-color-interactive-active           · teal press
@@ -76,6 +81,26 @@
   height: 1.4em;
 }
 
+/* --- Size · sm (ADR scds-button-size-small) ------------------------
+   12/medium label, 8 × 4 padding, 16px icon. The variants below set
+   only colour, so every variant and state carries over unchanged. */
+.sm {
+  padding-inline: var(--sc-space-component-padding-inline-button-sm);
+  padding-block: var(--sc-space-component-padding-block-button-sm);
+}
+.sm .label {
+  font-family: var(--sc-font-text-label-button-sm-family);
+  font-size: var(--sc-font-text-label-button-sm-size);
+  font-weight: var(--sc-font-text-label-button-sm-weight);
+  line-height: var(--sc-font-text-label-button-sm-line-height);
+  letter-spacing: var(--sc-font-text-label-button-sm-letter-spacing);
+}
+.sm .arrow,
+.sm .spinner {
+  width: var(--sc-size-icon-sm);
+  height: var(--sc-size-icon-sm);
+}
+
 /* --- Focus · cross-variant (styled ring, never the UA default) ---- */
 .button:focus-visible {
   outline: var(--sc-border-width-focus) solid var(--sc-color-border-focus);
@@ -101,12 +126,14 @@
   transform: scale(var(--sc-motion-press-scale));
 }
 
-/* --- Secondary · fill-only (sunk) → teal ink on hover/focus -------
-   scds-v2 Phase 2: was an ink stroke outline. Now a filled subtle chip —
-   ink label on surface-sunk at rest (AA), lifting to surface-hover with a
+/* --- Secondary · ink outline pill → teal ink on hover/focus -------
+   The outline returns (ADR studio-pm-shell-blocklist-exception,
+   2026-10-05, superseding the scds-v2 Phase 2 fill-only chip): the
+   library's Secondary kept its 1px border/strong stroke, and the Studio
+   PM shell builds on it. Transparent ground at rest; surface-hover with a
    teal label on hover/focus (the documented transient accent exception). */
 .secondary {
-  background-color: var(--sc-color-surface-sunk);
+  border-color: var(--sc-color-border-strong);
   color: var(--sc-color-text-primary);
 }
 .secondary:hover:not(:disabled),

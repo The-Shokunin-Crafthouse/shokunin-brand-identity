@@ -9,6 +9,11 @@
  * `step`    — discrete numbered dots with connector lines
  *              (steps: total count · current: index, 0-based)
  *
+ * `tone` (bar only): `accent` (default), `progress` (signal chartreuse) or
+ * `warning` (status warning), for meters that rank several windows side by
+ * side. `track` (bar only): `deepSunk` (default) or `sunk`, the deeper well a
+ * meter on a raised tile needs. Both added 2026-10-05 (Studio PM Tokens tile).
+ *
  * Bar fill (both variants) never fully disappears at low values — width
  * is `max(pct%, track-height)`, so at value=0 the fill still reads as a
  * small pill/circle the same diameter as the track (Drams #3/#4 "Line
@@ -33,6 +38,8 @@ export function ProgressIndicator({
   step = 0.01,
   bigStep = 0.05,
   disabled = false,
+  tone = 'accent',
+  track = 'deepSunk',
 }) {
   if (variant === 'circular') return <CircularProgress value={value} label={label} className={className} />;
   if (variant === 'step') return <StepProgress steps={steps} current={current} className={className} />;
@@ -51,14 +58,16 @@ export function ProgressIndicator({
       />
     );
   }
-  return <BarProgress value={value} label={label} className={className} />;
+  return <BarProgress value={value} label={label} className={className} tone={tone} track={track} />;
 }
 
-function BarProgress({ value, label, className }) {
+const TONES = { accent: '', progress: styles.toneProgress, warning: styles.toneWarning };
+
+function BarProgress({ value, label, className, tone = 'accent', track = 'deepSunk' }) {
   const pct = Math.max(0, Math.min(1, value)) * 100;
   return (
     <div
-      className={`${styles.bar} ${className}`}
+      className={`${styles.bar} ${TONES[tone] ?? ''} ${track === 'sunk' ? styles.trackSunk : ''} ${className}`}
       role="progressbar"
       aria-valuenow={Math.round(pct)}
       aria-valuemin={0}

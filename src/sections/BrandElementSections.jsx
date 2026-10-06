@@ -434,6 +434,7 @@ export function PlusSeparatorPage() {
         { name: 'Breadcrumb', token: 'aria-current="page"', render: <Crumbs /> },
         { name: 'Breadcrumb · round', token: 'shape="round"', render: <Crumbs shape="round" /> },
         { name: 'On its own', token: '--sc-size-icon-sm × 0.75', render: <PlusSeparator /> },
+        { name: 'Muted · in a dense row', token: 'tone="muted" → --sc-color-text-disabled', render: <PlusSeparator tone="muted" /> },
       ]}
       tokenRows={[
         { prop: 'Marks (60%)', token: '--sc-color-text-primary' },

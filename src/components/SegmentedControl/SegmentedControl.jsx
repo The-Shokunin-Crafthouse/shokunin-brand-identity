@@ -8,8 +8,10 @@
  * shadow) tracks the selected segment via measured layout, not a fixed
  * per-option width.
  *
- * API: options: [{ value, label }], value, onChange, disabled, label
- * (aria-label for the group), size ('sm' | 'md', default 'md').
+ * API: options: [{ value, label, count? }], value, onChange, disabled, label
+ * (aria-label for the group), size ('sm' | 'md' | 'lg', default 'md').
+ * `count` renders a number after the label in the label's own ink; `lg` is
+ * the 16 × 8 chrome-label segment of a tab header (Studio PM, 2026-10-05).
  */
 
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
@@ -117,6 +119,7 @@ export function SegmentedControl({
             onKeyDown={(e) => handleKeyDown(e, i)}
           >
             {opt.label}
+            {opt.count !== undefined && <span className={styles.count}>{opt.count}</span>}
           </button>
         );
       })}

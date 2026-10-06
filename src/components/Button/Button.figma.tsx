@@ -15,6 +15,7 @@ import { Button } from './Button'
  * The component set's real properties:
  *
  *   Variant      VARIANT   Primary | Secondary | Tertiary
+ *   Size         VARIANT   Large | Small (added 2026-10-05)
  *   State        VARIANT   Default | Hover | Focus | Active | Disabled
  *   Label        TEXT      default "Button"
  *   Show Icon    BOOLEAN   default true
@@ -46,6 +47,11 @@ figma.connect(
         Secondary: 'secondary',
         Tertiary: 'tertiary',
       }),
+      // Figma "Size" → Button.jsx size.
+      size: figma.enum('Size', {
+        Large: 'lg',
+        Small: 'sm',
+      }),
       // Disabled is a value on the "State" variant axis, not a boolean
       // property — the other four State options leave this undefined.
       disabled: figma.enum('State', {
@@ -56,8 +62,8 @@ figma.connect(
       // Button label text → children.
       label: figma.string('Label'),
     },
-    example: ({ variant, disabled, arrow, label }) => (
-      <Button variant={variant} disabled={disabled} arrow={arrow}>
+    example: ({ variant, size, disabled, arrow, label }) => (
+      <Button variant={variant} size={size} disabled={disabled} arrow={arrow}>
         {label}
       </Button>
     ),

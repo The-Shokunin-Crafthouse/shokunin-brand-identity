@@ -1695,3 +1695,27 @@ Levi, at studio-pm's sitting: "make the color change". studio-pm ADR-110 replace
 - `color.atmosphere.celadon`'s primitive `#EAFBF7` stays, unread, so nothing that named it breaks.
 - 134 semantic tokens (unchanged), 175 primitives (from 173). `tokens:build`, `tokens:swift`, `tokens:map` regenerated; `tokens:verify` passes.
 - **Figma:** the library's `color/atmosphere/*` variables follow in the same change (studio-pm's sitting asked for the library to match).
+
+## 2026-10-05 — Studio PM shell: Button gains a Small size, the Secondary outline returns, three components gain options
+
+**Status:** Accepted. Levi's direction, 2026-10-05, from the Studio PM Dashboard and Kanban redesign (Studio PM Figma file `bfIXIo8Y0s8mTGvhmJBlu1`, section F and the "Shell redesign" component sections).
+**Reads with:** scds-v2 Phase 2 (2026-07-27, Secondary fill-only), the 2026-10-04 PlusField ADR, studio-pm ADR-117.
+
+**Why.** Levi's redesign builds on SCDS library instances and overrides four of them. Each override is promoted into the component so no consumer carries it by hand. He also asked for a Small Button at every variant and state.
+
+**Button · Size (ADR scds-button-size-small).** New `Size` variant axis in the library (`Large` | `Small`) and `size` prop in code (`lg` | `sm`, default `lg`). Small: 12/medium/widest label (`font.text.label.buttonSm` → new primitive `font.text.medium.12`), 8px inline padding (`space.component.padding-inline.button-sm`), 4px block padding (`space.component.padding-block.button-sm`, the dense 4pt step), 16px icon (`size.icon.sm`). Large is unchanged: 11/medium chrome label, 16 × 8, 12px icon. Small carries larger type and icon than Large because Levi specified both values; the size names the control's height, not its type.
+
+**Secondary outline returns (ADR studio-pm-shell-blocklist-exception).** Supersedes the 2026-07-27 fill-only Secondary in code. The library's Secondary kept its 1px `border/strong` stroke and the Studio PM shell is designed on it, so code now matches the library: transparent ground, 1px `--sc-color-border-strong`, teal label on hover/focus. Levi chose to keep the design as drawn when asked about the slop-blocklist matches it carries. Each is an accepted exception here, not a precedent:
+- Outline / stroke borders: Secondary Button only.
+- Arrow CTA: the Button's trailing arrow (`Show Icon`), unchanged; closes the queue item WQ-055 as "keep".
+- Progress bars: the Tokens tile's limit meters, which carry data (percent used per rate-limit window).
+- Pill badges: StatusPill, unchanged.
+
+**ProgressIndicator (Progress) · Tone and Track.** `tone`: `accent` (default) | `progress` (`color.signal.progress`) | `warning` (`color.status.warning`). `track`: `deepSunk` (default) | `sunk`. Bar only. Replaces three fill overrides and one track override in the Tokens tile.
+
+**SegmentedControl · Count and Large.** Options take an optional `count`, set after the label with a 12px gap. New size `lg`: 16 × 8 padding, 13/medium label (`font.text.label.tab` → new primitive `font.text.medium.13`). Replaces the On-you tile's padding, radius and text overrides.
+
+**PlusSeparator · Tone.** `tone`: `default` | `muted` (`color.text.disabled`). Replaces a raw `warmGray/400` primitive override in the PR rows; light `text.disabled` is that same value.
+
+- Tokens: 2 primitives added (`font.text.medium.12`, `font.text.medium.13`), 4 semantics added. `tokens:build`, `tokens:swift`, `tokens:map` regenerated; `tokens:verify` passes; `npm run build` exits 0; `figma:parse` maps `Size`.
+- **Figma:** the library's Button, Progress, Segment and PlusSeparator sets, variables and text styles follow in the same change. Publishing the library is Levi's step.
