@@ -1,3 +1,21 @@
+# SESSION-RESUME — PlusField → SCDS Figma library (2026-10-05)
+
+Brief: `handoff/CC-PROMPT-plusfield-figma.md`. Branch `feat/plusfield-figma-library`. File `0zVoxaLJQkjHENYJlQk1VT`.
+Pages: header 458:2 · PlusField 458:3 · SectionDivider 458:4 · HeadingRule 458:5 · PlusUnderline 458:6 · PlusProgress 458:7 · PlusLoader 458:8 · PlusSkeleton 458:9 · PlusTimeline 458:10 · PlusBullet 458:11 · PlusSeparator 458:12 · PlusThumbnail 458:13
+
+Method: `node scripts/plusfield-to-figma.mjs` (dev server up) → `svg/*.svg` → `upload_assets` per page (curl POST image/svg+xml) → `use_figma` converts each imported frame into a variant component (fills bound by layer id) → combineAsVariants → Light/Dark frames.
+
+| Step | Status |
+|---|---|
+| Generator + manifest committed | done |
+| Pages created | done |
+| Components built (per page) | 11/11 done: PlusField 459:2771, HeadingRule 460:8, Timeline 461:73, Bullet 459:4, SectionDivider 459:2172, Underline 459:2206, Progress 459:2236, Loader 459:2329, Skeleton 459:2350, Separator 459:2370, Thumbnail 459:2400 |
+| Light/Dark frames + screenshots vs site | done: 61/61 counts, 18 accent, 0 unbound, visual match |
+| Code Connect ×11 + figma:parse | done: 13 connects, 0 ❌ |
+| decisions.md amendment, PR | amendment done; PR open |
+
+---
+
 # SESSION-RESUME — SCDS audit fix/publish pipeline
 
 Multi-session job (CC-PROMPT-scds-pipeline.md). Started 2026-07-28. Read that file + `SCDS-AUDIT-2026-07-25.md` before continuing.
