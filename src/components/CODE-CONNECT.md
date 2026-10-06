@@ -67,6 +67,17 @@ that needs the real node URLs.
 | Switch | — | ☐ TODO |
 | Tooltip | — | ☐ TODO |
 | TypographySpecimen | — | ☐ TODO |
+| PlusField | `PlusField/PlusField.figma.tsx` | ✅ code wired · ✅ Figma set `459:2771` built 2026-10-05 from the engine (decisions.md · plus-field) · publish still plan-gated |
+| SectionDivider | `SectionDivider/SectionDivider.figma.tsx` | ✅ code wired · ✅ Figma set `459:2172` built 2026-10-05 from the engine (decisions.md · plus-field) · publish still plan-gated |
+| HeadingRule | `HeadingRule/HeadingRule.figma.tsx` | ✅ code wired · ✅ Figma set `460:8` built 2026-10-05 from the engine (decisions.md · plus-field) · publish still plan-gated |
+| PlusUnderline | `PlusUnderline/PlusUnderline.figma.tsx` | ✅ code wired · ✅ Figma set `459:2206` built 2026-10-05 from the engine (decisions.md · plus-field) · publish still plan-gated |
+| PlusProgress | `PlusProgress/PlusProgress.figma.tsx` | ✅ code wired · ✅ Figma set `459:2236` built 2026-10-05 from the engine (decisions.md · plus-field) · publish still plan-gated |
+| PlusLoader | `PlusLoader/PlusLoader.figma.tsx` | ✅ code wired · ✅ Figma set `459:2329` built 2026-10-05 from the engine (decisions.md · plus-field) · publish still plan-gated |
+| PlusSkeleton | `PlusSkeleton/PlusSkeleton.figma.tsx` | ✅ code wired · ✅ Figma set `459:2350` built 2026-10-05 from the engine (decisions.md · plus-field) · publish still plan-gated |
+| PlusTimeline | `PlusTimeline/PlusTimeline.figma.tsx` | ✅ code wired · ✅ Figma set `461:73` built 2026-10-05 from the engine (decisions.md · plus-field) · publish still plan-gated |
+| PlusBullet | `PlusBullet/PlusBullet.figma.tsx` | ✅ code wired · ✅ Figma set `459:4` built 2026-10-05 from the engine (decisions.md · plus-field) · publish still plan-gated |
+| PlusSeparator | `PlusSeparator/PlusSeparator.figma.tsx` | ✅ code wired · ✅ Figma set `459:2370` built 2026-10-05 from the engine (decisions.md · plus-field) · publish still plan-gated |
+| PlusThumbnail | `PlusThumbnail/PlusThumbnail.figma.tsx` | ✅ code wired · ✅ Figma set `459:2400` built 2026-10-05 from the engine (decisions.md · plus-field) · publish still plan-gated |
 
 Author the rest one at a time against confirmed Figma masters — do not bulk-author
 blind. Copy the `Button.figma.tsx` shape: map `figma.enum` for variant props,

@@ -1,0 +1,2743 @@
+{
+ "generatedBy": "scripts/plusfield-to-figma.mjs",
+ "engine": "src/components/PlusField/plusField.engine.js",
+ "roles": {
+  "inverse": "ROLE:color/surface/inverse",
+  "raised": "ROLE:color/surface/raised",
+  "page": "ROLE:color/surface/page",
+  "sunk": "ROLE:color/surface/sunk",
+  "text": "ROLE:color/text/primary",
+  "onInverse": "ROLE:color/text/onInverse",
+  "accent": "ROLE:color/brand/accent"
+ },
+ "variants": [
+  {
+   "component": "PlusField",
+   "name": "Art=udiv, Shape=plus",
+   "file": "PlusField--udiv-plus.svg",
+   "art": "udiv",
+   "w": 214.66,
+   "h": 160.98,
+   "surface": "none",
+   "shape": "plus",
+   "density": 1,
+   "seed": "udiv",
+   "opts": {
+    "rows": 3,
+    "fade": "both"
+   },
+   "t": 0,
+   "grounds": [],
+   "buckets": [
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 1,
+     "layer": "marks",
+     "marks": 69,
+     "bytes": 3039
+    }
+   ]
+  },
+  {
+   "component": "PlusField",
+   "name": "Art=ucardhead, Shape=plus",
+   "file": "PlusField--ucardhead-plus.svg",
+   "art": "ucardhead",
+   "w": 214.66,
+   "h": 160.98,
+   "surface": "inverse",
+   "shape": "plus",
+   "density": 1,
+   "seed": "ucardhead",
+   "opts": {},
+   "t": 0,
+   "grounds": [
+    "color/surface/inverse"
+   ],
+   "buckets": [
+    {
+     "role": "ROLE:color/text/onInverse",
+     "alpha": 0.9,
+     "layer": "marks",
+     "marks": 220,
+     "bytes": 10357
+    },
+    {
+     "role": "ROLE:color/text/onInverse",
+     "alpha": 0.4,
+     "layer": "marks",
+     "marks": 105,
+     "bytes": 5017
+    },
+    {
+     "role": "ROLE:color/text/onInverse",
+     "alpha": 0.9,
+     "layer": "overlap",
+     "marks": 0,
+     "bytes": 5850
+    },
+    {
+     "role": "ROLE:color/text/onInverse",
+     "alpha": 0.4,
+     "layer": "overlap",
+     "marks": 0,
+     "bytes": 2821
+    }
+   ]
+  },
+  {
+   "component": "PlusField",
+   "name": "Art=ucard, Shape=plus",
+   "file": "PlusField--ucard-plus.svg",
+   "art": "ucard",
+   "w": 214.66,
+   "h": 160.98,
+   "surface": "raised",
+   "shape": "plus",
+   "density": 1,
+   "seed": "ucard",
+   "opts": {},
+   "t": 0,
+   "grounds": [
+    "color/surface/raised"
+   ],
+   "buckets": [
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.14,
+     "layer": "marks",
+     "marks": 234,
+     "bytes": 9738
+    },
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.14,
+     "layer": "overlap",
+     "marks": 0,
+     "bytes": 6273
+    }
+   ]
+  },
+  {
+   "component": "PlusField",
+   "name": "Art=ucta, Shape=plus",
+   "file": "PlusField--ucta-plus.svg",
+   "art": "ucta",
+   "w": 214.66,
+   "h": 160.98,
+   "surface": "inverse",
+   "shape": "plus",
+   "density": 1,
+   "seed": "ucta",
+   "opts": {},
+   "t": 0,
+   "grounds": [
+    "color/surface/inverse"
+   ],
+   "buckets": [
+    {
+     "role": "ROLE:color/text/onInverse",
+     "alpha": 0.9,
+     "layer": "marks",
+     "marks": 371,
+     "bytes": 17512
+    },
+    {
+     "role": "ROLE:color/text/onInverse",
+     "alpha": 0.9,
+     "layer": "overlap",
+     "marks": 0,
+     "bytes": 9877
+    }
+   ]
+  },
+  {
+   "component": "PlusField",
+   "name": "Art=uempty, Shape=plus",
+   "file": "PlusField--uempty-plus.svg",
+   "art": "uempty",
+   "w": 214.66,
+   "h": 160.98,
+   "surface": "sunk",
+   "shape": "plus",
+   "density": 1,
+   "seed": "uempty",
+   "opts": {},
+   "t": 0,
+   "grounds": [
+    "color/surface/sunk"
+   ],
+   "buckets": [
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.55,
+     "layer": "marks",
+     "marks": 128,
+     "bytes": 6822
+    },
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.55,
+     "layer": "overlap",
+     "marks": 0,
+     "bytes": 3034
+    }
+   ]
+  },
+  {
+   "component": "PlusField",
+   "name": "Art=uskel, Shape=plus",
+   "file": "PlusField--uskel-plus.svg",
+   "art": "uskel",
+   "w": 214.66,
+   "h": 160.98,
+   "surface": "raised",
+   "shape": "plus",
+   "density": 1,
+   "seed": "uskel",
+   "opts": {},
+   "t": 0,
+   "grounds": [
+    "color/surface/raised"
+   ],
+   "buckets": [
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.16,
+     "layer": "marks",
+     "marks": 273,
+     "bytes": 14726
+    },
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.16,
+     "layer": "overlap",
+     "marks": 0,
+     "bytes": 6544
+    }
+   ]
+  },
+  {
+   "component": "PlusField",
+   "name": "Art=uprog, Shape=plus",
+   "file": "PlusField--uprog-plus.svg",
+   "art": "uprog",
+   "w": 214.66,
+   "h": 160.98,
+   "surface": "none",
+   "shape": "plus",
+   "density": 1,
+   "seed": "uprog",
+   "opts": {
+    "rows": 1,
+    "progress": 0.64
+   },
+   "t": 0,
+   "grounds": [],
+   "buckets": [
+    {
+     "role": "ROLE:color/brand/accent",
+     "alpha": 1,
+     "layer": "marks",
+     "marks": 20,
+     "bytes": 869
+    },
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.2,
+     "layer": "marks",
+     "marks": 11,
+     "bytes": 495
+    },
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.2,
+     "layer": "overlap",
+     "marks": 0,
+     "bytes": 297
+    }
+   ]
+  },
+  {
+   "component": "PlusField",
+   "name": "Art=uloader, Shape=plus",
+   "file": "PlusField--uloader-plus.svg",
+   "art": "uloader",
+   "w": 214.66,
+   "h": 160.98,
+   "surface": "inverse",
+   "shape": "plus",
+   "density": 1,
+   "seed": "uloader",
+   "opts": {},
+   "t": 1.96,
+   "grounds": [
+    "color/surface/inverse"
+   ],
+   "buckets": [
+    {
+     "role": "ROLE:color/text/onInverse",
+     "alpha": 0.85,
+     "layer": "marks",
+     "marks": 199,
+     "bytes": 10572
+    },
+    {
+     "role": "ROLE:color/text/onInverse",
+     "alpha": 0.85,
+     "layer": "overlap",
+     "marks": 0,
+     "bytes": 4683
+    }
+   ]
+  },
+  {
+   "component": "PlusField",
+   "name": "Art=uline, Shape=plus",
+   "file": "PlusField--uline-plus.svg",
+   "art": "uline",
+   "w": 214.66,
+   "h": 160.98,
+   "surface": "none",
+   "shape": "plus",
+   "density": 1,
+   "seed": "uline",
+   "opts": {},
+   "t": 0,
+   "grounds": [],
+   "buckets": [
+    {
+     "role": "ROLE:color/brand/accent",
+     "alpha": 1,
+     "layer": "marks",
+     "marks": 84,
+     "bytes": 4448
+    }
+   ]
+  },
+  {
+   "component": "PlusField",
+   "name": "Art=umedia, Shape=plus",
+   "file": "PlusField--umedia-plus.svg",
+   "art": "umedia",
+   "w": 214.66,
+   "h": 160.98,
+   "surface": "sunk",
+   "shape": "plus",
+   "density": 1,
+   "seed": "umedia",
+   "opts": {},
+   "t": 0,
+   "grounds": [
+    "color/surface/sunk"
+   ],
+   "buckets": [
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.16,
+     "layer": "marks",
+     "marks": 336,
+     "bytes": 18002
+    },
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.75,
+     "layer": "marks",
+     "marks": 204,
+     "bytes": 9626
+    },
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.16,
+     "layer": "overlap",
+     "marks": 0,
+     "bytes": 7993
+    },
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.75,
+     "layer": "overlap",
+     "marks": 0,
+     "bytes": 5424
+    }
+   ]
+  },
+  {
+   "component": "PlusField",
+   "name": "Art=uhero, Shape=plus",
+   "file": "PlusField--uhero-plus.svg",
+   "art": "uhero",
+   "w": 214.66,
+   "h": 160.98,
+   "surface": "raised",
+   "shape": "plus",
+   "density": 1,
+   "seed": "uhero",
+   "opts": {},
+   "t": 0,
+   "grounds": [
+    "color/surface/raised"
+   ],
+   "buckets": [
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.9,
+     "layer": "marks",
+     "marks": 492,
+     "bytes": 23717
+    },
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.9,
+     "layer": "overlap",
+     "marks": 0,
+     "bytes": 13342
+    }
+   ]
+  },
+  {
+   "component": "PlusField",
+   "name": "Art=ufooter, Shape=plus",
+   "file": "PlusField--ufooter-plus.svg",
+   "art": "ufooter",
+   "w": 214.66,
+   "h": 160.98,
+   "surface": "inverse",
+   "shape": "plus",
+   "density": 1,
+   "seed": "ufooter",
+   "opts": {},
+   "t": 0,
+   "grounds": [
+    "color/surface/inverse",
+    "color/surface/page",
+    "color/surface/inverse"
+   ],
+   "buckets": [
+    {
+     "role": "ROLE:color/surface/inverse",
+     "alpha": 1,
+     "layer": "marks",
+     "marks": 159,
+     "bytes": 7152
+    }
+   ]
+  },
+  {
+   "component": "PlusField",
+   "name": "Art=uquote, Shape=plus",
+   "file": "PlusField--uquote-plus.svg",
+   "art": "uquote",
+   "w": 214.66,
+   "h": 160.98,
+   "surface": "raised",
+   "shape": "plus",
+   "density": 1,
+   "seed": "uquote",
+   "opts": {},
+   "t": 0,
+   "grounds": [
+    "color/surface/raised"
+   ],
+   "buckets": [
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 1,
+     "layer": "marks",
+     "marks": 168,
+     "bytes": 7454
+    }
+   ]
+  },
+  {
+   "component": "PlusField",
+   "name": "Art=utime, Shape=plus",
+   "file": "PlusField--utime-plus.svg",
+   "art": "utime",
+   "w": 214.66,
+   "h": 160.98,
+   "surface": "none",
+   "shape": "plus",
+   "density": 1,
+   "seed": "utime",
+   "opts": {
+    "steps": 4,
+    "current": 2
+   },
+   "t": 0,
+   "grounds": [],
+   "buckets": [
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.75,
+     "layer": "marks",
+     "marks": 3,
+     "bytes": 153
+    },
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.18,
+     "layer": "marks",
+     "marks": 2,
+     "bytes": 106
+    },
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 1,
+     "layer": "marks",
+     "marks": 18,
+     "bytes": 1020
+    },
+    {
+     "role": "ROLE:color/brand/accent",
+     "alpha": 1,
+     "layer": "marks",
+     "marks": 9,
+     "bytes": 519
+    },
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.25,
+     "layer": "marks",
+     "marks": 9,
+     "bytes": 519
+    },
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.75,
+     "layer": "overlap",
+     "marks": 0,
+     "bytes": 72
+    },
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.18,
+     "layer": "overlap",
+     "marks": 0,
+     "bytes": 50
+    },
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.25,
+     "layer": "overlap",
+     "marks": 0,
+     "bytes": 243
+    }
+   ]
+  },
+  {
+   "component": "PlusField",
+   "name": "Art=ubullet, Shape=plus",
+   "file": "PlusField--ubullet-plus.svg",
+   "art": "ubullet",
+   "w": 214.66,
+   "h": 160.98,
+   "surface": "none",
+   "shape": "plus",
+   "density": 1,
+   "seed": "ubullet",
+   "opts": {},
+   "t": 0,
+   "grounds": [],
+   "buckets": [
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 1,
+     "layer": "marks",
+     "marks": 9,
+     "bytes": 567
+    }
+   ]
+  },
+  {
+   "component": "PlusField",
+   "name": "Art=usep, Shape=plus",
+   "file": "PlusField--usep-plus.svg",
+   "art": "usep",
+   "w": 214.66,
+   "h": 160.98,
+   "surface": "none",
+   "shape": "plus",
+   "density": 1,
+   "seed": "usep",
+   "opts": {},
+   "t": 0,
+   "grounds": [],
+   "buckets": [
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.6,
+     "layer": "marks",
+     "marks": 3,
+     "bytes": 183
+    },
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.6,
+     "layer": "overlap",
+     "marks": 0,
+     "bytes": 89
+    }
+   ]
+  },
+  {
+   "component": "PlusField",
+   "name": "Art=uthumb, Shape=plus",
+   "file": "PlusField--uthumb-plus.svg",
+   "art": "uthumb",
+   "w": 214.66,
+   "h": 160.98,
+   "surface": "inverse",
+   "shape": "plus",
+   "density": 1,
+   "seed": "kiln",
+   "opts": {},
+   "t": 0,
+   "grounds": [
+    "color/surface/inverse"
+   ],
+   "buckets": [
+    {
+     "role": "ROLE:color/text/onInverse",
+     "alpha": 0.9,
+     "layer": "marks",
+     "marks": 433,
+     "bytes": 23011
+    },
+    {
+     "role": "ROLE:color/text/onInverse",
+     "alpha": 0.9,
+     "layer": "overlap",
+     "marks": 0,
+     "bytes": 10223
+    }
+   ]
+  },
+  {
+   "component": "PlusField",
+   "name": "Art=unews, Shape=plus",
+   "file": "PlusField--unews-plus.svg",
+   "art": "unews",
+   "w": 214.66,
+   "h": 160.98,
+   "surface": "raised",
+   "shape": "plus",
+   "density": 1,
+   "seed": "unews",
+   "opts": {},
+   "t": 0,
+   "grounds": [
+    "color/surface/raised"
+   ],
+   "buckets": [
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.9,
+     "layer": "marks",
+     "marks": 127,
+     "bytes": 6037
+    },
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.45,
+     "layer": "marks",
+     "marks": 34,
+     "bytes": 1617
+    },
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.9,
+     "layer": "overlap",
+     "marks": 0,
+     "bytes": 3402
+    },
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.45,
+     "layer": "overlap",
+     "marks": 0,
+     "bytes": 905
+    }
+   ]
+  },
+  {
+   "component": "PlusField",
+   "name": "Art=usplash, Shape=plus",
+   "file": "PlusField--usplash-plus.svg",
+   "art": "usplash",
+   "w": 214.66,
+   "h": 160.98,
+   "surface": "inverse",
+   "shape": "plus",
+   "density": 1,
+   "seed": "usplash",
+   "opts": {},
+   "t": 0,
+   "grounds": [
+    "color/surface/inverse"
+   ],
+   "buckets": [
+    {
+     "role": "ROLE:color/text/onInverse",
+     "alpha": 0.325,
+     "layer": "marks",
+     "marks": 22,
+     "bytes": 1009
+    },
+    {
+     "role": "ROLE:color/text/onInverse",
+     "alpha": 0.375,
+     "layer": "marks",
+     "marks": 19,
+     "bytes": 882
+    },
+    {
+     "role": "ROLE:color/text/onInverse",
+     "alpha": 0.4,
+     "layer": "marks",
+     "marks": 13,
+     "bytes": 603
+    },
+    {
+     "role": "ROLE:color/text/onInverse",
+     "alpha": 0.425,
+     "layer": "marks",
+     "marks": 12,
+     "bytes": 549
+    },
+    {
+     "role": "ROLE:color/text/onInverse",
+     "alpha": 0.475,
+     "layer": "marks",
+     "marks": 6,
+     "bytes": 274
+    },
+    {
+     "role": "ROLE:color/text/onInverse",
+     "alpha": 0.525,
+     "layer": "marks",
+     "marks": 18,
+     "bytes": 839
+    },
+    {
+     "role": "ROLE:color/text/onInverse",
+     "alpha": 0.55,
+     "layer": "marks",
+     "marks": 14,
+     "bytes": 651
+    },
+    {
+     "role": "ROLE:color/text/onInverse",
+     "alpha": 0.6,
+     "layer": "marks",
+     "marks": 19,
+     "bytes": 894
+    },
+    {
+     "role": "ROLE:color/text/onInverse",
+     "alpha": 0.65,
+     "layer": "marks",
+     "marks": 20,
+     "bytes": 932
+    },
+    {
+     "role": "ROLE:color/text/onInverse",
+     "alpha": 0.7,
+     "layer": "marks",
+     "marks": 12,
+     "bytes": 560
+    },
+    {
+     "role": "ROLE:color/text/onInverse",
+     "alpha": 0.75,
+     "layer": "marks",
+     "marks": 14,
+     "bytes": 654
+    },
+    {
+     "role": "ROLE:color/text/onInverse",
+     "alpha": 0.775,
+     "layer": "marks",
+     "marks": 20,
+     "bytes": 952
+    },
+    {
+     "role": "ROLE:color/text/onInverse",
+     "alpha": 0.825,
+     "layer": "marks",
+     "marks": 13,
+     "bytes": 605
+    },
+    {
+     "role": "ROLE:color/text/onInverse",
+     "alpha": 0.85,
+     "layer": "marks",
+     "marks": 20,
+     "bytes": 948
+    },
+    {
+     "role": "ROLE:color/text/onInverse",
+     "alpha": 0.875,
+     "layer": "marks",
+     "marks": 33,
+     "bytes": 1589
+    },
+    {
+     "role": "ROLE:color/text/onInverse",
+     "alpha": 0.9,
+     "layer": "marks",
+     "marks": 43,
+     "bytes": 2071
+    },
+    {
+     "role": "ROLE:color/text/onInverse",
+     "alpha": 0.575,
+     "layer": "marks",
+     "marks": 12,
+     "bytes": 572
+    },
+    {
+     "role": "ROLE:color/text/onInverse",
+     "alpha": 0.725,
+     "layer": "marks",
+     "marks": 12,
+     "bytes": 579
+    },
+    {
+     "role": "ROLE:color/text/onInverse",
+     "alpha": 0.675,
+     "layer": "marks",
+     "marks": 13,
+     "bytes": 621
+    },
+    {
+     "role": "ROLE:color/text/onInverse",
+     "alpha": 0.625,
+     "layer": "marks",
+     "marks": 7,
+     "bytes": 331
+    },
+    {
+     "role": "ROLE:color/text/onInverse",
+     "alpha": 0.5,
+     "layer": "marks",
+     "marks": 14,
+     "bytes": 673
+    },
+    {
+     "role": "ROLE:color/text/onInverse",
+     "alpha": 0.45,
+     "layer": "marks",
+     "marks": 13,
+     "bytes": 618
+    },
+    {
+     "role": "ROLE:color/text/onInverse",
+     "alpha": 0.35,
+     "layer": "marks",
+     "marks": 14,
+     "bytes": 655
+    },
+    {
+     "role": "ROLE:color/text/onInverse",
+     "alpha": 0.3,
+     "layer": "marks",
+     "marks": 19,
+     "bytes": 879
+    },
+    {
+     "role": "ROLE:color/text/onInverse",
+     "alpha": 0.275,
+     "layer": "marks",
+     "marks": 39,
+     "bytes": 1815
+    },
+    {
+     "role": "ROLE:color/text/onInverse",
+     "alpha": 0.25,
+     "layer": "marks",
+     "marks": 115,
+     "bytes": 5240
+    },
+    {
+     "role": "ROLE:color/text/onInverse",
+     "alpha": 0.8,
+     "layer": "marks",
+     "marks": 6,
+     "bytes": 294
+    },
+    {
+     "role": "ROLE:color/text/onInverse",
+     "alpha": 0.325,
+     "layer": "overlap",
+     "marks": 0,
+     "bytes": 571
+    },
+    {
+     "role": "ROLE:color/text/onInverse",
+     "alpha": 0.375,
+     "layer": "overlap",
+     "marks": 0,
+     "bytes": 498
+    },
+    {
+     "role": "ROLE:color/text/onInverse",
+     "alpha": 0.4,
+     "layer": "overlap",
+     "marks": 0,
+     "bytes": 340
+    },
+    {
+     "role": "ROLE:color/text/onInverse",
+     "alpha": 0.425,
+     "layer": "overlap",
+     "marks": 0,
+     "bytes": 312
+    },
+    {
+     "role": "ROLE:color/text/onInverse",
+     "alpha": 0.475,
+     "layer": "overlap",
+     "marks": 0,
+     "bytes": 155
+    },
+    {
+     "role": "ROLE:color/text/onInverse",
+     "alpha": 0.525,
+     "layer": "overlap",
+     "marks": 0,
+     "bytes": 472
+    },
+    {
+     "role": "ROLE:color/text/onInverse",
+     "alpha": 0.55,
+     "layer": "overlap",
+     "marks": 0,
+     "bytes": 368
+    },
+    {
+     "role": "ROLE:color/text/onInverse",
+     "alpha": 0.6,
+     "layer": "overlap",
+     "marks": 0,
+     "bytes": 503
+    },
+    {
+     "role": "ROLE:color/text/onInverse",
+     "alpha": 0.65,
+     "layer": "overlap",
+     "marks": 0,
+     "bytes": 529
+    },
+    {
+     "role": "ROLE:color/text/onInverse",
+     "alpha": 0.7,
+     "layer": "overlap",
+     "marks": 0,
+     "bytes": 317
+    },
+    {
+     "role": "ROLE:color/text/onInverse",
+     "alpha": 0.75,
+     "layer": "overlap",
+     "marks": 0,
+     "bytes": 368
+    },
+    {
+     "role": "ROLE:color/text/onInverse",
+     "alpha": 0.775,
+     "layer": "overlap",
+     "marks": 0,
+     "bytes": 536
+    },
+    {
+     "role": "ROLE:color/text/onInverse",
+     "alpha": 0.825,
+     "layer": "overlap",
+     "marks": 0,
+     "bytes": 341
+    },
+    {
+     "role": "ROLE:color/text/onInverse",
+     "alpha": 0.85,
+     "layer": "overlap",
+     "marks": 0,
+     "bytes": 538
+    },
+    {
+     "role": "ROLE:color/text/onInverse",
+     "alpha": 0.875,
+     "layer": "overlap",
+     "marks": 0,
+     "bytes": 890
+    },
+    {
+     "role": "ROLE:color/text/onInverse",
+     "alpha": 0.9,
+     "layer": "overlap",
+     "marks": 0,
+     "bytes": 1161
+    },
+    {
+     "role": "ROLE:color/text/onInverse",
+     "alpha": 0.575,
+     "layer": "overlap",
+     "marks": 0,
+     "bytes": 321
+    },
+    {
+     "role": "ROLE:color/text/onInverse",
+     "alpha": 0.725,
+     "layer": "overlap",
+     "marks": 0,
+     "bytes": 325
+    },
+    {
+     "role": "ROLE:color/text/onInverse",
+     "alpha": 0.675,
+     "layer": "overlap",
+     "marks": 0,
+     "bytes": 350
+    },
+    {
+     "role": "ROLE:color/text/onInverse",
+     "alpha": 0.625,
+     "layer": "overlap",
+     "marks": 0,
+     "bytes": 186
+    },
+    {
+     "role": "ROLE:color/text/onInverse",
+     "alpha": 0.5,
+     "layer": "overlap",
+     "marks": 0,
+     "bytes": 379
+    },
+    {
+     "role": "ROLE:color/text/onInverse",
+     "alpha": 0.45,
+     "layer": "overlap",
+     "marks": 0,
+     "bytes": 349
+    },
+    {
+     "role": "ROLE:color/text/onInverse",
+     "alpha": 0.35,
+     "layer": "overlap",
+     "marks": 0,
+     "bytes": 370
+    },
+    {
+     "role": "ROLE:color/text/onInverse",
+     "alpha": 0.3,
+     "layer": "overlap",
+     "marks": 0,
+     "bytes": 495
+    },
+    {
+     "role": "ROLE:color/text/onInverse",
+     "alpha": 0.275,
+     "layer": "overlap",
+     "marks": 0,
+     "bytes": 1024
+    },
+    {
+     "role": "ROLE:color/text/onInverse",
+     "alpha": 0.25,
+     "layer": "overlap",
+     "marks": 0,
+     "bytes": 2968
+    },
+    {
+     "role": "ROLE:color/text/onInverse",
+     "alpha": 0.8,
+     "layer": "overlap",
+     "marks": 0,
+     "bytes": 164
+    }
+   ]
+  },
+  {
+   "component": "PlusField",
+   "name": "Art=type, Shape=plus",
+   "file": "PlusField--type-plus.svg",
+   "art": "type",
+   "w": 214.66,
+   "h": 160.98,
+   "surface": "inverse",
+   "shape": "plus",
+   "density": 1,
+   "seed": "type",
+   "opts": {
+    "text": "404",
+    "textScale": 0.85
+   },
+   "t": 0,
+   "font": "\"Neue Haas Grotesk Display Pro\", \"Helvetica Neue\", Inter, system-ui, sans-serif",
+   "grounds": [
+    "color/surface/inverse"
+   ],
+   "buckets": [
+    {
+     "role": "ROLE:color/text/onInverse",
+     "alpha": 1,
+     "layer": "marks",
+     "marks": 380,
+     "bytes": 20085
+    }
+   ]
+  },
+  {
+   "component": "PlusField",
+   "name": "Art=umedia, Shape=square",
+   "file": "PlusField--umedia-square.svg",
+   "art": "umedia",
+   "w": 214.66,
+   "h": 160.98,
+   "surface": "sunk",
+   "shape": "square",
+   "density": 1,
+   "seed": "umedia",
+   "opts": {},
+   "t": 0,
+   "grounds": [
+    "color/surface/sunk"
+   ],
+   "buckets": [
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.16,
+     "layer": "marks",
+     "marks": 336,
+     "bytes": 8329
+    },
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.75,
+     "layer": "marks",
+     "marks": 204,
+     "bytes": 5432
+    }
+   ]
+  },
+  {
+   "component": "PlusField",
+   "name": "Art=umedia, Shape=round",
+   "file": "PlusField--umedia-round.svg",
+   "art": "umedia",
+   "w": 214.66,
+   "h": 160.98,
+   "surface": "sunk",
+   "shape": "round",
+   "density": 1,
+   "seed": "umedia",
+   "opts": {},
+   "t": 0,
+   "grounds": [
+    "color/surface/sunk"
+   ],
+   "buckets": [
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.16,
+     "layer": "marks",
+     "marks": 336,
+     "bytes": 17065
+    },
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.75,
+     "layer": "marks",
+     "marks": 204,
+     "bytes": 11143
+    }
+   ]
+  },
+  {
+   "component": "SectionDivider",
+   "name": "Weight=hairline",
+   "file": "SectionDivider--hairline.svg",
+   "art": "udiv",
+   "w": 742,
+   "h": 16,
+   "surface": "none",
+   "shape": "plus",
+   "density": 1,
+   "seed": "udiv",
+   "opts": {
+    "rows": 1,
+    "fade": "both"
+   },
+   "t": 0,
+   "grounds": [],
+   "buckets": [
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 1,
+     "layer": "marks",
+     "marks": 77,
+     "bytes": 3072
+    }
+   ]
+  },
+  {
+   "component": "SectionDivider",
+   "name": "Weight=band",
+   "file": "SectionDivider--band.svg",
+   "art": "udiv",
+   "w": 742,
+   "h": 24,
+   "surface": "none",
+   "shape": "plus",
+   "density": 1,
+   "seed": "udiv",
+   "opts": {
+    "rows": 3,
+    "fade": "both"
+   },
+   "t": 0,
+   "grounds": [],
+   "buckets": [
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 1,
+     "layer": "marks",
+     "marks": 246,
+     "bytes": 10138
+    }
+   ]
+  },
+  {
+   "component": "SectionDivider",
+   "name": "Weight=block",
+   "file": "SectionDivider--block.svg",
+   "art": "udiv",
+   "w": 742,
+   "h": 32,
+   "surface": "none",
+   "shape": "plus",
+   "density": 1,
+   "seed": "udiv",
+   "opts": {
+    "rows": 5,
+    "fade": "none"
+   },
+   "t": 0,
+   "grounds": [],
+   "buckets": [
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 1,
+     "layer": "marks",
+     "marks": 530,
+     "bytes": 21666
+    }
+   ]
+  },
+  {
+   "component": "HeadingRule",
+   "name": "Variant=title",
+   "file": "HeadingRule--title.svg",
+   "art": "udiv",
+   "w": 503.3,
+   "h": 24,
+   "surface": "none",
+   "shape": "plus",
+   "density": 1,
+   "seed": "udiv",
+   "opts": {
+    "rows": 3,
+    "fade": "end"
+   },
+   "t": 0,
+   "grounds": [],
+   "buckets": [
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 1,
+     "layer": "marks",
+     "marks": 143,
+     "bytes": 5806
+    }
+   ]
+  },
+  {
+   "component": "HeadingRule",
+   "name": "Variant=eyebrow",
+   "file": "HeadingRule--eyebrow.svg",
+   "art": "udiv",
+   "w": 626.97,
+   "h": 16,
+   "surface": "none",
+   "shape": "plus",
+   "density": 1,
+   "seed": "udiv",
+   "opts": {
+    "rows": 1,
+    "fade": "end"
+   },
+   "t": 0,
+   "grounds": [],
+   "buckets": [
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 1,
+     "layer": "marks",
+     "marks": 56,
+     "bytes": 2206
+    }
+   ]
+  },
+  {
+   "component": "PlusUnderline",
+   "name": "Active=true",
+   "file": "PlusUnderline--true.svg",
+   "art": "uline",
+   "w": 120,
+   "h": 12,
+   "surface": "none",
+   "shape": "plus",
+   "density": 1,
+   "seed": "uline",
+   "opts": {},
+   "t": 0,
+   "grounds": [],
+   "buckets": [
+    {
+     "role": "ROLE:color/brand/accent",
+     "alpha": 1,
+     "layer": "marks",
+     "marks": 46,
+     "bytes": 2304
+    }
+   ]
+  },
+  {
+   "component": "PlusUnderline",
+   "name": "Active=false",
+   "file": "PlusUnderline--false.svg",
+   "art": null,
+   "w": 120,
+   "h": 12,
+   "surface": "none",
+   "shape": "plus",
+   "density": 1,
+   "seed": null,
+   "opts": {},
+   "t": 0,
+   "grounds": [],
+   "buckets": []
+  },
+  {
+   "component": "PlusUnderline",
+   "name": "Atom=column",
+   "file": "PlusUnderline--column.svg",
+   "art": "uline",
+   "w": 10,
+   "h": 12,
+   "surface": "none",
+   "shape": "plus",
+   "density": 1,
+   "seed": "uline",
+   "opts": {},
+   "t": 0,
+   "grounds": [],
+   "buckets": [
+    {
+     "role": "ROLE:color/brand/accent",
+     "alpha": 1,
+     "layer": "marks",
+     "marks": 2,
+     "bytes": 96
+    }
+   ]
+  },
+  {
+   "component": "PlusProgress",
+   "name": "Atom=column, Rows=1, State=on",
+   "file": "PlusProgress--column-1-on.svg",
+   "art": "uprog",
+   "w": 5,
+   "h": 16,
+   "surface": "none",
+   "shape": "plus",
+   "density": 1,
+   "seed": "uprog",
+   "opts": {
+    "rows": 1,
+    "progress": 1
+   },
+   "t": 0,
+   "grounds": [],
+   "buckets": [
+    {
+     "role": "ROLE:color/brand/accent",
+     "alpha": 1,
+     "layer": "marks",
+     "marks": 1,
+     "bytes": 36
+    }
+   ]
+  },
+  {
+   "component": "PlusProgress",
+   "name": "Atom=column, Rows=1, State=off",
+   "file": "PlusProgress--column-1-off.svg",
+   "art": "uprog",
+   "w": 5,
+   "h": 16,
+   "surface": "none",
+   "shape": "plus",
+   "density": 1,
+   "seed": "uprog",
+   "opts": {
+    "rows": 1,
+    "progress": 0
+   },
+   "t": 0,
+   "grounds": [],
+   "buckets": [
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.2,
+     "layer": "marks",
+     "marks": 1,
+     "bytes": 36
+    },
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.2,
+     "layer": "overlap",
+     "marks": 0,
+     "bytes": 24
+    }
+   ]
+  },
+  {
+   "component": "PlusProgress",
+   "name": "Atom=column, Rows=3, State=on",
+   "file": "PlusProgress--column-3-on.svg",
+   "art": "uprog",
+   "w": 5,
+   "h": 24,
+   "surface": "none",
+   "shape": "plus",
+   "density": 1,
+   "seed": "uprog",
+   "opts": {
+    "rows": 3,
+    "progress": 1
+   },
+   "t": 0,
+   "grounds": [],
+   "buckets": [
+    {
+     "role": "ROLE:color/brand/accent",
+     "alpha": 1,
+     "layer": "marks",
+     "marks": 3,
+     "bytes": 112
+    }
+   ]
+  },
+  {
+   "component": "PlusProgress",
+   "name": "Atom=column, Rows=3, State=off",
+   "file": "PlusProgress--column-3-off.svg",
+   "art": "uprog",
+   "w": 5,
+   "h": 24,
+   "surface": "none",
+   "shape": "plus",
+   "density": 1,
+   "seed": "uprog",
+   "opts": {
+    "rows": 3,
+    "progress": 0
+   },
+   "t": 0,
+   "grounds": [],
+   "buckets": [
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.2,
+     "layer": "marks",
+     "marks": 3,
+     "bytes": 112
+    },
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.2,
+     "layer": "overlap",
+     "marks": 0,
+     "bytes": 74
+    }
+   ]
+  },
+  {
+   "component": "PlusProgress",
+   "name": "Variant=thin, Value=0",
+   "file": "PlusProgress--thin-0.svg",
+   "art": "uprog",
+   "w": 214.66,
+   "h": 16,
+   "surface": "none",
+   "shape": "plus",
+   "density": 1,
+   "seed": "uprog",
+   "opts": {
+    "rows": 1,
+    "progress": 0
+   },
+   "t": 0,
+   "grounds": [],
+   "buckets": [
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.2,
+     "layer": "marks",
+     "marks": 31,
+     "bytes": 1209
+    },
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.2,
+     "layer": "overlap",
+     "marks": 0,
+     "bytes": 791
+    }
+   ]
+  },
+  {
+   "component": "PlusProgress",
+   "name": "Variant=thin, Value=38",
+   "file": "PlusProgress--thin-38.svg",
+   "art": "uprog",
+   "w": 214.66,
+   "h": 16,
+   "surface": "none",
+   "shape": "plus",
+   "density": 1,
+   "seed": "uprog",
+   "opts": {
+    "rows": 1,
+    "progress": 0.38
+   },
+   "t": 0,
+   "grounds": [],
+   "buckets": [
+    {
+     "role": "ROLE:color/brand/accent",
+     "alpha": 1,
+     "layer": "marks",
+     "marks": 12,
+     "bytes": 453
+    },
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.2,
+     "layer": "marks",
+     "marks": 19,
+     "bytes": 756
+    },
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.2,
+     "layer": "overlap",
+     "marks": 0,
+     "bytes": 492
+    }
+   ]
+  },
+  {
+   "component": "PlusProgress",
+   "name": "Variant=thin, Value=64",
+   "file": "PlusProgress--thin-64.svg",
+   "art": "uprog",
+   "w": 214.66,
+   "h": 16,
+   "surface": "none",
+   "shape": "plus",
+   "density": 1,
+   "seed": "uprog",
+   "opts": {
+    "rows": 1,
+    "progress": 0.64
+   },
+   "t": 0,
+   "grounds": [],
+   "buckets": [
+    {
+     "role": "ROLE:color/brand/accent",
+     "alpha": 1,
+     "layer": "marks",
+     "marks": 20,
+     "bytes": 769
+    },
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.2,
+     "layer": "marks",
+     "marks": 11,
+     "bytes": 440
+    },
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.2,
+     "layer": "overlap",
+     "marks": 0,
+     "bytes": 286
+    }
+   ]
+  },
+  {
+   "component": "PlusProgress",
+   "name": "Variant=thin, Value=100",
+   "file": "PlusProgress--thin-100.svg",
+   "art": "uprog",
+   "w": 214.66,
+   "h": 16,
+   "surface": "none",
+   "shape": "plus",
+   "density": 1,
+   "seed": "uprog",
+   "opts": {
+    "rows": 1,
+    "progress": 1
+   },
+   "t": 0,
+   "grounds": [],
+   "buckets": [
+    {
+     "role": "ROLE:color/brand/accent",
+     "alpha": 1,
+     "layer": "marks",
+     "marks": 31,
+     "bytes": 1209
+    }
+   ]
+  },
+  {
+   "component": "PlusProgress",
+   "name": "Variant=band, Value=0",
+   "file": "PlusProgress--band-0.svg",
+   "art": "uprog",
+   "w": 214.66,
+   "h": 24,
+   "surface": "none",
+   "shape": "plus",
+   "density": 1,
+   "seed": "uprog",
+   "opts": {
+    "rows": 3,
+    "progress": 0
+   },
+   "t": 0,
+   "grounds": [],
+   "buckets": [
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.2,
+     "layer": "marks",
+     "marks": 93,
+     "bytes": 3751
+    },
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.2,
+     "layer": "overlap",
+     "marks": 0,
+     "bytes": 2435
+    }
+   ]
+  },
+  {
+   "component": "PlusProgress",
+   "name": "Variant=band, Value=38",
+   "file": "PlusProgress--band-38.svg",
+   "art": "uprog",
+   "w": 214.66,
+   "h": 24,
+   "surface": "none",
+   "shape": "plus",
+   "density": 1,
+   "seed": "uprog",
+   "opts": {
+    "rows": 3,
+    "progress": 0.38
+   },
+   "t": 0,
+   "grounds": [],
+   "buckets": [
+    {
+     "role": "ROLE:color/brand/accent",
+     "alpha": 1,
+     "layer": "marks",
+     "marks": 36,
+     "bytes": 1407
+    },
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.2,
+     "layer": "marks",
+     "marks": 57,
+     "bytes": 2344
+    },
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.2,
+     "layer": "overlap",
+     "marks": 0,
+     "bytes": 1514
+    }
+   ]
+  },
+  {
+   "component": "PlusProgress",
+   "name": "Variant=band, Value=64",
+   "file": "PlusProgress--band-64.svg",
+   "art": "uprog",
+   "w": 214.66,
+   "h": 24,
+   "surface": "none",
+   "shape": "plus",
+   "density": 1,
+   "seed": "uprog",
+   "opts": {
+    "rows": 3,
+    "progress": 0.64
+   },
+   "t": 0,
+   "grounds": [],
+   "buckets": [
+    {
+     "role": "ROLE:color/brand/accent",
+     "alpha": 1,
+     "layer": "marks",
+     "marks": 60,
+     "bytes": 2387
+    },
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.2,
+     "layer": "marks",
+     "marks": 33,
+     "bytes": 1364
+    },
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.2,
+     "layer": "overlap",
+     "marks": 0,
+     "bytes": 880
+    }
+   ]
+  },
+  {
+   "component": "PlusProgress",
+   "name": "Variant=band, Value=100",
+   "file": "PlusProgress--band-100.svg",
+   "art": "uprog",
+   "w": 214.66,
+   "h": 24,
+   "surface": "none",
+   "shape": "plus",
+   "density": 1,
+   "seed": "uprog",
+   "opts": {
+    "rows": 3,
+    "progress": 1
+   },
+   "t": 0,
+   "grounds": [],
+   "buckets": [
+    {
+     "role": "ROLE:color/brand/accent",
+     "alpha": 1,
+     "layer": "marks",
+     "marks": 93,
+     "bytes": 3751
+    }
+   ]
+  },
+  {
+   "component": "PlusLoader",
+   "name": "Frame=still",
+   "file": "PlusLoader--still.svg",
+   "art": "uloader",
+   "w": 240,
+   "h": 240,
+   "surface": "inverse",
+   "shape": "plus",
+   "density": 1,
+   "seed": "uloader",
+   "opts": {},
+   "t": 1.96,
+   "grounds": [
+    "color/surface/inverse"
+   ],
+   "buckets": [
+    {
+     "role": "ROLE:color/text/onInverse",
+     "alpha": 0.85,
+     "layer": "marks",
+     "marks": 230,
+     "bytes": 12399
+    },
+    {
+     "role": "ROLE:color/text/onInverse",
+     "alpha": 0.85,
+     "layer": "overlap",
+     "marks": 0,
+     "bytes": 5509
+    }
+   ]
+  },
+  {
+   "component": "PlusSkeleton",
+   "name": "Frame=rest",
+   "file": "PlusSkeleton--rest.svg",
+   "art": "uskel",
+   "w": 214.66,
+   "h": 240,
+   "surface": "raised",
+   "shape": "plus",
+   "density": 1,
+   "seed": "uskel",
+   "opts": {},
+   "t": 0,
+   "grounds": [
+    "color/surface/raised"
+   ],
+   "buckets": [
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.16,
+     "layer": "marks",
+     "marks": 476,
+     "bytes": 25898
+    },
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.16,
+     "layer": "overlap",
+     "marks": 0,
+     "bytes": 11521
+    }
+   ]
+  },
+  {
+   "component": "PlusTimeline",
+   "name": "Steps=3, Current=0",
+   "file": "PlusTimeline--3-0.svg",
+   "art": "utime",
+   "w": 48,
+   "h": 240,
+   "surface": "none",
+   "shape": "plus",
+   "density": 1,
+   "seed": "utime",
+   "opts": {
+    "steps": 3,
+    "current": 0
+   },
+   "t": 0,
+   "grounds": [],
+   "buckets": [
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.18,
+     "layer": "marks",
+     "marks": 14,
+     "bytes": 702
+    },
+    {
+     "role": "ROLE:color/brand/accent",
+     "alpha": 1,
+     "layer": "marks",
+     "marks": 9,
+     "bytes": 495
+    },
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.25,
+     "layer": "marks",
+     "marks": 18,
+     "bytes": 1026
+    },
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.18,
+     "layer": "overlap",
+     "marks": 0,
+     "bytes": 330
+    },
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.25,
+     "layer": "overlap",
+     "marks": 0,
+     "bytes": 486
+    }
+   ]
+  },
+  {
+   "component": "PlusTimeline",
+   "name": "Steps=3, Current=1",
+   "file": "PlusTimeline--3-1.svg",
+   "art": "utime",
+   "w": 48,
+   "h": 240,
+   "surface": "none",
+   "shape": "plus",
+   "density": 1,
+   "seed": "utime",
+   "opts": {
+    "steps": 3,
+    "current": 1
+   },
+   "t": 0,
+   "grounds": [],
+   "buckets": [
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.75,
+     "layer": "marks",
+     "marks": 7,
+     "bytes": 345
+    },
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.18,
+     "layer": "marks",
+     "marks": 7,
+     "bytes": 357
+    },
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 1,
+     "layer": "marks",
+     "marks": 9,
+     "bytes": 495
+    },
+    {
+     "role": "ROLE:color/brand/accent",
+     "alpha": 1,
+     "layer": "marks",
+     "marks": 9,
+     "bytes": 513
+    },
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.25,
+     "layer": "marks",
+     "marks": 9,
+     "bytes": 513
+    },
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.75,
+     "layer": "overlap",
+     "marks": 0,
+     "bytes": 162
+    },
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.18,
+     "layer": "overlap",
+     "marks": 0,
+     "bytes": 168
+    },
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.25,
+     "layer": "overlap",
+     "marks": 0,
+     "bytes": 243
+    }
+   ]
+  },
+  {
+   "component": "PlusTimeline",
+   "name": "Steps=3, Current=2",
+   "file": "PlusTimeline--3-2.svg",
+   "art": "utime",
+   "w": 48,
+   "h": 240,
+   "surface": "none",
+   "shape": "plus",
+   "density": 1,
+   "seed": "utime",
+   "opts": {
+    "steps": 3,
+    "current": 2
+   },
+   "t": 0,
+   "grounds": [],
+   "buckets": [
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.75,
+     "layer": "marks",
+     "marks": 14,
+     "bytes": 702
+    },
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 1,
+     "layer": "marks",
+     "marks": 18,
+     "bytes": 1008
+    },
+    {
+     "role": "ROLE:color/brand/accent",
+     "alpha": 1,
+     "layer": "marks",
+     "marks": 9,
+     "bytes": 513
+    },
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.75,
+     "layer": "overlap",
+     "marks": 0,
+     "bytes": 330
+    }
+   ]
+  },
+  {
+   "component": "PlusTimeline",
+   "name": "Steps=4, Current=0",
+   "file": "PlusTimeline--4-0.svg",
+   "art": "utime",
+   "w": 48,
+   "h": 320,
+   "surface": "none",
+   "shape": "plus",
+   "density": 1,
+   "seed": "utime",
+   "opts": {
+    "steps": 4,
+    "current": 0
+   },
+   "t": 0,
+   "grounds": [],
+   "buckets": [
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.18,
+     "layer": "marks",
+     "marks": 22,
+     "bytes": 1110
+    },
+    {
+     "role": "ROLE:color/brand/accent",
+     "alpha": 1,
+     "layer": "marks",
+     "marks": 9,
+     "bytes": 495
+    },
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.25,
+     "layer": "marks",
+     "marks": 27,
+     "bytes": 1539
+    },
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.18,
+     "layer": "overlap",
+     "marks": 0,
+     "bytes": 522
+    },
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.25,
+     "layer": "overlap",
+     "marks": 0,
+     "bytes": 729
+    }
+   ]
+  },
+  {
+   "component": "PlusTimeline",
+   "name": "Steps=4, Current=1",
+   "file": "PlusTimeline--4-1.svg",
+   "art": "utime",
+   "w": 48,
+   "h": 320,
+   "surface": "none",
+   "shape": "plus",
+   "density": 1,
+   "seed": "utime",
+   "opts": {
+    "steps": 4,
+    "current": 1
+   },
+   "t": 0,
+   "grounds": [],
+   "buckets": [
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.75,
+     "layer": "marks",
+     "marks": 7,
+     "bytes": 345
+    },
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.18,
+     "layer": "marks",
+     "marks": 15,
+     "bytes": 765
+    },
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 1,
+     "layer": "marks",
+     "marks": 9,
+     "bytes": 495
+    },
+    {
+     "role": "ROLE:color/brand/accent",
+     "alpha": 1,
+     "layer": "marks",
+     "marks": 9,
+     "bytes": 513
+    },
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.25,
+     "layer": "marks",
+     "marks": 18,
+     "bytes": 1026
+    },
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.75,
+     "layer": "overlap",
+     "marks": 0,
+     "bytes": 162
+    },
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.18,
+     "layer": "overlap",
+     "marks": 0,
+     "bytes": 360
+    },
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.25,
+     "layer": "overlap",
+     "marks": 0,
+     "bytes": 486
+    }
+   ]
+  },
+  {
+   "component": "PlusTimeline",
+   "name": "Steps=4, Current=2",
+   "file": "PlusTimeline--4-2.svg",
+   "art": "utime",
+   "w": 48,
+   "h": 320,
+   "surface": "none",
+   "shape": "plus",
+   "density": 1,
+   "seed": "utime",
+   "opts": {
+    "steps": 4,
+    "current": 2
+   },
+   "t": 0,
+   "grounds": [],
+   "buckets": [
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.75,
+     "layer": "marks",
+     "marks": 14,
+     "bytes": 702
+    },
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.18,
+     "layer": "marks",
+     "marks": 8,
+     "bytes": 408
+    },
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 1,
+     "layer": "marks",
+     "marks": 18,
+     "bytes": 1008
+    },
+    {
+     "role": "ROLE:color/brand/accent",
+     "alpha": 1,
+     "layer": "marks",
+     "marks": 9,
+     "bytes": 513
+    },
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.25,
+     "layer": "marks",
+     "marks": 9,
+     "bytes": 513
+    },
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.75,
+     "layer": "overlap",
+     "marks": 0,
+     "bytes": 330
+    },
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.18,
+     "layer": "overlap",
+     "marks": 0,
+     "bytes": 192
+    },
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.25,
+     "layer": "overlap",
+     "marks": 0,
+     "bytes": 243
+    }
+   ]
+  },
+  {
+   "component": "PlusTimeline",
+   "name": "Steps=4, Current=3",
+   "file": "PlusTimeline--4-3.svg",
+   "art": "utime",
+   "w": 48,
+   "h": 320,
+   "surface": "none",
+   "shape": "plus",
+   "density": 1,
+   "seed": "utime",
+   "opts": {
+    "steps": 4,
+    "current": 3
+   },
+   "t": 0,
+   "grounds": [],
+   "buckets": [
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.75,
+     "layer": "marks",
+     "marks": 22,
+     "bytes": 1110
+    },
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 1,
+     "layer": "marks",
+     "marks": 27,
+     "bytes": 1521
+    },
+    {
+     "role": "ROLE:color/brand/accent",
+     "alpha": 1,
+     "layer": "marks",
+     "marks": 9,
+     "bytes": 513
+    },
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.75,
+     "layer": "overlap",
+     "marks": 0,
+     "bytes": 522
+    }
+   ]
+  },
+  {
+   "component": "PlusBullet",
+   "name": "Accent=false",
+   "file": "PlusBullet--false.svg",
+   "art": "ubullet",
+   "w": 16,
+   "h": 16,
+   "surface": "none",
+   "shape": "plus",
+   "density": 1,
+   "seed": "ubullet",
+   "opts": {
+    "accent": false
+   },
+   "t": 0,
+   "grounds": [],
+   "buckets": [
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 1,
+     "layer": "marks",
+     "marks": 9,
+     "bytes": 432
+    }
+   ]
+  },
+  {
+   "component": "PlusBullet",
+   "name": "Accent=true",
+   "file": "PlusBullet--true.svg",
+   "art": "ubullet",
+   "w": 16,
+   "h": 16,
+   "surface": "none",
+   "shape": "plus",
+   "density": 1,
+   "seed": "ubullet",
+   "opts": {
+    "accent": true
+   },
+   "t": 0,
+   "grounds": [],
+   "buckets": [
+    {
+     "role": "ROLE:color/brand/accent",
+     "alpha": 1,
+     "layer": "marks",
+     "marks": 9,
+     "bytes": 432
+    }
+   ]
+  },
+  {
+   "component": "PlusSeparator",
+   "name": "",
+   "file": "PlusSeparator--default.svg",
+   "art": "usep",
+   "w": 12,
+   "h": 12,
+   "surface": "none",
+   "shape": "plus",
+   "density": 1,
+   "seed": "usep",
+   "opts": {},
+   "t": 0,
+   "grounds": [],
+   "buckets": [
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.6,
+     "layer": "marks",
+     "marks": 3,
+     "bytes": 109
+    },
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.6,
+     "layer": "overlap",
+     "marks": 0,
+     "bytes": 63
+    }
+   ]
+  },
+  {
+   "component": "PlusThumbnail",
+   "name": "Seed=atlas, Surface=inverse",
+   "file": "PlusThumbnail--atlas-inverse.svg",
+   "art": "uthumb",
+   "w": 120,
+   "h": 120,
+   "surface": "inverse",
+   "shape": "plus",
+   "density": 1,
+   "seed": "atlas",
+   "opts": {},
+   "t": 0,
+   "grounds": [
+    "color/surface/inverse"
+   ],
+   "buckets": [
+    {
+     "role": "ROLE:color/text/onInverse",
+     "alpha": 0.9,
+     "layer": "marks",
+     "marks": 151,
+     "bytes": 7796
+    },
+    {
+     "role": "ROLE:color/text/onInverse",
+     "alpha": 0.9,
+     "layer": "overlap",
+     "marks": 0,
+     "bytes": 3453
+    }
+   ]
+  },
+  {
+   "component": "PlusThumbnail",
+   "name": "Seed=atlas, Surface=sunk",
+   "file": "PlusThumbnail--atlas-sunk.svg",
+   "art": "uthumb",
+   "w": 120,
+   "h": 120,
+   "surface": "sunk",
+   "shape": "plus",
+   "density": 1,
+   "seed": "atlas",
+   "opts": {},
+   "t": 0,
+   "grounds": [
+    "color/surface/sunk"
+   ],
+   "buckets": [
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.9,
+     "layer": "marks",
+     "marks": 151,
+     "bytes": 7796
+    },
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.9,
+     "layer": "overlap",
+     "marks": 0,
+     "bytes": 3453
+    }
+   ]
+  },
+  {
+   "component": "PlusThumbnail",
+   "name": "Seed=kiln, Surface=inverse",
+   "file": "PlusThumbnail--kiln-inverse.svg",
+   "art": "uthumb",
+   "w": 120,
+   "h": 120,
+   "surface": "inverse",
+   "shape": "plus",
+   "density": 1,
+   "seed": "kiln",
+   "opts": {},
+   "t": 0,
+   "grounds": [
+    "color/surface/inverse"
+   ],
+   "buckets": [
+    {
+     "role": "ROLE:color/text/onInverse",
+     "alpha": 0.9,
+     "layer": "marks",
+     "marks": 138,
+     "bytes": 7123
+    },
+    {
+     "role": "ROLE:color/text/onInverse",
+     "alpha": 0.9,
+     "layer": "overlap",
+     "marks": 0,
+     "bytes": 3149
+    }
+   ]
+  },
+  {
+   "component": "PlusThumbnail",
+   "name": "Seed=kiln, Surface=sunk",
+   "file": "PlusThumbnail--kiln-sunk.svg",
+   "art": "uthumb",
+   "w": 120,
+   "h": 120,
+   "surface": "sunk",
+   "shape": "plus",
+   "density": 1,
+   "seed": "kiln",
+   "opts": {},
+   "t": 0,
+   "grounds": [
+    "color/surface/sunk"
+   ],
+   "buckets": [
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.9,
+     "layer": "marks",
+     "marks": 138,
+     "bytes": 7123
+    },
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.9,
+     "layer": "overlap",
+     "marks": 0,
+     "bytes": 3149
+    }
+   ]
+  },
+  {
+   "component": "PlusThumbnail",
+   "name": "Seed=ledger, Surface=inverse",
+   "file": "PlusThumbnail--ledger-inverse.svg",
+   "art": "uthumb",
+   "w": 120,
+   "h": 120,
+   "surface": "inverse",
+   "shape": "plus",
+   "density": 1,
+   "seed": "ledger",
+   "opts": {},
+   "t": 0,
+   "grounds": [
+    "color/surface/inverse"
+   ],
+   "buckets": [
+    {
+     "role": "ROLE:color/text/onInverse",
+     "alpha": 0.9,
+     "layer": "marks",
+     "marks": 115,
+     "bytes": 5919
+    },
+    {
+     "role": "ROLE:color/text/onInverse",
+     "alpha": 0.9,
+     "layer": "overlap",
+     "marks": 0,
+     "bytes": 2614
+    }
+   ]
+  },
+  {
+   "component": "PlusThumbnail",
+   "name": "Seed=ledger, Surface=sunk",
+   "file": "PlusThumbnail--ledger-sunk.svg",
+   "art": "uthumb",
+   "w": 120,
+   "h": 120,
+   "surface": "sunk",
+   "shape": "plus",
+   "density": 1,
+   "seed": "ledger",
+   "opts": {},
+   "t": 0,
+   "grounds": [
+    "color/surface/sunk"
+   ],
+   "buckets": [
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.9,
+     "layer": "marks",
+     "marks": 115,
+     "bytes": 5919
+    },
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.9,
+     "layer": "overlap",
+     "marks": 0,
+     "bytes": 2614
+    }
+   ]
+  },
+  {
+   "component": "PlusThumbnail",
+   "name": "Seed=harbor, Surface=inverse",
+   "file": "PlusThumbnail--harbor-inverse.svg",
+   "art": "uthumb",
+   "w": 120,
+   "h": 120,
+   "surface": "inverse",
+   "shape": "plus",
+   "density": 1,
+   "seed": "harbor",
+   "opts": {},
+   "t": 0,
+   "grounds": [
+    "color/surface/inverse"
+   ],
+   "buckets": [
+    {
+     "role": "ROLE:color/text/onInverse",
+     "alpha": 0.9,
+     "layer": "marks",
+     "marks": 141,
+     "bytes": 7256
+    },
+    {
+     "role": "ROLE:color/text/onInverse",
+     "alpha": 0.9,
+     "layer": "overlap",
+     "marks": 0,
+     "bytes": 3210
+    }
+   ]
+  },
+  {
+   "component": "PlusThumbnail",
+   "name": "Seed=harbor, Surface=sunk",
+   "file": "PlusThumbnail--harbor-sunk.svg",
+   "art": "uthumb",
+   "w": 120,
+   "h": 120,
+   "surface": "sunk",
+   "shape": "plus",
+   "density": 1,
+   "seed": "harbor",
+   "opts": {},
+   "t": 0,
+   "grounds": [
+    "color/surface/sunk"
+   ],
+   "buckets": [
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.9,
+     "layer": "marks",
+     "marks": 141,
+     "bytes": 7256
+    },
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.9,
+     "layer": "overlap",
+     "marks": 0,
+     "bytes": 3210
+    }
+   ]
+  },
+  {
+   "component": "PlusThumbnail",
+   "name": "Seed=orbit, Surface=inverse",
+   "file": "PlusThumbnail--orbit-inverse.svg",
+   "art": "uthumb",
+   "w": 120,
+   "h": 120,
+   "surface": "inverse",
+   "shape": "plus",
+   "density": 1,
+   "seed": "orbit",
+   "opts": {},
+   "t": 0,
+   "grounds": [
+    "color/surface/inverse"
+   ],
+   "buckets": [
+    {
+     "role": "ROLE:color/text/onInverse",
+     "alpha": 0.9,
+     "layer": "marks",
+     "marks": 113,
+     "bytes": 5820
+    },
+    {
+     "role": "ROLE:color/text/onInverse",
+     "alpha": 0.9,
+     "layer": "overlap",
+     "marks": 0,
+     "bytes": 2565
+    }
+   ]
+  },
+  {
+   "component": "PlusThumbnail",
+   "name": "Seed=orbit, Surface=sunk",
+   "file": "PlusThumbnail--orbit-sunk.svg",
+   "art": "uthumb",
+   "w": 120,
+   "h": 120,
+   "surface": "sunk",
+   "shape": "plus",
+   "density": 1,
+   "seed": "orbit",
+   "opts": {},
+   "t": 0,
+   "grounds": [
+    "color/surface/sunk"
+   ],
+   "buckets": [
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.9,
+     "layer": "marks",
+     "marks": 113,
+     "bytes": 5820
+    },
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.9,
+     "layer": "overlap",
+     "marks": 0,
+     "bytes": 2565
+    }
+   ]
+  },
+  {
+   "component": "PlusThumbnail",
+   "name": "Seed=field, Surface=inverse",
+   "file": "PlusThumbnail--field-inverse.svg",
+   "art": "uthumb",
+   "w": 120,
+   "h": 120,
+   "surface": "inverse",
+   "shape": "plus",
+   "density": 1,
+   "seed": "field",
+   "opts": {},
+   "t": 0,
+   "grounds": [
+    "color/surface/inverse"
+   ],
+   "buckets": [
+    {
+     "role": "ROLE:color/text/onInverse",
+     "alpha": 0.9,
+     "layer": "marks",
+     "marks": 134,
+     "bytes": 6921
+    },
+    {
+     "role": "ROLE:color/text/onInverse",
+     "alpha": 0.9,
+     "layer": "overlap",
+     "marks": 0,
+     "bytes": 3056
+    }
+   ]
+  },
+  {
+   "component": "PlusThumbnail",
+   "name": "Seed=field, Surface=sunk",
+   "file": "PlusThumbnail--field-sunk.svg",
+   "art": "uthumb",
+   "w": 120,
+   "h": 120,
+   "surface": "sunk",
+   "shape": "plus",
+   "density": 1,
+   "seed": "field",
+   "opts": {},
+   "t": 0,
+   "grounds": [
+    "color/surface/sunk"
+   ],
+   "buckets": [
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.9,
+     "layer": "marks",
+     "marks": 134,
+     "bytes": 6921
+    },
+    {
+     "role": "ROLE:color/text/primary",
+     "alpha": 0.9,
+     "layer": "overlap",
+     "marks": 0,
+     "bytes": 3056
+    }
+   ]
+  }
+ ]
+}
