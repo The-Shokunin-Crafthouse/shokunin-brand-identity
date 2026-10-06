@@ -1719,3 +1719,12 @@ Levi, at studio-pm's sitting: "make the color change". studio-pm ADR-110 replace
 
 - Tokens: 2 primitives added (`font.text.medium.12`, `font.text.medium.13`), 4 semantics added. `tokens:build`, `tokens:swift`, `tokens:map` regenerated; `tokens:verify` passes; `npm run build` exits 0; `figma:parse` maps `Size`.
 - **Figma:** the library's Button, Progress, Segment and PlusSeparator sets, variables and text styles follow in the same change. Publishing the library is Levi's step.
+
+### 2026-10-05: the library follows
+
+Done in the SCDS library file the same day (publishing is Levi's step):
+- Variables `space/component/padding-inline/button-sm` (→ `space/8`) and `space/component/padding-block/button-sm` (→ `space/4`); text styles `text/label/button-sm` (12/medium) and `text/label/tab` (13/medium, no tracking).
+- **Button** (`9:438`): new `Size` axis, default `Large`; 15 Small variants. The Focus variants' ring was a fixed 96 × 39 absolute frame, so any label longer than "Button" outgrew it at both sizes; it now sits 3px outside the button with STRETCH constraints and tracks the label.
+- **Progress** (`140:26`): `Tone` and `Track` axes; 5 new Bar variants. Circular and Step carry the defaults only.
+- **Segment** (`137:35`): `Label`, `Count` and `Show Count` properties; a `count` text after the label at `space/component/gap/lg`; both texts on `text/label/tab`. The library Segment was already 16 × 8 and 13pt, the code `lg` size.
+- **PlusSeparator**: now a set (`474:56316`) with `Tone` = `Default` (the original node, `459:2370`, so existing instances keep their link) | `Muted`. PR #74's Code Connect still resolves to `459-2370`; pointing it at the set is a one-line follow-up there.
