@@ -19,3 +19,12 @@ export const WithoutArrow = () => (
     <Button variant="secondary" arrow={false}>Discard</Button>
   </div>
 );
+
+export const Small = () => (
+  <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 'var(--sc-space-component-gap-md)' }}>
+    <Button size="sm">Update</Button>
+    <Button size="sm" variant="secondary">Merge</Button>
+    <Button size="sm" variant="tertiary">View all</Button>
+    <Button size="sm" disabled>Unavailable</Button>
+  </div>
+);

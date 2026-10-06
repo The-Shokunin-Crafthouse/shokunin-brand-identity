@@ -36,11 +36,13 @@ Sync target: claude.ai/design project "SCDS" (`projectId` in `config.json`, http
 - Not shown, cannot render statically: hover, focus and press states; NavBar compact menu open; Stepper press-and-hold.
 - `Card.tsx` export `Composed` mirrors the example in `conventions.md`. Change them together.
 - Avatar `Image` inlines `assets/logo/mark-icon-dark.png` as a data URI.
+- Studio PM shell props (2026-10-06): `Button` `Small`, `ProgressIndicator` `Tones`, `SegmentedControl` `LargeWithCounts` and `PlusSeparator` `MutedInDenseRow` show the new `size`, `tone`/`track`, `lg` + `count` and `tone="muted"` props. They port the demos in `ComponentSections.jsx` and `BrandElementSections.jsx`.
 - All components land in the `general` group. The source JSDoc sits above the imports, so the converter picks up neither a description nor a `@category`.
 
 ## Re-sync risks
 
 - `dtsPropsFor` is hand-written. It goes stale without any warning when a component's props change. Diff `src/components/*/*.jsx` signatures against it on every re-sync.
+- A brand element's sibling `<Name>.md` (its `.prompt.md` body) can lag its props. `PlusSeparator.md` does not mention `tone`; the props block appended from `dtsPropsFor` still carries it, so `dtsPropsFor` is the contract that must stay current.
 - `conventions.md` names tokens, glyphs and exports. Re-run its validation (grep each name against `ds-bundle/_ds_bundle.css` and `_ds_bundle.js`) after any token rename.
 - `guidelinesGlob` ships three `_config/` docs verbatim. A file move breaks the glob quietly (the guideline just stops shipping).
 - A Phosphor major bump changes glyph names on `window.SCDS`.
