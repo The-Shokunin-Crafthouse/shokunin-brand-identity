@@ -28,3 +28,18 @@ export const Breadcrumb = () => (
     </nav>
   </Modes>
 );
+
+export const MutedInDenseRow = () => (
+  <Modes side>
+    <div style={{ ...raised, width: 296 }}>
+      <p style={{ display: 'flex', alignItems: 'center', gap: 'var(--sc-space-component-gap-md)', margin: 0, font: 'var(--sc-font-text-body-dense)', color: 'var(--sc-color-text-secondary)' }}>
+        <span>#75</span>
+        <PlusSeparator tone="muted" />
+        <span>Studio PM shell</span>
+        <PlusSeparator tone="muted" />
+        <span>2 checks</span>
+      </p>
+      <p style={caption}>tone="muted"</p>
+    </div>
+  </Modes>
+);

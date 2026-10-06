@@ -25,3 +25,11 @@ export const InteractiveDisabled = () => (
     <ProgressIndicator variant="bar" interactive value={0.4} disabled label="Volume, disabled" />
   </div>
 );
+
+export const Tones = () => (
+  <div style={{ width: 320, display: 'grid', gap: 'var(--sc-space-layout-stack-sm)', background: 'var(--sc-color-surface-raised)', borderRadius: 'var(--sc-radius-surface)', padding: 'var(--sc-space-layout-inset-md)' }}>
+    <ProgressIndicator variant="bar" track="sunk" value={0.48} label="Opus, 48 percent" />
+    <ProgressIndicator variant="bar" tone="progress" track="sunk" value={0.1} label="All models, 10 percent" />
+    <ProgressIndicator variant="bar" tone="warning" track="sunk" value={0.84} label="Weekly limit, 84 percent" />
+  </div>
+);

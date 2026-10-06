@@ -47,3 +47,16 @@ export const Disabled = () => (
     label="View"
   />
 );
+
+export const LargeWithCounts = () => {
+  const [queue, setQueue] = useState('waiting');
+  return (
+    <SegmentedControl
+      size="lg"
+      options={[{ value: 'waiting', label: 'Waiting on you', count: 1 }, { value: 'blocked', label: 'Blocked on you', count: 3 }]}
+      value={queue}
+      onChange={setQueue}
+      label="Queue"
+    />
+  );
+};
