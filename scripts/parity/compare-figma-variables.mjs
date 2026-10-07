@@ -3,6 +3,7 @@
 // variable gets a row. Nothing is filtered out (#173).
 import { readFileSync, writeFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
+import { VARIABLE_NAMES } from '../figma-names.mjs';
 
 const root = new URL('../../', import.meta.url);
 const j = (p) => JSON.parse(readFileSync(new URL(p, root), 'utf8'));
@@ -85,23 +86,10 @@ function resolveFig(value, mode, seen = new Set()) {
 }
 
 /* ---------- name mapping ----------
-   Documented authoring differences (decisions.md 2026-08-16). Each entry is a
-   recorded convention difference, NOT drift — the resolved values still have to
-   agree, and a value mismatch on one of these is still reported. */
-const NAME_MAP = {
-  'color.status.success.ink.light':     'color/status/successInkLight',
-  'color.status.warning.ink.light':     'color/status/warningInkLight',
-  'color.status.warning.ink.dark':      'color/status/warningInkDark',
-  'color.status.info.ink.dark':         'color/status/infoInkDark',
-  'color.status.success.ink.dark':      'color/status/successInkDark',
-  'color.interactive.hoverInk.light':   'color/interactive/hoverInkLight',
-  // Renamed Figma-side on 2026-07-28 (audit Block 5); the code-side rename was
-  // deliberately deferred because --sc-color-text-on-inverse has live consumers.
-  'color.text-on-inverse':              'color/text/onInverse',
-  'color.surface-inverse':              'color/surface/inverse',
-  // Generator-side naming gap recorded as a Block 8 remainder.
-  'motion.press.release.duration':      'motion/press/release-duration',
-};
+   Documented authoring differences, one source shared with figma-plugin-check
+   and tune-figma-sync: scripts/figma-names.mjs. Each is a recorded convention,
+   NOT drift; the resolved values still have to agree. */
+const NAME_MAP = VARIABLE_NAMES;
 
 // Standing exception, re-affirmed every sync (decisions.md 2026-08-16): Figma
 // stores the TRIAL family names because the licensed faces will not load there;

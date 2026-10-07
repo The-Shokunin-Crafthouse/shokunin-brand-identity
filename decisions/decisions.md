@@ -2162,6 +2162,28 @@ Levi: the trailing arrow uses Phosphor's bold weight, not regular. Code: `ArrowR
 - `.color` gets `width: 100%`: at ≥1280 it is a shrink-to-fit flex item, and a contained child would collapse it (measured 540px instead of 777px).
 - Verified at 390 / 768 / 1024 / 1280 / 1440, each at a 256px and a simulated 304px rail: page `scrollWidth == clientWidth` and no block's descendants overflow. `vite build` exits 0.
 
+### 2026-10-07: tune-figma-sync reads the library instead of inferring it from the diff
+
+**Status:** Accepted. Levi: fix the sync script bug permanently, in its own PR.
+
+- **Bug:** the generator diffed `tokens/*.json` against `--since` and reported "Bind by hand: None: every change updates a token the library already binds". A token that existed at the base but never reached Figma (the SegmentedControl role tokens, created at 0 in `a0f3513`) got no create op and no warning; the apply nearly shipped with the library unbound. Two silent drops rode along: `duration` tokens (the library keeps motion durations as FLOAT) and `spring`/easing tokens were skipped without a line in the report, and created variables took Figma's default ALL_SCOPES.
+- **Fix:** every generated call carries a manifest of all library-syncable names (variables per collection, effect styles, text styles) and returns `{ done, created, absent, missing }`, read from the library at run time. `--tokens <a,b,c>` (token paths or library names, `Primitives:` prefix for that collection) builds create ops for named tokens, so `absent` pastes straight back in. Durations sync as FLOAT ms; code-only types are listed under "Code only"; created variables get explicit scopes by role (fills, text, stroke, width/height, gap, radius; none for motion). The report's "After the call" section replaces the diff-based "Bind by hand".
+- **Tests:** `scripts/tune-figma-sync.test.mjs` (`npm run test:scripts`), committed red first (4/4 failing for the stated reasons), then green; a planted bug in the `absent` filter turned the first test red. The tests run the real CLI and execute the generated code against a fake library.
+- **Live proof:** the generated read-only call (`--since HEAD`, 0 ops) on the SCDS library checked 330 names and returned 34 absent, with nothing written. They are real: the inert motion tokens of PlusUnderline, NavBar and Tooltip, `leanDuration` for Switch and SegmentedControl, `motion/press/release/duration`, `size/switch/labelOffset`; and naming drift where the library uses other names than the token paths (status-ink and `interactive/hoverInk/light` primitives, `color/text-on-inverse`, `color/surface-inverse`, `text/body/*` and `text/nav/*` styles). Reconciling the names is its own change.
+- **Skill:** sc-tune procedure D step 7 now reads `absent` and binds only `created`.
+
+### 2026-10-07: library reconciled with the token files; one name map for sync and parity
+
+**Status:** Accepted. Levi: reconcile the 34 tokens the fixed sync reported absent.
+
+- **Direction kept from earlier decisions:** the token files are the source of values; the library keeps its documented names. Audit 5.5 (2026-07-28) renamed `color/text-on-inverse` and `color/surface-inverse` Figma-side to `text/onInverse` and `surface/inverse`, and 5.6 kept `motion/press/release-duration`; the flat ink tier and the body regular/bold and nav text-style names are recorded differences (2026-08-16, 2026-10-03). Renaming them back would reopen those decisions; renaming the code tokens would break live CSS consumers. So 18 of the 34 were not missing at all: the sync looked under the token paths.
+- **One map:** new `scripts/figma-names.mjs` holds those differences. `tune-figma-sync`, `parity/compare-figma-variables` and `parity/figma-plugin-check` all import it (the plugin check no longer regex-reads `NAME_MAP` out of another script). The map gains `color.status.info.ink.light` → `color/status/infoInkLight`, added to the library today but never mapped, and text-style names kebab their segments everywhere (`label.buttonLg` → `text/label/button-lg`, which the plugin check had rendered `text/label/buttonLg`).
+- **Aliases name their collection:** a semantic alias now resolves in its target's collection; `color/signal/live` exists in both, and a name-only lookup could alias a variable to itself.
+- **Created in the library** (generated `--tokens` call, run verbatim): `motion/switch/press/leanDuration`, `motion/segmentedControl/press/leanDuration`, the five PlusUnderline and five NavBar motion variables, the three Tooltip ones, and `size/switch/labelOffset`; durations alias `motion/duration/press` or `/micro` in Primitives, the rest are 0 (inert), motion scopes empty. No master reads them (Figma masters do not animate; the library Toggle has no label), so nothing to bind.
+- **Result:** the same call re-checked all 330 library-syncable names and returned `absent: []`, `missing: []`.
+- **Tests:** 7 in `npm run test:scripts`, each new one committed red first (`38361eb`, `435ce3b`). `figma-plugin-check` and `compare-figma-variables` still run (exit 0).
+- **Not run:** the full value-parity pass (`figma-plugin-check`) on the live library; the values written today come from the token files, and older value drift, if any, is that check's job.
+
 ### 2026-10-07: the oatmeal warm-gray set returns; the library is canonical
 
 **Status:** Accepted. Supersedes the scds-v2 light-surface desaturation (warmGray.25/50/100 only). Closes the "Open" line of the sidebar redesign entry above. Levi's call: "this is the floor #E3DFD8, update the warmgrey color ramp to match."
