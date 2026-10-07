@@ -591,7 +591,7 @@
         "faceTop": {
           "$type": "color",
           "$value": "{color.warmGray.50}",
-          "$description": "Dark per Record Switch 2026-10-07-1539, concept B (Levi), applied 2026-10-07. 2026-10-07 · Switch restyled to the Drams Standard Switch (drams/001) at SCDS size. Knob face gradient, top stop (Drams #F2F2F2 to #E8E8E8). Dark keeps a light physical knob, dimmed per stop, so the object keeps its material at night.",
+          "$description": "Dark per Record Switch 2026-10-07-1539, concept B (Levi), applied 2026-10-07. 2026-10-07 · Switch restyled to the Drams Standard Switch (drams/001) at SCDS size. Knob face gradient, top stop (Drams #F2F2F2 to #E8E8E8). Dark keeps a light physical knob: warmGray.200 to dark.textTertiary, less oatmeal than the light knob.",
           "$extensions": { "modes": { "light": "{color.warmGray.50}", "dark": "{color.warmGray.200}" } }
         },
         "faceBottom": {
@@ -619,13 +619,13 @@
         "off": {
           "$type": "color",
           "$value": "{color.warmGray.300}",
-          "$description": "Dark per Record Switch 2026-10-07-1539, concept B (Levi), applied 2026-10-07. 2026-10-07 · Switch off-track floor, the recess under the knob. Same values as surface.deepSunk (light warmGray.300, dark dark.raised2); its own role so the Switch floor tunes in sc-tune without moving cards, inputs and meters that read deepSunk (Levi).",
+          "$description": "Dark per Record Switch 2026-10-07-1539, concept B (Levi), applied 2026-10-07. 2026-10-07 · Switch off-track floor, the recess under the knob. Light = surface.deepSunk (warmGray.300); dark = dark.well, darker than the page so the recess reads as a recess; its own role so the Switch floor tunes in sc-tune without moving cards, inputs and meters that read deepSunk (Levi).",
           "$extensions": { "modes": { "light": "{color.warmGray.300}", "dark": "{color.dark.well}" } }
         },
         "offHover": {
           "$type": "color",
           "$value": "{color.warmGray.250}",
-          "$description": "Dark per Record Switch 2026-10-07-1539, concept B (Levi), applied 2026-10-07. 2026-10-07 · Switch off-track floor on hover. Same values as surface.hover (light warmGray.250, dark dark.raised1, which reads darker than the resting floor in dark mode); its own role so it tunes with the floor.",
+          "$description": "Dark per Record Switch 2026-10-07-1539, concept B (Levi), applied 2026-10-07. 2026-10-07 · Switch off-track floor on hover. Light = surface.hover (warmGray.250); dark = dark.floor, a hair lighter than the resting floor in both modes; its own role so it tunes with the floor.",
           "$extensions": { "modes": { "light": "{color.warmGray.250}", "dark": "{color.dark.floor}" } }
         }
       }
