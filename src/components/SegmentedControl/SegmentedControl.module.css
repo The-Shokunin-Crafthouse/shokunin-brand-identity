@@ -1,6 +1,8 @@
 /* tokens:
- *   --sc-color-surface-sunk               · track ground
- *   --sc-color-surface-floating           · selected segment fill (raised, fill-only — no border/shadow)
+ *   --sc-color-segmented-control-track    · track ground (role token, = surface.sunk)
+ *   --sc-color-segmented-control-indicator · selected segment fill (role token, = surface.floating)
+ *   --sc-color-segmented-control-indicator-shade · 135deg face shade on the indicator (Button key face; shipped transparent)
+ *   --sc-shadow-segmented-control-track / -indicator · recess and key lift (shipped zero alpha; tuned in sc-tune)
  *   --sc-color-text-secondary             · unselected segment text
  *   --sc-color-text-primary               · selected segment text ("ink")
  *   --sc-color-text-disabled              · disabled segment text
@@ -29,7 +31,8 @@
   gap: var(--sc-space-component-gap-sm);
   padding: var(--sc-space-component-padding-sm);
   border-radius: var(--sc-radius-pill);
-  background-color: var(--sc-color-surface-sunk);
+  background-color: var(--sc-color-segmented-control-track);
+  box-shadow: var(--sc-shadow-segmented-control-track);
 }
 
 .indicator {
@@ -38,7 +41,9 @@
   bottom: var(--sc-space-component-padding-sm);
   left: 0;
   border-radius: var(--sc-radius-pill);
-  background-color: var(--sc-color-surface-floating);
+  background-color: var(--sc-color-segmented-control-indicator);
+  background-image: linear-gradient(135deg, transparent, var(--sc-color-segmented-control-indicator-shade));
+  box-shadow: var(--sc-shadow-segmented-control-indicator);
   transition:
     transform var(--sc-motion-segmented-control-travel-duration) var(--sc-motion-segmented-control-travel-easing),
     width var(--sc-motion-segmented-control-travel-duration) var(--sc-motion-segmented-control-travel-easing);
@@ -121,6 +126,13 @@
 
 .disabled {
   cursor: not-allowed;
+}
+
+/* Disabled is flat: losing the material is the unavailable signal. */
+.disabled.track,
+.disabled .indicator {
+  box-shadow: none;
+  background-image: none;
 }
 
 @media (prefers-reduced-motion: reduce) {

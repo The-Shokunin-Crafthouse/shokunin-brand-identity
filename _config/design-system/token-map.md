@@ -5,7 +5,7 @@
 # Design Token Map — The Shokunin Crafthouse · Brand Identity
 
 **Generated** from `tokens/primitives.json` + `tokens/semantic.json`.
-**Source fingerprint:** `28ce8e7eb985` · **180 primitives · 188 semantic tokens.**
+**Source fingerprint:** `4d32c5a2eccd` · **180 primitives · 193 semantic tokens.**
 
 > **This file is a mirror, not the source.** `tokens/*.json` is upstream; this document and the Figma
 > library are generated from / synced to it. It previously claimed the opposite — that both were
@@ -555,6 +555,14 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | `color/switch/track/off` | `--sc-color-switch-track-off` | `color/warmGray/300` | `#B0A69C` | `color/dark/well` | `#1F252C` | Dark per Record Switch 2026-10-07-1539, concept B (Levi), applied 2026-10-07. |
 | `color/switch/track/offHover` | `--sc-color-switch-track-off-hover` | `color/warmGray/250` | `#C4BCB4` | `color/dark/floor` | `#252B32` | Dark per Record Switch 2026-10-07-1539, concept B (Levi), applied 2026-10-07. |
 
+#### `color/segmentedControl`
+
+| Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
+|---|---|---|---|---|---|---|
+| `color/segmentedControl/track` | `--sc-color-segmented-control-track` | `color/warmGray/200` | `#D8D1CC` | `color/dark/well` | `#1F252C` | 2026-10-07 · SegmentedControl material (physical-controls Tier 1: recessed track, key indicator), tuned in sc-tune. |
+| `color/segmentedControl/indicator` | `--sc-color-segmented-control-indicator` | `color/warmGray/25` | `#F8F6F2` | `color/dark/raised2` | `#3B4249` | 2026-10-07 · SegmentedControl material (physical-controls Tier 1: recessed track, key indicator), tuned in sc-tune. |
+| `color/segmentedControl/indicatorShade` | `--sc-color-segmented-control-indicator-shade` | _literal_ | `rgb(var(--sc-p-color-ink-rgb) / 0)` | _literal_ | `rgb(var(--sc-p-color-ink-rgb) / 0)` | 2026-10-07 · SegmentedControl material (physical-controls Tier 1: recessed track, key indicator), tuned in sc-tune. |
+
 ### Typography · Semantic
 
 #### `font/text`
@@ -760,6 +768,8 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | `shadow/control/keyPressed` | `--sc-shadow-control-key-pressed` | _literal_ | `2px 2px 6px 0 rgb(100 91 79 / 0.37), -1px -1px 1px 1px rgb(253 250 246 / 0.90), inset 1px 1px 8px 0 rgb(var(--sc-p-color-white-rgb) / 0.30)` | _literal_ | `3px 3px 7px 0 rgb(0 0 0 / 0.38), -1px -1px 1px 1px rgb(219 235 255 / 0.14), inset 1px 1px 8px 0 rgb(var(--sc-p-color-white-rgb) / 0.06)` | 2026-10-07 · Button primary = Drams OP-1 Keys (drams/036), horizontal, on the page surface (Levi). |
 | `shadow/switch/track` | `--sc-shadow-switch-track` | _literal_ | `inset 0 0.45px 0.9px rgb(var(--sc-p-color-ink-rgb) / 0.25)` | _literal_ | `inset 0 0.45px 0.9px rgb(0 0 0 / 0.45)` | 2026-10-07 · Switch restyled to the Drams Standard Switch (drams/001) at SCDS size. |
 | `shadow/switch/thumb` | `--sc-shadow-switch-thumb` | _literal_ | `0 0.37px 0.52px -0.28px rgb(var(--sc-p-color-ink-rgb) / 0.26), 0 0.95px 1.33px -0.56px rgb(var(--sc-p-color-ink-rgb) / 0.25), 0 1.9px 2.66px -0.84px rgb(var(--sc-p-color-ink-rgb) / 0.24), 0 3.6px 5.05px -1.13px rgb(var(--sc-p-color-ink-rgb) / 0.22), 0 7.16px 10.03px -1.41px rgb(var(--sc-p-color-ink-rgb) / 0.18), 0 15.75px 22.05px 0 rgb(var(--sc-p-color-ink-rgb) / 0.09)` | _literal_ | `0 0.37px 0.52px -0.28px rgb(0 0 0 / 0.42), 0 0.95px 1.33px -0.56px rgb(0 0 0 / 0.40), 0 1.9px 2.66px -0.84px rgb(0 0 0 / 0.38), 0 3.6px 5.05px -1.13px rgb(0 0 0 / 0.35), 0 7.16px 10.03px -1.41px rgb(0 0 0 / 0.29), 0 15.75px 22.05px 0 rgb(0 0 0 / 0.14)` | 2026-10-07 · Switch restyled to the Drams Standard Switch (drams/001) at SCDS size. |
+| `shadow/segmentedControl/track` | `--sc-shadow-segmented-control-track` | _literal_ | `inset 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)` | _literal_ | `inset 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)` | 2026-10-07 · SegmentedControl material (physical-controls Tier 1: recessed track, key indicator), tuned in sc-tune. |
+| `shadow/segmentedControl/indicator` | `--sc-shadow-segmented-control-indicator` | _literal_ | `0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)` | _literal_ | `0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)` | 2026-10-07 · SegmentedControl material (physical-controls Tier 1: recessed track, key indicator), tuned in sc-tune. |
 
 ### Size · Semantic
 

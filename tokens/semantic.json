@@ -629,6 +629,11 @@
           "$extensions": { "modes": { "light": "{color.warmGray.250}", "dark": "{color.dark.floor}" } }
         }
       }
+    },
+    "segmentedControl": {
+      "track": { "$type": "color", "$value": "{color.warmGray.200}", "$description": "2026-10-07 \u00b7 SegmentedControl material (physical-controls Tier 1: recessed track, key indicator), tuned in sc-tune. Track ground. Shipped = surface.sunk; its own role so the track tunes without moving cards and other sunk surfaces.", "$extensions": { "modes": { "light": "{color.warmGray.200}", "dark": "{color.dark.well}" } } },
+      "indicator": { "$type": "color", "$value": "{color.warmGray.25}", "$description": "2026-10-07 \u00b7 SegmentedControl material (physical-controls Tier 1: recessed track, key indicator), tuned in sc-tune. Selected-segment indicator fill. Shipped = surface.floating.", "$extensions": { "modes": { "light": "{color.warmGray.25}", "dark": "{color.dark.raised2}" } } },
+      "indicatorShade": { "$type": "color", "$value": "rgb(var(--sc-p-color-ink-rgb) / 0)", "$description": "2026-10-07 \u00b7 SegmentedControl material (physical-controls Tier 1: recessed track, key indicator), tuned in sc-tune. Shade at the far corner of the indicator face: linear-gradient(135deg, transparent, indicatorShade), the Button key's face (control.keyShade). Shipped transparent (flat).", "$extensions": { "modes": { "light": "rgb(var(--sc-p-color-ink-rgb) / 0)", "dark": "rgb(var(--sc-p-color-ink-rgb) / 0)" } } }
     }
   },
   "border": {
@@ -760,6 +765,10 @@
           "dark":  "0 0.37px 0.52px -0.28px rgb(0 0 0 / 0.42), 0 0.95px 1.33px -0.56px rgb(0 0 0 / 0.40), 0 1.9px 2.66px -0.84px rgb(0 0 0 / 0.38), 0 3.6px 5.05px -1.13px rgb(0 0 0 / 0.35), 0 7.16px 10.03px -1.41px rgb(0 0 0 / 0.29), 0 15.75px 22.05px 0 rgb(0 0 0 / 0.14)"
         } }
       }
+    },
+    "segmentedControl": {
+      "track": { "$type": "shadow", "$value": "inset 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)", "$description": "2026-10-07 \u00b7 SegmentedControl material (physical-controls Tier 1: recessed track, key indicator), tuned in sc-tune. Recess of the track. Shipped with zero alpha (flat); the lab starts from the Switch recess turned to the top-left system light.", "$extensions": { "modes": { "light": "inset 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)", "dark": "inset 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)" } } },
+      "indicator": { "$type": "shadow", "$value": "0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)", "$description": "2026-10-07 \u00b7 SegmentedControl material (physical-controls Tier 1: recessed track, key indicator), tuned in sc-tune. Lift of the indicator key. Shipped with zero alpha (flat); the lab starts from shadow.control.key, the Button key, lit from the top left.", "$extensions": { "modes": { "light": "0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)", "dark": "0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)" } } }
     }
   },
   "motion": {

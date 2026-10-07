@@ -2110,3 +2110,12 @@ Levi: the trailing arrow uses Phosphor's bold weight, not regular. Code: `ArrowR
 - **The old rule was already false:** `motion.easing.springOut` (Button release, 2026-07-23) rises to 1.56. The new copy names it.
 - **Direction for the build:** anything a finger moves (Switch, SegmentedControl, PlusUnderline, NavBar underline) travels on a tuned spring; bounce above 0 no longer needs an exception. Reading surfaces (Tooltip enter, panels, pages) keep the four curves unless Levi tunes otherwise. Values still come from sc-tune records, never set in code.
 - **Still open:** the formal SCDS motion-philosophy pick (sc-motion, Gate 1 of its own; CONTEXT "Out of scope"). This direction reads closest to Experiential / Spatial; the pick itself is Levi's.
+
+### 2026-10-07: SegmentedControl material tokens for its sc-tune session (shipped flat)
+
+**Status:** Accepted. Levi: open SegmentedControl in the lab. The audit's Tier 1 change (recessed track, key indicator) had no tokens to tune, and the track and indicator read shared surfaces.
+
+- **Role tokens, shipped equal to today:** `color.segmentedControl.track` (= surface.sunk), `.indicator` (= surface.floating), `.indicatorShade` (transparent), `shadow.segmentedControl.track` and `.indicator` (zero alpha). The indicator gains the Button key's face, `linear-gradient(135deg, transparent, indicatorShade)`, invisible while the shade is transparent. Disabled stays flat (no recess, no lift, no face).
+- **Lab starts (concept seeds, lit from the top left per Gate 1 pick 1):** track recess = the Drams recess (inset 0 1px 2px at .25, the Switch's source before its ×0.45 scale) turned to the top left: `inset 0.71px 0.71px 2px` ink .25 light, black .45 dark. Indicator = the Button key, `shadow.control.key` and `color.control.keyShade` per mode. Plus the reel motion seed already in place.
+- **Lab engine:** registry seeds can be per mode (`seed.scoped`), checked per mode so a light seed does not block its dark twin.
+- Segment padding still reads the shared `padding-inline/block.*` tokens; procedure D gives it role tokens if Levi tunes them.

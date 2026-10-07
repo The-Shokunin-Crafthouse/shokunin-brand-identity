@@ -181,6 +181,12 @@ function seedConcept(entry, c) {
   for (const [name, value] of Object.entries(entry.seed?.overrides || {})) {
     if (!Object.values(c.overrides).some((m) => name in m)) c.overrides.all[name] = value;
   }
+  // Per-mode seeds (a shadow or colour whose start differs in light and dark).
+  for (const [mode, map] of Object.entries(entry.seed?.scoped || {})) {
+    for (const [name, value] of Object.entries(map)) {
+      if (!(name in c.overrides[mode]) && !(name in c.overrides.all)) c.overrides[mode][name] = value;
+    }
+  }
   for (const [name, sp] of Object.entries(entry.seed?.springs || {})) {
     if (c.springs[name] || Object.values(c.overrides).some((m) => name in m)) continue;
     const r = springToLinear(sp);

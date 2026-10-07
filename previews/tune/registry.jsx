@@ -173,6 +173,25 @@ export const REGISTRY = {
   SegmentedControl: {
     css: [segmentedCss],
     ...reel('segmented-control'),
+    // Material starts (physical-controls Tier 1), lit from the top left (Gate 1 pick 1):
+    // the track recess is the Drams recess (inset 0 1px 2px, the Switch's source before
+    // its ×0.45 scale) turned to the top left; the indicator is the Button key
+    // (shadow.control.key, color.control.keyShade). They ship flat.
+    seed: {
+      ...reel('segmented-control').seed,
+      scoped: {
+        light: {
+          '--sc-shadow-segmented-control-track': 'inset 0.71px 0.71px 2px 0 rgb(26 24 21 / 0.25)',
+          '--sc-shadow-segmented-control-indicator': '2px 2px 6px 0 rgb(100 91 79 / 0.50), -1px -1px 1px 1px rgb(253 250 246 / 1)',
+          '--sc-color-segmented-control-indicator-shade': 'rgb(26 24 21 / 0.05)',
+        },
+        dark: {
+          '--sc-shadow-segmented-control-track': 'inset 0.71px 0.71px 2px 0 rgb(0 0 0 / 0.45)',
+          '--sc-shadow-segmented-control-indicator': '3px 3px 7px 0 rgb(0 0 0 / 0.50), -1px -1px 1px 1px rgb(219 235 255 / 0.17)',
+          '--sc-color-segmented-control-indicator-shade': 'rgb(26 24 21 / 0.25)',
+        },
+      },
+    },
     shippedSound: 'drams-001-01.wav',
     trigger: 'a change of selection; re-selecting is silent',
     props: [

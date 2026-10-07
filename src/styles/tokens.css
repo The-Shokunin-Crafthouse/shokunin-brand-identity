@@ -414,6 +414,9 @@
   --sc-color-switch-glyph-off: var(--sc-p-color-warm-gray-25);
   --sc-color-switch-track-off: var(--sc-p-color-warm-gray-300);
   --sc-color-switch-track-off-hover: var(--sc-p-color-warm-gray-250);
+  --sc-color-segmented-control-track: var(--sc-p-color-warm-gray-200);
+  --sc-color-segmented-control-indicator: var(--sc-p-color-warm-gray-25);
+  --sc-color-segmented-control-indicator-shade: rgb(var(--sc-p-color-ink-rgb) / 0);
   --sc-border-width-default: var(--sc-p-border-width-hairline);
   --sc-border-width-focus: var(--sc-p-border-width-focus);
   --sc-border-width-accent: var(--sc-p-border-width-accent);
@@ -430,6 +433,8 @@
   --sc-shadow-control-key-pressed: 2px 2px 6px 0 rgb(100 91 79 / 0.37), -1px -1px 1px 1px rgb(253 250 246 / 0.90), inset 1px 1px 8px 0 rgb(var(--sc-p-color-white-rgb) / 0.30);
   --sc-shadow-switch-track: inset 0 0.45px 0.9px rgb(var(--sc-p-color-ink-rgb) / 0.25);
   --sc-shadow-switch-thumb: 0 0.37px 0.52px -0.28px rgb(var(--sc-p-color-ink-rgb) / 0.26), 0 0.95px 1.33px -0.56px rgb(var(--sc-p-color-ink-rgb) / 0.25), 0 1.9px 2.66px -0.84px rgb(var(--sc-p-color-ink-rgb) / 0.24), 0 3.6px 5.05px -1.13px rgb(var(--sc-p-color-ink-rgb) / 0.22), 0 7.16px 10.03px -1.41px rgb(var(--sc-p-color-ink-rgb) / 0.18), 0 15.75px 22.05px 0 rgb(var(--sc-p-color-ink-rgb) / 0.09);
+  --sc-shadow-segmented-control-track: inset 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0);
+  --sc-shadow-segmented-control-indicator: 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0);
   --sc-motion-hover-duration: var(--sc-p-motion-duration-micro);
   --sc-motion-hover-easing: var(--sc-p-motion-easing-out);
   --sc-motion-press-duration: var(--sc-p-motion-duration-press);
@@ -736,6 +741,9 @@
   --sc-color-switch-glyph-off: var(--sc-p-color-dark-text-disabled);
   --sc-color-switch-track-off: var(--sc-p-color-dark-well);
   --sc-color-switch-track-off-hover: var(--sc-p-color-dark-floor);
+  --sc-color-segmented-control-track: var(--sc-p-color-dark-well);
+  --sc-color-segmented-control-indicator: var(--sc-p-color-dark-raised2);
+  --sc-color-segmented-control-indicator-shade: rgb(var(--sc-p-color-ink-rgb) / 0);
   --sc-border-width-default: var(--sc-p-border-width-hairline);
   --sc-border-width-focus: var(--sc-p-border-width-focus);
   --sc-border-width-accent: var(--sc-p-border-width-accent);
@@ -752,6 +760,8 @@
   --sc-shadow-control-key-pressed: 3px 3px 7px 0 rgb(0 0 0 / 0.38), -1px -1px 1px 1px rgb(219 235 255 / 0.14), inset 1px 1px 8px 0 rgb(var(--sc-p-color-white-rgb) / 0.06);
   --sc-shadow-switch-track: inset 0 0.45px 0.9px rgb(0 0 0 / 0.45);
   --sc-shadow-switch-thumb: 0 0.37px 0.52px -0.28px rgb(0 0 0 / 0.42), 0 0.95px 1.33px -0.56px rgb(0 0 0 / 0.40), 0 1.9px 2.66px -0.84px rgb(0 0 0 / 0.38), 0 3.6px 5.05px -1.13px rgb(0 0 0 / 0.35), 0 7.16px 10.03px -1.41px rgb(0 0 0 / 0.29), 0 15.75px 22.05px 0 rgb(0 0 0 / 0.14);
+  --sc-shadow-segmented-control-track: inset 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0);
+  --sc-shadow-segmented-control-indicator: 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0);
   --sc-motion-hover-duration: var(--sc-p-motion-duration-micro);
   --sc-motion-hover-easing: var(--sc-p-motion-easing-out);
   --sc-motion-press-duration: var(--sc-p-motion-duration-press);

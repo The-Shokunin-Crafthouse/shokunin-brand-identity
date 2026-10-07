@@ -171,8 +171,8 @@ public enum SCDS {
     public static let semanticVersion = "0.1.0"
     public static let sourceGenerated = "2026-05-26"
     public static let primitivesHash = "aa28930704213cf1"
-    public static let semanticHash = "9f638438feaf602b"
-    public static let tokenCount = 188
+    public static let semanticHash = "51045b80058c0365"
+    public static let tokenCount = 193
   }
 
   // MARK: - Color
@@ -519,6 +519,24 @@ public enum SCDS {
     public static let switchTrackOffHover = SwiftUI.Color.scdsDynamic(
         light: (0.768627, 0.737255, 0.705882, 1),
         dark:  (0.145098, 0.168627, 0.196078, 1)
+    )
+
+    /// `color.segmentedControl.track`
+    public static let segmentedControlTrack = SwiftUI.Color.scdsDynamic(
+        light: (0.847059, 0.819608, 0.8, 1),
+        dark:  (0.121569, 0.145098, 0.172549, 1)
+    )
+
+    /// `color.segmentedControl.indicator`
+    public static let segmentedControlIndicator = SwiftUI.Color.scdsDynamic(
+        light: (0.972549, 0.964706, 0.94902, 1),
+        dark:  (0.231373, 0.258824, 0.286275, 1)
+    )
+
+    /// `color.segmentedControl.indicatorShade`
+    public static let segmentedControlIndicatorShade = SwiftUI.Color.scdsDynamic(
+        light: (0.101961, 0.094118, 0.082353, 0),
+        dark:  (0.101961, 0.094118, 0.082353, 0)
     )
   }
 
@@ -1208,6 +1226,26 @@ public enum SCDS {
             SCDSShadowLayer(inset: false, x: 0, y: 3.6, blur: 5.05, spread: -1.13, rgb: (0, 0, 0), alpha: 0.35),
             SCDSShadowLayer(inset: false, x: 0, y: 7.16, blur: 10.03, spread: -1.41, rgb: (0, 0, 0), alpha: 0.29),
             SCDSShadowLayer(inset: false, x: 0, y: 15.75, blur: 22.05, spread: 0, rgb: (0, 0, 0), alpha: 0.14),
+        ]
+    )
+
+    /// `shadow.segmentedControl.track` · 1 layers
+    public static let segmentedControlTrack = SCDSShadow(
+        light: [
+            SCDSShadowLayer(inset: true, x: 0, y: 0, blur: 0, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0),
+        ],
+        dark: [
+            SCDSShadowLayer(inset: true, x: 0, y: 0, blur: 0, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0),
+        ]
+    )
+
+    /// `shadow.segmentedControl.indicator` · 1 layers
+    public static let segmentedControlIndicator = SCDSShadow(
+        light: [
+            SCDSShadowLayer(inset: false, x: 0, y: 0, blur: 0, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0),
+        ],
+        dark: [
+            SCDSShadowLayer(inset: false, x: 0, y: 0, blur: 0, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0),
         ]
     )
   }
