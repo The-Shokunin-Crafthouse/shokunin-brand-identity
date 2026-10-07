@@ -5,13 +5,15 @@
  *   node scripts/tune-record.mjs <spec.json | ->
  *
  * Input: the object `window.scTune.export()` returns in the tuning lab
- * (previews/tune/), as a file or on stdin.
+ * (previews/tune/, spec version 2), as a file or on stdin.
  *
  * Output: output/tuning/<Component>/<YYYY-MM-DD-HHMM>/
  *   spec.json   the export, verbatim
- *   spec.md     exact values: every tuned token (shipped → tuned, with the
- *               nearest primitive for raw colours and lengths), props,
- *               sound, derived geometry, and a paste-ready CSS block
+ *   spec.md     the pick and its reason, Levi's notes (as requirements),
+ *               then per concept: every tuned token (shipped → tuned,
+ *               nearest primitive, pinned note), springs with Framer
+ *               Motion params, props or motion spec, sound, and a
+ *               paste-ready CSS block
  *   snapshot/   a static build of the lab locked to this spec, with the
  *               chosen sound copied in. Serve it, then open index.html:
  *               npx vite preview --outDir <that folder>
@@ -32,8 +34,8 @@ if (!arg) {
 }
 const raw = arg === '-' ? readFileSync(0, 'utf8') : readFileSync(resolve(arg), 'utf8');
 const spec = JSON.parse(raw);
-if (spec.tool !== 'sc-tune' || !spec.component || !Array.isArray(spec.tokens) || !spec.state) {
-  console.error('not an sc-tune export (expected tool, component, tokens, state)');
+if (spec.tool !== 'sc-tune' || spec.version !== 2 || !spec.component || !Array.isArray(spec.concepts) || !spec.state) {
+  console.error('not an sc-tune v2 export (expected tool, version 2, component, concepts, state)');
   process.exit(1);
 }
 
@@ -85,37 +87,69 @@ mkdirSync(outDir, { recursive: true });
 writeFileSync(resolve(outDir, 'spec.json'), JSON.stringify(spec, null, 2) + '\n');
 
 const esc = (v) => String(v ?? '').replace(/\|/g, '\\|');
+const quote = (text) => text.split('\n').map((l) => `> ${l}`).join('\n');
 const lines = [];
+const multi = spec.concepts.length > 1;
 lines.push(`# ${spec.component} tuning spec, ${stamp}`, '');
-lines.push(`Recorded from the sc-tune lab (\`previews/tune/?c=${spec.component}\`) at ${spec.recorded}. Theme: ${spec.theme}. ${spec.tokens.length} of ${spec.tokenCount} tokens tuned.`, '');
-lines.push('## Tokens', '');
-if (spec.tokens.length === 0) lines.push('No token changed. The shipped values stand.', '');
-else {
-  lines.push('| Token | Kind | Shipped | Tuned | Set as | Token match |', '| --- | --- | --- | --- | --- | --- |');
-  for (const t of spec.tokens) {
-    lines.push(`| \`${t.name}\` | ${t.kind} | \`${esc(t.shipped)}\` | \`${esc(t.tuned)}\` | \`${esc(t.override)}\`${t.shadowAdjust ? ` (scale ${t.shadowAdjust.scale ?? 1}, strength ${t.shadowAdjust.strength ?? 1})` : ''} | ${esc(nearest(t))} |`);
-  }
-  lines.push('');
+lines.push(`Recorded from the sc-tune lab (\`previews/tune/?c=${spec.component}\`) at ${spec.recorded}. Theme: ${spec.theme}. ${spec.concepts.length} concept${multi ? 's' : ''}.`, '');
+if (spec.pick) {
+  lines.push('## Pick', '', `**Concept ${spec.pick.concept}.**${spec.pick.reason ? ' Levi\'s reason:' : ' No reason given.'}`, '');
+  if (spec.pick.reason) lines.push(quote(spec.pick.reason), '');
+} else if (multi) {
+  lines.push('## Pick', '', 'No concept picked. Ask Levi before building.', '');
 }
-lines.push('## Props', '', '| Prop | Value |', '| --- | --- |');
-for (const [k, v] of Object.entries(spec.props)) lines.push(`| \`${k}\` | \`${esc(JSON.stringify(v))}\` |`);
-lines.push('');
-lines.push('## Sound', '');
-const snd = spec.sound;
-lines.push(`- File: ${snd.file ? `\`${snd.file}\`` : 'silent'}${snd.file === snd.shipped ? ' (shipped)' : snd.shipped ? ` (shipped: \`${snd.shipped}\`)` : ' (component ships silent)'}`);
-lines.push(`- Volume: ${snd.volume}${snd.volume !== 0.7 ? ' (SoundProvider default is 0.7)' : ''}`);
-lines.push(`- Pitch (playback rate): ${snd.rate}${snd.rate !== 1 ? '. The engine plays at 1×; ship this by re-encoding the file, not by a runtime rate.' : ''}`);
-lines.push(`- Fires on: ${snd.trigger}`, '');
+lines.push('## Notes for the build', '');
+lines.push(spec.notes?.trim() ? quote(spec.notes.trim()) : 'None.', '');
+lines.push('Treat every note as a requirement. A note the build cannot meet goes back to Levi as an open question, not a guess.', '');
+
+for (const c of spec.concepts) {
+  const picked = spec.pick?.concept === c.id;
+  lines.push(`## Concept ${c.id}${picked ? ' (picked)' : ''}`, '');
+  if (c.notes?.trim()) lines.push(quote(c.notes.trim()), '');
+  lines.push('### Tokens', '');
+  if (!c.tokens.length) lines.push('No token changed.', '');
+  else {
+    lines.push('| Token | Kind | Shipped | Tuned | Set as | Token match | Note |', '| --- | --- | --- | --- | --- | --- | --- |');
+    for (const t of c.tokens) {
+      const how = t.spring ? `spring k${t.spring.stiffness} c${t.spring.damping} m${t.spring.mass}` : `\`${esc(t.override.length > 80 ? t.override.slice(0, 77) + '…' : t.override)}\``;
+      const tunedShown = t.tuned && t.tuned.length > 80 ? t.tuned.slice(0, 77) + '…' : t.tuned;
+      lines.push(`| \`${t.name}\` | ${t.kind} | \`${esc(t.shipped)}\` | \`${esc(tunedShown)}\` | ${how}${t.shadowAdjust ? ` (scale ${t.shadowAdjust.scale ?? 1}, strength ${t.shadowAdjust.strength ?? 1})` : ''} | ${esc(nearest(t))} | ${esc(c.pins?.[t.name] || '')} |`);
+    }
+    lines.push('');
+  }
+  const loosePins = Object.entries(c.pins || {}).filter(([n]) => !c.tokens.some((t) => t.name === n));
+  if (loosePins.length) {
+    lines.push('Notes pinned to unchanged tokens:', '');
+    for (const [n, v] of loosePins) lines.push(`- \`${n}\`: ${v}`);
+    lines.push('');
+  }
+  const springs = c.tokens.filter((t) => t.spring);
+  if (springs.length || c.motion?.spring) {
+    lines.push('### Springs', '');
+    for (const t of springs) lines.push(`- \`${t.name}\`: Framer Motion \`${JSON.stringify(t.spring.framerMotion)}\`; settles in ${t.spring.settleMs}ms, overshoot ${Math.round(t.spring.overshoot * 100)}%. CSS: the \`linear()\` value in spec.json.`);
+    if (c.motion?.spring) lines.push(`- \`easing\`: Framer Motion \`${JSON.stringify(c.motion.spring.framerMotion)}\`; settles in ${c.motion.spring.settleMs}ms, overshoot ${Math.round(c.motion.spring.overshoot * 100)}%.`);
+    lines.push('');
+  }
+  lines.push(`### ${spec.kind === 'motion' ? 'Motion' : 'Props'}`, '', '| Prop | Value |', '| --- | --- |');
+  for (const [k, v] of Object.entries(c.props)) lines.push(`| \`${k}\` | \`${esc(JSON.stringify(v).slice(0, 120))}\` |`);
+  lines.push('');
+  if (c.motion) lines.push(`Last frame at ${c.motion.lastFrameMs}ms (delay + stagger × (count − 1) + duration). An entrance on the LCP element adds this to TTFB; keep the sum inside 2.5 s (learning #203).`, '');
+  const snd = c.sound;
+  lines.push('### Sound', '');
+  lines.push(`- File: ${snd.file ? `\`${snd.file}\`` : 'silent'}${snd.file === snd.shipped ? ' (shipped)' : snd.shipped ? ` (shipped: \`${snd.shipped}\`)` : ' (ships silent)'}`);
+  lines.push(`- Volume: ${snd.volume}${snd.volume !== 0.7 ? ' (SoundProvider default is 0.7)' : ''}`);
+  lines.push(`- Pitch: ${snd.rate}×${snd.rate !== 1 ? '. Runtime plays at 1×; bake the pitch into the file.' : ''}`);
+  lines.push(`- Fires on: ${snd.trigger}`, '');
+  if (c.tokens.length) {
+    lines.push('### CSS overrides', '', '```css', `/* ${spec.component} · concept ${c.id} · sc-tune ${stamp} · ${spec.theme} */`);
+    for (const t of c.tokens) lines.push(`${t.name}: ${t.override};`);
+    lines.push('```', '');
+  }
+}
 if (Object.keys(spec.derived || {}).length) {
-  lines.push('## Derived geometry (tuned stage)', '');
+  lines.push('## Derived geometry (concept being edited)', '');
   for (const [k, v] of Object.entries(spec.derived)) lines.push(`- \`${k}\`: ${v}`);
   lines.push('');
-}
-if (spec.tokens.length) {
-  lines.push('## CSS overrides', '', 'Paste-ready. Applying a change means editing `tokens/semantic.json` (or the component CSS), then `npm run tokens:build`; this block is the reference, not the fix.', '', '```css');
-  lines.push(`/* ${spec.component} · sc-tune ${stamp} · ${spec.theme} */`);
-  for (const t of spec.tokens) lines.push(`${t.name}: ${t.override};`);
-  lines.push('```', '');
 }
 lines.push('## Snapshot', '', 'A static build of the lab locked to this spec is in `snapshot/`. Serve it and open it:', '', '```bash', `npx vite preview --outDir ${relative(root, resolve(outDir, 'snapshot'))}`, '```', '');
 writeFileSync(resolve(outDir, 'spec.md'), lines.join('\n'));
@@ -125,15 +159,16 @@ writeFileSync(resolve(outDir, 'spec.md'), lines.join('\n'));
 const snapDir = resolve(outDir, 'snapshot');
 execFileSync('npx', ['vite', 'build', '--config', 'vite.tune.config.js', '--mode', 'snapshot', '--outDir', snapDir, '--logLevel', 'error'], { cwd: root, stdio: 'inherit' });
 writeFileSync(resolve(snapDir, 'spec.json'), JSON.stringify(spec, null, 2) + '\n');
-if (snd.file) {
-  const src = resolve(root, 'assets/sounds/drams', snd.file);
+const files = [...new Set(spec.concepts.map((c) => c.sound.file).filter(Boolean))];
+for (const file of files) {
+  const src = resolve(root, 'assets/sounds/drams', file);
   if (!existsSync(src)) {
     console.error(`sound not found: ${relative(root, src)}`);
     process.exit(1);
   }
   mkdirSync(resolve(snapDir, 'sounds'), { recursive: true });
-  copyFileSync(src, resolve(snapDir, 'sounds', snd.file));
+  copyFileSync(src, resolve(snapDir, 'sounds', file));
 }
 
 console.log(`recorded ${spec.component} → ${relative(root, outDir)}`);
-console.log(`  spec.md · spec.json · snapshot/ (${spec.tokens.length} tokens tuned)`);
+console.log(`  spec.md · spec.json · snapshot/ (${spec.concepts.length} concept(s)${spec.pick ? `, picked ${spec.pick.concept}` : ''})`);
