@@ -171,7 +171,7 @@ public enum SCDS {
     public static let semanticVersion = "0.1.0"
     public static let sourceGenerated = "2026-05-26"
     public static let primitivesHash = "aa28930704213cf1"
-    public static let semanticHash = "51045b80058c0365"
+    public static let semanticHash = "d9ad2f3eaf88469a"
     public static let tokenCount = 193
   }
 
@@ -535,8 +535,8 @@ public enum SCDS {
 
     /// `color.segmentedControl.indicatorShade`
     public static let segmentedControlIndicatorShade = SwiftUI.Color.scdsDynamic(
-        light: (0.101961, 0.094118, 0.082353, 0),
-        dark:  (0.101961, 0.094118, 0.082353, 0)
+        light: (0.101961, 0.094118, 0.082353, 0.05),
+        dark:  (0.101961, 0.094118, 0.082353, 0.25)
     )
   }
 
@@ -1062,20 +1062,20 @@ public enum SCDS {
     /// `motion.switch.press.leanDuration` · 160ms
     public static let switchPressLeanDuration: TimeInterval = 0.16
 
-    /// `motion.segmentedControl.travel.duration` · 200ms
-    public static let segmentedControlTravelDuration: TimeInterval = 0.2
+    /// `motion.segmentedControl.travel.duration` · 600ms
+    public static let segmentedControlTravelDuration: TimeInterval = 0.6
 
-    /// `motion.segmentedControl.travel.easing`
-    public static let segmentedControlTravelEasing = SCDSEasing(0.22, 1, 0.36, 1)
+    /// `motion.segmentedControl.travel.easing` · spring k146 c17.88 m1, settles in 1093ms, overshoot 3%
+    public static let segmentedControlTravelEasing = SCDSSpring(stiffness: 146, damping: 17.88, mass: 1, settle: 1.093)
 
     /// `motion.segmentedControl.stretch`
-    public static let segmentedControlStretch: CGFloat = 0
+    public static let segmentedControlStretch: CGFloat = 0.45
 
     /// `motion.segmentedControl.squash`
-    public static let segmentedControlSquash: CGFloat = 0
+    public static let segmentedControlSquash: CGFloat = 0.2
 
     /// `motion.segmentedControl.press.lean`
-    public static let segmentedControlPressLean: CGFloat = 0
+    public static let segmentedControlPressLean: CGFloat = 0.15
 
     /// `motion.segmentedControl.press.leanDuration` · 160ms
     public static let segmentedControlPressLeanDuration: TimeInterval = 0.16
@@ -1232,20 +1232,22 @@ public enum SCDS {
     /// `shadow.segmentedControl.track` · 1 layers
     public static let segmentedControlTrack = SCDSShadow(
         light: [
-            SCDSShadowLayer(inset: true, x: 0, y: 0, blur: 0, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0),
+            SCDSShadowLayer(inset: true, x: 0.71, y: 0.71, blur: 2, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0.25),
         ],
         dark: [
-            SCDSShadowLayer(inset: true, x: 0, y: 0, blur: 0, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0),
+            SCDSShadowLayer(inset: true, x: 0.71, y: 0.71, blur: 2, spread: 0, rgb: (0, 0, 0), alpha: 0.45),
         ]
     )
 
-    /// `shadow.segmentedControl.indicator` · 1 layers
+    /// `shadow.segmentedControl.indicator` · 2 layers
     public static let segmentedControlIndicator = SCDSShadow(
         light: [
-            SCDSShadowLayer(inset: false, x: 0, y: 0, blur: 0, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0),
+            SCDSShadowLayer(inset: false, x: 2, y: 2, blur: 6, spread: 0, rgb: (0.392157, 0.356863, 0.309804), alpha: 0.5),
+            SCDSShadowLayer(inset: false, x: -1, y: -1, blur: 1, spread: 1, rgb: (0.992157, 0.980392, 0.964706), alpha: 1),
         ],
         dark: [
-            SCDSShadowLayer(inset: false, x: 0, y: 0, blur: 0, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0),
+            SCDSShadowLayer(inset: false, x: 3, y: 3, blur: 7, spread: 0, rgb: (0, 0, 0), alpha: 0.5),
+            SCDSShadowLayer(inset: false, x: -1, y: -1, blur: 1, spread: 1, rgb: (0.858824, 0.921569, 1), alpha: 0.17),
         ]
     )
   }
