@@ -18,8 +18,8 @@
     "warmGray": {
       "25": {
         "$type": "color",
-        "$value": "#FBF9F6",
-        "$description": "Floating surface (popovers, interactive-card hover top layer). scds-v2: desaturated toward HSB(30,3,B) — warm hue kept, saturation pulled to ~3%. Was #F8F6F2."
+        "$value": "#F8F6F2",
+        "$description": "Floating surface (popovers, interactive-card hover top layer). Oatmeal set. 2026-10-07 oatmeal restore (Levi; library is canonical): the scds-v2 desaturation (#FBF9F6) is retired and the original oatmeal value returns, matching the SCDS library."
       },
       "40": {
         "$type": "color",
@@ -28,13 +28,13 @@
       },
       "50": {
         "$type": "color",
-        "$value": "#F4F1ED",
-        "$description": "Raised / component surface — default card ground in light. scds-v2 desaturate HSB(30,3,96). Was #F1EFEB."
+        "$value": "#F1EFEB",
+        "$description": "Raised / component surface — default card ground in light. Oatmeal set. 2026-10-07 oatmeal restore (Levi; library is canonical): was the scds-v2 #F4F1ED. warmGray.40 (#F5F0E9) now sits between 25 and 50 by luminance (0.923 > 0.876 > 0.864)."
       },
       "100": {
         "$type": "color",
-        "$value": "#EBE7E4",
-        "$description": "Page ground · light. scds-v2 desaturate HSB(30,3,92) — heavily desaturated warm, retires the saturated oatmeal. Was #E3DFD8."
+        "$value": "#E3DFD8",
+        "$description": "Page ground · light. The oatmeal floor. 2026-10-07 oatmeal restore (Levi; library is canonical): was the scds-v2 #EBE7E4. Every light text ink is re-derived against this ground to clear AA."
       },
       "200": {
         "$type": "color",
@@ -44,7 +44,7 @@
       "250": {
         "$type": "color",
         "$value": "#C4BCB4",
-        "$description": "Default hairline rule · 1px solid divisions (light). 2026-07-28 SCDS audit P2-8 rebuild (was #D5D2CF). border/subtle now 1.53:1 vs surface/page (was 1.44:1)."
+        "$description": "Default hairline rule · 1px solid divisions (light). 2026-07-28 SCDS audit P2-8 rebuild (was #D5D2CF). border/subtle 1.41:1 vs surface/page since the 2026-10-07 oatmeal restore (1.53:1 on the retired scds-v2 page; 1.44:1 before P2-8)."
       },
       "300": {
         "$type": "color",
@@ -54,7 +54,7 @@
       "350": {
         "$type": "color",
         "$value": "#9A9186",
-        "$description": "Subtle hairline · dashed inner divisions. 2026-07-28 SCDS audit P2-8 rebuild (was #C5C2BF). border/default now 2.52:1 vs surface/page (was 1.22:1)."
+        "$description": "Subtle hairline · dashed inner divisions. 2026-07-28 SCDS audit P2-8 rebuild (was #C5C2BF). border/default 2.34:1 vs surface/page since the 2026-10-07 oatmeal restore (2.52:1 on the retired scds-v2 page; 1.22:1 before P2-8)."
       },
       "400": {
         "$type": "color",
@@ -63,13 +63,13 @@
       },
       "450": {
         "$type": "color",
-        "$value": "#6B665E",
-        "$description": "Tertiary text · light. scds-v2 addition — AA on page/raised/floating (4.63/5.06/5.42:1); restricted off sunk/deepSunk like text.secondary. Mirrors the dark tertiary tier (dark.textTertiary). Text-tier, kept warm."
+        "$value": "#66615A",
+        "$description": "Tertiary text · light. scds-v2 addition — AA on page/raised/floating (4.62/5.34/5.68:1). 2026-10-07 oatmeal restore (Levi; library is canonical): re-derived from #6B665E, which read 4.29:1 on the #E3DFD8 page; restricted off sunk/deepSunk like text.secondary. Mirrors the dark tertiary tier (dark.textTertiary). Text-tier, kept warm."
       },
       "500": {
         "$type": "color",
         "$value": "#5A5750",
-        "$description": "Muted warm gray · secondary copy, metadata. Text-tier — kept warm per scds-v2. 2026-08-17 contrast re-derivation (ADR text-secondary-aa-sunk): was #5F5C55, which measured 4.42:1 on surface.sunk after the 2026-07-28 P2-8 rebuild darkened warmGray.200 — below AA. Re-derived one HSL lightness step down (42° hue / 5.6% sat held exactly, L 35.3% → 33.3%); now 4.77:1 on sunk, 5.86:1 on page. Sits BELOW the P2-8 interpolated 100→450 span, so the rebuilt ladder is untouched."
+        "$description": "Muted warm gray · secondary copy, metadata. Text-tier — kept warm per scds-v2. 2026-08-17 contrast re-derivation (ADR text-secondary-aa-sunk): was #5F5C55, which measured 4.42:1 on surface.sunk after the 2026-07-28 P2-8 rebuild darkened warmGray.200 — below AA. Re-derived one HSL lightness step down (42° hue / 5.6% sat held exactly, L 35.3% → 33.3%); now 4.77:1 on sunk, 5.43:1 on page (oatmeal page, 2026-10-07). Sits BELOW the P2-8 interpolated 100→450 span, so the rebuilt ladder is untouched."
       },
       "600": {
         "$type": "color",
@@ -131,7 +131,7 @@
       "700": {
         "$type": "color",
         "$value": "#056268",
-        "$description": "Deep teal · derived. Pressed/active accent; AA-passing accent text on light surfaces (5.78:1 on warmGray.100)."
+        "$description": "Deep teal · derived. Pressed/active accent; AA-passing accent text on light surfaces (5.35:1 on warmGray.100 (oatmeal page, 2026-10-07))."
       },
       "800": {
         "$type": "color",
@@ -149,7 +149,7 @@
         "light": {
           "$type": "color",
           "$value": "#2F855A",
-          "$description": "Forest green · success states on light ground. FILL/BORDER/DOT ONLY — 3.69:1 on warmGray.100, below AA for text; use status.success.ink.light (4.74:1) when this renders as body text. Repainted 2026-05-28 to match brand-site Color design (ADR brand-site-shell). 2026-08-17 contrast re-verification: the previous '~4.9:1 AA' claim never reproduced against warmGray.100 in any era (3.42:1 on the pre-desaturation #E3DFD8 page, 3.69:1 on the current #EBE7E4) and contradicted the correctly-measured figure on the ink token below."
+          "$description": "Forest green · success states on light ground. FILL/BORDER/DOT ONLY — 3.42:1 on warmGray.100, below AA for text; use status.success.ink.light (4.64:1) when this renders as body text. Repainted 2026-05-28 to match brand-site Color design (ADR brand-site-shell). 2026-08-17 contrast re-verification: the previous '~4.9:1 AA' claim never reproduced against warmGray.100 in any era (3.42:1 on the #E3DFD8 oatmeal page, current again since 2026-10-07; 3.69:1 on the retired scds-v2 #EBE7E4) and contradicted the correctly-measured figure on the ink token below."
         },
         "dark": {
           "$type": "color",
@@ -159,8 +159,8 @@
         "ink": {
           "light": {
             "$type": "color",
-            "$value": "#28724D",
-            "$description": "2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier, hue-locked to success, 4.74:1 on warmGray.100 (base success/light fails at 3.69:1 for body text)."
+            "$value": "#246E4A",
+            "$description": "2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier, hue-locked to success, 4.64:1 on warmGray.100 (base success/light fails at 3.42:1 for body text). 2026-10-07 oatmeal restore (Levi; library is canonical): re-derived from #28724D, which read 4.39:1 on the #E3DFD8 page."
           },
           "dark": {
             "$type": "color",
@@ -183,8 +183,8 @@
         "ink": {
           "light": {
             "$type": "color",
-            "$value": "#B83E0B",
-            "$description": "2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier, hue-locked to warning, 4.58:1 on warmGray.100 (base warning/light fails at 4.21:1 for body text)."
+            "$value": "#B13700",
+            "$description": "2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier, hue-locked to warning, 4.63:1 on warmGray.100 (base warning/light fails at 3.90:1 for body text). 2026-10-07 oatmeal restore (Levi; library is canonical): re-derived from #B83E0B, which read 4.24:1 on the #E3DFD8 page."
           },
           "dark": {
             "$type": "color",
@@ -197,7 +197,7 @@
         "light": {
           "$type": "color",
           "$value": "#2D5AD8",
-          "$description": "Royal blue · info states on light ground · AA 4.79:1 on warmGray.100 (clears AA as text, which is why status.info-ink reuses it directly in light mode). Repainted 2026-05-28 to match brand-site Color design (ADR brand-site-shell). 2026-08-17 contrast re-verification: the previous '~7.5:1' claim never reproduced against warmGray.100 in any era (4.43:1 on the pre-desaturation #E3DFD8 page, 4.79:1 on the current #EBE7E4); the verdict (AA) was right, the figure was not."
+          "$description": "Royal blue · info states on light ground · AA 4.79:1 on the scds-v2 #EBE7E4 page; 4.43:1 on the oatmeal #E3DFD8 page restored 2026-10-07, below AA as text, so status.info-ink now reads status.info.ink.light. Repainted 2026-05-28 to match brand-site Color design (ADR brand-site-shell). 2026-08-17 contrast re-verification: the previous '~7.5:1' claim never reproduced against warmGray.100 in any era (4.43:1 on the #E3DFD8 oatmeal page, current again since 2026-10-07; 4.79:1 on the retired scds-v2 #EBE7E4); the verdict (AA) was right, the figure was not."
         },
         "dark": {
           "$type": "color",
@@ -205,6 +205,11 @@
           "$description": "Lifted blue · info fill/border/dot on dark ground. Re-derived 2026-09-24 for the slate ladder (was #3866E8): hue held, lifted until the fill clears AA on the page. 4.76:1 on surfacePage, 3.75:1 on raised2. For text use status.info.ink.dark."
         },
         "ink": {
+          "light": {
+            "$type": "color",
+            "$value": "#2B57D5",
+            "$description": "Text-only tier for status.info in light mode, hue-locked to info (learning #56). Added 2026-10-07 with the oatmeal restore: the info fill #2D5AD8 reads 4.43:1 on the restored #E3DFD8 page, so the ink splits from the fill. 4.61:1 on page, 5.34:1 raised, 5.68:1 floating. Matches SCDS library color/status/infoInkLight."
+          },
           "dark": {
             "$type": "color",
             "$value": "#8DAFFD",
@@ -339,7 +344,7 @@
       "light": {
         "$type": "color",
         "$value": "#1F2024",
-        "$description": "Focus ring · light mode. Cool near-ink. 10–16:1 on every light ground (page 13.24, raised 14.45, floating 15.49, sunk 10.78, deepSunk/rail 6.80, hover 8.68). 2026-08-17: sunk figure re-measured 11.24 → 10.78 after the 2026-07-28 P2-8 rebuild darkened warmGray.200; still AAA everywhere."
+        "$description": "Focus ring · light mode. Cool near-ink. 10–16:1 on every light ground (page 12.25, raised 14.17, floating 15.08, sunk 10.78, deepSunk/rail 6.80, hover 8.68). 2026-08-17: sunk figure re-measured 11.24 → 10.78 after the 2026-07-28 P2-8 rebuild darkened warmGray.200; still AAA everywhere."
       },
       "dark": {
         "$type": "color",
@@ -351,8 +356,8 @@
       "hoverInk": {
         "light": {
           "$type": "color",
-          "$value": "#027175",
-          "$description": "2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier for interactive/hover, hue-locked to teal, 4.72:1 on warmGray.100 (base interactive.hover/teal.500 fails at 3.23:1 for body text — the documented AA exception, learning #67). Dark mode has no separate ink primitive: interactive.hover-ink/dark aliases teal.200 (since 2026-09-24; teal.400 before), which clears AA as text on every dark ground."
+          "$value": "#006D72",
+          "$description": "2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier for interactive/hover, hue-locked to teal, 4.61:1 on warmGray.100. 2026-10-07 oatmeal restore: re-derived from #027175, which read 4.37:1 on the #E3DFD8 page (base interactive.hover/teal.500 fails at 2.99:1 for body text, and on the oatmeal page also sits under the WCAG 1.4.11 non-text floor, see decisions.md 2026-10-07 — the documented AA exception, learning #67). Dark mode has no separate ink primitive: interactive.hover-ink/dark aliases teal.200 (since 2026-09-24; teal.400 before), which clears AA as text on every dark ground."
         }
       }
     }
