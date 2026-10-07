@@ -152,8 +152,8 @@ public enum SCDS {
     public static let semanticVersion = "0.1.0"
     public static let sourceGenerated = "2026-05-26"
     public static let primitivesHash = "3db68ed9b8cfd8c2"
-    public static let semanticHash = "682d26f953ae5867"
-    public static let tokenCount = 150
+    public static let semanticHash = "08f69c546bcf2037"
+    public static let tokenCount = 151
   }
 
   // MARK: - Color
@@ -515,6 +515,16 @@ public enum SCDS {
 
     /// `font.text.label.buttonSm` · Neue Haas Grotesk Text Pro 11/1.5
     public static let textLabelButtonSm = SCDSTypeStyle(
+        family: "Neue Haas Grotesk Text Pro",
+        fallbacks: ["Helvetica Neue", "Inter", "system-ui", "sans-serif"],
+        size: 11,
+        weight: .medium,
+        lineHeightMultiple: 1.5,
+        trackingEm: 0.08
+    )
+
+    /// `font.text.label.buttonLg` · Neue Haas Grotesk Text Pro 11/1.5
+    public static let textLabelButtonLg = SCDSTypeStyle(
         family: "Neue Haas Grotesk Text Pro",
         fallbacks: ["Helvetica Neue", "Inter", "system-ui", "sans-serif"],
         size: 11,

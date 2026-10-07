@@ -455,6 +455,12 @@
   --sc-font-text-label-button-sm-line-height: var(--sc-p-font-text-11-line-height);
   --sc-font-text-label-button-sm-letter-spacing: var(--sc-p-font-text-11-letter-spacing);
   --sc-font-text-label-button-sm: var(--sc-p-font-text-11);
+  --sc-font-text-label-button-lg-family: var(--sc-p-font-text-11-family);
+  --sc-font-text-label-button-lg-size: var(--sc-p-font-text-11-size);
+  --sc-font-text-label-button-lg-weight: var(--sc-p-font-text-11-weight);
+  --sc-font-text-label-button-lg-line-height: var(--sc-p-font-text-11-line-height);
+  --sc-font-text-label-button-lg-letter-spacing: var(--sc-p-font-text-11-letter-spacing);
+  --sc-font-text-label-button-lg: var(--sc-p-font-text-11);
   --sc-font-text-label-tab-family: var(--sc-p-font-text-medium-13-family);
   --sc-font-text-label-tab-size: var(--sc-p-font-text-medium-13-size);
   --sc-font-text-label-tab-weight: var(--sc-p-font-text-medium-13-weight);
@@ -734,6 +740,12 @@
   --sc-font-text-label-button-sm-line-height: var(--sc-p-font-text-11-line-height);
   --sc-font-text-label-button-sm-letter-spacing: var(--sc-p-font-text-11-letter-spacing);
   --sc-font-text-label-button-sm: var(--sc-p-font-text-11);
+  --sc-font-text-label-button-lg-family: var(--sc-p-font-text-11-family);
+  --sc-font-text-label-button-lg-size: var(--sc-p-font-text-11-size);
+  --sc-font-text-label-button-lg-weight: var(--sc-p-font-text-11-weight);
+  --sc-font-text-label-button-lg-line-height: var(--sc-p-font-text-11-line-height);
+  --sc-font-text-label-button-lg-letter-spacing: var(--sc-p-font-text-11-letter-spacing);
+  --sc-font-text-label-button-lg: var(--sc-p-font-text-11);
   --sc-font-text-label-tab-family: var(--sc-p-font-text-medium-13-family);
   --sc-font-text-label-tab-size: var(--sc-p-font-text-medium-13-size);
   --sc-font-text-label-tab-weight: var(--sc-p-font-text-medium-13-weight);

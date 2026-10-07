@@ -891,6 +891,12 @@
           "$description": "Small Button label: 11/medium/widest, the chrome label (Figma text/label/button-sm). 2026-10-05 (ADR scds-button-size-small; 12 to 11 amended 2026-10-06).",
           "$extensions": { "modes": { "light": "{font.text.11}", "dark": "{font.text.11}" } }
         },
+        "buttonLg": {
+          "$type": "typography",
+          "$value": "{font.text.11}",
+          "$description": "Large Button label: 11/medium/widest, same values as the chrome label but its own role, so tuning the Button never moves NavBar, Avatar or eyebrow labels (Figma text/label/button-lg). 2026-10-07.",
+          "$extensions": { "modes": { "light": "{font.text.11}", "dark": "{font.text.11}" } }
+        },
         "tab": {
           "$type": "typography",
           "$value": "{font.text.medium.13}",

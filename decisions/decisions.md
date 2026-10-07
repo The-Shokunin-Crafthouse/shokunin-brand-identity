@@ -1904,3 +1904,12 @@ Levi: the trailing arrow uses Phosphor's bold weight, not regular. Code: `ArrowR
 - **Physical controls gain:** the key's white top-left highlight reads stronger on the darker page (+11 L* vs +8), the effect the Drams originals get from their grey ground.
 - **Client portal 2026-07-22 "owed" reconciliation:** SCDS now matches the brand Figma file on `warmGray.50` and `.100`. `warmGray.250` still differs (Figma #D5D1CA, SCDS #C4BCB4 from the 2026-07-28 rebuild); left as is. The portal picks up the restored set at its next build (its snapshot fetches the live tokens.css).
 - **Figma library:** `color/warmGray/25`, `/50`, `/100`, `/450`, `color/status/successInkLight`, `warningInkLight`, `color/interactive/hoverInkLight` updated; new `color/status/infoInkLight` (`488:2`) with `color/status/info-ink` Light re-pointed; five Color-page swatch captions corrected.
+
+### 2026-10-07: the large Button label gets its own role token
+
+**Status:** Accepted. Levi asked why the tuning lab showed a small Button text size and no large one.
+
+- **Cause:** the large Button label read `font.text.label.chrome`, the token NavBar, Avatar, eyebrows and the type specimen also read. The lab lists tokens by name, so the large size appeared as "chrome", not as a Button size. Tuning it would also have moved every other chrome label once applied.
+- **Change:** new `font.text.label.buttonLg` (`--sc-font-text-label-button-lg-*`), aliasing `{font.text.11}` like `buttonSm`. Values are unchanged: both sizes ship an 11/medium/widest label. `Button.module.css` `.label` reads the new token; `label-chrome` keeps its other consumers.
+- **Lab:** saved Button sessions move `label-chrome-*` overrides onto `label-button-lg-*` on load (concept B's letter-spacing edit carried over).
+- **Figma library:** new text style `text/label/button-lg` (`S:674127ee…`), bound to the same variables as `text/label/chrome`, applied to the 15 Large Button labels; `text/label/button-sm` description corrected from 12 to 11.

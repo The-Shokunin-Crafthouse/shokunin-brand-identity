@@ -5,7 +5,7 @@
  *   --sc-radius-pill                        · pill corner
  *   --sc-border-width-default               · border
  *   --sc-color-border-focus / -focus-offset · focus ring
- *   --sc-font-text-label-chrome-*           · NHG Text medium label (lg)
+ *   --sc-font-text-label-button-lg-*        · 11/medium label (lg)
  *   --sc-font-text-label-button-sm-*        · 11/medium label (sm)
  *   --sc-space-component-padding-inline-md  · sm inline (12)
  *   --sc-space-component-padding-block-button-sm  · sm block (4)
@@ -70,11 +70,11 @@
 }
 
 .label {
-  font-family: var(--sc-font-text-label-chrome-family);
-  font-size: var(--sc-font-text-label-chrome-size);
-  font-weight: var(--sc-font-text-label-chrome-weight);
-  line-height: var(--sc-font-text-label-chrome-line-height);
-  letter-spacing: var(--sc-font-text-label-chrome-letter-spacing);
+  font-family: var(--sc-font-text-label-button-lg-family);
+  font-size: var(--sc-font-text-label-button-lg-size);
+  font-weight: var(--sc-font-text-label-button-lg-weight);
+  line-height: var(--sc-font-text-label-button-lg-line-height);
+  letter-spacing: var(--sc-font-text-label-button-lg-letter-spacing);
 }
 
 /* Trailing arrow — 12px at both sizes (library spec, 2026-10-06); it was

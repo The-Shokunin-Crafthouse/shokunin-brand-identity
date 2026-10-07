@@ -13,7 +13,7 @@ Pill-radius control with a trailing arrow (Phosphor `ArrowRight`, scds-v2 defaul
 | `--sc-space-component-gap-md` | label ↔ arrow gap |
 | `--sc-radius-pill` | pill corner |
 | `--sc-border-width-default` | border weight |
-| `--sc-font-text-label-chrome-*` | NHG Text medium label (11/500), no uppercase |
+| `--sc-font-text-label-button-lg-*` | Large label (11/500), no uppercase; its own role, same values as `label-chrome` |
 | `--sc-color-border-focus` + `--sc-border-focus-offset` | styled focus ring |
 | `--sc-motion-hover-duration` + `-easing` | bg/border/color/shadow transition |
 | `--sc-motion-press-duration` + `-easing` + `-scale` (0.985) | press-in feedback (fast phase) |

@@ -174,6 +174,18 @@ function loadState(component) {
           c.overrides = o;
           c.shadowAdj = a;
         }
+        // 2026-10-07: the large Button label moved off the shared chrome
+        // label onto its own role token; carry edits made before the move.
+        if (component === 'Button') {
+          for (const map of Object.values(c.overrides)) {
+            for (const k of Object.keys(map)) {
+              if (!k.startsWith('--sc-font-text-label-chrome-')) continue;
+              const to = k.replace('label-chrome-', 'label-button-lg-');
+              if (!(to in map)) map[to] = map[k];
+              delete map[k];
+            }
+          }
+        }
       }
       return saved;
     }
