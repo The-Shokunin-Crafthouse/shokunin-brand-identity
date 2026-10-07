@@ -92,3 +92,23 @@ test('a token type with no Figma analogue is listed, not dropped', () => {
   assert.match(md, /motion\.switch\.travel\.easing/, 'the spring token is named in the report');
   assert.match(md, /no Figma analogue/i);
 });
+
+test('documented name differences resolve to the library names, not the token paths', () => {
+  const { code } = run('--since', 'HEAD');
+  const manifest = JSON.parse(code.match(/^const MANIFEST = (.*);$/m)[1]);
+  // The ink tier is flat in Figma; onInverse and release-duration were renamed or kept Figma-side.
+  for (const n of ['Primitives:color/status/successInkLight', 'Primitives:color/status/infoInkLight', 'color/text/onInverse', 'color/surface/inverse', 'motion/press/release-duration']) {
+    assert.ok(manifest.variables.includes(n), `${n} is checked under its library name`);
+  }
+  assert.ok(!manifest.variables.includes('Primitives:color/status/success/ink/light'), 'not under the token path');
+  // Figma splits body styles into regular/bold folders and keeps nav under body.
+  for (const n of ['text/body/dense/regular', 'text/body/dense/bold', 'text/body/nav/header', 'text/label/button-lg']) {
+    assert.ok(manifest.texts.includes(n), `${n} is checked under its library name`);
+  }
+});
+
+test('--tokens accepts a library name from the map', () => {
+  const { code } = run('--tokens', 'color/text/onInverse');
+  const op = opsOf(code).find((o) => o.name === 'color/text/onInverse');
+  assert.ok(op, 'the op is built under the library name');
+});
