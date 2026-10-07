@@ -663,7 +663,7 @@
     "control": {
       "raised": {
         "$type": "shadow",
-        "$description": "Button-only neumorphic raise · 4 layers (2 ink bottom-left, 2 white top-right) composed from the channel-triplet primitives. Semantic to controls — NOT a general elevation token; no other element carries a shadow. Added 2026-07-09 with the button redesign. 2026-10-02: dark black layers 0.55/0.45 → 0.24/0.16 so each matches its white highlight's lightness delta on surface-page (ΔL* 5.6 / 3.7).",
+        "$description": "Button-only neumorphic raise · 4 layers (2 ink bottom-left, 2 white top-right) composed from the channel-triplet primitives. Semantic to controls — NOT a general elevation token; only controls carry a shadow (Button here, Switch track + knob in shadow.switch.*). Added 2026-07-09 with the button redesign. 2026-10-02: dark black layers 0.55/0.45 → 0.24/0.16 so each matches its white highlight's lightness delta on surface-page (ΔL* 5.6 / 3.7).",
         "$value": "-4px 4px 8px rgb(var(--sc-p-color-ink-rgb) / 0.10), -2px 2px 4px rgb(var(--sc-p-color-ink-rgb) / 0.08), 4px -4px 8px rgb(var(--sc-p-color-white-rgb) / 0.90), 2px -2px 4px rgb(var(--sc-p-color-white-rgb) / 0.70)",
         "$extensions": { "modes": {
           "light": "-4px 4px 8px rgb(var(--sc-p-color-ink-rgb) / 0.10), -2px 2px 4px rgb(var(--sc-p-color-ink-rgb) / 0.08), 4px -4px 8px rgb(var(--sc-p-color-white-rgb) / 0.90), 2px -2px 4px rgb(var(--sc-p-color-white-rgb) / 0.70)",

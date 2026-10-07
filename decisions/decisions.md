@@ -1840,3 +1840,11 @@ The follow-up named under "the library follows" above. `PlusSeparator.figma.tsx`
 - **States added:** hover (track ground one step: `surface.hover` off, `brand.accentFill` on) and active (knob press, `motion.press.scale`); the Switch had neither. Disabled is flat: no recess, no lift, no glyphs, knob at 0.6 like the Stepper.
 - Second control-scoped shadow after `shadow.control.raised`; the "no other element carries a shadow" rule now reads "controls only".
 - `tokens:build`, `tokens:swift`, `tokens:map` regenerated; `tokens:verify` passes; `npm run build` and `build:lib` exit 0.
+
+### 2026-10-07: the library Switch follows (Toggle set `9:858`)
+
+- The library Toggle was 46 × 24 with an 18px thumb and no size bindings, while `size/switch/*` held 32 / 18 / 14. It now sits at the token size with width, height and radii bound to `size/switch/*` and `radius/pill`; the code size Levi tested is the one kept.
+- New Semantic variables (Light/Dark): `color/switch/thumb/{rimTop,rimBottom,faceTop,faceBottom}`, `color/switch/glyph/{on,off}`, `size/switch/glyph`. Gradient stops are bound to the thumb variables.
+- New effect styles: `shadow/switch/track`, `shadow/switch/thumb`, and `shadow/switch/dark/{track,thumb}` (effect styles carry no modes, so dark follows the `shadow/control/dark/*` convention).
+- Each variant: `Glyphs` (clipped row: `O` ring off, `I` bar on), `Knob` (the original rectangle, so instance overrides survive, now the rim) and `Face`. Hover and Disabled variants are not in the library yet; code has both.
+- Publishing the library is Levi's step.
