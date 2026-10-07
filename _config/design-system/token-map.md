@@ -5,7 +5,7 @@
 # Design Token Map — The Shokunin Crafthouse · Brand Identity
 
 **Generated** from `tokens/primitives.json` + `tokens/semantic.json`.
-**Source fingerprint:** `748e6775824a` · **183 primitives · 151 semantic tokens.**
+**Source fingerprint:** `74ec20fb0ff0` · **183 primitives · 151 semantic tokens.**
 
 > **This file is a mirror, not the source.** `tokens/*.json` is upstream; this document and the Figma
 > library are generated from / synced to it. It previously claimed the opposite — that both were
@@ -491,7 +491,7 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
 |---|---|---|---|---|---|---|
 | `color/interactive/default` | `--sc-color-interactive-default` | `color/warmGray/800` | `#1A1815` | `color/warmGray/50` | `#F1EFEB` | Resting state for interactive elements · button text + border. |
-| `color/interactive/hover` | `--sc-color-interactive-hover` | `color/teal/500` | `#038E93` | `color/teal/300` | `#52B8BC` | Hover state · primary button text/icon/border turn brand teal. |
+| `color/interactive/hover` | `--sc-color-interactive-hover` | `color/teal/600` | `#04797D` | `color/teal/300` | `#52B8BC` | Hover state · primary button text/icon/border turn brand teal. |
 | `color/interactive/hover-ink` | `--sc-color-interactive-hover-ink` | `color/interactive/hoverInk/light` | `#006D72` | `color/teal/200` | `#8FD2D5` | 2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier for interactive.hover — use when the hover color renders as body text (not icon/border), 4.61:1 on warmGray.100 (re-derived 2026-10-07 for the oatmeal page). |
 | `color/interactive/selected` | `--sc-color-interactive-selected` | _literal_ | `#038E931A` | _literal_ | `#038E931A` | Selected-option tint: brand teal (teal.500) at 10%. |
 | `color/interactive/active` | `--sc-color-interactive-active` | `color/teal/700` | `#056268` | `color/teal/500` | `#038E93` | Pressed/active state · one step deeper than hover. |

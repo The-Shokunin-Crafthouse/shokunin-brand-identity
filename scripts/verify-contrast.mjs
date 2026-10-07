@@ -156,6 +156,9 @@ const CLAIMS = [
   ['semantic', 'color.text.tertiary', 5.34, 'color.text.tertiary', 'color.surface.raised', 'light'],
   ['semantic', 'color.text.tertiary', 5.68, 'color.text.tertiary', 'color.surface.floating', 'light'],
   ['semantic', 'color.text.tertiary', 4.06, 'color.text.tertiary', 'color.surface.sunk', 'light'],
+  ['semantic', 'color.interactive.hover', 3.92, 'color.interactive.hover', 'color.surface.page', 'light'],
+  ['semantic', 'color.interactive.hover', 4.53, 'color.interactive.hover', 'color.surface.raised', 'light'],
+  ['semantic', 'color.interactive.hover', 4.82, 'color.interactive.hover', 'color.surface.floating', 'light'],
   ['semantic', 'color.text.tertiary', 2.57, 'color.text.tertiary', 'color.surface.deepSunk', 'light'],
   ['semantic', 'color.text.tertiary', 3.27, 'color.text.tertiary', 'color.surface.hover', 'light'],
   ['primitives', 'color.warmGray.500', 4.77, 'color.warmGray.500', 'color.warmGray.200', null],
@@ -192,9 +195,10 @@ const CLAIMS = [
   ['semantic', 'color.brand.accentFill', 3.97, 'color.utility.white', 'color.teal.500', null],
   ['primitives', 'color.interactive.hoverInk.light', 4.61, 'color.interactive.hoverInk.light', 'color.warmGray.100', null],
   ['primitives', 'color.interactive.hoverInk.light', 2.99, 'color.teal.500', 'color.warmGray.100', null],
-  ['semantic', 'color.interactive.hover', 2.99, 'color.teal.500', 'color.warmGray.100', null],
+  ['primitives', 'color.interactive.hoverInk.light', 3.92, 'color.teal.600', 'color.warmGray.100', null],
+  ['semantic', 'color.interactive.hover', 3.92, 'color.teal.600', 'color.warmGray.100', null],
   ['semantic', 'color.interactive.hover-ink', 4.61, 'color.interactive.hoverInk.light', 'color.warmGray.100', null],
-  ['semantic', 'color.interactive.hover-ink', 2.99, 'color.teal.500', 'color.warmGray.100', null],
+  ['semantic', 'color.interactive.hover-ink', 3.92, 'color.teal.600', 'color.warmGray.100', null],
 
   // --- status ---------------------------------------------------------------
   ['primitives', 'color.status.success.light', 3.42, 'color.status.success.light', 'color.warmGray.100', null],
@@ -217,6 +221,9 @@ const CLAIMS = [
   ['primitives', 'color.warmGray.450', 5.68, 'color.warmGray.450', 'color.warmGray.25', null],
   ['semantic', 'color.status.info-ink', 4.61, 'color.status.info-ink', 'color.surface.page', 'light'],
   ['semantic', 'color.text.tertiary', 4.06, 'color.text.tertiary', 'color.surface.sunk', 'light'],
+  ['semantic', 'color.interactive.hover', 3.92, 'color.interactive.hover', 'color.surface.page', 'light'],
+  ['semantic', 'color.interactive.hover', 4.53, 'color.interactive.hover', 'color.surface.raised', 'light'],
+  ['semantic', 'color.interactive.hover', 4.82, 'color.interactive.hover', 'color.surface.floating', 'light'],
 
   // --- dark mode · slate ladder, 2026-09-24 (decisions.md) --------------------
   // Every dark figure below was re-measured against the slate ladder. The

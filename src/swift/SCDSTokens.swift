@@ -151,8 +151,8 @@ public enum SCDS {
     public static let primitivesVersion = "0.1.0"
     public static let semanticVersion = "0.1.0"
     public static let sourceGenerated = "2026-05-26"
-    public static let primitivesHash = "882e853cd5856e97"
-    public static let semanticHash = "efba523cedacf2fa"
+    public static let primitivesHash = "14fc848f136ea999"
+    public static let semanticHash = "188c28d4e9aac30e"
     public static let tokenCount = 151
   }
 
@@ -288,7 +288,7 @@ public enum SCDS {
 
     /// `color.interactive.hover`
     public static let interactiveHover = SwiftUI.Color.scdsDynamic(
-        light: (0.011765, 0.556863, 0.576471, 1),
+        light: (0.015686, 0.47451, 0.490196, 1),
         dark:  (0.321569, 0.721569, 0.737255, 1)
     )
 

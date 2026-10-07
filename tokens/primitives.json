@@ -357,7 +357,7 @@
         "light": {
           "$type": "color",
           "$value": "#006D72",
-          "$description": "2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier for interactive/hover, hue-locked to teal, 4.61:1 on warmGray.100. 2026-10-07 oatmeal restore: re-derived from #027175, which read 4.37:1 on the #E3DFD8 page (base interactive.hover/teal.500 fails at 2.99:1 for body text, and on the oatmeal page also sits under the WCAG 1.4.11 non-text floor, see decisions.md 2026-10-07 — the documented AA exception, learning #67). Dark mode has no separate ink primitive: interactive.hover-ink/dark aliases teal.200 (since 2026-09-24; teal.400 before), which clears AA as text on every dark ground."
+          "$description": "2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier for interactive/hover, hue-locked to teal, 4.61:1 on warmGray.100. 2026-10-07 oatmeal restore: re-derived from #027175, which read 4.37:1 on the #E3DFD8 page (base interactive.hover, teal.600 since 2026-10-07, fails at 3.92:1 for body text; teal.500, the previous alias, read 2.99:1 on the oatmeal page — the documented AA exception, learning #67). Dark mode has no separate ink primitive: interactive.hover-ink/dark aliases teal.200 (since 2026-09-24; teal.400 before), which clears AA as text on every dark ground."
         }
       }
     }
