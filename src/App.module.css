@@ -26,51 +26,46 @@
 /* Slash separator — lighter than adjacent text */
 .slash { color: var(--sc-color-text-disabled); }
 
-/* ── Sidebar ─────────────────────────────────────────────── */
+/* ── Sidebar ─────────────────────────────────────────────
+ * Inset card (Figma "sidebar nav", node 2144:25), hugging its content.
+ * Spec values that had no token were tokenised 2026-10-07 (surface.nav,
+ * space 20/28, label nav-heading / nav-current / ui-medium). Hover and
+ * press keep the live-site behaviour: surface-hover pill outset 8px past
+ * the label, per-character slot roll, press scale. */
 
 .sidebar {
   display: flex;
   flex-direction: column;
-  gap: var(--sc-space-layout-stack-md);
-  padding: var(--sc-p-space-24);
-  background: var(--sc-color-surface-rail);
-  border-bottom: var(--sc-border-width-default) solid var(--sc-color-border-default);
+  gap: var(--sc-p-space-32);
+  padding: var(--sc-p-space-28) var(--sc-p-space-24) var(--sc-p-space-20);
+  background: var(--sc-color-surface-nav);
+  border-radius: var(--sc-radius-surface-large);
 }
 
 .brand {
   display: flex;
   align-items: center;
-  gap: var(--sc-space-component-gap-md);
+  gap: var(--sc-p-space-micro-10);
   text-decoration: none;
   color: var(--sc-color-text-primary);
 }
-.brandMark { width: var(--sc-p-space-micro-22); height: var(--sc-p-space-micro-22); flex-shrink: 0; }
-.brandLockup { display: flex; flex-direction: column; }
+.brandMark { width: var(--sc-p-space-24); height: auto; flex-shrink: 0; }
+.brandMarkGround { fill: var(--sc-color-brand-accent); }
+.brandMarkPlus { fill: var(--sc-color-text-on-accent); }
 .brandName {
-  font: var(--sc-font-text-mono-chrome);
-  letter-spacing: var(--sc-font-text-mono-chrome-letter-spacing);
-  text-transform: uppercase;
+  font: var(--sc-font-text-label-tab);
+  letter-spacing: var(--sc-font-text-label-tab-letter-spacing);
   color: var(--sc-color-text-primary);
 }
-.brandSub {
-  font: var(--sc-font-text-mono-chrome);
-  letter-spacing: var(--sc-font-text-mono-chrome-letter-spacing);
-  text-transform: uppercase;
-  color: var(--sc-color-text-secondary);
-}
 
-.nav { display: flex; flex-direction: column; gap: var(--sc-space-layout-stack-md); }
-.navGroup { display: flex; flex-direction: column; gap: var(--sc-space-component-gap-sm); }
+.nav { display: flex; flex-direction: column; gap: var(--sc-p-space-32); }
+.navGroup { display: flex; flex-direction: column; }
 .navEyebrow {
-  display: flex;
-  gap: var(--sc-space-component-gap-md);
-  font: var(--sc-font-text-mono-chrome);
-  letter-spacing: var(--sc-font-text-mono-chrome-letter-spacing);
-  text-transform: uppercase;
-  color: var(--sc-color-text-disabled);
-  padding-block: var(--sc-p-space-micro-2) var(--sc-p-space-micro-6);
+  font: var(--sc-font-text-label-nav-heading);
+  letter-spacing: var(--sc-font-text-label-nav-heading-letter-spacing);
+  color: var(--sc-color-text-primary);
+  padding-bottom: var(--sc-space-component-gap-sm);
 }
-.navOrd { color: var(--sc-color-text-secondary); }
 
 .navLink {
   position: relative;
@@ -80,11 +75,11 @@
   text-decoration: none;
   color: var(--sc-color-text-primary);
   font: var(--sc-font-text-caption);
-  padding: var(--sc-p-space-micro-6) var(--sc-p-space-12);
-  /* Negative left/right margin pulls the link box back so the label text
-   * aligns to the section eyebrow above it while the hover-highlight rect
-   * still has horizontal breathing room around the text. */
-  margin-inline: calc(-1 * var(--sc-p-space-12));
+  line-height: var(--sc-p-font-line-height-base);
+  padding: var(--sc-p-space-4) var(--sc-p-space-8);
+  /* Negative inline margin keeps the label on the eyebrow's left edge
+   * while the hover pill extends 8px past it on both sides. */
+  margin-inline: calc(-1 * var(--sc-p-space-8));
   border-radius: var(--sc-radius-control);
   transition:
     background-color var(--sc-motion-hover-duration) var(--sc-motion-hover-easing),
@@ -98,7 +93,13 @@
   letter-spacing: 0;
   color: var(--sc-color-text-disabled);
 }
-.navLinkActive { color: var(--sc-color-brand-accent); font-weight: var(--sc-p-font-weight-medium); }
+.navLinkActive {
+  font: var(--sc-font-text-label-nav-current);
+  letter-spacing: var(--sc-font-text-label-nav-current-letter-spacing);
+  /* accent-ink, not brand-accent: teal-500 is 3.5:1 (light) / 2.9:1 (dark)
+   * on surface-nav at 13px; the ink pair clears AA in both modes. */
+  color: var(--sc-color-brand-accent-ink);
+}
 
 /* Per-character slot-machine animation — each char wrapped in an
  * overflow:hidden container with two stacked layers (default visible,
@@ -138,37 +139,25 @@
 }
 .navLink:hover .navCharLayer { transform: translateY(-100%); }
 
-.navSpacer { display: none; }
-
 .modeRow {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-top: var(--sc-p-space-16);
+  padding-top: var(--sc-space-layout-stack-sm);
   border-top: var(--sc-border-width-default) solid var(--sc-color-border-default);
 }
 .modeLabel {
-  font: var(--sc-font-text-mono-chrome);
-  letter-spacing: var(--sc-font-text-mono-chrome-letter-spacing);
-  text-transform: uppercase;
+  font: var(--sc-font-text-label-ui-medium);
+  letter-spacing: var(--sc-font-text-label-ui-medium-letter-spacing);
   color: var(--sc-color-text-secondary);
 }
 .modeState { color: var(--sc-color-text-primary); margin-left: var(--sc-space-component-gap-sm); }
-
-.versionRow {
-  padding-top: var(--sc-p-space-8);
-  font: var(--sc-font-text-mono-chrome);
-  letter-spacing: var(--sc-font-text-mono-chrome-letter-spacing);
-  text-transform: uppercase;
-  color: var(--sc-color-text-disabled);
-}
 
 .sidebarFoot {
   display: flex;
   justify-content: space-between;
   font: var(--sc-font-text-mono-chrome);
   letter-spacing: var(--sc-font-text-mono-chrome-letter-spacing);
-  text-transform: uppercase;
   color: var(--sc-color-text-disabled);
 }
 
@@ -242,23 +231,19 @@
 .placeholderLead b { font-weight: var(--sc-p-font-weight-medium); }
 .placeholderBody { font: var(--sc-font-text-body-default); color: var(--sc-color-text-secondary); max-width: 60ch; }
 
-/* ── ≥ sm: sticky two-column rail ────────────────────────── */
+/* ── ≥ sm: sticky two-column shell (inset sidebar card) ───── */
 
 @media (min-width: 768px) {
   .site {
     display: grid;
-    grid-template-columns: var(--shell-rail-w) 1fr;
+    grid-template-columns: calc(var(--shell-rail-w) + 2 * var(--sc-space-layout-inset-md)) 1fr;
   }
   .sidebar {
     position: sticky;
-    top: 0;
+    top: var(--sc-space-layout-inset-md);
     align-self: start;
-    height: 100vh;
-    overflow-y: auto;
-    border-bottom: 0;
-    border-right: var(--sc-border-width-default) solid var(--sc-color-border-default);
+    margin: var(--sc-space-layout-inset-md);
   }
-  .navSpacer { display: block; flex: 1; }
   .main {
     padding: var(--sc-space-layout-stack-lg) var(--sc-space-layout-inset-md) var(--sc-space-layout-stack-xl) var(--sc-space-layout-stack-lg);
   }
