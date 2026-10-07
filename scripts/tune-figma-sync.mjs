@@ -3,31 +3,47 @@
  * tune-figma-sync — turn a token change into the Figma library update.
  *
  *   node scripts/tune-figma-sync.mjs --since <git-ref> [--out <dir>]
+ *   node scripts/tune-figma-sync.mjs --tokens <a,b,c> [--out <dir>]
  *
- * Compares tokens/semantic.json and tokens/primitives.json at <git-ref>
- * with the working tree and writes two files to <dir> (default: the
- * scratchpad-free `output/tuning/.exports/`):
+ * --since compares tokens/semantic.json and tokens/primitives.json at
+ * <git-ref> with the working tree and emits an op for every token that
+ * changed. --tokens emits an op for each named token, changed or not: token
+ * paths (color.segmentedControl.track) or library names
+ * (color/segmentedControl/track, shadow/x/dark/y, text/label/button-lg), so
+ * the `absent` list a run returns can be pasted straight back in. The two
+ * can be combined. Writes two files to <dir> (default
+ * `output/tuning/.exports/`):
  *
  *   figma-sync.js  plain Plugin API code for one `use_figma` call on the
  *                  SCDS library (0zVoxaLJQkjHENYJlQk1VT). Idempotent: it
  *                  finds each variable or style by name, creates it when
- *                  missing, sets the new values, and returns a readback.
- *   figma-sync.md  the same changes as a table, for the report.
+ *                  missing, sets the new values, and returns
+ *                  { done, created, absent, missing }.
+ *   figma-sync.md  the ops as a table, the tokens with no Figma analogue,
+ *                  and what to do with the result.
+ *
+ * The library is read, never guessed. The diff says what changed in code; it
+ * cannot say what the library holds. Every call carries the names of all
+ * library-syncable tokens and returns `absent`: the ones the library lacks
+ * (2026-10-07: SegmentedControl role tokens created at 0 in one commit and
+ * changed in the next were never in the library, and the diff-only version
+ * reported "every change updates a token the library already binds").
+ * `created` lists what the run made; those, and only those, need binding on
+ * the masters by hand, because no token file says which master reads a token.
  *
  * Library naming (verified against the file 2026-10-07):
  *   variable      token path with "/" for "."      color/control/keyShade
+ *                 (reported as Primitives:<name> for the Primitives collection)
  *                 collections "Primitives" (mode "Value") and
- *                 "Semantic" (modes "Light", "Dark")
+ *                 "Semantic" (modes "Light", "Dark"); a duration is a FLOAT
+ *                 in ms, as motion/reveal/duration is
  *   text style    "text/" + path after font.text,  text/label/button-lg
  *                 camelCase segments in kebab
  *   effect style  "shadow/<group>/<name>" for light, shadow/control/key
  *                 "shadow/<group>/dark/<name>" for   shadow/control/dark/key
  *                 dark (styles carry no modes)
- *
- * What it cannot do: bind a NEW token to the component that should read it.
- * A role token that replaces a shared one (padding, gap) still needs its
- * bindings on the masters; the .md lists every new token under "Bind by
- * hand" so that step is never silent.
+ * Code only (no Figma analogue, listed in the report): spring, cubicBezier,
+ * fontFamily and fontWeight tokens.
  */
 import { execFileSync } from 'node:child_process';
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
@@ -36,7 +52,8 @@ import { resolve } from 'node:path';
 const root = resolve(import.meta.dirname, '..');
 const arg = (k, d) => { const i = process.argv.indexOf(k); return i > 0 ? process.argv[i + 1] : d; };
 const since = arg('--since');
-if (!since) { console.error('usage: tune-figma-sync.mjs --since <git-ref> [--out <dir>]'); process.exit(1); }
+const named = (arg('--tokens', '') || '').split(',').map((x) => x.trim()).filter(Boolean);
+if (!since && !named.length) { console.error('usage: tune-figma-sync.mjs (--since <git-ref> | --tokens <a,b,c>) [--out <dir>]'); process.exit(1); }
 const out = resolve(root, arg('--out', 'output/tuning/.exports'));
 
 const at = (ref, file) => JSON.parse(execFileSync('git', ['show', `${ref}:${file}`], { cwd: root, encoding: 'utf8' }));
@@ -50,10 +67,10 @@ function flatten(tree, prefix = [], acc = {}) {
   }
   return acc;
 }
-const semOld = flatten(at(since, 'tokens/semantic.json'));
 const semNew = flatten(now('tokens/semantic.json'));
-const primOld = flatten(at(since, 'tokens/primitives.json'));
 const primNew = flatten(now('tokens/primitives.json'));
+const semOld = since ? flatten(at(since, 'tokens/semantic.json')) : semNew;
+const primOld = since ? flatten(at(since, 'tokens/primitives.json')) : primNew;
 
 // Resolve var(--sc-p-…) and channel triplets from the built CSS.
 const css = readFileSync(resolve(root, 'src/styles/tokens.css'), 'utf8');
@@ -109,63 +126,127 @@ function composite(v) {
   };
 }
 
-/* ---------- build the change list ---------- */
-const ops = []; const rows = []; const created = [];
+/* ---------- library names and scopes ---------- */
+const VARIABLE_TYPES = ['color', 'dimension', 'number', 'duration'];
+const varName = (path) => path.replace(/\./g, '/');
+const textName = (path) => `text/${path.replace(/^font\.text\./, '').split('.').map(kebab).join('/')}`;
+const effectNames = (path) => {
+  const seg = path.split('.');
+  return [`shadow/${seg.slice(1).join('/')}`, `shadow/${seg.slice(1, -1).join('/')}/dark/${seg.at(-1)}`];
+};
+// What a newly created variable may be bound to. Explicit, never ALL_SCOPES;
+// an existing variable keeps the scopes it has.
+function scopesFor(path, type) {
+  if (type === 'color') {
+    if (/(^|\.)(text|ink)(\.|$)|Ink$/.test(path)) return ['TEXT_FILL'];
+    if (/^color\.(border|divider)\./.test(path)) return ['STROKE_COLOR'];
+    return ['FRAME_FILL', 'SHAPE_FILL'];
+  }
+  if (type === 'dimension') {
+    if (/^size\./.test(path)) return ['WIDTH_HEIGHT'];
+    if (/^radius\./.test(path)) return ['CORNER_RADIUS'];
+    if (/^border\.width/.test(path)) return ['STROKE_FLOAT'];
+    if (/^space\./.test(path)) return /gap/i.test(path) ? ['GAP'] : ['GAP', 'WIDTH_HEIGHT'];
+  }
+  return []; // numbers and durations (motion) stay out of every picker
+}
+// A duration literal is { value, unit } or "600ms"; the library keeps ms.
+const durationMs = (v) => {
+  if (v && typeof v === 'object' && 'value' in v) return v.unit === 's' ? v.value * 1000 : Number(v.value);
+  const m = String(deref(String(v))).match(/^([\d.]+)(ms|s)$/);
+  return m ? (m[2] === 's' ? +m[1] * 1000 : +m[1]) : NaN;
+};
+const literal = (type, v) => type === 'color' ? { color: parseColor(v) }
+  : type === 'duration' ? { number: durationMs(v) }
+  : { number: v && typeof v === 'object' && 'value' in v ? Number(v.value) : parseFloat(deref(String(v))) };
+
+/* Every library-syncable token, by library name, and back to its path. */
+const manifest = { variables: [], effects: [], texts: [] };
+const byLibraryName = {};
+// Primitives and Semantic share names (color/signal/live is in both), so a
+// variable is checked in its own collection: primitives as "Primitives:<name>".
+for (const [path, t] of Object.entries(primNew)) {
+  if (!VARIABLE_TYPES.includes(t.$type)) continue;
+  const n = `Primitives:${varName(path)}`;
+  manifest.variables.push(n); byLibraryName[n] = path;
+}
 for (const [path, t] of Object.entries(semNew)) {
-  const old = semOld[path];
+  if (VARIABLE_TYPES.includes(t.$type)) { manifest.variables.push(varName(path)); byLibraryName[varName(path)] = path; }
+  else if (t.$type === 'shadow') for (const n of effectNames(path)) { manifest.effects.push(n); byLibraryName[n] = path; }
+  else if (t.$type === 'typography' && path.startsWith('font.text.')) { manifest.texts.push(textName(path)); byLibraryName[textName(path)] = path; }
+}
+
+/* ---------- build the change list ---------- */
+const ops = []; const rows = []; const codeOnly = []; const unknown = [];
+function semanticOps(path, t) {
   const m = modesOf(t);
-  if (old && same(modesOf(old), m)) continue;
-  if (!old) created.push(path);
   const type = t.$type;
   if (type === 'shadow') {
-    const seg = path.split('.');
-    const light = `shadow/${seg.slice(1).join('/')}`;
-    const dark = `shadow/${seg.slice(1, -1).join('/')}/dark/${seg.at(-1)}`;
+    const [light, dark] = effectNames(path);
     ops.push({ kind: 'effect', name: light, effects: parseShadow(m.light), desc: t.$description });
     ops.push({ kind: 'effect', name: dark, effects: parseShadow(m.dark), desc: `Dark-mode value of ${light} (styles carry no modes).` });
     rows.push([path, 'effect styles', `${light}, ${dark}`]);
   } else if (type === 'typography') {
-    const name = `text/${path.replace(/^font\.text\./, '').split('.').map(kebab).join('/')}`;
+    const name = textName(path);
     ops.push({ kind: 'text', name, ...composite(m.light), desc: t.$description });
     rows.push([path, 'text style', name]);
-  } else if (['color', 'dimension', 'number'].includes(type)) {
-    const name = path.replace(/\./g, '/');
+  } else if (VARIABLE_TYPES.includes(type)) {
+    const name = varName(path);
     const vals = {};
     for (const [mode, v] of Object.entries(m)) {
       const r = refPath(v);
-      vals[mode === 'light' ? 'Light' : 'Dark'] = r ? { alias: r.replace(/\./g, '/') } : type === 'color' ? { color: parseColor(v) } : { number: v && typeof v === 'object' && 'value' in v ? Number(v.value) : parseFloat(deref(String(v))) };
+      vals[mode === 'light' ? 'Light' : 'Dark'] = r ? { alias: varName(r) } : literal(type, v);
     }
-    ops.push({ kind: 'variable', collection: 'Semantic', name, type: type === 'color' ? 'COLOR' : 'FLOAT', values: vals, desc: t.$description, web: `var(--sc-${path.replace(/\./g, '-').replace(/[A-Z]/g, (c) => `-${c.toLowerCase()}`)})` });
+    ops.push({ kind: 'variable', collection: 'Semantic', name, type: type === 'color' ? 'COLOR' : 'FLOAT', values: vals, scopes: scopesFor(path, type), desc: t.$description, web: `var(--sc-${path.replace(/\./g, '-').replace(/[A-Z]/g, (c) => `-${c.toLowerCase()}`)})` });
     rows.push([path, 'variable', name]);
-  }
+  } else codeOnly.push([path, type]);
 }
-for (const [path, t] of Object.entries(primNew)) {
-  if (primOld[path] && same(primOld[path].$value, t.$value)) continue;
-  if (t.$type === 'typography') continue; // compositions live on text styles
-  const v = t.$value;
-  const value = t.$type === 'color' ? { color: parseColor(v) } : { number: typeof v === 'object' ? v.value : Number(v) };
-  if (value.number !== undefined && Number.isNaN(value.number)) continue;
-  ops.push({ kind: 'variable', collection: 'Primitives', name: path.replace(/\./g, '/'), type: t.$type === 'color' ? 'COLOR' : 'FLOAT', values: { Value: value }, desc: t.$description });
-  rows.push([path, 'primitive variable', path.replace(/\./g, '/')]);
-  if (!primOld[path]) created.push(path);
+function primitiveOps(path, t) {
+  if (t.$type === 'typography') return; // compositions live on text styles
+  if (!VARIABLE_TYPES.includes(t.$type)) { codeOnly.push([path, t.$type]); return; }
+  const value = literal(t.$type, t.$value);
+  if (value.number !== undefined && Number.isNaN(value.number)) { codeOnly.push([path, `${t.$type} (unparsed value)`]); return; }
+  ops.push({ kind: 'variable', collection: 'Primitives', name: varName(path), type: t.$type === 'color' ? 'COLOR' : 'FLOAT', values: { Value: value }, scopes: scopesFor(path, t.$type), desc: t.$description });
+  rows.push([path, 'primitive variable', varName(path)]);
 }
+const wanted = new Set();
+if (since) {
+  for (const [path, t] of Object.entries(semNew)) if (!semOld[path] || !same(modesOf(semOld[path]), modesOf(t))) wanted.add(path);
+  for (const [path, t] of Object.entries(primNew)) if (!primOld[path] || !same(primOld[path].$value, t.$value)) wanted.add(path);
+}
+for (const n of named) {
+  const dotted = n.replace(/^Primitives:/, '').replace(/\//g, '.');
+  const path = byLibraryName[n] ?? (semNew[n] || primNew[n] ? n : semNew[dotted] || primNew[dotted] ? dotted : null);
+  if (path) wanted.add(path); else unknown.push(n);
+}
+for (const path of wanted) {
+  if (semNew[path]) semanticOps(path, semNew[path]);
+  else if (primNew[path]) primitiveOps(path, primNew[path]);
+}
+if (unknown.length) { console.error(`tune-figma-sync: no token for ${unknown.join(', ')}`); process.exit(1); }
 
 /* ---------- emit ---------- */
-const code = `// figma-sync · generated by scripts/tune-figma-sync.mjs --since ${since}
+const code = `// figma-sync · generated by scripts/tune-figma-sync.mjs${since ? ` --since ${since}` : ''}${named.length ? ` --tokens ${named.join(',')}` : ''}
 // One use_figma call on file 0zVoxaLJQkjHENYJlQk1VT. Safe to re-run.
+// Returns { done, created, absent, missing }: bind \`created\` on the masters by hand;
+// \`absent\` is every token in code the library still lacks (see figma-sync.md).
 const OPS = ${JSON.stringify(ops)};
+const MANIFEST = ${JSON.stringify(manifest)};
 const cols = await figma.variables.getLocalVariableCollectionsAsync();
 const col = (n) => cols.find((c) => c.name === n);
 let vars = await figma.variables.getLocalVariablesAsync();
 const byName = (n) => vars.find((v) => v.name === n);
 const texts = await figma.getLocalTextStylesAsync();
 const effects = await figma.getLocalEffectStylesAsync();
-const done = [], missing = [];
+const colName = Object.fromEntries(cols.map((c) => [c.id, c.name]));
+const key = (collection, name) => (collection === 'Primitives' ? 'Primitives:' : '') + name;
+const has = { variables: new Set(vars.map((v) => key(colName[v.variableCollectionId], v.name))), effects: new Set(effects.map((e) => e.name)), texts: new Set(texts.map((t) => t.name)) };
+const done = [], created = [], missing = [];
 for (const op of OPS) {
   if (op.kind === 'variable') {
     const c = col(op.collection);
-    let v = byName(op.name);
-    if (!v) { v = figma.variables.createVariable(op.name, c, op.type); vars.push(v); done.push('created ' + op.name); }
+    let v = vars.find((x) => x.name === op.name && x.variableCollectionId === c.id);
+    if (!v) { v = figma.variables.createVariable(op.name, c, op.type); vars.push(v); v.scopes = op.scopes; created.push(key(op.collection, op.name)); has.variables.add(key(op.collection, op.name)); }
     for (const m of c.modes) {
       const x = op.values[m.name] ?? op.values.Light ?? op.values.Value;
       if (!x) continue;
@@ -178,7 +259,7 @@ for (const op of OPS) {
     done.push(op.name);
   } else if (op.kind === 'effect') {
     let s = effects.find((e) => e.name === op.name);
-    if (!s) { s = figma.createEffectStyle(); s.name = op.name; done.push('created ' + op.name); }
+    if (!s) { s = figma.createEffectStyle(); s.name = op.name; effects.push(s); created.push(op.name); has.effects.add(op.name); }
     s.effects = op.effects; if (op.desc) s.description = op.desc.slice(0, 500);
     done.push(op.name);
   } else if (op.kind === 'text') {
@@ -191,13 +272,28 @@ for (const op of OPS) {
     done.push(op.name);
   }
 }
-return { done, missing };
+const absent = [
+  ...MANIFEST.variables.filter((n) => !has.variables.has(n)),
+  ...MANIFEST.effects.filter((n) => !has.effects.has(n)),
+  ...MANIFEST.texts.filter((n) => !has.texts.has(n)),
+];
+return { done, created, absent, missing };
 `;
 mkdirSync(out, { recursive: true });
 writeFileSync(resolve(out, 'figma-sync.js'), code);
-const md = [`# Figma sync since \`${since}\``, '', `${ops.length} operations for one \`use_figma\` call (\`figma-sync.js\`).`, '',
-  '| Token | Figma kind | Figma name |', '| --- | --- | --- |', ...rows.map((r) => `| \`${r[0]}\` | ${r[1]} | \`${r[2]}\` |`), '',
-  '## Bind by hand', '', created.length ? 'New tokens. The sync creates them; binding each to the masters that read it is a separate step:' : 'None: every change updates a token the library already binds.', '',
-  ...created.map((p) => `- \`${p}\``), ''].join('\n');
+const md = [
+  `# Figma sync${since ? ` since \`${since}\`` : ''}${named.length ? ` for ${named.length} named token(s)` : ''}`, '',
+  `${ops.length} operations for one \`use_figma\` call (\`figma-sync.js\`).`, '',
+  ...(rows.length ? ['| Token | Figma kind | Figma name |', '| --- | --- | --- |', ...rows.map((r) => `| \`${r[0]}\` | ${r[1]} | \`${r[2]}\` |`), ''] : []),
+  '## Code only', '',
+  codeOnly.length ? 'These have no Figma analogue (a spring, an easing, a font family or weight) and are not synced:' : 'None in this change.', '',
+  ...codeOnly.map(([p, t]) => `- \`${p}\` (${t})`), ...(codeOnly.length ? [''] : []),
+  '## After the call', '',
+  'The call reads the library; this file cannot. Act on what it returns:', '',
+  '- `created`: variables and effect styles this run made. Bind each on the masters that read it (fill, gap, size, effect style). No token file says which master reads a token, so this step is by hand, and only for these names.',
+  '- `absent`: tokens in code that the library still lacks, whether or not this change touched them. For each one either sync it, `node scripts/tune-figma-sync.mjs --tokens <the absent names, comma-separated>`, run that call and bind its `created`, or confirm it is code-only on purpose and say so in the decision entry.',
+  '- `missing`: an alias target or text style the call could not find. Create it first, then re-run; the call is idempotent.',
+  '',
+].join('\n');
 writeFileSync(resolve(out, 'figma-sync.md'), md);
-console.log(`figma-sync: ${ops.length} ops (${created.length} new tokens) → ${out}/figma-sync.js`);
+console.log(`figma-sync: ${ops.length} ops, ${manifest.variables.length + manifest.effects.length + manifest.texts.length} library names checked, ${codeOnly.length} code-only → ${out}/figma-sync.js`);

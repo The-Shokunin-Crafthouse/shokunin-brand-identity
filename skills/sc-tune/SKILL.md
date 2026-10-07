@@ -97,11 +97,12 @@ A record is a reference, not a change. Shipping it is a separate decision.
    Result: every value matches. Do not press **Reset all**, because it erases Levi's concepts.
 7. Sync Figma. This step is not optional: an applied record ships to code and library together.
    1. Run `node scripts/tune-figma-sync.mjs --since <sync base from step 2>`.
-      Result: `figma-sync: <N> ops (<M> new tokens)`, and `output/tuning/.exports/figma-sync.js` and `figma-sync.md` are written.
+      Result: `figma-sync: <N> ops, <M> library names checked, <K> code-only`, and `output/tuning/.exports/figma-sync.js` and `figma-sync.md` are written. `figma-sync.md` lists the code-only tokens (springs, easings), which do not sync.
    2. Load the `figma-use` skill. Pass the full text of `figma-sync.js` as the code of one `use_figma` call on file `0zVoxaLJQkjHENYJlQk1VT`.
-      Result: `missing` is empty and `done` lists every operation. If `missing` names an item, create it (or its alias target) and run the call again. The code is idempotent.
-   3. For each token under **Bind by hand** in `figma-sync.md`, bind it on the component masters that read it (for example padding on every variant of the size it serves). The generator cannot know which masters read a new token.
-   4. Read back the picked variants (size, padding, gap, effect style) and compare them with the code values from step 6. A stroke adds no auto-layout height in Figma, so a 1px border reads 2px shorter there.
+      Result: `{ done, created, absent, missing }`. `missing` is empty and `done` lists every operation. If `missing` names an item, create it (or its alias target) and run the call again. The code is idempotent.
+   3. Read `absent`: every token in code that the library lacks, touched by this change or not. The call reads the library; the diff cannot. For each absent token the component reads, run `node scripts/tune-figma-sync.mjs --tokens <the absent names, comma-separated>` and pass that file to a second `use_figma` call. A token that is code-only on purpose stays absent; name it in the decision entry.
+   4. Bind each name the calls return under `created` on the component masters that read it (fill, gap, size, effect style). Bind nothing else by hand: an existing variable is already bound or was bound before. No token file says which master reads a token, so this step is by hand.
+   5. Read back the picked variants (size, padding, gap, effect style) and compare them with the code values from step 6. A stroke adds no auto-layout height in Figma, so a 1px border reads 2px shorter there.
 8. Log a dated entry in `decisions/decisions.md` that names the record path, every cascaded value, and the Figma ids created.
 
 ## Troubleshooting

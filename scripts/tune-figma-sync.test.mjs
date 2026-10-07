@@ -32,8 +32,9 @@ function fakeFigma({ variables = [], effectStyles = [], textStyles = [] } = {}) 
     { name: 'Primitives', id: 'c1', modes: [{ name: 'Value', modeId: 'm0' }] },
     { name: 'Semantic', id: 'c2', modes: [{ name: 'Light', modeId: 'm1' }, { name: 'Dark', modeId: 'm2' }] },
   ];
-  const mkVar = (name) => ({ name, id: `v${n += 1}`, scopes: ['ALL_SCOPES'], valuesByMode: {}, setValueForMode(m, x) { this.valuesByMode[m] = x; }, setVariableCodeSyntax() {} });
-  const vars = variables.map(mkVar);
+  // A name 'Primitives:x' lives in the Primitives collection; a bare name in Semantic.
+  const mkVar = (name, collectionId = 'c2') => ({ name, variableCollectionId: collectionId, id: `v${n += 1}`, scopes: ['ALL_SCOPES'], valuesByMode: {}, setValueForMode(m, x) { this.valuesByMode[m] = x; }, setVariableCodeSyntax() {} });
+  const vars = variables.map((x) => (x.startsWith('Primitives:') ? mkVar(x.slice(11), 'c1') : mkVar(x)));
   const effects = effectStyles.map((name) => ({ name, effects: [] }));
   const texts = textStyles.map((name) => ({ name, fontName: {}, setBoundVariable() {} }));
   return {
@@ -42,7 +43,7 @@ function fakeFigma({ variables = [], effectStyles = [], textStyles = [] } = {}) 
     variables: {
       getLocalVariableCollectionsAsync: async () => cols,
       getLocalVariablesAsync: async () => vars,
-      createVariable: (name) => { const v = mkVar(name); vars.push(v); return v; },
+      createVariable: (name, c) => { const v = mkVar(name, c.id); vars.push(v); return v; },
       createVariableAlias: (v) => ({ type: 'VARIABLE_ALIAS', id: v.id }),
     },
     getLocalTextStylesAsync: async () => texts,
@@ -55,11 +56,12 @@ const execute = (code, figma) => new Function('figma', `return (async () => {${c
 
 test('the call reports tokens the library lacks, even ones the diff never touched', async () => {
   const { code } = run('--since', 'HEAD');
-  const figma = fakeFigma({ variables: ['color/warmGray/200', 'color/dark/well'] });
+  const figma = fakeFigma({ variables: ['Primitives:color/warmGray/200', 'Primitives:color/dark/well', 'color/signal/live'] });
   const result = await execute(code, figma);
   assert.ok(Array.isArray(result.absent), 'result.absent is reported');
   assert.ok(result.absent.includes('color/segmentedControl/track'), 'an unchanged token missing from the library is reported');
-  assert.ok(!result.absent.includes('color/warmGray/200'), 'a variable the library has is not reported');
+  assert.ok(!result.absent.includes('Primitives:color/warmGray/200'), 'a variable the library has is not reported');
+  assert.ok(result.absent.includes('Primitives:color/signal/live'), 'a same-named variable in the other collection does not mask an absence');
 });
 
 test('the report takes "bind by hand" from the run, never from the diff', () => {
@@ -79,7 +81,7 @@ test('--tokens builds create ops for named tokens, and the run returns what it c
   assert.ok(dur, 'a duration token becomes a variable (the library keeps motion durations as FLOAT)');
   assert.equal(dur.type, 'FLOAT');
   assert.equal(dur.values.Light.number, 600);
-  const figma = fakeFigma({ variables: ['color/warmGray/200', 'color/dark/well'] });
+  const figma = fakeFigma({ variables: ['Primitives:color/warmGray/200', 'Primitives:color/dark/well'] });
   const result = await execute(code, figma);
   assert.ok(result.created.includes('color/segmentedControl/track'), 'result.created names what this run made');
   assert.deepEqual(figma.vars.find((v) => v.name === 'color/segmentedControl/track').scopes, ['FRAME_FILL', 'SHAPE_FILL']);
