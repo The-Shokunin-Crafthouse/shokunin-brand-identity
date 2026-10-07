@@ -64,3 +64,10 @@ test('every exemption names a token that still exists', () => {
   assert.match(f[0], /shadow\.gone.*no longer exists/);
   for (const e of EXEMPT) assert.ok(e.why.length > 0, `${e.path} carries its reason`);
 });
+
+test('a component that transitions box-shadow fails', () => {
+  const css = [{ file: 'src/components/Card/Card.module.css', text: '.card {\n  transition:\n    background-color 1s ease,\n    box-shadow 1s ease;\n}' }];
+  const f = checkLight({ semantic: {}, css, exempt: [] });
+  assert.equal(f.length, 1);
+  assert.match(f[0], /Card\.module\.css.*box-shadow/);
+});
