@@ -432,3 +432,42 @@ fieldset:disabled {
   background: var(--sc-color-surface-sunk);
   color: var(--sc-color-text-secondary);
 }
+
+/* ---------- type-scale steps on font-size tokens ---------- */
+.steps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sc-space-component-gap-sm);
+}
+.step {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--sc-space-component-gap-sm);
+  font: inherit;
+  font-family: var(--sc-font-text-mono-body-family);
+  font-size: var(--sc-font-text-caption-size);
+  color: var(--sc-color-text-secondary);
+  background: var(--sc-color-surface-sunk);
+  border: none;
+  border-radius: var(--sc-radius-pill);
+  padding: var(--sc-space-component-padding-block-sm) var(--sc-space-component-padding-inline-sm);
+  cursor: pointer;
+}
+.step:hover {
+  background: var(--sc-color-surface-hover);
+  color: var(--sc-color-text-primary);
+}
+.step[aria-pressed='true'] {
+  background: var(--sc-color-brand-accent);
+  color: var(--sc-color-text-on-accent);
+}
+.step:focus-visible {
+  outline: var(--sc-border-width-focus) solid var(--sc-color-border-focus);
+  outline-offset: var(--sc-border-focus-offset);
+}
+.step:active {
+  scale: var(--sc-motion-press-scale);
+}
+.stepRole {
+  font-family: var(--sc-font-text-body-dense-family);
+}

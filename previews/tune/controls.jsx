@@ -153,6 +153,9 @@ function ShadowLayers({ name, value, onSet }) {
 
 /* ---------- token control ---------- */
 
+// Text steps of the type scale, labelled where a role already uses them.
+const TYPE_STEPS = [[11, 'chrome'], [12, 'ui'], [13, 'caption'], [14, 'dense'], [16, 'body'], [20, 'lead']];
+
 export function TokenControl({ name, kind, shipped, value, override, scope, adj, spring, pin, refs, easingPresets, onSet, onAdj, onSpring, onReset, onPin }) {
   const changed = override !== undefined;
   const [pinOpen, setPinOpen] = useState(!!pin);
@@ -177,6 +180,23 @@ export function TokenControl({ name, kind, shipped, value, override, scope, adj,
         <input type="number" aria-label={`${name} value`} className={s.num} step={step} value={round(n, 3)} onChange={(e) => onSet(`${e.target.value}${unit}`)} />
       </div>
     );
+    // Font sizes snap to the type scale: one tap per step, recorded as the
+    // primitive reference so the spec names the step, not a loose px value.
+    if (/^--sc-font-.*-size$/.test(name)) {
+      editor = (
+        <>
+          {editor}
+          <div className={s.steps} role="group" aria-label={`${name} type scale`}>
+            {TYPE_STEPS.map(([px, role]) => (
+              <button key={px} type="button" className={s.step} aria-pressed={n === px}
+                onClick={() => onSet(`var(--sc-p-font-size-${px})`)}>
+                {px}{role && <span className={s.stepRole}>{role}</span>}
+              </button>
+            ))}
+          </div>
+        </>
+      );
+    }
   } else if (kind === 'time') {
     const ms = toMs(value);
     editor = (
