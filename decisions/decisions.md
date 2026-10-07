@@ -1921,3 +1921,12 @@ Levi: the trailing arrow uses Phosphor's bold weight, not regular. Code: `ArrowR
 - **Change:** new `size.button.icon.lg` and `size.button.icon.sm` (`--sc-size-button-icon-*`), both `{space.12}`. Nothing changes visually. The Button sets a local `--sc-btn-icon` from the lg token and `.sm` swaps it to sm; the arrow and the loading WorkingMark read it. `size.icon.xs` keeps its other consumers.
 - **Lab:** icon-size tokens get step buttons (10, 12 xs, 14, 16 sm, 18, 24 md) beside the type-scale steps, recorded as the primitive reference.
 - **Figma library:** variables `size/button/icon/lg` (`490:122`) and `size/button/icon/sm` (`490:123`) alias `space/12`, scope width/height, WEB code syntax set; bound to width and height of the arrow instance in all 30 Button variants.
+
+### 2026-10-07: Button primary hover gets its own role tokens; the lab forces states
+
+**Status:** Accepted. Levi asked for dark-mode hover settings in the tuning lab, with the resting key already where he wants it.
+
+- **Tokens:** `color.control.keyHoverFill` (teal.600, same as `brand.accentFill`), `color.control.keyHoverInk` (white, same as `text.onAccent`) and `shadow.control.keyHover` (equal to `control.key` in both modes). Nothing changes visually. `.primary:hover` reads them, so the key's hover tunes per mode without moving the Switch or other accent fills, and hover can now carry its own shadow.
+- **Guard:** `tokens:verify` gains a label-on-fill AA check, `keyHoverInk` on `keyHoverFill` per mode, so a dark-only tune that drops the label under 4.5:1 fails the build. Planted-bug run: dark ink set to teal.500 failed at 1.31:1; restored, green.
+- **Lab:** a `state` view control (rest, hover, focus, active) mirrors every `:hover`, `:focus-visible` and `:active` rule onto a stage attribute, so the forced state shows on all stages, Shipped included. `*-hover` tokens with a rest sibling get "copy rest", which starts hover from the concept's tuned rest value (the hover shadow otherwise starts at the shipped key, not Levi's tuned rest).
+- **Figma library:** variables `color/control/keyHoverFill` (`491:10`), `keyHoverInk` (`491:11`); effect styles `shadow/control/keyHover` and `shadow/control/dark/keyHover`; bound on both Primary Hover variants (fill, label, arrow, effect).

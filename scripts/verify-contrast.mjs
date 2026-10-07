@@ -141,6 +141,25 @@ function checkAA() {
   return { failures, restricted };
 }
 
+// ------------------------------------------------- check 1b: label-on-fill pairs
+// Control labels that sit on their own fill, not on a surface. Each pair must
+// clear AA in every mode, so a per-mode tune of either side is caught here.
+const FILL_PAIRS = [
+  ['color.control.keyHoverInk', 'color.control.keyHoverFill'],
+];
+function checkFillPairs() {
+  const failures = [];
+  for (const mode of MODES) {
+    for (const [fgPath, bgPath] of FILL_PAIRS) {
+      const fg = semanticHex(fgPath, mode);
+      const bg = semanticHex(bgPath, mode);
+      const ratio = contrast(fg, bg);
+      if (ratio < AA) failures.push(`${fgPath} on ${bgPath} (${mode}): ${fmt(ratio)}:1 < AA ${AA}:1, ${fg} on ${bg}.`);
+    }
+  }
+  return failures;
+}
+
 // ------------------------------------------------------- check 2: live claims
 // Every contrast figure quoted in a live $description, with the pair it names.
 // `fg`/`bg` are token paths (semantic paths resolve per `mode`).
@@ -437,6 +456,7 @@ console.log('\nContrast verification — tokens/primitives.json + tokens/semanti
 
 let fatalCount = 0;
 fatalCount += section(`WCAG AA on every text-tier × surface × mode pair (${TEXT_TIERS.length * SURFACES.length * MODES.length} pairs)`, aaFailures);
+fatalCount += section(`WCAG AA on every control label × its own fill × mode (${FILL_PAIRS.length * MODES.length} pairs)`, checkFillPairs());
 fatalCount += section(`every quoted figure matches its measured value (${CLAIMS.length} claims)`, claimFailures);
 fatalCount += section('every figure quoted in a $description is registered', orphanFailures);
 section('no restriction is over-broad', restricted, false);

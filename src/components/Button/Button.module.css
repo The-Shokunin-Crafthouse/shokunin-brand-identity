@@ -16,7 +16,8 @@
  *   --sc-shadow-control-key                 · resting key: shade down-right, highlight up-left
  *   --sc-shadow-control-key-pressed         · pressed key: softer, with an inner light
  *   --sc-size-button-icon-lg / -sm          · arrow and working mark per size (12, both today)
- *   --sc-color-brand-accent-fill            · primary hover fill (teal.600, white AA 5.2)
+ *   --sc-color-control-key-hover-fill / -ink · primary hover face and label (teal.600 / white)
+ *   --sc-shadow-control-key-hover           · primary hover shadow (= key until tuned)
  *   --sc-color-brand-accent-deep            · primary press + tertiary resting text (teal.700, AA)
  *   --sc-color-surface-sunk                 · disabled fill
  *   --sc-color-surface-hover                · secondary hover/focus fill
@@ -135,9 +136,10 @@
   color: var(--sc-color-text-primary);
 }
 .primary:hover:not(:disabled) {
-  background-color: var(--sc-color-brand-accent-fill);
-  border-color: var(--sc-color-brand-accent-fill);
-  color: var(--sc-color-text-on-accent);
+  background-color: var(--sc-color-control-key-hover-fill);
+  border-color: var(--sc-color-control-key-hover-fill);
+  color: var(--sc-color-control-key-hover-ink);
+  box-shadow: var(--sc-shadow-control-key-hover);
 }
 .primary:active:not(:disabled) {
   background-color: var(--sc-color-brand-accent-deep);

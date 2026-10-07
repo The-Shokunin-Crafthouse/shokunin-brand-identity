@@ -140,6 +140,35 @@ async function playFile(file, volume, rate) {
   src.start();
 }
 
+/* ---------- forced interaction state ----------
+   A pseudo-class cannot be set from script, so each :hover, :active or
+   :focus-visible rule in the page's stylesheets is mirrored once as a rule
+   keyed on a stage attribute: `.primary:hover:not(:disabled)` also lands as
+   `[data-force='hover'] .primary:not(:disabled)`. Only stages carry the
+   attribute, so the lab's own chrome never matches. Rebuilt on each change of
+   state so hot-reloaded CSS is picked up. */
+const FORCE_STATES = ['rest', 'hover', 'focus', 'active'];
+const PSEUDO = { hover: ':hover', focus: ':focus-visible', active: ':active' };
+function forceStateCss(state) {
+  const pseudo = PSEUDO[state];
+  if (!pseudo) return '';
+  const out = [];
+  const visit = (rules, wrap) => {
+    for (const r of rules) {
+      if (r.cssRules && r.media) { visit(r.cssRules, (css) => wrap(`@media ${r.media.mediaText}{${css}}`)); continue; }
+      if (!r.selectorText || !r.selectorText.includes(pseudo)) continue;
+      const sel = r.selectorText.split(',').map((x) => x.trim()).filter((x) => x.includes(pseudo))
+        .map((x) => `[data-force='${state}'] ${x.split(pseudo).join('')}`).join(', ');
+      out.push(wrap(`${sel}{${r.style.cssText}}`));
+    }
+  };
+  for (const sheet of document.styleSheets) {
+    if (sheet.ownerNode?.id === 'sc-tune-force') continue;
+    try { visit(sheet.cssRules, (css) => css); } catch { /* cross-origin sheet */ }
+  }
+  return out.join('\n');
+}
+
 /* ---------- state ---------- */
 
 const defaults = (entry) => Object.fromEntries(entry.props.map((p) => [p.name, p.default]));
@@ -245,6 +274,12 @@ function Tune() {
   };
 
   useEffect(() => { document.documentElement.setAttribute('data-theme', state.view.theme); }, [state.view.theme]);
+  const force = state.view.force || 'rest';
+  useEffect(() => {
+    let el = document.getElementById('sc-tune-force');
+    if (!el) { el = document.createElement('style'); el.id = 'sc-tune-force'; document.head.appendChild(el); }
+    el.textContent = forceStateCss(force);
+  }, [force]);
 
   useLayoutEffect(() => {
     setShipped(readVars(shippedRef.current, tokens));
@@ -437,7 +472,7 @@ function Tune() {
           {!state.view.blind && (
             <section className={s.stageWrap} aria-label={isMotion ? 'Default' : 'Shipped'}>
               <h2 className={s.stageLabel}>{isMotion ? 'Default' : 'Shipped'}</h2>
-              <div className={s.stage} style={stageStyle({})} ref={shippedRef} inert="">
+              <div className={s.stage} style={stageStyle({})} ref={shippedRef} inert="" data-force={force}>
                 {entry.render(isMotion ? defaults(entry) : concept.props, () => {}, () => {}, ctx)}
               </div>
             </section>
@@ -453,7 +488,7 @@ function Tune() {
                     : label}
                   {isMotion && <span className={s.readout}> · last frame {lastFrameMs(c.props)}ms</span>}
                 </h2>
-                <div className={s.stage} style={stageStyle(effective(c, theme))} ref={c.id === state.active ? activeRef : undefined}>
+                <div className={s.stage} style={stageStyle(effective(c, theme))} ref={c.id === state.active ? activeRef : undefined} data-force={force}>
                   {entry.render(c.props, setPropFor(c.id), () => playFile(c.sound.file, c.sound.volume, c.sound.rate), ctx)}
                 </div>
               </section>
@@ -496,6 +531,8 @@ function Tune() {
           <legend>View</legend>
           <div className={s.prop}><label htmlFor="v-theme"><code>theme</code></label>
             <select id="v-theme" value={state.view.theme} onChange={(e) => setView('theme', e.target.value)}><option>light</option><option>dark</option></select></div>
+          <div className={s.prop}><label htmlFor="v-force"><code>state</code></label>
+            <select id="v-force" value={force} onChange={(e) => setView('force', e.target.value)}>{FORCE_STATES.map((f) => <option key={f}>{f}</option>)}</select></div>
           <div className={s.prop}><label htmlFor="v-zoom"><code>zoom</code></label>
             <input id="v-zoom" type="range" min="1" max="8" step="0.5" value={state.view.zoom} onChange={(e) => setView('zoom', +e.target.value)} /><span className={s.readout}>{state.view.zoom}×</span></div>
           <div className={s.prop}><label htmlFor="v-ground"><code>ground</code></label>
@@ -563,6 +600,8 @@ function Tune() {
                 onAdj={(a) => setShadowAdj(n, a)}
                 onSpring={(sp, settle) => setSpring(n, sp, settle)}
                 onReset={() => resetOverride(n)}
+                restOf={n.endsWith('-hover') && tokens.includes(n.slice(0, -6)) ? n.slice(0, -6) : null}
+                onCopyRest={() => setOverride(n, tuned[n.slice(0, -6)] || shipped[n.slice(0, -6)])}
                 onPin={(t) => setPin(n, t)}
               />
             ))}

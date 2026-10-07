@@ -23,7 +23,7 @@ Pill-radius control with a trailing arrow (Phosphor `ArrowRight`, scds-v2 defaul
 
 | Variant | Resting | Hover | Active |
 |---|---|---|---|
-| `primary` | fill = `surface-raised` (neutral), text = `text-primary`, **face = `linear-gradient(135deg, transparent, control-key-shade)` over the fill; shadow = `shadow-control-key`** | fill → `brand-accent-fill` (teal.600), text → `text-on-accent` (white, AA 5.2) | fill → `brand-accent-deep` (teal.700) + scale; shadow → `shadow-control-key-pressed` |
+| `primary` | fill = `surface-raised` (neutral), text = `text-primary`, **face = `linear-gradient(135deg, transparent, control-key-shade)` over the fill; shadow = `shadow-control-key`** | fill → `control-key-hover-fill` (teal.600), text → `control-key-hover-ink` (white, AA 5.2); shadow → `shadow-control-key-hover` (= key until tuned) | fill → `brand-accent-deep` (teal.700) + scale; shadow → `shadow-control-key-pressed` |
 | `secondary` | fill = `surface-sunk`, text = `text-primary` (ink, AA) — fill-only, no stroke | fill → `surface-hover`, text → `interactive-hover` (teal, transient AA exception); focus matches | text → `interactive-active` + scale |
 | `tertiary` | text = `brand-accent-deep` (teal.700, AA 5.78), no border/fill | text → `interactive-hover` (teal) | text → `interactive-active` + scale |
 | `destructive` | fill + border = `status-error`, text = `text-on-accent`, same key face as primary | — | + scale; shadow → `shadow-control-key-pressed` |

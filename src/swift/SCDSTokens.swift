@@ -152,8 +152,8 @@ public enum SCDS {
     public static let semanticVersion = "0.1.0"
     public static let sourceGenerated = "2026-05-26"
     public static let primitivesHash = "3db68ed9b8cfd8c2"
-    public static let semanticHash = "30bac2fe34158be9"
-    public static let tokenCount = 153
+    public static let semanticHash = "9064e9efbd97fa3a"
+    public static let tokenCount = 156
   }
 
   // MARK: - Color
@@ -440,6 +440,18 @@ public enum SCDS {
     public static let controlKeyShade = SwiftUI.Color.scdsDynamic(
         light: (0.101961, 0.094118, 0.082353, 0.05),
         dark:  (0.101961, 0.094118, 0.082353, 0.25)
+    )
+
+    /// `color.control.keyHoverFill`
+    public static let controlKeyHoverFill = SwiftUI.Color.scdsDynamic(
+        light: (0.015686, 0.47451, 0.490196, 1),
+        dark:  (0.015686, 0.47451, 0.490196, 1)
+    )
+
+    /// `color.control.keyHoverInk`
+    public static let controlKeyHoverInk = SwiftUI.Color.scdsDynamic(
+        light: (1, 1, 1, 1),
+        dark:  (1, 1, 1, 1)
     )
 
     /// `color.switch.thumb.rimTop`
@@ -1021,6 +1033,18 @@ public enum SCDS {
 
     /// `shadow.control.key` · 2 layers
     public static let controlKey = SCDSShadow(
+        light: [
+            SCDSShadowLayer(inset: false, x: 3, y: 3, blur: 7, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0.39),
+            SCDSShadowLayer(inset: false, x: -3, y: -3, blur: 4, spread: 1, rgb: (1, 1, 1), alpha: 1),
+        ],
+        dark: [
+            SCDSShadowLayer(inset: false, x: 3, y: 3, blur: 7, spread: 0, rgb: (0, 0, 0), alpha: 0.5),
+            SCDSShadowLayer(inset: false, x: -3, y: -3, blur: 4, spread: 1, rgb: (1, 1, 1), alpha: 0.06),
+        ]
+    )
+
+    /// `shadow.control.keyHover` · 2 layers
+    public static let controlKeyHover = SCDSShadow(
         light: [
             SCDSShadowLayer(inset: false, x: 3, y: 3, blur: 7, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0.39),
             SCDSShadowLayer(inset: false, x: -3, y: -3, blur: 4, spread: 1, rgb: (1, 1, 1), alpha: 1),

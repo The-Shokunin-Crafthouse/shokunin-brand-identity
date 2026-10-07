@@ -560,6 +560,18 @@
         "$value": "rgb(var(--sc-p-color-ink-rgb) / 0.05)",
         "$description": "2026-10-07 · Button primary = Drams OP-1 Keys (drams/036), horizontal, on the page surface (Levi). Shade at the far corner of a key face: linear-gradient(135deg, transparent, keyShade) over the fill. Drams #EEE to #E3E3E3 is ink at 5% over the base; one value serves neutral, teal and error fills.",
         "$extensions": { "modes": { "light": "rgb(var(--sc-p-color-ink-rgb) / 0.05)", "dark": "rgb(var(--sc-p-color-ink-rgb) / 0.25)" } }
+      },
+      "keyHoverFill": {
+        "$type": "color",
+        "$value": "{color.teal.600}",
+        "$description": "2026-10-07 · Button primary key face on hover. Same value as brand.accentFill, its own role so the key's hover tunes per mode without moving other accent fills.",
+        "$extensions": { "modes": { "light": "{color.teal.600}", "dark": "{color.teal.600}" } }
+      },
+      "keyHoverInk": {
+        "$type": "color",
+        "$value": "{color.utility.white}",
+        "$description": "2026-10-07 · Button primary label and arrow on hover, over keyHoverFill. Same value as text.onAccent, its own role so the key's hover tunes per mode.",
+        "$extensions": { "modes": { "light": "{color.utility.white}", "dark": "{color.utility.white}" } }
       }
     },
     "switch": {
@@ -699,6 +711,15 @@
       "key": {
         "$type": "shadow",
         "$description": "2026-10-07 · Button primary = Drams OP-1 Keys (drams/036), horizontal, on the page surface (Levi). Resting key: a soft shade cast down-right and a white highlight up-left, lit from the top left. Drams values verbatim (ink for black). Dark keeps the geometry with a black shade and a faint highlight.",
+        "$value": "3px 3px 7px 0 rgb(var(--sc-p-color-ink-rgb) / 0.39), -3px -3px 4px 1px rgb(var(--sc-p-color-white-rgb) / 1)",
+        "$extensions": { "modes": {
+          "light": "3px 3px 7px 0 rgb(var(--sc-p-color-ink-rgb) / 0.39), -3px -3px 4px 1px rgb(var(--sc-p-color-white-rgb) / 1)",
+          "dark":  "3px 3px 7px 0 rgb(0 0 0 / 0.50), -3px -3px 4px 1px rgb(var(--sc-p-color-white-rgb) / 0.06)"
+        } }
+      },
+      "keyHover": {
+        "$type": "shadow",
+        "$description": "2026-10-07 · Button primary key on hover. Starts equal to control.key in both modes; its own token so hover can lift or glow apart from rest.",
         "$value": "3px 3px 7px 0 rgb(var(--sc-p-color-ink-rgb) / 0.39), -3px -3px 4px 1px rgb(var(--sc-p-color-white-rgb) / 1)",
         "$extensions": { "modes": {
           "light": "3px 3px 7px 0 rgb(var(--sc-p-color-ink-rgb) / 0.39), -3px -3px 4px 1px rgb(var(--sc-p-color-white-rgb) / 1)",
