@@ -1,6 +1,6 @@
 ---
 name: sc-tune
-description: Open the SCDS tuning lab so Levi can tweak every attribute of a component (each token its CSS consumes, its props, its interaction sound, theme, zoom) against the shipped version side by side, then read back the settings they left the page on and record them as an exact spec plus a static build of that spec. Trigger on "tune the <component>", "let me play with the <component>", "open the tuning lab", "I want to tweak the switch", "record my settings", "record the final settings", "save what I left the page on". Do NOT use to apply a recorded spec to the shipped component unless Levi asks for that step (procedure D), to grade a build (sc-verify), or to judge design quality (sc-design-crit).
+description: Open the SCDS tuning lab so Levi can tweak every attribute of a component (each token its CSS consumes, its props, its interaction sound, theme, zoom) against the shipped version side by side, then read back the settings he left the page on and record them as an exact spec plus a static build of that spec. Trigger on "tune the <component>", "let me play with the <component>", "open the tuning lab", "I want to tweak the switch", "record my settings", "record the final settings", "save what I left the page on". Do NOT use to apply a recorded spec to the shipped component unless Levi asks for that step (procedure D), to grade a build (sc-verify), or to judge design quality (sc-design-crit).
 ---
 
 # sc-tune: tune a component, then record exactly what was chosen
@@ -32,9 +32,9 @@ The lab mounts the real SCDS component twice: **Shipped**, as built, and **Tuned
    The header reads `sc-tune`, the component name, and `<N> tokens · <M> tuned`. Both stages show the component.
 4. Read the console with `read_console_messages` and `onlyErrors: true`.
    Result: no errors. If there is an error, fix it before you hand the page to Levi.
-5. Tell Levi the page is open, and give them the URL in one line. Do not describe the controls unless they ask.
+5. Tell Levi the page is open, and give him the URL in one line. Do not describe the controls unless he asks.
 
-Result: Levi tunes in the page. The page saves their state after each change to `localStorage` key `sc-tune:v1:<Component>`. The state survives a reload.
+Result: Levi tunes in the page. The page saves his state after each change to `localStorage` key `sc-tune:v1:<Component>`. The state survives a reload.
 
 ## B. Add a component to the registry
 
@@ -55,7 +55,7 @@ Do this when Levi says to record, save or capture the settings, or says that the
 
 1. Read the export from the page Levi used. In the built-in browser, run this with `javascript_tool`:
    `JSON.stringify(window.scTune.export())`
-   If Levi tuned in a different browser, ask them to press **Copy spec** and paste the result.
+   If Levi tuned in a different browser, ask him to press **Copy spec** and paste the result.
    Result: a JSON string whose `tool` is `sc-tune` and whose `component` is the one Levi tuned.
 2. Write the JSON to a file in the scratchpad directory, for example `<scratchpad>/tune-<Component>.json`.
 3. Run the record script:
