@@ -1870,3 +1870,15 @@ The follow-up named under "the library follows" above. `PlusSeparator.figma.tsx`
 - Earlier "fill-only, no shadow" rulings (SegmentedControl indicator, card hover inset) predate this direction and are candidates to revisit, not rules.
 - **Figma:** new variables `color/control/sheenTop`, `color/control/sheenBottom`; effect styles `shadow/control/lift`, `shadow/control/pressed` and `shadow/control/dark/*`. The 8 non-disabled Primary variants of `9:438` carry the sheen gradient (stops bound) and the lift style (Active: pressed). The library has no Destructive variant.
 - `tokens:build`, `tokens:swift`, `tokens:map` regenerated; `tokens:verify` passes.
+
+### 2026-10-07: Button primary is a Drams OP-1 key (amends "physical controls" above)
+
+**Status:** Accepted. Levi supplied the reference: the Drams OP-1 Keys key (drams/036), horizontal, with no surrounding well; the page surface is the ground.
+
+- **Supersedes** the sheen/rim/lift treatment logged earlier today, which never shipped. Its tokens (`color.control.sheen*`, `shadow.control.{rim,lift,pressed}`) and Figma items are removed.
+- **Face:** `linear-gradient(135deg, transparent, color.control.keyShade)` over the fill. Drams #EEE → #E3E3E3 is ink at 5% over the base, so one value serves neutral, teal and error.
+- **Shadows, Drams verbatim:** `shadow.control.key` = `3px 3px 7px` ink .39 down-right + `-3px -3px 4px 1px` white up-left. `shadow.control.keyPressed` = the Drams pressed variant (.29, white .9, `inset 1px 1px 8px` white .3). Dark: black shade, faint highlight.
+- Applies to primary and destructive. Hover still turns teal (accent is a hover state). Secondary and tertiary unchanged.
+- **Loading** shows `WorkingMark` instead of the spinner (Levi).
+- **Arrow** 12px (`size.icon.xs`) at both sizes (Levi: too heavy against the type). The library already specified 12px for Large (2026-10-06); code drew 1.4em (15.4px). Code now matches.
+- **Figma:** `color/control/keyShade`; effect styles `shadow/control/key`, `shadow/control/keyPressed`, `shadow/control/dark/*`; the 8 non-disabled Primary variants of `9:438` updated (Active: keyPressed).
