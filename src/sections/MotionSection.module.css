@@ -129,3 +129,28 @@
 @media (min-width: 1280px) {
   .curveGrid { grid-template-columns: repeat(2, 1fr); }
 }
+
+/* iv · elastic controls · live demo */
+.elasticDemo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sc-space-layout-stack-sm);
+  padding: var(--sc-space-layout-stack-sm) 0;
+}
+.elasticTabs { display: flex; gap: var(--sc-space-component-gap-lg); }
+.elasticTab {
+  display: inline-flex;
+  flex-direction: column;
+  gap: var(--sc-space-component-gap-sm);
+  padding: 0;
+  border: 0;
+  background: none;
+  font: var(--sc-font-text-body-dense);
+  color: var(--sc-color-text-primary);
+  cursor: pointer;
+}
+.elasticTab:focus-visible {
+  outline: var(--sc-border-width-focus) solid var(--sc-color-border-focus);
+  outline-offset: var(--sc-border-focus-offset);
+}

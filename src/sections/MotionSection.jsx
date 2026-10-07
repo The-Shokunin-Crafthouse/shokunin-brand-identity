@@ -7,6 +7,10 @@
  * component pairings imported from the Sprint 4 library — the Button
  * press, the Switch thumb, the Tooltip reveal — animating for real.
  * Every duration/easing/scale reads from a --sc-p-motion-* token.
+ *
+ * Chapter iv (2026-10-07): elastic controls, from kabarza's elastic
+ * toggles reel. The settings ship inert; the live panel runs the reel's
+ * Balanced preset through token overrides on its own wrapper only.
  */
 
 import { useState } from 'react';
@@ -14,6 +18,9 @@ import { Section, Metabar, Hero, Chapter, Accent, Em, Slash, withSlash, kit } fr
 import { Button } from '../components/Button/Button.jsx';
 import { Switch } from '../components/Switch/Switch.jsx';
 import { Tooltip } from '../components/Tooltip/Tooltip.jsx';
+import { SegmentedControl } from '../components/SegmentedControl/SegmentedControl.jsx';
+import { PlusUnderline } from '../components/PlusUnderline/PlusUnderline.jsx';
+import { springEasing } from '../motion/elastic.js';
 import styles from './MotionSection.module.css';
 
 const EASINGS = [
@@ -42,12 +49,48 @@ const DURATIONS = [
   { token: '--sc-p-motion-duration-orchestrated', ms: 720, tier: 'Page transition', use: 'Route, choreographed reveal. Justify anything longer.' },
 ];
 
+// Elastic controls · the reel's Balanced preset (kabarza, instagram.com/reel/DeK0AFcIRhf).
+const REEL = { duration: 520, bounce: 0, stretch: 0.45, squash: 0, lean: 0.83, leanMs: 150 };
+const ELASTIC = [
+  { setting: 'Duration + bounce', suffix: '-travel-duration / -travel-easing', reel: '520ms · bounce 0', shipped: '= reveal: 200ms quint-out',
+    does: 'A spring set by how long it takes and how far it overshoots. Bounce 0 reaches rest as fast as it can without passing it; above 0 it passes and swings back.' },
+  { setting: 'Stretch', suffix: '-stretch', reel: '0.45', shipped: '0',
+    does: 'The pill is as long as it is fast: 0.45 adds 45% of its height at peak speed and it lands round. Two round ends and a bar, never scaleX.' },
+  { setting: 'Squash', suffix: '-squash', reel: '0', shipped: '0',
+    does: 'Flatter while it is long: 0.22 is the reel\u2019s elastic row, 22% flatter at peak speed.' },
+  { setting: 'Press lean', suffix: '-press-lean / -press-lean-duration', reel: '0.83 · 150ms', shipped: '0',
+    does: 'On pointer down it leans toward where it will go and holds. Release travels from that pose; drag off and it springs back.' },
+];
+const ELASTIC_COMPONENTS = [
+  { name: 'Switch', prefix: 'switch', moves: 'The knob', press: 'Yes' },
+  { name: 'SegmentedControl', prefix: 'segmented-control', moves: 'The indicator', press: 'Yes' },
+  { name: 'PlusUnderline', prefix: 'plus-underline', moves: 'The active underline, from the old tab to the new one', press: 'Yes' },
+  { name: 'NavBar', prefix: 'nav-bar', moves: 'Its optional underline (underline prop)', press: 'Yes' },
+  { name: 'Tooltip', prefix: 'tooltip', moves: 'The bubble on open, scaled from the arrow (it carries text)', press: 'No' },
+];
+const reelSpring = springEasing({ duration: REEL.duration, bounce: REEL.bounce });
+const reelVars = Object.fromEntries(ELASTIC_COMPONENTS.flatMap(({ prefix }) => {
+  const t = `--sc-motion-${prefix}`;
+  return [
+    [`${t}-travel-duration`, `${reelSpring.ms}ms`],
+    [`${t}-travel-easing`, reelSpring.easing],
+    [`${t}-stretch`, REEL.stretch],
+    [`${t}-squash`, REEL.squash],
+    [`${t}-press-lean`, REEL.lean],
+    [`${t}-press-lean-duration`, `${REEL.leanMs}ms`],
+  ];
+}));
+const TABS = ['Day', 'Week', 'Month'];
+
 const bezierPath = (b) => `M0,100 C${b[0] * 100},${100 - b[1] * 100} ${b[2] * 100},${100 - b[3] * 100} 100,0`;
 
 export function MotionSection() {
   const [runs, setRuns] = useState({});
   const [racing, setRacing] = useState(false);
   const [on, setOn] = useState(false);
+  const [elasticOn, setElasticOn] = useState(false);
+  const [range, setRange] = useState('day');
+  const [tab, setTab] = useState('Day');
 
   const fire = (key) => setRuns((r) => ({ ...r, [key]: !r[key] }));
 
@@ -57,9 +100,9 @@ export function MotionSection() {
         ord="01"
         crumb="Foundations / Motion"
         meta={[
-          ['Last revised', '2026.06.05'],
+          ['Last revised', '2026.10.07'],
           ['Tokens', '19'],
-          ['Spec', 'v1.2'],
+          ['Spec', 'v1.3'],
           ['Status', 'Complete'],
         ]}
       />
@@ -204,6 +247,80 @@ export function MotionSection() {
             </div>
             <p className={styles.pairNote}>Enter: <code>--sc-motion-reveal</code> fades and lifts the tip in at 200ms. The same role the Switch uses, a different surface.</p>
           </div>
+        </div>
+      </Chapter>
+
+      {/* iv · ELASTIC CONTROLS */}
+      <Chapter
+        ord="iv"
+        eyebrow="Elastic controls / in tuning"
+        title="Things you touch can stretch, lean and spring. None of it ships yet."
+        premise="Four settings from kabarza\u2019s elastic toggles: duration and bounce, stretch, squash, press lean. Five components carry them as their own tokens, and every one ships inert, so the library above still never overshoots. Values are chosen in the sc-tune lab and reach a component only through a recorded, applied concept."
+        annotations={[
+          { title: 'As long as it is fast', body: 'Length follows the speed of the travel curve, so the pill is longest mid-flight and round again by the time it lands. It grows as two round ends and a bar; scaleX would turn it into an egg.' },
+          { title: 'Press is a gesture', body: 'A click only counts on release. Leaning on pointer down answers the finger at once, and dragging off before release springs it back, so a change of mind costs nothing.' },
+          { title: 'Inert until picked', body: 'Stretch, squash and lean ship at 0 and travel ships equal to reveal. The engine (src/motion/elastic.js) runs only above 0 and never under reduced motion.' },
+        ]}
+      >
+        <div className={kit.tableScroll}>
+          <table className={kit.dataTable}>
+            <thead><tr><th>Setting</th><th>Token</th><th>Reel · Balanced</th><th>Shipped</th><th>What it does</th></tr></thead>
+            <tbody>
+              {ELASTIC.map((e) => (
+                <tr key={e.setting}>
+                  <td><b>{e.setting}</b></td>
+                  <td className={kit.mono}>--sc-motion-&lt;component&gt;{e.suffix}</td>
+                  <td className={kit.mono}>{e.reel}</td>
+                  <td className={kit.mono}>{e.shipped}</td>
+                  <td>{e.does}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <div className={kit.tableScroll}>
+          <table className={kit.dataTable}>
+            <thead><tr><th>Component</th><th>Token prefix</th><th>What moves</th><th>Press lean</th></tr></thead>
+            <tbody>
+              {ELASTIC_COMPONENTS.map((c) => (
+                <tr key={c.name}>
+                  <td><b>{c.name}</b></td>
+                  <td className={kit.mono}>--sc-motion-{c.prefix}-*</td>
+                  <td>{c.moves}</td>
+                  <td>{c.press}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <div className={kit.panel}>
+          <div className={kit.panelHead}>
+            <span><b>Reel preset, live</b><Slash />these demos only</span>
+            <span>spring {REEL.duration}ms<Slash />bounce {REEL.bounce}<Slash />stretch {REEL.stretch}<Slash />lean {REEL.lean}</span>
+          </div>
+          {/* The overrides sit on this wrapper alone; nothing else on the site moves differently. */}
+          <div className={styles.elasticDemo} style={reelVars}>
+            <Switch checked={elasticOn} onChange={() => setElasticOn((v) => !v)} label={elasticOn ? 'On' : 'Off'} />
+            <SegmentedControl
+              label="Range"
+              value={range}
+              onChange={setRange}
+              options={[{ value: 'day', label: 'Day' }, { value: 'week', label: 'Week' }, { value: 'month', label: 'Month' }]}
+            />
+            <div role="tablist" aria-label="Underline demo" className={styles.elasticTabs}>
+              {TABS.map((t) => (
+                <button key={t} type="button" role="tab" aria-selected={t === tab} className={styles.elasticTab} onClick={() => setTab(t)}>
+                  {t}
+                  <PlusUnderline active={t === tab} />
+                </button>
+              ))}
+            </div>
+            <Tooltip content="Lifted on the reel spring.">
+              <span className={styles.tooltipTarget}>Hover for the lift</span>
+            </Tooltip>
+          </div>
+          <p className={styles.pairNote}>Press and hold the switch, a segment or a tab before letting go to feel the lean; drag off to watch it spring back. The spring settles in {reelSpring.ms}ms; reduced motion turns all of it off.</p>
         </div>
       </Chapter>
     </Section>
