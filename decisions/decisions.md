@@ -2048,4 +2048,5 @@ Levi: the trailing arrow uses Phosphor's bold weight, not regular. Code: `ArrowR
 
 - New `color.switch.track.off` (= surface.deepSunk: warmGray.300 / dark.raised2) and `color.switch.track.offHover` (= surface.hover: warmGray.250 / dark.raised1). Values unchanged; `Switch.module.css` reads them. Levi likes the hover going darker in dark mode, so hover stays its own token next to the floor.
 - In the lab they show as `color-switch-track-off` and `-off-hover` in the Switch's colour group; tuning them moves only the Switch.
+- **Figma library:** variables `color/switch/track/off` (`499:2`) and `color/switch/track/offHover` (`499:3`), scoped to frame and shape fills, WEB syntax set. The Toggle `State=Off` track fill (`9:859`) now binds `499:2` instead of `color/surface/deepSunk`. The library has no hover variant, so `offHover` is not bound yet.
 - `tokens:verify`, `tokens:map:check`, `tokens:swift:check` and `npm run build` exit 0.
