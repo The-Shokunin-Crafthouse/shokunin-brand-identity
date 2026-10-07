@@ -199,7 +199,8 @@ function semanticOps(path, t) {
     const vals = {};
     for (const [mode, v] of Object.entries(m)) {
       const r = refPath(v);
-      vals[mode === 'light' ? 'Light' : 'Dark'] = r ? { alias: varName(r) } : literal(type, v);
+      // Names repeat across collections (color/signal/live), so an alias names its target's.
+      vals[mode === 'light' ? 'Light' : 'Dark'] = r ? { alias: varName(r), collection: primNew[r] ? 'Primitives' : 'Semantic' } : literal(type, v);
     }
     ops.push({ kind: 'variable', collection: 'Semantic', name, type: type === 'color' ? 'COLOR' : 'FLOAT', values: vals, scopes: scopesFor(path, type), desc: t.$description, web: `var(--sc-${path.replace(/\./g, '-').replace(/[A-Z]/g, (c) => `-${c.toLowerCase()}`)})` });
     rows.push([path, 'variable', name]);
@@ -254,7 +255,7 @@ for (const op of OPS) {
     for (const m of c.modes) {
       const x = op.values[m.name] ?? op.values.Light ?? op.values.Value;
       if (!x) continue;
-      if (x.alias) { const a = byName(x.alias); if (!a) { missing.push(op.name + ' → ' + x.alias); continue; } v.setValueForMode(m.modeId, figma.variables.createVariableAlias(a)); }
+      if (x.alias) { const a = vars.find((y) => y.name === x.alias && colName[y.variableCollectionId] === x.collection) ?? byName(x.alias); if (!a) { missing.push(op.name + ' → ' + x.alias); continue; } v.setValueForMode(m.modeId, figma.variables.createVariableAlias(a)); }
       else if (x.color) v.setValueForMode(m.modeId, x.color);
       else v.setValueForMode(m.modeId, x.number);
     }
