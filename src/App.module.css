@@ -90,12 +90,6 @@
 }
 .navLink:hover { background: var(--sc-color-surface-nav-hover); }
 .navLink:active { transform: scale(var(--sc-motion-press-scale)); }
-.navNum {
-  margin-left: auto;
-  font: var(--sc-font-text-mono-chrome);
-  letter-spacing: 0;
-  color: var(--sc-color-text-disabled);
-}
 /* accent-ink, not brand-accent: teal-500 as 13px text is 3.5:1 (light) and
  * 2.9:1 (dark) on surface-nav. The mark stays brand-accent (not text). */
 .navLinkActive {
@@ -104,7 +98,6 @@
   color: var(--sc-color-brand-accent-ink);
 }
 .navTail { align-self: center; margin-left: auto; }
-.navNum + .navTail { margin-left: var(--sc-space-component-gap-md); }
 
 /* Per-character slot-machine animation — each char wrapped in an
  * overflow:hidden container with two stacked layers (default visible,

@@ -82,7 +82,7 @@ const NAV = [
     ord: '02',
     label: 'Components',
     items: [
-      { id: 'button', label: 'Button', num: '12' },
+      { id: 'button', label: 'Button' },
       { id: 'badge', label: 'Badge' },
       { id: 'card', label: 'Card' },
       { id: 'input', label: 'Input' },
@@ -257,7 +257,6 @@ function Sidebar({ active }) {
                   aria-current={isActive ? 'page' : undefined}
                 >
                   <span className={styles.navLabel}><NavChars label={item.label} /></span>
-                  {item.num && <span className={styles.navNum}>{item.num}</span>}
                   {isActive && <PlusBullet accent className={styles.navTail} />}
                 </a>
               );
