@@ -359,3 +359,44 @@ fieldset:disabled {
   background-color: var(--sc-color-surface-raised);
   box-shadow: var(--sc-shadow-control-key);
 }
+
+/* ---------- form fields: readable in both themes ----------
+   Native fields keep the UA's light ground unless told otherwise, while
+   text inherits the panel's ink: light-on-white in dark mode. color-scheme
+   switches the native chrome (select arrows, number spinners, checkboxes);
+   the fields themselves take token grounds and ink. */
+.app {
+  color-scheme: light;
+  accent-color: var(--sc-color-brand-accent);
+}
+:global(:root[data-theme='dark']) .app {
+  color-scheme: dark;
+}
+
+.app select,
+.app input[type='text'],
+.app input[type='number'] {
+  font: inherit;
+  font-size: var(--sc-font-text-caption-size);
+  color: var(--sc-color-text-primary);
+  background-color: var(--sc-color-surface-raised);
+  border: var(--sc-border-width-default) solid var(--sc-color-border-default);
+  border-radius: var(--sc-radius-control);
+  padding: var(--sc-space-component-padding-block-sm) var(--sc-space-component-padding-inline-sm);
+}
+
+.app select:hover,
+.app input[type='text']:hover,
+.app input[type='number']:hover {
+  border-color: var(--sc-color-border-strong);
+}
+
+.app select:disabled,
+.app input:disabled,
+.app textarea:disabled {
+  color: var(--sc-color-text-disabled);
+}
+
+.app ::placeholder {
+  color: var(--sc-color-text-tertiary);
+}
