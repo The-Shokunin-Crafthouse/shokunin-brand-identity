@@ -20,16 +20,16 @@
 
 :root {
   /* --- Primitives (--sc-p-*) ----------------------------- */
-  --sc-p-color-warm-gray-25: #FBF9F6;
+  --sc-p-color-warm-gray-25: #F8F6F2;
   --sc-p-color-warm-gray-40: #F5F0E9;
-  --sc-p-color-warm-gray-50: #F4F1ED;
-  --sc-p-color-warm-gray-100: #EBE7E4;
+  --sc-p-color-warm-gray-50: #F1EFEB;
+  --sc-p-color-warm-gray-100: #E3DFD8;
   --sc-p-color-warm-gray-200: #D8D1CC;
   --sc-p-color-warm-gray-250: #C4BCB4;
   --sc-p-color-warm-gray-300: #B0A69C;
   --sc-p-color-warm-gray-350: #9A9186;
   --sc-p-color-warm-gray-400: #847C71;
-  --sc-p-color-warm-gray-450: #6B665E;
+  --sc-p-color-warm-gray-450: #66615A;
   --sc-p-color-warm-gray-500: #5A5750;
   --sc-p-color-warm-gray-600: #484640;
   --sc-p-color-warm-gray-700: #312F2A;
@@ -47,14 +47,15 @@
   --sc-p-color-teal-900: #05282B;
   --sc-p-color-status-success-light: #2F855A;
   --sc-p-color-status-success-dark: #57AD7F;
-  --sc-p-color-status-success-ink-light: #28724D;
+  --sc-p-color-status-success-ink-light: #246E4A;
   --sc-p-color-status-success-ink-dark: #6AC090;
   --sc-p-color-status-warning-light: #C2410C;
   --sc-p-color-status-warning-dark: #F67751;
-  --sc-p-color-status-warning-ink-light: #B83E0B;
+  --sc-p-color-status-warning-ink-light: #B13700;
   --sc-p-color-status-warning-ink-dark: #FE9374;
   --sc-p-color-status-info-light: #2D5AD8;
   --sc-p-color-status-info-dark: #709AFD;
+  --sc-p-color-status-info-ink-light: #2B57D5;
   --sc-p-color-status-info-ink-dark: #8DAFFD;
   --sc-p-color-status-error-light: #7F1D1D;
   --sc-p-color-status-error-dark: #FE6B67;
@@ -86,7 +87,7 @@
   --sc-p-color-ink-rgb: 26 24 21;
   --sc-p-color-focus-ring-light: #1F2024;
   --sc-p-color-focus-ring-dark: #E9EBEE;
-  --sc-p-color-interactive-hover-ink-light: #027175;
+  --sc-p-color-interactive-hover-ink-light: #006D72;
   --sc-p-font-family-sans: 'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Inter, system-ui, sans-serif;
   --sc-p-font-family-display: 'Neue Haas Grotesk Display Pro', 'Helvetica Neue', Inter, system-ui, sans-serif;
   --sc-p-font-family-text: 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Inter, system-ui, sans-serif;
@@ -386,7 +387,7 @@
   --sc-color-divider-default: rgb(var(--sc-p-color-ink-rgb) / 0.10);
   --sc-color-divider-strong: rgb(var(--sc-p-color-ink-rgb) / 0.16);
   --sc-color-interactive-default: var(--sc-p-color-warm-gray-800);
-  --sc-color-interactive-hover: var(--sc-p-color-teal-500);
+  --sc-color-interactive-hover: var(--sc-p-color-teal-600);
   --sc-color-interactive-hover-ink: var(--sc-p-color-interactive-hover-ink-light);
   --sc-color-interactive-selected: #038E931A;
   --sc-color-interactive-active: var(--sc-p-color-teal-700);
@@ -396,7 +397,7 @@
   --sc-color-status-info: var(--sc-p-color-status-info-light);
   --sc-color-status-success-ink: var(--sc-p-color-status-success-ink-light);
   --sc-color-status-warning-ink: var(--sc-p-color-status-warning-ink-light);
-  --sc-color-status-info-ink: var(--sc-p-color-status-info-light);
+  --sc-color-status-info-ink: var(--sc-p-color-status-info-ink-light);
   --sc-color-signal-live: var(--sc-p-color-signal-live);
   --sc-color-signal-on-live: var(--sc-p-color-warm-gray-100);
   --sc-color-signal-progress: var(--sc-p-color-signal-progress);

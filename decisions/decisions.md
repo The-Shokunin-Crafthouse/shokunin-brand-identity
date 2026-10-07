@@ -1873,6 +1873,35 @@ The follow-up named under "the library follows" above. `PlusSeparator.figma.tsx`
 - **Open:** the library holds the restored oatmeal warm-gray set (`warmGray/25` `#F8F6F2`, page `#E3DFD8`) that the repo JSON does not; reconciling the two is a separate pass.
 - Verified: `tokens:verify` passes; geometry matches the spec at 1440 (card 24/24/256, first label y 128.5 vs 129); AA on every sidebar label in both modes except the footer's `text.disabled` (its declared tier, unchanged).
 
+### 2026-10-07: Color page layouts key off the chapter column, not the viewport
+
+**Status:** Accepted (decide-and-log; reversible, in-standard). Trigger: the warm-gray ramp overflowed the page at 768 (`scrollWidth` 889 vs `clientWidth` 753 on main).
+
+- **Cause:** every multi-column block on the Color page switched on at a 768px *viewport*, but the sidebar rail takes 256px of it (304px once PR #81 lands), leaving a 425px (377px) column. Five blocks overflowed at 768, not one: ramp labels, Shu plate (its foot never wrapped, needing ~593px), three-jobs, verdicts, and the Shu rail hexes clipped at 1024.
+- **Ramp:** a `.rampTrack` scroll container owns 13 `minmax(max-content, 1fr)` columns; swatches and labels share them via `subgrid`, so labels never leave their swatch. Each label carries `--sc-space-component-gap-md` end padding. Fits from a ~607px column; scrolls inside its track below that (768 only, today). Scrollbar thin, `--sc-color-text-disabled` thumb.
+- **Blocks:** `.chapterBody` is an `inline-size` container named `chapter`. Jobs, status 2-up and checker top go side by side at a 560px column; Shu plate + rail (with the 200px glyph) and the ratio + verdict split at 720px. Every track is `minmax(0, …)` (learning #111). Thresholds were set from a measured sweep of each block's real minimum width.
+- **Consequence:** at 1024 and 1280 the Shu plate and the ratio/verdict row now stack; before, they sat side by side with clipped content. At 1440 the layout is unchanged.
+- `.color` gets `width: 100%`: at ≥1280 it is a shrink-to-fit flex item, and a contained child would collapse it (measured 540px instead of 777px).
+- Verified at 390 / 768 / 1024 / 1280 / 1440, each at a 256px and a simulated 304px rail: page `scrollWidth == clientWidth` and no block's descendants overflow. `vite build` exits 0.
+
+### 2026-10-07: the oatmeal warm-gray set returns; the library is canonical
+
+**Status:** Accepted. Supersedes the scds-v2 light-surface desaturation (warmGray.25/50/100 only). Closes the "Open" line of the sidebar redesign entry above. Levi's call: "this is the floor #E3DFD8, update the warmgrey color ramp to match."
+
+- **Drift found:** the SCDS library Primitives (`0zVoxaLJQkjHENYJlQk1VT`) carried the restored oatmeal set and re-derived inks, while `tokens/primitives.json` still held the scds-v2 values. No branch on origin carried the restore. The repo now matches the library, value for value.
+- **Ramp:** `warmGray.25` `#FBF9F6` → `#F8F6F2`, `.50` `#F4F1ED` → `#F1EFEB`, `.100` (page) `#EBE7E4` → `#E3DFD8`. 200 to 900 unchanged.
+- **warmGray.40 ordering:** `#F5F0E9` (PR #81) now sits between 25 and 50 by relative luminance (0.923 > 0.876 > 0.864). On the scds-v2 values it did not: it read darker than `.50` (0.876 < 0.883).
+- **Inks re-derived for AA on `#E3DFD8`** (library values; figures measured by `tokens:verify`):
+  - `warmGray.450` (text.tertiary) `#6B665E` → `#66615A`: 4.29 → 4.62:1 on page.
+  - `status.success.ink.light` `#28724D` → `#246E4A`: 4.39 → 4.64:1.
+  - `status.warning.ink.light` `#B83E0B` → `#B13700`: 4.24 → 4.63:1.
+  - `interactive.hoverInk.light` `#027175` → `#006D72`: 4.37 → 4.61:1.
+  - New `status.info.ink.light` `#2B57D5` (4.61:1). The info fill `#2D5AD8` reads 4.43:1 on the oatmeal page, so `status.info-ink` light now aliases the new ink instead of the fill. Library name: `color/status/infoInkLight`.
+- **Claim register:** `scripts/verify-contrast.mjs` CLAIMS re-measured (150 claims); the scds-v2 figures that descriptions still quote as history are pinned in HISTORICAL. Every quoted figure in the token descriptions was updated to the oatmeal measurement.
+- **Resolved same day (Levi: "point it at 600"):** on the oatmeal page `interactive.hover` light (teal.500 `#038E93`) measured 2.99:1, under the WCAG 1.4.11 non-text floor (3:1) for the icon/border use its exception allows (3.23:1 on scds-v2). Light hover now aliases `teal.600` (`#04797D`, the `brand.accentFill` value): 3.92:1 on page, 4.53:1 raised, 4.82:1 floating, 4.59:1 on the nav card (`warmGray.40`). Dark stays `teal.300`; active stays `teal.700`, so the 600 to 700 press step holds. Body text in the hover color is still the documented exception; `interactive.hover-ink` covers it. The library Semantic `color/interactive/hover` Light was rebound to `color/teal/600` the same day. `border.default` reads 2.34:1 on page (was 2.52:1); it was already below 3:1 and is a decorative rule.
+- **Dark mode:** unaffected except the tokens that alias `warmGray.50` in dark (`border.strong`, `interactive.default`, `surface.inverse`) move from `#F4F1ED` to `#F1EFEB`.
+- Verified: `tokens:build`, `tokens:map`, `tokens:swift` regenerated; `tokens:verify` passes (112 AA pairs, 150 claims, 0 orphans); `tokens:map:check`, `tokens:swift:check`, `npm run build` and `build:lib` exit 0. `public/tokens.css` snapshot refreshed. The library needed no change for the ramp; only the hover rebind above.
+
 ### 2026-10-07: sidebar nav pill states (ADR sidebar-nav-pill-states)
 
 **Status:** Accepted. Levi's direction after PR #81 shipped: the nav hover pill should sit lighter than the card, not darker; the active page becomes white text on an accent fill; weight stays Text 75 Bold (the heaviest Text cut).
