@@ -31,29 +31,43 @@ DIRECTIVES:
 
 ## Audit: where SCDS stands
 
-| Component | Today | Physical reference | Recommendation | Tier |
-|---|---|---|---|---|
-| Switch | Physical (Drams Standard Switch), sound | Drams 001 | Done. Re-light if the light-source pick changes. | Done |
-| Button primary, destructive | Physical (OP-1 key), WorkingMark loading | Drams 036 | Done. Re-light if the light-source pick changes. | Done |
-| Button secondary, tertiary | Outline pill, text ghost | OP-1 key family | Levi's pick: raised neutral key, recessed chip, or keep (see Gate 1 picks) | 2 |
-| SegmentedControl | Flat: sunk track, fill-only indicator | Drams 045 3-way slide switch | Recessed track (`shadow.switch.track`); the indicator becomes a key (`shadow.control.key`); detent spring tuned in sc-tune | 1 |
-| Stepper | Flat: sunk pill, ghost ± buttons | Drams 016 detent knob, OP-1 keys | ± become small keys on a recessed pill; readout sits in a recessed window | 1 |
-| ProgressIndicator bar + interactive | Flat track and fill; interactive is thumbless | Drams Standard Volume, Volume Visible Track | Recessed track; the interactive variant gets the Switch knob as its thumb; optional `tick` sound on keyboard steps | 1 |
-| Input | Sunk fill, bottom underline on focus | OP-1 well (`inset -1px -1px 2px`, `inset -2px -2px 2px` white) | A true recessed well from the OP-1 container; focus underline stays | 1 |
-| Card | Fill-only, inset on hover | OP-1 container | Two materials: `plate` (raised, resting lift) and `well` (recessed); interactive plate presses on click | 2 |
-| Tooltip | Flat inverse surface | Floating plate | Raised plate with a short lift | 2 |
-| Badge | Flat pill | Drams LED Switch (mapping #9) | Status badges carry an LED dot that glows for live states | 2 |
-| Avatar | Flat circle | Recessed porthole | Recessed ring so the photo sits in the surface | 2 |
-| Alert | Flat panel | LED + plate | Plate with a status LED; no sound (an unprompted sound is intrusive) | 2 |
-| NavBar | Flat chrome | OP-1 keys | Active item as a pressed key; the bar itself stays flat | 3 |
-| Divider, HeadingRule, SectionDivider, Plus* brand elements, TypographySpecimen, WorkingMark | Flat | none | Stay flat: they are read, not touched (directive 1) | Keep |
+Re-audited 2026-10-07 against the Button reference (record `output/tuning/Button/2026-10-07-1418/`: own role tokens, light from the top left, hover and pressed shadows derived from rest, a sound per role). The Switch is the second reference, but untuned: it was restyled to the Drams Standard Switch before the lab existed and is lit from the top. "Today" is read from each `*.module.css` on `1a4d464`. Contrast is light mode on `surface.page` #E3DFD8.
 
-Four findings from the audit:
+Reference numbers: `Drams NNN` is the Drams component (and its sound file in `assets/sounds/drams/`); `#N` is the row in `stages/03-build/drams-component-mapping.md`.
 
-1. **Two light sources ship today.** The Switch knob is lit from straight above (its shadow falls down). The Button key is lit from the top left (shade down-right, highlight up-left). Side by side they disagree. Directive 2 needs one; it is Gate 1 pick 1.
-2. **Forced colors erase the material.** In Windows high-contrast mode every box-shadow is dropped, so a physical control with no border loses its edge. Each material needs an `@media (forced-colors: active)` border fallback. Nothing has one yet.
-3. **Box-shadow transitions cost paint.** The Button transitions `box-shadow` on hover and press. Fine for one button, expensive for a grid of keys. Press feedback should stay on `transform`, and shadow changes should happen without a transition where a page shows many controls.
+| Component | Today | Drams reference | Change | Sound | Tier |
+|---|---|---|---|---|---|
+| Button primary, destructive | Reference. OP-1 key face (135° `control.keyShade`), `shadow.control.key` lit top left, hover/pressed derived from rest, role tokens for label/padding/icon, press-spring. Gaps: transitions `box-shadow`; no `forced-colors` edge (fill = border colour) | Drams 036 OP-1 Keys; press-spring #6 Pushin' Click | Phase 0 only: read the shared light-source tokens; `forced-colors` border; drop the `box-shadow` transition (press stays on `transform`) | `press`, Drams 029 | Done (Phase 0 touch-ups) |
+| Button secondary | Outline pill, `border.strong` (3.10:1 on page), teal label on hover | Drams 036 family | Gate 1 pick 2 (raised neutral key, recessed chip, or keep). Gets its own role tokens either way | inherits `press` | 2 |
+| Button tertiary | Text ghost, `accentDeep` label | Drams 036 family | Keep flat: a ghost is text, not an object (directive 1). Inherits role tokens and sound | inherits `press` | Keep |
+| Switch | Physical but untuned: recessed track, six-layer knob lit from the top (`shadow.switch.*`, ×0.45), I/O glyph row. Hover, active, disabled flat. On-track teal.500 is 2.99:1 on page (pick 5) | Drams 001 Standard Switch (#1); thumb motion #2 Rollin' | Re-light to the picked source, then a full sc-tune pass like any other component; record, apply, Figma Toggle `9:858` | `toggle`, Drams 004 | 1 |
+| SegmentedControl | Flat: `surface.sunk` track, `surface.floating` indicator (1.40:1 on track), no shadow, no `:active` | Drams 045 Three-Way Slide Switch (#7) | Recessed track (track material); indicator becomes a key; add `:active` press; detent spring tuned in the lab; role tokens for its padding (shares `padding-inline.*` with Button today) | `select`, Drams 001 | 1 |
+| Stepper | Flat: `surface.sunk` pill (1.14:1 on page), ghost ± buttons, mono readout | Drams 016 Detent Knob; ± as Drams 036 keys (#8) | ± become small keys on a recessed pill; readout in a recessed window; disabled flat (today it dims the whole control to 0.6) | `tick`, Drams 037 | 1 |
+| ProgressIndicator bar, interactive | Thumbless 4px track (`deep-sunk`, 1.80:1 on page), thickens to 6px on drag; fill teal.500 (1.66:1 on the track) | #5 Standard Volume, #12 Dynamic Slider | Recessed track; the Switch knob becomes its thumb (the thumb carries the 3:1 cue the fill misses); not in the lab registry yet | optional `tick` on keyboard steps (Levi's pick) | 1 |
+| ProgressIndicator bar (static), circular, step | Flat track and fill; step dots with border | #3 Line Volume, #4 Volume Visible Track | Open: a static meter is read, not touched (directive 1). Recommend keep flat; a recessed track only if Levi wants meters to match the slider | none | Open |
+| Input | Sunk fill (1.14:1 on page), bottom rule `border.default` (2.06:1 on fill, 2.34:1 on page), focus doubles the rule by inset shadow. No hover state. Transitions `box-shadow` | Drams 036 OP-1 container well (`inset -1px -1px 2px`, white `inset -2px -2px 2px`) | True recessed well; focus underline stays; add a hover state; drop the `box-shadow` transition (forms repeat inputs) | none | 1 |
+| Card | Fill only; interactive hover adds `shadow.control.inset` (lit from the top); transitions `box-shadow` | Drams 036 OP-1 container | Two materials: `plate` (raised) and `well` (recessed); interactive plate presses on click; no `box-shadow` transition (cards repeat in grids) | none | 2 |
+| Tooltip | Flat inverse surface, fades and lifts | none (floating plate) | Raised plate with a short lift | none | 2 |
+| Badge | Flat outline chip. Text fails AA today: default teal.500 2.99:1, success 3.42:1, warning 3.90:1 on page | Drams LED Switch (#9) | LED dot that glows for live states; text moves to the status `-ink` tokens (fix stands on its own) | none | 2 |
+| Avatar | Flat circle on `surface.sunk` | none (recessed porthole) | Recessed ring so the photo sits in the surface | none | 2 |
+| Alert | Flat panel with a 4px status rule; not interactive (no dismiss) | LED + plate | Plate with a status LED | none: an unprompted sound is intrusive | 2 |
+| NavBar | Flat chrome, colour-only hover. Gaps: links have no styled `:focus-visible`; `aria-current` is teal.500 text, 2.99:1 (fails AA) | Drams 036 keys | Active item as a pressed key; bar stays flat; add a focus ring; current item off teal.500 text | none | 3 |
+| Icon | Size wrapper, no surface | none | Keep flat | none | Keep |
+| Divider, HeadingRule, SectionDivider | Rules | none | Keep flat (directive 1) | none | Keep |
+| TypographySpecimen | Type display | none | Keep flat | none | Keep |
+| WorkingMark | Brand loader: gradient shimmer, spin and pulse; reduced motion stops both | none | Keep flat. The shimmer is the brand mark's own gradient, not a material | none | Keep |
+| PlusBullet, PlusField, PlusLoader, PlusProgress, PlusSeparator, PlusSkeleton, PlusThumbnail, PlusTimeline, PlusUnderline | Brand elements, none interactive | none | Keep flat: they are read, not touched | none | Keep |
+
+Eight findings from the audit:
+
+1. **Four light directions ship in tokens.** Top: `shadow.switch.*` and `shadow.control.inset` (Card). Top left: `shadow.control.key` (Button). Top right: `shadow.control.raised` and `shadow.control.bevel` (superseded, still published, no SCDS consumer). Directive 2 needs one; it is Gate 1 pick 1. The legacy pair can retire once consumers are checked.
+2. **Forced colors erase the material.** No component has an `@media (forced-colors: active)` rule (0 of 28). Every box-shadow drops in Windows high-contrast mode, and the Button key's border matches its fill, so it loses its edge. Each material needs a border fallback.
+3. **Box-shadow transitions cost paint.** Button, Card and Input transition `box-shadow`. Card and Input repeat on one page; the Button can (toolbars, tables). Press stays on `transform`; shadow changes snap.
 4. **The slop blocklist names gradients and preset shadows.** This direction uses both. Directive 3 is the guard: each value is traced to a Drams measurement and a scale factor, logged in decisions.md as a sourced exception, never a preset.
+5. **Shared tokens are tuned by accident.** SegmentedControl, Input, NavBar, Tooltip and Badge read the same `padding-inline.*` / `padding-block.*` tokens the Button lab edits landed on. Each component gets role tokens before its lab session (the Button rule), so a tune never moves a sibling.
+6. **Non-text contrast (1.4.11) is under 3:1 on most physical boundaries today.** Sunk grounds are 1.14:1 on page, the SegmentedControl indicator 1.40:1 on its track, the progress track 1.80:1, the Switch on-track 2.99:1. Several components carry state another way (Switch glyph, SegmentedControl label ink). The material work is the chance to clear 3:1 or log each gap.
+7. **Two text AA failures outside the material scope.** Badge (default, success, warning) and NavBar `aria-current` use fill colours as text. The `-ink` tokens exist. Logged here because Badge and NavBar are in the audit; the fix does not wait for their tier.
+8. **Five-state gaps.** No `:active` on SegmentedControl; no hover on Input; no styled focus on NavBar links. Each lands with its component.
 
 ## Gate 1 picks (Levi)
 
@@ -63,18 +77,19 @@ Each pick is made in the sc-tune lab as concepts A and B, then recorded (procedu
 2. **Button secondary.** A: a raised neutral key, smaller lift than primary. B: a recessed chip (a well). C: keep the outline. Recommendation: B. It is physical and keeps the hierarchy, because a well reads as quieter than a key.
 3. **Dark-mode material.** A: light physical knobs and keys on dark ground (today's Switch). B: dark keys with a faint top-left highlight (today's Button). Recommendation: decide once for both, with pick 1.
 4. **Scope.** Tier 1 only, or Tier 1 + 2 in this sprint. Recommendation: Tier 1 + the material layer in this sprint; Tier 2 next.
+5. **Teal on-track contrast.** teal.500 reads 2.99:1 on the restored page, just under the 3:1 non-text line. A: keep it; knob position and the I/O glyph carry state, logged as a gap. B: a darker on-track role token (`color.switch.track.on`, teal.600 class), tuned in the lab with the Switch.
 
 ## Contract (proposed; Levi approves at Gate 1)
 
 ### Phase 0: material layer
 - One light-source token set, from pick 1: offsets for shade and highlight live in one place, and every material reads them.
 - Material tokens: `key`, `keyPressed`, `well`, `track`, `knob`, `plate`, `led`. Each one cites its Drams source and scale factor.
-- Re-light the Switch and Button to the picked source.
+- Re-light the Button and the Switch to the picked source. The Switch then gets its first sc-tune pass (record, apply, Figma Toggle `9:858`) like any other component.
 - `forced-colors` border fallback for every material.
 - Figma: effect styles `shadow/material/*` (light and dark), variables for the face shades.
 
 ### Phase 1: Tier 1 components
-- SegmentedControl, Stepper, ProgressIndicator (bar + interactive), Input.
+- Switch (sc-tune pass after the re-light), SegmentedControl, Stepper, ProgressIndicator (interactive), Input.
 - Each gets an sc-tune record before code: material values, press motion (spring or bezier), and its sound role (SegmentedControl and Stepper keep theirs; ProgressIndicator interactive gets a sound only if Levi picks one).
 - Figma masters follow in the same change.
 
