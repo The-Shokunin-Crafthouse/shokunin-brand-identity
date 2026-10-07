@@ -10,13 +10,12 @@
  *   --sc-space-component-padding-inline-md  · sm inline (12)
  *   --sc-space-component-padding-block-button-sm  · sm block (4)
  *   --sc-space-component-padding-block-sm   · sm label ↔ arrow gap (2)
- *   --sc-size-icon-xs                       · sm icon (12)
  *   --sc-color-border-strong                · secondary outline
  *   --sc-color-surface-raised               · primary resting fill (neutral)
  *   --sc-color-control-key-shade            · 135° face shade over any fill (Drams OP-1 Keys)
  *   --sc-shadow-control-key                 · resting key: shade down-right, highlight up-left
  *   --sc-shadow-control-key-pressed         · pressed key: softer, with an inner light
- *   --sc-size-icon-xs                       · arrow and working mark (12, both sizes)
+ *   --sc-size-button-icon-lg / -sm          · arrow and working mark per size (12, both today)
  *   --sc-color-brand-accent-fill            · primary hover fill (teal.600, white AA 5.2)
  *   --sc-color-brand-accent-deep            · primary press + tertiary resting text (teal.700, AA)
  *   --sc-color-surface-sunk                 · disabled fill
@@ -53,6 +52,8 @@
      which is what a user actually watches settle — carries the spring. */
   --sc-btn-transform-duration: var(--sc-motion-press-release-duration);
   --sc-btn-transform-easing: var(--sc-motion-press-release-easing);
+  /* Arrow and loading mark size; .sm swaps it. */
+  --sc-btn-icon: var(--sc-size-button-icon-lg);
   transition:
     background-color var(--sc-motion-hover-duration) var(--sc-motion-hover-easing),
     border-color var(--sc-motion-hover-duration) var(--sc-motion-hover-easing),
@@ -77,12 +78,13 @@
   letter-spacing: var(--sc-font-text-label-button-lg-letter-spacing);
 }
 
-/* Trailing arrow — 12px at both sizes (library spec, 2026-10-06); it was
-   1.4em (15.4px), too heavy against the 11px label. Inherits colour. */
+/* Trailing arrow — per-size role token, 12px at both sizes today
+   (library spec, 2026-10-06); it was 1.4em (15.4px), too heavy against
+   the 11px label. Inherits colour. */
 .arrow {
   flex: none;
-  width: var(--sc-size-icon-xs);
-  height: var(--sc-size-icon-xs);
+  width: var(--sc-btn-icon);
+  height: var(--sc-btn-icon);
 }
 
 /* --- Size · sm (ADR scds-button-size-small) ------------------------
@@ -90,6 +92,7 @@
    2026-10-06 to the library's revised spec). The variants below set
    only colour, so every variant and state carries over unchanged. */
 .sm {
+  --sc-btn-icon: var(--sc-size-button-icon-sm);
   gap: var(--sc-space-component-padding-block-sm);
   padding-inline: var(--sc-space-component-padding-inline-md);
   padding-block: var(--sc-space-component-padding-block-button-sm);
@@ -205,8 +208,8 @@
    classes so it wins over WorkingMark's own size class. */
 .button .working {
   flex: none;
-  width: var(--sc-size-icon-xs);
-  height: var(--sc-size-icon-xs);
+  width: var(--sc-btn-icon);
+  height: var(--sc-btn-icon);
 }
 
 @media (prefers-reduced-motion: reduce) {

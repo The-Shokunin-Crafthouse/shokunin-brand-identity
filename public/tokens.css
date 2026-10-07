@@ -604,6 +604,8 @@
   --sc-size-progress-circular-stroke: var(--sc-p-space-4);
   --sc-size-progress-bar-height-active: var(--sc-p-space-micro-6);
   --sc-size-progress-hit-slop: var(--sc-p-space-micro-22);
+  --sc-size-button-icon-lg: var(--sc-p-space-12);
+  --sc-size-button-icon-sm: var(--sc-p-space-12);
   --sc-size-touch-target: var(--sc-p-space-48);
   --sc-space-component-padding-sm: var(--sc-p-space-8);
   --sc-space-component-padding-md: var(--sc-p-space-16);
@@ -889,6 +891,8 @@
   --sc-size-progress-circular-stroke: var(--sc-p-space-4);
   --sc-size-progress-bar-height-active: var(--sc-p-space-micro-6);
   --sc-size-progress-hit-slop: var(--sc-p-space-micro-22);
+  --sc-size-button-icon-lg: var(--sc-p-space-12);
+  --sc-size-button-icon-sm: var(--sc-p-space-12);
   --sc-size-touch-target: var(--sc-p-space-48);
   --sc-space-component-padding-sm: var(--sc-p-space-8);
   --sc-space-component-padding-md: var(--sc-p-space-16);

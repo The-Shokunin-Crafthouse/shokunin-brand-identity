@@ -1913,3 +1913,11 @@ Levi: the trailing arrow uses Phosphor's bold weight, not regular. Code: `ArrowR
 - **Change:** new `font.text.label.buttonLg` (`--sc-font-text-label-button-lg-*`), aliasing `{font.text.11}` like `buttonSm`. Values are unchanged: both sizes ship an 11/medium/widest label. `Button.module.css` `.label` reads the new token; `label-chrome` keeps its other consumers.
 - **Lab:** saved Button sessions move `label-chrome-*` overrides onto `label-button-lg-*` on load (concept B's letter-spacing edit carried over).
 - **Figma library:** new text style `text/label/button-lg` (`S:674127ee…`), bound to the same variables as `text/label/chrome`, applied to the 15 Large Button labels; `text/label/button-sm` description corrected from 12 to 11.
+
+### 2026-10-07: the Button arrow gets per-size role tokens
+
+**Status:** Accepted. Levi asked for a size control on the arrow icon in the tuning lab, after giving the label its own per-size tokens.
+
+- **Change:** new `size.button.icon.lg` and `size.button.icon.sm` (`--sc-size-button-icon-*`), both `{space.12}`. Nothing changes visually. The Button sets a local `--sc-btn-icon` from the lg token and `.sm` swaps it to sm; the arrow and the loading WorkingMark read it. `size.icon.xs` keeps its other consumers.
+- **Lab:** icon-size tokens get step buttons (10, 12 xs, 14, 16 sm, 18, 24 md) beside the type-scale steps, recorded as the primitive reference.
+- **Figma library:** variables `size/button/icon/lg` (`490:122`) and `size/button/icon/sm` (`490:123`) alias `space/12`, scope width/height, WEB code syntax set; bound to width and height of the arrow instance in all 30 Button variants.

@@ -153,8 +153,12 @@ function ShadowLayers({ name, value, onSet }) {
 
 /* ---------- token control ---------- */
 
-// Text steps of the type scale, labelled where a role already uses them.
-const TYPE_STEPS = [[11, 'chrome'], [12, 'ui'], [13, 'caption'], [14, 'dense'], [16, 'body'], [20, 'lead']];
+// Snap steps for sizes that live on a scale: [px, role label, primitive].
+// Text steps label the role that already uses them; icon steps name the
+// icon size token at that step, or the micro step between them.
+const TYPE_STEPS = [11, 12, 13, 14, 16, 20].map((px, i) => [px, ['chrome', 'ui', 'caption', 'dense', 'body', 'lead'][i], `--sc-p-font-size-${px}`]);
+const ICON_STEPS = [[10, '', '--sc-p-space-micro-10'], [12, 'xs', '--sc-p-space-12'], [14, '', '--sc-p-space-micro-14'], [16, 'sm', '--sc-p-space-16'], [18, '', '--sc-p-space-micro-18'], [24, 'md', '--sc-p-space-24']];
+const stepsFor = (name) => (/^--sc-font-.*-size$/.test(name) ? TYPE_STEPS : /^--sc-size-.*icon/.test(name) ? ICON_STEPS : null);
 
 export function TokenControl({ name, kind, shipped, value, override, scope, adj, spring, pin, refs, easingPresets, onSet, onAdj, onSpring, onReset, onPin }) {
   const changed = override !== undefined;
@@ -180,16 +184,17 @@ export function TokenControl({ name, kind, shipped, value, override, scope, adj,
         <input type="number" aria-label={`${name} value`} className={s.num} step={step} value={round(n, 3)} onChange={(e) => onSet(`${e.target.value}${unit}`)} />
       </div>
     );
-    // Font sizes snap to the type scale: one tap per step, recorded as the
-    // primitive reference so the spec names the step, not a loose px value.
-    if (/^--sc-font-.*-size$/.test(name)) {
+    // Font and icon sizes snap to their scale: one tap per step, recorded as
+    // the primitive reference so the spec names the step, not a loose px value.
+    const steps = stepsFor(name);
+    if (steps) {
       editor = (
         <>
           {editor}
-          <div className={s.steps} role="group" aria-label={`${name} type scale`}>
-            {TYPE_STEPS.map(([px, role]) => (
+          <div className={s.steps} role="group" aria-label={`${name} scale`}>
+            {steps.map(([px, role, prim]) => (
               <button key={px} type="button" className={s.step} aria-pressed={n === px}
-                onClick={() => onSet(`var(--sc-p-font-size-${px})`)}>
+                onClick={() => onSet(`var(${prim})`)}>
                 {px}{role && <span className={s.stepRole}>{role}</span>}
               </button>
             ))}

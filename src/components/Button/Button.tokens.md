@@ -64,7 +64,7 @@ Primary is the Drams OP-1 Keys key (drams/036), horizontal, on the page surface;
 
 Disabled drops the face shade and the shadows: flat reads as unavailable.
 
-Arrow and loading mark: 12px (`--sc-size-icon-xs`) at both sizes, per the library spec. Loading shows the studio's `WorkingMark` in place of the arrow.
+Arrow and loading mark: 12px at both sizes, per the library spec, from per-size role tokens (`--sc-size-button-icon-lg`, `--sc-size-button-icon-sm`) so the Button icon tunes apart from `size.icon.xs`. Loading shows the studio's `WorkingMark` in place of the arrow.
 
 Retired from Button: `--sc-shadow-control-raised` and `--sc-shadow-control-bevel` (neumorphic). The tokens stay published until no consumer reads them.
 

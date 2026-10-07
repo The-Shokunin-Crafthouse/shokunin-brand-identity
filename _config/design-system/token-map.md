@@ -5,7 +5,7 @@
 # Design Token Map — The Shokunin Crafthouse · Brand Identity
 
 **Generated** from `tokens/primitives.json` + `tokens/semantic.json`.
-**Source fingerprint:** `6b0d2b39a6b3` · **177 primitives · 151 semantic tokens.**
+**Source fingerprint:** `e899ae10b5e5` · **177 primitives · 153 semantic tokens.**
 
 > **This file is a mirror, not the source.** `tokens/*.json` is upstream; this document and the Figma
 > library are generated from / synced to it. It previously claimed the opposite — that both were
@@ -737,6 +737,13 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | `size/progress/circular-stroke` | `--sc-size-progress-circular-stroke` | `space/4` | `4px` | `space/4` | `4px` | Sprint 4 addition · circular stroke width (4px). |
 | `size/progress/bar-height-active` | `--sc-size-progress-bar-height-active` | `space/micro/6` | `6px` | `space/micro/6` | `6px` | Sprint 5 addition · Drams #4/#5 (Volume Visible Track / Standard Volume) · interactive bar variant, active/dragging track thickness (6px). |
 | `size/progress/hit-slop` | `--sc-size-progress-hit-slop` | `space/micro/22` | `22px` | `space/micro/22` | `22px` | Sprint 5 addition · Drams #5 (Standard Volume) · interactive bar variant, invisible hit-area padding above/below the visual track (block padding on the interactive wrapper, not the track itself). |
+
+#### `size/button`
+
+| Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
+|---|---|---|---|---|---|---|
+| `size/button/icon/lg` | `--sc-size-button-icon-lg` | `space/12` | `12px` | `space/12` | `12px` | Large Button arrow and loading mark (12px). |
+| `size/button/icon/sm` | `--sc-size-button-icon-sm` | `space/12` | `12px` | `space/12` | `12px` | Small Button arrow and loading mark (12px). |
 
 #### `size/touch-target`
 

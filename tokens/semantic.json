@@ -1148,6 +1148,22 @@
         "$extensions": { "modes": { "light": "{space.micro.22}", "dark": "{space.micro.22}" } }
       }
     },
+    "button": {
+      "icon": {
+        "lg": {
+          "$type": "dimension",
+          "$value": "{space.12}",
+          "$description": "Large Button arrow and loading mark (12px). Its own role, so the Button icon tunes apart from size.icon.xs (Figma size/button/icon/lg). 2026-10-07.",
+          "$extensions": { "modes": { "light": "{space.12}", "dark": "{space.12}" } }
+        },
+        "sm": {
+          "$type": "dimension",
+          "$value": "{space.12}",
+          "$description": "Small Button arrow and loading mark (12px). Its own role, so the Button icon tunes apart from size.icon.xs (Figma size/button/icon/sm). 2026-10-07.",
+          "$extensions": { "modes": { "light": "{space.12}", "dark": "{space.12}" } }
+        }
+      }
+    },
     "touch-target": {
       "$type": "dimension",
       "$value": "{space.48}",
