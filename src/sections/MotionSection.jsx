@@ -8,9 +8,11 @@
  * press, the Switch thumb, the Tooltip reveal — animating for real.
  * Every duration/easing/scale reads from a --sc-p-motion-* token.
  *
- * Chapter iv (2026-10-07): elastic controls, from kabarza's elastic
- * toggles reel. The settings ship inert; the live panel runs the reel's
- * Balanced preset through token overrides on its own wrapper only.
+ * Spec v2.0 (2026-10-07, Levi): fluid, with weight. Touch travels on
+ * springs and overshoot is welcome; reading surfaces keep the four curves.
+ * Chapter iv: elastic controls, from kabarza's elastic toggles reel. The
+ * live panel runs the reel's Balanced preset through token overrides on
+ * its own wrapper only.
  */
 
 import { useState } from 'react';
@@ -102,19 +104,20 @@ export function MotionSection() {
         meta={[
           ['Last revised', '2026.10.07'],
           ['Tokens', '19'],
-          ['Spec', 'v1.3'],
+          ['Spec', 'v2.0'],
           ['Status', 'Complete'],
         ]}
       />
 
       <Hero
         id="motion-title"
-        eyebrow={<>Motion<Slash />mechanical, not organic</>}
-        title={<>Four curves, four durations. <Accent>Nothing</Accent> in the system <Em>overshoots.</Em></>}
+        eyebrow={<>Motion<Slash />fluid, with weight</>}
+        title={<>Things you touch have weight. They <Accent>overshoot,</Accent> swing back and <Em>settle.</Em></>}
         lead={
-          <>The motion language is a precision instrument, not a toy. Curves favour a fast mechanical
-          commit and a quiet settle; no control point ever rises above one, so nothing springs or
-          bounces. Click any curve to send a dot along it.</>
+          <>A control you move travels on a spring. It passes its mark, swings back and lands,
+          the way a real switch does, and its shape answers its speed. Everything you only read
+          (a hint, a panel, a page) arrives on one of the four curves below. Click any curve to
+          send a dot along it.</>
         }
       />
 
@@ -125,8 +128,8 @@ export function MotionSection() {
         title="Each curve is a velocity decision, plotted."
         premise="The line is the easing function itself — position over time, from rest to rest. The dot beneath travels that exact curve. Click a card to run it; click again to send it back."
         annotations={[
-          { title: 'Mechanical, not organic', body: 'The Drams lineage. Interactive states settle like a precision control, not a spring. Ease-out and symmetric only — never elastic, never back.' },
-          { title: 'The excluded curve', body: 'No overshoot. No control point sits above 1, so nothing in the system bounces past its mark and returns. Bounce reads as playful; this brand reads as exact. One exception, by Levi\u2019s pick: the Switch knob\u2019s spring overshoots 3% (chapter iv).' },
+          { title: 'Springs for touch, curves for reading', body: 'Anything a finger moves travels on a spring: the Switch knob, the segment indicator, the underline. Anything that only appears uses the four curves. The Drams lineage supplies the objects; the springs give them weight.' },
+          { title: 'Overshoot is welcome', body: 'A spring that passes its mark and comes back reads as an object with mass, not a value being set. The Button releases on a curve that rises to 1.56; the Switch knob passes its mark by 3%. Bounce sets how far.' },
           { title: 'Enter vs exit', body: 'Out leads with speed and settles slow — right for things arriving. Symmetric weights both ends — right for a swap with no direction.' },
         ]}
       >
@@ -217,7 +220,7 @@ export function MotionSection() {
         premise="These are the real Sprint 4 components, not mock-ups. Each pairs a curve with a duration through the semantic motion tokens. Interact with them — the animation is the component's own."
         annotations={[
           { title: 'Semantic, not raw', body: 'Components never name a curve directly. They read --sc-motion-press, --sc-motion-reveal, --sc-motion-mode — roles that bind a duration and an easing together.' },
-          { title: 'One language', body: 'Press, reveal, mode. Three roles cover every interaction in the library. A new component picks a role; it does not invent a timing.' },
+          { title: 'One language', body: 'Press, reveal, mode for everything you read. Anything you move gets its own elastic tokens on top (chapter iv). A new component picks a role or tunes a spring in sc-tune; it does not invent a timing in code.' },
         ]}
       >
         <div className={styles.pairings}>
@@ -259,7 +262,7 @@ export function MotionSection() {
         annotations={[
           { title: 'As long as it is fast', body: 'Length follows the speed of the travel curve, so the pill is longest mid-flight and round again by the time it lands. It grows as two round ends and a bar; scaleX would turn it into an egg.' },
           { title: 'Press is a gesture', body: 'A click only counts on release. Leaning on pointer down answers the finger at once, and dragging off before release springs it back, so a change of mind costs nothing.' },
-          { title: 'Inert until picked', body: 'Until a concept is applied, stretch, squash and lean ship at 0 and travel equals reveal. The Switch is the first applied: a spring with a 3% overshoot, the one exception to the no-overshoot rule above. The engine (src/motion/elastic.js) runs only above 0 and never under reduced motion.' },
+          { title: 'Inert until picked', body: 'Until a concept is applied, stretch, squash and lean ship at 0 and travel equals reveal. The Switch is the first applied: a spring that passes its mark by 3%. The engine (src/motion/elastic.js) runs only above 0 and never under reduced motion.' },
         ]}
       >
         <div className={kit.tableScroll}>

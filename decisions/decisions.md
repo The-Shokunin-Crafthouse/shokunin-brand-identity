@@ -2101,3 +2101,12 @@ Levi: the trailing arrow uses Phosphor's bold weight, not regular. Code: `ArrowR
 ### 2026-10-07: the no-overshoot rule stays, with the Switch as its named exception
 
 **Status:** Accepted. Levi: keep the rule with the exception. The Motion page keeps "Nothing in the system overshoots" and "never elastic, never back"; the "excluded curve" annotation (chapter i) and chapter iv name the Switch knob's 3% spring overshoot (record 2026-10-07-1539 B) as the one exception. A further overshoot anywhere else needs its own logged exception.
+
+### 2026-10-07: motion is fluid, overshoot is welcome (supersedes the no-overshoot rule and its Switch exception)
+
+**Status:** Accepted. Levi: "rewrite it, i love overshoots, we need to make my UI more fluid." Supersedes the two entries above that kept "Nothing in the system overshoots" (first as a rule, then with the Switch as its exception).
+
+- **Motion page, spec v2.0** (`src/sections/MotionSection.jsx`): eyebrow "fluid, with weight"; title "Things you touch have weight. They overshoot, swing back and settle."; the lead says controls you move travel on springs and pass their mark, while things you only read keep the four curves. Chapter i annotations become "Springs for touch, curves for reading" and "Overshoot is welcome"; chapter iii's "One language" points moving controls at their elastic tokens; chapter iv drops the exception wording.
+- **The old rule was already false:** `motion.easing.springOut` (Button release, 2026-07-23) rises to 1.56. The new copy names it.
+- **Direction for the build:** anything a finger moves (Switch, SegmentedControl, PlusUnderline, NavBar underline) travels on a tuned spring; bounce above 0 no longer needs an exception. Reading surfaces (Tooltip enter, panels, pages) keep the four curves unless Levi tunes otherwise. Values still come from sc-tune records, never set in code.
+- **Still open:** the formal SCDS motion-philosophy pick (sc-motion, Gate 1 of its own; CONTEXT "Out of scope"). This direction reads closest to Experiential / Spatial; the pick itself is Levi's.
