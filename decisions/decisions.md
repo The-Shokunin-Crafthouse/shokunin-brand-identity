@@ -1858,3 +1858,15 @@ The follow-up named under "the library follows" above. `PlusSeparator.figma.tsx`
 - **Skill:** `skills/sc-tune/SKILL.md`, discoverable in Claude Code through `.claude/skills/sc-tune` (a symlink). Registry entries: Switch, Stepper, SegmentedControl, Button.
 - A record is a reference, not a change: applying one to SCDS is procedure D, run only when Levi asks.
 - Verified: the record command ran on a real export (learning #171); a non-sc-tune input exits 1 and writes nothing; the snapshot renders read-only. `instruction-lint` (agent mode): 0 proven. `ste-lint`: no real em dashes; its hits are frontmatter rules and possessives. No skill-vs-no-skill eval run yet (learning #265).
+
+### 2026-10-07: physical controls, not flat (Button follows the Switch)
+
+**Status:** Accepted. Levi's direction: no flat UI methodology across SCDS; he wants physical rendering. The Drams-derived Switch knob is the reference light model: lit from above, a rim that catches light, a layered lift, a press that sits down.
+
+- **Button, filled variants** (primary, destructive): `color.control.sheenTop` → transparent 50% → `color.control.sheenBottom` laid over the fill; `shadow.control.rim` (half-pixel edge light and shade) + `shadow.control.lift` (Drams six layers ×0.6). `:active` swaps the lift for `shadow.control.pressed` (the three near-contact layers) while the existing press-spring scales it. Disabled stays flat.
+- The sheen is clear through the middle 50%, so the label band keeps the fill's own contrast: white on teal.600 stays AA 5.2.
+- **Unchanged, Levi's call later:** secondary (the outline pill, an approved exception) and tertiary (text ghost). Physical options there are a recessed chip or a raised neutral key; both blur the primary/secondary hierarchy, so neither ships without a pick.
+- `shadow.control.raised` and `shadow.control.bevel` (neumorphic) no longer style Button and are marked superseded; they stay published until no consumer reads them.
+- Earlier "fill-only, no shadow" rulings (SegmentedControl indicator, card hover inset) predate this direction and are candidates to revisit, not rules.
+- **Figma:** new variables `color/control/sheenTop`, `color/control/sheenBottom`; effect styles `shadow/control/lift`, `shadow/control/pressed` and `shadow/control/dark/*`. The 8 non-disabled Primary variants of `9:438` carry the sheen gradient (stops bound) and the lift style (Active: pressed). The library has no Destructive variant.
+- `tokens:build`, `tokens:swift`, `tokens:map` regenerated; `tokens:verify` passes.
