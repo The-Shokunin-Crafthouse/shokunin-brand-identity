@@ -19,6 +19,8 @@
  * component's CSS transition moves it exactly as before.
  */
 
+import { springToLinear, fromDurationBounce } from './spring.js';
+
 const SAMPLES = 60;
 
 const KEYWORDS = {
@@ -98,27 +100,11 @@ export function speeds(p) {
 /**
  * A spring as a CSS `linear()` curve and its settle time, set the way the
  * reel (and Framer, SwiftUI) set one: duration (ms) and bounce (0 = no
- * overshoot). stiffness = (2π/d)², damping = 4π(1 − bounce)/d, mass 1. The
- * same model as the sc-tune spring editor (previews/tune/motion.js).
+ * overshoot). Same simulation as the lab and the token generators.
  */
 export function springEasing({ duration, bounce = 0 }) {
-  const d = duration / 1000;
-  const k = (2 * Math.PI / d) ** 2;
-  const c = (4 * Math.PI * (1 - bounce)) / d;
-  let x = 0;
-  let v = 0;
-  const trace = [0];
-  let t = 0;
-  while (t < 6000) {
-    v += (-k * (x - 1) - c * v) * 0.001;
-    x += v * 0.001;
-    t += 1;
-    trace.push(x);
-    if (Math.abs(x - 1) < 0.0005 && Math.abs(v) < 0.0005) break;
-  }
-  const pts = Array.from({ length: SAMPLES }, (_, i) => +trace[Math.round((i / (SAMPLES - 1)) * (trace.length - 1))].toFixed(4));
-  pts[pts.length - 1] = 1;
-  return { easing: `linear(${pts.join(', ')})`, ms: t };
+  const r = springToLinear(fromDurationBounce({ duration, bounce }));
+  return { easing: r.easing, ms: r.settleMs };
 }
 
 const ms = (s) => (s.endsWith('ms') ? parseFloat(s) : parseFloat(s) * 1000) || 0;

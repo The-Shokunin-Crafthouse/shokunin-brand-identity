@@ -60,6 +60,25 @@ public struct SCDSEasing: Sendable, Equatable {
     }
 }
 
+/// A spring tuned in sc-tune. CSS samples it into `linear()` over its natural
+/// `settle` time and runs that curve over the paired duration token, so the
+/// web may play it faster or slower than its physics.
+public struct SCDSSpring: Sendable, Equatable {
+    public let stiffness: Double, damping: Double, mass: Double
+    /// Natural settle time in seconds.
+    public let settle: TimeInterval
+    public init(stiffness: Double, damping: Double, mass: Double, settle: TimeInterval) {
+        self.stiffness = stiffness; self.damping = damping; self.mass = mass; self.settle = settle
+    }
+    /// The same spring run over `duration` (the paired duration token), so it
+    /// lands when the CSS does. Time scales by s = settle / duration: stiffness
+    /// by s², damping by s, which keeps the damping ratio (the overshoot).
+    public func animation(duration: TimeInterval) -> Animation {
+        let s = settle / duration
+        return .interpolatingSpring(mass: mass, stiffness: stiffness * s * s, damping: damping * s, initialVelocity: 0)
+    }
+}
+
 /// One layer of a composed shadow, in the shape SwiftUI's `.shadow` takes.
 public struct SCDSShadowLayer: Sendable, Equatable {
     /// CSS `inset`. SwiftUI's `.shadow` draws outside a shape only, so an
@@ -152,7 +171,7 @@ public enum SCDS {
     public static let semanticVersion = "0.1.0"
     public static let sourceGenerated = "2026-05-26"
     public static let primitivesHash = "aa28930704213cf1"
-    public static let semanticHash = "2d651ccedad2577f"
+    public static let semanticHash = "fbe0c99a522b0520"
     public static let tokenCount = 188
   }
 
@@ -457,7 +476,7 @@ public enum SCDS {
     /// `color.switch.thumb.rimTop`
     public static let switchThumbRimTop = SwiftUI.Color.scdsDynamic(
         light: (1, 1, 1, 1),
-        dark:  (0.847059, 0.819608, 0.8, 1)
+        dark:  (0.917647, 0.909804, 0.890196, 1)
     )
 
     /// `color.switch.thumb.rimBottom`
@@ -469,13 +488,13 @@ public enum SCDS {
     /// `color.switch.thumb.faceTop`
     public static let switchThumbFaceTop = SwiftUI.Color.scdsDynamic(
         light: (0.945098, 0.937255, 0.921569, 1),
-        dark:  (0.768627, 0.737255, 0.705882, 1)
+        dark:  (0.847059, 0.819608, 0.8, 1)
     )
 
     /// `color.switch.thumb.faceBottom`
     public static let switchThumbFaceBottom = SwiftUI.Color.scdsDynamic(
         light: (0.890196, 0.87451, 0.847059, 1),
-        dark:  (0.690196, 0.65098, 0.611765, 1)
+        dark:  (0.701961, 0.694118, 0.678431, 1)
     )
 
     /// `color.switch.glyph.on`
@@ -493,13 +512,13 @@ public enum SCDS {
     /// `color.switch.track.off`
     public static let switchTrackOff = SwiftUI.Color.scdsDynamic(
         light: (0.690196, 0.65098, 0.611765, 1),
-        dark:  (0.231373, 0.258824, 0.286275, 1)
+        dark:  (0.121569, 0.145098, 0.172549, 1)
     )
 
     /// `color.switch.track.offHover`
     public static let switchTrackOffHover = SwiftUI.Color.scdsDynamic(
         light: (0.768627, 0.737255, 0.705882, 1),
-        dark:  (0.203922, 0.227451, 0.254902, 1)
+        dark:  (0.145098, 0.168627, 0.196078, 1)
     )
   }
 
@@ -910,13 +929,13 @@ public enum SCDS {
     public static let avatarLg: CGFloat = 64
 
     /// `size.switch.track-width`
-    public static let switchTrackWidth: CGFloat = 32
+    public static let switchTrackWidth: CGFloat = 40
 
     /// `size.switch.track-height`
-    public static let switchTrackHeight: CGFloat = 18
+    public static let switchTrackHeight: CGFloat = 22
 
     /// `size.switch.thumb`
-    public static let switchThumb: CGFloat = 14
+    public static let switchThumb: CGFloat = 15
 
     /// `size.switch.glyph`
     public static let switchGlyph: CGFloat = 6
@@ -1007,20 +1026,20 @@ public enum SCDS {
     /// `motion.reveal.easing`
     public static let revealEasing = SCDSEasing(0.22, 1, 0.36, 1)
 
-    /// `motion.switch.travel.duration` · 200ms
-    public static let switchTravelDuration: TimeInterval = 0.2
+    /// `motion.switch.travel.duration` · 600ms
+    public static let switchTravelDuration: TimeInterval = 0.6
 
-    /// `motion.switch.travel.easing`
-    public static let switchTravelEasing = SCDSEasing(0.22, 1, 0.36, 1)
+    /// `motion.switch.travel.easing` · spring k146 c17.88 m1, settles in 1093ms, overshoot 3%
+    public static let switchTravelEasing = SCDSSpring(stiffness: 146, damping: 17.88, mass: 1, settle: 1.093)
 
     /// `motion.switch.stretch`
-    public static let switchStretch: CGFloat = 0
+    public static let switchStretch: CGFloat = 1.06
 
     /// `motion.switch.squash`
-    public static let switchSquash: CGFloat = 0
+    public static let switchSquash: CGFloat = 0.15
 
     /// `motion.switch.press.lean`
-    public static let switchPressLean: CGFloat = 0
+    public static let switchPressLean: CGFloat = 0.12
 
     /// `motion.switch.press.leanDuration` · 160ms
     public static let switchPressLeanDuration: TimeInterval = 0.16

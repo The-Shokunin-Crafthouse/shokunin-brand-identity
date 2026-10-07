@@ -65,6 +65,7 @@ const PRIM_BY_DOTTED = new Map(PRIM_LEAVES.map((l) => [l.path.join('.'), l]));
 // ------------------------------------------------------------ value formatting
 function fmtDimension(v) {
   if (v && typeof v === 'object' && 'value' in v) return `${v.value}${v.unit ?? ''}`;
+  if (v && typeof v === 'object' && 'stiffness' in v) return `spring k${v.stiffness} c${v.damping} m${v.mass}`;
   return String(v);
 }
 
@@ -76,6 +77,7 @@ function fmtPrimitive(token) {
     case 'fontWeight': case 'number': return String(v);
     case 'fontFamily': return (Array.isArray(v) ? v : [v]).join(', ');
     case 'cubicBezier': return `cubic-bezier(${v.join(', ')})`;
+    case 'spring': return `spring k${v.stiffness} c${v.damping} m${v.mass}`;
     case 'typography': return Object.entries(v).map(([k, x]) => `${k}: ${x}`).join(' · ');
     default: return typeof v === 'string' ? v : JSON.stringify(v);
   }

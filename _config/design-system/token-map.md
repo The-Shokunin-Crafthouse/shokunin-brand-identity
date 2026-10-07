@@ -5,7 +5,7 @@
 # Design Token Map — The Shokunin Crafthouse · Brand Identity
 
 **Generated** from `tokens/primitives.json` + `tokens/semantic.json`.
-**Source fingerprint:** `1055fdc4e27c` · **180 primitives · 188 semantic tokens.**
+**Source fingerprint:** `10e809ea4078` · **180 primitives · 188 semantic tokens.**
 
 > **This file is a mirror, not the source.** `tokens/*.json` is upstream; this document and the Figma
 > library are generated from / synced to it. It previously claimed the opposite — that both were
@@ -546,14 +546,14 @@ channel-triplet primitives) rather than an alias to a single primitive.
 
 | Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
 |---|---|---|---|---|---|---|
-| `color/switch/thumb/rimTop` | `--sc-color-switch-thumb-rim-top` | `color/utility/white` | `#FFFFFF` | `color/warmGray/200` | `#D8D1CC` | 2026-10-07 · Switch restyled to the Drams Standard Switch (drams/001) at SCDS size. |
+| `color/switch/thumb/rimTop` | `--sc-color-switch-thumb-rim-top` | `color/utility/white` | `#FFFFFF` | `color/dark/textPrimary` | `#EAE8E3` | Dark per Record Switch 2026-10-07-1539, concept B (Levi), applied 2026-10-07. |
 | `color/switch/thumb/rimBottom` | `--sc-color-switch-thumb-rim-bottom` | `color/warmGray/200` | `#D8D1CC` | `color/warmGray/350` | `#9A9186` | 2026-10-07 · Switch restyled to the Drams Standard Switch (drams/001) at SCDS size. |
-| `color/switch/thumb/faceTop` | `--sc-color-switch-thumb-face-top` | `color/warmGray/50` | `#F1EFEB` | `color/warmGray/250` | `#C4BCB4` | 2026-10-07 · Switch restyled to the Drams Standard Switch (drams/001) at SCDS size. |
-| `color/switch/thumb/faceBottom` | `--sc-color-switch-thumb-face-bottom` | `color/warmGray/100` | `#E3DFD8` | `color/warmGray/300` | `#B0A69C` | 2026-10-07 · Switch restyled to the Drams Standard Switch (drams/001) at SCDS size. |
+| `color/switch/thumb/faceTop` | `--sc-color-switch-thumb-face-top` | `color/warmGray/50` | `#F1EFEB` | `color/warmGray/200` | `#D8D1CC` | Dark per Record Switch 2026-10-07-1539, concept B (Levi), applied 2026-10-07. |
+| `color/switch/thumb/faceBottom` | `--sc-color-switch-thumb-face-bottom` | `color/warmGray/100` | `#E3DFD8` | `color/dark/textTertiary` | `#B3B1AD` | Dark per Record Switch 2026-10-07-1539, concept B (Levi), applied 2026-10-07. |
 | `color/switch/glyph/on` | `--sc-color-switch-glyph-on` | `color/utility/white` | `#FFFFFF` | `color/utility/white` | `#FFFFFF` | 2026-10-07 · Switch restyled to the Drams Standard Switch (drams/001) at SCDS size. |
 | `color/switch/glyph/off` | `--sc-color-switch-glyph-off` | `color/warmGray/25` | `#F8F6F2` | `color/dark/textDisabled` | `#7C7A76` | 2026-10-07 · Switch restyled to the Drams Standard Switch (drams/001) at SCDS size. |
-| `color/switch/track/off` | `--sc-color-switch-track-off` | `color/warmGray/300` | `#B0A69C` | `color/dark/raised2` | `#3B4249` | 2026-10-07 · Switch off-track floor, the recess under the knob. |
-| `color/switch/track/offHover` | `--sc-color-switch-track-off-hover` | `color/warmGray/250` | `#C4BCB4` | `color/dark/raised1` | `#343A41` | 2026-10-07 · Switch off-track floor on hover. |
+| `color/switch/track/off` | `--sc-color-switch-track-off` | `color/warmGray/300` | `#B0A69C` | `color/dark/well` | `#1F252C` | Dark per Record Switch 2026-10-07-1539, concept B (Levi), applied 2026-10-07. |
+| `color/switch/track/offHover` | `--sc-color-switch-track-off-hover` | `color/warmGray/250` | `#C4BCB4` | `color/dark/floor` | `#252B32` | Dark per Record Switch 2026-10-07-1539, concept B (Levi), applied 2026-10-07. |
 
 ### Typography · Semantic
 
@@ -700,11 +700,11 @@ channel-triplet primitives) rather than an alias to a single primitive.
 
 | Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
 |---|---|---|---|---|---|---|
-| `motion/switch/travel/duration` | `--sc-motion-switch-travel-duration` | `motion/duration/micro` | `200ms` | `motion/duration/micro` | `200ms` | 2026-10-07 · Switch motion, from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), added to sc-tune for Levi. |
-| `motion/switch/travel/easing` | `--sc-motion-switch-travel-easing` | `motion/easing/out` | `cubic-bezier(0.22, 1, 0.36, 1)` | `motion/easing/out` | `cubic-bezier(0.22, 1, 0.36, 1)` | 2026-10-07 · Switch motion, from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), added to sc-tune for Levi. |
-| `motion/switch/stretch` | `--sc-motion-switch-stretch` | _literal_ | `0` | _literal_ | `0` | 2026-10-07 · Switch motion, from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), added to sc-tune for Levi. |
-| `motion/switch/squash` | `--sc-motion-switch-squash` | _literal_ | `0` | _literal_ | `0` | 2026-10-07 · Switch motion, from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), added to sc-tune for Levi. |
-| `motion/switch/press/lean` | `--sc-motion-switch-press-lean` | _literal_ | `0` | _literal_ | `0` | 2026-10-07 · Switch motion, from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), added to sc-tune for Levi. |
+| `motion/switch/travel/duration` | `--sc-motion-switch-travel-duration` | _literal_ | `600ms` | _literal_ | `600ms` | 2026-10-07 · Elastic Switch motion (kabarza's elastic toggles reel), engine src/motion/elastic.js. |
+| `motion/switch/travel/easing` | `--sc-motion-switch-travel-easing` | _literal_ | `spring k146 c17.88 m1` | _literal_ | `spring k146 c17.88 m1` | 2026-10-07 · Elastic Switch motion (kabarza's elastic toggles reel), engine src/motion/elastic.js. |
+| `motion/switch/stretch` | `--sc-motion-switch-stretch` | _literal_ | `1.06` | _literal_ | `1.06` | 2026-10-07 · Elastic Switch motion (kabarza's elastic toggles reel), engine src/motion/elastic.js. |
+| `motion/switch/squash` | `--sc-motion-switch-squash` | _literal_ | `0.15` | _literal_ | `0.15` | 2026-10-07 · Elastic Switch motion (kabarza's elastic toggles reel), engine src/motion/elastic.js. |
+| `motion/switch/press/lean` | `--sc-motion-switch-press-lean` | _literal_ | `0.12` | _literal_ | `0.12` | 2026-10-07 · Elastic Switch motion (kabarza's elastic toggles reel), engine src/motion/elastic.js. |
 | `motion/switch/press/leanDuration` | `--sc-motion-switch-press-lean-duration` | `motion/duration/press` | `160ms` | `motion/duration/press` | `160ms` | 2026-10-07 · Switch motion, from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), added to sc-tune for Levi. |
 
 #### `motion/segmentedControl`
@@ -785,9 +785,9 @@ channel-triplet primitives) rather than an alias to a single primitive.
 
 | Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
 |---|---|---|---|---|---|---|
-| `size/switch/track-width` | `--sc-size-switch-track-width` | `space/32` | `32px` | `space/32` | `32px` | Sprint 4 addition · switch track width (32px). |
-| `size/switch/track-height` | `--sc-size-switch-track-height` | `space/micro/18` | `18px` | `space/micro/18` | `18px` | Sprint 4 addition · switch track height (18px). |
-| `size/switch/thumb` | `--sc-size-switch-thumb` | `space/micro/14` | `14px` | `space/micro/14` | `14px` | Sprint 4 addition · switch thumb diameter (14px) · 2px inset inside 18px track. |
+| `size/switch/track-width` | `--sc-size-switch-track-width` | _literal_ | `40px` | _literal_ | `40px` | Switch track width, 40px. |
+| `size/switch/track-height` | `--sc-size-switch-track-height` | _literal_ | `22px` | _literal_ | `22px` | Switch track height, 22px. |
+| `size/switch/thumb` | `--sc-size-switch-thumb` | _literal_ | `15px` | _literal_ | `15px` | Switch knob diameter, 15px, 3.5px inset inside the 22px track. |
 | `size/switch/glyph` | `--sc-size-switch-glyph` | `space/micro/6` | `6px` | `space/micro/6` | `6px` | 2026-10-07 · Switch restyled to the Drams Standard Switch (drams/001) at SCDS size. |
 | `size/switch/labelOffset` | `--sc-size-switch-label-offset` | _literal_ | `0px` | _literal_ | `0px` | 2026-10-07 · Vertical nudge for the Switch label, positive moves it down (Levi asked to move the text down 1px; tune it in the lab). |
 

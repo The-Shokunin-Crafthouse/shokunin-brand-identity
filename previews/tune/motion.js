@@ -9,39 +9,9 @@
  * current engine supports. The settle time becomes the paired duration.
  */
 
-const SETTLE = 0.0005;
-const MAX_MS = 6000;
-const SAMPLES = 60;
-
-export function simulateSpring({ stiffness, damping, mass }) {
-  let x = 0;
-  let v = 0;
-  const dt = 0.001;
-  const trace = [0];
-  let ms = 0;
-  let peak = 0;
-  while (ms < MAX_MS) {
-    const a = (-stiffness * (x - 1) - damping * v) / mass;
-    v += a * dt;
-    x += v * dt;
-    ms += 1;
-    trace.push(x);
-    if (x > peak) peak = x;
-    if (Math.abs(x - 1) < SETTLE && Math.abs(v) < SETTLE) break;
-  }
-  return { trace, settleMs: ms, overshoot: Math.max(0, peak - 1) };
-}
-
-export function springToLinear(params) {
-  const { trace, settleMs, overshoot } = simulateSpring(params);
-  const pts = [];
-  for (let i = 0; i < SAMPLES; i += 1) {
-    const idx = Math.round((i / (SAMPLES - 1)) * (trace.length - 1));
-    pts.push(+trace[idx].toFixed(4));
-  }
-  pts[pts.length - 1] = 1;
-  return { easing: `linear(${pts.join(', ')})`, settleMs, overshoot };
-}
+// The spring simulation lives in src/motion/spring.js, shared with the
+// token generators, so a spring tuned here ships as exactly this curve.
+export { simulateSpring, springToLinear } from '../../src/motion/spring.js';
 
 export const parseBezier = (v) =>
   v?.match(/cubic-bezier\(([^)]+)\)/)?.[1].split(',').map(Number) || null;

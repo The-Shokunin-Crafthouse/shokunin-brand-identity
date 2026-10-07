@@ -33,6 +33,7 @@
  * and the tokens' own $metadata.generated instead.
  */
 
+import { simulateSpring } from '../src/motion/spring.js';
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { dirname, resolve } from 'node:path';
@@ -325,6 +326,17 @@ function easingLine(path, token) {
     `    public static let ${name} = SCDSEasing(${v.map(num).join(', ')})`;
 }
 
+function springLine(path, token) {
+  const dotted = path.join('.');
+  const v = resolveValue(modeValue(token, 'light'), 'light');
+  if (!v || typeof v !== 'object' || !('stiffness' in v)) fail(`${dotted}: spring is not { stiffness, damping, mass }`);
+  const { settleMs, overshoot } = simulateSpring(v);
+  const name = claim('Motion', swiftName(path), dotted);
+  counts.motion += 1;
+  return `    /// \`${dotted}\` · spring k${num(v.stiffness)} c${num(v.damping)} m${num(v.mass)}, settles in ${settleMs}ms, overshoot ${Math.round(overshoot * 100)}%\n` +
+    `    public static let ${name} = SCDSSpring(stiffness: ${num(v.stiffness)}, damping: ${num(v.damping)}, mass: ${num(v.mass)}, settle: ${num(settleMs / 1000)})`;
+}
+
 function numberLine(enumName, path, token, counterKey) {
   const dotted = path.join('.');
   const v = resolveValue(modeValue(token, 'light'), 'light');
@@ -416,6 +428,7 @@ function route(path, token) {
   if (token.$type === 'shadow') { buckets.Shadow.push(shadowLine(path, token)); return; }
   if (token.$type === 'duration') { buckets.Motion.push(durationLine(path, token)); return; }
   if (token.$type === 'cubicBezier') { buckets.Motion.push(easingLine(path, token)); return; }
+  if (token.$type === 'spring') { buckets.Motion.push(springLine(path, token)); return; }
 
   if (group === 'space') {
     // The two ladders are kept apart, which is the whole point of emitting
@@ -520,6 +533,25 @@ public struct SCDSEasing: Sendable, Equatable {
     }
     public func animation(duration: TimeInterval) -> Animation {
         .timingCurve(x1, y1, x2, y2, duration: duration)
+    }
+}
+
+/// A spring tuned in sc-tune. CSS samples it into \`linear()\` over its natural
+/// \`settle\` time and runs that curve over the paired duration token, so the
+/// web may play it faster or slower than its physics.
+public struct SCDSSpring: Sendable, Equatable {
+    public let stiffness: Double, damping: Double, mass: Double
+    /// Natural settle time in seconds.
+    public let settle: TimeInterval
+    public init(stiffness: Double, damping: Double, mass: Double, settle: TimeInterval) {
+        self.stiffness = stiffness; self.damping = damping; self.mass = mass; self.settle = settle
+    }
+    /// The same spring run over \`duration\` (the paired duration token), so it
+    /// lands when the CSS does. Time scales by s = settle / duration: stiffness
+    /// by s², damping by s, which keeps the damping ratio (the overshoot).
+    public func animation(duration: TimeInterval) -> Animation {
+        let s = settle / duration
+        return .interpolatingSpring(mass: mass, stiffness: stiffness * s * s, damping: damping * s, initialVelocity: 0)
     }
 }
 

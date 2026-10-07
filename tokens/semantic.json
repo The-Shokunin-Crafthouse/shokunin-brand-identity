@@ -579,8 +579,8 @@
         "rimTop": {
           "$type": "color",
           "$value": "{color.utility.white}",
-          "$description": "2026-10-07 · Switch restyled to the Drams Standard Switch (drams/001) at SCDS size. Knob rim gradient, top stop. A 0.5px rim catches the light above the face (Drams #FFF to #D1D1D1).",
-          "$extensions": { "modes": { "light": "{color.utility.white}", "dark": "{color.warmGray.200}" } }
+          "$description": "Dark per Record Switch 2026-10-07-1539, concept B (Levi), applied 2026-10-07. 2026-10-07 · Switch restyled to the Drams Standard Switch (drams/001) at SCDS size. Knob rim gradient, top stop. A 0.5px rim catches the light above the face (Drams #FFF to #D1D1D1).",
+          "$extensions": { "modes": { "light": "{color.utility.white}", "dark": "{color.dark.textPrimary}" } }
         },
         "rimBottom": {
           "$type": "color",
@@ -591,14 +591,14 @@
         "faceTop": {
           "$type": "color",
           "$value": "{color.warmGray.50}",
-          "$description": "2026-10-07 · Switch restyled to the Drams Standard Switch (drams/001) at SCDS size. Knob face gradient, top stop (Drams #F2F2F2 to #E8E8E8). Dark keeps a light physical knob, dimmed per stop, so the object keeps its material at night.",
-          "$extensions": { "modes": { "light": "{color.warmGray.50}", "dark": "{color.warmGray.250}" } }
+          "$description": "Dark per Record Switch 2026-10-07-1539, concept B (Levi), applied 2026-10-07. 2026-10-07 · Switch restyled to the Drams Standard Switch (drams/001) at SCDS size. Knob face gradient, top stop (Drams #F2F2F2 to #E8E8E8). Dark keeps a light physical knob, dimmed per stop, so the object keeps its material at night.",
+          "$extensions": { "modes": { "light": "{color.warmGray.50}", "dark": "{color.warmGray.200}" } }
         },
         "faceBottom": {
           "$type": "color",
           "$value": "{color.warmGray.100}",
-          "$description": "2026-10-07 · Switch restyled to the Drams Standard Switch (drams/001) at SCDS size. Knob face gradient, bottom stop.",
-          "$extensions": { "modes": { "light": "{color.warmGray.100}", "dark": "{color.warmGray.300}" } }
+          "$description": "Dark per Record Switch 2026-10-07-1539, concept B (Levi), applied 2026-10-07. 2026-10-07 · Switch restyled to the Drams Standard Switch (drams/001) at SCDS size. Knob face gradient, bottom stop.",
+          "$extensions": { "modes": { "light": "{color.warmGray.100}", "dark": "{color.dark.textTertiary}" } }
         }
       },
       "glyph": {
@@ -619,14 +619,14 @@
         "off": {
           "$type": "color",
           "$value": "{color.warmGray.300}",
-          "$description": "2026-10-07 · Switch off-track floor, the recess under the knob. Same values as surface.deepSunk (light warmGray.300, dark dark.raised2); its own role so the Switch floor tunes in sc-tune without moving cards, inputs and meters that read deepSunk (Levi).",
-          "$extensions": { "modes": { "light": "{color.warmGray.300}", "dark": "{color.dark.raised2}" } }
+          "$description": "Dark per Record Switch 2026-10-07-1539, concept B (Levi), applied 2026-10-07. 2026-10-07 · Switch off-track floor, the recess under the knob. Same values as surface.deepSunk (light warmGray.300, dark dark.raised2); its own role so the Switch floor tunes in sc-tune without moving cards, inputs and meters that read deepSunk (Levi).",
+          "$extensions": { "modes": { "light": "{color.warmGray.300}", "dark": "{color.dark.well}" } }
         },
         "offHover": {
           "$type": "color",
           "$value": "{color.warmGray.250}",
-          "$description": "2026-10-07 · Switch off-track floor on hover. Same values as surface.hover (light warmGray.250, dark dark.raised1, which reads darker than the resting floor in dark mode); its own role so it tunes with the floor.",
-          "$extensions": { "modes": { "light": "{color.warmGray.250}", "dark": "{color.dark.raised1}" } }
+          "$description": "Dark per Record Switch 2026-10-07-1539, concept B (Levi), applied 2026-10-07. 2026-10-07 · Switch off-track floor on hover. Same values as surface.hover (light warmGray.250, dark dark.raised1, which reads darker than the resting floor in dark mode); its own role so it tunes with the floor.",
+          "$extensions": { "modes": { "light": "{color.warmGray.250}", "dark": "{color.dark.floor}" } }
         }
       }
     }
@@ -891,13 +891,13 @@
     },
     "switch": {
       "travel": {
-        "duration": { "$type": "duration", "$value": "{motion.duration.micro}", "$description": "2026-10-07 \u00b7 Switch motion, from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), added to sc-tune for Levi. Knob and glyph travel. Shipped = motion.reveal.duration (200ms), so the Switch is unchanged; its own role so travel tunes in the lab. A spring set on travel.easing writes its settle time here.", "$extensions": { "modes": { "light": "{motion.duration.micro}", "dark": "{motion.duration.micro}" } } },
-        "easing": { "$type": "cubicBezier", "$value": "{motion.easing.out}", "$description": "2026-10-07 \u00b7 Switch motion, from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), added to sc-tune for Levi. Knob and glyph travel curve. Shipped = motion.reveal.easing (quint-out). The lab's spring editor tunes it by duration and bounce, as the reel does.", "$extensions": { "modes": { "light": "{motion.easing.out}", "dark": "{motion.easing.out}" } } }
+        "duration": { "$type": "duration", "$value": { "value": 600, "unit": "ms" }, "$description": "2026-10-07 \u00b7 Elastic Switch motion (kabarza's elastic toggles reel), engine src/motion/elastic.js. Knob and glyph travel, 600ms. Record Switch 2026-10-07-1539, concept B (Levi), applied 2026-10-07; was motion.reveal.duration (200ms). The spring's natural settle is 1093ms; CSS plays its curve over this time. Off the duration ladder, kept exact.", "$extensions": { "modes": { "light": { "value": 600, "unit": "ms" }, "dark": { "value": 600, "unit": "ms" } } } },
+        "easing": { "$type": "spring", "$value": { "stiffness": 146, "damping": 17.88, "mass": 1 }, "$description": "2026-10-07 \u00b7 Elastic Switch motion (kabarza's elastic toggles reel), engine src/motion/elastic.js. Travel curve: a spring, stiffness 146, damping 17.88, mass 1 (duration 520ms, bounce 0.26 in the lab's terms; overshoot 3%). Record Switch 2026-10-07-1539, concept B (Levi), applied 2026-10-07; was motion.reveal.easing (quint-out). Compiles to linear() through src/motion/spring.js, the lab's own simulation.", "$extensions": { "modes": { "light": { "stiffness": 146, "damping": 17.88, "mass": 1 }, "dark": { "stiffness": 146, "damping": 17.88, "mass": 1 } } } }
       },
-      "stretch": { "$type": "number", "$value": 0, "$description": "2026-10-07 \u00b7 Switch motion, from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), added to sc-tune for Levi. How long the knob gets at its fastest: 0.45 means 1.45 times its length at peak speed, round again by the time it lands. Two round ends and a bar, never scaleX. 0 = rigid (shipped).", "$extensions": { "modes": { "light": 0, "dark": 0 } } },
-      "squash": { "$type": "number", "$value": 0, "$description": "2026-10-07 \u00b7 Switch motion, from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), added to sc-tune for Levi. How much flatter the knob gets while it is long: 0.22 means 22% flatter at peak speed. 0 = none (shipped).", "$extensions": { "modes": { "light": 0, "dark": 0 } } },
+      "stretch": { "$type": "number", "$value": 1.06, "$description": "2026-10-07 \u00b7 Elastic Switch motion (kabarza's elastic toggles reel), engine src/motion/elastic.js. Extra knob length at peak speed, \u00d7 knob: 1.06 (the knob reaches about twice its length mid-flight, round again by the time it lands). Record Switch 2026-10-07-1539, concept B (Levi), applied 2026-10-07; was 0.", "$extensions": { "modes": { "light": 1.06, "dark": 1.06 } } },
+      "squash": { "$type": "number", "$value": 0.15, "$description": "2026-10-07 \u00b7 Elastic Switch motion (kabarza's elastic toggles reel), engine src/motion/elastic.js. Knob flattening at peak speed, \u00d7 knob: 0.15 (15% flatter while long). Record Switch 2026-10-07-1539, concept B (Levi), applied 2026-10-07; was 0.", "$extensions": { "modes": { "light": 0.15, "dark": 0.15 } } },
       "press": {
-        "lean": { "$type": "number", "$value": 0, "$description": "2026-10-07 \u00b7 Switch motion, from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), added to sc-tune for Levi. Press feedback: on pointer down the knob's front edge leans toward where it will go and holds; release travels from that pose, dragging off springs back. 1 = the front edge advances a quarter of the travel. 0 = off (shipped).", "$extensions": { "modes": { "light": 0, "dark": 0 } } },
+        "lean": { "$type": "number", "$value": 0.12, "$description": "2026-10-07 \u00b7 Elastic Switch motion (kabarza's elastic toggles reel), engine src/motion/elastic.js. Press feedback: on pointer down the knob's front edge leans toward where it will go (1 = a quarter of the travel; 0.12 leans about 0.5px on the 18px travel) and holds; release travels from that pose, dragging off springs back. Record Switch 2026-10-07-1539, concept B (Levi), applied 2026-10-07; was 0.", "$extensions": { "modes": { "light": 0.12, "dark": 0.12 } } },
         "leanDuration": { "$type": "duration", "$value": "{motion.duration.press}", "$description": "2026-10-07 \u00b7 Switch motion, from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), added to sc-tune for Levi. Time the knob takes to lean on pointer down (the reel uses 150ms). Inert while press.lean is 0.", "$extensions": { "modes": { "light": "{motion.duration.press}", "dark": "{motion.duration.press}" } } }
       }
     },
@@ -1175,21 +1175,21 @@
     "switch": {
       "track-width": {
         "$type": "dimension",
-        "$value": "{space.32}",
-        "$description": "Sprint 4 addition · switch track width (32px).",
-        "$extensions": { "modes": { "light": "{space.32}", "dark": "{space.32}" } }
+        "$value": { "value": 40, "unit": "px" },
+        "$description": "Switch track width, 40px. Record Switch 2026-10-07-1539, concept B (Levi), applied 2026-10-07; was 32px (space.32). Off the space ladder (no 40 step), kept exact (learning #144).",
+        "$extensions": { "modes": { "light": { "value": 40, "unit": "px" }, "dark": { "value": 40, "unit": "px" } } }
       },
       "track-height": {
         "$type": "dimension",
-        "$value": "{space.micro.18}",
-        "$description": "Sprint 4 addition · switch track height (18px).",
-        "$extensions": { "modes": { "light": "{space.micro.18}", "dark": "{space.micro.18}" } }
+        "$value": { "value": 22, "unit": "px" },
+        "$description": "Switch track height, 22px. Record Switch 2026-10-07-1539, concept B (Levi), applied 2026-10-07; was 18px (space.micro.18). Off the 4pt grid, kept exact (learning #144).",
+        "$extensions": { "modes": { "light": { "value": 22, "unit": "px" }, "dark": { "value": 22, "unit": "px" } } }
       },
       "thumb": {
         "$type": "dimension",
-        "$value": "{space.micro.14}",
-        "$description": "Sprint 4 addition · switch thumb diameter (14px) · 2px inset inside 18px track.",
-        "$extensions": { "modes": { "light": "{space.micro.14}", "dark": "{space.micro.14}" } }
+        "$value": { "value": 15, "unit": "px" },
+        "$description": "Switch knob diameter, 15px, 3.5px inset inside the 22px track. Record Switch 2026-10-07-1539, concept B (Levi), applied 2026-10-07; was 14px (space.micro.14). Off the 4pt grid, kept exact (learning #144).",
+        "$extensions": { "modes": { "light": { "value": 15, "unit": "px" }, "dark": { "value": 15, "unit": "px" } } }
       },
       "glyph": {
         "$type": "dimension",

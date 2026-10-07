@@ -133,7 +133,7 @@ for (const [path, t] of Object.entries(semNew)) {
     const vals = {};
     for (const [mode, v] of Object.entries(m)) {
       const r = refPath(v);
-      vals[mode === 'light' ? 'Light' : 'Dark'] = r ? { alias: r.replace(/\./g, '/') } : type === 'color' ? { color: parseColor(v) } : { number: parseFloat(deref(String(v))) };
+      vals[mode === 'light' ? 'Light' : 'Dark'] = r ? { alias: r.replace(/\./g, '/') } : type === 'color' ? { color: parseColor(v) } : { number: v && typeof v === 'object' && 'value' in v ? Number(v.value) : parseFloat(deref(String(v))) };
     }
     ops.push({ kind: 'variable', collection: 'Semantic', name, type: type === 'color' ? 'COLOR' : 'FLOAT', values: vals, desc: t.$description, web: `var(--sc-${path.replace(/\./g, '-').replace(/[A-Z]/g, (c) => `-${c.toLowerCase()}`)})` });
     rows.push([path, 'variable', name]);
