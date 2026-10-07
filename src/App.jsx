@@ -207,25 +207,45 @@ function useHashRoute() {
   return section;
 }
 
+// Primary mark plus grid (assets/logo/mark-primary-*.svg geometry, 256 × 200).
+// Drawn inline so the ground and marks resolve from tokens in both themes.
+const MARK_PLUS_PATHS = [
+  'M49 39 H60 V49 H49 V60 H39 V49 H28 V39 H39 V28 H49 V39 Z',
+  'M105 39 H116 V49 H105 V60 H95 V49 H84 V39 H95 V28 H105 V39 Z',
+  'M161 39 H172 V49 H161 V60 H151 V49 H140 V39 H151 V28 H161 V39 Z',
+  'M217 39 H228 V49 H217 V60 H207 V49 H196 V39 H207 V28 H217 V39 Z',
+  'M49 95 H60 V105 H49 V116 H39 V105 H28 V95 H39 V84 H49 V95 Z',
+  'M105 95 H116 V105 H105 V116 H95 V105 H84 V95 H95 V84 H105 V95 Z',
+  'M161 95 H172 V105 H161 V116 H151 V105 H140 V95 H151 V84 H161 V95 Z',
+  'M49 151 H60 V161 H49 V172 H39 V161 H28 V151 H39 V140 H49 V151 Z',
+  'M105 151 H116 V161 H105 V172 H95 V161 H84 V151 H95 V140 H105 V151 Z',
+  'M161 151 H172 V161 H161 V172 H151 V161 H140 V151 H151 V140 H161 V151 Z',
+  'M217 151 H228 V161 H217 V172 H207 V161 H196 V151 H207 V140 H217 V151 Z',
+];
+
+function BrandMark() {
+  return (
+    <svg className={styles.brandMark} viewBox="0 0 256 200" aria-hidden="true" focusable="false">
+      <rect className={styles.brandMarkGround} width="256" height="200" />
+      {MARK_PLUS_PATHS.map((d) => <path key={d} className={styles.brandMarkPlus} d={d} />)}
+    </svg>
+  );
+}
+
 function Sidebar({ active }) {
   const { theme, toggle } = useTheme();
   const isDark = theme === 'dark';
   return (
     <aside className={styles.sidebar} aria-label="Documentation navigation">
       <a className={styles.brand} href="#color" aria-label="Shokunin Crafthouse — home">
-        <img className={styles.brandMark} src={isDark ? markDark : markLight} alt="" width="22" height="22" />
-        <span className={styles.brandLockup}>
-          <span className={styles.brandName}>Shokunin Crafthouse</span>
-        </span>
+        <BrandMark />
+        <span className={styles.brandName}>Shokunin Crafthouse</span>
       </a>
 
       <nav className={styles.nav} aria-label="Sections">
         {NAV.map((group) => (
           <div key={group.ord} className={styles.navGroup}>
-            <div className={styles.navEyebrow}>
-              <span className={styles.navOrd}>{group.ord}</span>
-              {group.label}
-            </div>
+            <div className={styles.navEyebrow}>{group.label}</div>
             {group.items.map((item) => {
               const isActive = item.id === active;
               return (
@@ -244,8 +264,6 @@ function Sidebar({ active }) {
         ))}
       </nav>
 
-      <div className={styles.navSpacer} />
-
       <div className={styles.modeRow}>
         <span className={styles.modeLabel}>
           Mode <span className={styles.modeState}>{isDark ? 'Dark' : 'Light'}</span>
@@ -253,11 +271,9 @@ function Sidebar({ active }) {
         <Switch checked={isDark} onChange={toggle} label="" className={styles.modeSwitch} />
       </div>
 
-      <div className={styles.versionRow}>design system<Slash />v1.2</div>
-
       <div className={styles.sidebarFoot}>
-        <span>edition<Slash />2026.05</span>
-        <span>SCDS-01</span>
+        <span>© 2026</span>
+        <span>SCDS-v.01</span>
       </div>
     </aside>
   );

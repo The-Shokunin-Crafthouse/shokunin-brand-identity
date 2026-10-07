@@ -10,7 +10,7 @@
       "figmaPage": "Brand System (node 1:4)",
       "figmaCollection": "Primitives"
     },
-    "spacingBase": "Hybrid 4/8pt layout ladder + 2pt micro ladder. Layout: 4·8·12·16·24·32·48·64·80·96·120 px. Micro (chrome only): 2·6·10·14·18·22 px. Arbitrary px outside these ladders is a bug.",
+    "spacingBase": "Hybrid 4/8pt layout ladder + 2pt micro ladder. Layout: 4·8·12·16·20·24·28·32·48·64·80·96·120 px. Micro (chrome only): 2·6·10·14·18·22 px. Arbitrary px outside these ladders is a bug.",
     "typeScale": "Modular ratio 1.25 · 12 steps · 11/12/13/14/16/20/24/32/44/60/84/120 px.",
     "fontStrategy": "scds-v2: THREE families. Display = Neue Haas Grotesk Display Pro (headings + section/subheads; weights 250/300/400/500/700/900 self-hosted; 95 Black/900 carries the headline register — thin→Black retires thin headers). Text = Neue Haas Grotesk Text Pro (body + chrome labels; 400/500/700). Mono = Cascadia Mono (Google Fonts CDN) — reduced to ~10% of surfaces: hex values / token names / code ONLY, dropped from chrome labels. family.sans kept as a back-compat alias. Heading weights: card title 24=bold(700), section title 32 + display 44/60/84/120 = black(900); body stays Text Regular(400); chrome labels Text Medium(500); weight 600 carries mono token-references + the secondary-button hover bump. Per-step composition tokens at font.text.{step} bind size + weight + lineHeight + tracking + family; surfaces reach for those. line-height + tracking kept canonical across the weight change. Full rationale in _config/design-system/type-system.md (re-sync pending). Mono re-affirmed Sprint 2 (Cascadia / Geist / JetBrains / IBM Plex) — see decisions/decisions.md."
   },
@@ -20,6 +20,11 @@
         "$type": "color",
         "$value": "#FBF9F6",
         "$description": "Floating surface (popovers, interactive-card hover top layer). scds-v2: desaturated toward HSB(30,3,B) — warm hue kept, saturation pulled to ~3%. Was #F8F6F2."
+      },
+      "40": {
+        "$type": "color",
+        "$value": "#F5F0E9",
+        "$description": "Nav card ground, between warmGray.25 and .50 with the warm hue kept. Brand-site sidebar redesign (Figma sidebar nav, node 2144:25). 2026-10-07 (ADR brand-site-sidebar-redesign)."
       },
       "50": {
         "$type": "color",
@@ -559,6 +564,17 @@
       },
       "medium": {
         "$description": "Medium text-face compositions beside the regular scale steps. Added 2026-10-05 for the Studio PM shell (the tab label).",
+        "12": {
+          "$type": "typography",
+          "$value": {
+            "fontFamily": "{font.family.text}",
+            "fontSize": "{font.size.12}",
+            "fontWeight": "{font.weight.medium}",
+            "lineHeight": "{font.lineHeight.base}",
+            "letterSpacing": "{font.tracking.normal}"
+          },
+          "$description": "UI label, medium: 12/medium, no tracking (Figma text/label/ui-medium). Sidebar mode row. 2026-10-07 (ADR brand-site-sidebar-redesign)."
+        },
         "13": {
           "$type": "typography",
           "$value": {
@@ -583,6 +599,17 @@
             "letterSpacing": "{font.tracking.normal}"
           },
           "$description": "UI label, tight: 12/bold, no tracking (Figma text/label/ui-tight)."
+        },
+        "13": {
+          "$type": "typography",
+          "$value": {
+            "fontFamily": "{font.family.text}",
+            "fontSize": "{font.size.13}",
+            "fontWeight": "{font.weight.bold}",
+            "lineHeight": "{font.lineHeight.base}",
+            "letterSpacing": "{font.tracking.normal}"
+          },
+          "$description": "Nav current: 13/bold, no tracking (Figma text/label/nav-current). 2026-10-07 (ADR brand-site-sidebar-redesign)."
         },
         "14": {
           "$type": "typography",
@@ -619,7 +646,18 @@
         }
       },
       "displayTight": {
-        "$description": "Display-face compositions on the tight 1.1 line, no tracking. Matched to the SCDS Figma library text style of the same role, 2026-10-03.",
+        "$description": "Display-face compositions on the tight 1.1 line, no tracking. Matched to the SCDS Figma library text style of the same role, 2026-10-03. Exception: displayTight.11 sits on the base line so the nav group heading shares the link row height.",
+        "11": {
+          "$type": "typography",
+          "$value": {
+            "fontFamily": "{font.family.display}",
+            "fontSize": "{font.size.11}",
+            "fontWeight": "{font.weight.black}",
+            "lineHeight": "{font.lineHeight.base}",
+            "letterSpacing": "{font.tracking.normal}"
+          },
+          "$description": "Nav group heading: 11/black on base line height (Figma text/label/nav-heading). 2026-10-07 (ADR brand-site-sidebar-redesign)."
+        },
         "12": {
           "$type": "typography",
           "$value": {
@@ -773,7 +811,9 @@
     "8":   { "$type": "dimension", "$value": { "value": 8,   "unit": "px" }, "$description": "8px · layout spacing (4/8pt ladder)." },
     "12":  { "$type": "dimension", "$value": { "value": 12,  "unit": "px" }, "$description": "12px · layout spacing (4/8pt ladder)." },
     "16":  { "$type": "dimension", "$value": { "value": 16,  "unit": "px" }, "$description": "16px · layout spacing (4/8pt ladder)." },
+    "20":  { "$type": "dimension", "$value": { "value": 20,  "unit": "px" }, "$description": "20px · layout spacing (4pt step). Brand-site sidebar card block-end inset. 2026-10-07 (ADR brand-site-sidebar-redesign)." },
     "24":  { "$type": "dimension", "$value": { "value": 24,  "unit": "px" }, "$description": "24px · layout spacing (4/8pt ladder)." },
+    "28":  { "$type": "dimension", "$value": { "value": 28,  "unit": "px" }, "$description": "28px · layout spacing (4pt step). Brand-site sidebar card block-start inset. 2026-10-07 (ADR brand-site-sidebar-redesign)." },
     "32":  { "$type": "dimension", "$value": { "value": 32,  "unit": "px" }, "$description": "32px · layout spacing (4/8pt ladder)." },
     "48":  { "$type": "dimension", "$value": { "value": 48,  "unit": "px" }, "$description": "48px · layout spacing (4/8pt ladder)." },
     "64":  { "$type": "dimension", "$value": { "value": 64,  "unit": "px" }, "$description": "64px · layout spacing (4/8pt ladder)." },

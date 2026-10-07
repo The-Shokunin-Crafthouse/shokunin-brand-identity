@@ -83,6 +83,17 @@
           }
         }
       },
+      "nav": {
+        "$type": "color",
+        "$value": "{color.warmGray.40}",
+        "$description": "Brand-site sidebar card ground (the inset card that replaced the edge rail). Light = warmGray.40, dark = dark.raised2: one step above surface.hover (dark.raised1) so the nav hover pill still reads, as it does in light. 2026-10-07 (ADR brand-site-sidebar-redesign).",
+        "$extensions": {
+          "modes": {
+            "light": "{color.warmGray.40}",
+            "dark":  "{color.dark.raised2}"
+          }
+        }
+      },
       "hover": {
         "$type": "color",
         "$value": "{color.warmGray.250}",
@@ -859,6 +870,12 @@
           "$description": "UI label, tight: 12/bold, no tracking. Figma text/label/ui-tight. 2026-10-03.",
           "$extensions": { "modes": { "light": "{font.text.bold.12}", "dark": "{font.text.bold.12}" } }
         },
+        "uiMedium": {
+          "$type": "typography",
+          "$value": "{font.text.medium.12}",
+          "$description": "UI label, medium: 12/medium, no tracking. Sidebar mode row. Figma text/label/ui-medium. 2026-10-07 (ADR brand-site-sidebar-redesign).",
+          "$extensions": { "modes": { "light": "{font.text.medium.12}", "dark": "{font.text.medium.12}" } }
+        },
         "buttonSm": {
           "$type": "typography",
           "$value": "{font.text.11}",
@@ -870,6 +887,18 @@
           "$value": "{font.text.medium.13}",
           "$description": "Tab label: 13/medium, no tracking. SegmentedControl size lg. Figma text/label/tab. 2026-10-05.",
           "$extensions": { "modes": { "light": "{font.text.medium.13}", "dark": "{font.text.medium.13}" } }
+        },
+        "navHeading": {
+          "$type": "typography",
+          "$value": "{font.text.displayTight.11}",
+          "$description": "Nav group heading: 11/black display, sentence case, text.primary. NavEyebrow. Figma text/label/nav-heading. 2026-10-07 (ADR brand-site-sidebar-redesign).",
+          "$extensions": { "modes": { "light": "{font.text.displayTight.11}", "dark": "{font.text.displayTight.11}" } }
+        },
+        "navCurrent": {
+          "$type": "typography",
+          "$value": "{font.text.bold.13}",
+          "$description": "Nav current link: 13/bold, set in brand.accentInk (brand.accent fails AA at this size). NavLink State=Current. Figma text/label/nav-current. 2026-10-07 (ADR brand-site-sidebar-redesign).",
+          "$extensions": { "modes": { "light": "{font.text.bold.13}", "dark": "{font.text.bold.13}" } }
         }
       },
       "caption": {
