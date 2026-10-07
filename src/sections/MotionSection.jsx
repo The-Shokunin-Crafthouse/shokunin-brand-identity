@@ -126,7 +126,7 @@ export function MotionSection() {
         premise="The line is the easing function itself — position over time, from rest to rest. The dot beneath travels that exact curve. Click a card to run it; click again to send it back."
         annotations={[
           { title: 'Mechanical, not organic', body: 'The Drams lineage. Interactive states settle like a precision control, not a spring. Ease-out and symmetric only — never elastic, never back.' },
-          { title: 'The excluded curve', body: 'No overshoot. No control point sits above 1, so nothing in the system bounces past its mark and returns. Bounce reads as playful; this brand reads as exact.' },
+          { title: 'The excluded curve', body: 'No overshoot. No control point sits above 1, so nothing in the system bounces past its mark and returns. Bounce reads as playful; this brand reads as exact. One exception, by Levi\u2019s pick: the Switch knob\u2019s spring overshoots 3% (chapter iv).' },
           { title: 'Enter vs exit', body: 'Out leads with speed and settles slow — right for things arriving. Symmetric weights both ends — right for a swap with no direction.' },
         ]}
       >
