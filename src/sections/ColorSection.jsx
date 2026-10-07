@@ -190,26 +190,28 @@ export function ColorSection() {
         </div>
         <div className={styles.chapterBody}>
           <div className={styles.rowEyebrow}><span><b>Ladder</b><Slash />warmGray<Slash />single warm hue<Slash />13 steps</span><span>Click any step to load into the contrast checker below</span></div>
-          <div className={styles.ramp} role="group" aria-label="Warm gray ladder">
-            {WARM.map((s) => (
-              <button
-                key={s}
-                type="button"
-                className={`${styles.stop} ${isSel(warmVar(s)) ? styles.stopSel : ''}`}
-                style={{ background: `var(${warmVar(s)})` }}
-                onClick={() => load(warmVar(s))}
-                title={`warmGray.${s} / ${hex[warmVar(s)] || ''}`}
-                aria-label={`Load warmGray ${s}`}
-              />
-            ))}
-          </div>
-          <div className={styles.rampLabels}>
-            {WARM.map((s) => (
-              <div key={s} className={styles.rampLabel}>
-                <span className={styles.rampStep}>{s}</span>
-                <span className={styles.rampHex}>{(hex[warmVar(s)] || '').replace('#', '')}</span>
-              </div>
-            ))}
+          <div className={styles.rampTrack}>
+            <div className={styles.ramp} role="group" aria-label="Warm gray ladder">
+              {WARM.map((s) => (
+                <button
+                  key={s}
+                  type="button"
+                  className={`${styles.stop} ${isSel(warmVar(s)) ? styles.stopSel : ''}`}
+                  style={{ background: `var(${warmVar(s)})` }}
+                  onClick={() => load(warmVar(s))}
+                  title={`warmGray.${s} / ${hex[warmVar(s)] || ''}`}
+                  aria-label={`Load warmGray ${s}`}
+                />
+              ))}
+            </div>
+            <div className={styles.rampLabels}>
+              {WARM.map((s) => (
+                <div key={s} className={styles.rampLabel}>
+                  <span className={styles.rampStep}>{s}</span>
+                  <span className={styles.rampHex}>{(hex[warmVar(s)] || '').replace('#', '')}</span>
+                </div>
+              ))}
+            </div>
           </div>
           <div className={styles.rampKey}>
             <span><b>100</b><Slash />page ground</span>

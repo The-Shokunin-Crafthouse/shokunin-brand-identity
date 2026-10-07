@@ -1873,6 +1873,17 @@ The follow-up named under "the library follows" above. `PlusSeparator.figma.tsx`
 - **Open:** the library holds the restored oatmeal warm-gray set (`warmGray/25` `#F8F6F2`, page `#E3DFD8`) that the repo JSON does not; reconciling the two is a separate pass.
 - Verified: `tokens:verify` passes; geometry matches the spec at 1440 (card 24/24/256, first label y 128.5 vs 129); AA on every sidebar label in both modes except the footer's `text.disabled` (its declared tier, unchanged).
 
+### 2026-10-07: Color page layouts key off the chapter column, not the viewport
+
+**Status:** Accepted (decide-and-log; reversible, in-standard). Trigger: the warm-gray ramp overflowed the page at 768 (`scrollWidth` 889 vs `clientWidth` 753 on main).
+
+- **Cause:** every multi-column block on the Color page switched on at a 768px *viewport*, but the sidebar rail takes 256px of it (304px once PR #81 lands), leaving a 425px (377px) column. Five blocks overflowed at 768, not one: ramp labels, Shu plate (its foot never wrapped, needing ~593px), three-jobs, verdicts, and the Shu rail hexes clipped at 1024.
+- **Ramp:** a `.rampTrack` scroll container owns 13 `minmax(max-content, 1fr)` columns; swatches and labels share them via `subgrid`, so labels never leave their swatch. Each label carries `--sc-space-component-gap-md` end padding. Fits from a ~607px column; scrolls inside its track below that (768 only, today). Scrollbar thin, `--sc-color-text-disabled` thumb.
+- **Blocks:** `.chapterBody` is an `inline-size` container named `chapter`. Jobs, status 2-up and checker top go side by side at a 560px column; Shu plate + rail (with the 200px glyph) and the ratio + verdict split at 720px. Every track is `minmax(0, …)` (learning #111). Thresholds were set from a measured sweep of each block's real minimum width.
+- **Consequence:** at 1024 and 1280 the Shu plate and the ratio/verdict row now stack; before, they sat side by side with clipped content. At 1440 the layout is unchanged.
+- `.color` gets `width: 100%`: at ≥1280 it is a shrink-to-fit flex item, and a contained child would collapse it (measured 540px instead of 777px).
+- Verified at 390 / 768 / 1024 / 1280 / 1440, each at a 256px and a simulated 304px rail: page `scrollWidth == clientWidth` and no block's descendants overflow. `vite build` exits 0.
+
 ### 2026-10-07: the oatmeal warm-gray set returns; the library is canonical
 
 **Status:** Accepted. Supersedes the scds-v2 light-surface desaturation (warmGray.25/50/100 only). Closes the "Open" line of the sidebar redesign entry above. Levi's call: "this is the floor #E3DFD8, update the warmgrey color ramp to match."
