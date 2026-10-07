@@ -38,8 +38,16 @@ import s from './Tune.module.css';
 
 const SNAPSHOT = import.meta.env.MODE === 'snapshot';
 const SOUND_BASE = SNAPSHOT ? './sounds/' : '/assets/sounds/drams/';
-const SPEC_VERSION = 2;
-const storageKey = (c) => `sc-tune:v${SPEC_VERSION}:${c}`;
+const SPEC_VERSION = 3;
+const storageKey = (c) => `sc-tune:v2:${c}`; // v3 state migrates in place (see loadState)
+const MODES = ['all', 'light', 'dark'];
+// Colour and shadow tokens carry a light and a dark value, so an edit lands
+// on the mode being viewed. Everything else (size, type, motion) is one
+// value for both modes.
+const isModal = (name) => /^--sc-(color|shadow)-/.test(name);
+const scopeOf = (name, theme) => (isModal(name) ? theme : 'all');
+const scoped = () => ({ all: {}, light: {}, dark: {} });
+const effective = (c, theme) => ({ ...c.overrides.all, ...c.overrides[theme] });
 const IDS = ['A', 'B', 'C', 'D'];
 
 /* ---------- token discovery ---------- */
@@ -136,7 +144,7 @@ async function playFile(file, volume, rate) {
 
 const defaults = (entry) => Object.fromEntries(entry.props.map((p) => [p.name, p.default]));
 const blankConcept = (entry, id) => ({
-  id, overrides: {}, shadowAdj: {}, springs: {}, pins: {}, notes: '',
+  id, overrides: scoped(), shadowAdj: scoped(), springs: {}, pins: {}, notes: '',
   props: defaults(entry),
   sound: { file: entry.shippedSound, volume: 0.7, rate: 1 },
 });
@@ -154,7 +162,21 @@ function freshState(component) {
 function loadState(component) {
   try {
     const saved = JSON.parse(localStorage.getItem(storageKey(component)) || 'null');
-    if (saved?.component === component && Array.isArray(saved.concepts)) return saved;
+    if (saved?.component === component && Array.isArray(saved.concepts)) {
+      // Spec v2 kept one flat override map per concept. Colour and shadow
+      // edits from that era were dark-mode experiments; the rest apply to both.
+      for (const c of saved.concepts) {
+        if (!c.overrides.all) {
+          const o = scoped();
+          for (const [k, v] of Object.entries(c.overrides)) o[isModal(k) ? 'dark' : 'all'][k] = v;
+          const a = scoped();
+          for (const [k, v] of Object.entries(c.shadowAdj || {})) a.dark[k] = v;
+          c.overrides = o;
+          c.shadowAdj = a;
+        }
+      }
+      return saved;
+    }
   } catch { /* blocked storage: start fresh */ }
   return freshState(component);
 }
@@ -175,6 +197,7 @@ function Tune() {
   const [loop, setLoop] = useState(false);
   const [copied, setCopied] = useState(false);
   const shippedRef = useRef(null);
+  const shippedByMode = useRef({});
   const activeRef = useRef(null);
 
   const entry = REGISTRY[component];
@@ -210,7 +233,9 @@ function Tune() {
 
   useLayoutEffect(() => {
     setShipped(readVars(shippedRef.current, tokens));
-    setTuned({ ...readVars(shippedRef.current, tokens), ...resolveOverrides(shippedRef.current, concept.overrides) });
+    const base = readVars(shippedRef.current, tokens);
+    shippedByMode.current[state.view.theme] = base;
+    setTuned({ ...base, ...resolveOverrides(shippedRef.current, effective(concept, state.view.theme)) });
     const node = activeRef.current?.querySelector('[class]');
     setDerived(resolveLengths(node ? (node.closest('label') || node) : null, derivedNames));
   }, [tokens, derivedNames, concept.overrides, state.view.theme, concept.props]);
@@ -228,26 +253,31 @@ function Tune() {
   const updConcept = useCallback((id, fn) => setState((prev) => ({ ...prev, concepts: prev.concepts.map((c) => (c.id === id ? fn(c) : c)) })), []);
   const setPropFor = useCallback((id) => (name, value) => updConcept(id, (c) => ({ ...c, props: { ...c.props, [name]: value } })), [updConcept]);
   const editActive = (fn) => mutate((prev) => ({ ...prev, concepts: prev.concepts.map((c) => (c.id === prev.active ? fn(c) : c)) }));
-  const setOverride = (name, value) => editActive((c) => ({ ...c, overrides: { ...c.overrides, [name]: value } }));
+  const theme = state.view.theme;
+  const putScoped = (map, name, value) => {
+    const sc = scopeOf(name, theme);
+    const next = { ...map, [sc]: { ...map[sc] } };
+    if (value === undefined) delete next[sc][name]; else next[sc][name] = value;
+    return next;
+  };
+  const setOverride = (name, value) => editActive((c) => ({ ...c, overrides: putScoped(c.overrides, name, value) }));
   const resetOverride = (name) => editActive((c) => {
-    const o = { ...c.overrides }; delete o[name];
-    const a = { ...c.shadowAdj }; delete a[name];
     const sp = { ...c.springs }; delete sp[name];
-    return { ...c, overrides: o, shadowAdj: a, springs: sp };
+    return { ...c, overrides: putScoped(c.overrides, name, undefined), shadowAdj: putScoped(c.shadowAdj, name, undefined), springs: sp };
   });
   const setSpring = (name, sp, settle) => editActive((c) => {
     const springs = { ...c.springs };
-    const overrides = { ...c.overrides };
+    let overrides = c.overrides;
     if (sp) {
       springs[name] = sp;
       const pair = name.replace(/-easing$/, '-duration');
-      if (pair !== name && tokens.includes(pair)) overrides[pair] = `${settle}ms`;
+      if (pair !== name && tokens.includes(pair)) overrides = putScoped(overrides, pair, `${settle}ms`);
     } else delete springs[name];
     return { ...c, springs, overrides };
   });
   const setShadowAdj = (name, adj) => editActive((c) => ({
-    ...c, shadowAdj: { ...c.shadowAdj, [name]: adj },
-    overrides: { ...c.overrides, [name]: adjustShadow(shipped[name], adj.scale ?? 1, adj.strength ?? 1) },
+    ...c, shadowAdj: putScoped(c.shadowAdj, name, adj),
+    overrides: putScoped(c.overrides, name, adjustShadow(shipped[name], adj.scale ?? 1, adj.strength ?? 1)),
   }));
   const setPin = (name, text) => editActive((c) => ({ ...c, pins: { ...c.pins, [name]: text } }));
   const setSound = (k, v) => editActive((c) => ({ ...c, sound: { ...c.sound, [k]: v } }));
@@ -313,17 +343,25 @@ function Tune() {
       notes: state.notes,
       pick: state.pick.id ? { concept: state.pick.id, reason: state.pick.reason } : null,
       concepts: state.concepts.map((c) => {
-        const resolved = resolveOverrides(host, c.overrides);
+        const resolved = resolveOverrides(host, effective(c, state.view.theme));
         return {
           id: label(c),
           notes: c.notes,
           props: c.props,
           sound: { ...c.sound, shipped: entry.shippedSound, trigger: entry.trigger },
-          tokens: Object.keys(c.overrides).map((name) => ({
-            name, category: category(name), kind: classify(shipped[name]),
-            shipped: shipped[name], tuned: resolved[name], override: c.overrides[name],
-            ...(c.shadowAdj[name] ? { shadowAdjust: c.shadowAdj[name] } : {}),
-            ...(c.springs[name] ? { spring: { ...c.springs[name], ...springToLinearMeta(c.springs[name]) } } : {}),
+          tokens: MODES.flatMap((mode) => Object.keys(c.overrides[mode]).map((name) => {
+            const base = mode === 'all' ? shipped : (shippedByMode.current[mode] || {});
+            const override = c.overrides[mode][name];
+            const viewable = mode === 'all' || mode === state.view.theme;
+            return {
+              name, mode, category: category(name), kind: classify(base[name] || shipped[name]),
+              shipped: base[name] ?? null,
+              // A var() ref resolves only in the mode on screen; elsewhere the ref itself is the record.
+              tuned: viewable ? (resolved[name] ?? override) : override,
+              override,
+              ...(c.shadowAdj[mode]?.[name] ? { shadowAdjust: c.shadowAdj[mode][name] } : {}),
+              ...(c.springs[name] ? { spring: { ...c.springs[name], ...springToLinearMeta(c.springs[name]) } } : {}),
+            };
           })),
           pins: Object.fromEntries(Object.entries(c.pins).filter(([, v]) => v)),
           ...(isMotion ? { motion: { lastFrameMs: lastFrameMs(c.props), ...(c.springs['prop:easing'] ? { spring: { ...c.springs['prop:easing'], ...springToLinearMeta(c.springs['prop:easing']) } } : {}) } } : {}),
@@ -349,7 +387,8 @@ function Tune() {
     : [concept];
   const ctx = { replay, slow: state.view.slow };
   const sounds = manifest.filter((m) => !shortOnly || m.seconds <= 1);
-  const changedCount = Object.keys(concept.overrides).length;
+  const conceptEff = effective(concept, state.view.theme);
+  const changedCount = Object.keys(conceptEff).length;
 
   return (
     <div className={s.app}>
@@ -397,7 +436,7 @@ function Tune() {
                     : label}
                   {isMotion && <span className={s.readout}> · last frame {lastFrameMs(c.props)}ms</span>}
                 </h2>
-                <div className={s.stage} style={stageStyle(c.overrides)} ref={c.id === state.active ? activeRef : undefined}>
+                <div className={s.stage} style={stageStyle(effective(c, theme))} ref={c.id === state.active ? activeRef : undefined}>
                   {entry.render(c.props, setPropFor(c.id), () => playFile(c.sound.file, c.sound.volume, c.sound.rate), ctx)}
                 </div>
               </section>
@@ -486,19 +525,20 @@ function Tune() {
           </ul>
         </fieldset>
 
-        {!isMotion && <p className={s.meta}>{changedCount} of {tokens.length} tokens tuned in concept {concept.id}</p>}
+        {!isMotion && <p className={s.meta}>{changedCount} of {tokens.length} tokens tuned in concept {concept.id}, {theme} mode. Colour and shadow edits apply to {theme} only; size, type and motion apply to both modes.</p>}
         {Object.entries(groups).map(([cat, names]) => (
           <fieldset key={cat} className={s.group} disabled={SNAPSHOT}>
             <legend>{cat} · {names.length}</legend>
             {names.map((n) => (
               <TokenControl
-                key={`${concept.id}${n}`}
+                key={`${concept.id}${theme}${n}`}
                 name={n}
                 kind={classify(shipped[n])}
                 shipped={shipped[n]}
                 value={tuned[n] || shipped[n] || ''}
-                override={concept.overrides[n]}
-                adj={concept.shadowAdj[n]}
+                override={conceptEff[n]}
+                scope={concept.overrides[scopeOf(n, theme)][n] !== undefined ? scopeOf(n, theme) : (concept.overrides.all[n] !== undefined ? 'all' : null)}
+                adj={concept.shadowAdj[scopeOf(n, theme)]?.[n]}
                 spring={concept.springs[n]}
                 pin={concept.pins[n]}
                 refs={PRIM[classify(shipped[n])]}

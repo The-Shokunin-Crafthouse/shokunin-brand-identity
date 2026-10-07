@@ -34,8 +34,8 @@ if (!arg) {
 }
 const raw = arg === '-' ? readFileSync(0, 'utf8') : readFileSync(resolve(arg), 'utf8');
 const spec = JSON.parse(raw);
-if (spec.tool !== 'sc-tune' || spec.version !== 2 || !spec.component || !Array.isArray(spec.concepts) || !spec.state) {
-  console.error('not an sc-tune v2 export (expected tool, version 2, component, concepts, state)');
+if (spec.tool !== 'sc-tune' || ![2, 3].includes(spec.version) || !spec.component || !Array.isArray(spec.concepts) || !spec.state) {
+  console.error('not an sc-tune export (expected tool, version 2 or 3, component, concepts, state)');
   process.exit(1);
 }
 
@@ -109,11 +109,11 @@ for (const c of spec.concepts) {
   lines.push('### Tokens', '');
   if (!c.tokens.length) lines.push('No token changed.', '');
   else {
-    lines.push('| Token | Kind | Shipped | Tuned | Set as | Token match | Note |', '| --- | --- | --- | --- | --- | --- | --- |');
+    lines.push('| Token | Mode | Kind | Shipped | Tuned | Set as | Token match | Note |', '| --- | --- | --- | --- | --- | --- | --- | --- |');
     for (const t of c.tokens) {
       const how = t.spring ? `spring k${t.spring.stiffness} c${t.spring.damping} m${t.spring.mass}` : `\`${esc(t.override.length > 80 ? t.override.slice(0, 77) + '…' : t.override)}\``;
       const tunedShown = t.tuned && t.tuned.length > 80 ? t.tuned.slice(0, 77) + '…' : t.tuned;
-      lines.push(`| \`${t.name}\` | ${t.kind} | \`${esc(t.shipped)}\` | \`${esc(tunedShown)}\` | ${how}${t.shadowAdjust ? ` (scale ${t.shadowAdjust.scale ?? 1}, strength ${t.shadowAdjust.strength ?? 1})` : ''} | ${esc(nearest(t))} | ${esc(c.pins?.[t.name] || '')} |`);
+      lines.push(`| \`${t.name}\` | ${t.mode === 'all' || !t.mode ? 'both' : t.mode} | ${t.kind} | \`${esc(t.shipped)}\` | \`${esc(tunedShown)}\` | ${how}${t.shadowAdjust ? ` (scale ${t.shadowAdjust.scale ?? 1}, strength ${t.shadowAdjust.strength ?? 1})` : ''} | ${esc(nearest(t))} | ${esc(c.pins?.[t.name] || '')} |`);
     }
     lines.push('');
   }
@@ -141,8 +141,10 @@ for (const c of spec.concepts) {
   lines.push(`- Pitch: ${snd.rate}×${snd.rate !== 1 ? '. Runtime plays at 1×; bake the pitch into the file.' : ''}`);
   lines.push(`- Fires on: ${snd.trigger}`, '');
   if (c.tokens.length) {
-    lines.push('### CSS overrides', '', '```css', `/* ${spec.component} · concept ${c.id} · sc-tune ${stamp} · ${spec.theme} */`);
-    for (const t of c.tokens) lines.push(`${t.name}: ${t.override};`);
+    lines.push('### CSS overrides', '', '```css', `/* ${spec.component} · concept ${c.id} · sc-tune ${stamp} */`);
+    const block = (sel, list) => { if (!list.length) return; lines.push(`${sel} {`); for (const t of list) lines.push(`  ${t.name}: ${t.override};`); lines.push('}'); };
+    block(':root', c.tokens.filter((t) => !t.mode || t.mode === 'all' || t.mode === 'light'));
+    block('[data-theme="dark"]', c.tokens.filter((t) => t.mode === 'dark'));
     lines.push('```', '');
   }
 }

@@ -93,9 +93,67 @@ export function EasingEditor({ label, value, spring, presets, asRef, onChange })
   );
 }
 
+
+/* ---------- shadow layers ---------- */
+
+// Split on top-level commas only: rgb(a, b, c) carries its own commas.
+export function parseShadow(value) {
+  const parts = [];
+  let depth = 0, cur = '';
+  for (const ch of value || '') {
+    if (ch === '(') depth += 1;
+    if (ch === ')') depth -= 1;
+    if (ch === ',' && depth === 0) { parts.push(cur.trim()); cur = ''; } else cur += ch;
+  }
+  if (cur.trim()) parts.push(cur.trim());
+  return parts.filter((p) => p && p !== 'none').map((p) => {
+    const inset = /\binset\b/.test(p);
+    const color = p.match(/(rgba?\([^)]*\)|#[0-9a-f]{3,8}\b|transparent)/i)?.[0] || 'rgb(0 0 0 / 0.2)';
+    const nums = p.replace(color, '').replace('inset', '').trim().split(/\s+/).filter(Boolean).map((n) => parseFloat(n) || 0);
+    const [x = 0, y = 0, blur = 0, spread = 0] = nums;
+    return { inset, x, y, blur, spread, color };
+  });
+}
+export const formatShadow = (layers) =>
+  layers.map((l) => `${l.inset ? 'inset ' : ''}${round(l.x)}px ${round(l.y)}px ${round(l.blur)}px ${round(l.spread)}px ${l.color}`).join(', ');
+
+function ShadowLayers({ name, value, onSet }) {
+  const layers = parseShadow(value);
+  const put = (i, patch) => onSet(formatShadow(layers.map((l, j) => (j === i ? { ...l, ...patch } : l))));
+  return (
+    <div className={s.layers}>
+      {layers.map((l, i) => {
+        const c = parseColor(l.color);
+        const role = l.inset ? 'inner edge' : (l.x < 0 || l.y < 0) && c.hex.toUpperCase() === '#FFFFFF' ? 'highlight' : 'shade';
+        return (
+          <div key={i} className={s.layer}>
+            <span className={s.layerHead}>layer {i + 1} · {role}</span>
+            <div className={s.layerGrid}>
+              {[['x', -20, 20, 0.5], ['y', -20, 20, 0.5], ['blur', 0, 40, 0.5], ['spread', -10, 10, 0.5]].map(([k, min, max, step]) => (
+                <label key={k} className={s.mini}>
+                  {k}
+                  <input type="number" className={s.num} aria-label={`${name} layer ${i + 1} ${k}`} min={min} max={max} step={step} value={round(l[k])} onChange={(e) => put(i, { [k]: +e.target.value })} />
+                </label>
+              ))}
+            </div>
+            <div className={s.editor}>
+              <input type="color" aria-label={`${name} layer ${i + 1} colour`} value={c.hex} onChange={(e) => put(i, { color: colorValue(e.target.value, c.a) })} />
+              <label className={s.mini}>
+                opacity
+                <input type="range" aria-label={`${name} layer ${i + 1} opacity`} min="0" max="1" step="0.01" value={c.a} onChange={(e) => put(i, { color: colorValue(c.hex, +e.target.value) })} />
+                <span className={s.readout}>{round(c.a)}</span>
+              </label>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
 /* ---------- token control ---------- */
 
-export function TokenControl({ name, kind, shipped, value, override, adj, spring, pin, refs, easingPresets, onSet, onAdj, onSpring, onReset, onPin }) {
+export function TokenControl({ name, kind, shipped, value, override, scope, adj, spring, pin, refs, easingPresets, onSet, onAdj, onSpring, onReset, onPin }) {
   const changed = override !== undefined;
   const [pinOpen, setPinOpen] = useState(!!pin);
   let editor = null;
@@ -134,10 +192,13 @@ export function TokenControl({ name, kind, shipped, value, override, adj, spring
     );
   } else if (kind === 'shadow') {
     editor = (
-      <div className={s.editor}>
-        <label className={s.mini}>scale<input type="range" min="0" max="3" step="0.05" value={adj?.scale ?? 1} onChange={(e) => onAdj({ ...adj, scale: +e.target.value })} /></label>
-        <label className={s.mini}>strength<input type="range" min="0" max="3" step="0.05" value={adj?.strength ?? 1} onChange={(e) => onAdj({ ...adj, strength: +e.target.value })} /></label>
-      </div>
+      <>
+        <div className={s.editor}>
+          <label className={s.mini}>scale all<input type="range" min="0" max="3" step="0.05" value={adj?.scale ?? 1} onChange={(e) => onAdj({ ...adj, scale: +e.target.value })} /></label>
+          <label className={s.mini}>strength all<input type="range" min="0" max="3" step="0.05" value={adj?.strength ?? 1} onChange={(e) => onAdj({ ...adj, strength: +e.target.value })} /></label>
+        </div>
+        <ShadowLayers name={name} value={value} onSet={onSet} />
+      </>
     );
   } else {
     editor = <input type="text" aria-label={name} value={value} onChange={(e) => onSet(e.target.value)} />;
@@ -145,7 +206,7 @@ export function TokenControl({ name, kind, shipped, value, override, adj, spring
   return (
     <div className={`${s.token} ${changed ? s.changed : ''}`}>
       <div className={s.tokenHead}>
-        <code className={s.tokenName}>{name.replace('--sc-', '')}</code>
+        <code className={s.tokenName}>{name.replace('--sc-', '')}{changed && scope && <span className={s.scope}>{scope === 'all' ? 'both modes' : `${scope} only`}</span>}</code>
         <span className={s.tokenActions}>
           <button type="button" className={s.reset} aria-pressed={pinOpen} onClick={() => setPinOpen((o) => !o)}>note</button>
           {changed && <button type="button" className={s.reset} onClick={onReset} aria-label={`Reset ${name}`}>reset</button>}
