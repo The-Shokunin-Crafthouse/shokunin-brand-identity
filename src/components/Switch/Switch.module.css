@@ -108,12 +108,15 @@
 }
 
 /* Knob · the element is the rim (light-catching gradient); ::after is the
-   face, inset by half a hairline so a sliver of rim shows at the top. */
+   face, inset by half a hairline so a sliver of rim shows at the top left.
+   Lit from the top left like the Button key (Gate 1 pick 1, 2026-10-07):
+   both gradients run at 135deg, the angle of the key face. */
 .thumb {
   width: var(--sc-size-switch-thumb);
   height: var(--sc-size-switch-thumb);
   border-radius: var(--sc-radius-pill);
   background-image: linear-gradient(
+    135deg,
     var(--sc-color-switch-thumb-rim-top),
     var(--sc-color-switch-thumb-rim-bottom)
   );
@@ -131,6 +134,7 @@
   inset: calc(var(--sc-border-width-default) / 2);
   border-radius: var(--sc-radius-pill);
   background-image: linear-gradient(
+    135deg,
     var(--sc-color-switch-thumb-face-top),
     var(--sc-color-switch-thumb-face-bottom)
   );

@@ -2011,3 +2011,21 @@ Levi: the trailing arrow uses Phosphor's bold weight, not regular. Code: `ArrowR
 - **`raised`: held.** Studio PM's native `RunButton.swift` draws `SCDS.Shadow.controlRaised` from its vendored Swift tokens, and its tests and Money Bags' vendored-token tests assert it. Removing it now breaks Studio PM's next token vendor. Its description names that consumer; it goes when RunButton migrates to `shadow.control.key`.
 - No web consumer reads either token (client portal snapshot and crafthouse site carry the definitions only).
 - **Figma library:** effect styles `shadow/control/bevel` and `shadow/control/dark/bevel` removed (0 consumers). `shadow/control/raised` and `dark/raised` stay with the token.
+
+### 2026-10-07: the Switch re-lit to the system light, dark knob per pick 3 (cascade, before its sc-tune pass)
+
+**Status:** Accepted. Levi: re-light the Switch once a light source is picked, then run it through sc-tune. Pick 1 is top left, pick 3 is dark keys. Every value below is a cascade from those two picks, not a tune; Levi tunes from this starting point in the lab.
+
+| Token | Was | Now | Cascade |
+| --- | --- | --- | --- |
+| `shadow.switch.thumb` (both modes) | six layers at `0 y` | each layer at `y/√2 y/√2` (0.37 → 0.26, 0.95 → 0.67, 1.9 → 1.34, 3.6 → 2.55, 7.16 → 5.06, 15.75 → 11.14) | offset rotated 45° toward the bottom right, length kept; blur, spread and colour unchanged |
+| `shadow.switch.track` (both modes) | `inset 0 0.45px 0.9px` | `inset 0.32px 0.32px 0.9px` | same rotation |
+| Knob rim and face gradients (`Switch.module.css`) | top to bottom (180°) | `135deg` | the Button key face's angle |
+| `color.switch.thumb.rimTop` dark | warmGray.200 | dark.raised5 | dark key: rim catches the light |
+| `color.switch.thumb.rimBottom` dark | warmGray.350 | dark.raised3 | |
+| `color.switch.thumb.faceTop` dark | warmGray.250 | dark.raised4 | face one to two ladder steps above the off track (dark.raised2), as the dark Button key sits one step above the page |
+| `color.switch.thumb.faceBottom` dark | warmGray.300 | dark.raised3 | |
+
+- Light-mode knob colours, the tracks, the glyphs and the motion are unchanged.
+- **Shared light-source token: not built.** The contract's Phase 0 asks for shade and highlight offsets in one place. Each shadow token is one composite string; reading a shared offset needs `calc()` inside the string, which `tokens-to-swift` and the Figma sync generator do not parse. Until one of them does, the single light lives as a rule: shade toward 135°, highlight toward 315°, and face gradients at `135deg`. `tokens:verify` does not check it yet.
+- `tokens:build`, `tokens:swift`, `tokens:map` regenerated; `tokens:verify`, `tokens:map:check`, `tokens:swift:check` and `npm run build` exit 0.
