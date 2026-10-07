@@ -20,6 +20,9 @@
  *   4. Inset layers obey 1 only: a recess darkens its top-left wall (+,+) and
  *      a convex face may light it (+,+); both are the same light.
  *   5. Every face gradient in a component's CSS is linear-gradient(135deg, …).
+ *   6. No component transitions box-shadow (or `all`): Button, Card, Input
+ *      and the rest repeat 10+ times on a page, and a shadow transition
+ *      repaints every frame. Press motion stays on transform.
  *
  * A layer with zero alpha is inert (role tokens ship that way until a tuning
  * record is applied) and is not graded. Exemptions name their decision and
@@ -136,8 +139,11 @@ export function checkLight({ semantic, css, exempt = EXEMPT, exemptCss = EXEMPT_
   }
 
   for (const { file, text } of css) {
-    if (exemptCss.some((e) => e.file === file)) continue;
     const clean = text.replace(/\/\*[\s\S]*?\*\//g, '');
+    for (const m of clean.matchAll(/transition(?:-property)?\s*:([^;}]*)/g)) {
+      if (/\bbox-shadow\b|\ball\b/.test(m[1])) failures.push(`${file}: transitions box-shadow; shadow changes snap on controls that repeat (press stays on transform)`);
+    }
+    if (exemptCss.some((e) => e.file === file)) continue;
     for (const m of clean.matchAll(/linear-gradient\(\s*([^,]+),/g)) {
       if (m[1].trim() !== '135deg') failures.push(`${file}: face gradient "${m[0]}…" must run at 135deg`);
     }
