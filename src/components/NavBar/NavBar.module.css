@@ -8,7 +8,8 @@
  *   --sc-color-surface-page                 · nav bg (matches page so nav reads as floating)
  *   --sc-color-text-primary                 · link rest
  *   --sc-color-interactive-hover            · link hover
- *   --sc-color-brand-accent                 · current link
+ *   --sc-color-brand-accent-ink             · current link (teal.700 / teal.200, AA)
+ *   --sc-border-width-focus / --sc-color-border-focus / --sc-border-focus-offset · focus ring
  *   --sc-font-text-body-dense-*             · link type (14)
  *   --sc-font-text-label-chrome-*           · toggle button (11 caps)
  *   --sc-motion-hover-duration / -easing
@@ -70,7 +71,14 @@
 }
 
 .link[aria-current="page"] {
-  color: var(--sc-color-brand-accent);
+  color: var(--sc-color-brand-accent-ink);
+}
+
+/* Focus · styled ring on links and the menu toggle, never the UA default */
+.link:focus-visible,
+.toggle:focus-visible {
+  outline: var(--sc-border-width-focus) solid var(--sc-color-border-focus);
+  outline-offset: var(--sc-border-focus-offset);
 }
 
 .trailing {

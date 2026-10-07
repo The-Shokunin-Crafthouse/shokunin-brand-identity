@@ -98,9 +98,9 @@ export function BadgePage() {
         { title: 'Neutral decouples colour from border', body: 'Its text reads quieter than its border on purpose — “categorical, not stateful.” The one variant where colour and outline deliberately disagree.' },
       ]}
       states={[
-        { name: 'Default', token: '--sc-color-brand-accent', render: <Badge>Studio</Badge> },
-        { name: 'Success', token: '--sc-color-status-success', render: <Badge variant="success">Shipped</Badge> },
-        { name: 'Warning', token: '--sc-color-status-warning', render: <Badge variant="warning">In review</Badge> },
+        { name: 'Default', token: '--sc-color-brand-accent-ink', render: <Badge>Studio</Badge> },
+        { name: 'Success', token: '--sc-color-status-success-ink', render: <Badge variant="success">Shipped</Badge> },
+        { name: 'Warning', token: '--sc-color-status-warning-ink', render: <Badge variant="warning">In review</Badge> },
         { name: 'Error', token: '--sc-color-status-error', render: <Badge variant="error">Failed</Badge> },
         { name: 'Neutral', token: '--sc-color-text-secondary', render: <Badge variant="neutral">Draft</Badge> },
       ]}
@@ -110,9 +110,9 @@ export function BadgePage() {
         { prop: 'Radius', token: '--sc-radius-control' },
         { prop: 'Outline', token: '--sc-border-width-default' },
         { prop: 'Label type', token: '--sc-font-text-mono-chrome', light: 'mono 11 / caps' },
-        { prop: 'Default colour', token: '--sc-color-brand-accent' },
-        { prop: 'Success colour', token: '--sc-color-status-success' },
-        { prop: 'Warning colour', token: '--sc-color-status-warning' },
+        { prop: 'Default colour', token: '--sc-color-brand-accent-ink' },
+        { prop: 'Success colour', token: '--sc-color-status-success-ink' },
+        { prop: 'Warning colour', token: '--sc-color-status-warning-ink' },
         { prop: 'Error colour', token: '--sc-color-status-error' },
         { prop: 'Neutral text', token: '--sc-color-text-secondary' },
         { prop: 'Neutral border', token: '--sc-color-border-default' },
@@ -561,7 +561,7 @@ export function NavBarPage() {
         { title: 'Compact folds, it does not shrink', body: 'The compact variant moves the same links into an expandable menu. Nothing is dropped — the link model is identical to desktop.' },
       ]}
       states={[
-        { name: 'Desktop · horizontal', token: '--sc-color-brand-accent', render: <NavBar brand={<span style={navBrand}>Shokunin</span>} links={links} trailing={<Button variant="secondary">Start a project</Button>} /> },
+        { name: 'Desktop · horizontal', token: '--sc-color-brand-accent-ink', render: <NavBar brand={<span style={navBrand}>Shokunin</span>} links={links} trailing={<Button variant="secondary">Start a project</Button>} /> },
         { name: 'Compact · toggle', token: '--sc-space-layout-inset-md', render: <NavBar compact brand={<span style={navBrand}>Shokunin</span>} links={links} trailing={<Button variant="primary">Start</Button>} /> },
       ]}
       tokenRows={[
@@ -573,7 +573,7 @@ export function NavBarPage() {
         { prop: 'Nav ground', token: '--sc-color-surface-page' },
         { prop: 'Resting link', token: '--sc-color-text-primary' },
         { prop: 'Hover link', token: '--sc-color-interactive-hover' },
-        { prop: 'Current link', token: '--sc-color-brand-accent' },
+        { prop: 'Current link', token: '--sc-color-brand-accent-ink' },
         { prop: 'Link type', token: '--sc-font-text-body-dense', light: '14 / regular' },
         { prop: 'Brand type', token: '--sc-font-text-label-chrome', light: '11 / medium / caps' },
         { prop: 'Hover motion', token: '--sc-motion-hover-duration', light: '200ms' },

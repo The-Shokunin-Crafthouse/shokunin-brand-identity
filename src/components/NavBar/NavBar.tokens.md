@@ -16,7 +16,8 @@ Spec ref: §2 Tier 3 · 3.7 · States: desktop horizontal, mobile compact.
 | `--sc-color-surface-page` | nav bg (page-matched · floats above page) |
 | `--sc-color-text-primary` | brand mark + resting links |
 | `--sc-color-interactive-hover` | link hover |
-| `--sc-color-brand-accent` | current page link (`aria-current`) |
+| `--sc-color-brand-accent-ink` | current page link (`aria-current`): 5.35:1 light, 7.61:1 dark on page |
+| `--sc-border-width-focus` / `--sc-color-border-focus` / `--sc-border-focus-offset` | focus ring on links and the menu toggle |
 | `--sc-font-text-body-dense-*` | link type |
 | `--sc-font-text-label-chrome-*` | brand mark + compact toggle (chrome caps) |
 | `--sc-motion-hover-duration` + `-easing` | link color transition |
@@ -32,7 +33,7 @@ Spec ref: §2 Tier 3 · 3.7 · States: desktop horizontal, mobile compact.
 
 - `<nav aria-label="Primary">` wraps both variants.
 - Compact toggle ships `aria-expanded` + `aria-controls="navbar-menu"`.
-- Current-page link uses `aria-current="page"` → CSS targets `[aria-current="page"]` to colour with brand accent. No additional class needed.
+- Current-page link uses `aria-current="page"` → CSS targets `[aria-current="page"]` to colour with brand accent ink (teal.500 text was 2.99:1, under AA; fixed 2026-10-07). No additional class needed.
 
 ## Reduced-motion
 
