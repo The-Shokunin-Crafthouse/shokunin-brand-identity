@@ -26,7 +26,9 @@
  *   --sc-color-text-on-accent               · white label on teal fill
  *   --sc-color-text-disabled                · disabled label
  *   --sc-color-status-error                 · destructive fill
- *   --sc-motion-hover-* / -press-*          · transitions
+ *   --sc-motion-hover-* / -press-*          · transitions (colour and transform only;
+ *                                             shadow changes snap: a Button repeats in
+ *                                             toolbars and tables, Phase 0)
  */
 
 .button {
@@ -58,7 +60,6 @@
     background-color var(--sc-motion-hover-duration) var(--sc-motion-hover-easing),
     border-color var(--sc-motion-hover-duration) var(--sc-motion-hover-easing),
     color var(--sc-motion-hover-duration) var(--sc-motion-hover-easing),
-    box-shadow var(--sc-motion-hover-duration) var(--sc-motion-hover-easing),
     transform var(--sc-btn-transform-duration) var(--sc-btn-transform-easing);
 }
 
@@ -211,6 +212,15 @@
   flex: none;
   width: var(--sc-btn-icon);
   height: var(--sc-btn-icon);
+}
+
+/* --- Forced colors (Windows high contrast) ------------------------
+   Shadows and the face gradient drop, and the key's border matches its
+   fill, so the key would lose its edge. The border takes the system
+   button border; the press still reads by scale. */
+@media (forced-colors: active) {
+  .primary,
+  .destructive { border-color: ButtonBorder; }
 }
 
 @media (prefers-reduced-motion: reduce) {
