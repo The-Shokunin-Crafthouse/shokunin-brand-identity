@@ -5,7 +5,7 @@
 # Design Token Map — The Shokunin Crafthouse · Brand Identity
 
 **Generated** from `tokens/primitives.json` + `tokens/semantic.json`.
-**Source fingerprint:** `f759208561b3` · **180 primitives · 157 semantic tokens.**
+**Source fingerprint:** `4bf6f3155ad9` · **180 primitives · 159 semantic tokens.**
 
 > **This file is a mirror, not the source.** `tokens/*.json` is upstream; this document and the Figma
 > library are generated from / synced to it. It previously claimed the opposite — that both were
@@ -552,6 +552,8 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | `color/switch/thumb/faceBottom` | `--sc-color-switch-thumb-face-bottom` | `color/warmGray/100` | `#E3DFD8` | `color/warmGray/300` | `#B0A69C` | 2026-10-07 · Switch restyled to the Drams Standard Switch (drams/001) at SCDS size. |
 | `color/switch/glyph/on` | `--sc-color-switch-glyph-on` | `color/utility/white` | `#FFFFFF` | `color/utility/white` | `#FFFFFF` | 2026-10-07 · Switch restyled to the Drams Standard Switch (drams/001) at SCDS size. |
 | `color/switch/glyph/off` | `--sc-color-switch-glyph-off` | `color/warmGray/25` | `#F8F6F2` | `color/dark/textDisabled` | `#7C7A76` | 2026-10-07 · Switch restyled to the Drams Standard Switch (drams/001) at SCDS size. |
+| `color/switch/track/off` | `--sc-color-switch-track-off` | `color/warmGray/300` | `#B0A69C` | `color/dark/raised2` | `#3B4249` | 2026-10-07 · Switch off-track floor, the recess under the knob. |
+| `color/switch/track/offHover` | `--sc-color-switch-track-off-hover` | `color/warmGray/250` | `#C4BCB4` | `color/dark/raised1` | `#343A41` | 2026-10-07 · Switch off-track floor on hover. |
 
 ### Typography · Semantic
 

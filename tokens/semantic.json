@@ -614,6 +614,20 @@
           "$description": "2026-10-07 · Switch restyled to the Drams Standard Switch (drams/001) at SCDS size. O ring on the off track. Second half of the non-colour on/off cue.",
           "$extensions": { "modes": { "light": "{color.warmGray.25}", "dark": "{color.dark.textDisabled}" } }
         }
+      },
+      "track": {
+        "off": {
+          "$type": "color",
+          "$value": "{color.warmGray.300}",
+          "$description": "2026-10-07 · Switch off-track floor, the recess under the knob. Same values as surface.deepSunk (light warmGray.300, dark dark.raised2); its own role so the Switch floor tunes in sc-tune without moving cards, inputs and meters that read deepSunk (Levi).",
+          "$extensions": { "modes": { "light": "{color.warmGray.300}", "dark": "{color.dark.raised2}" } }
+        },
+        "offHover": {
+          "$type": "color",
+          "$value": "{color.warmGray.250}",
+          "$description": "2026-10-07 · Switch off-track floor on hover. Same values as surface.hover (light warmGray.250, dark dark.raised1, which reads darker than the resting floor in dark mode); its own role so it tunes with the floor.",
+          "$extensions": { "modes": { "light": "{color.warmGray.250}", "dark": "{color.dark.raised1}" } }
+        }
       }
     }
   },

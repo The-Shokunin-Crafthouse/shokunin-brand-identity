@@ -2041,3 +2041,11 @@ Levi: the trailing arrow uses Phosphor's bold weight, not regular. Code: `ArrowR
 - **Glyphs optional:** `Switch` gains `glyphs` (default `true`). `glyphs={false}` drops the I/O row for a plain track. Knob position still carries state without colour (WCAG 1.4.1). Docs gain a "No glyphs" cell; the sc-tune registry gains the prop, and the lab now fills a prop added after a session was saved with its registry default (a saved Switch session otherwise showed the control off while the glyphs rendered).
 - **Figma:** the Toggle set `9:858` gains boolean property `Glyphs#498:0` (default on), bound to the visibility of `Glyphs` in both variants (`483:13`, `483:16`); the set description names the code prop.
 - `tokens:verify`, `tokens:map:check`, `tokens:swift:check` and `npm run build` exit 0.
+
+### 2026-10-07: the Switch track floor gets its own role tokens (no visual change)
+
+**Status:** Accepted. Levi, tuning the dark Switch in sc-tune: an inset shadow should sit on a floor darker than its ground, and he could not find where to change the floor. It was the shared `surface.deepSunk` (dark: dark.raised2 #3B4249, lighter than the page #2C3239), listed under a surface name and read by cards, inputs and meters.
+
+- New `color.switch.track.off` (= surface.deepSunk: warmGray.300 / dark.raised2) and `color.switch.track.offHover` (= surface.hover: warmGray.250 / dark.raised1). Values unchanged; `Switch.module.css` reads them. Levi likes the hover going darker in dark mode, so hover stays its own token next to the floor.
+- In the lab they show as `color-switch-track-off` and `-off-hover` in the Switch's colour group; tuning them moves only the Switch.
+- `tokens:verify`, `tokens:map:check`, `tokens:swift:check` and `npm run build` exit 0.

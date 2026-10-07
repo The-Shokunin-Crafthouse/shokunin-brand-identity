@@ -412,6 +412,8 @@
   --sc-color-switch-thumb-face-bottom: var(--sc-p-color-warm-gray-100);
   --sc-color-switch-glyph-on: var(--sc-p-color-utility-white);
   --sc-color-switch-glyph-off: var(--sc-p-color-warm-gray-25);
+  --sc-color-switch-track-off: var(--sc-p-color-warm-gray-300);
+  --sc-color-switch-track-off-hover: var(--sc-p-color-warm-gray-250);
   --sc-border-width-default: var(--sc-p-border-width-hairline);
   --sc-border-width-focus: var(--sc-p-border-width-focus);
   --sc-border-width-accent: var(--sc-p-border-width-accent);
@@ -703,6 +705,8 @@
   --sc-color-switch-thumb-face-bottom: var(--sc-p-color-warm-gray-300);
   --sc-color-switch-glyph-on: var(--sc-p-color-utility-white);
   --sc-color-switch-glyph-off: var(--sc-p-color-dark-text-disabled);
+  --sc-color-switch-track-off: var(--sc-p-color-dark-raised2);
+  --sc-color-switch-track-off-hover: var(--sc-p-color-dark-raised1);
   --sc-border-width-default: var(--sc-p-border-width-hairline);
   --sc-border-width-focus: var(--sc-p-border-width-focus);
   --sc-border-width-accent: var(--sc-p-border-width-accent);

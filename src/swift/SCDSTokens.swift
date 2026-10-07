@@ -152,8 +152,8 @@ public enum SCDS {
     public static let semanticVersion = "0.1.0"
     public static let sourceGenerated = "2026-05-26"
     public static let primitivesHash = "aa28930704213cf1"
-    public static let semanticHash = "a1e858f8dd56a7ad"
-    public static let tokenCount = 157
+    public static let semanticHash = "d8c428509bdf56b9"
+    public static let tokenCount = 159
   }
 
   // MARK: - Color
@@ -488,6 +488,18 @@ public enum SCDS {
     public static let switchGlyphOff = SwiftUI.Color.scdsDynamic(
         light: (0.972549, 0.964706, 0.94902, 1),
         dark:  (0.486275, 0.478431, 0.462745, 1)
+    )
+
+    /// `color.switch.track.off`
+    public static let switchTrackOff = SwiftUI.Color.scdsDynamic(
+        light: (0.690196, 0.65098, 0.611765, 1),
+        dark:  (0.231373, 0.258824, 0.286275, 1)
+    )
+
+    /// `color.switch.track.offHover`
+    public static let switchTrackOffHover = SwiftUI.Color.scdsDynamic(
+        light: (0.768627, 0.737255, 0.705882, 1),
+        dark:  (0.203922, 0.227451, 0.254902, 1)
     )
   }
 
