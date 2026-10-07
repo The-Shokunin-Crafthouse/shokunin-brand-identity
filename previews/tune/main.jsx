@@ -75,6 +75,8 @@ function classify(v) {
   if (/^(cubic-bezier|ease|linear|steps)/.test(v)) return 'easing';
   if (/^-?[\d.]+m?s$/.test(v)) return 'time';
   if (/px/.test(v) && /(rgb|#|hsl|color\(|inset)/.test(v)) return 'shadow';
+  // A flat shadow shipped as zeros (0 0 0 0 rgb(… / 0)) has no px but is still a shadow.
+  if (/(rgb|#|hsl|color\()/.test(v) && /^(inset\s+)?-?[\d.]+(px)?\s+-?[\d.]+(px)?\s/.test(v.trim())) return 'shadow';
   if (CSS.supports('color', v)) return 'color';
   if (/^-?[\d.]+px$/.test(v)) return 'length';
   if (/^-?[\d.]+$/.test(v)) return 'number';
