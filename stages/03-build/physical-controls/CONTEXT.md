@@ -40,7 +40,7 @@ Reference numbers: `Drams NNN` is the Drams component (and its sound file in `as
 | Button primary, destructive | Reference. OP-1 key face (135° `control.keyShade`), `shadow.control.key` lit top left, hover/pressed derived from rest, role tokens for label/padding/icon, press-spring. Gaps: transitions `box-shadow`; no `forced-colors` edge (fill = border colour) | Drams 036 OP-1 Keys; press-spring #6 Pushin' Click | Phase 0 only: read the shared light-source tokens; `forced-colors` border; drop the `box-shadow` transition (press stays on `transform`) | `press`, Drams 029 | Done (Phase 0 touch-ups) |
 | Button secondary | Outline pill, `border.strong` (3.10:1 on page), teal label on hover | Drams 036 family | Keep the outline (pick 2 C). Inherits the Button role tokens | inherits `press` | Keep |
 | Button tertiary | Text ghost, `accentDeep` label | Drams 036 family | Keep flat: a ghost is text, not an object (directive 1). Inherits role tokens and sound | inherits `press` | Keep |
-| Switch | Physical but untuned: recessed track, six-layer knob lit from the top (`shadow.switch.*`, ×0.45), I/O glyph row. Hover, active, disabled flat. On-track teal.500 is 2.99:1 on page (pick 5) | Drams 001 Standard Switch (#1); thumb motion #2 Rollin' | Re-light to the picked source, then a full sc-tune pass like any other component; record, apply, Figma Toggle `9:858` | `toggle`, Drams 004 | 1 |
+| Switch | Physical: the Drams Standard Switch repaint (matches drams.framer.website), lit from the top. On-track teal.500 2.99:1 on page (pick 5 A, logged gap) | Drams 001 Standard Switch (#1); thumb motion #2 Rollin' | Done. Kept as is (Levi, 2026-10-07): exempt from the top-left re-light. Glyphs optional (`glyphs={false}`, Figma `Glyphs` property) | `toggle`, Drams 004 | Done |
 | SegmentedControl | Flat: `surface.sunk` track, `surface.floating` indicator (1.40:1 on track), no shadow, no `:active` | Drams 045 Three-Way Slide Switch (#7) | Recessed track (track material); indicator becomes a key; add `:active` press; detent spring tuned in the lab; role tokens for its padding (shares `padding-inline.*` with Button today) | `select`, Drams 001 | 1 |
 | Stepper | Flat: `surface.sunk` pill (1.14:1 on page), ghost ± buttons, mono readout | Drams 016 Detent Knob; ± as Drams 036 keys (#8) | ± become small keys on a recessed pill; readout in a recessed window; disabled flat (today it dims the whole control to 0.6) | `tick`, Drams 037 | 1 |
 | ProgressIndicator bar, interactive | Thumbless 4px track (`deep-sunk`, 1.80:1 on page), thickens to 6px on drag; fill teal.500 (1.66:1 on the track) | #5 Standard Volume, #12 Dynamic Slider | Recessed track; the Switch knob becomes its thumb (the thumb carries the 3:1 cue the fill misses); not in the lab registry yet | optional `tick` on keyboard steps (Levi's pick) | 1 |
@@ -86,12 +86,12 @@ Each pick is made in the sc-tune lab as concepts A and B, then recorded (procedu
 ### Phase 0: material layer
 - One light-source token set, from pick 1: offsets for shade and highlight live in one place, and every material reads them.
 - Material tokens: `key`, `keyPressed`, `well`, `track`, `knob`, `plate`, `led`. Each one cites its Drams source and scale factor.
-- Re-light the Button and the Switch to the picked source. The Switch then gets its first sc-tune pass (record, apply, Figma Toggle `9:858`) like any other component.
+- Re-light the Button to the picked source. The Switch is exempt: it stays the Drams repaint, lit from the top (Levi, 2026-10-07).
 - `forced-colors` border fallback for every material.
 - Figma: effect styles `shadow/material/*` (light and dark), variables for the face shades.
 
 ### Phase 1: Tier 1 components
-- Switch (sc-tune pass after the re-light), SegmentedControl, Stepper, ProgressIndicator (interactive), Input.
+- SegmentedControl, Stepper, ProgressIndicator (interactive), Input.
 - Each gets an sc-tune record before code: material values, press motion (spring or bezier), and its sound role (SegmentedControl and Stepper keep theirs; ProgressIndicator interactive gets a sound only if Levi picks one).
 - Figma masters follow in the same change.
 
@@ -112,7 +112,7 @@ Each pick is made in the sc-tune lab as concepts A and B, then recorded (procedu
 
 ## Audit (Claude runs this before opening the PR)
 - [ ] Every material value is a token, and its description names the Drams source and scale factor
-- [ ] One light source: every shade falls the same way, every highlight sits on the same side (screenshot all controls side by side)
+- [ ] One light source: every shade falls the same way, every highlight sits on the same side (screenshot all controls side by side). Known exception: the Switch, lit from the top (decisions 2026-10-07)
 - [ ] All interactive states present (default, hover, focus, active, disabled), and disabled is flat
 - [ ] Light and dark mode both verified at 5× zoom
 - [ ] `forced-colors: active` keeps every control's edge (emulate in Chrome DevTools)

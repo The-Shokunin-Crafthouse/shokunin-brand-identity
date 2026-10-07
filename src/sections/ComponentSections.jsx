@@ -287,6 +287,7 @@ export function SwitchPage() {
         { name: 'Off', token: '--sc-color-surface-deep-sunk', render: <Switch checked={false} onChange={noop} label="Off" /> },
         { name: 'On', token: '--sc-color-brand-accent', render: <Switch checked onChange={noop} label="On" /> },
         { name: 'Disabled', token: '--sc-color-surface-sunk', render: <Switch disabled onChange={noop} label="Disabled" /> },
+        { name: 'No glyphs', token: 'glyphs={false}', render: <Switch checked glyphs={false} onChange={noop} label="No glyphs" /> },
       ]}
       tokenRows={[
         { prop: 'Track width', token: '--sc-size-switch-track-width' },

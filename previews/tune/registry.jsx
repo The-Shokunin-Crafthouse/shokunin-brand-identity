@@ -71,6 +71,7 @@ export const REGISTRY = {
     props: [
       { name: 'checked', type: 'boolean', default: false },
       { name: 'disabled', type: 'boolean', default: false },
+      { name: 'glyphs', type: 'boolean', default: true },
       { name: 'label', type: 'text', default: 'Notifications' },
     ],
     play: (p, set) => set('checked', !p.checked),
@@ -78,6 +79,7 @@ export const REGISTRY = {
       <Switch
         checked={p.checked}
         disabled={p.disabled}
+        glyphs={p.glyphs}
         label={p.label}
         sound={false}
         onChange={(e) => {

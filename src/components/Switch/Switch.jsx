@@ -10,6 +10,10 @@
  * the knob so on/off reads without colour. Each change plays the `toggle`
  * role sound (Drams 004); `sound={false}` opts one instance out and
  * SoundProvider silences it app-wide.
+ *
+ * `glyphs={false}` drops the I/O glyph row for a plain track (Levi,
+ * 2026-10-07). Knob position still carries state without colour
+ * (WCAG 1.4.1), so the glyphs are an extra cue, not the only one.
  */
 
 import { useId } from 'react';
@@ -22,6 +26,7 @@ export function Switch({
   onChange,
   label,
   sound = true,
+  glyphs = true,
   className = '',
 }) {
   const id = useId();
@@ -42,10 +47,12 @@ export function Switch({
           }}
         />
         <span className={styles.track} aria-hidden="true">
-          <span className={styles.glyphs}>
-            <span className={styles.glyphOn} />
-            <span className={styles.glyphOff} />
-          </span>
+          {glyphs && (
+            <span className={styles.glyphs}>
+              <span className={styles.glyphOn} />
+              <span className={styles.glyphOff} />
+            </span>
+          )}
           <span className={styles.thumb} />
         </span>
       </span>

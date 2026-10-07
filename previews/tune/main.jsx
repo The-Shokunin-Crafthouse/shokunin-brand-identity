@@ -195,6 +195,9 @@ function loadState(component) {
       // Spec v2 kept one flat override map per concept. Colour and shadow
       // edits from that era were dark-mode experiments; the rest apply to both.
       for (const c of saved.concepts) {
+        // A prop added to the registry after the session was saved starts at
+        // its default, so the control and the stage agree.
+        c.props = { ...defaults(REGISTRY[component]), ...c.props };
         if (!c.overrides.all) {
           const o = scoped();
           for (const [k, v] of Object.entries(c.overrides)) o[isModal(k) ? 'dark' : 'all'][k] = v;
