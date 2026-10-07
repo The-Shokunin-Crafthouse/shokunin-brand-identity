@@ -21,6 +21,7 @@
 :root {
   /* --- Primitives (--sc-p-*) ----------------------------- */
   --sc-p-color-warm-gray-25: #F8F6F2;
+  --sc-p-color-warm-gray-40: #F5F0E9;
   --sc-p-color-warm-gray-50: #F1EFEB;
   --sc-p-color-warm-gray-100: #E3DFD8;
   --sc-p-color-warm-gray-200: #D8D1CC;
@@ -201,6 +202,12 @@
   --sc-p-font-text-120-line-height: var(--sc-p-font-line-height-flat);
   --sc-p-font-text-120-letter-spacing: var(--sc-p-font-tracking-tightest);
   --sc-p-font-text-120: var(--sc-p-font-weight-black) var(--sc-p-font-size-120)/var(--sc-p-font-line-height-flat) var(--sc-p-font-family-display);
+  --sc-p-font-text-medium-12-family: var(--sc-p-font-family-text);
+  --sc-p-font-text-medium-12-size: var(--sc-p-font-size-12);
+  --sc-p-font-text-medium-12-weight: var(--sc-p-font-weight-medium);
+  --sc-p-font-text-medium-12-line-height: var(--sc-p-font-line-height-base);
+  --sc-p-font-text-medium-12-letter-spacing: var(--sc-p-font-tracking-normal);
+  --sc-p-font-text-medium-12: var(--sc-p-font-weight-medium) var(--sc-p-font-size-12)/var(--sc-p-font-line-height-base) var(--sc-p-font-family-text);
   --sc-p-font-text-medium-13-family: var(--sc-p-font-family-text);
   --sc-p-font-text-medium-13-size: var(--sc-p-font-size-13);
   --sc-p-font-text-medium-13-weight: var(--sc-p-font-weight-medium);
@@ -225,6 +232,12 @@
   --sc-p-font-text-bold-12-line-height: var(--sc-p-font-line-height-base);
   --sc-p-font-text-bold-12-letter-spacing: var(--sc-p-font-tracking-normal);
   --sc-p-font-text-bold-12: var(--sc-p-font-weight-bold) var(--sc-p-font-size-12)/var(--sc-p-font-line-height-base) var(--sc-p-font-family-text);
+  --sc-p-font-text-bold-13-family: var(--sc-p-font-family-text);
+  --sc-p-font-text-bold-13-size: var(--sc-p-font-size-13);
+  --sc-p-font-text-bold-13-weight: var(--sc-p-font-weight-bold);
+  --sc-p-font-text-bold-13-line-height: var(--sc-p-font-line-height-base);
+  --sc-p-font-text-bold-13-letter-spacing: var(--sc-p-font-tracking-normal);
+  --sc-p-font-text-bold-13: var(--sc-p-font-weight-bold) var(--sc-p-font-size-13)/var(--sc-p-font-line-height-base) var(--sc-p-font-family-text);
   --sc-p-font-text-bold-14-family: var(--sc-p-font-family-text);
   --sc-p-font-text-bold-14-size: var(--sc-p-font-size-14);
   --sc-p-font-text-bold-14-weight: var(--sc-p-font-weight-bold);
@@ -243,6 +256,12 @@
   --sc-p-font-text-bold-20-line-height: var(--sc-p-font-line-height-relaxed);
   --sc-p-font-text-bold-20-letter-spacing: var(--sc-p-font-tracking-normal);
   --sc-p-font-text-bold-20: var(--sc-p-font-weight-bold) var(--sc-p-font-size-20)/var(--sc-p-font-line-height-relaxed) var(--sc-p-font-family-text);
+  --sc-p-font-text-display-tight-11-family: var(--sc-p-font-family-display);
+  --sc-p-font-text-display-tight-11-size: var(--sc-p-font-size-11);
+  --sc-p-font-text-display-tight-11-weight: var(--sc-p-font-weight-black);
+  --sc-p-font-text-display-tight-11-line-height: var(--sc-p-font-line-height-base);
+  --sc-p-font-text-display-tight-11-letter-spacing: var(--sc-p-font-tracking-normal);
+  --sc-p-font-text-display-tight-11: var(--sc-p-font-weight-black) var(--sc-p-font-size-11)/var(--sc-p-font-line-height-base) var(--sc-p-font-family-display);
   --sc-p-font-text-display-tight-12-family: var(--sc-p-font-family-display);
   --sc-p-font-text-display-tight-12-size: var(--sc-p-font-size-12);
   --sc-p-font-text-display-tight-12-weight: var(--sc-p-font-weight-black);
@@ -319,7 +338,9 @@
   --sc-p-space-8: 8px;
   --sc-p-space-12: 12px;
   --sc-p-space-16: 16px;
+  --sc-p-space-20: 20px;
   --sc-p-space-24: 24px;
+  --sc-p-space-28: 28px;
   --sc-p-space-32: 32px;
   --sc-p-space-48: 48px;
   --sc-p-space-64: 64px;
@@ -363,6 +384,7 @@
   --sc-color-surface-raised: var(--sc-p-color-warm-gray-50);
   --sc-color-surface-floating: var(--sc-p-color-warm-gray-25);
   --sc-color-surface-rail: var(--sc-p-color-warm-gray-300);
+  --sc-color-surface-nav: var(--sc-p-color-warm-gray-40);
   --sc-color-surface-hover: var(--sc-p-color-warm-gray-250);
   --sc-color-text-primary: var(--sc-p-color-warm-gray-800);
   --sc-color-text-secondary: var(--sc-p-color-warm-gray-500);
@@ -499,6 +521,12 @@
   --sc-font-text-label-ui-tight-line-height: var(--sc-p-font-text-bold-12-line-height);
   --sc-font-text-label-ui-tight-letter-spacing: var(--sc-p-font-text-bold-12-letter-spacing);
   --sc-font-text-label-ui-tight: var(--sc-p-font-text-bold-12);
+  --sc-font-text-label-ui-medium-family: var(--sc-p-font-text-medium-12-family);
+  --sc-font-text-label-ui-medium-size: var(--sc-p-font-text-medium-12-size);
+  --sc-font-text-label-ui-medium-weight: var(--sc-p-font-text-medium-12-weight);
+  --sc-font-text-label-ui-medium-line-height: var(--sc-p-font-text-medium-12-line-height);
+  --sc-font-text-label-ui-medium-letter-spacing: var(--sc-p-font-text-medium-12-letter-spacing);
+  --sc-font-text-label-ui-medium: var(--sc-p-font-text-medium-12);
   --sc-font-text-label-button-sm-family: var(--sc-p-font-text-button-12-family);
   --sc-font-text-label-button-sm-size: var(--sc-p-font-text-button-12-size);
   --sc-font-text-label-button-sm-weight: var(--sc-p-font-text-button-12-weight);
@@ -517,6 +545,18 @@
   --sc-font-text-label-tab-line-height: var(--sc-p-font-text-medium-13-line-height);
   --sc-font-text-label-tab-letter-spacing: var(--sc-p-font-text-medium-13-letter-spacing);
   --sc-font-text-label-tab: var(--sc-p-font-text-medium-13);
+  --sc-font-text-label-nav-heading-family: var(--sc-p-font-text-display-tight-11-family);
+  --sc-font-text-label-nav-heading-size: var(--sc-p-font-text-display-tight-11-size);
+  --sc-font-text-label-nav-heading-weight: var(--sc-p-font-text-display-tight-11-weight);
+  --sc-font-text-label-nav-heading-line-height: var(--sc-p-font-text-display-tight-11-line-height);
+  --sc-font-text-label-nav-heading-letter-spacing: var(--sc-p-font-text-display-tight-11-letter-spacing);
+  --sc-font-text-label-nav-heading: var(--sc-p-font-text-display-tight-11);
+  --sc-font-text-label-nav-current-family: var(--sc-p-font-text-bold-13-family);
+  --sc-font-text-label-nav-current-size: var(--sc-p-font-text-bold-13-size);
+  --sc-font-text-label-nav-current-weight: var(--sc-p-font-text-bold-13-weight);
+  --sc-font-text-label-nav-current-line-height: var(--sc-p-font-text-bold-13-line-height);
+  --sc-font-text-label-nav-current-letter-spacing: var(--sc-p-font-text-bold-13-letter-spacing);
+  --sc-font-text-label-nav-current: var(--sc-p-font-text-bold-13);
   --sc-font-text-caption-family: var(--sc-p-font-text-13-family);
   --sc-font-text-caption-size: var(--sc-p-font-text-13-size);
   --sc-font-text-caption-weight: var(--sc-p-font-text-13-weight);
@@ -690,6 +730,7 @@
   --sc-color-surface-raised: var(--sc-p-color-dark-raised1);
   --sc-color-surface-floating: var(--sc-p-color-dark-raised2);
   --sc-color-surface-rail: var(--sc-p-color-dark-floor);
+  --sc-color-surface-nav: var(--sc-p-color-dark-raised2);
   --sc-color-surface-hover: var(--sc-p-color-dark-raised1);
   --sc-color-text-primary: var(--sc-p-color-dark-text-primary);
   --sc-color-text-secondary: var(--sc-p-color-dark-text-secondary);
@@ -826,6 +867,12 @@
   --sc-font-text-label-ui-tight-line-height: var(--sc-p-font-text-bold-12-line-height);
   --sc-font-text-label-ui-tight-letter-spacing: var(--sc-p-font-text-bold-12-letter-spacing);
   --sc-font-text-label-ui-tight: var(--sc-p-font-text-bold-12);
+  --sc-font-text-label-ui-medium-family: var(--sc-p-font-text-medium-12-family);
+  --sc-font-text-label-ui-medium-size: var(--sc-p-font-text-medium-12-size);
+  --sc-font-text-label-ui-medium-weight: var(--sc-p-font-text-medium-12-weight);
+  --sc-font-text-label-ui-medium-line-height: var(--sc-p-font-text-medium-12-line-height);
+  --sc-font-text-label-ui-medium-letter-spacing: var(--sc-p-font-text-medium-12-letter-spacing);
+  --sc-font-text-label-ui-medium: var(--sc-p-font-text-medium-12);
   --sc-font-text-label-button-sm-family: var(--sc-p-font-text-button-12-family);
   --sc-font-text-label-button-sm-size: var(--sc-p-font-text-button-12-size);
   --sc-font-text-label-button-sm-weight: var(--sc-p-font-text-button-12-weight);
@@ -844,6 +891,18 @@
   --sc-font-text-label-tab-line-height: var(--sc-p-font-text-medium-13-line-height);
   --sc-font-text-label-tab-letter-spacing: var(--sc-p-font-text-medium-13-letter-spacing);
   --sc-font-text-label-tab: var(--sc-p-font-text-medium-13);
+  --sc-font-text-label-nav-heading-family: var(--sc-p-font-text-display-tight-11-family);
+  --sc-font-text-label-nav-heading-size: var(--sc-p-font-text-display-tight-11-size);
+  --sc-font-text-label-nav-heading-weight: var(--sc-p-font-text-display-tight-11-weight);
+  --sc-font-text-label-nav-heading-line-height: var(--sc-p-font-text-display-tight-11-line-height);
+  --sc-font-text-label-nav-heading-letter-spacing: var(--sc-p-font-text-display-tight-11-letter-spacing);
+  --sc-font-text-label-nav-heading: var(--sc-p-font-text-display-tight-11);
+  --sc-font-text-label-nav-current-family: var(--sc-p-font-text-bold-13-family);
+  --sc-font-text-label-nav-current-size: var(--sc-p-font-text-bold-13-size);
+  --sc-font-text-label-nav-current-weight: var(--sc-p-font-text-bold-13-weight);
+  --sc-font-text-label-nav-current-line-height: var(--sc-p-font-text-bold-13-line-height);
+  --sc-font-text-label-nav-current-letter-spacing: var(--sc-p-font-text-bold-13-letter-spacing);
+  --sc-font-text-label-nav-current: var(--sc-p-font-text-bold-13);
   --sc-font-text-caption-family: var(--sc-p-font-text-13-family);
   --sc-font-text-caption-size: var(--sc-p-font-text-13-size);
   --sc-font-text-caption-weight: var(--sc-p-font-text-13-weight);

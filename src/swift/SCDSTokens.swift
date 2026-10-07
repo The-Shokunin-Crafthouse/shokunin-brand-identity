@@ -170,9 +170,9 @@ public enum SCDS {
     public static let primitivesVersion = "0.1.0"
     public static let semanticVersion = "0.1.0"
     public static let sourceGenerated = "2026-05-26"
-    public static let primitivesHash = "aa28930704213cf1"
-    public static let semanticHash = "d9ad2f3eaf88469a"
-    public static let tokenCount = 193
+    public static let primitivesHash = "f70b0b6f4a7e669a"
+    public static let semanticHash = "ffb42f583df65206"
+    public static let tokenCount = 197
   }
 
   // MARK: - Color
@@ -213,6 +213,12 @@ public enum SCDS {
     public static let surfaceRail = SwiftUI.Color.scdsDynamic(
         light: (0.690196, 0.65098, 0.611765, 1),
         dark:  (0.145098, 0.168627, 0.196078, 1)
+    )
+
+    /// `color.surface.nav`
+    public static let surfaceNav = SwiftUI.Color.scdsDynamic(
+        light: (0.960784, 0.941176, 0.913725, 1),
+        dark:  (0.231373, 0.258824, 0.286275, 1)
     )
 
     /// `color.surface.hover`
@@ -574,6 +580,16 @@ public enum SCDS {
         trackingEm: 0
     )
 
+    /// `font.text.label.uiMedium` · Neue Haas Grotesk Text Pro 12/1.5
+    public static let textLabelUiMedium = SCDSTypeStyle(
+        family: "Neue Haas Grotesk Text Pro",
+        fallbacks: ["Helvetica Neue", "Inter", "system-ui", "sans-serif"],
+        size: 12,
+        weight: .medium,
+        lineHeightMultiple: 1.5,
+        trackingEm: 0
+    )
+
     /// `font.text.label.buttonSm` · Neue Haas Grotesk Text Pro 12/2
     public static let textLabelButtonSm = SCDSTypeStyle(
         family: "Neue Haas Grotesk Text Pro",
@@ -600,6 +616,26 @@ public enum SCDS {
         fallbacks: ["Helvetica Neue", "Inter", "system-ui", "sans-serif"],
         size: 13,
         weight: .medium,
+        lineHeightMultiple: 1.5,
+        trackingEm: 0
+    )
+
+    /// `font.text.label.navHeading` · Neue Haas Grotesk Display Pro 11/1.5
+    public static let textLabelNavHeading = SCDSTypeStyle(
+        family: "Neue Haas Grotesk Display Pro",
+        fallbacks: ["Helvetica Neue", "Inter", "system-ui", "sans-serif"],
+        size: 11,
+        weight: .black,
+        lineHeightMultiple: 1.5,
+        trackingEm: 0
+    )
+
+    /// `font.text.label.navCurrent` · Neue Haas Grotesk Text Pro 13/1.5
+    public static let textLabelNavCurrent = SCDSTypeStyle(
+        family: "Neue Haas Grotesk Text Pro",
+        fallbacks: ["Helvetica Neue", "Inter", "system-ui", "sans-serif"],
+        size: 13,
+        weight: .bold,
         lineHeightMultiple: 1.5,
         trackingEm: 0
     )

@@ -5,7 +5,7 @@
 # Design Token Map — The Shokunin Crafthouse · Brand Identity
 
 **Generated** from `tokens/primitives.json` + `tokens/semantic.json`.
-**Source fingerprint:** `59e31a84fa10` · **180 primitives · 193 semantic tokens.**
+**Source fingerprint:** `8638e2461382` · **186 primitives · 197 semantic tokens.**
 
 > **This file is a mirror, not the source.** `tokens/*.json` is upstream; this document and the Figma
 > library are generated from / synced to it. It previously claimed the opposite — that both were
@@ -68,6 +68,7 @@ primitives directly. Surfaced here for traceability.
 | Token Name | CSS var | Value | Notes |
 |---|---|---|---|
 | `color/warmGray/25` | `--sc-p-color-warm-gray-25` | `#F8F6F2` | Floating surface (popovers, interactive-card hover top layer). |
+| `color/warmGray/40` | `--sc-p-color-warm-gray-40` | `#F5F0E9` | Nav card ground, between warmGray.25 and .50 with the warm hue kept. |
 | `color/warmGray/50` | `--sc-p-color-warm-gray-50` | `#F1EFEB` | Raised / component surface — default card ground in light. |
 | `color/warmGray/100` | `--sc-p-color-warm-gray-100` | `#E3DFD8` | Page ground · light. |
 | `color/warmGray/200` | `--sc-p-color-warm-gray-200` | `#D8D1CC` | Set-in component surface · cards, frames, raised tiles. |
@@ -270,13 +271,16 @@ primitives directly. Surfaced here for traceability.
 | `font/text/60` | `--sc-p-font-text-60` | `fontFamily: {font.family.display} · fontSize: {font.size.60} · fontWeight: {font.weight.black} · lineHeight: {font.lineHeight.tight} · letterSpacing: {font.tracking.tighter}` | Mid display, hero alt. |
 | `font/text/84` | `--sc-p-font-text-84` | `fontFamily: {font.family.display} · fontSize: {font.size.84} · fontWeight: {font.weight.black} · lineHeight: {font.lineHeight.tight} · letterSpacing: {font.tracking.tightest}` | Large display, hero primary. |
 | `font/text/120` | `--sc-p-font-text-120` | `fontFamily: {font.family.display} · fontSize: {font.size.120} · fontWeight: {font.weight.black} · lineHeight: {font.lineHeight.flat} · letterSpacing: {font.tracking.tightest}` | Maximum display, hero monumental. |
+| `font/text/medium/12` | `--sc-p-font-text-medium-12` | `fontFamily: {font.family.text} · fontSize: {font.size.12} · fontWeight: {font.weight.medium} · lineHeight: {font.lineHeight.base} · letterSpacing: {font.tracking.normal}` | UI label, medium: 12/medium, no tracking (Figma text/label/ui-medium). |
 | `font/text/medium/13` | `--sc-p-font-text-medium-13` | `fontFamily: {font.family.text} · fontSize: {font.size.13} · fontWeight: {font.weight.medium} · lineHeight: {font.lineHeight.base} · letterSpacing: {font.tracking.normal}` | Tab label: 13/medium, no tracking (Figma text/label/tab). |
 | `font/text/button/12` | `--sc-p-font-text-button-12` | `fontFamily: {font.family.text} · fontSize: {font.size.12} · fontWeight: {font.weight.medium} · lineHeight: {font.lineHeight.loose} · letterSpacing: {font.tracking.slight}` | Small Button label: 12/medium/loose/slight (Figma text/label/button-sm). |
 | `font/text/button/14` | `--sc-p-font-text-button-14` | `fontFamily: {font.family.text} · fontSize: {font.size.14} · fontWeight: {font.weight.medium} · lineHeight: {font.lineHeight.loose} · letterSpacing: {font.tracking.slight}` | Large Button label: 14/medium/loose/slight (Figma text/label/button-lg). |
 | `font/text/bold/12` | `--sc-p-font-text-bold-12` | `fontFamily: {font.family.text} · fontSize: {font.size.12} · fontWeight: {font.weight.bold} · lineHeight: {font.lineHeight.base} · letterSpacing: {font.tracking.normal}` | UI label, tight: 12/bold, no tracking (Figma text/label/ui-tight). |
+| `font/text/bold/13` | `--sc-p-font-text-bold-13` | `fontFamily: {font.family.text} · fontSize: {font.size.13} · fontWeight: {font.weight.bold} · lineHeight: {font.lineHeight.base} · letterSpacing: {font.tracking.normal}` | Nav current: 13/bold, no tracking (Figma text/label/nav-current). |
 | `font/text/bold/14` | `--sc-p-font-text-bold-14` | `fontFamily: {font.family.text} · fontSize: {font.size.14} · fontWeight: {font.weight.bold} · lineHeight: {font.lineHeight.base} · letterSpacing: {font.tracking.normal}` | Dense body, bold (Figma text/body/dense/bold). |
 | `font/text/bold/16` | `--sc-p-font-text-bold-16` | `fontFamily: {font.family.text} · fontSize: {font.size.16} · fontWeight: {font.weight.bold} · lineHeight: {font.lineHeight.base} · letterSpacing: {font.tracking.normal}` | Default body, bold (Figma text/body/default/bold). |
 | `font/text/bold/20` | `--sc-p-font-text-bold-20` | `fontFamily: {font.family.text} · fontSize: {font.size.20} · fontWeight: {font.weight.bold} · lineHeight: {font.lineHeight.relaxed} · letterSpacing: {font.tracking.normal}` | Lead body, bold (Figma text/body/lead/bold). |
+| `font/text/displayTight/11` | `--sc-p-font-text-display-tight-11` | `fontFamily: {font.family.display} · fontSize: {font.size.11} · fontWeight: {font.weight.black} · lineHeight: {font.lineHeight.base} · letterSpacing: {font.tracking.normal}` | Nav group heading: 11/black on base line height (Figma text/label/nav-heading). |
 | `font/text/displayTight/12` | `--sc-p-font-text-display-tight-12` | `fontFamily: {font.family.display} · fontSize: {font.size.12} · fontWeight: {font.weight.black} · lineHeight: {font.lineHeight.tight} · letterSpacing: {font.tracking.normal}` | Navigation header: 12/black on 1.1 (Figma text/body/nav/header). |
 | `font/text/displayTight/32` | `--sc-p-font-text-display-tight-32` | `fontFamily: {font.family.display} · fontSize: {font.size.32} · fontWeight: {font.weight.black} · lineHeight: {font.lineHeight.tight} · letterSpacing: {font.tracking.normal}` | Extra-small display: 32/black on 1.1, no tracking (Figma text/display/xs). |
 | `font/text/textTight/13` | `--sc-p-font-text-text-tight-13` | `fontFamily: {font.family.text} · fontSize: {font.size.13} · fontWeight: {font.weight.regular} · lineHeight: {font.lineHeight.tight} · letterSpacing: {font.tracking.normal}` | Navigation node: 13/regular on 1.1 (Figma text/body/nav/node). |
@@ -316,11 +320,23 @@ primitives directly. Surfaced here for traceability.
 |---|---|---|---|
 | `space/16` | `--sc-p-space-16` | `16px` | 16px · layout spacing (4/8pt ladder). |
 
+#### `space/20`
+
+| Token Name | CSS var | Value | Notes |
+|---|---|---|---|
+| `space/20` | `--sc-p-space-20` | `20px` | 20px · layout spacing (4pt step). |
+
 #### `space/24`
 
 | Token Name | CSS var | Value | Notes |
 |---|---|---|---|
 | `space/24` | `--sc-p-space-24` | `24px` | 24px · layout spacing (4/8pt ladder). |
+
+#### `space/28`
+
+| Token Name | CSS var | Value | Notes |
+|---|---|---|---|
+| `space/28` | `--sc-p-space-28` | `28px` | 28px · layout spacing (4pt step). |
 
 #### `space/32`
 
@@ -443,6 +459,7 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | `color/surface/raised` | `--sc-color-surface-raised` | `color/warmGray/50` | `#F1EFEB` | `color/dark/raised1` | `#343A41` | Lifted-above-page surface · default card ground. |
 | `color/surface/floating` | `--sc-color-surface-floating` | `color/warmGray/25` | `#F8F6F2` | `color/dark/raised2` | `#3B4249` | Highest surface · popovers, interactive-card hover. |
 | `color/surface/rail` | `--sc-color-surface-rail` | `color/warmGray/300` | `#B0A69C` | `color/dark/floor` | `#252B32` | Sidebar / left-rail ground. |
+| `color/surface/nav` | `--sc-color-surface-nav` | `color/warmGray/40` | `#F5F0E9` | `color/dark/raised2` | `#3B4249` | Brand-site sidebar card ground (the inset card that replaced the edge rail). |
 | `color/surface/hover` | `--sc-color-surface-hover` | `color/warmGray/250` | `#C4BCB4` | `color/dark/raised1` | `#343A41` | Hover-highlight ground for nav links and similar row-level affordances. |
 
 #### `color/text`
@@ -572,9 +589,12 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | `font/text/label/chrome` | `--sc-font-text-label-chrome` | `font/text/11` | `fontFamily: {font.family.text} · fontSize: {font.size.11} · fontWeight: {font.weight.medium} · lineHeight: {font.lineHeight.base} · letterSpacing: {font.tracking.widest}` | `font/text/11` | `fontFamily: {font.family.text} · fontSize: {font.size.11} · fontWeight: {font.weight.medium} · lineHeight: {font.lineHeight.base} · letterSpacing: {font.tracking.widest}` | Sprint 4 addition · chrome labels · 11/medium/widest. |
 | `font/text/label/ui` | `--sc-font-text-label-ui` | `font/text/12` | `fontFamily: {font.family.text} · fontSize: {font.size.12} · fontWeight: {font.weight.bold} · lineHeight: {font.lineHeight.base} · letterSpacing: {font.tracking.wide}` | `font/text/12` | `fontFamily: {font.family.text} · fontSize: {font.size.12} · fontWeight: {font.weight.bold} · lineHeight: {font.lineHeight.base} · letterSpacing: {font.tracking.wide}` | Sprint 4 addition · UI labels · 12/medium/wide. |
 | `font/text/label/uiTight` | `--sc-font-text-label-ui-tight` | `font/text/bold/12` | `fontFamily: {font.family.text} · fontSize: {font.size.12} · fontWeight: {font.weight.bold} · lineHeight: {font.lineHeight.base} · letterSpacing: {font.tracking.normal}` | `font/text/bold/12` | `fontFamily: {font.family.text} · fontSize: {font.size.12} · fontWeight: {font.weight.bold} · lineHeight: {font.lineHeight.base} · letterSpacing: {font.tracking.normal}` | UI label, tight: 12/bold, no tracking. |
+| `font/text/label/uiMedium` | `--sc-font-text-label-ui-medium` | `font/text/medium/12` | `fontFamily: {font.family.text} · fontSize: {font.size.12} · fontWeight: {font.weight.medium} · lineHeight: {font.lineHeight.base} · letterSpacing: {font.tracking.normal}` | `font/text/medium/12` | `fontFamily: {font.family.text} · fontSize: {font.size.12} · fontWeight: {font.weight.medium} · lineHeight: {font.lineHeight.base} · letterSpacing: {font.tracking.normal}` | UI label, medium: 12/medium, no tracking. |
 | `font/text/label/buttonSm` | `--sc-font-text-label-button-sm` | `font/text/button/12` | `fontFamily: {font.family.text} · fontSize: {font.size.12} · fontWeight: {font.weight.medium} · lineHeight: {font.lineHeight.loose} · letterSpacing: {font.tracking.slight}` | `font/text/button/12` | `fontFamily: {font.family.text} · fontSize: {font.size.12} · fontWeight: {font.weight.medium} · lineHeight: {font.lineHeight.loose} · letterSpacing: {font.tracking.slight}` | Small Button label: 12/medium/loose/slight (Figma text/label/button-sm). |
 | `font/text/label/buttonLg` | `--sc-font-text-label-button-lg` | `font/text/button/14` | `fontFamily: {font.family.text} · fontSize: {font.size.14} · fontWeight: {font.weight.medium} · lineHeight: {font.lineHeight.loose} · letterSpacing: {font.tracking.slight}` | `font/text/button/14` | `fontFamily: {font.family.text} · fontSize: {font.size.14} · fontWeight: {font.weight.medium} · lineHeight: {font.lineHeight.loose} · letterSpacing: {font.tracking.slight}` | Large Button label: 14/medium/loose/slight, its own role apart from the chrome label (Figma text/label/button-lg). |
 | `font/text/label/tab` | `--sc-font-text-label-tab` | `font/text/medium/13` | `fontFamily: {font.family.text} · fontSize: {font.size.13} · fontWeight: {font.weight.medium} · lineHeight: {font.lineHeight.base} · letterSpacing: {font.tracking.normal}` | `font/text/medium/13` | `fontFamily: {font.family.text} · fontSize: {font.size.13} · fontWeight: {font.weight.medium} · lineHeight: {font.lineHeight.base} · letterSpacing: {font.tracking.normal}` | Tab label: 13/medium, no tracking. |
+| `font/text/label/navHeading` | `--sc-font-text-label-nav-heading` | `font/text/displayTight/11` | `fontFamily: {font.family.display} · fontSize: {font.size.11} · fontWeight: {font.weight.black} · lineHeight: {font.lineHeight.base} · letterSpacing: {font.tracking.normal}` | `font/text/displayTight/11` | `fontFamily: {font.family.display} · fontSize: {font.size.11} · fontWeight: {font.weight.black} · lineHeight: {font.lineHeight.base} · letterSpacing: {font.tracking.normal}` | Nav group heading: 11/black display, sentence case, text.primary. |
+| `font/text/label/navCurrent` | `--sc-font-text-label-nav-current` | `font/text/bold/13` | `fontFamily: {font.family.text} · fontSize: {font.size.13} · fontWeight: {font.weight.bold} · lineHeight: {font.lineHeight.base} · letterSpacing: {font.tracking.normal}` | `font/text/bold/13` | `fontFamily: {font.family.text} · fontSize: {font.size.13} · fontWeight: {font.weight.bold} · lineHeight: {font.lineHeight.base} · letterSpacing: {font.tracking.normal}` | Nav current link: 13/bold, set in brand.accentInk (brand.accent fails AA at this size). |
 | `font/text/caption` | `--sc-font-text-caption` | `font/text/13` | `fontFamily: {font.family.text} · fontSize: {font.size.13} · fontWeight: {font.weight.regular} · lineHeight: {font.lineHeight.relaxed} · letterSpacing: {font.tracking.normal}` | `font/text/13` | `fontFamily: {font.family.text} · fontSize: {font.size.13} · fontWeight: {font.weight.regular} · lineHeight: {font.lineHeight.relaxed} · letterSpacing: {font.tracking.normal}` | Sprint 4 addition · caption · 13/regular/relaxed. |
 | `font/text/body/dense` | `--sc-font-text-body-dense` | `font/text/14` | `fontFamily: {font.family.text} · fontSize: {font.size.14} · fontWeight: {font.weight.regular} · lineHeight: {font.lineHeight.base} · letterSpacing: {font.tracking.normal}` | `font/text/14` | `fontFamily: {font.family.text} · fontSize: {font.size.14} · fontWeight: {font.weight.regular} · lineHeight: {font.lineHeight.base} · letterSpacing: {font.tracking.normal}` | Sprint 4 addition · dense body · 14/regular/base. |
 | `font/text/body/default` | `--sc-font-text-body-default` | `font/text/16` | `fontFamily: {font.family.text} · fontSize: {font.size.16} · fontWeight: {font.weight.regular} · lineHeight: {font.lineHeight.base} · letterSpacing: {font.tracking.normal}` | `font/text/16` | `fontFamily: {font.family.text} · fontSize: {font.size.16} · fontWeight: {font.weight.regular} · lineHeight: {font.lineHeight.base} · letterSpacing: {font.tracking.normal}` | Sprint 4 addition · body default · 16/regular/base. |
