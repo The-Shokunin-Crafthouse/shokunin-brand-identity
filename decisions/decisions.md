@@ -2212,3 +2212,32 @@ Levi: the trailing arrow uses Phosphor's bold weight, not regular. Code: `ArrowR
 - **Pill radius:** 8px (`radius.surface`), up from `radius.control` (3px), on the hover pill. Levi, same day.
 - **Active, revised (Levi, same day):** the solid accent pill is out. Six concepts were boarded (`previews/nav-active/`, dev-only): solid pill, raised key, recessed well, plus-block tail, plus underline, hanging plus; Levi picked the plus-block tail with the label in his accent. The current page now has no container: label Bold in `brand.accentInk` (teal-500 as 13px text is below AA on the card in both modes), and an accent `PlusBullet` (the brand's current-item mark, `size.icon.sm`) at the row end. Hovering the current page shows the normal hover pill. The nav count (`num`, only ever `12` on Button) is removed from code and the library NavLink (Count / Show Count properties).
 - Verified in both modes: hover pill lighter than the card, active label AA, hover roll AA; `tokens:verify` passes.
+
+### 2026-10-07: physical-controls Phase 0 (material layer), graded by tokens:verify
+
+**Status:** Accepted. Levi: continue the sprint with Phase 0, then the rest of Tier 1 and Tier 2 (branch `feat/physical-controls-2`).
+
+- **One light, now a check:** `scripts/verify-light.mjs` runs inside `npm run tokens:verify`. Every shadow token in both modes: offsets on the 135/315 diagonal (x = y), a cast shade toward 135deg, a cast highlight toward 315deg; inset layers on the diagonal (a recess darkens its top-left wall, a convex face may light it, both the same light). Every face gradient in a component stylesheet runs at `135deg`. Zero-alpha layers are inert role tokens and are not graded. Exemptions cite their decision and fail once the token is gone: `shadow.switch.*` and the Switch knob gradients (the Drams repaint, lit from the top), `shadow.control.raised` (held for Studio PM), `shadow.control.inset` (Card's hover inset; Card moves to its own tokens in Tier 2). Tests committed red first (`32f8d2e`); planted bug (shade sign flipped) turned 3 red.
+- **No box-shadow transition:** Button, Card and Input dropped `box-shadow` from their transitions; shadow changes snap, press stays on `transform`. Rule 6 of the same check fails any component that transitions `box-shadow` or `all` (red first, `d9116bc^`; planted bug: 1 red).
+- **Forced colors:** Button key border takes `ButtonBorder`; SegmentedControl track gets a `CanvasText` edge and the indicator a `Highlight` frame; Switch gets a track edge, a solid knob and a `Highlight` on-track. All inside `@media (forced-colors: active)`; normal rendering is unchanged, so the Switch stays final. Verified in headless Chromium with `forcedColors: 'active'`: every control keeps its edge.
+- **Not built:** a shared light-offset token (unchanged reason: each shadow is one composite string that `tokens-to-swift` and the Figma sync do not parse with `calc()`). The check replaces it.
+
+### 2026-10-07: Stepper material and roll tokens for its sc-tune session (shipped flat)
+
+**Status:** Accepted. Tier 1 next after Phase 0. Every value ships equal to today; nothing moves until Levi records and applies a concept.
+
+| Token | Shipped (= today) | Lab start (concept seed) |
+| --- | --- | --- |
+| `color.stepper.track` | surface.sunk | unchanged |
+| `shadow.stepper.track`, `.window` | zero alpha | the top-left recess (SegmentedControl 1645 track) |
+| `color.stepper.key` | transparent | the Button key fill (surface.raised values) |
+| `color.stepper.keyHover` | surface.deepSunk | = key (hover derived from rest, the Button rule) |
+| `color.stepper.keyShade` | transparent | control.keyShade values |
+| `shadow.stepper.key` / `.keyPressed` | zero alpha | shadow.control.key / keyPressed values |
+| `color.stepper.window` | transparent | unchanged |
+| `motion.stepper.travel` | motion.reveal | reel spring (520ms, bounce 0) |
+| `motion.stepper.roll` / `stretch` / `squash` | 0 / 0 / 0 | 1 / 0.45 / 0 |
+
+- **Readout roll** (Claude's structure, Levi's values): on a committed step the new numeral rolls into the readout window from below (increase) or above (decrease) along the travel curve, clipped by the window, scaling with speed (1 = 20%, the Tooltip rule for text). `roll` 1 = one window height, an odometer; the reel has no roll, so that start is Claude's. Verified in the lab: concept A rolls 24.8px over the 1062ms spring; Shipped runs nothing.
+- **Disabled is flat:** a disabled control and a key at its bound lose shadow and face. Today's 0.6 dim on the whole control stays until a record decides it (open question).
+- `tokens:verify`, `tokens:map:check`, `tokens:swift:check`, `test:scripts`, `npm run build` and `build:lib` exit 0.

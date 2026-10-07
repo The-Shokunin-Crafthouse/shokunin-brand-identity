@@ -1,6 +1,6 @@
 # Sprint: physical-controls
 Stage: 03-build
-Status: Gate 1 picked 2026-10-07 (1B, 2C, 3B, 4B, 5A; see decisions.md); Phase 0 next
+Status: Gate 1 picked 2026-10-07 (1B, 2C, 3B, 4B, 5A; see decisions.md); Phase 0 done (feat/physical-controls-2); Stepper in the lab
 ---
 
 One sentence: take SCDS from a flat methodology to a physical one, where everything you touch is an object under one light, and everything you read stays flat.
