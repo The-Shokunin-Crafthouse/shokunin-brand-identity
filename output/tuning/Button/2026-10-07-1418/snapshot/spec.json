@@ -1,0 +1,426 @@
+{
+  "tool": "sc-tune",
+  "version": 3,
+  "component": "Button",
+  "kind": "component",
+  "recorded": "2026-10-07T20:18:30.006Z",
+  "theme": "light",
+  "notes": "Dark mode: the top-left edge of the key disappears. Fix the halo, the edge, or both?",
+  "pick": null,
+  "concepts": [
+    {
+      "id": "A",
+      "notes": "Recommended: halo 9% (matches light-mode visibility, +8 L*) plus a lit top-left edge only. No dark edge: the outer shade already darkens the bottom-right.",
+      "props": {
+        "variant": "primary",
+        "size": "lg",
+        "disabled": false,
+        "loading": false,
+        "arrow": true,
+        "children": "Start a project"
+      },
+      "sound": {
+        "file": null,
+        "volume": 0.7,
+        "rate": 1,
+        "shipped": null,
+        "trigger": "click (audition only; Button ships silent)"
+      },
+      "tokens": [
+        {
+          "name": "--sc-shadow-control-key",
+          "mode": "dark",
+          "category": "shadow",
+          "kind": "shadow",
+          "shipped": null,
+          "tuned": "3px 3px 7px 0 rgb(0 0 0 / 0.50), -3px -3px 4px 1px rgb(255 255 255 / 0.09), inset 1px 1px 0 rgb(255 255 255 / 0.08)",
+          "override": "3px 3px 7px 0 rgb(0 0 0 / 0.50), -3px -3px 4px 1px rgb(255 255 255 / 0.09), inset 1px 1px 0 rgb(255 255 255 / 0.08)"
+        }
+      ],
+      "pins": {}
+    },
+    {
+      "id": "B",
+      "notes": "Brighter halo: white 9%, so the highlight is as visible as in light mode (+8 L*).",
+      "props": {
+        "variant": "primary",
+        "size": "lg",
+        "disabled": false,
+        "loading": false,
+        "arrow": true,
+        "children": "Continue"
+      },
+      "sound": {
+        "file": "drams-029-01.wav",
+        "volume": 0.7,
+        "rate": 1,
+        "shipped": null,
+        "trigger": "click (audition only; Button ships silent)"
+      },
+      "tokens": [
+        {
+          "name": "--sc-font-text-label-button-lg-letter-spacing",
+          "mode": "all",
+          "category": "font",
+          "kind": "text",
+          "shipped": "0.08em",
+          "tuned": "0.02em",
+          "override": "0.02em"
+        },
+        {
+          "name": "--sc-font-text-label-button-lg-size",
+          "mode": "all",
+          "category": "font",
+          "kind": "length",
+          "shipped": "11px",
+          "tuned": "14px",
+          "override": "var(--sc-p-font-size-14)"
+        },
+        {
+          "name": "--sc-font-text-label-button-sm-size",
+          "mode": "all",
+          "category": "font",
+          "kind": "length",
+          "shipped": "11px",
+          "tuned": "12px",
+          "override": "var(--sc-p-font-size-12)"
+        },
+        {
+          "name": "--sc-font-text-label-button-lg-line-height",
+          "mode": "all",
+          "category": "font",
+          "kind": "number",
+          "shipped": "1.5",
+          "tuned": "2",
+          "override": "2"
+        },
+        {
+          "name": "--sc-font-text-label-button-sm-line-height",
+          "mode": "all",
+          "category": "font",
+          "kind": "number",
+          "shipped": "1.5",
+          "tuned": "2",
+          "override": "2"
+        },
+        {
+          "name": "--sc-size-button-icon-lg",
+          "mode": "all",
+          "category": "size",
+          "kind": "length",
+          "shipped": "12px",
+          "tuned": "14px",
+          "override": "var(--sc-p-space-micro-14)"
+        },
+        {
+          "name": "--sc-space-component-padding-block-md",
+          "mode": "all",
+          "category": "space",
+          "kind": "length",
+          "shipped": "8px",
+          "tuned": "8px",
+          "override": "8px"
+        },
+        {
+          "name": "--sc-space-component-padding-block-button-sm",
+          "mode": "all",
+          "category": "space",
+          "kind": "length",
+          "shipped": "4px",
+          "tuned": "4px",
+          "override": "4px"
+        },
+        {
+          "name": "--sc-space-component-padding-inline-lg",
+          "mode": "all",
+          "category": "space",
+          "kind": "length",
+          "shipped": "16px",
+          "tuned": "24px",
+          "override": "24px"
+        },
+        {
+          "name": "--sc-space-component-gap-md",
+          "mode": "all",
+          "category": "space",
+          "kind": "length",
+          "shipped": "8px",
+          "tuned": "8px",
+          "override": "8px"
+        },
+        {
+          "name": "--sc-space-component-padding-block-sm",
+          "mode": "all",
+          "category": "space",
+          "kind": "length",
+          "shipped": "2px",
+          "tuned": "08px",
+          "override": "08px"
+        },
+        {
+          "name": "--sc-space-component-padding-inline-md",
+          "mode": "all",
+          "category": "space",
+          "kind": "length",
+          "shipped": "12px",
+          "tuned": "16px",
+          "override": "16px"
+        },
+        {
+          "name": "--sc-font-text-label-button-sm-letter-spacing",
+          "mode": "all",
+          "category": "font",
+          "kind": "text",
+          "shipped": "0.08em",
+          "tuned": "0.02em",
+          "override": "0.02em"
+        },
+        {
+          "name": "--sc-shadow-control-key",
+          "mode": "light",
+          "category": "shadow",
+          "kind": "shadow",
+          "shipped": "3px 3px 7px 0 rgb(26 24 21 / 0.39), -3px -3px 4px 1px rgb(255 255 255 / 1)",
+          "tuned": "2px 2px 6px 0px rgb(100 91 79 / 0.5), -1px -1px 1px 1px #FDFAF6",
+          "override": "2px 2px 6px 0px rgb(100 91 79 / 0.5), -1px -1px 1px 1px #FDFAF6"
+        },
+        {
+          "name": "--sc-shadow-control-key",
+          "mode": "dark",
+          "category": "shadow",
+          "kind": "shadow",
+          "shipped": null,
+          "tuned": "3px 3px 7px 0px rgb(0 0 0 / 0.50), -1px -1px 1px 1px rgb(219 235 255 / 0.17)",
+          "override": "3px 3px 7px 0px rgb(0 0 0 / 0.50), -1px -1px 1px 1px rgb(219 235 255 / 0.17)"
+        }
+      ],
+      "pins": {}
+    },
+    {
+      "id": "C",
+      "notes": "Levi's idea: dark inset ring around the key, halo unchanged.",
+      "props": {
+        "variant": "primary",
+        "size": "lg",
+        "disabled": false,
+        "loading": false,
+        "arrow": true,
+        "children": "Start a project"
+      },
+      "sound": {
+        "file": null,
+        "volume": 0.7,
+        "rate": 1,
+        "shipped": null,
+        "trigger": "click (audition only; Button ships silent)"
+      },
+      "tokens": [
+        {
+          "name": "--sc-shadow-control-key",
+          "mode": "dark",
+          "category": "shadow",
+          "kind": "shadow",
+          "shipped": null,
+          "tuned": "3px 3px 7px 0 rgb(0 0 0 / 0.50), -3px -3px 4px 1px rgb(255 255 255 / 0.06), inset 0 0 0 1px rgb(0 0 0 / 0.30)",
+          "override": "3px 3px 7px 0 rgb(0 0 0 / 0.50), -3px -3px 4px 1px rgb(255 255 255 / 0.06), inset 0 0 0 1px rgb(0 0 0 / 0.30)"
+        }
+      ],
+      "pins": {}
+    },
+    {
+      "id": "D",
+      "notes": "Lit edge: bright inner edge top-left, dark inner edge bottom-right (the Switch rim idea), halo unchanged.",
+      "props": {
+        "variant": "primary",
+        "size": "lg",
+        "disabled": false,
+        "loading": false,
+        "arrow": true,
+        "children": "Start a project"
+      },
+      "sound": {
+        "file": null,
+        "volume": 0.7,
+        "rate": 1,
+        "shipped": null,
+        "trigger": "click (audition only; Button ships silent)"
+      },
+      "tokens": [
+        {
+          "name": "--sc-shadow-control-key",
+          "mode": "dark",
+          "category": "shadow",
+          "kind": "shadow",
+          "shipped": null,
+          "tuned": "3px 3px 7px 0 rgb(0 0 0 / 0.50), -3px -3px 4px 1px rgb(255 255 255 / 0.06), inset 1px 1px 0 rgb(255 255 255 / 0.08), inset -1px -1px 0 rgb(0 0 0 / 0.25)",
+          "override": "3px 3px 7px 0 rgb(0 0 0 / 0.50), -3px -3px 4px 1px rgb(255 255 255 / 0.06), inset 1px 1px 0 rgb(255 255 255 / 0.08), inset -1px -1px 0 rgb(0 0 0 / 0.25)"
+        }
+      ],
+      "pins": {}
+    }
+  ],
+  "derived": {},
+  "tokenCount": 50,
+  "state": {
+    "component": "Button",
+    "notes": "Dark mode: the top-left edge of the key disappears. Fix the halo, the edge, or both?",
+    "active": "B",
+    "concepts": [
+      {
+        "id": "A",
+        "overrides": {
+          "all": {},
+          "light": {},
+          "dark": {
+            "--sc-shadow-control-key": "3px 3px 7px 0 rgb(0 0 0 / 0.50), -3px -3px 4px 1px rgb(255 255 255 / 0.09), inset 1px 1px 0 rgb(255 255 255 / 0.08)"
+          }
+        },
+        "shadowAdj": {
+          "all": {},
+          "light": {},
+          "dark": {}
+        },
+        "springs": {},
+        "pins": {},
+        "notes": "Recommended: halo 9% (matches light-mode visibility, +8 L*) plus a lit top-left edge only. No dark edge: the outer shade already darkens the bottom-right.",
+        "props": {
+          "variant": "primary",
+          "size": "lg",
+          "disabled": false,
+          "loading": false,
+          "arrow": true,
+          "children": "Start a project"
+        },
+        "sound": {
+          "file": null,
+          "volume": 0.7,
+          "rate": 1
+        }
+      },
+      {
+        "id": "B",
+        "overrides": {
+          "all": {
+            "--sc-font-text-label-button-lg-letter-spacing": "0.02em",
+            "--sc-font-text-label-button-lg-size": "var(--sc-p-font-size-14)",
+            "--sc-font-text-label-button-sm-size": "var(--sc-p-font-size-12)",
+            "--sc-font-text-label-button-lg-line-height": "2",
+            "--sc-font-text-label-button-sm-line-height": "2",
+            "--sc-size-button-icon-lg": "var(--sc-p-space-micro-14)",
+            "--sc-space-component-padding-block-md": "8px",
+            "--sc-space-component-padding-block-button-sm": "4px",
+            "--sc-space-component-padding-inline-lg": "24px",
+            "--sc-space-component-gap-md": "8px",
+            "--sc-space-component-padding-block-sm": "08px",
+            "--sc-space-component-padding-inline-md": "16px",
+            "--sc-font-text-label-button-sm-letter-spacing": "0.02em"
+          },
+          "light": {
+            "--sc-shadow-control-key": "2px 2px 6px 0px rgb(100 91 79 / 0.5), -1px -1px 1px 1px #FDFAF6"
+          },
+          "dark": {
+            "--sc-shadow-control-key": "3px 3px 7px 0px rgb(0 0 0 / 0.50), -1px -1px 1px 1px rgb(219 235 255 / 0.17)"
+          }
+        },
+        "shadowAdj": {
+          "all": {},
+          "light": {},
+          "dark": {}
+        },
+        "springs": {},
+        "pins": {},
+        "notes": "Brighter halo: white 9%, so the highlight is as visible as in light mode (+8 L*).",
+        "props": {
+          "variant": "primary",
+          "size": "lg",
+          "disabled": false,
+          "loading": false,
+          "arrow": true,
+          "children": "Continue"
+        },
+        "sound": {
+          "file": "drams-029-01.wav",
+          "volume": 0.7,
+          "rate": 1
+        }
+      },
+      {
+        "id": "C",
+        "overrides": {
+          "all": {},
+          "light": {},
+          "dark": {
+            "--sc-shadow-control-key": "3px 3px 7px 0 rgb(0 0 0 / 0.50), -3px -3px 4px 1px rgb(255 255 255 / 0.06), inset 0 0 0 1px rgb(0 0 0 / 0.30)"
+          }
+        },
+        "shadowAdj": {
+          "all": {},
+          "light": {},
+          "dark": {}
+        },
+        "springs": {},
+        "pins": {},
+        "notes": "Levi's idea: dark inset ring around the key, halo unchanged.",
+        "props": {
+          "variant": "primary",
+          "size": "lg",
+          "disabled": false,
+          "loading": false,
+          "arrow": true,
+          "children": "Start a project"
+        },
+        "sound": {
+          "file": null,
+          "volume": 0.7,
+          "rate": 1
+        }
+      },
+      {
+        "id": "D",
+        "overrides": {
+          "all": {},
+          "light": {},
+          "dark": {
+            "--sc-shadow-control-key": "3px 3px 7px 0 rgb(0 0 0 / 0.50), -3px -3px 4px 1px rgb(255 255 255 / 0.06), inset 1px 1px 0 rgb(255 255 255 / 0.08), inset -1px -1px 0 rgb(0 0 0 / 0.25)"
+          }
+        },
+        "shadowAdj": {
+          "all": {},
+          "light": {},
+          "dark": {}
+        },
+        "springs": {},
+        "pins": {},
+        "notes": "Lit edge: bright inner edge top-left, dark inner edge bottom-right (the Switch rim idea), halo unchanged.",
+        "props": {
+          "variant": "primary",
+          "size": "lg",
+          "disabled": false,
+          "loading": false,
+          "arrow": true,
+          "children": "Start a project"
+        },
+        "sound": {
+          "file": null,
+          "volume": 0.7,
+          "rate": 1
+        }
+      }
+    ],
+    "pick": {
+      "id": null,
+      "reason": ""
+    },
+    "view": {
+      "theme": "light",
+      "zoom": 1,
+      "ground": "--sc-color-surface-page",
+      "compare": true,
+      "blind": false,
+      "order": null,
+      "slow": 1,
+      "force": "rest"
+    },
+    "updated": "2026-10-07T20:17:48.790Z"
+  }
+}
