@@ -147,8 +147,8 @@ export const REGISTRY = {
   },
   Button: {
     css: [buttonCss],
-    shippedSound: null,
-    trigger: 'click (audition only; Button ships silent)',
+    shippedSound: 'drams-029-01.wav',
+    trigger: 'every click',
     props: [
       { name: 'variant', type: 'enum', options: ['primary', 'secondary', 'tertiary', 'destructive'], default: 'primary' },
       { name: 'size', type: 'enum', options: ['lg', 'sm'], default: 'lg' },
@@ -159,7 +159,7 @@ export const REGISTRY = {
     ],
     play: null,
     render: (p, set, sound) => (
-      <Button variant={p.variant} size={p.size} disabled={p.disabled} loading={p.loading} arrow={p.arrow} onClick={() => sound()}>
+      <Button variant={p.variant} size={p.size} disabled={p.disabled} loading={p.loading} arrow={p.arrow} sound={false} onClick={() => sound()}>
         {p.children}
       </Button>
     ),

@@ -8,12 +8,12 @@ Pill-radius control with a trailing arrow (Phosphor `ArrowRight`, scds-v2 defaul
 
 | Token | Use |
 |---|---|
-| `--sc-space-component-padding-inline-lg` | inline padding |
+| `--sc-space-component-padding-inline-button-lg` / `-sm` | inline padding: 24 large, 16 small (Button roles, apart from the shared scale) |
 | `--sc-space-component-padding-block-md` | block padding |
 | `--sc-space-component-gap-md` | label ↔ arrow gap |
 | `--sc-radius-pill` | pill corner |
 | `--sc-border-width-default` | border weight |
-| `--sc-font-text-label-button-lg-*` | Large label (11/500), no uppercase; its own role, same values as `label-chrome` |
+| `--sc-font-text-label-button-lg-*` / `-sm-*` | Labels: 14 large, 12 small; medium, loose 2.0 leading, slight 0.02em tracking, no uppercase. The leading sets the height: 46px large, 34px small, with the 1px border |
 | `--sc-color-border-focus` + `--sc-border-focus-offset` | styled focus ring |
 | `--sc-motion-hover-duration` + `-easing` | bg/border/color/shadow transition |
 | `--sc-motion-press-duration` + `-easing` + `-scale` (0.985) | press-in feedback (fast phase) |
@@ -58,13 +58,15 @@ Primary is the Drams OP-1 Keys key (drams/036), horizontal, on the page surface;
 
 `--sc-color-control-key-shade` — `linear-gradient(135deg, transparent, key-shade)` laid over the fill: the Drams #EEE → #E3E3E3 face is ink at 5% over the base, so one value serves neutral, teal and error.
 
-`--sc-shadow-control-key` — Drams verbatim: `3px 3px 7px` shade down-right, `-3px -3px 4px 1px` white highlight up-left. Lit from the top left.
+`--sc-shadow-control-key` — tuned by Levi (sc-tune record `output/tuning/Button/2026-10-07-1418`): a warm `2px 2px 6px` shade down-right (warm gray at 50%) and a tight `-1px -1px 1px 1px` lit rim up-left (warm white in light, cool white at 17% in dark). Lit from the top left. `--sc-shadow-control-key-hover` equals it, so hover changes colour only.
 
-`--sc-shadow-control-key-pressed` — the Drams pressed variant: the shade and highlight soften and an inner light (`inset 1px 1px 8px`) appears, while the press-spring scales the key.
+`--sc-shadow-control-key-pressed` — the rest geometry with the shade and rim softened by the Drams pressed ratios, plus an inner light (`inset 1px 1px 8px`), while the press-spring scales the key.
 
 Disabled drops the face shade and the shadows: flat reads as unavailable.
 
-Arrow and loading mark: 12px at both sizes, per the library spec, from per-size role tokens (`--sc-size-button-icon-lg`, `--sc-size-button-icon-sm`) so the Button icon tunes apart from `size.icon.xs`. Loading shows the studio's `WorkingMark` in place of the arrow.
+Arrow and loading mark: the label's size, 14px large and 12px small, from per-size role tokens (`--sc-size-button-icon-lg`, `--sc-size-button-icon-sm`). Label-to-arrow gap is 8px (`gap-md`) at both sizes.
+
+Sound: every click plays the `press` role sound (Drams 029). `sound={false}` opts one instance out. Loading shows the studio's `WorkingMark` in place of the arrow.
 
 Retired from Button: `--sc-shadow-control-raised` and `--sc-shadow-control-bevel` (neumorphic). The tokens stay published until no consumer reads them.
 

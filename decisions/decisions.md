@@ -1930,3 +1930,34 @@ Levi: the trailing arrow uses Phosphor's bold weight, not regular. Code: `ArrowR
 - **Guard:** `tokens:verify` gains a label-on-fill AA check, `keyHoverInk` on `keyHoverFill` per mode, so a dark-only tune that drops the label under 4.5:1 fails the build. Planted-bug run: dark ink set to teal.500 failed at 1.31:1; restored, green.
 - **Lab:** a `state` view control (rest, hover, focus, active) mirrors every `:hover`, `:focus-visible` and `:active` rule onto a stage attribute, so the forced state shows on all stages, Shipped included. `*-hover` tokens with a rest sibling get "copy rest", which starts hover from the concept's tuned rest value (the hover shadow otherwise starts at the shipped key, not Levi's tuned rest).
 - **Figma library:** variables `color/control/keyHoverFill` (`491:10`), `keyHoverInk` (`491:11`); effect styles `shadow/control/keyHover` and `shadow/control/dark/keyHover`; bound on both Primary Hover variants (fill, label, arrow, effect).
+
+### 2026-10-07: Button tuned in sc-tune and applied, with cascade (record Button 2026-10-07-1418)
+
+**Status:** Accepted. Levi recorded his Button settings and asked to apply them, cascading to related settings where it makes sense. Record: `output/tuning/Button/2026-10-07-1418/`. Concept B carries every edit he made (A, C and D were Claude's earlier dark-halo experiments), so B is the build.
+
+| Setting | Shipped | Applied | How |
+| --- | --- | --- | --- |
+| Large label | 11/medium/1.5/0.08em | 14/medium/2.0/0.02em | `font.text.label.buttonLg` → new `font.text.button.14` |
+| Small label | 11/medium/1.5/0.08em | 12/medium/2.0/0.02em | `font.text.label.buttonSm` → new `font.text.button.12` |
+| Tracking | (none at 0.02em) | new primitive `font.tracking.slight` 0.02em | matches the library's 2% label tracking |
+| Large arrow | 12px | 14px (`space.micro.14`) | `size.button.icon.lg` |
+| Large inline padding | 16px (shared `padding-inline.lg`) | 24px | new `space.component.padding-inline.button-lg` |
+| Small inline padding | 12px (shared `padding-inline.md`) | 16px | new `space.component.padding-inline.button-sm` |
+| Small arrow gap | 2px (shared `padding-block.sm`) | 8px | `.sm` now inherits `gap-md`, same as large |
+| `shadow.control.key` light | `3 3 7 0 ink/.39, -3 -3 4 1 white` | `2 2 6 0 #645B4F/.50, -1 -1 1 1 #FDFAF6` | |
+| `shadow.control.key` dark | `3 3 7 0 black/.50, -3 -3 4 1 white/.06` | `3 3 7 0 black/.50, -1 -1 1 1 #DBEBFF/.17` | |
+| Sound | silent | `press` role, Drams 029, every click | supersedes the 2026-10-07 "Button left silent" line |
+
+- **Shared tokens kept:** Levi's edits landed on shared spacing tokens in the lab (`padding-inline.lg/md`, `padding-block.sm`), which also feed NavBar, Input, Tooltip, SegmentedControl, Badge and the docs site. Changing them would have moved every one of those, so the Button got role tokens with his values and the global spacing scale is unchanged.
+- **Cascade:**
+  - `shadow.control.keyHover` follows the new key in both modes, so hover changes colour only and does not jump.
+  - `shadow.control.keyPressed` keeps the new rest geometry and softens it by the original Drams pressed ratios: light shade .37, rim .90; dark shade .38, rim .14; inner light unchanged.
+  - The small arrow stays 12px, matching its 12px label, the same rule as large (arrow = label size).
+  - Secondary, tertiary and destructive inherit the label, padding and sound. Destructive also inherits the shadows.
+- **Heights:** 46px large and 34px small in code (2.0 leading + padding + 1px border). Figma reads 44/32 because a stroke adds no auto-layout height (a pre-existing 2px gap).
+- **Off-ladder colours, kept exact:** the warm shade #645B4F and rims #FDFAF6 / #DBEBFF are literal `rgb()` values inside the shadow tokens, the same form as the dark `rgb(0 0 0 / a)` shades. Levi's call whether they become primitives.
+- **Figma library:**
+  - Variables: `font/tracking/slight` (`493:2`), `space/component/padding-inline/button-lg` (`493:3`) and `/button-sm` (`493:4`). `size/button/icon/lg` now aliases `space/micro/14`.
+  - Text styles: `text/label/button-lg` / `-sm` are 14/12, 200% leading, 2% tracking.
+  - Variants: all 30 bind inline padding to the new roles, and Small binds its gap to `gap/md`.
+  - Effect styles: `key`, `keyHover`, `keyPressed` and the `dark/*` set are updated.

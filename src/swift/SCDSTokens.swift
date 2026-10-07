@@ -151,9 +151,9 @@ public enum SCDS {
     public static let primitivesVersion = "0.1.0"
     public static let semanticVersion = "0.1.0"
     public static let sourceGenerated = "2026-05-26"
-    public static let primitivesHash = "3db68ed9b8cfd8c2"
-    public static let semanticHash = "9064e9efbd97fa3a"
-    public static let tokenCount = 156
+    public static let primitivesHash = "aa28930704213cf1"
+    public static let semanticHash = "e68068f175041f51"
+    public static let tokenCount = 158
   }
 
   // MARK: - Color
@@ -525,24 +525,24 @@ public enum SCDS {
         trackingEm: 0
     )
 
-    /// `font.text.label.buttonSm` · Neue Haas Grotesk Text Pro 11/1.5
+    /// `font.text.label.buttonSm` · Neue Haas Grotesk Text Pro 12/2
     public static let textLabelButtonSm = SCDSTypeStyle(
         family: "Neue Haas Grotesk Text Pro",
         fallbacks: ["Helvetica Neue", "Inter", "system-ui", "sans-serif"],
-        size: 11,
+        size: 12,
         weight: .medium,
-        lineHeightMultiple: 1.5,
-        trackingEm: 0.08
+        lineHeightMultiple: 2,
+        trackingEm: 0.02
     )
 
-    /// `font.text.label.buttonLg` · Neue Haas Grotesk Text Pro 11/1.5
+    /// `font.text.label.buttonLg` · Neue Haas Grotesk Text Pro 14/2
     public static let textLabelButtonLg = SCDSTypeStyle(
         family: "Neue Haas Grotesk Text Pro",
         fallbacks: ["Helvetica Neue", "Inter", "system-ui", "sans-serif"],
-        size: 11,
+        size: 14,
         weight: .medium,
-        lineHeightMultiple: 1.5,
-        trackingEm: 0.08
+        lineHeightMultiple: 2,
+        trackingEm: 0.02
     )
 
     /// `font.text.label.tab` · Neue Haas Grotesk Text Pro 13/1.5
@@ -804,6 +804,12 @@ public enum SCDS {
     /// `space.component.padding-inline.lg`
     public static let componentPaddingInlineLg: CGFloat = 16
 
+    /// `space.component.padding-inline.button-lg`
+    public static let componentPaddingInlineButtonLg: CGFloat = 24
+
+    /// `space.component.padding-inline.button-sm`
+    public static let componentPaddingInlineButtonSm: CGFloat = 16
+
     /// `space.component.padding-block.sm`
     public static let componentPaddingBlockSm: CGFloat = 2
 
@@ -919,7 +925,7 @@ public enum SCDS {
     public static let progressHitSlop: CGFloat = 22
 
     /// `size.button.icon.lg`
-    public static let buttonIconLg: CGFloat = 12
+    public static let buttonIconLg: CGFloat = 14
 
     /// `size.button.icon.sm`
     public static let buttonIconSm: CGFloat = 12
@@ -1034,37 +1040,37 @@ public enum SCDS {
     /// `shadow.control.key` · 2 layers
     public static let controlKey = SCDSShadow(
         light: [
-            SCDSShadowLayer(inset: false, x: 3, y: 3, blur: 7, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0.39),
-            SCDSShadowLayer(inset: false, x: -3, y: -3, blur: 4, spread: 1, rgb: (1, 1, 1), alpha: 1),
+            SCDSShadowLayer(inset: false, x: 2, y: 2, blur: 6, spread: 0, rgb: (0.392157, 0.356863, 0.309804), alpha: 0.5),
+            SCDSShadowLayer(inset: false, x: -1, y: -1, blur: 1, spread: 1, rgb: (0.992157, 0.980392, 0.964706), alpha: 1),
         ],
         dark: [
             SCDSShadowLayer(inset: false, x: 3, y: 3, blur: 7, spread: 0, rgb: (0, 0, 0), alpha: 0.5),
-            SCDSShadowLayer(inset: false, x: -3, y: -3, blur: 4, spread: 1, rgb: (1, 1, 1), alpha: 0.06),
+            SCDSShadowLayer(inset: false, x: -1, y: -1, blur: 1, spread: 1, rgb: (0.858824, 0.921569, 1), alpha: 0.17),
         ]
     )
 
     /// `shadow.control.keyHover` · 2 layers
     public static let controlKeyHover = SCDSShadow(
         light: [
-            SCDSShadowLayer(inset: false, x: 3, y: 3, blur: 7, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0.39),
-            SCDSShadowLayer(inset: false, x: -3, y: -3, blur: 4, spread: 1, rgb: (1, 1, 1), alpha: 1),
+            SCDSShadowLayer(inset: false, x: 2, y: 2, blur: 6, spread: 0, rgb: (0.392157, 0.356863, 0.309804), alpha: 0.5),
+            SCDSShadowLayer(inset: false, x: -1, y: -1, blur: 1, spread: 1, rgb: (0.992157, 0.980392, 0.964706), alpha: 1),
         ],
         dark: [
             SCDSShadowLayer(inset: false, x: 3, y: 3, blur: 7, spread: 0, rgb: (0, 0, 0), alpha: 0.5),
-            SCDSShadowLayer(inset: false, x: -3, y: -3, blur: 4, spread: 1, rgb: (1, 1, 1), alpha: 0.06),
+            SCDSShadowLayer(inset: false, x: -1, y: -1, blur: 1, spread: 1, rgb: (0.858824, 0.921569, 1), alpha: 0.17),
         ]
     )
 
     /// `shadow.control.keyPressed` · 3 layers
     public static let controlKeyPressed = SCDSShadow(
         light: [
-            SCDSShadowLayer(inset: false, x: 3, y: 3, blur: 7, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0.29),
-            SCDSShadowLayer(inset: false, x: -3, y: -3, blur: 4, spread: 1, rgb: (1, 1, 1), alpha: 0.9),
+            SCDSShadowLayer(inset: false, x: 2, y: 2, blur: 6, spread: 0, rgb: (0.392157, 0.356863, 0.309804), alpha: 0.37),
+            SCDSShadowLayer(inset: false, x: -1, y: -1, blur: 1, spread: 1, rgb: (0.992157, 0.980392, 0.964706), alpha: 0.9),
             SCDSShadowLayer(inset: true, x: 1, y: 1, blur: 8, spread: 0, rgb: (1, 1, 1), alpha: 0.3),
         ],
         dark: [
             SCDSShadowLayer(inset: false, x: 3, y: 3, blur: 7, spread: 0, rgb: (0, 0, 0), alpha: 0.38),
-            SCDSShadowLayer(inset: false, x: -3, y: -3, blur: 4, spread: 1, rgb: (1, 1, 1), alpha: 0.05),
+            SCDSShadowLayer(inset: false, x: -1, y: -1, blur: 1, spread: 1, rgb: (0.858824, 0.921569, 1), alpha: 0.14),
             SCDSShadowLayer(inset: true, x: 1, y: 1, blur: 8, spread: 0, rgb: (1, 1, 1), alpha: 0.06),
         ]
     )

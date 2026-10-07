@@ -710,29 +710,29 @@
       },
       "key": {
         "$type": "shadow",
-        "$description": "2026-10-07 · Button primary = Drams OP-1 Keys (drams/036), horizontal, on the page surface (Levi). Resting key: a soft shade cast down-right and a white highlight up-left, lit from the top left. Drams values verbatim (ink for black). Dark keeps the geometry with a black shade and a faint highlight.",
-        "$value": "3px 3px 7px 0 rgb(var(--sc-p-color-ink-rgb) / 0.39), -3px -3px 4px 1px rgb(var(--sc-p-color-white-rgb) / 1)",
+        "$description": "2026-10-07 · Button primary = Drams OP-1 Keys (drams/036), horizontal, on the page surface (Levi). Resting key, lit from the top left: a soft warm shade cast down-right (warm gray #645B4F at 50%, not ink, so it reads as shadow on oatmeal) and a tight 1px lit rim up-left (warm white #FDFAF6 in light, cool white #DBEBFF at 17% in dark). Tuned by Levi, sc-tune record output/tuning/Button/2026-10-07-1418.",
+        "$value": "2px 2px 6px 0 rgb(100 91 79 / 0.50), -1px -1px 1px 1px rgb(253 250 246 / 1)",
         "$extensions": { "modes": {
-          "light": "3px 3px 7px 0 rgb(var(--sc-p-color-ink-rgb) / 0.39), -3px -3px 4px 1px rgb(var(--sc-p-color-white-rgb) / 1)",
-          "dark":  "3px 3px 7px 0 rgb(0 0 0 / 0.50), -3px -3px 4px 1px rgb(var(--sc-p-color-white-rgb) / 0.06)"
+          "light": "2px 2px 6px 0 rgb(100 91 79 / 0.50), -1px -1px 1px 1px rgb(253 250 246 / 1)",
+          "dark":  "3px 3px 7px 0 rgb(0 0 0 / 0.50), -1px -1px 1px 1px rgb(219 235 255 / 0.17)"
         } }
       },
       "keyHover": {
         "$type": "shadow",
-        "$description": "2026-10-07 · Button primary key on hover. Starts equal to control.key in both modes; its own token so hover can lift or glow apart from rest.",
-        "$value": "3px 3px 7px 0 rgb(var(--sc-p-color-ink-rgb) / 0.39), -3px -3px 4px 1px rgb(var(--sc-p-color-white-rgb) / 1)",
+        "$description": "2026-10-07 · Button primary key on hover. Equal to control.key in both modes (cascaded from the sc-tune record Button 2026-10-07-1418 so hover never jumps); its own token so hover can lift or glow apart from rest.",
+        "$value": "2px 2px 6px 0 rgb(100 91 79 / 0.50), -1px -1px 1px 1px rgb(253 250 246 / 1)",
         "$extensions": { "modes": {
-          "light": "3px 3px 7px 0 rgb(var(--sc-p-color-ink-rgb) / 0.39), -3px -3px 4px 1px rgb(var(--sc-p-color-white-rgb) / 1)",
-          "dark":  "3px 3px 7px 0 rgb(0 0 0 / 0.50), -3px -3px 4px 1px rgb(var(--sc-p-color-white-rgb) / 0.06)"
+          "light": "2px 2px 6px 0 rgb(100 91 79 / 0.50), -1px -1px 1px 1px rgb(253 250 246 / 1)",
+          "dark":  "3px 3px 7px 0 rgb(0 0 0 / 0.50), -1px -1px 1px 1px rgb(219 235 255 / 0.17)"
         } }
       },
       "keyPressed": {
         "$type": "shadow",
-        "$description": "2026-10-07 · Button primary = Drams OP-1 Keys (drams/036), horizontal, on the page surface (Levi). Pressed key: the shade and highlight soften and a soft inner light appears (Drams pressed variant), so the key reads as pushed in.",
-        "$value": "3px 3px 7px 0 rgb(var(--sc-p-color-ink-rgb) / 0.29), -3px -3px 4px 1px rgb(var(--sc-p-color-white-rgb) / 0.90), inset 1px 1px 8px 0 rgb(var(--sc-p-color-white-rgb) / 0.30)",
+        "$description": "2026-10-07 · Button primary = Drams OP-1 Keys (drams/036), horizontal, on the page surface (Levi). Pressed key: control.key's geometry with the shade and rim softened by the original Drams ratios (shade x0.74, rim x0.83 to x0.90) and a soft inner light, so the key reads as pushed in. Cascaded from the sc-tune record Button 2026-10-07-1418.",
+        "$value": "2px 2px 6px 0 rgb(100 91 79 / 0.37), -1px -1px 1px 1px rgb(253 250 246 / 0.90), inset 1px 1px 8px 0 rgb(var(--sc-p-color-white-rgb) / 0.30)",
         "$extensions": { "modes": {
-          "light": "3px 3px 7px 0 rgb(var(--sc-p-color-ink-rgb) / 0.29), -3px -3px 4px 1px rgb(var(--sc-p-color-white-rgb) / 0.90), inset 1px 1px 8px 0 rgb(var(--sc-p-color-white-rgb) / 0.30)",
-          "dark":  "3px 3px 7px 0 rgb(0 0 0 / 0.38), -3px -3px 4px 1px rgb(var(--sc-p-color-white-rgb) / 0.05), inset 1px 1px 8px 0 rgb(var(--sc-p-color-white-rgb) / 0.06)"
+          "light": "2px 2px 6px 0 rgb(100 91 79 / 0.37), -1px -1px 1px 1px rgb(253 250 246 / 0.90), inset 1px 1px 8px 0 rgb(var(--sc-p-color-white-rgb) / 0.30)",
+          "dark":  "3px 3px 7px 0 rgb(0 0 0 / 0.38), -1px -1px 1px 1px rgb(219 235 255 / 0.14), inset 1px 1px 8px 0 rgb(var(--sc-p-color-white-rgb) / 0.06)"
         } }
       }
     },
@@ -908,15 +908,15 @@
         },
         "buttonSm": {
           "$type": "typography",
-          "$value": "{font.text.11}",
-          "$description": "Small Button label: 11/medium/widest, the chrome label (Figma text/label/button-sm). 2026-10-05 (ADR scds-button-size-small; 12 to 11 amended 2026-10-06).",
-          "$extensions": { "modes": { "light": "{font.text.11}", "dark": "{font.text.11}" } }
+          "$value": "{font.text.button.12}",
+          "$description": "Small Button label: 12/medium/loose/slight (Figma text/label/button-sm). 2026-10-05 (ADR scds-button-size-small); 12/loose/slight from sc-tune record Button 2026-10-07-1418.",
+          "$extensions": { "modes": { "light": "{font.text.button.12}", "dark": "{font.text.button.12}" } }
         },
         "buttonLg": {
           "$type": "typography",
-          "$value": "{font.text.11}",
-          "$description": "Large Button label: 11/medium/widest, same values as the chrome label but its own role, so tuning the Button never moves NavBar, Avatar or eyebrow labels (Figma text/label/button-lg). 2026-10-07.",
-          "$extensions": { "modes": { "light": "{font.text.11}", "dark": "{font.text.11}" } }
+          "$value": "{font.text.button.14}",
+          "$description": "Large Button label: 14/medium/loose/slight, its own role apart from the chrome label (Figma text/label/button-lg). 2026-10-07, sc-tune record Button 2026-10-07-1418.",
+          "$extensions": { "modes": { "light": "{font.text.button.14}", "dark": "{font.text.button.14}" } }
         },
         "tab": {
           "$type": "typography",
@@ -1173,9 +1173,9 @@
       "icon": {
         "lg": {
           "$type": "dimension",
-          "$value": "{space.12}",
-          "$description": "Large Button arrow and loading mark (12px). Its own role, so the Button icon tunes apart from size.icon.xs (Figma size/button/icon/lg). 2026-10-07.",
-          "$extensions": { "modes": { "light": "{space.12}", "dark": "{space.12}" } }
+          "$value": "{space.micro.14}",
+          "$description": "Large Button arrow and loading mark (14px), matching the 14px label; small stays 12 to match its 12px label (Figma size/button/icon/lg). 2026-10-07, sc-tune record Button 2026-10-07-1418.",
+          "$extensions": { "modes": { "light": "{space.micro.14}", "dark": "{space.micro.14}" } }
         },
         "sm": {
           "$type": "dimension",
@@ -1246,6 +1246,18 @@
           "$type": "dimension",
           "$value": "{space.16}",
           "$description": "Sprint 4 addition · generous inline padding (16px). Card, Alert.",
+          "$extensions": { "modes": { "light": "{space.16}", "dark": "{space.16}" } }
+        },
+        "button-lg": {
+          "$type": "dimension",
+          "$value": "{space.24}",
+          "$description": "Large Button inline padding (24px). Its own role so the shared padding-inline scale (NavBar, Input, Tooltip, SegmentedControl) stays put. sc-tune record Button 2026-10-07-1418.",
+          "$extensions": { "modes": { "light": "{space.24}", "dark": "{space.24}" } }
+        },
+        "button-sm": {
+          "$type": "dimension",
+          "$value": "{space.16}",
+          "$description": "Small Button inline padding (16px). Its own role, apart from the shared padding-inline scale. sc-tune record Button 2026-10-07-1418.",
           "$extensions": { "modes": { "light": "{space.16}", "dark": "{space.16}" } }
         }
       },

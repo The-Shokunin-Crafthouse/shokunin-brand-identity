@@ -1,21 +1,20 @@
 /* tokens:
- *   --sc-space-component-padding-inline-lg  · inline
+ *   --sc-space-component-padding-inline-button-lg · inline (24)
  *   --sc-space-component-padding-block-md   · block
- *   --sc-space-component-gap-md             · label ↔ arrow gap
+ *   --sc-space-component-gap-md             · label ↔ arrow gap (8, both sizes)
  *   --sc-radius-pill                        · pill corner
  *   --sc-border-width-default               · border
  *   --sc-color-border-focus / -focus-offset · focus ring
- *   --sc-font-text-label-button-lg-*        · 11/medium label (lg)
- *   --sc-font-text-label-button-sm-*        · 11/medium label (sm)
- *   --sc-space-component-padding-inline-md  · sm inline (12)
+ *   --sc-font-text-label-button-lg-*        · 14/medium/loose/slight label (lg)
+ *   --sc-font-text-label-button-sm-*        · 12/medium/loose/slight label (sm)
+ *   --sc-space-component-padding-inline-button-sm · sm inline (16)
  *   --sc-space-component-padding-block-button-sm  · sm block (4)
- *   --sc-space-component-padding-block-sm   · sm label ↔ arrow gap (2)
  *   --sc-color-border-strong                · secondary outline
  *   --sc-color-surface-raised               · primary resting fill (neutral)
  *   --sc-color-control-key-shade            · 135° face shade over any fill (Drams OP-1 Keys)
  *   --sc-shadow-control-key                 · resting key: shade down-right, highlight up-left
  *   --sc-shadow-control-key-pressed         · pressed key: softer, with an inner light
- *   --sc-size-button-icon-lg / -sm          · arrow and working mark per size (12, both today)
+ *   --sc-size-button-icon-lg / -sm          · arrow and working mark: 14 lg, 12 sm (matches label)
  *   --sc-color-control-key-hover-fill / -ink · primary hover face and label (teal.600 / white)
  *   --sc-shadow-control-key-hover           · primary hover shadow (= key until tuned)
  *   --sc-color-brand-accent-deep            · primary press + tertiary resting text (teal.700, AA)
@@ -35,7 +34,7 @@
   align-items: center;
   justify-content: center;
   gap: var(--sc-space-component-gap-md);
-  padding-inline: var(--sc-space-component-padding-inline-lg);
+  padding-inline: var(--sc-space-component-padding-inline-button-lg);
   padding-block: var(--sc-space-component-padding-block-md);
   border-radius: var(--sc-radius-pill);
   border-width: var(--sc-border-width-default);
@@ -79,9 +78,8 @@
   letter-spacing: var(--sc-font-text-label-button-lg-letter-spacing);
 }
 
-/* Trailing arrow — per-size role token, 12px at both sizes today
-   (library spec, 2026-10-06); it was 1.4em (15.4px), too heavy against
-   the 11px label. Inherits colour. */
+/* Trailing arrow — per-size role token, the label's size: 14px large,
+   12px small (sc-tune 2026-10-07). Inherits colour. */
 .arrow {
   flex: none;
   width: var(--sc-btn-icon);
@@ -89,13 +87,14 @@
 }
 
 /* --- Size · sm (ADR scds-button-size-small) ------------------------
-   11/medium label, 12 × 4 padding, 2px gap, 12px icon (amended
-   2026-10-06 to the library's revised spec). The variants below set
-   only colour, so every variant and state carries over unchanged. */
+   12/medium/loose label, 16 × 4 padding, 8px gap (shared with lg),
+   12px icon: 34px tall with the 1px border. Large is 14/loose, 24 × 8,
+   14px icon: 46px.
+   sc-tune record Button 2026-10-07-1418. The variants below set only
+   colour, so every variant and state carries over unchanged. */
 .sm {
   --sc-btn-icon: var(--sc-size-button-icon-sm);
-  gap: var(--sc-space-component-padding-block-sm);
-  padding-inline: var(--sc-space-component-padding-inline-md);
+  padding-inline: var(--sc-space-component-padding-inline-button-sm);
   padding-block: var(--sc-space-component-padding-block-button-sm);
 }
 .sm .label {

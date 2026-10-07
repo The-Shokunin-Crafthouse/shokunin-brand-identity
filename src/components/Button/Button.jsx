@@ -14,20 +14,27 @@
  * `loading` are independent of variant; loading suppresses the click
  * handler and renders the studio's WorkingMark in place of the arrow.
  *
- * `size` is `lg` (default: 11/medium label, 16 × 8 padding, 12px icon) or
- * `sm` (11/medium label, 12 × 4 padding, 2px gap, 12px icon). Every variant and state
- * exists at both sizes (ADR scds-button-size-small, 2026-10-05, amended 2026-10-06).
+ * `size` is `lg` (default: 14/medium label, 24 × 8 padding, 14px icon,
+ * 46px tall) or `sm` (12/medium label, 16 × 4 padding, 12px icon, 34px
+ * tall); 8px label-to-arrow gap at both. Every variant and state exists at
+ * both sizes (ADR scds-button-size-small; sc-tune record Button
+ * 2026-10-07-1418).
+ *
+ * Plays the `press` role sound (Drams 029) on every click that reaches
+ * onClick; `sound={false}` opts one instance out, and a SoundProvider
+ * silences or levels every sound.
  */
 
 import { ArrowRight } from '@phosphor-icons/react';
 import { WorkingMark } from '../WorkingMark/WorkingMark.jsx';
+import { useUISound } from '../../sound/SoundProvider.jsx';
 import styles from './Button.module.css';
 
 const VARIANTS = ['primary', 'secondary', 'tertiary', 'destructive'];
 const SIZES = ['lg', 'sm'];
 
 // Trailing arrow — Phosphor glyph, bold weight (Levi, 2026-10-07). Inherits
-// the label colour via currentColor; sized by .arrow (size.icon.xs, 12px).
+// the label colour via currentColor; sized by .arrow (size.button.icon.*).
 function Arrow() {
   return <ArrowRight weight="bold" className={styles.arrow} aria-hidden="true" />;
 }
@@ -39,6 +46,7 @@ export function Button({
   loading = false,
   arrow = true,
   type = 'button',
+  sound = true,
   children,
   onClick,
   className = '',
@@ -47,6 +55,7 @@ export function Button({
   const v = VARIANTS.includes(variant) ? variant : 'primary';
   const sz = SIZES.includes(size) ? size : 'lg';
   const isDisabled = disabled || loading;
+  const playPress = useUISound('press', sound);
 
   return (
     <button
@@ -54,7 +63,7 @@ export function Button({
       className={`${styles.button} ${styles[v]} ${sz === 'sm' ? styles.sm : ''} ${loading ? styles.loading : ''} ${className}`}
       disabled={isDisabled}
       aria-busy={loading || undefined}
-      onClick={isDisabled ? undefined : onClick}
+      onClick={isDisabled ? undefined : (e) => { playPress(); onClick?.(e); }}
       {...rest}
     >
       <span className={styles.label}>{children}</span>
