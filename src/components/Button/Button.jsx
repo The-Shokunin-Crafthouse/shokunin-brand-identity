@@ -2,8 +2,11 @@
  * Button — 4.0 · primary, secondary, tertiary, destructive, disabled, loading.
  *
  * Pill-radius control with a monospace-free NHG label and a trailing
- * arrow. Primary rests neutral (neumorphic raise) and turns teal on
- * hover — the accent is a hover state, never a resting one. Secondary is
+ * arrow. Primary rests neutral and turns teal on hover — the accent is
+ * a hover state, never a resting one. Filled variants (primary,
+ * destructive) are physical (2026-10-07): a lit sheen over the fill, a
+ * half-pixel rim and a layered lift, collapsing to a near-contact shadow
+ * on press, the same light model as the Switch knob. Secondary is
  * a fill-only chip on surface-sunk whose label goes teal on hover/focus
  * (the ink outline was retired in scds-v2 Phase 2, 2026-07-27); tertiary
  * is a teal ghost.

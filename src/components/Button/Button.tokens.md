@@ -2,7 +2,7 @@
 
 Spec ref: §2 Tier 3 · 4.0 · Variants: primary, secondary, tertiary, destructive, disabled, loading.
 
-Pill-radius control with a trailing arrow (Phosphor `ArrowRight`, scds-v2 default icon family, `currentColor`). **The accent is a hover state, never a resting one** — primary rests neutral (neumorphic raise) and turns teal on hover; secondary is a fill-only subtle chip (scds-v2 Phase 2 — was an ink outline) that goes teal on hover/focus; tertiary is a persistent teal ghost.
+Pill-radius control with a trailing arrow (Phosphor `ArrowRight`, scds-v2 default icon family, `currentColor`). **The accent is a hover state, never a resting one** — primary rests neutral (physical: lit sheen, rim, lift) and turns teal on hover; secondary is a fill-only subtle chip (scds-v2 Phase 2 — was an ink outline) that goes teal on hover/focus; tertiary is a persistent teal ghost.
 
 ## Shared (every variant)
 
@@ -23,10 +23,10 @@ Pill-radius control with a trailing arrow (Phosphor `ArrowRight`, scds-v2 defaul
 
 | Variant | Resting | Hover | Active |
 |---|---|---|---|
-| `primary` | fill = `surface-raised` (neutral), text = `text-primary`, **shadow = `shadow-control-raised` + `shadow-control-bevel`** (button-only neumorphic 4 outer + 2 inset) | fill → `brand-accent-fill` (teal.600), text → `text-on-accent` (white, AA 5.2) | fill → `brand-accent-deep` (teal.700) + scale |
+| `primary` | fill = `surface-raised` (neutral), text = `text-primary`, **face = `control-sheen-top` → transparent 50% → `control-sheen-bottom` over the fill; shadow = `shadow-control-rim` + `shadow-control-lift`** | fill → `brand-accent-fill` (teal.600), text → `text-on-accent` (white, AA 5.2) | fill → `brand-accent-deep` (teal.700) + scale; lift → `shadow-control-pressed` |
 | `secondary` | fill = `surface-sunk`, text = `text-primary` (ink, AA) — fill-only, no stroke | fill → `surface-hover`, text → `interactive-hover` (teal, transient AA exception); focus matches | text → `interactive-active` + scale |
 | `tertiary` | text = `brand-accent-deep` (teal.700, AA 5.78), no border/fill | text → `interactive-hover` (teal) | text → `interactive-active` + scale |
-| `destructive` | fill + border = `status-error`, text = `text-on-accent`, shadow = `shadow-control-raised` + `shadow-control-bevel` | — | + scale |
+| `destructive` | fill + border = `status-error`, text = `text-on-accent`, same physical face as primary | — | + scale; lift → `shadow-control-pressed` |
 
 ## State-only
 
@@ -52,11 +52,19 @@ New tokens (added to `tokens/primitives.json` + `tokens/semantic.json`, regenera
 | `--sc-p-motion-duration-press-release` / `--sc-motion-press-release-duration` | 220ms | Release-phase duration. `--sc-motion-press-duration` (160ms) already existed and is reused for the press-in phase — no duplicate "fast" duration added. |
 | `--sc-p-motion-easing-spring-out` / `--sc-motion-press-release-easing` | `cubic-bezier(0.34, 1.56, 0.64, 1)` | Release-phase easing — the only genuinely new easing curve; the y > 1 overshoot is what makes it read as a spring instead of a linear settle. |
 
-## The neumorphic shadow (button-only)
+## The physical face (filled variants, 2026-10-07)
 
-`--sc-shadow-control-raised` — 4 layers, 2 ink bottom-left + 2 white top-right, composed from the `ink-rgb`/`white-rgb` channel-triplet primitives; mode-aware (dark mode swaps to black shadows + faint white highlights). **Semantic to controls only** — no other element in the system carries a shadow. Added 2026-07-09 with the button redesign.
+Same light model as the Switch knob: lit from above. Levi's direction is physical rendering, not flat.
 
-`--sc-shadow-control-bevel` — 2 inset layers, white top-right + ink (dark: black) bottom-left, so the pill's edges read rounded from inside. Composed after `raised` in one `box-shadow`. Separate token so `raised` stays outer-only (SwiftUI `scdsShadow` draws outer layers only). Dark-mode black alphas on both tokens match their white highlight's lightness delta (ΔL*), not a guess. Added 2026-10-02.
+`--sc-color-control-sheen-top` / `-bottom` — a `linear-gradient(top, transparent 50%, bottom)` laid over the fill (`background-image` over `background-color`), so one pair serves neutral, teal and error fills. The middle is clear, so the label band keeps the fill's own contrast (white on teal.600 stays AA 5.2).
+
+`--sc-shadow-control-rim` — inset half-pixel highlight on the top edge and half-pixel shade on the bottom edge.
+
+`--sc-shadow-control-lift` — the Drams six-layer drop shadow scaled ×0.6 for a ~32px control. `--sc-shadow-control-pressed` keeps only its three near-contact layers; `:active` swaps to it while the press-spring scales the button, so it sits down.
+
+Disabled drops the sheen, rim and lift: flat reads as unavailable.
+
+Retired from Button: `--sc-shadow-control-raised` and `--sc-shadow-control-bevel` (neumorphic). The tokens stay published until no consumer reads them.
 
 ## Reduced-motion
 

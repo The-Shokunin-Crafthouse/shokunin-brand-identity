@@ -5,7 +5,7 @@
 # Design Token Map — The Shokunin Crafthouse · Brand Identity
 
 **Generated** from `tokens/primitives.json` + `tokens/semantic.json`.
-**Source fingerprint:** `6a5d0a2787f9` · **176 primitives · 147 semantic tokens.**
+**Source fingerprint:** `9a2119760bee` · **176 primitives · 152 semantic tokens.**
 
 > **This file is a mirror, not the source.** `tokens/*.json` is upstream; this document and the Figma
 > library are generated from / synced to it. It previously claimed the opposite — that both were
@@ -530,6 +530,13 @@ channel-triplet primitives) rather than an alias to a single primitive.
 |---|---|---|---|---|---|---|
 | `color/surface-inverse` | `--sc-color-surface-inverse` | `color/warmGray/800` | `#1A1815` | `color/warmGray/50` | `#F4F1ED` | Sprint 4 addition · inverted surface. |
 
+#### `color/control`
+
+| Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
+|---|---|---|---|---|---|---|
+| `color/control/sheenTop` | `--sc-color-control-sheen-top` | _literal_ | `rgb(var(--sc-p-color-white-rgb) / 0.32)` | _literal_ | `rgb(var(--sc-p-color-white-rgb) / 0.10)` | 2026-10-07 · physical controls (Levi: no flat methodology; the Switch knob is the reference). |
+| `color/control/sheenBottom` | `--sc-color-control-sheen-bottom` | _literal_ | `rgb(var(--sc-p-color-ink-rgb) / 0.08)` | _literal_ | `rgb(var(--sc-p-color-ink-rgb) / 0.30)` | 2026-10-07 · physical controls (Levi: no flat methodology; the Switch knob is the reference). |
+
 #### `color/switch`
 
 | Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
@@ -683,9 +690,12 @@ channel-triplet primitives) rather than an alias to a single primitive.
 
 | Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
 |---|---|---|---|---|---|---|
-| `shadow/control/raised` | `--sc-shadow-control-raised` | _literal_ | `-4px 4px 8px rgb(var(--sc-p-color-ink-rgb) / 0.10), -2px 2px 4px rgb(var(--sc-p-color-ink-rgb) / 0.08), 4px -4px 8px rgb(var(--sc-p-color-white-rgb) / 0.90), 2px -2px 4px rgb(var(--sc-p-color-white-rgb) / 0.70)` | _literal_ | `-4px 4px 8px rgb(0 0 0 / 0.24), -2px 2px 4px rgb(0 0 0 / 0.16), 4px -4px 8px rgb(var(--sc-p-color-white-rgb) / 0.06), 2px -2px 4px rgb(var(--sc-p-color-white-rgb) / 0.04)` | Button-only neumorphic raise · 4 layers (2 ink bottom-left, 2 white top-right) composed from the channel-triplet primitives. |
-| `shadow/control/bevel` | `--sc-shadow-control-bevel` | _literal_ | `inset -2px 2px 4px rgb(var(--sc-p-color-white-rgb) / 0.70), inset 2px -2px 4px rgb(var(--sc-p-color-ink-rgb) / 0.06)` | _literal_ | `inset -2px 2px 4px rgb(var(--sc-p-color-white-rgb) / 0.06), inset 2px -2px 4px rgb(0 0 0 / 0.20)` | Button-only inner bevel · 2 inset layers (white top-right, ink/black bottom-left) that round the pill's edges from inside. |
+| `shadow/control/raised` | `--sc-shadow-control-raised` | _literal_ | `-4px 4px 8px rgb(var(--sc-p-color-ink-rgb) / 0.10), -2px 2px 4px rgb(var(--sc-p-color-ink-rgb) / 0.08), 4px -4px 8px rgb(var(--sc-p-color-white-rgb) / 0.90), 2px -2px 4px rgb(var(--sc-p-color-white-rgb) / 0.70)` | _literal_ | `-4px 4px 8px rgb(0 0 0 / 0.24), -2px 2px 4px rgb(0 0 0 / 0.16), 4px -4px 8px rgb(var(--sc-p-color-white-rgb) / 0.06), 2px -2px 4px rgb(var(--sc-p-color-white-rgb) / 0.04)` | SUPERSEDED for Button 2026-10-07 by control.rim + control.lift (physical controls); kept for consumers until removed. |
+| `shadow/control/bevel` | `--sc-shadow-control-bevel` | _literal_ | `inset -2px 2px 4px rgb(var(--sc-p-color-white-rgb) / 0.70), inset 2px -2px 4px rgb(var(--sc-p-color-ink-rgb) / 0.06)` | _literal_ | `inset -2px 2px 4px rgb(var(--sc-p-color-white-rgb) / 0.06), inset 2px -2px 4px rgb(0 0 0 / 0.20)` | SUPERSEDED for Button 2026-10-07 by control.rim + control.lift (physical controls); kept for consumers until removed. |
 | `shadow/control/inset` | `--sc-shadow-control-inset` | _literal_ | `inset 0 1px 3px rgb(var(--sc-p-color-ink-rgb) / 0.08), inset 0 0 0 1px rgb(var(--sc-p-color-ink-rgb) / 0.06)` | _literal_ | `inset 0 1px 3px rgb(0 0 0 / 0.40), inset 0 0 0 1px rgb(var(--sc-p-color-white-rgb) / 0.05)` | Fill-only inset feedback · soft inner ring for interactive surfaces on hover/focus (cards, tiles). scds-v2 Phase 2 — replaces the resting stroke frame: rest carries no shadow, the inset appears only on hover/focus to narrate interactivity without an outline. |
+| `shadow/control/rim` | `--sc-shadow-control-rim` | _literal_ | `inset 0 0.5px 0 rgb(var(--sc-p-color-white-rgb) / 0.60), inset 0 -0.5px 0 rgb(var(--sc-p-color-ink-rgb) / 0.10)` | _literal_ | `inset 0 0.5px 0 rgb(var(--sc-p-color-white-rgb) / 0.10), inset 0 -0.5px 0 rgb(0 0 0 / 0.30)` | 2026-10-07 · physical controls (Levi: no flat methodology; the Switch knob is the reference). |
+| `shadow/control/lift` | `--sc-shadow-control-lift` | _literal_ | `0 0.49px 0.69px -0.38px rgb(var(--sc-p-color-ink-rgb) / 0.26), 0 1.26px 1.77px -0.75px rgb(var(--sc-p-color-ink-rgb) / 0.25), 0 2.54px 3.55px -1.13px rgb(var(--sc-p-color-ink-rgb) / 0.24), 0 4.81px 6.73px -1.5px rgb(var(--sc-p-color-ink-rgb) / 0.22), 0 9.55px 13.37px -1.88px rgb(var(--sc-p-color-ink-rgb) / 0.18), 0 21px 29.4px 0 rgb(var(--sc-p-color-ink-rgb) / 0.09)` | _literal_ | `0 0.49px 0.69px -0.38px rgb(0 0 0 / 0.42), 0 1.26px 1.77px -0.75px rgb(0 0 0 / 0.40), 0 2.54px 3.55px -1.13px rgb(0 0 0 / 0.38), 0 4.81px 6.73px -1.5px rgb(0 0 0 / 0.35), 0 9.55px 13.37px -1.88px rgb(0 0 0 / 0.29), 0 21px 29.4px 0 rgb(0 0 0 / 0.14)` | 2026-10-07 · physical controls (Levi: no flat methodology; the Switch knob is the reference). |
+| `shadow/control/pressed` | `--sc-shadow-control-pressed` | _literal_ | `0 0.49px 0.69px -0.38px rgb(var(--sc-p-color-ink-rgb) / 0.26), 0 1.26px 1.77px -0.75px rgb(var(--sc-p-color-ink-rgb) / 0.24), 0 2.54px 3.55px -1.13px rgb(var(--sc-p-color-ink-rgb) / 0.18)` | _literal_ | `0 0.49px 0.69px -0.38px rgb(0 0 0 / 0.42), 0 1.26px 1.77px -0.75px rgb(0 0 0 / 0.38), 0 2.54px 3.55px -1.13px rgb(0 0 0 / 0.30)` | 2026-10-07 · physical controls (Levi: no flat methodology; the Switch knob is the reference). |
 | `shadow/switch/track` | `--sc-shadow-switch-track` | _literal_ | `inset 0 0.45px 0.9px rgb(var(--sc-p-color-ink-rgb) / 0.25)` | _literal_ | `inset 0 0.45px 0.9px rgb(0 0 0 / 0.45)` | 2026-10-07 · Switch restyled to the Drams Standard Switch (drams/001) at SCDS size. |
 | `shadow/switch/thumb` | `--sc-shadow-switch-thumb` | _literal_ | `0 0.37px 0.52px -0.28px rgb(var(--sc-p-color-ink-rgb) / 0.26), 0 0.95px 1.33px -0.56px rgb(var(--sc-p-color-ink-rgb) / 0.25), 0 1.9px 2.66px -0.84px rgb(var(--sc-p-color-ink-rgb) / 0.24), 0 3.6px 5.05px -1.13px rgb(var(--sc-p-color-ink-rgb) / 0.22), 0 7.16px 10.03px -1.41px rgb(var(--sc-p-color-ink-rgb) / 0.18), 0 15.75px 22.05px 0 rgb(var(--sc-p-color-ink-rgb) / 0.09)` | _literal_ | `0 0.37px 0.52px -0.28px rgb(0 0 0 / 0.42), 0 0.95px 1.33px -0.56px rgb(0 0 0 / 0.40), 0 1.9px 2.66px -0.84px rgb(0 0 0 / 0.38), 0 3.6px 5.05px -1.13px rgb(0 0 0 / 0.35), 0 7.16px 10.03px -1.41px rgb(0 0 0 / 0.29), 0 15.75px 22.05px 0 rgb(0 0 0 / 0.14)` | 2026-10-07 · Switch restyled to the Drams Standard Switch (drams/001) at SCDS size. |
 

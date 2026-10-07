@@ -13,8 +13,10 @@
  *   --sc-size-icon-xs                       · sm icon (12)
  *   --sc-color-border-strong                · secondary outline
  *   --sc-color-surface-raised               · primary resting fill (neutral)
- *   --sc-shadow-control-raised              · primary neumorphic 4-shadow (button-only)
- *   --sc-shadow-control-bevel               · primary inner bevel, 2 inset layers (button-only)
+ *   --sc-color-control-sheen-top / -bottom  · light-to-shade face gradient over any fill (physical)
+ *   --sc-shadow-control-rim                 · half-pixel edge light + edge shade (inset)
+ *   --sc-shadow-control-lift                · resting lift, Drams six layers ×0.6
+ *   --sc-shadow-control-pressed             · pressed lift, the three near-contact layers
  *   --sc-color-brand-accent-fill            · primary hover fill (teal.600, white AA 5.2)
  *   --sc-color-brand-accent-deep            · primary press + tertiary resting text (teal.700, AA)
  *   --sc-color-surface-sunk                 · disabled fill
@@ -110,12 +112,32 @@
   outline-offset: var(--sc-border-focus-offset);
 }
 
-/* --- Primary · rests neutral (neumorphic), turns teal on hover ----- */
+/* --- Physical face · filled variants (primary, destructive) --------
+   Same light model as the Switch knob (2026-10-07, physical controls):
+   lit from above. A sheen gradient lays light on the top of the face and
+   shade on the bottom over whatever the fill is, clear through the label
+   band so text contrast is the fill's own; a half-pixel rim catches the
+   edge; a layered lift sets it off the surface. Pressing collapses the
+   lift to its near-contact layers, so the button sits down as it scales. */
+.primary,
+.destructive {
+  background-image: linear-gradient(
+    var(--sc-color-control-sheen-top),
+    transparent 50%,
+    var(--sc-color-control-sheen-bottom)
+  );
+  box-shadow: var(--sc-shadow-control-rim), var(--sc-shadow-control-lift);
+}
+.primary:active:not(:disabled),
+.destructive:active:not(:disabled) {
+  box-shadow: var(--sc-shadow-control-rim), var(--sc-shadow-control-pressed);
+}
+
+/* --- Primary · rests neutral (physical), turns teal on hover ------- */
 .primary {
   background-color: var(--sc-color-surface-raised);
   border-color: var(--sc-color-surface-raised);
   color: var(--sc-color-text-primary);
-  box-shadow: var(--sc-shadow-control-raised), var(--sc-shadow-control-bevel);
 }
 .primary:hover:not(:disabled) {
   background-color: var(--sc-color-brand-accent-fill);
@@ -168,7 +190,6 @@
   background-color: var(--sc-color-status-error);
   border-color: var(--sc-color-status-error);
   color: var(--sc-color-text-on-accent);
-  box-shadow: var(--sc-shadow-control-raised), var(--sc-shadow-control-bevel);
 }
 .destructive:active:not(:disabled) {
   transform: scale(var(--sc-motion-press-scale));
@@ -179,6 +200,7 @@
   color: var(--sc-color-text-disabled);
   border-color: transparent;
   background-color: var(--sc-color-surface-sunk);
+  background-image: none;
   box-shadow: none;
   cursor: not-allowed;
   transform: none;

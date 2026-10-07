@@ -554,6 +554,20 @@
         }
       }
     },
+    "control": {
+      "sheenTop": {
+        "$type": "color",
+        "$value": "rgb(var(--sc-p-color-white-rgb) / 0.32)",
+        "$description": "2026-10-07 · physical controls (Levi: no flat methodology; the Switch knob is the reference). Light on the top of a filled control face. Composed over the fill as linear-gradient(sheenTop, transparent 50%, sheenBottom), so it works on any fill and leaves the label band untouched (white-on-teal AA holds).",
+        "$extensions": { "modes": { "light": "rgb(var(--sc-p-color-white-rgb) / 0.32)", "dark": "rgb(var(--sc-p-color-white-rgb) / 0.10)" } }
+      },
+      "sheenBottom": {
+        "$type": "color",
+        "$value": "rgb(var(--sc-p-color-ink-rgb) / 0.08)",
+        "$description": "2026-10-07 · physical controls (Levi: no flat methodology; the Switch knob is the reference). Shade at the bottom of a filled control face. Pairs with sheenTop.",
+        "$extensions": { "modes": { "light": "rgb(var(--sc-p-color-ink-rgb) / 0.08)", "dark": "rgb(var(--sc-p-color-ink-rgb) / 0.30)" } }
+      }
+    },
     "switch": {
       "thumb": {
         "rimTop": {
@@ -663,7 +677,7 @@
     "control": {
       "raised": {
         "$type": "shadow",
-        "$description": "Button-only neumorphic raise · 4 layers (2 ink bottom-left, 2 white top-right) composed from the channel-triplet primitives. Semantic to controls — NOT a general elevation token; only controls carry a shadow (Button here, Switch track + knob in shadow.switch.*). Added 2026-07-09 with the button redesign. 2026-10-02: dark black layers 0.55/0.45 → 0.24/0.16 so each matches its white highlight's lightness delta on surface-page (ΔL* 5.6 / 3.7).",
+        "$description": "SUPERSEDED for Button 2026-10-07 by control.rim + control.lift (physical controls); kept for consumers until removed. Button-only neumorphic raise · 4 layers (2 ink bottom-left, 2 white top-right) composed from the channel-triplet primitives. Semantic to controls — NOT a general elevation token; only controls carry a shadow (Button here, Switch track + knob in shadow.switch.*). Added 2026-07-09 with the button redesign. 2026-10-02: dark black layers 0.55/0.45 → 0.24/0.16 so each matches its white highlight's lightness delta on surface-page (ΔL* 5.6 / 3.7).",
         "$value": "-4px 4px 8px rgb(var(--sc-p-color-ink-rgb) / 0.10), -2px 2px 4px rgb(var(--sc-p-color-ink-rgb) / 0.08), 4px -4px 8px rgb(var(--sc-p-color-white-rgb) / 0.90), 2px -2px 4px rgb(var(--sc-p-color-white-rgb) / 0.70)",
         "$extensions": { "modes": {
           "light": "-4px 4px 8px rgb(var(--sc-p-color-ink-rgb) / 0.10), -2px 2px 4px rgb(var(--sc-p-color-ink-rgb) / 0.08), 4px -4px 8px rgb(var(--sc-p-color-white-rgb) / 0.90), 2px -2px 4px rgb(var(--sc-p-color-white-rgb) / 0.70)",
@@ -672,7 +686,7 @@
       },
       "bevel": {
         "$type": "shadow",
-        "$description": "Button-only inner bevel · 2 inset layers (white top-right, ink/black bottom-left) that round the pill's edges from inside. Pairs with control.raised (compose both in one box-shadow); kept a separate token so control.raised stays outer-only and SwiftUI-drawable. Dark black alpha matches the white highlight's lightness delta on surface-raised (ΔL* 5.2). Added 2026-10-02.",
+        "$description": "SUPERSEDED for Button 2026-10-07 by control.rim + control.lift (physical controls); kept for consumers until removed. Button-only inner bevel · 2 inset layers (white top-right, ink/black bottom-left) that round the pill's edges from inside. Pairs with control.raised (compose both in one box-shadow); kept a separate token so control.raised stays outer-only and SwiftUI-drawable. Dark black alpha matches the white highlight's lightness delta on surface-raised (ΔL* 5.2). Added 2026-10-02.",
         "$value": "inset -2px 2px 4px rgb(var(--sc-p-color-white-rgb) / 0.70), inset 2px -2px 4px rgb(var(--sc-p-color-ink-rgb) / 0.06)",
         "$extensions": { "modes": {
           "light": "inset -2px 2px 4px rgb(var(--sc-p-color-white-rgb) / 0.70), inset 2px -2px 4px rgb(var(--sc-p-color-ink-rgb) / 0.06)",
@@ -686,6 +700,33 @@
         "$extensions": { "modes": {
           "light": "inset 0 1px 3px rgb(var(--sc-p-color-ink-rgb) / 0.08), inset 0 0 0 1px rgb(var(--sc-p-color-ink-rgb) / 0.06)",
           "dark":  "inset 0 1px 3px rgb(0 0 0 / 0.40), inset 0 0 0 1px rgb(var(--sc-p-color-white-rgb) / 0.05)"
+        } }
+      },
+      "rim": {
+        "$type": "shadow",
+        "$description": "2026-10-07 · physical controls (Levi: no flat methodology; the Switch knob is the reference). Edge light on a filled control: a half-pixel highlight on the top edge, a half-pixel shade on the bottom. The rim of the Switch knob, as inset shadows so it follows any fill.",
+        "$value": "inset 0 0.5px 0 rgb(var(--sc-p-color-white-rgb) / 0.60), inset 0 -0.5px 0 rgb(var(--sc-p-color-ink-rgb) / 0.10)",
+        "$extensions": { "modes": {
+          "light": "inset 0 0.5px 0 rgb(var(--sc-p-color-white-rgb) / 0.60), inset 0 -0.5px 0 rgb(var(--sc-p-color-ink-rgb) / 0.10)",
+          "dark":  "inset 0 0.5px 0 rgb(var(--sc-p-color-white-rgb) / 0.10), inset 0 -0.5px 0 rgb(0 0 0 / 0.30)"
+        } }
+      },
+      "lift": {
+        "$type": "shadow",
+        "$description": "2026-10-07 · physical controls (Levi: no flat methodology; the Switch knob is the reference). Resting lift of a filled control. The Drams six-layer drop shadow scaled x0.6 (between the 14px Switch knob at x0.45 and the 34px Drams knob), sized to the ~32px Button.",
+        "$value": "0 0.49px 0.69px -0.38px rgb(var(--sc-p-color-ink-rgb) / 0.26), 0 1.26px 1.77px -0.75px rgb(var(--sc-p-color-ink-rgb) / 0.25), 0 2.54px 3.55px -1.13px rgb(var(--sc-p-color-ink-rgb) / 0.24), 0 4.81px 6.73px -1.5px rgb(var(--sc-p-color-ink-rgb) / 0.22), 0 9.55px 13.37px -1.88px rgb(var(--sc-p-color-ink-rgb) / 0.18), 0 21px 29.4px 0 rgb(var(--sc-p-color-ink-rgb) / 0.09)",
+        "$extensions": { "modes": {
+          "light": "0 0.49px 0.69px -0.38px rgb(var(--sc-p-color-ink-rgb) / 0.26), 0 1.26px 1.77px -0.75px rgb(var(--sc-p-color-ink-rgb) / 0.25), 0 2.54px 3.55px -1.13px rgb(var(--sc-p-color-ink-rgb) / 0.24), 0 4.81px 6.73px -1.5px rgb(var(--sc-p-color-ink-rgb) / 0.22), 0 9.55px 13.37px -1.88px rgb(var(--sc-p-color-ink-rgb) / 0.18), 0 21px 29.4px 0 rgb(var(--sc-p-color-ink-rgb) / 0.09)",
+          "dark":  "0 0.49px 0.69px -0.38px rgb(0 0 0 / 0.42), 0 1.26px 1.77px -0.75px rgb(0 0 0 / 0.40), 0 2.54px 3.55px -1.13px rgb(0 0 0 / 0.38), 0 4.81px 6.73px -1.5px rgb(0 0 0 / 0.35), 0 9.55px 13.37px -1.88px rgb(0 0 0 / 0.29), 0 21px 29.4px 0 rgb(0 0 0 / 0.14)"
+        } }
+      },
+      "pressed": {
+        "$type": "shadow",
+        "$description": "2026-10-07 · physical controls (Levi: no flat methodology; the Switch knob is the reference). Pressed lift: only the three near-contact layers of control.lift, so the control reads as pushed down onto the surface.",
+        "$value": "0 0.49px 0.69px -0.38px rgb(var(--sc-p-color-ink-rgb) / 0.26), 0 1.26px 1.77px -0.75px rgb(var(--sc-p-color-ink-rgb) / 0.24), 0 2.54px 3.55px -1.13px rgb(var(--sc-p-color-ink-rgb) / 0.18)",
+        "$extensions": { "modes": {
+          "light": "0 0.49px 0.69px -0.38px rgb(var(--sc-p-color-ink-rgb) / 0.26), 0 1.26px 1.77px -0.75px rgb(var(--sc-p-color-ink-rgb) / 0.24), 0 2.54px 3.55px -1.13px rgb(var(--sc-p-color-ink-rgb) / 0.18)",
+          "dark":  "0 0.49px 0.69px -0.38px rgb(0 0 0 / 0.42), 0 1.26px 1.77px -0.75px rgb(0 0 0 / 0.38), 0 2.54px 3.55px -1.13px rgb(0 0 0 / 0.30)"
         } }
       }
     },
