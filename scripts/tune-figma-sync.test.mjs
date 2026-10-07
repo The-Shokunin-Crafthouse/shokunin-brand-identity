@@ -112,3 +112,15 @@ test('--tokens accepts a library name from the map', () => {
   const op = opsOf(code).find((o) => o.name === 'color/text/onInverse');
   assert.ok(op, 'the op is built under the library name');
 });
+
+test('an alias names the collection of its target, since names repeat across collections', async () => {
+  const { code } = run('--tokens', 'color.signal.live');
+  const op = opsOf(code).find((o) => o.name === 'color/signal/live' && o.collection === 'Semantic');
+  assert.equal(op.values.Light.collection, 'Primitives', 'the alias target is the primitive');
+  // Both collections hold color/signal/live; the semantic one must alias the primitive, not itself.
+  const figma = fakeFigma({ variables: ['color/signal/live', 'Primitives:color/signal/live'] });
+  await execute(code, figma);
+  const sem = figma.vars.find((v) => v.name === 'color/signal/live' && v.variableCollectionId === 'c2');
+  const prim = figma.vars.find((v) => v.name === 'color/signal/live' && v.variableCollectionId === 'c1');
+  assert.equal(sem.valuesByMode.m1.id, prim.id);
+});
