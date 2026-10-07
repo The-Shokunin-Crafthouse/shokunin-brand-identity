@@ -32,6 +32,7 @@ import { SpecimenSection } from './sections/SpecimenSection.jsx';
 import { RegisterSection } from './sections/RegisterSection.jsx';
 import { DensitySection } from './sections/DensitySection.jsx';
 import { HardRulesSection } from './sections/HardRulesSection.jsx';
+import { PlusBullet } from './components/PlusBullet/PlusBullet.jsx';
 import markLight from '../assets/logo/mark-icon-light.svg';
 import markDark from '../assets/logo/mark-icon-dark.svg';
 import styles from './App.module.css';
@@ -257,6 +258,7 @@ function Sidebar({ active }) {
                 >
                   <span className={styles.navLabel}><NavChars label={item.label} /></span>
                   {item.num && <span className={styles.navNum}>{item.num}</span>}
+                  {isActive && <PlusBullet accent className={styles.navTail} />}
                 </a>
               );
             })}

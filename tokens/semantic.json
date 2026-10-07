@@ -908,7 +908,7 @@
         "navCurrent": {
           "$type": "typography",
           "$value": "{font.text.bold.13}",
-          "$description": "Nav current link: 13/bold, set in text.onAccent on a brand.accentFill pill (ADR sidebar-nav-pill-states). NavLink State=Current. Figma text/label/nav-current. 2026-10-07 (ADR brand-site-sidebar-redesign).",
+          "$description": "Nav current link: 13/bold, set in brand.accentInk with an accent PlusBullet at the row end (ADR sidebar-nav-pill-states). NavLink State=Current. Figma text/label/nav-current. 2026-10-07 (ADR brand-site-sidebar-redesign).",
           "$extensions": { "modes": { "light": "{font.text.bold.13}", "dark": "{font.text.bold.13}" } }
         }
       },
