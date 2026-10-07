@@ -187,6 +187,9 @@ function loadState(component) {
           }
         }
       }
+      // #E3DFD8 was a raw candidate ground; it ships as the light
+      // surface.page since 2026-10-07, so the token (which flips) replaces it.
+      if (saved.view?.ground === '#E3DFD8') saved.view.ground = '--sc-color-surface-page';
       return saved;
     }
   } catch { /* blocked storage: start fresh */ }
@@ -331,11 +334,13 @@ function Tune() {
   // Slow-mo multiplies every time token on every stage; it never reaches the spec.
   const timeTokens = tokens.filter((t) => classify(shipped[t]) === 'time');
   const stageStyle = (overrides) => {
-    // A ground is a surface token, or a raw colour previewed as the page:
-    // the raw value also overrides surface.page inside the stage, so anything
-    // reading the page token sees the candidate too.
+    // A ground is a surface token, so it follows the theme. A raw colour
+    // (a candidate page, previewed as surface.page inside the stage) is a
+    // light-mode candidate: in dark the stage falls back to the dark page.
     const g = state.view.ground;
-    const ground = g.startsWith('--') ? { background: `var(${g})` } : { background: g, '--sc-color-surface-page': g };
+    const ground = g.startsWith('--') ? { background: `var(${g})` }
+      : state.view.theme === 'dark' ? { background: 'var(--sc-color-surface-page)' }
+      : { background: g, '--sc-color-surface-page': g };
     const style = { zoom: state.view.zoom, ...ground, ...overrides };
     if (state.view.slow !== 1) for (const t of timeTokens) style[t] = `calc(${overrides[t] ?? shipped[t]} * ${state.view.slow})`;
     return style;
@@ -496,7 +501,6 @@ function Tune() {
           <div className={s.prop}><label htmlFor="v-ground"><code>ground</code></label>
             <select id="v-ground" value={state.view.ground} onChange={(e) => setView('ground', e.target.value)}>
               {['--sc-color-surface-page', '--sc-color-surface-raised', '--sc-color-surface-sunk', '--sc-color-surface-floating'].map((g) => <option key={g} value={g}>{g.replace('--sc-color-', '')}</option>)}
-              <option value="#E3DFD8">#E3DFD8 · flagship page (candidate)</option>
             </select></div>
         </fieldset>
 
