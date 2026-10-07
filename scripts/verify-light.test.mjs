@@ -24,28 +24,28 @@ test('the shipped token files and component CSS pass', () => {
 });
 
 test('a key lit from the top left passes', () => {
-  const f = checkLight({ semantic: tree({ key: shadow(`2px 2px 6px 0 ${INK}, -1px -1px 1px 1px ${WHITE}`) }), css: [] });
+  const f = checkLight({ semantic: tree({ key: shadow(`2px 2px 6px 0 ${INK}, -1px -1px 1px 1px ${WHITE}`) }), css: [], exempt: [] });
   assert.deepEqual(f, []);
 });
 
 test('a shade cast toward the top left fails', () => {
-  const f = checkLight({ semantic: tree({ key: shadow(`-2px -2px 6px 0 ${INK}`) }), css: [] });
+  const f = checkLight({ semantic: tree({ key: shadow(`-2px -2px 6px 0 ${INK}`) }), css: [], exempt: [] });
   assert.equal(f.length, 2); // light and dark mode
   assert.match(f[0], /shadow\.test\.key.*shade.*135/);
 });
 
 test('a highlight cast toward the bottom right fails', () => {
-  const f = checkLight({ semantic: tree({ key: shadow(`2px 2px 1px 0 ${WHITE}`) }), css: [] });
+  const f = checkLight({ semantic: tree({ key: shadow(`2px 2px 1px 0 ${WHITE}`) }), css: [], exempt: [] });
   assert.match(f[0], /highlight.*315/);
 });
 
 test('an offset off the 135/315 diagonal fails, inset included', () => {
-  const f = checkLight({ semantic: tree({ well: shadow(`inset 0 1px 3px ${INK}`) }), css: [] });
+  const f = checkLight({ semantic: tree({ well: shadow(`inset 0 1px 3px ${INK}`) }), css: [], exempt: [] });
   assert.match(f[0], /diagonal/);
 });
 
 test('a zero-alpha layer is inert and not graded', () => {
-  const f = checkLight({ semantic: tree({ inert: shadow('0 4px 3px 0 rgb(var(--sc-p-color-ink-rgb) / 0)') }), css: [] });
+  const f = checkLight({ semantic: tree({ inert: shadow('0 4px 3px 0 rgb(var(--sc-p-color-ink-rgb) / 0)') }), css: [], exempt: [] });
   assert.deepEqual(f, []);
 });
 
@@ -54,7 +54,7 @@ test('a face gradient that is not 135deg fails; the Switch is exempt', () => {
     { file: 'src/components/Card/Card.module.css', text: '.plate { background-image: linear-gradient(180deg, transparent, red); }' },
     { file: 'src/components/Switch/Switch.module.css', text: '.thumb { background-image: linear-gradient(\n  var(--a),\n  var(--b)\n); }' },
   ];
-  const f = checkLight({ semantic: {}, css });
+  const f = checkLight({ semantic: {}, css, exempt: [] });
   assert.equal(f.length, 1);
   assert.match(f[0], /Card\.module\.css.*135deg/);
 });

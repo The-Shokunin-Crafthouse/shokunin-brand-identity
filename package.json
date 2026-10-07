@@ -34,7 +34,7 @@
   ],
   "scripts": {
     "tokens:build": "node scripts/tokens-to-css.mjs",
-    "tokens:verify": "node scripts/verify-contrast.mjs",
+    "tokens:verify": "node scripts/verify-contrast.mjs && node scripts/verify-light.mjs",
     "tokens:map": "node scripts/gen-token-map.mjs",
     "tokens:map:check": "node scripts/gen-token-map.mjs --check",
     "tokens:swift": "node scripts/tokens-to-swift.mjs",
