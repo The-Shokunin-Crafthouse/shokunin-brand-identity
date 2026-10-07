@@ -10,6 +10,8 @@ Sync target: claude.ai/design project "SCDS" (`projectId` in `config.json`, http
 - Fonts come from `src/styles/fonts.css` through `extraFonts`. Twelve woff2 files ship (Neue Haas Grotesk Display and Text, Cascadia Mono).
 - `@phosphor-icons/react` is merged onto `window.SCDS` through `extraEntries`, so `Icon` has glyphs to render. This takes the bundle to about 6.8 MB. A curated subset would be smaller, but a glyph missing from the subset renders nothing with no error.
 - No `provider`. Tokens sit on `:root`; `ThemeProvider` only toggles `data-theme`.
+- Providers stay out of `componentSrcMap`: `ThemeProvider`, `IconProvider` and `SoundProvider` render no UI of their own, so they get no card. They still ship on `window.SCDS`.
+- Interaction sounds (2026-10-07): `Switch`, `Stepper` and `SegmentedControl` take a `sound` prop (default true) and play a role sound through `src/sound/`. The three wav files are dynamic imports that Vite emits as data-URI chunks; esbuild inlines them, so `_ds_bundle.js` holds them and has no `import()` left. A sound plays only after a user gesture, so previews and the render check stay silent.
 - Converter command: `node .ds-sync/resync.mjs --config .design-sync/config.json --node-modules ./node_modules --entry ./dist-lib/index.js --out ./ds-bundle` (add `--remote .design-sync/.cache/remote-sync.json` once the project has an anchor).
 - Render check uses the repo's own Playwright (chromium build 1223, already in the local cache).
 
@@ -46,5 +48,7 @@ Sync target: claude.ai/design project "SCDS" (`projectId` in `config.json`, http
 - `conventions.md` names tokens, glyphs and exports. Re-run its validation (grep each name against `ds-bundle/_ds_bundle.css` and `_ds_bundle.js`) after any token rename.
 - `guidelinesGlob` ships three `_config/` docs verbatim. A file move breaks the glob quietly (the guideline just stops shipping).
 - A Phosphor major bump changes glyph names on `window.SCDS`.
+- `SYNC_PATHS` in `scripts/design-sync-auto.sh` does not list `src/sound` (as of 8e94073). A push that touches only `src/sound/` does not start a sync. Add the path there; an unattended run cannot, because it edits only `.design-sync/`.
+- A restyle in a component's `.module.css` alone does not clear its grades (grades follow the preview source). The 2026-10-07 Switch restyle passed the render check and a spot-check, but a styling-only change needs a `--spot-check-components` capture to be seen.
 - First upload: 2026-10-04, incremental path into the empty SCDS project, 104 files plus the `_ds_sync.json` anchor. Later syncs are pinned, so they take the atomic path: fetch the anchor to `.design-sync/.cache/remote-sync.json` and pass `--remote`.
 - Two older hand-made projects named "Shokunin Crafthouse Design System" may still exist in the account. They are not sync targets. Never sync into them.
