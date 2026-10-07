@@ -357,5 +357,5 @@ fieldset:disabled {
   height: var(--sc-space-layout-stack-lg);
   border-radius: var(--sc-radius-control);
   background-color: var(--sc-color-surface-raised);
-  box-shadow: var(--sc-shadow-control-rim), var(--sc-shadow-control-lift);
+  box-shadow: var(--sc-shadow-control-key);
 }

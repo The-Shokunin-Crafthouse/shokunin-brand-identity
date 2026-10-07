@@ -152,8 +152,8 @@ public enum SCDS {
     public static let semanticVersion = "0.1.0"
     public static let sourceGenerated = "2026-05-26"
     public static let primitivesHash = "1f49d61d1412de67"
-    public static let semanticHash = "6e329bdebc44dad2"
-    public static let tokenCount = 152
+    public static let semanticHash = "4d355f805a722f27"
+    public static let tokenCount = 150
   }
 
   // MARK: - Color
@@ -436,16 +436,10 @@ public enum SCDS {
         dark:  (0.956863, 0.945098, 0.929412, 1)
     )
 
-    /// `color.control.sheenTop`
-    public static let controlSheenTop = SwiftUI.Color.scdsDynamic(
-        light: (1, 1, 1, 0.32),
-        dark:  (1, 1, 1, 0.1)
-    )
-
-    /// `color.control.sheenBottom`
-    public static let controlSheenBottom = SwiftUI.Color.scdsDynamic(
-        light: (0.101961, 0.094118, 0.082353, 0.08),
-        dark:  (0.101961, 0.094118, 0.082353, 0.3)
+    /// `color.control.keyShade`
+    public static let controlKeyShade = SwiftUI.Color.scdsDynamic(
+        light: (0.101961, 0.094118, 0.082353, 0.05),
+        dark:  (0.101961, 0.094118, 0.082353, 0.25)
     )
 
     /// `color.switch.thumb.rimTop`
@@ -1009,49 +1003,29 @@ public enum SCDS {
         ]
     )
 
-    /// `shadow.control.rim` · 2 layers
-    public static let controlRim = SCDSShadow(
+    /// `shadow.control.key` · 2 layers
+    public static let controlKey = SCDSShadow(
         light: [
-            SCDSShadowLayer(inset: true, x: 0, y: 0.5, blur: 0, spread: 0, rgb: (1, 1, 1), alpha: 0.6),
-            SCDSShadowLayer(inset: true, x: 0, y: -0.5, blur: 0, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0.1),
+            SCDSShadowLayer(inset: false, x: 3, y: 3, blur: 7, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0.39),
+            SCDSShadowLayer(inset: false, x: -3, y: -3, blur: 4, spread: 1, rgb: (1, 1, 1), alpha: 1),
         ],
         dark: [
-            SCDSShadowLayer(inset: true, x: 0, y: 0.5, blur: 0, spread: 0, rgb: (1, 1, 1), alpha: 0.1),
-            SCDSShadowLayer(inset: true, x: 0, y: -0.5, blur: 0, spread: 0, rgb: (0, 0, 0), alpha: 0.3),
+            SCDSShadowLayer(inset: false, x: 3, y: 3, blur: 7, spread: 0, rgb: (0, 0, 0), alpha: 0.5),
+            SCDSShadowLayer(inset: false, x: -3, y: -3, blur: 4, spread: 1, rgb: (1, 1, 1), alpha: 0.06),
         ]
     )
 
-    /// `shadow.control.lift` · 6 layers
-    public static let controlLift = SCDSShadow(
+    /// `shadow.control.keyPressed` · 3 layers
+    public static let controlKeyPressed = SCDSShadow(
         light: [
-            SCDSShadowLayer(inset: false, x: 0, y: 0.49, blur: 0.69, spread: -0.38, rgb: (0.101961, 0.094118, 0.082353), alpha: 0.26),
-            SCDSShadowLayer(inset: false, x: 0, y: 1.26, blur: 1.77, spread: -0.75, rgb: (0.101961, 0.094118, 0.082353), alpha: 0.25),
-            SCDSShadowLayer(inset: false, x: 0, y: 2.54, blur: 3.55, spread: -1.13, rgb: (0.101961, 0.094118, 0.082353), alpha: 0.24),
-            SCDSShadowLayer(inset: false, x: 0, y: 4.81, blur: 6.73, spread: -1.5, rgb: (0.101961, 0.094118, 0.082353), alpha: 0.22),
-            SCDSShadowLayer(inset: false, x: 0, y: 9.55, blur: 13.37, spread: -1.88, rgb: (0.101961, 0.094118, 0.082353), alpha: 0.18),
-            SCDSShadowLayer(inset: false, x: 0, y: 21, blur: 29.4, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0.09),
+            SCDSShadowLayer(inset: false, x: 3, y: 3, blur: 7, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0.29),
+            SCDSShadowLayer(inset: false, x: -3, y: -3, blur: 4, spread: 1, rgb: (1, 1, 1), alpha: 0.9),
+            SCDSShadowLayer(inset: true, x: 1, y: 1, blur: 8, spread: 0, rgb: (1, 1, 1), alpha: 0.3),
         ],
         dark: [
-            SCDSShadowLayer(inset: false, x: 0, y: 0.49, blur: 0.69, spread: -0.38, rgb: (0, 0, 0), alpha: 0.42),
-            SCDSShadowLayer(inset: false, x: 0, y: 1.26, blur: 1.77, spread: -0.75, rgb: (0, 0, 0), alpha: 0.4),
-            SCDSShadowLayer(inset: false, x: 0, y: 2.54, blur: 3.55, spread: -1.13, rgb: (0, 0, 0), alpha: 0.38),
-            SCDSShadowLayer(inset: false, x: 0, y: 4.81, blur: 6.73, spread: -1.5, rgb: (0, 0, 0), alpha: 0.35),
-            SCDSShadowLayer(inset: false, x: 0, y: 9.55, blur: 13.37, spread: -1.88, rgb: (0, 0, 0), alpha: 0.29),
-            SCDSShadowLayer(inset: false, x: 0, y: 21, blur: 29.4, spread: 0, rgb: (0, 0, 0), alpha: 0.14),
-        ]
-    )
-
-    /// `shadow.control.pressed` · 3 layers
-    public static let controlPressed = SCDSShadow(
-        light: [
-            SCDSShadowLayer(inset: false, x: 0, y: 0.49, blur: 0.69, spread: -0.38, rgb: (0.101961, 0.094118, 0.082353), alpha: 0.26),
-            SCDSShadowLayer(inset: false, x: 0, y: 1.26, blur: 1.77, spread: -0.75, rgb: (0.101961, 0.094118, 0.082353), alpha: 0.24),
-            SCDSShadowLayer(inset: false, x: 0, y: 2.54, blur: 3.55, spread: -1.13, rgb: (0.101961, 0.094118, 0.082353), alpha: 0.18),
-        ],
-        dark: [
-            SCDSShadowLayer(inset: false, x: 0, y: 0.49, blur: 0.69, spread: -0.38, rgb: (0, 0, 0), alpha: 0.42),
-            SCDSShadowLayer(inset: false, x: 0, y: 1.26, blur: 1.77, spread: -0.75, rgb: (0, 0, 0), alpha: 0.38),
-            SCDSShadowLayer(inset: false, x: 0, y: 2.54, blur: 3.55, spread: -1.13, rgb: (0, 0, 0), alpha: 0.3),
+            SCDSShadowLayer(inset: false, x: 3, y: 3, blur: 7, spread: 0, rgb: (0, 0, 0), alpha: 0.38),
+            SCDSShadowLayer(inset: false, x: -3, y: -3, blur: 4, spread: 1, rgb: (1, 1, 1), alpha: 0.05),
+            SCDSShadowLayer(inset: true, x: 1, y: 1, blur: 8, spread: 0, rgb: (1, 1, 1), alpha: 0.06),
         ]
     )
 

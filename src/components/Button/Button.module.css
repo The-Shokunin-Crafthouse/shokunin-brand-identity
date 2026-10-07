@@ -13,10 +13,10 @@
  *   --sc-size-icon-xs                       · sm icon (12)
  *   --sc-color-border-strong                · secondary outline
  *   --sc-color-surface-raised               · primary resting fill (neutral)
- *   --sc-color-control-sheen-top / -bottom  · light-to-shade face gradient over any fill (physical)
- *   --sc-shadow-control-rim                 · half-pixel edge light + edge shade (inset)
- *   --sc-shadow-control-lift                · resting lift, Drams six layers ×0.6
- *   --sc-shadow-control-pressed             · pressed lift, the three near-contact layers
+ *   --sc-color-control-key-shade            · 135° face shade over any fill (Drams OP-1 Keys)
+ *   --sc-shadow-control-key                 · resting key: shade down-right, highlight up-left
+ *   --sc-shadow-control-key-pressed         · pressed key: softer, with an inner light
+ *   --sc-size-icon-xs                       · arrow and working mark (12, both sizes)
  *   --sc-color-brand-accent-fill            · primary hover fill (teal.600, white AA 5.2)
  *   --sc-color-brand-accent-deep            · primary press + tertiary resting text (teal.700, AA)
  *   --sc-color-surface-sunk                 · disabled fill
@@ -77,11 +77,12 @@
   letter-spacing: var(--sc-font-text-label-chrome-letter-spacing);
 }
 
-/* Trailing arrow — sits a touch larger than the label, inherits colour. */
+/* Trailing arrow — 12px at both sizes (library spec, 2026-10-06); it was
+   1.4em (15.4px), too heavy against the 11px label. Inherits colour. */
 .arrow {
   flex: none;
-  width: 1.4em;
-  height: 1.4em;
+  width: var(--sc-size-icon-xs);
+  height: var(--sc-size-icon-xs);
 }
 
 /* --- Size · sm (ADR scds-button-size-small) ------------------------
@@ -100,11 +101,6 @@
   line-height: var(--sc-font-text-label-button-sm-line-height);
   letter-spacing: var(--sc-font-text-label-button-sm-letter-spacing);
 }
-.sm .arrow,
-.sm .spinner {
-  width: var(--sc-size-icon-xs);
-  height: var(--sc-size-icon-xs);
-}
 
 /* --- Focus · cross-variant (styled ring, never the UA default) ---- */
 .button:focus-visible {
@@ -112,28 +108,24 @@
   outline-offset: var(--sc-border-focus-offset);
 }
 
-/* --- Physical face · filled variants (primary, destructive) --------
-   Same light model as the Switch knob (2026-10-07, physical controls):
-   lit from above. A sheen gradient lays light on the top of the face and
-   shade on the bottom over whatever the fill is, clear through the label
-   band so text contrast is the fill's own; a half-pixel rim catches the
-   edge; a layered lift sets it off the surface. Pressing collapses the
-   lift to its near-contact layers, so the button sits down as it scales. */
+/* --- Key face · filled variants (primary, destructive) -------------
+   The Drams OP-1 Keys key, horizontal, sitting on the page surface
+   (Levi, 2026-10-07): lit from the top left. The face shades toward the
+   bottom-right corner over whatever the fill is; a soft shade falls
+   down-right and a white highlight lifts the top-left edge. Pressing
+   softens both and adds a soft inner light while the press-spring scales
+   the key, so it reads as pushed in. */
 .primary,
 .destructive {
-  background-image: linear-gradient(
-    var(--sc-color-control-sheen-top),
-    transparent 50%,
-    var(--sc-color-control-sheen-bottom)
-  );
-  box-shadow: var(--sc-shadow-control-rim), var(--sc-shadow-control-lift);
+  background-image: linear-gradient(135deg, transparent, var(--sc-color-control-key-shade));
+  box-shadow: var(--sc-shadow-control-key);
 }
 .primary:active:not(:disabled),
 .destructive:active:not(:disabled) {
-  box-shadow: var(--sc-shadow-control-rim), var(--sc-shadow-control-pressed);
+  box-shadow: var(--sc-shadow-control-key-pressed);
 }
 
-/* --- Primary · rests neutral (physical), turns teal on hover ------- */
+/* --- Primary · rests neutral (key), turns teal on hover ----------- */
 .primary {
   background-color: var(--sc-color-surface-raised);
   border-color: var(--sc-color-surface-raised);
@@ -209,24 +201,15 @@
 /* --- Loading ------------------------------------------------------ */
 .loading .label { opacity: 0.6; }
 
-.spinner {
+/* Loading mark — the studio's WorkingMark, at the arrow's size. Two
+   classes so it wins over WorkingMark's own size class. */
+.button .working {
   flex: none;
-  width: 1.4em;
-  height: 1.4em;
-  border-radius: var(--sc-radius-pill);
-  border-width: var(--sc-border-width-default);
-  border-style: solid;
-  border-color: currentColor;
-  border-top-color: transparent;
-  animation: spin var(--sc-motion-mode-duration) linear infinite;
-}
-
-@keyframes spin {
-  to { transform: rotate(360deg); }
+  width: var(--sc-size-icon-xs);
+  height: var(--sc-size-icon-xs);
 }
 
 @media (prefers-reduced-motion: reduce) {
   .button { transition: none; }
   .button:active:not(:disabled) { transform: none; }
-  .spinner { animation: none; }
 }

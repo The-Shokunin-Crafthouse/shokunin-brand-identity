@@ -2,7 +2,7 @@
 
 Spec ref: §2 Tier 3 · 4.0 · Variants: primary, secondary, tertiary, destructive, disabled, loading.
 
-Pill-radius control with a trailing arrow (Phosphor `ArrowRight`, scds-v2 default icon family, `currentColor`). **The accent is a hover state, never a resting one** — primary rests neutral (physical: lit sheen, rim, lift) and turns teal on hover; secondary is a fill-only subtle chip (scds-v2 Phase 2 — was an ink outline) that goes teal on hover/focus; tertiary is a persistent teal ghost.
+Pill-radius control with a trailing arrow (Phosphor `ArrowRight`, scds-v2 default icon family, `currentColor`). **The accent is a hover state, never a resting one** — primary rests neutral (a Drams OP-1 key) and turns teal on hover; secondary is a fill-only subtle chip (scds-v2 Phase 2 — was an ink outline) that goes teal on hover/focus; tertiary is a persistent teal ghost.
 
 ## Shared (every variant)
 
@@ -23,10 +23,10 @@ Pill-radius control with a trailing arrow (Phosphor `ArrowRight`, scds-v2 defaul
 
 | Variant | Resting | Hover | Active |
 |---|---|---|---|
-| `primary` | fill = `surface-raised` (neutral), text = `text-primary`, **face = `control-sheen-top` → transparent 50% → `control-sheen-bottom` over the fill; shadow = `shadow-control-rim` + `shadow-control-lift`** | fill → `brand-accent-fill` (teal.600), text → `text-on-accent` (white, AA 5.2) | fill → `brand-accent-deep` (teal.700) + scale; lift → `shadow-control-pressed` |
+| `primary` | fill = `surface-raised` (neutral), text = `text-primary`, **face = `linear-gradient(135deg, transparent, control-key-shade)` over the fill; shadow = `shadow-control-key`** | fill → `brand-accent-fill` (teal.600), text → `text-on-accent` (white, AA 5.2) | fill → `brand-accent-deep` (teal.700) + scale; shadow → `shadow-control-key-pressed` |
 | `secondary` | fill = `surface-sunk`, text = `text-primary` (ink, AA) — fill-only, no stroke | fill → `surface-hover`, text → `interactive-hover` (teal, transient AA exception); focus matches | text → `interactive-active` + scale |
 | `tertiary` | text = `brand-accent-deep` (teal.700, AA 5.78), no border/fill | text → `interactive-hover` (teal) | text → `interactive-active` + scale |
-| `destructive` | fill + border = `status-error`, text = `text-on-accent`, same physical face as primary | — | + scale; lift → `shadow-control-pressed` |
+| `destructive` | fill + border = `status-error`, text = `text-on-accent`, same key face as primary | — | + scale; shadow → `shadow-control-key-pressed` |
 
 ## State-only
 
@@ -52,17 +52,19 @@ New tokens (added to `tokens/primitives.json` + `tokens/semantic.json`, regenera
 | `--sc-p-motion-duration-press-release` / `--sc-motion-press-release-duration` | 220ms | Release-phase duration. `--sc-motion-press-duration` (160ms) already existed and is reused for the press-in phase — no duplicate "fast" duration added. |
 | `--sc-p-motion-easing-spring-out` / `--sc-motion-press-release-easing` | `cubic-bezier(0.34, 1.56, 0.64, 1)` | Release-phase easing — the only genuinely new easing curve; the y > 1 overshoot is what makes it read as a spring instead of a linear settle. |
 
-## The physical face (filled variants, 2026-10-07)
+## The key face (filled variants, 2026-10-07)
 
-Same light model as the Switch knob: lit from above. Levi's direction is physical rendering, not flat.
+Primary is the Drams OP-1 Keys key (drams/036), horizontal, on the page surface; Levi's pick. Destructive shares the face so the filled variants are one object in two colours.
 
-`--sc-color-control-sheen-top` / `-bottom` — a `linear-gradient(top, transparent 50%, bottom)` laid over the fill (`background-image` over `background-color`), so one pair serves neutral, teal and error fills. The middle is clear, so the label band keeps the fill's own contrast (white on teal.600 stays AA 5.2).
+`--sc-color-control-key-shade` — `linear-gradient(135deg, transparent, key-shade)` laid over the fill: the Drams #EEE → #E3E3E3 face is ink at 5% over the base, so one value serves neutral, teal and error.
 
-`--sc-shadow-control-rim` — inset half-pixel highlight on the top edge and half-pixel shade on the bottom edge.
+`--sc-shadow-control-key` — Drams verbatim: `3px 3px 7px` shade down-right, `-3px -3px 4px 1px` white highlight up-left. Lit from the top left.
 
-`--sc-shadow-control-lift` — the Drams six-layer drop shadow scaled ×0.6 for a ~32px control. `--sc-shadow-control-pressed` keeps only its three near-contact layers; `:active` swaps to it while the press-spring scales the button, so it sits down.
+`--sc-shadow-control-key-pressed` — the Drams pressed variant: the shade and highlight soften and an inner light (`inset 1px 1px 8px`) appears, while the press-spring scales the key.
 
-Disabled drops the sheen, rim and lift: flat reads as unavailable.
+Disabled drops the face shade and the shadows: flat reads as unavailable.
+
+Arrow and loading mark: 12px (`--sc-size-icon-xs`) at both sizes, per the library spec. Loading shows the studio's `WorkingMark` in place of the arrow.
 
 Retired from Button: `--sc-shadow-control-raised` and `--sc-shadow-control-bevel` (neumorphic). The tokens stay published until no consumer reads them.
 
