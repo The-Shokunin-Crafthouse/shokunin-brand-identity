@@ -550,23 +550,27 @@ function Tune() {
 
         <fieldset className={s.group} disabled={SNAPSHOT}>
           <legend>{isMotion ? 'Motion' : 'Props'} · concept {concept.id}</legend>
-          {!isMotion && (
-            <div className={s.prop}><label htmlFor="p-state"><code>state</code></label>
-              <select id="p-state" value={hasDisabled && concept.props.disabled ? 'disabled' : force} onChange={(e) => setStageState(e.target.value)}>
-                {FORCE_STATES.map((f) => <option key={f} value={f}>{f === 'rest' ? 'default' : f}</option>)}
-                {hasDisabled && <option value="disabled">disabled</option>}
-              </select></div>
-          )}
-          {entry.props.map((d) => (
-            <PropControl key={d.name} def={d} value={concept.props[d.name]} spring={concept.springs[`prop:${d.name}`]} easingPresets={easingPresets}
-              onChange={(v) => setPropFor(concept.id)(d.name, v)}
-              onSpring={(easing, sp, settle) => editActive((c) => {
-                const springs = { ...c.springs };
-                const props = { ...c.props, [d.name]: easing };
-                if (sp) { springs[`prop:${d.name}`] = sp; if (d.durationProp) props[d.durationProp] = settle; } else delete springs[`prop:${d.name}`];
-                return { ...c, springs, props };
-              })} />
-          ))}
+          {(() => {
+            const rows = entry.props.map((d) => (
+              <PropControl key={d.name} def={d} value={concept.props[d.name]} spring={concept.springs[`prop:${d.name}`]} easingPresets={easingPresets}
+                onChange={(v) => setPropFor(concept.id)(d.name, v)}
+                onSpring={(easing, sp, settle) => editActive((c) => {
+                  const springs = { ...c.springs };
+                  const props = { ...c.props, [d.name]: easing };
+                  if (sp) { springs[`prop:${d.name}`] = sp; if (d.durationProp) props[d.durationProp] = settle; } else delete springs[`prop:${d.name}`];
+                  return { ...c, springs, props };
+                })} />
+            ));
+            // state sits fourth (Levi, 2026-10-07), or last on a shorter list
+            if (!isMotion) rows.splice(Math.min(3, rows.length), 0, (
+              <div key="state" className={s.prop}><label htmlFor="p-state"><code>state</code></label>
+                <select id="p-state" value={hasDisabled && concept.props.disabled ? 'disabled' : force} onChange={(e) => setStageState(e.target.value)}>
+                  {FORCE_STATES.map((f) => <option key={f} value={f}>{f === 'rest' ? 'default' : f}</option>)}
+                  {hasDisabled && <option value="disabled">disabled</option>}
+                </select></div>
+            ));
+            return rows;
+          })()}
         </fieldset>
 
         <fieldset className={s.group} disabled={SNAPSHOT}>
