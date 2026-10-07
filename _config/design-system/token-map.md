@@ -5,7 +5,7 @@
 # Design Token Map — The Shokunin Crafthouse · Brand Identity
 
 **Generated** from `tokens/primitives.json` + `tokens/semantic.json`.
-**Source fingerprint:** `a0a2abb6d7ef` · **176 primitives · 150 semantic tokens.**
+**Source fingerprint:** `1c296d3b83a2` · **177 primitives · 150 semantic tokens.**
 
 > **This file is a mirror, not the source.** `tokens/*.json` is upstream; this document and the Figma
 > library are generated from / synced to it. It previously claimed the opposite — that both were
@@ -67,15 +67,15 @@ primitives directly. Surfaced here for traceability.
 
 | Token Name | CSS var | Value | Notes |
 |---|---|---|---|
-| `color/warmGray/25` | `--sc-p-color-warm-gray-25` | `#FBF9F6` | Floating surface (popovers, interactive-card hover top layer). scds-v2: desaturated toward HSB(30,3,B) — warm hue kept, saturation pulled to ~3%. |
-| `color/warmGray/50` | `--sc-p-color-warm-gray-50` | `#F4F1ED` | Raised / component surface — default card ground in light. scds-v2 desaturate HSB(30,3,96). |
-| `color/warmGray/100` | `--sc-p-color-warm-gray-100` | `#EBE7E4` | Page ground · light. scds-v2 desaturate HSB(30,3,92) — heavily desaturated warm, retires the saturated oatmeal. |
+| `color/warmGray/25` | `--sc-p-color-warm-gray-25` | `#F8F6F2` | Floating surface (popovers, interactive-card hover top layer). |
+| `color/warmGray/50` | `--sc-p-color-warm-gray-50` | `#F1EFEB` | Raised / component surface — default card ground in light. |
+| `color/warmGray/100` | `--sc-p-color-warm-gray-100` | `#E3DFD8` | Page ground · light. |
 | `color/warmGray/200` | `--sc-p-color-warm-gray-200` | `#D8D1CC` | Set-in component surface · cards, frames, raised tiles. |
 | `color/warmGray/250` | `--sc-p-color-warm-gray-250` | `#C4BCB4` | Default hairline rule · 1px solid divisions (light). |
 | `color/warmGray/300` | `--sc-p-color-warm-gray-300` | `#B0A69C` | Sunk surface · form inputs, card hover, nested states. |
 | `color/warmGray/350` | `--sc-p-color-warm-gray-350` | `#9A9186` | Subtle hairline · dashed inner divisions. |
 | `color/warmGray/400` | `--sc-p-color-warm-gray-400` | `#847C71` | Faint warm gray · disabled text and decorative marks (fails AA by spec). |
-| `color/warmGray/450` | `--sc-p-color-warm-gray-450` | `#6B665E` | Tertiary text · light. scds-v2 addition — AA on page/raised/floating (4.63/5.06/5.42:1); restricted off sunk/deepSunk like text.secondary. |
+| `color/warmGray/450` | `--sc-p-color-warm-gray-450` | `#66615A` | Re-derived 2026-10-07 for the restored oatmeal page #E3DFD8 (OKLCH lightness only, hue and chroma kept): was #6B665E. |
 | `color/warmGray/500` | `--sc-p-color-warm-gray-500` | `#5A5750` | Muted warm gray · secondary copy, metadata. |
 | `color/warmGray/600` | `--sc-p-color-warm-gray-600` | `#484640` | Mid-deep · derived between 500 and 800. |
 | `color/warmGray/700` | `--sc-p-color-warm-gray-700` | `#312F2A` | Near-ink · derived between 500 and 800. |
@@ -103,14 +103,15 @@ primitives directly. Surfaced here for traceability.
 |---|---|---|---|
 | `color/status/success/light` | `--sc-p-color-status-success-light` | `#2F855A` | Forest green · success states on light ground. |
 | `color/status/success/dark` | `--sc-p-color-status-success-dark` | `#57AD7F` | Lifted green · success fill/border/dot on dark ground. |
-| `color/status/success/ink/light` | `--sc-p-color-status-success-ink-light` | `#28724D` | 2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier, hue-locked to success, 4.74:1 on warmGray.100 (base success/light fails at 3.69:1 for body text). |
+| `color/status/success/ink/light` | `--sc-p-color-status-success-ink-light` | `#246E4A` | Re-derived 2026-10-07 for the restored oatmeal page #E3DFD8 (OKLCH lightness only, hue and chroma kept): was #28724D. |
 | `color/status/success/ink/dark` | `--sc-p-color-status-success-ink-dark` | `#6AC090` | Text-only tier, hue-locked to success (learning #56). |
 | `color/status/warning/light` | `--sc-p-color-status-warning-light` | `#C2410C` | Burnt orange · warning states on light ground · hue ~20°. |
 | `color/status/warning/dark` | `--sc-p-color-status-warning-dark` | `#F67751` | Lifted orange · warning fill/border/dot on dark ground. |
-| `color/status/warning/ink/light` | `--sc-p-color-status-warning-ink-light` | `#B83E0B` | 2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier, hue-locked to warning, 4.58:1 on warmGray.100 (base warning/light fails at 4.21:1 for body text). |
+| `color/status/warning/ink/light` | `--sc-p-color-status-warning-ink-light` | `#B13700` | Re-derived 2026-10-07 for the restored oatmeal page #E3DFD8 (OKLCH lightness only, hue and chroma kept): was #B83E0B. |
 | `color/status/warning/ink/dark` | `--sc-p-color-status-warning-ink-dark` | `#FE9374` | Text-only tier, hue-locked to warning (learning #56). |
-| `color/status/info/light` | `--sc-p-color-status-info-light` | `#2D5AD8` | Royal blue · info states on light ground · AA 4.79:1 on warmGray.100 (clears AA as text, which is why status.info-ink reuses it directly in light mode). |
+| `color/status/info/light` | `--sc-p-color-status-info-light` | `#2D5AD8` | Royal blue · info states on light ground · AA 4.43:1 on warmGray.100 (clears AA as text, which is why status.info-ink reuses it directly in light mode). |
 | `color/status/info/dark` | `--sc-p-color-status-info-dark` | `#709AFD` | Lifted blue · info fill/border/dot on dark ground. |
+| `color/status/info/ink/light` | `--sc-p-color-status-info-ink-light` | `#2B57D5` | Text tier for status.info in light mode. |
 | `color/status/info/ink/dark` | `--sc-p-color-status-info-ink-dark` | `#8DAFFD` | Text-only tier, hue-locked to info (learning #56). |
 | `color/status/error/light` | `--sc-p-color-status-error-light` | `#7F1D1D` | Oxblood · error states on light ground · deep + serious, pulled deliberately off the brand band so brand-accent and danger can never be confused. |
 | `color/status/error/dark` | `--sc-p-color-status-error-dark` | `#FE6B67` | Lifted rose · error states on dark ground. |
@@ -182,7 +183,7 @@ primitives directly. Surfaced here for traceability.
 
 | Token Name | CSS var | Value | Notes |
 |---|---|---|---|
-| `color/interactive/hoverInk/light` | `--sc-p-color-interactive-hover-ink-light` | `#027175` | 2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier for interactive/hover, hue-locked to teal, 4.72:1 on warmGray.100 (base interactive.hover/teal.500 fails at 3.23:1 for body text — the documented AA exception, learning #67). |
+| `color/interactive/hoverInk/light` | `--sc-p-color-interactive-hover-ink-light` | `#006D72` | Re-derived 2026-10-07 for the restored oatmeal page #E3DFD8 (OKLCH lightness only, hue and chroma kept): was #027175. |
 
 ### Typography · Primitives
 
@@ -433,11 +434,11 @@ channel-triplet primitives) rather than an alias to a single primitive.
 
 | Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
 |---|---|---|---|---|---|---|
-| `color/surface/page` | `--sc-color-surface-page` | `color/warmGray/100` | `#EBE7E4` | `color/dark/surfacePage` | `#2C3239` | Page ground. |
+| `color/surface/page` | `--sc-color-surface-page` | `color/warmGray/100` | `#E3DFD8` | `color/dark/surfacePage` | `#2C3239` | Page ground. |
 | `color/surface/sunk` | `--sc-color-surface-sunk` | `color/warmGray/200` | `#D8D1CC` | `color/dark/well` | `#1F252C` | Set-in component surface · cards, frames, tiles. scds-v2 elevation: light sits BELOW page (deeper, warmGray.200); dark SINKS to the deepest well (dark.well, one slate step below page) and rises to page on hover (Phase 2 component model). |
 | `color/surface/deepSunk` | `--sc-color-surface-deep-sunk` | `color/warmGray/300` | `#B0A69C` | `color/dark/raised2` | `#3B4249` | Deeper-step surface · nested states, form inputs, card hover. |
-| `color/surface/raised` | `--sc-color-surface-raised` | `color/warmGray/50` | `#F4F1ED` | `color/dark/raised1` | `#343A41` | Lifted-above-page surface · default card ground. |
-| `color/surface/floating` | `--sc-color-surface-floating` | `color/warmGray/25` | `#FBF9F6` | `color/dark/raised2` | `#3B4249` | Highest surface · popovers, interactive-card hover. |
+| `color/surface/raised` | `--sc-color-surface-raised` | `color/warmGray/50` | `#F1EFEB` | `color/dark/raised1` | `#343A41` | Lifted-above-page surface · default card ground. |
+| `color/surface/floating` | `--sc-color-surface-floating` | `color/warmGray/25` | `#F8F6F2` | `color/dark/raised2` | `#3B4249` | Highest surface · popovers, interactive-card hover. |
 | `color/surface/rail` | `--sc-color-surface-rail` | `color/warmGray/300` | `#B0A69C` | `color/dark/floor` | `#252B32` | Sidebar / left-rail ground. |
 | `color/surface/hover` | `--sc-color-surface-hover` | `color/warmGray/250` | `#C4BCB4` | `color/dark/raised1` | `#343A41` | Hover-highlight ground for nav links and similar row-level affordances. |
 
@@ -447,7 +448,7 @@ channel-triplet primitives) rather than an alias to a single primitive.
 |---|---|---|---|---|---|---|
 | `color/text/primary` | `--sc-color-text-primary` | `color/warmGray/800` | `#1A1815` | `color/dark/textPrimary` | `#EAE8E3` | Primary text · body, headlines, strong rules. |
 | `color/text/secondary` | `--sc-color-text-secondary` | `color/warmGray/500` | `#5A5750` | `color/dark/textSecondary` | `#C9C7C3` | Secondary text · eyebrows, metadata, descriptions. |
-| `color/text/tertiary` | `--sc-color-text-tertiary` | `color/warmGray/450` | `#6B665E` | `color/dark/textTertiary` | `#B3B1AD` | Tertiary text · lowest readable tier (de-emphasized metadata). scds-v2 addition. |
+| `color/text/tertiary` | `--sc-color-text-tertiary` | `color/warmGray/450` | `#66615A` | `color/dark/textTertiary` | `#B3B1AD` | Tertiary text · lowest readable tier (de-emphasized metadata). scds-v2 addition. |
 | `color/text/disabled` | `--sc-color-text-disabled` | `color/warmGray/400` | `#847C71` | `color/dark/textDisabled` | `#7C7A76` | Disabled text · placeholders, ghosted controls. |
 | `color/text/onAccent` | `--sc-color-text-on-accent` | `color/utility/white` | `#FFFFFF` | `color/utility/white` | `#FFFFFF` | Text on brand/accent fills. |
 
@@ -457,7 +458,7 @@ channel-triplet primitives) rather than an alias to a single primitive.
 |---|---|---|---|---|---|---|
 | `color/border/default` | `--sc-color-border-default` | `color/warmGray/350` | `#9A9186` | `color/dark/border` | `#4D535B` | Default 1px solid hairline. |
 | `color/border/subtle` | `--sc-color-border-subtle` | `color/warmGray/250` | `#C4BCB4` | `color/dark/borderSubtle` | `#3B4249` | Dashed inner divisions. |
-| `color/border/strong` | `--sc-color-border-strong` | `color/warmGray/800` | `#1A1815` | `color/warmGray/50` | `#F4F1ED` | Strong frame border. |
+| `color/border/strong` | `--sc-color-border-strong` | `color/warmGray/800` | `#1A1815` | `color/warmGray/50` | `#F1EFEB` | Strong frame border. |
 | `color/border/focus` | `--sc-color-border-focus` | `color/focusRing/light` | `#1F2024` | `color/focusRing/dark` | `#E9EBEE` | Focus ring color · scds-v2 dedicated, OFF the brand (teal) band and off every status hue (focus-ring-token). |
 
 #### `color/divider`
@@ -472,9 +473,9 @@ channel-triplet primitives) rather than an alias to a single primitive.
 
 | Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
 |---|---|---|---|---|---|---|
-| `color/interactive/default` | `--sc-color-interactive-default` | `color/warmGray/800` | `#1A1815` | `color/warmGray/50` | `#F4F1ED` | Resting state for interactive elements · button text + border. |
+| `color/interactive/default` | `--sc-color-interactive-default` | `color/warmGray/800` | `#1A1815` | `color/warmGray/50` | `#F1EFEB` | Resting state for interactive elements · button text + border. |
 | `color/interactive/hover` | `--sc-color-interactive-hover` | `color/teal/500` | `#038E93` | `color/teal/300` | `#52B8BC` | Hover state · primary button text/icon/border turn brand teal. |
-| `color/interactive/hover-ink` | `--sc-color-interactive-hover-ink` | `color/interactive/hoverInk/light` | `#027175` | `color/teal/200` | `#8FD2D5` | 2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier for interactive.hover — use when the hover color renders as body text (not icon/border), 4.72:1 on warmGray.100. |
+| `color/interactive/hover-ink` | `--sc-color-interactive-hover-ink` | `color/interactive/hoverInk/light` | `#006D72` | `color/teal/200` | `#8FD2D5` | 2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier for interactive.hover — use when the hover color renders as body text (not icon/border), 4.61:1 on warmGray.100. |
 | `color/interactive/selected` | `--sc-color-interactive-selected` | _literal_ | `#038E931A` | _literal_ | `#038E931A` | Selected-option tint: brand teal (teal.500) at 10%. |
 | `color/interactive/active` | `--sc-color-interactive-active` | `color/teal/700` | `#056268` | `color/teal/500` | `#038E93` | Pressed/active state · one step deeper than hover. |
 
@@ -486,16 +487,16 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | `color/status/warning` | `--sc-color-status-warning` | `color/status/warning/light` | `#C2410C` | `color/status/warning/dark` | `#F67751` | Warning state · burnt orange on light, lifted orange on dark. |
 | `color/status/error` | `--sc-color-status-error` | `color/status/error/light` | `#7F1D1D` | `color/status/error/dark` | `#FE6B67` | Error state · oxblood on light, lifted rose on dark (4.63:1 on dark surface.page, slate ladder 2026-09-24; below AA as text on dark raised/floating, no -ink tier yet). |
 | `color/status/info` | `--sc-color-status-info` | `color/status/info/light` | `#2D5AD8` | `color/status/info/dark` | `#709AFD` | Info state · royal blue on light, lifted blue on dark. |
-| `color/status/success-ink` | `--sc-color-status-success-ink` | `color/status/success/ink/light` | `#28724D` | `color/status/success/ink/dark` | `#6AC090` | 2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier for status.success — use when rendered as body text, 4.74:1 (L) / 5.89:1 (D) on their respective page grounds. |
-| `color/status/warning-ink` | `--sc-color-status-warning-ink` | `color/status/warning/ink/light` | `#B83E0B` | `color/status/warning/ink/dark` | `#FE9374` | 2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier for status.warning — use when rendered as body text, 4.58:1 (L) / 5.94:1 (D) on their respective page grounds. |
-| `color/status/info-ink` | `--sc-color-status-info-ink` | `color/status/info/light` | `#2D5AD8` | `color/status/info/ink/dark` | `#8DAFFD` | 2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier for status.info — light mode reuses status.info.light directly (already AA as text, 4.79:1); dark mode gets a dedicated ink (5.97:1 on its page ground, 4.70:1 on surface.floating; re-derived 2026-09-24 for the slate ladder) since base status.info.da… |
+| `color/status/success-ink` | `--sc-color-status-success-ink` | `color/status/success/ink/light` | `#246E4A` | `color/status/success/ink/dark` | `#6AC090` | 2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier for status.success — use when rendered as body text, 4.64:1 (L) / 5.89:1 (D) on their respective page grounds. |
+| `color/status/warning-ink` | `--sc-color-status-warning-ink` | `color/status/warning/ink/light` | `#B13700` | `color/status/warning/ink/dark` | `#FE9374` | 2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier for status.warning — use when rendered as body text, 4.63:1 (L) / 5.94:1 (D) on their respective page grounds. |
+| `color/status/info-ink` | `--sc-color-status-info-ink` | `color/status/info/ink/light` | `#2B57D5` | `color/status/info/ink/dark` | `#8DAFFD` | 2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier for status.info — light mode got its own ink 2026-10-07 (status.info.ink.light) when the oatmeal page restore dropped the shared fill below AA; dark mode gets a dedicated ink (5.97:1 on its page ground, 4.70:1 on surface.floating; re-derived 2026-09… |
 
 #### `color/signal`
 
 | Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
 |---|---|---|---|---|---|---|
 | `color/signal/live` | `--sc-color-signal-live` | `color/signal/live` | `#C8281C` | `color/signal/liveBright` | `#DA5C4D` | LIVE badge fill — red broadcast signal; brightens one step on dark ground. |
-| `color/signal/onLive` | `--sc-color-signal-on-live` | `color/warmGray/100` | `#EBE7E4` | `color/dark/surfacePage` | `#2C3239` | Text on the LIVE badge fill. |
+| `color/signal/onLive` | `--sc-color-signal-on-live` | `color/warmGray/100` | `#E3DFD8` | `color/dark/surfacePage` | `#2C3239` | Text on the LIVE badge fill. |
 | `color/signal/progress` | `--sc-color-signal-progress` | `color/signal/progress` | `#FBFF00` | `color/signal/progress` | `#FBFF00` | In-progress/active pill fill + live dot — chartreuse both modes. |
 | `color/signal/onProgress` | `--sc-color-signal-on-progress` | `color/warmGray/900` | `#0D0C0B` | `color/warmGray/900` | `#0D0C0B` | Ink on the chartreuse progress fill — warm near-black both modes (chartreuse stays light-valued on dark grounds). |
 
@@ -507,14 +508,14 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | `color/atmosphere/river` | `--sc-color-atmosphere-river` | `color/atmosphere/river` | `#5CE3E6` | `color/atmosphere/river` | `#5CE3E6` | Canvas-light blend, stop 2 of 4 (RIVER INDIGO, bright, in the FLOW export). |
 | `color/atmosphere/lapis` | `--sc-color-atmosphere-lapis` | `color/atmosphere/riverDeep` | `#0F9CC2` | `color/atmosphere/riverDeep` | `#0F9CC2` | Canvas-light blend, stop 3 of 4 (RIVER INDIGO, deep, in the FLOW export). |
 | `color/atmosphere/indigo` | `--sc-color-atmosphere-indigo` | `color/atmosphere/indigo` | `#274A78` | `color/atmosphere/indigo` | `#274A78` | Canvas-light blend, stop 4 of 4 (INDIGO). |
-| `color/atmosphere/mark` | `--sc-color-atmosphere-mark` | `color/teal/700` | `#056268` | `color/warmGray/100` | `#EBE7E4` | The plus-mark grid drawn over the atmosphere wash. |
+| `color/atmosphere/mark` | `--sc-color-atmosphere-mark` | `color/teal/700` | `#056268` | `color/warmGray/100` | `#E3DFD8` | The plus-mark grid drawn over the atmosphere wash. |
 
 #### `color/brand`
 
 | Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
 |---|---|---|---|---|---|---|
 | `color/brand/accent` | `--sc-color-brand-accent` | `color/teal/500` | `#038E93` | `color/teal/500` | `#038E93` | Brand accent · teal kept consistent across modes for brand-mark continuity. |
-| `color/brand/accentDeep` | `--sc-color-brand-accent-deep` | `color/teal/700` | `#056268` | `color/teal/700` | `#056268` | Brand accent deep · pressed accent state. teal.700 in both modes (5.78:1 on warmGray.100), unchanged. |
+| `color/brand/accentDeep` | `--sc-color-brand-accent-deep` | `color/teal/700` | `#056268` | `color/teal/700` | `#056268` | Brand accent deep · pressed accent state. teal.700 in both modes (5.35:1 on warmGray.100), unchanged. |
 | `color/brand/accentInk` | `--sc-color-brand-accent-ink` | `color/teal/700` | `#056268` | `color/teal/200` | `#8FD2D5` | Brand accent as text ink · mode-following counterpart of accentDeep's light-only text claim (added 2026-09-06, WQ-040). |
 | `color/brand/accentFill` | `--sc-color-brand-accent-fill` | `color/teal/600` | `#04797D` | `color/teal/600` | `#04797D` | Brand accent fill · the fill for accent surfaces that carry text (primary/accent buttons). teal.600 so white text passes AA (5.20:1). brand.accent (teal.500) fails white-text AA at 3.97:1 and stays for the mark and non-text uses. |
 
@@ -522,13 +523,13 @@ channel-triplet primitives) rather than an alias to a single primitive.
 
 | Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
 |---|---|---|---|---|---|---|
-| `color/text-on-inverse` | `--sc-color-text-on-inverse` | `color/warmGray/50` | `#F4F1ED` | `color/warmGray/800` | `#1A1815` | Sprint 4 addition · text on inverted surface. |
+| `color/text-on-inverse` | `--sc-color-text-on-inverse` | `color/warmGray/50` | `#F1EFEB` | `color/warmGray/800` | `#1A1815` | Sprint 4 addition · text on inverted surface. |
 
 #### `color/surface-inverse`
 
 | Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
 |---|---|---|---|---|---|---|
-| `color/surface-inverse` | `--sc-color-surface-inverse` | `color/warmGray/800` | `#1A1815` | `color/warmGray/50` | `#F4F1ED` | Sprint 4 addition · inverted surface. |
+| `color/surface-inverse` | `--sc-color-surface-inverse` | `color/warmGray/800` | `#1A1815` | `color/warmGray/50` | `#F1EFEB` | Sprint 4 addition · inverted surface. |
 
 #### `color/control`
 
@@ -542,10 +543,10 @@ channel-triplet primitives) rather than an alias to a single primitive.
 |---|---|---|---|---|---|---|
 | `color/switch/thumb/rimTop` | `--sc-color-switch-thumb-rim-top` | `color/utility/white` | `#FFFFFF` | `color/warmGray/200` | `#D8D1CC` | 2026-10-07 · Switch restyled to the Drams Standard Switch (drams/001) at SCDS size. |
 | `color/switch/thumb/rimBottom` | `--sc-color-switch-thumb-rim-bottom` | `color/warmGray/200` | `#D8D1CC` | `color/warmGray/350` | `#9A9186` | 2026-10-07 · Switch restyled to the Drams Standard Switch (drams/001) at SCDS size. |
-| `color/switch/thumb/faceTop` | `--sc-color-switch-thumb-face-top` | `color/warmGray/50` | `#F4F1ED` | `color/warmGray/250` | `#C4BCB4` | 2026-10-07 · Switch restyled to the Drams Standard Switch (drams/001) at SCDS size. |
-| `color/switch/thumb/faceBottom` | `--sc-color-switch-thumb-face-bottom` | `color/warmGray/100` | `#EBE7E4` | `color/warmGray/300` | `#B0A69C` | 2026-10-07 · Switch restyled to the Drams Standard Switch (drams/001) at SCDS size. |
+| `color/switch/thumb/faceTop` | `--sc-color-switch-thumb-face-top` | `color/warmGray/50` | `#F1EFEB` | `color/warmGray/250` | `#C4BCB4` | 2026-10-07 · Switch restyled to the Drams Standard Switch (drams/001) at SCDS size. |
+| `color/switch/thumb/faceBottom` | `--sc-color-switch-thumb-face-bottom` | `color/warmGray/100` | `#E3DFD8` | `color/warmGray/300` | `#B0A69C` | 2026-10-07 · Switch restyled to the Drams Standard Switch (drams/001) at SCDS size. |
 | `color/switch/glyph/on` | `--sc-color-switch-glyph-on` | `color/utility/white` | `#FFFFFF` | `color/utility/white` | `#FFFFFF` | 2026-10-07 · Switch restyled to the Drams Standard Switch (drams/001) at SCDS size. |
-| `color/switch/glyph/off` | `--sc-color-switch-glyph-off` | `color/warmGray/25` | `#FBF9F6` | `color/dark/textDisabled` | `#7C7A76` | 2026-10-07 · Switch restyled to the Drams Standard Switch (drams/001) at SCDS size. |
+| `color/switch/glyph/off` | `--sc-color-switch-glyph-off` | `color/warmGray/25` | `#F8F6F2` | `color/dark/textDisabled` | `#7C7A76` | 2026-10-07 · Switch restyled to the Drams Standard Switch (drams/001) at SCDS size. |
 
 ### Typography · Semantic
 
