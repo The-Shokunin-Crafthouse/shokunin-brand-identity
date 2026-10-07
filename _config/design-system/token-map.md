@@ -5,7 +5,7 @@
 # Design Token Map — The Shokunin Crafthouse · Brand Identity
 
 **Generated** from `tokens/primitives.json` + `tokens/semantic.json`.
-**Source fingerprint:** `8790dd7f8841` · **180 primitives · 157 semantic tokens.**
+**Source fingerprint:** `f759208561b3` · **180 primitives · 157 semantic tokens.**
 
 > **This file is a mirror, not the source.** `tokens/*.json` is upstream; this document and the Figma
 > library are generated from / synced to it. It previously claimed the opposite — that both were
@@ -546,10 +546,10 @@ channel-triplet primitives) rather than an alias to a single primitive.
 
 | Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
 |---|---|---|---|---|---|---|
-| `color/switch/thumb/rimTop` | `--sc-color-switch-thumb-rim-top` | `color/utility/white` | `#FFFFFF` | `color/dark/raised5` | `#565D65` | 2026-10-07 · Switch restyled to the Drams Standard Switch (drams/001) at SCDS size. |
-| `color/switch/thumb/rimBottom` | `--sc-color-switch-thumb-rim-bottom` | `color/warmGray/200` | `#D8D1CC` | `color/dark/raised3` | `#434A51` | 2026-10-07 · Switch restyled to the Drams Standard Switch (drams/001) at SCDS size. |
-| `color/switch/thumb/faceTop` | `--sc-color-switch-thumb-face-top` | `color/warmGray/50` | `#F1EFEB` | `color/dark/raised4` | `#4D535B` | 2026-10-07 · Switch restyled to the Drams Standard Switch (drams/001) at SCDS size. |
-| `color/switch/thumb/faceBottom` | `--sc-color-switch-thumb-face-bottom` | `color/warmGray/100` | `#E3DFD8` | `color/dark/raised3` | `#434A51` | 2026-10-07 · Switch restyled to the Drams Standard Switch (drams/001) at SCDS size. |
+| `color/switch/thumb/rimTop` | `--sc-color-switch-thumb-rim-top` | `color/utility/white` | `#FFFFFF` | `color/warmGray/200` | `#D8D1CC` | 2026-10-07 · Switch restyled to the Drams Standard Switch (drams/001) at SCDS size. |
+| `color/switch/thumb/rimBottom` | `--sc-color-switch-thumb-rim-bottom` | `color/warmGray/200` | `#D8D1CC` | `color/warmGray/350` | `#9A9186` | 2026-10-07 · Switch restyled to the Drams Standard Switch (drams/001) at SCDS size. |
+| `color/switch/thumb/faceTop` | `--sc-color-switch-thumb-face-top` | `color/warmGray/50` | `#F1EFEB` | `color/warmGray/250` | `#C4BCB4` | 2026-10-07 · Switch restyled to the Drams Standard Switch (drams/001) at SCDS size. |
+| `color/switch/thumb/faceBottom` | `--sc-color-switch-thumb-face-bottom` | `color/warmGray/100` | `#E3DFD8` | `color/warmGray/300` | `#B0A69C` | 2026-10-07 · Switch restyled to the Drams Standard Switch (drams/001) at SCDS size. |
 | `color/switch/glyph/on` | `--sc-color-switch-glyph-on` | `color/utility/white` | `#FFFFFF` | `color/utility/white` | `#FFFFFF` | 2026-10-07 · Switch restyled to the Drams Standard Switch (drams/001) at SCDS size. |
 | `color/switch/glyph/off` | `--sc-color-switch-glyph-off` | `color/warmGray/25` | `#F8F6F2` | `color/dark/textDisabled` | `#7C7A76` | 2026-10-07 · Switch restyled to the Drams Standard Switch (drams/001) at SCDS size. |
 
@@ -703,8 +703,8 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | `shadow/control/key` | `--sc-shadow-control-key` | _literal_ | `2px 2px 6px 0 rgb(100 91 79 / 0.50), -1px -1px 1px 1px rgb(253 250 246 / 1)` | _literal_ | `3px 3px 7px 0 rgb(0 0 0 / 0.50), -1px -1px 1px 1px rgb(219 235 255 / 0.17)` | 2026-10-07 · Button primary = Drams OP-1 Keys (drams/036), horizontal, on the page surface (Levi). |
 | `shadow/control/keyHover` | `--sc-shadow-control-key-hover` | _literal_ | `2px 2px 6px 0 rgb(100 91 79 / 0.50), -1px -1px 1px 1px rgb(253 250 246 / 1)` | _literal_ | `3px 3px 7px 0 rgb(0 0 0 / 0.50), -1px -1px 1px 1px rgb(219 235 255 / 0.17)` | 2026-10-07 · Button primary key on hover. |
 | `shadow/control/keyPressed` | `--sc-shadow-control-key-pressed` | _literal_ | `2px 2px 6px 0 rgb(100 91 79 / 0.37), -1px -1px 1px 1px rgb(253 250 246 / 0.90), inset 1px 1px 8px 0 rgb(var(--sc-p-color-white-rgb) / 0.30)` | _literal_ | `3px 3px 7px 0 rgb(0 0 0 / 0.38), -1px -1px 1px 1px rgb(219 235 255 / 0.14), inset 1px 1px 8px 0 rgb(var(--sc-p-color-white-rgb) / 0.06)` | 2026-10-07 · Button primary = Drams OP-1 Keys (drams/036), horizontal, on the page surface (Levi). |
-| `shadow/switch/track` | `--sc-shadow-switch-track` | _literal_ | `inset 0.32px 0.32px 0.9px rgb(var(--sc-p-color-ink-rgb) / 0.25)` | _literal_ | `inset 0.32px 0.32px 0.9px rgb(0 0 0 / 0.45)` | 2026-10-07 · Switch restyled to the Drams Standard Switch (drams/001) at SCDS size. |
-| `shadow/switch/thumb` | `--sc-shadow-switch-thumb` | _literal_ | `0.26px 0.26px 0.52px -0.28px rgb(var(--sc-p-color-ink-rgb) / 0.26), 0.67px 0.67px 1.33px -0.56px rgb(var(--sc-p-color-ink-rgb) / 0.25), 1.34px 1.34px 2.66px -0.84px rgb(var(--sc-p-color-ink-rgb) / 0.24), 2.55px 2.55px 5.05px -1.13px rgb(var(--sc-p-color-ink-rgb) / 0.22), 5.06px 5.06px 10.03px -1.41px rgb(var(--sc-p-color-ink-rgb) / 0.18), 11.14px 11.14px 22.05px 0 rgb(var(--sc-p-color-ink-rgb) / 0.09)` | _literal_ | `0.26px 0.26px 0.52px -0.28px rgb(0 0 0 / 0.42), 0.67px 0.67px 1.33px -0.56px rgb(0 0 0 / 0.40), 1.34px 1.34px 2.66px -0.84px rgb(0 0 0 / 0.38), 2.55px 2.55px 5.05px -1.13px rgb(0 0 0 / 0.35), 5.06px 5.06px 10.03px -1.41px rgb(0 0 0 / 0.29), 11.14px 11.14px 22.05px 0 rgb(0 0 0 / 0.14)` | 2026-10-07 · Switch restyled to the Drams Standard Switch (drams/001) at SCDS size. |
+| `shadow/switch/track` | `--sc-shadow-switch-track` | _literal_ | `inset 0 0.45px 0.9px rgb(var(--sc-p-color-ink-rgb) / 0.25)` | _literal_ | `inset 0 0.45px 0.9px rgb(0 0 0 / 0.45)` | 2026-10-07 · Switch restyled to the Drams Standard Switch (drams/001) at SCDS size. |
+| `shadow/switch/thumb` | `--sc-shadow-switch-thumb` | _literal_ | `0 0.37px 0.52px -0.28px rgb(var(--sc-p-color-ink-rgb) / 0.26), 0 0.95px 1.33px -0.56px rgb(var(--sc-p-color-ink-rgb) / 0.25), 0 1.9px 2.66px -0.84px rgb(var(--sc-p-color-ink-rgb) / 0.24), 0 3.6px 5.05px -1.13px rgb(var(--sc-p-color-ink-rgb) / 0.22), 0 7.16px 10.03px -1.41px rgb(var(--sc-p-color-ink-rgb) / 0.18), 0 15.75px 22.05px 0 rgb(var(--sc-p-color-ink-rgb) / 0.09)` | _literal_ | `0 0.37px 0.52px -0.28px rgb(0 0 0 / 0.42), 0 0.95px 1.33px -0.56px rgb(0 0 0 / 0.40), 0 1.9px 2.66px -0.84px rgb(0 0 0 / 0.38), 0 3.6px 5.05px -1.13px rgb(0 0 0 / 0.35), 0 7.16px 10.03px -1.41px rgb(0 0 0 / 0.29), 0 15.75px 22.05px 0 rgb(0 0 0 / 0.14)` | 2026-10-07 · Switch restyled to the Drams Standard Switch (drams/001) at SCDS size. |
 
 ### Size · Semantic
 

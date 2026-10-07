@@ -580,25 +580,25 @@
           "$type": "color",
           "$value": "{color.utility.white}",
           "$description": "2026-10-07 · Switch restyled to the Drams Standard Switch (drams/001) at SCDS size. Knob rim gradient, top stop. A 0.5px rim catches the light above the face (Drams #FFF to #D1D1D1).",
-          "$extensions": { "modes": { "light": "{color.utility.white}", "dark": "{color.dark.raised5}" } }
+          "$extensions": { "modes": { "light": "{color.utility.white}", "dark": "{color.warmGray.200}" } }
         },
         "rimBottom": {
           "$type": "color",
           "$value": "{color.warmGray.200}",
           "$description": "2026-10-07 · Switch restyled to the Drams Standard Switch (drams/001) at SCDS size. Knob rim gradient, bottom stop.",
-          "$extensions": { "modes": { "light": "{color.warmGray.200}", "dark": "{color.dark.raised3}" } }
+          "$extensions": { "modes": { "light": "{color.warmGray.200}", "dark": "{color.warmGray.350}" } }
         },
         "faceTop": {
           "$type": "color",
           "$value": "{color.warmGray.50}",
-          "$description": "2026-10-07 · Switch restyled to the Drams Standard Switch (drams/001) at SCDS size. Knob face gradient, top stop (Drams #F2F2F2 to #E8E8E8). Dark is a dark key (Gate 1 pick 3, 2026-10-07): the face runs dark.raised4 to raised3, one to two ladder steps above the off track (dark.raised2), as the dark Button key sits one step above the page; the rim runs raised5 to raised3.",
-          "$extensions": { "modes": { "light": "{color.warmGray.50}", "dark": "{color.dark.raised4}" } }
+          "$description": "2026-10-07 · Switch restyled to the Drams Standard Switch (drams/001) at SCDS size. Knob face gradient, top stop (Drams #F2F2F2 to #E8E8E8). Dark keeps a light physical knob, dimmed per stop, so the object keeps its material at night.",
+          "$extensions": { "modes": { "light": "{color.warmGray.50}", "dark": "{color.warmGray.250}" } }
         },
         "faceBottom": {
           "$type": "color",
           "$value": "{color.warmGray.100}",
           "$description": "2026-10-07 · Switch restyled to the Drams Standard Switch (drams/001) at SCDS size. Knob face gradient, bottom stop.",
-          "$extensions": { "modes": { "light": "{color.warmGray.100}", "dark": "{color.dark.raised3}" } }
+          "$extensions": { "modes": { "light": "{color.warmGray.100}", "dark": "{color.warmGray.300}" } }
         }
       },
       "glyph": {
@@ -730,20 +730,20 @@
     "switch": {
       "track": {
         "$type": "shadow",
-        "$description": "2026-10-07 · Switch restyled to the Drams Standard Switch (drams/001) at SCDS size. Recessed track. Drams inset 0 1px 2px at 0.25, scaled x0.45 to the 18px track. Re-lit 2026-10-07 to the system light (top left, Gate 1 pick 1): the offset is rotated 45 degrees with its length kept, 0.45 down becomes 0.32 right and 0.32 down.",
-        "$value": "inset 0.32px 0.32px 0.9px rgb(var(--sc-p-color-ink-rgb) / 0.25)",
+        "$description": "2026-10-07 · Switch restyled to the Drams Standard Switch (drams/001) at SCDS size. Recessed track. Drams inset 0 1px 2px at 0.25, scaled x0.45 to the 18px track.",
+        "$value": "inset 0 0.45px 0.9px rgb(var(--sc-p-color-ink-rgb) / 0.25)",
         "$extensions": { "modes": {
-          "light": "inset 0.32px 0.32px 0.9px rgb(var(--sc-p-color-ink-rgb) / 0.25)",
-          "dark":  "inset 0.32px 0.32px 0.9px rgb(0 0 0 / 0.45)"
+          "light": "inset 0 0.45px 0.9px rgb(var(--sc-p-color-ink-rgb) / 0.25)",
+          "dark":  "inset 0 0.45px 0.9px rgb(0 0 0 / 0.45)"
         } }
       },
       "thumb": {
         "$type": "shadow",
-        "$description": "2026-10-07 · Switch restyled to the Drams Standard Switch (drams/001) at SCDS size. Knob lift. The Drams six-layer drop shadow with every offset, blur and spread scaled x0.45 (34px knob to 14px). Control-scoped; not a general elevation token. Re-lit 2026-10-07 to the system light (top left, Gate 1 pick 1): every layer offset is rotated 45 degrees with its length kept (0 y becomes y/sqrt2 y/sqrt2), blur, spread and colour unchanged.",
-        "$value": "0.26px 0.26px 0.52px -0.28px rgb(var(--sc-p-color-ink-rgb) / 0.26), 0.67px 0.67px 1.33px -0.56px rgb(var(--sc-p-color-ink-rgb) / 0.25), 1.34px 1.34px 2.66px -0.84px rgb(var(--sc-p-color-ink-rgb) / 0.24), 2.55px 2.55px 5.05px -1.13px rgb(var(--sc-p-color-ink-rgb) / 0.22), 5.06px 5.06px 10.03px -1.41px rgb(var(--sc-p-color-ink-rgb) / 0.18), 11.14px 11.14px 22.05px 0 rgb(var(--sc-p-color-ink-rgb) / 0.09)",
+        "$description": "2026-10-07 · Switch restyled to the Drams Standard Switch (drams/001) at SCDS size. Knob lift. The Drams six-layer drop shadow with every offset, blur and spread scaled x0.45 (34px knob to 14px). Control-scoped like control.raised; not a general elevation token.",
+        "$value": "0 0.37px 0.52px -0.28px rgb(var(--sc-p-color-ink-rgb) / 0.26), 0 0.95px 1.33px -0.56px rgb(var(--sc-p-color-ink-rgb) / 0.25), 0 1.9px 2.66px -0.84px rgb(var(--sc-p-color-ink-rgb) / 0.24), 0 3.6px 5.05px -1.13px rgb(var(--sc-p-color-ink-rgb) / 0.22), 0 7.16px 10.03px -1.41px rgb(var(--sc-p-color-ink-rgb) / 0.18), 0 15.75px 22.05px 0 rgb(var(--sc-p-color-ink-rgb) / 0.09)",
         "$extensions": { "modes": {
-          "light": "0.26px 0.26px 0.52px -0.28px rgb(var(--sc-p-color-ink-rgb) / 0.26), 0.67px 0.67px 1.33px -0.56px rgb(var(--sc-p-color-ink-rgb) / 0.25), 1.34px 1.34px 2.66px -0.84px rgb(var(--sc-p-color-ink-rgb) / 0.24), 2.55px 2.55px 5.05px -1.13px rgb(var(--sc-p-color-ink-rgb) / 0.22), 5.06px 5.06px 10.03px -1.41px rgb(var(--sc-p-color-ink-rgb) / 0.18), 11.14px 11.14px 22.05px 0 rgb(var(--sc-p-color-ink-rgb) / 0.09)",
-          "dark":  "0.26px 0.26px 0.52px -0.28px rgb(0 0 0 / 0.42), 0.67px 0.67px 1.33px -0.56px rgb(0 0 0 / 0.40), 1.34px 1.34px 2.66px -0.84px rgb(0 0 0 / 0.38), 2.55px 2.55px 5.05px -1.13px rgb(0 0 0 / 0.35), 5.06px 5.06px 10.03px -1.41px rgb(0 0 0 / 0.29), 11.14px 11.14px 22.05px 0 rgb(0 0 0 / 0.14)"
+          "light": "0 0.37px 0.52px -0.28px rgb(var(--sc-p-color-ink-rgb) / 0.26), 0 0.95px 1.33px -0.56px rgb(var(--sc-p-color-ink-rgb) / 0.25), 0 1.9px 2.66px -0.84px rgb(var(--sc-p-color-ink-rgb) / 0.24), 0 3.6px 5.05px -1.13px rgb(var(--sc-p-color-ink-rgb) / 0.22), 0 7.16px 10.03px -1.41px rgb(var(--sc-p-color-ink-rgb) / 0.18), 0 15.75px 22.05px 0 rgb(var(--sc-p-color-ink-rgb) / 0.09)",
+          "dark":  "0 0.37px 0.52px -0.28px rgb(0 0 0 / 0.42), 0 0.95px 1.33px -0.56px rgb(0 0 0 / 0.40), 0 1.9px 2.66px -0.84px rgb(0 0 0 / 0.38), 0 3.6px 5.05px -1.13px rgb(0 0 0 / 0.35), 0 7.16px 10.03px -1.41px rgb(0 0 0 / 0.29), 0 15.75px 22.05px 0 rgb(0 0 0 / 0.14)"
         } }
       }
     }
