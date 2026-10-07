@@ -1,6 +1,12 @@
 /* tokens:
- *   --sc-color-surface-sunk         · control ground
- *   --sc-color-surface-deep-sunk    · button hover/active ground
+ *   --sc-color-stepper-track        · recessed pill ground (role token, = surface.sunk)
+ *   --sc-color-stepper-key / -key-hover · ± key face at rest / hover + press (role tokens; shipped transparent / = surface.deepSunk)
+ *   --sc-color-stepper-key-shade    · 135deg face shade on each key (Button key face; shipped transparent)
+ *   --sc-color-stepper-window       · readout window ground (shipped transparent)
+ *   --sc-shadow-stepper-track / -window · recess of the pill and of the readout window (shipped zero alpha)
+ *   --sc-shadow-stepper-key / -key-pressed · key lift at rest, softened while pressed (shipped zero alpha)
+ *   --sc-motion-stepper-travel-duration / -easing · readout roll (Stepper.jsx; inert while roll, stretch and squash are 0)
+ *   --sc-motion-stepper-roll / -stretch / -squash  · roll distance and numeral stretch/squash (Stepper.jsx; 0 = off)
  *   --sc-color-text-primary         · button ink + readout numeral
  *   --sc-color-text-disabled        · disabled button + readout
  *   --sc-color-border-focus         · focus ring
@@ -12,7 +18,7 @@
  *   --sc-space-component-gap-sm     · control → readout gaps
  *   --sc-space-component-padding-sm · control inset + button hit-area padding
  *   --sc-font-text-mono-body-*      · numeral readout (mono)
- *   --sc-motion-hover-duration / -easing  · button bg/color transition
+ *   --sc-motion-hover-duration / -easing  · key bg/color transition (shadow changes snap)
  *   --sc-motion-press-duration / -easing / -scale  · button press feedback (reuses Button's press pair)
  */
 
@@ -22,7 +28,8 @@
   gap: var(--sc-space-component-gap-sm);
   padding: var(--sc-space-component-padding-sm);
   border-radius: var(--sc-radius-pill);
-  background-color: var(--sc-color-surface-sunk);
+  background-color: var(--sc-color-stepper-track);
+  box-shadow: var(--sc-shadow-stepper-track);
 }
 
 .button {
@@ -35,7 +42,11 @@
   height: calc(var(--sc-size-icon-md) + 2 * var(--sc-space-component-padding-sm));
   border: none;
   border-radius: var(--sc-radius-pill);
-  background-color: transparent;
+  /* A small Drams 036 key: fill, a 135deg face shade, a lift lit from the
+     top left. Shipped transparent and flat (today's ghost buttons). */
+  background-color: var(--sc-color-stepper-key);
+  background-image: linear-gradient(135deg, transparent, var(--sc-color-stepper-key-shade));
+  box-shadow: var(--sc-shadow-stepper-key);
   color: var(--sc-color-text-primary);
   cursor: pointer;
   transition:
@@ -45,11 +56,12 @@
 }
 
 .button:hover:not(:disabled) {
-  background-color: var(--sc-color-surface-deep-sunk);
+  background-color: var(--sc-color-stepper-key-hover);
 }
 
 .button:active:not(:disabled) {
-  background-color: var(--sc-color-surface-deep-sunk);
+  background-color: var(--sc-color-stepper-key-hover);
+  box-shadow: var(--sc-shadow-stepper-key-pressed);
   transform: scale(var(--sc-motion-press-scale));
 }
 
@@ -58,8 +70,13 @@
   outline-offset: var(--sc-border-focus-offset);
 }
 
+/* Disabled (and a key at its bound) is flat: losing the material is the
+   unavailable signal (directive 5). */
 .button:disabled {
   color: var(--sc-color-text-disabled);
+  background-color: transparent;
+  background-image: none;
+  box-shadow: none;
   cursor: not-allowed;
 }
 
@@ -74,19 +91,54 @@
   color: var(--sc-color-text-primary);
   padding-inline: var(--sc-space-component-gap-sm);
   user-select: none;
+  /* The readout window: a recess the numeral rolls through, clipped at its
+     edge. Shipped transparent and flat. */
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--sc-radius-control);
+  background-color: var(--sc-color-stepper-window);
+  box-shadow: var(--sc-shadow-stepper-window);
+}
+
+.digits {
+  display: inline-block;
 }
 
 .readout:focus-visible {
   outline: var(--sc-border-width-focus) solid var(--sc-color-border-focus);
   outline-offset: var(--sc-border-focus-offset);
-  border-radius: var(--sc-radius-control);
 }
 
+/* The 0.6 dim is today's disabled signal, kept until a record decides it;
+   the material goes flat underneath it. */
 .disabled {
   opacity: 0.6;
 }
+.disabled.stepper,
+.disabled .readout {
+  box-shadow: none;
+}
 .disabled .readout {
   color: var(--sc-color-text-disabled);
+}
+
+/* Forced colors (Windows high contrast): recesses, lifts and the key face
+   drop. The pill and the readout window keep an edge; keys keep the system
+   button border. */
+@media (forced-colors: active) {
+  .stepper,
+  .readout {
+    outline: var(--sc-border-width-default) solid CanvasText;
+    outline-offset: calc(-1 * var(--sc-border-width-default));
+  }
+  .button {
+    outline: var(--sc-border-width-default) solid ButtonBorder;
+    outline-offset: calc(-1 * var(--sc-border-width-default));
+  }
+  .button:disabled,
+  .disabled.stepper,
+  .disabled .readout { outline-color: GrayText; }
+  .readout:focus-visible { outline: var(--sc-border-width-focus) solid Highlight; }
 }
 
 @media (prefers-reduced-motion: reduce) {
