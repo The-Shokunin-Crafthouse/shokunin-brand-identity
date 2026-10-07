@@ -1886,3 +1886,21 @@ The follow-up named under "the library follows" above. `PlusSeparator.figma.tsx`
 ### 2026-10-07: Button arrow is Phosphor Bold
 
 Levi: the trailing arrow uses Phosphor's bold weight, not regular. Code: `ArrowRight weight="bold"` (still 12px, `size.icon.xs`). Figma: new `Icon/arrow-right-bold` (`487:147`, the regular glyph at Phosphor bold's 2.25 stroke on a 24 grid) beside `Icon/arrow-right`, which stays regular for other uses; all 30 Button variants swapped to it and the set's `Icon` swap default updated.
+
+### 2026-10-07: the oatmeal light surfaces return (reverses part of scds-v2)
+
+**Status:** Accepted. Levi: "restore the oatmeal set", after comparing the client portal's light mode (page #E3DFD8, card #F8F6F2) with SCDS.
+
+| Step | Role | scds-v2 (2026-06-22) | Restored |
+| --- | --- | --- | --- |
+| `warmGray.25` | surface.floating | #FBF9F6 | #F8F6F2 |
+| `warmGray.50` | surface.raised | #F4F1ED | #F1EFEB |
+| `warmGray.100` | surface.page | #EBE7E4 | #E3DFD8 |
+
+- Only the three surface steps change. The mid and dark ladder (`warmGray.200`–`900`, the 2026-07-28 warm rebuild, contrast re-derived since) stays.
+- **Inks re-derived for AA on the darker page**, by OKLCH lightness only (hue and chroma kept): `warmGray.450` / text.tertiary #6B665E → #66615A (4.63:1 on page), `status.success.ink.light` #28724D → #246E4A, `status.warning.ink.light` #B83E0B → #B13700, `interactive.hoverInk.light` #027175 → #006D72, and a new `status.info.ink.light` #2B57D5 (status.info-ink light re-points to it; the info fill keeps #2D5AD8, now 4.43:1 on page, fill-only).
+- `tokens:verify`: all 98 AA pairs pass; all 142 quoted figures re-measured and updated in their descriptions and in CLAIMS.
+- **Open:** teal.500 (`brand.accent`, `interactive.hover`) reads 2.99:1 on the page, down from 3.23. As hover text it was already the documented transient exception; as the Switch on-track it sits just under the 3:1 non-text line, with knob position and the I/O glyph also carrying state. Levi's call whether that needs a darker on-track.
+- **Physical controls gain:** the key's white top-left highlight reads stronger on the darker page (+11 L* vs +8), the effect the Drams originals get from their grey ground.
+- **Client portal 2026-07-22 "owed" reconciliation:** SCDS now matches the brand Figma file on `warmGray.50` and `.100`. `warmGray.250` still differs (Figma #D5D1CA, SCDS #C4BCB4 from the 2026-07-28 rebuild); left as is. The portal picks up the restored set at its next build (its snapshot fetches the live tokens.css).
+- **Figma library:** `color/warmGray/25`, `/50`, `/100`, `/450`, `color/status/successInkLight`, `warningInkLight`, `color/interactive/hoverInkLight` updated; new `color/status/infoInkLight` (`488:2`) with `color/status/info-ink` Light re-pointed; five Color-page swatch captions corrected.
