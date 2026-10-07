@@ -66,6 +66,27 @@ export const lastFrameMs = (p) => (p.reduced === 'none' ? 0 : p.delay + p.stagge
 export const REGISTRY = {
   Switch: {
     css: [switchCss],
+    // Read by switchMotion.js, not by var() in the CSS.
+    jsTokens: [
+      '--sc-motion-switch-stretch',
+      '--sc-motion-switch-squash',
+      '--sc-motion-switch-press-lean',
+      '--sc-motion-switch-press-lean-duration',
+      '--sc-motion-press-easing',
+    ],
+    // Lab start for the reel motion (kabarza, instagram.com/reel/DeK0AFcIRhf,
+    // the playground's Balanced preset and the article's press layer). These
+    // ship at 0, so they reach SCDS only through a recorded concept.
+    seed: {
+      overrides: {
+        '--sc-motion-switch-stretch': '0.45',
+        '--sc-motion-switch-squash': '0',
+        '--sc-motion-switch-press-lean': '0.83',
+        '--sc-motion-switch-press-lean-duration': '150ms',
+      },
+      // duration 520ms, bounce 0: stiffness (2π/0.52)², damping 4π/0.52, mass 1.
+      springs: { '--sc-motion-switch-travel-easing': { stiffness: 146.0, damping: 24.17, mass: 1 } },
+    },
     shippedSound: 'drams-004-toggle-switch-01.wav',
     trigger: 'every on/off change',
     props: [

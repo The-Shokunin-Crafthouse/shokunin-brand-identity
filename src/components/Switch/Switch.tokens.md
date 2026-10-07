@@ -50,3 +50,18 @@ Track bg and thumb position transitions suppressed. Switch still flips state ins
 ## Glyphs (optional)
 
 `glyphs` (default `true`) renders the I/O glyph row. `glyphs={false}` leaves a plain recessed track; `--sc-size-switch-glyph` and `--sc-color-switch-glyph-*` are then unread. Knob position still carries on/off without colour (WCAG 1.4.1). Figma: the Toggle set's `Glyphs` boolean property (`Glyphs#498:0`) shows or hides the `Glyphs` layer in both variants.
+
+## Motion (stretch, squash, press lean)
+
+Reference: kabarza's elastic toggles (instagram.com/reel/DeK0AFcIRhf). `switchMotion.js` drives the knob only when one of these is above 0; shipped, all are 0 and the CSS transition moves the knob exactly as before.
+
+| Token | Shipped | What it does |
+| --- | --- | --- |
+| `--sc-motion-switch-travel-duration` / `-easing` | = `motion.reveal` (200ms, quint-out) | Knob and glyph travel, track ground. A spring set in sc-tune writes its settle time to the duration. |
+| `--sc-motion-switch-stretch` | 0 | Extra knob length at peak speed, × knob (0.45 = 1.45× long). Length follows speed, so it lands round. Width grows, the pill radius holds: two round ends and a bar, never `scaleX`. |
+| `--sc-motion-switch-squash` | 0 | Flattening at peak speed, × knob (0.22 = 22% flatter). |
+| `--sc-motion-switch-press-lean` | 0 | On pointer down the front edge leans toward the target and holds (1 = a quarter of the travel). Release travels from that pose; dragging off springs back. |
+| `--sc-motion-switch-press-lean-duration` | = `motion.press.duration` (160ms) | Time to lean. Inert while lean is 0. |
+| `--sc-size-switch-label-offset` | 0px | Vertical label nudge, positive moves down. |
+
+Reduced motion skips the engine; disabled ignores it.

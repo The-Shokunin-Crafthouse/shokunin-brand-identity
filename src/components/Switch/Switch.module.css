@@ -19,7 +19,10 @@
  *   --sc-border-width-default      · O ring stroke; rim = half of it
  *   --sc-font-text-body-default-*  · label
  *   --sc-space-component-gap-md    · switch ↔ label gap
- *   --sc-motion-reveal-duration / -easing  · knob + glyph travel
+ *   --sc-motion-switch-travel-duration / -easing · knob + glyph travel, track ground (role tokens, = motion.reveal)
+ *   --sc-motion-switch-stretch / -squash   · knob length and flattening at peak speed (Switch.jsx; 0 = rigid)
+ *   --sc-motion-switch-press-lean / -lean-duration · knob leans toward its target on pointer down (Switch.jsx; 0 = off)
+ *   --sc-size-switch-label-offset  · vertical label nudge (0 = centred)
  *   --sc-motion-hover-duration / -easing   · track ground change
  *   --sc-motion-press-duration / -easing / -scale · knob press
  *
@@ -72,7 +75,7 @@
   display: inline-flex;
   align-items: center;
   position: relative;
-  transition: background-color var(--sc-motion-reveal-duration) var(--sc-motion-reveal-easing);
+  transition: background-color var(--sc-motion-switch-travel-duration) var(--sc-motion-switch-travel-easing);
 }
 
 /* Glyph row · clipped to the track so the outgoing glyph slides out
@@ -90,7 +93,7 @@
   position: absolute;
   top: calc((var(--sc-size-switch-track-height) - var(--sc-size-switch-glyph)) / 2);
   height: var(--sc-size-switch-glyph);
-  transition: transform var(--sc-motion-reveal-duration) var(--sc-motion-reveal-easing);
+  transition: transform var(--sc-motion-switch-travel-duration) var(--sc-motion-switch-travel-easing);
 }
 
 .glyphOn {
@@ -121,8 +124,15 @@
   position: absolute;
   left: var(--inset);
   transition:
-    transform var(--sc-motion-reveal-duration) var(--sc-motion-reveal-easing),
+    transform var(--sc-motion-switch-travel-duration) var(--sc-motion-switch-travel-easing),
     scale var(--sc-motion-press-duration) var(--sc-motion-press-easing);
+}
+
+/* While Switch.jsx drives the knob (stretch, squash or press lean above 0),
+   its own animation owns transform, width and height; a CSS transition
+   would outrank it in the cascade. */
+.track[data-driven] .thumb {
+  transition: scale var(--sc-motion-press-duration) var(--sc-motion-press-easing);
 }
 
 .thumb::after {
@@ -184,6 +194,7 @@
   line-height: var(--sc-font-text-body-default-line-height);
   letter-spacing: var(--sc-font-text-body-default-letter-spacing);
   color: var(--sc-color-text-primary);
+  translate: 0 var(--sc-size-switch-label-offset);
 }
 
 .disabled .label {

@@ -888,6 +888,18 @@
         "$description": "Sprint 4 addition · quint-out · reveal entrance.",
         "$extensions": { "modes": { "light": "{motion.easing.out}", "dark": "{motion.easing.out}" } }
       }
+    },
+    "switch": {
+      "travel": {
+        "duration": { "$type": "duration", "$value": "{motion.duration.micro}", "$description": "2026-10-07 \u00b7 Switch motion, from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), added to sc-tune for Levi. Knob and glyph travel. Shipped = motion.reveal.duration (200ms), so the Switch is unchanged; its own role so travel tunes in the lab. A spring set on travel.easing writes its settle time here.", "$extensions": { "modes": { "light": "{motion.duration.micro}", "dark": "{motion.duration.micro}" } } },
+        "easing": { "$type": "cubicBezier", "$value": "{motion.easing.out}", "$description": "2026-10-07 \u00b7 Switch motion, from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), added to sc-tune for Levi. Knob and glyph travel curve. Shipped = motion.reveal.easing (quint-out). The lab's spring editor tunes it by duration and bounce, as the reel does.", "$extensions": { "modes": { "light": "{motion.easing.out}", "dark": "{motion.easing.out}" } } }
+      },
+      "stretch": { "$type": "number", "$value": 0, "$description": "2026-10-07 \u00b7 Switch motion, from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), added to sc-tune for Levi. How long the knob gets at its fastest: 0.45 means 1.45 times its length at peak speed, round again by the time it lands. Two round ends and a bar, never scaleX. 0 = rigid (shipped).", "$extensions": { "modes": { "light": 0, "dark": 0 } } },
+      "squash": { "$type": "number", "$value": 0, "$description": "2026-10-07 \u00b7 Switch motion, from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), added to sc-tune for Levi. How much flatter the knob gets while it is long: 0.22 means 22% flatter at peak speed. 0 = none (shipped).", "$extensions": { "modes": { "light": 0, "dark": 0 } } },
+      "press": {
+        "lean": { "$type": "number", "$value": 0, "$description": "2026-10-07 \u00b7 Switch motion, from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), added to sc-tune for Levi. Press feedback: on pointer down the knob's front edge leans toward where it will go and holds; release travels from that pose, dragging off springs back. 1 = the front edge advances a quarter of the travel. 0 = off (shipped).", "$extensions": { "modes": { "light": 0, "dark": 0 } } },
+        "leanDuration": { "$type": "duration", "$value": "{motion.duration.press}", "$description": "2026-10-07 \u00b7 Switch motion, from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), added to sc-tune for Levi. Time the knob takes to lean on pointer down (the reel uses 150ms). Inert while press.lean is 0.", "$extensions": { "modes": { "light": "{motion.duration.press}", "dark": "{motion.duration.press}" } } }
+      }
     }
   },
   "font": {
@@ -1140,7 +1152,8 @@
         "$value": "{space.micro.6}",
         "$description": "2026-10-07 · Switch restyled to the Drams Standard Switch (drams/001) at SCDS size. On/off glyph box: I bar height and O ring diameter (Drams 16px at a 40px track, scaled to the 18px track).",
         "$extensions": { "modes": { "light": "{space.micro.6}", "dark": "{space.micro.6}" } }
-      }
+      },
+      "labelOffset": { "$type": "dimension", "$value": { "value": 0, "unit": "px" }, "$description": "2026-10-07 · Vertical nudge for the Switch label, positive moves it down (Levi asked to move the text down 1px; tune it in the lab). 0 = centred on the track by flex alignment (shipped).", "$extensions": { "modes": { "light": { "value": 0, "unit": "px" }, "dark": { "value": 0, "unit": "px" } } } }
     },
     "progress": {
       "bar-height": {

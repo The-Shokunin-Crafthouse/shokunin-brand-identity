@@ -79,6 +79,34 @@ export function EasingEditor({ label, value, spring, presets, asRef, onChange })
         </div>
       ) : (
         <div className={s.springRows}>
+          {/* Duration and bounce, the way Framer, SwiftUI and the elastic
+              toggles reel set a spring: duration = 2π√(m/k), bounce = 1 − ζ.
+              Each writes stiffness and damping below; mass holds. */}
+          {(() => {
+            const dur = 2 * Math.PI * Math.sqrt(sp.mass / sp.stiffness);
+            const bounce = 1 - (sp.damping * dur) / (4 * Math.PI * sp.mass);
+            const set = (d, b) => applySpring({
+              ...sp,
+              stiffness: +((2 * Math.PI / d) ** 2 * sp.mass).toFixed(1),
+              damping: +((4 * Math.PI * (1 - b) * sp.mass) / d).toFixed(2),
+            });
+            return (
+              <>
+                <label className={s.mini}>
+                  duration
+                  <input type="range" aria-label={`${label} spring duration`} min={50} max={2000} step={10} value={Math.round(dur * 1000)}
+                    onChange={(e) => set(+e.target.value / 1000, bounce)} />
+                  <span className={s.readout}>{Math.round(dur * 1000)}ms</span>
+                </label>
+                <label className={s.mini}>
+                  bounce
+                  <input type="range" aria-label={`${label} spring bounce`} min={0} max={0.95} step={0.01} value={Math.max(0, +bounce.toFixed(2))}
+                    onChange={(e) => set(dur, +e.target.value)} />
+                  <span className={s.readout}>{bounce.toFixed(2)}</span>
+                </label>
+              </>
+            );
+          })()}
           {[['stiffness', 10, 1000, 1], ['damping', 1, 100, 0.5], ['mass', 0.1, 5, 0.1]].map(([k, min, max, step]) => (
             <label key={k} className={s.mini}>
               {k}

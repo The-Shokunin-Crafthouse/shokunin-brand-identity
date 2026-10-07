@@ -5,7 +5,7 @@
 # Design Token Map — The Shokunin Crafthouse · Brand Identity
 
 **Generated** from `tokens/primitives.json` + `tokens/semantic.json`.
-**Source fingerprint:** `4bf6f3155ad9` · **180 primitives · 159 semantic tokens.**
+**Source fingerprint:** `19f1b8bbcd7a` · **180 primitives · 166 semantic tokens.**
 
 > **This file is a mirror, not the source.** `tokens/*.json` is upstream; this document and the Figma
 > library are generated from / synced to it. It previously claimed the opposite — that both were
@@ -696,6 +696,17 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | `motion/reveal/duration` | `--sc-motion-reveal-duration` | `motion/duration/micro` | `200ms` | `motion/duration/micro` | `200ms` | Sprint 4 addition · Tooltip enter, Alert enter, Switch thumb slide (200ms). |
 | `motion/reveal/easing` | `--sc-motion-reveal-easing` | `motion/easing/out` | `cubic-bezier(0.22, 1, 0.36, 1)` | `motion/easing/out` | `cubic-bezier(0.22, 1, 0.36, 1)` | Sprint 4 addition · quint-out · reveal entrance. |
 
+#### `motion/switch`
+
+| Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
+|---|---|---|---|---|---|---|
+| `motion/switch/travel/duration` | `--sc-motion-switch-travel-duration` | `motion/duration/micro` | `200ms` | `motion/duration/micro` | `200ms` | 2026-10-07 · Switch motion, from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), added to sc-tune for Levi. |
+| `motion/switch/travel/easing` | `--sc-motion-switch-travel-easing` | `motion/easing/out` | `cubic-bezier(0.22, 1, 0.36, 1)` | `motion/easing/out` | `cubic-bezier(0.22, 1, 0.36, 1)` | 2026-10-07 · Switch motion, from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), added to sc-tune for Levi. |
+| `motion/switch/stretch` | `--sc-motion-switch-stretch` | _literal_ | `0` | _literal_ | `0` | 2026-10-07 · Switch motion, from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), added to sc-tune for Levi. |
+| `motion/switch/squash` | `--sc-motion-switch-squash` | _literal_ | `0` | _literal_ | `0` | 2026-10-07 · Switch motion, from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), added to sc-tune for Levi. |
+| `motion/switch/press/lean` | `--sc-motion-switch-press-lean` | _literal_ | `0` | _literal_ | `0` | 2026-10-07 · Switch motion, from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), added to sc-tune for Levi. |
+| `motion/switch/press/leanDuration` | `--sc-motion-switch-press-lean-duration` | `motion/duration/press` | `160ms` | `motion/duration/press` | `160ms` | 2026-10-07 · Switch motion, from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), added to sc-tune for Levi. |
+
 ### Shadow · Semantic
 
 | Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
@@ -736,6 +747,7 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | `size/switch/track-height` | `--sc-size-switch-track-height` | `space/micro/18` | `18px` | `space/micro/18` | `18px` | Sprint 4 addition · switch track height (18px). |
 | `size/switch/thumb` | `--sc-size-switch-thumb` | `space/micro/14` | `14px` | `space/micro/14` | `14px` | Sprint 4 addition · switch thumb diameter (14px) · 2px inset inside 18px track. |
 | `size/switch/glyph` | `--sc-size-switch-glyph` | `space/micro/6` | `6px` | `space/micro/6` | `6px` | 2026-10-07 · Switch restyled to the Drams Standard Switch (drams/001) at SCDS size. |
+| `size/switch/labelOffset` | `--sc-size-switch-label-offset` | _literal_ | `0px` | _literal_ | `0px` | 2026-10-07 · Vertical nudge for the Switch label, positive moves it down (Levi asked to move the text down 1px; tune it in the lab). |
 
 #### `size/progress`
 

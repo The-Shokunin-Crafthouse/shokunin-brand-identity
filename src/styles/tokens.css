@@ -448,6 +448,12 @@
   --sc-motion-cut-easing: var(--sc-p-motion-easing-in-out);
   --sc-motion-reveal-duration: var(--sc-p-motion-duration-micro);
   --sc-motion-reveal-easing: var(--sc-p-motion-easing-out);
+  --sc-motion-switch-travel-duration: var(--sc-p-motion-duration-micro);
+  --sc-motion-switch-travel-easing: var(--sc-p-motion-easing-out);
+  --sc-motion-switch-stretch: 0;
+  --sc-motion-switch-squash: 0;
+  --sc-motion-switch-press-lean: 0;
+  --sc-motion-switch-press-lean-duration: var(--sc-p-motion-duration-press);
   --sc-font-text-label-chrome-family: var(--sc-p-font-text-11-family);
   --sc-font-text-label-chrome-size: var(--sc-p-font-text-11-size);
   --sc-font-text-label-chrome-weight: var(--sc-p-font-text-11-weight);
@@ -616,6 +622,7 @@
   --sc-size-switch-track-height: var(--sc-p-space-micro-18);
   --sc-size-switch-thumb: var(--sc-p-space-micro-14);
   --sc-size-switch-glyph: var(--sc-p-space-micro-6);
+  --sc-size-switch-label-offset: 0px;
   --sc-size-progress-bar-height: var(--sc-p-space-4);
   --sc-size-progress-circular: var(--sc-p-space-48);
   --sc-size-progress-circular-stroke: var(--sc-p-space-4);
@@ -741,6 +748,12 @@
   --sc-motion-cut-easing: var(--sc-p-motion-easing-in-out);
   --sc-motion-reveal-duration: var(--sc-p-motion-duration-micro);
   --sc-motion-reveal-easing: var(--sc-p-motion-easing-out);
+  --sc-motion-switch-travel-duration: var(--sc-p-motion-duration-micro);
+  --sc-motion-switch-travel-easing: var(--sc-p-motion-easing-out);
+  --sc-motion-switch-stretch: 0;
+  --sc-motion-switch-squash: 0;
+  --sc-motion-switch-press-lean: 0;
+  --sc-motion-switch-press-lean-duration: var(--sc-p-motion-duration-press);
   --sc-font-text-label-chrome-family: var(--sc-p-font-text-11-family);
   --sc-font-text-label-chrome-size: var(--sc-p-font-text-11-size);
   --sc-font-text-label-chrome-weight: var(--sc-p-font-text-11-weight);
@@ -909,6 +922,7 @@
   --sc-size-switch-track-height: var(--sc-p-space-micro-18);
   --sc-size-switch-thumb: var(--sc-p-space-micro-14);
   --sc-size-switch-glyph: var(--sc-p-space-micro-6);
+  --sc-size-switch-label-offset: 0px;
   --sc-size-progress-bar-height: var(--sc-p-space-4);
   --sc-size-progress-circular: var(--sc-p-space-48);
   --sc-size-progress-circular-stroke: var(--sc-p-space-4);

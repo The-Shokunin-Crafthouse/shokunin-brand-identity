@@ -152,8 +152,8 @@ public enum SCDS {
     public static let semanticVersion = "0.1.0"
     public static let sourceGenerated = "2026-05-26"
     public static let primitivesHash = "aa28930704213cf1"
-    public static let semanticHash = "d8c428509bdf56b9"
-    public static let tokenCount = 159
+    public static let semanticHash = "785a6dec08e7617f"
+    public static let tokenCount = 166
   }
 
   // MARK: - Color
@@ -921,6 +921,9 @@ public enum SCDS {
     /// `size.switch.glyph`
     public static let switchGlyph: CGFloat = 6
 
+    /// `size.switch.labelOffset`
+    public static let switchLabelOffset: CGFloat = 0
+
     /// `size.progress.bar-height`
     public static let progressBarHeight: CGFloat = 4
 
@@ -1003,6 +1006,24 @@ public enum SCDS {
 
     /// `motion.reveal.easing`
     public static let revealEasing = SCDSEasing(0.22, 1, 0.36, 1)
+
+    /// `motion.switch.travel.duration` · 200ms
+    public static let switchTravelDuration: TimeInterval = 0.2
+
+    /// `motion.switch.travel.easing`
+    public static let switchTravelEasing = SCDSEasing(0.22, 1, 0.36, 1)
+
+    /// `motion.switch.stretch`
+    public static let switchStretch: CGFloat = 0
+
+    /// `motion.switch.squash`
+    public static let switchSquash: CGFloat = 0
+
+    /// `motion.switch.press.lean`
+    public static let switchPressLean: CGFloat = 0
+
+    /// `motion.switch.press.leanDuration` · 160ms
+    public static let switchPressLeanDuration: TimeInterval = 0.16
   }
 
   // MARK: - Shadow

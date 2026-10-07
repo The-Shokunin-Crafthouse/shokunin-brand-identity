@@ -172,7 +172,25 @@ function forceStateCss(state) {
 /* ---------- state ---------- */
 
 const defaults = (entry) => Object.fromEntries(entry.props.map((p) => [p.name, p.default]));
-const blankConcept = (entry, id) => ({
+
+// A registry `seed` is where a new setting starts in the lab when its shipped
+// value is deliberately inert (the Switch's reel motion ships at 0, so the
+// component is unchanged until Levi records a concept). It fills only tokens
+// the concept has not touched; a spring seeds its easing and paired duration.
+function seedConcept(entry, c) {
+  for (const [name, value] of Object.entries(entry.seed?.overrides || {})) {
+    if (!Object.values(c.overrides).some((m) => name in m)) c.overrides.all[name] = value;
+  }
+  for (const [name, sp] of Object.entries(entry.seed?.springs || {})) {
+    if (c.springs[name] || Object.values(c.overrides).some((m) => name in m)) continue;
+    const r = springToLinear(sp);
+    c.springs[name] = sp;
+    c.overrides.all[name] = r.easing;
+    c.overrides.all[name.replace(/-easing$/, '-duration')] = `${r.settleMs}ms`;
+  }
+  return c;
+}
+const blankConcept = (entry, id) => seedConcept(entry, {
   id, overrides: scoped(), shadowAdj: scoped(), springs: {}, pins: {}, notes: '',
   props: defaults(entry),
   sound: { file: entry.shippedSound, volume: 0.7, rate: 1 },
@@ -198,6 +216,7 @@ function loadState(component) {
         // A prop added to the registry after the session was saved starts at
         // its default, so the control and the stage agree.
         c.props = { ...defaults(REGISTRY[component]), ...c.props };
+        c.springs ||= {};
         if (!c.overrides.all) {
           const o = scoped();
           for (const [k, v] of Object.entries(c.overrides)) o[isModal(k) ? 'dark' : 'all'][k] = v;
@@ -222,6 +241,7 @@ function loadState(component) {
       // #E3DFD8 was a raw candidate ground; it ships as the light
       // surface.page since 2026-10-07, so the token (which flips) replaces it.
       if (saved.view?.ground === '#E3DFD8') saved.view.ground = '--sc-color-surface-page';
+      for (const c of saved.concepts) seedConcept(REGISTRY[component], c);
       return saved;
     }
   } catch { /* blocked storage: start fresh */ }
@@ -249,7 +269,12 @@ function Tune() {
 
   const entry = REGISTRY[component];
   const isMotion = entry.kind === 'motion';
-  const { tokens, derived: derivedNames } = useMemo(() => discover(entry.css), [entry]);
+  // Tokens a component reads in JS (not var() in its CSS) are listed in the
+  // registry, or the lab could neither show nor override them.
+  const { tokens, derived: derivedNames } = useMemo(() => {
+    const d = discover(entry.css);
+    return { ...d, tokens: [...new Set([...d.tokens, ...(entry.jsTokens || [])])].sort() };
+  }, [entry]);
   const concept = state.concepts.find((c) => c.id === state.active) || state.concepts[0];
   const easingPresets = useMemo(() => {
     const cs = getComputedStyle(document.documentElement);
