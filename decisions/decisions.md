@@ -1882,3 +1882,7 @@ The follow-up named under "the library follows" above. `PlusSeparator.figma.tsx`
 - **Loading** shows `WorkingMark` instead of the spinner (Levi).
 - **Arrow** 12px (`size.icon.xs`) at both sizes (Levi: too heavy against the type). The library already specified 12px for Large (2026-10-06); code drew 1.4em (15.4px). Code now matches.
 - **Figma:** `color/control/keyShade`; effect styles `shadow/control/key`, `shadow/control/keyPressed`, `shadow/control/dark/*`; the 8 non-disabled Primary variants of `9:438` updated (Active: keyPressed).
+
+### 2026-10-07: Button arrow is Phosphor Bold
+
+Levi: the trailing arrow uses Phosphor's bold weight, not regular. Code: `ArrowRight weight="bold"` (still 12px, `size.icon.xs`). Figma: new `Icon/arrow-right-bold` (`487:147`, the regular glyph at Phosphor bold's 2.25 stroke on a 24 grid) beside `Icon/arrow-right`, which stays regular for other uses; all 30 Button variants swapped to it and the set's `Icon` swap default updated.

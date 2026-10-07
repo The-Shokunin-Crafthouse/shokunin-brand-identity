@@ -26,10 +26,10 @@ import styles from './Button.module.css';
 const VARIANTS = ['primary', 'secondary', 'tertiary', 'destructive'];
 const SIZES = ['lg', 'sm'];
 
-// Trailing arrow — Phosphor glyph (scds-v2 default icon family), inherits
-// the label colour via currentColor. Sized by .arrow (1.4em).
+// Trailing arrow — Phosphor glyph, bold weight (Levi, 2026-10-07). Inherits
+// the label colour via currentColor; sized by .arrow (size.icon.xs, 12px).
 function Arrow() {
-  return <ArrowRight className={styles.arrow} aria-hidden="true" />;
+  return <ArrowRight weight="bold" className={styles.arrow} aria-hidden="true" />;
 }
 
 export function Button({
