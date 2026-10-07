@@ -683,20 +683,11 @@
     "control": {
       "raised": {
         "$type": "shadow",
-        "$description": "SUPERSEDED for Button 2026-10-07 by control.key (Drams OP-1 Keys); kept for consumers until removed. Button-only neumorphic raise · 4 layers (2 ink bottom-left, 2 white top-right) composed from the channel-triplet primitives. Semantic to controls — NOT a general elevation token; only controls carry a shadow (Button here, Switch track + knob in shadow.switch.*). Added 2026-07-09 with the button redesign. 2026-10-02: dark black layers 0.55/0.45 → 0.24/0.16 so each matches its white highlight's lightness delta on surface-page (ΔL* 5.6 / 3.7).",
+        "$description": "SUPERSEDED 2026-10-07 by control.key (Drams OP-1 Keys); no SCDS web consumer. Kept only because Studio PM's native RunButton reads SCDS.Shadow.controlRaised from its vendored Swift tokens; remove once that migrates. Button-only neumorphic raise · 4 layers (2 ink bottom-left, 2 white top-right) composed from the channel-triplet primitives. Semantic to controls — NOT a general elevation token; only controls carry a shadow (Button here, Switch track + knob in shadow.switch.*). Added 2026-07-09 with the button redesign. 2026-10-02: dark black layers 0.55/0.45 → 0.24/0.16 so each matches its white highlight's lightness delta on surface-page (ΔL* 5.6 / 3.7).",
         "$value": "-4px 4px 8px rgb(var(--sc-p-color-ink-rgb) / 0.10), -2px 2px 4px rgb(var(--sc-p-color-ink-rgb) / 0.08), 4px -4px 8px rgb(var(--sc-p-color-white-rgb) / 0.90), 2px -2px 4px rgb(var(--sc-p-color-white-rgb) / 0.70)",
         "$extensions": { "modes": {
           "light": "-4px 4px 8px rgb(var(--sc-p-color-ink-rgb) / 0.10), -2px 2px 4px rgb(var(--sc-p-color-ink-rgb) / 0.08), 4px -4px 8px rgb(var(--sc-p-color-white-rgb) / 0.90), 2px -2px 4px rgb(var(--sc-p-color-white-rgb) / 0.70)",
           "dark":  "-4px 4px 8px rgb(0 0 0 / 0.24), -2px 2px 4px rgb(0 0 0 / 0.16), 4px -4px 8px rgb(var(--sc-p-color-white-rgb) / 0.06), 2px -2px 4px rgb(var(--sc-p-color-white-rgb) / 0.04)"
-        } }
-      },
-      "bevel": {
-        "$type": "shadow",
-        "$description": "SUPERSEDED for Button 2026-10-07 by control.key (Drams OP-1 Keys); kept for consumers until removed. Button-only inner bevel · 2 inset layers (white top-right, ink/black bottom-left) that round the pill's edges from inside. Pairs with control.raised (compose both in one box-shadow); kept a separate token so control.raised stays outer-only and SwiftUI-drawable. Dark black alpha matches the white highlight's lightness delta on surface-raised (ΔL* 5.2). Added 2026-10-02.",
-        "$value": "inset -2px 2px 4px rgb(var(--sc-p-color-white-rgb) / 0.70), inset 2px -2px 4px rgb(var(--sc-p-color-ink-rgb) / 0.06)",
-        "$extensions": { "modes": {
-          "light": "inset -2px 2px 4px rgb(var(--sc-p-color-white-rgb) / 0.70), inset 2px -2px 4px rgb(var(--sc-p-color-ink-rgb) / 0.06)",
-          "dark":  "inset -2px 2px 4px rgb(var(--sc-p-color-white-rgb) / 0.06), inset 2px -2px 4px rgb(0 0 0 / 0.20)"
         } }
       },
       "inset": {

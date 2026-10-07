@@ -5,7 +5,7 @@
 # Design Token Map — The Shokunin Crafthouse · Brand Identity
 
 **Generated** from `tokens/primitives.json` + `tokens/semantic.json`.
-**Source fingerprint:** `c75bb16f0cc0` · **180 primitives · 158 semantic tokens.**
+**Source fingerprint:** `f759208561b3` · **180 primitives · 157 semantic tokens.**
 
 > **This file is a mirror, not the source.** `tokens/*.json` is upstream; this document and the Figma
 > library are generated from / synced to it. It previously claimed the opposite — that both were
@@ -698,8 +698,7 @@ channel-triplet primitives) rather than an alias to a single primitive.
 
 | Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
 |---|---|---|---|---|---|---|
-| `shadow/control/raised` | `--sc-shadow-control-raised` | _literal_ | `-4px 4px 8px rgb(var(--sc-p-color-ink-rgb) / 0.10), -2px 2px 4px rgb(var(--sc-p-color-ink-rgb) / 0.08), 4px -4px 8px rgb(var(--sc-p-color-white-rgb) / 0.90), 2px -2px 4px rgb(var(--sc-p-color-white-rgb) / 0.70)` | _literal_ | `-4px 4px 8px rgb(0 0 0 / 0.24), -2px 2px 4px rgb(0 0 0 / 0.16), 4px -4px 8px rgb(var(--sc-p-color-white-rgb) / 0.06), 2px -2px 4px rgb(var(--sc-p-color-white-rgb) / 0.04)` | SUPERSEDED for Button 2026-10-07 by control.key (Drams OP-1 Keys); kept for consumers until removed. |
-| `shadow/control/bevel` | `--sc-shadow-control-bevel` | _literal_ | `inset -2px 2px 4px rgb(var(--sc-p-color-white-rgb) / 0.70), inset 2px -2px 4px rgb(var(--sc-p-color-ink-rgb) / 0.06)` | _literal_ | `inset -2px 2px 4px rgb(var(--sc-p-color-white-rgb) / 0.06), inset 2px -2px 4px rgb(0 0 0 / 0.20)` | SUPERSEDED for Button 2026-10-07 by control.key (Drams OP-1 Keys); kept for consumers until removed. |
+| `shadow/control/raised` | `--sc-shadow-control-raised` | _literal_ | `-4px 4px 8px rgb(var(--sc-p-color-ink-rgb) / 0.10), -2px 2px 4px rgb(var(--sc-p-color-ink-rgb) / 0.08), 4px -4px 8px rgb(var(--sc-p-color-white-rgb) / 0.90), 2px -2px 4px rgb(var(--sc-p-color-white-rgb) / 0.70)` | _literal_ | `-4px 4px 8px rgb(0 0 0 / 0.24), -2px 2px 4px rgb(0 0 0 / 0.16), 4px -4px 8px rgb(var(--sc-p-color-white-rgb) / 0.06), 2px -2px 4px rgb(var(--sc-p-color-white-rgb) / 0.04)` | SUPERSEDED 2026-10-07 by control.key (Drams OP-1 Keys); no SCDS web consumer. |
 | `shadow/control/inset` | `--sc-shadow-control-inset` | _literal_ | `inset 0 1px 3px rgb(var(--sc-p-color-ink-rgb) / 0.08), inset 0 0 0 1px rgb(var(--sc-p-color-ink-rgb) / 0.06)` | _literal_ | `inset 0 1px 3px rgb(0 0 0 / 0.40), inset 0 0 0 1px rgb(var(--sc-p-color-white-rgb) / 0.05)` | Fill-only inset feedback · soft inner ring for interactive surfaces on hover/focus (cards, tiles). scds-v2 Phase 2 — replaces the resting stroke frame: rest carries no shadow, the inset appears only on hover/focus to narrate interactivity without an outline. |
 | `shadow/control/key` | `--sc-shadow-control-key` | _literal_ | `2px 2px 6px 0 rgb(100 91 79 / 0.50), -1px -1px 1px 1px rgb(253 250 246 / 1)` | _literal_ | `3px 3px 7px 0 rgb(0 0 0 / 0.50), -1px -1px 1px 1px rgb(219 235 255 / 0.17)` | 2026-10-07 · Button primary = Drams OP-1 Keys (drams/036), horizontal, on the page surface (Levi). |
 | `shadow/control/keyHover` | `--sc-shadow-control-key-hover` | _literal_ | `2px 2px 6px 0 rgb(100 91 79 / 0.50), -1px -1px 1px 1px rgb(253 250 246 / 1)` | _literal_ | `3px 3px 7px 0 rgb(0 0 0 / 0.50), -1px -1px 1px 1px rgb(219 235 255 / 0.17)` | 2026-10-07 · Button primary key on hover. |

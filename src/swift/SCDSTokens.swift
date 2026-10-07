@@ -152,8 +152,8 @@ public enum SCDS {
     public static let semanticVersion = "0.1.0"
     public static let sourceGenerated = "2026-05-26"
     public static let primitivesHash = "aa28930704213cf1"
-    public static let semanticHash = "e68068f175041f51"
-    public static let tokenCount = 158
+    public static let semanticHash = "a1e858f8dd56a7ad"
+    public static let tokenCount = 157
   }
 
   // MARK: - Color
@@ -1010,18 +1010,6 @@ public enum SCDS {
             SCDSShadowLayer(inset: false, x: -2, y: 2, blur: 4, spread: 0, rgb: (0, 0, 0), alpha: 0.16),
             SCDSShadowLayer(inset: false, x: 4, y: -4, blur: 8, spread: 0, rgb: (1, 1, 1), alpha: 0.06),
             SCDSShadowLayer(inset: false, x: 2, y: -2, blur: 4, spread: 0, rgb: (1, 1, 1), alpha: 0.04),
-        ]
-    )
-
-    /// `shadow.control.bevel` · 2 layers
-    public static let controlBevel = SCDSShadow(
-        light: [
-            SCDSShadowLayer(inset: true, x: -2, y: 2, blur: 4, spread: 0, rgb: (1, 1, 1), alpha: 0.7),
-            SCDSShadowLayer(inset: true, x: 2, y: -2, blur: 4, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0.06),
-        ],
-        dark: [
-            SCDSShadowLayer(inset: true, x: -2, y: 2, blur: 4, spread: 0, rgb: (1, 1, 1), alpha: 0.06),
-            SCDSShadowLayer(inset: true, x: 2, y: -2, blur: 4, spread: 0, rgb: (0, 0, 0), alpha: 0.2),
         ]
     )
 

@@ -1970,3 +1970,42 @@ Levi: the trailing arrow uses Phosphor's bold weight, not regular. Code: `ArrowR
 - **Proof:** generated for the Button apply (`--since bcedc02^`), 12 operations, identical to the hand-applied values; run against the library: 12 done, 0 missing, no duplicates.
 - **Skill:** procedure D step 7 now runs the generator and the call every time an applied record ships ("code and library together"). Procedure C saves the export through a dev-only endpoint (`POST /__sc-tune/export`, `vite.config.js`) instead of transcribing the browser string, after a hand copy drifted from the page. D step 6 compares Shipped with the picked concept by computed style instead of pressing Reset all, which erased Levi's concepts.
 - **Limit:** Cowork receives only `SKILL.md` (learning #176), so the generator runs from a local Claude Code session on this repo.
+
+### 2026-10-07: physical-controls Gate 1 picks (Levi)
+
+**Status:** Accepted. Levi answered the five picks in `stages/03-build/physical-controls/CONTEXT.md` after the full-component re-audit (`d222acd`).
+
+| Pick | Answer | Consequence |
+| --- | --- | --- |
+| 1 Light source | B: top left (the Button's OP-1 key) | One light for the system. The Switch re-lights from top to top left, then gets its first sc-tune pass. The Card inset (lit from the top) re-lights with Card. |
+| 2 Button secondary | C: keep the outline pill | Secondary stays the approved exception; it inherits the Button role tokens and `press` sound. Out of the Tier 2 build. |
+| 3 Dark-mode material | B: dark keys with a faint top-left highlight (today's Button) | Every material in dark mode follows the tuned Button dark key. The Switch's light knob on a dark ground becomes a dark knob at its re-light. |
+| 4 Scope | B: Tier 1 + Tier 2 | This sprint builds the material layer, Tier 1 (Switch, SegmentedControl, Stepper, ProgressIndicator interactive, Input) and Tier 2 (Card, Tooltip, Badge, Avatar, Alert). NavBar (Tier 3) stays next. |
+| 5 Teal on-track contrast | A: keep teal.500 (2.99:1 on page) | Logged gap against WCAG 1.4.11; knob position and the I/O glyph carry the on state. No new on-track token. |
+
+- **Static meters stay flat.** ProgressIndicator bar (static), circular and step are read, not touched (directive 1). Only the interactive bar gets the material.
+
+### 2026-10-07: Badge and NavBar text moves to the ink tokens; NavBar gets a focus ring
+
+**Status:** Accepted. Levi: fix now, ahead of the tier order. The physical-controls audit found fill colours used as text.
+
+| Where | Was (light, on page) | Now | Light / dark on page |
+| --- | --- | --- | --- |
+| Badge default | `brand.accent` 2.99:1 | `brand.accentInk` | 5.35 / 7.61 |
+| Badge success | `status.success` 3.42:1 | `status.success-ink` | 4.64 / 5.89 |
+| Badge warning | `status.warning` 3.90:1 | `status.warning-ink` | 4.63 / 5.94 |
+| NavBar `aria-current` | `brand.accent` 2.99:1 | `brand.accentInk` | 5.35 / 7.61 |
+
+- The Badge border moves with its text, so each badge stays one colour (cascade, Claude). Error and neutral already pass and are unchanged.
+- NavBar links and the compact menu toggle get the styled `:focus-visible` ring every other control uses; they had none (five-state gap).
+- Every ratio above is already a `tokens:verify` claim; no new guard needed.
+- **Open:** on `surface.sunk` in light mode, success-ink and warning-ink read 4.1:1 (a Badge inside a default Card). Not fixed here.
+- Docs captions in `src/sections/ComponentSections.jsx` name the new tokens.
+
+### 2026-10-07: `shadow.control.bevel` retired; `shadow.control.raised` held for Studio PM
+
+**Status:** Accepted. Levi: retire the superseded neumorphic tokens. Consumers checked across every studio repo first.
+
+- **`bevel`:** no consumer anywhere. Removed from `tokens/semantic.json`; `tokens.css`, `SCDSTokens.swift` and `token-map.md` regenerated (157 semantic tokens, shadow 7).
+- **`raised`: held.** Studio PM's native `RunButton.swift` draws `SCDS.Shadow.controlRaised` from its vendored Swift tokens, and its tests and Money Bags' vendored-token tests assert it. Removing it now breaks Studio PM's next token vendor. Its description names that consumer; it goes when RunButton migrates to `shadow.control.key`.
+- No web consumer reads either token (client portal snapshot and crafthouse site carry the definitions only).
