@@ -1961,3 +1961,12 @@ Levi: the trailing arrow uses Phosphor's bold weight, not regular. Code: `ArrowR
   - Text styles: `text/label/button-lg` / `-sm` are 14/12, 200% leading, 2% tracking.
   - Variants: all 30 bind inline padding to the new roles, and Small binds its gap to `gap/md`.
   - Effect styles: `key`, `keyHover`, `keyPressed` and the `dark/*` set are updated.
+
+### 2026-10-07: sc-tune syncs Figma from the token diff
+
+**Status:** Accepted. Levi asked whether the skill updates Figma with the recorded settings, and to automate it if not. It did not: Figma was a manual step at the end of procedure D, with nothing generating the work.
+
+- **Generator:** `scripts/tune-figma-sync.mjs --since <ref>` diffs `tokens/semantic.json` and `primitives.json` against `<ref>` and writes `figma-sync.js` (one idempotent `use_figma` call: variables by name with mode values and aliases, effect styles in light and `dark/*`, text-style size, leading and tracking) plus `figma-sync.md` (the table, and a "Bind by hand" list of new tokens, since no diff can say which masters should read a new token).
+- **Proof:** generated for the Button apply (`--since bcedc02^`), 12 operations, identical to the hand-applied values; run against the library: 12 done, 0 missing, no duplicates.
+- **Skill:** procedure D step 7 now runs the generator and the call every time an applied record ships ("code and library together"). Procedure C saves the export through a dev-only endpoint (`POST /__sc-tune/export`, `vite.config.js`) instead of transcribing the browser string, after a hand copy drifted from the page. D step 6 compares Shipped with the picked concept by computed style instead of pressing Reset all, which erased Levi's concepts.
+- **Limit:** Cowork receives only `SKILL.md` (learning #176), so the generator runs from a local Claude Code session on this repo.

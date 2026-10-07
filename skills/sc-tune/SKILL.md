@@ -15,6 +15,8 @@ The lab mounts the real SCDS component as **Shipped**, as built, and as up to fo
 | Registry (components + Motion) | `previews/tune/registry.jsx` |
 | Controls, spring math | `previews/tune/controls.jsx`, `previews/tune/motion.js` |
 | Record script | `scripts/tune-record.mjs` |
+| Figma sync generator | `scripts/tune-figma-sync.mjs` |
+| Dev export endpoint | `POST /__sc-tune/export` in `vite.config.js` (dev server only) |
 | Snapshot build config | `vite.tune.config.js` |
 | Records | `output/tuning/<Component>/<YYYY-MM-DD-HHMM>/` |
 | Sound library | `assets/sounds/drams/` (`manifest.json` lists all 50) |
@@ -56,13 +58,14 @@ Do this when a component has no `REGISTRY` entry. One entry teaches the engine w
 
 Do this when Levi says to record, save or capture the settings, or says that the page is final.
 
-1. Read the export from the page Levi used. In the built-in browser, run this with `javascript_tool`:
-   `JSON.stringify(window.scTune.export())`
-   If Levi tuned in a different browser, ask him to press **Copy spec** and paste the result.
-   Result: a JSON string whose `tool` is `sc-tune`, whose `version` is `2`, and whose `component` is the one Levi tuned.
-2. Write the JSON to a file in the scratchpad directory, for example `<scratchpad>/tune-<Component>.json`.
+1. Save the export from the page Levi used to disk. In the built-in browser, run this with `javascript_tool`:
+   `const r = await fetch('/__sc-tune/export', { method: 'POST', body: JSON.stringify(window.scTune.export()) }); r.status + ' ' + await r.text()`
+   Never copy the export string out of a tool result by hand: a transcribed copy drifts from the page.
+   If Levi tuned in a different browser, ask him to press **Copy spec** and paste the result into `output/tuning/.exports/<Component>.json`.
+   Result: `200 {"file":"output/tuning/.exports/<Component>.json"}`. The file's `tool` is `sc-tune`, `version` is `3`, and `component` is the one Levi tuned.
+2. If Levi says he changed something after step 1, run step 1 again. The file is overwritten.
 3. Run the record script:
-   `node scripts/tune-record.mjs <scratchpad>/tune-<Component>.json`
+   `node scripts/tune-record.mjs output/tuning/.exports/<Component>.json`
    Result: it prints `recorded <Component> → output/tuning/<Component>/<stamp>`. If it exits 1, the input was not an sc-tune export. Go back to step 1.
 4. Read the new `spec.md` in full.
    Result: the pick and its reason come first, then Levi's notes, then one section per concept. Each token table lists the shipped value, the tuned value, how it was set (a spring shows its stiffness, damping and mass), the nearest primitive, and any pinned note. A raw value that is off the token ladder is flagged.
@@ -81,13 +84,23 @@ Result: `output/tuning/<Component>/<stamp>/` holds `spec.json` (the export, verb
 A record is a reference, not a change. Shipping it is a separate decision.
 
 1. Build from the picked concept only. Read Levi's notes first: each one is a requirement. A note you cannot meet goes back to him as a question before you build.
-2. For each token in the picked concept, edit its source in `tokens/semantic.json`, or edit the component's CSS module if the value is local to it. Insert the change in place. Never rewrite the whole JSON file, because a rewrite reformats every line.
-3. Run `npm run tokens:build`, `npm run tokens:map`, `npm run tokens:swift` and `npm run tokens:verify`, then `cp src/styles/tokens.css public/tokens.css`.
+2. Note the current commit (`git rev-parse HEAD`) as the sync base for step 7.
+3. For each token in the picked concept, edit its source in `tokens/semantic.json`, or edit the component's CSS module if the value is local to it. Insert the change in place. Never rewrite the whole JSON file, because a rewrite reformats every line.
+   If the token is shared (grep `src/` for other consumers), do not change it. Give the component a role token with the tuned value and point the component at it, because the lab only showed this component and the change would move every other consumer.
+   If Levi asked for a cascade, carry the change to the states and siblings that derive from it, for example hover and pressed shadows that share the rest geometry, or an icon that matches its label size. Name each cascaded value in the decision entry.
+4. Run `npm run tokens:build`, `npm run tokens:map`, `npm run tokens:swift` and `npm run tokens:verify`, then `cp src/styles/tokens.css public/tokens.css`.
    Result: `tokens:verify` prints `All contrast claims verified.`
-4. If the sound changed, re-encode the new file into `src/sound/assets/<role>.wav` with `afconvert -f WAVE -d LEI16@48000 -c 1 <source> <target>`, and update `src/sound/README.md`. A pitch other than 1× is not supported at runtime. Bake it into the file instead.
-5. Open the lab again. Press **Reset all**, then confirm that Shipped matches the record's picked concept and the panel reads `0 of <N> tokens tuned`.
-6. Log a dated entry in `decisions/decisions.md` that names the record path.
-7. Update the matching component in the Figma SCDS library (file `0zVoxaLJQkjHENYJlQk1VT`). Load the `figma-use` skill before the first `use_figma` call.
+5. If the sound changed, re-encode the new file into `src/sound/assets/<role>.wav` with `afconvert -f WAVE -d LEI16@48000 -c 1 <source> <target>`, and update `src/sound/README.md`. A pitch other than 1× is not supported at runtime. Bake it into the file instead.
+6. Reload the lab. Compare the computed styles of the Shipped stage and the picked concept's stage with `javascript_tool` (height, padding, label size, line height, letter spacing, icon width, box-shadow), in each theme the record touched.
+   Result: every value matches. Do not press **Reset all**, because it erases Levi's concepts.
+7. Sync Figma. This step is not optional: an applied record ships to code and library together.
+   1. Run `node scripts/tune-figma-sync.mjs --since <sync base from step 2>`.
+      Result: `figma-sync: <N> ops (<M> new tokens)`, and `output/tuning/.exports/figma-sync.js` and `figma-sync.md` are written.
+   2. Load the `figma-use` skill. Pass the full text of `figma-sync.js` as the code of one `use_figma` call on file `0zVoxaLJQkjHENYJlQk1VT`.
+      Result: `missing` is empty and `done` lists every operation. If `missing` names an item, create it (or its alias target) and run the call again. The code is idempotent.
+   3. For each token under **Bind by hand** in `figma-sync.md`, bind it on the component masters that read it (for example padding on every variant of the size it serves). The generator cannot know which masters read a new token.
+   4. Read back the picked variants (size, padding, gap, effect style) and compare them with the code values from step 6. A stroke adds no auto-layout height in Figma, so a 1px border reads 2px shorter there.
+8. Log a dated entry in `decisions/decisions.md` that names the record path, every cascaded value, and the Figma ids created.
 
 ## Troubleshooting
 
