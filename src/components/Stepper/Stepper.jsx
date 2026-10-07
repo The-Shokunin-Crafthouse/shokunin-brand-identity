@@ -8,12 +8,17 @@
  * cancelled on pointerup/leave/cancel. The readout is a spinbutton
  * (Up/Down keys step it directly, no need to tab to the ± buttons).
  *
- * API: value, onChange, min, max, step (default 1), label, disabled.
+ * Each committed step plays the `tick` role sound (Drams 037), including
+ * hold-repeat. A press at min/max commits nothing, so it is silent.
+ *
+ * API: value, onChange, min, max, step (default 1), label, disabled,
+ * sound (default true; SoundProvider can silence it app-wide).
  */
 
 import { useEffect, useRef } from 'react';
 import { Minus, Plus } from '@phosphor-icons/react';
 import { Icon } from '../Icon/Icon.jsx';
+import { useUISound } from '../../sound/SoundProvider.jsx';
 import styles from './Stepper.module.css';
 
 const HOLD_DELAY = 400;
@@ -27,8 +32,10 @@ export function Stepper({
   step = 1,
   label,
   disabled = false,
+  sound = true,
   className = '',
 }) {
+  const playTick = useUISound('tick', sound);
   const valueRef = useRef(value);
   valueRef.current = value;
   const timeoutRef = useRef(null);
@@ -41,6 +48,7 @@ export function Stepper({
     if (next !== valueRef.current) {
       valueRef.current = next;
       onChange?.(next);
+      playTick();
     }
   };
 
@@ -71,10 +79,12 @@ export function Stepper({
     else if (e.key === 'ArrowDown') { e.preventDefault(); stepBy(-step); }
     else if (e.key === 'Home' && Number.isFinite(min)) {
       e.preventDefault();
+      if (valueRef.current !== min) playTick();
       valueRef.current = min;
       onChange?.(min);
     } else if (e.key === 'End' && Number.isFinite(max)) {
       e.preventDefault();
+      if (valueRef.current !== max) playTick();
       valueRef.current = max;
       onChange?.(max);
     }

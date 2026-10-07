@@ -1812,3 +1812,49 @@ Done in the SCDS library file the same day (publishing is Levi's step):
 ### 2026-10-06: PlusSeparator's Code Connect follows the Tone set
 
 The follow-up named under "the library follows" above. `PlusSeparator.figma.tsx` now resolves to the set `474:56316` instead of its Default variant `459:2370`, and maps `Tone` (`Default` | `Muted`) to `tone` (`default` | `muted`). `CODE-CONNECT.md` updated. `figma:parse` validates it; publishing stays plan-gated.
+
+### 2026-10-07: interaction sounds land on three components (scds-ui-sounds)
+
+**Status:** Accepted. Levi picked one sound per component in the sound lab (`previews/sound-lab/`, state read back from `scds-sound-lab:v1`).
+
+| Component | Role sound | Source | Fires on |
+| --- | --- | --- | --- |
+| Switch | `toggle` | Drams 004 toggle switch (`drams-004-toggle-switch-01.wav`) | every on/off change |
+| Stepper | `tick` | Drams 037 (`drams-037-01.wav`) | every committed step, hold-repeat and Home/End included; silent at a bound |
+| SegmentedControl | `select` | Drams 001 (`drams-001-01.wav`) | a change of selection; re-selecting is silent |
+
+- **Engine** (`src/sound/`): Web Audio with pre-decoded buffers, because an `<audio>` element's start latency is longer than the 77 ms tick. The context arms on the first pointerdown/keydown; a sound still decoding plays only if ready within 120 ms. Each sound is a dynamic import, so a consumer that never mounts a sounding component downloads none (library chunks: toggle 73 kB, select 29 kB, tick 15 kB; `index.js` unchanged in kind).
+- **Defaults:** on. `SoundProvider enabled={false}` silences every sound (wire it to a user setting); `volume` sets the master level (default 0.7); `sound={false}` opts one instance out.
+- **Files:** the picks are re-encoded 48 kHz mono 16-bit (400 kB → 88 kB) into `src/sound/assets/`. The full Drams set stays in `assets/sounds/drams/` outside the deploy.
+- **Credit:** Drams by 1042.Studio permits commercial use with a shoutout. Credited in `src/sound/README.md`, the Switch docs page and `assets/sounds/drams/README.md`.
+- Button and Alert were considered and left silent: a sound on every button press fatigues, and a sound that arrives without a press is intrusive.
+
+### 2026-10-07: Switch restyled to the Drams Standard Switch, size kept
+
+**Status:** Accepted. Levi's direction: match the Drams Standard Switch (drams/001, mapping #1) but keep the SCDS 32 × 18 size; the knob should read as 3D.
+
+- **Kept:** track 32 × 18, thumb 14, 2 inset, teal on-track, the existing off/disabled grounds, all geometry by calc().
+- **Ported, scaled ×0.45:** recessed track (`shadow.switch.track`); knob as a gradient rim over a gradient face (`color.switch.thumb.*`) lifted by the Drams six-layer shadow (`shadow.switch.thumb`); an I/O glyph row (`size.switch.glyph` 6px, `color.switch.glyph.*`) that slides with the knob, so on/off reads without colour (WCAG 1.4.1).
+- **Not ported:** the Drams orange (SCDS keeps teal) and its 79 × 40 size.
+- **Dark mode** keeps a light physical knob, one ladder step dimmer per stop, so the object keeps its material at night.
+- **States added:** hover (track ground one step: `surface.hover` off, `brand.accentFill` on) and active (knob press, `motion.press.scale`); the Switch had neither. Disabled is flat: no recess, no lift, no glyphs, knob at 0.6 like the Stepper.
+- Second control-scoped shadow after `shadow.control.raised`; the "no other element carries a shadow" rule now reads "controls only".
+- `tokens:build`, `tokens:swift`, `tokens:map` regenerated; `tokens:verify` passes; `npm run build` and `build:lib` exit 0.
+
+### 2026-10-07: the library Switch follows (Toggle set `9:858`)
+
+- The library Toggle was 46 × 24 with an 18px thumb and no size bindings, while `size/switch/*` held 32 / 18 / 14. It now sits at the token size with width, height and radii bound to `size/switch/*` and `radius/pill`; the code size Levi tested is the one kept.
+- New Semantic variables (Light/Dark): `color/switch/thumb/{rimTop,rimBottom,faceTop,faceBottom}`, `color/switch/glyph/{on,off}`, `size/switch/glyph`. Gradient stops are bound to the thumb variables.
+- New effect styles: `shadow/switch/track`, `shadow/switch/thumb`, and `shadow/switch/dark/{track,thumb}` (effect styles carry no modes, so dark follows the `shadow/control/dark/*` convention).
+- Each variant: `Glyphs` (clipped row: `O` ring off, `I` bar on), `Knob` (the original rectangle, so instance overrides survive, now the rim) and `Face`. Hover and Disabled variants are not in the library yet; code has both.
+- Publishing the library is Levi's step.
+
+### 2026-10-07: sc-tune replaces the sound lab
+
+**Status:** Accepted. Levi asked for the sound-pairing page to become a skill that exposes every attribute of a component and records the final state as an exact spec plus a build.
+
+- **Lab** (`previews/tune/`, was `previews/sound-lab/`): mounts the real component as Shipped and Tuned. Every token its CSS consumes gets a typed control (colour + alpha, length, time, cubic-bezier, shadow scale/strength, number, text), plus props, sound (any of the 50 Drams sounds, volume, pitch), theme, ground and zoom. Overrides are custom properties on the Tuned stage only. State autosaves per component (`sc-tune:v1:<Component>`) and is read back with `window.scTune.export()`.
+- **Record** (`scripts/tune-record.mjs`): writes `output/tuning/<Component>/<stamp>/` with `spec.json`, `spec.md` (shipped → tuned per token, nearest primitive, off-ladder flags, paste-ready CSS) and `snapshot/`, a `--mode snapshot` build of the lab locked to the spec (`vite.tune.config.js`).
+- **Skill:** `skills/sc-tune/SKILL.md`, discoverable in Claude Code through `.claude/skills/sc-tune` (a symlink). Registry entries: Switch, Stepper, SegmentedControl, Button.
+- A record is a reference, not a change: applying one to SCDS is procedure D, run only when Levi asks.
+- Verified: the record command ran on a real export (learning #171); a non-sc-tune input exits 1 and writes nothing; the snapshot renders read-only. `instruction-lint` (agent mode): 0 proven. `ste-lint`: no real em dashes; its hits are frontmatter rules and possessives. No skill-vs-no-skill eval run yet (learning #265).

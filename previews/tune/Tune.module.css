@@ -1,0 +1,246 @@
+/* sc-tune · dev tool chrome. Tokens only. Dense surface: 4pt rhythm.
+ * Layout: stages left (Shipped above Tuned), control panel right;
+ * stacks under 900. The panel scrolls on its own so the stages stay put.
+ */
+
+.app {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 26rem);
+  grid-template-rows: auto minmax(0, 1fr);
+  height: 100vh;
+  background-color: var(--sc-color-surface-page);
+  color: var(--sc-color-text-primary);
+  font-family: var(--sc-font-text-body-dense-family);
+  font-size: var(--sc-font-text-body-dense-size);
+  line-height: var(--sc-font-text-body-dense-line-height);
+}
+
+.bar {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: var(--sc-space-component-gap-lg);
+  padding: var(--sc-space-component-padding-md) var(--sc-space-layout-inset-sm);
+  border-block-end: var(--sc-border-width-default) solid var(--sc-color-border-subtle);
+}
+
+.brand {
+  font-family: var(--sc-font-text-label-chrome-family);
+  font-size: var(--sc-font-text-label-chrome-size);
+  font-weight: var(--sc-font-text-label-chrome-weight);
+  letter-spacing: var(--sc-font-text-label-chrome-letter-spacing);
+}
+
+.meta,
+.readout,
+.values {
+  font-family: var(--sc-font-text-mono-body-family);
+  font-size: var(--sc-font-text-caption-size);
+  color: var(--sc-color-text-tertiary);
+}
+
+.spacer {
+  flex: 1;
+}
+
+.stages {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  min-height: 0;
+}
+
+.stageWrap {
+  position: relative;
+  min-height: 0;
+  border-block-end: var(--sc-border-width-default) solid var(--sc-color-border-subtle);
+}
+
+.stageLabel {
+  position: absolute;
+  top: var(--sc-space-component-padding-md);
+  left: var(--sc-space-layout-inset-sm);
+  font-family: var(--sc-font-text-label-chrome-family);
+  font-size: var(--sc-font-text-label-chrome-size);
+  letter-spacing: var(--sc-font-text-label-chrome-letter-spacing);
+  color: var(--sc-color-text-tertiary);
+  z-index: 1;
+}
+
+.stage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  overflow: hidden;
+}
+
+.panel {
+  overflow-y: auto;
+  border-inline-start: var(--sc-border-width-default) solid var(--sc-color-border-subtle);
+  padding: var(--sc-space-component-padding-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sc-space-component-gap-lg);
+}
+
+.group {
+  border: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sc-space-component-gap-md);
+}
+
+.group > legend {
+  font-family: var(--sc-font-text-label-chrome-family);
+  font-size: var(--sc-font-text-label-chrome-size);
+  letter-spacing: var(--sc-font-text-label-chrome-letter-spacing);
+  color: var(--sc-color-text-secondary);
+  text-transform: uppercase;
+  padding-block-end: var(--sc-space-component-gap-sm);
+}
+
+.prop,
+.editor {
+  display: flex;
+  align-items: center;
+  gap: var(--sc-space-component-gap-md);
+}
+
+.prop > label {
+  min-width: 7rem;
+}
+
+.token {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sc-space-component-gap-sm);
+  padding: var(--sc-space-component-padding-sm);
+  border-radius: var(--sc-radius-control);
+}
+
+.changed {
+  background-color: var(--sc-color-surface-sunk);
+}
+
+.tokenHead {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--sc-space-component-gap-md);
+}
+
+.tokenName {
+  font-family: var(--sc-font-text-mono-body-family);
+  font-size: var(--sc-font-text-caption-size);
+  overflow-wrap: anywhere;
+}
+
+.values {
+  display: flex;
+  flex-direction: column;
+  overflow-wrap: anywhere;
+}
+
+.num {
+  width: 4.5rem;
+}
+
+.mini {
+  display: flex;
+  align-items: center;
+  gap: var(--sc-space-component-gap-sm);
+  font-size: var(--sc-font-text-caption-size);
+}
+
+.curve {
+  width: var(--sc-space-layout-stack-sm);
+  height: var(--sc-space-layout-stack-sm);
+  flex: none;
+  overflow: visible;
+  border: var(--sc-border-width-default) solid var(--sc-color-border-subtle);
+}
+
+.curve path {
+  fill: none;
+  stroke: var(--sc-color-brand-accent);
+  stroke-width: 0.06;
+}
+
+.sounds {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: 18rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sc-space-component-gap-sm);
+}
+
+.sound {
+  display: flex;
+  align-items: center;
+  gap: var(--sc-space-component-gap-md);
+}
+
+.sound > label {
+  flex: 1;
+  font-family: var(--sc-font-text-mono-body-family);
+  font-size: var(--sc-font-text-caption-size);
+}
+
+.shippedSound > label {
+  color: var(--sc-color-brand-accent-ink);
+}
+
+.reset,
+.bar button,
+.sound button {
+  font: inherit;
+  font-size: var(--sc-font-text-caption-size);
+  color: var(--sc-color-text-secondary);
+  background: var(--sc-color-surface-sunk);
+  border: none;
+  border-radius: var(--sc-radius-pill);
+  padding: var(--sc-space-component-padding-block-sm) var(--sc-space-component-padding-inline-sm);
+  cursor: pointer;
+}
+
+.reset:hover,
+.bar button:hover,
+.sound button:hover {
+  background: var(--sc-color-surface-hover);
+  color: var(--sc-color-text-primary);
+}
+
+.reset:focus-visible,
+.bar button:focus-visible,
+.sound button:focus-visible,
+.panel :is(input, select):focus-visible,
+.bar select:focus-visible {
+  outline: var(--sc-border-width-focus) solid var(--sc-color-border-focus);
+  outline-offset: var(--sc-border-focus-offset);
+}
+
+.reset:active,
+.bar button:active,
+.sound button:active {
+  scale: var(--sc-motion-press-scale);
+}
+
+button:disabled,
+fieldset:disabled {
+  opacity: 0.6;
+}
+
+@media (max-width: 899px) {
+  .app {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto 60vh auto;
+    height: auto;
+  }
+  .panel {
+    border-inline-start: none;
+  }
+}

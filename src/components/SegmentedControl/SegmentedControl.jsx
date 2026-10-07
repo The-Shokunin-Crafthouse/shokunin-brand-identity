@@ -12,9 +12,14 @@
  * (aria-label for the group), size ('sm' | 'md' | 'lg', default 'md').
  * `count` renders a number after the label in the label's own ink; `lg` is
  * the 16 × 8 chrome-label segment of a tab header (Studio PM, 2026-10-05).
+ *
+ * A change of selection plays the `select` role sound (Drams 001), pointer
+ * or arrow keys. Re-selecting the current segment is silent. `sound`
+ * (default true) opts one instance out; SoundProvider silences app-wide.
  */
 
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useUISound } from '../../sound/SoundProvider.jsx';
 import styles from './SegmentedControl.module.css';
 
 export function SegmentedControl({
@@ -24,8 +29,14 @@ export function SegmentedControl({
   disabled = false,
   label,
   size = 'md',
+  sound = true,
   className = '',
 }) {
+  const playSelect = useUISound('select', sound);
+  const choose = (next) => {
+    if (next !== value) playSelect();
+    onChange?.(next);
+  };
   const trackRef = useRef(null);
   const itemRefs = useRef({});
   const [indicator, setIndicator] = useState(null);
@@ -55,7 +66,7 @@ export function SegmentedControl({
     const wrapped = (index + options.length) % options.length;
     const opt = options[wrapped];
     if (!opt) return;
-    onChange?.(opt.value);
+    choose(opt.value);
     focusValue(opt.value);
   };
 
@@ -115,7 +126,7 @@ export function SegmentedControl({
             tabIndex={disabled ? -1 : tabbable ? 0 : -1}
             disabled={disabled}
             className={`${styles.segment} ${selected ? styles.segmentSelected : ''}`}
-            onClick={() => onChange?.(opt.value)}
+            onClick={() => choose(opt.value)}
             onKeyDown={(e) => handleKeyDown(e, i)}
           >
             {opt.label}

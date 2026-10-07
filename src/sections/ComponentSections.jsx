@@ -272,42 +272,53 @@ export function AlertPage() {
 export function SwitchPage() {
   return (
     <ComponentPage
-      id="switch" label="Switch" tokensN={19}
-      eyebrow={<>Switch<Slash />geometry from tokens</>}
-      title={<>On is teal. <Em>The thumb travel is pure arithmetic.</Em></>}
-      lead={<>The switch is an immediate binary — it flips instantly and the brand accent fills the track when on. Every measurement, including the thumb’s resting inset and its travel distance, is derived by calc() from the size tokens, so the geometry survives any change to the scale.</>}
+      id="switch" label="Switch" tokensN={31}
+      eyebrow={<>Switch<Slash />Drams Standard Switch, at our size</>}
+      title={<>On is teal. <Em>The knob is an object.</Em></>}
+      lead={<>The switch is an immediate binary: it flips instantly, the brand accent fills the track when on, and a short mechanical click confirms it. The form follows the Drams Standard Switch, a recessed track under a lit, lifted knob, scaled to the 32 × 18 SCDS size. Every measurement, including the knob’s inset, its travel and the I/O marks, is derived by calc() from the size tokens.</>}
       statesTitle="Three states, no magic numbers."
       callouts={[
-        { title: 'Thumb math, not thumb constants', body: 'Resting inset is (track-height − thumb) / 2; travel is track-width − thumb − inset. Move the size tokens and the thumb still sits centred with the same 2px ring.' },
-        { title: 'On means brand', body: 'The active track is brand-accent — the one place a control rests on teal, because an on-switch is a committed state, not an idle one.' },
-        { title: 'What it refused', body: 'No size variants. A switch is a switch; scaling it invites it to stand in for a button. One size keeps the affordance unambiguous.' },
+        { title: 'Thumb math, not thumb constants', body: 'Resting inset is (track-height − thumb) / 2; travel is track-width − thumb − 2 × inset. The I and O marks centre in the free zone either side of the knob and ride one row that moves with it.' },
+        { title: 'A knob, not a dot', body: 'A light-catching rim gradient over a softer face gradient, lifted by the Drams six-layer shadow scaled ×0.45. The track is recessed by an inset. Depth says “press me” without a border.' },
+        { title: 'On reads without colour', body: 'The I mark appears on the accent; the O ring sits on the off ground. Position, mark and colour all agree, so the state survives colour-blindness and greyscale.' },
+        { title: 'It clicks', body: 'Each flip plays the toggle sound (Drams 004 toggle switch, by 1042.Studio). SoundProvider turns every interaction sound off app-wide; sound={false} opts one switch out.' },
       ]}
       states={[
         { name: 'Off', token: '--sc-color-surface-deep-sunk', render: <Switch checked={false} onChange={noop} label="Off" /> },
         { name: 'On', token: '--sc-color-brand-accent', render: <Switch checked onChange={noop} label="On" /> },
-        { name: 'Disabled', token: '--sc-color-text-disabled', render: <Switch disabled onChange={noop} label="Disabled" /> },
+        { name: 'Disabled', token: '--sc-color-surface-sunk', render: <Switch disabled onChange={noop} label="Disabled" /> },
       ]}
       tokenRows={[
         { prop: 'Track width', token: '--sc-size-switch-track-width' },
         { prop: 'Track height', token: '--sc-size-switch-track-height' },
         { prop: 'Thumb', token: '--sc-size-switch-thumb' },
+        { prop: 'I / O mark', token: '--sc-size-switch-glyph' },
         { prop: 'Radius', token: '--sc-radius-pill' },
         { prop: 'Off track', token: '--sc-color-surface-deep-sunk' },
+        { prop: 'Off track · hover', token: '--sc-color-surface-hover' },
         { prop: 'On track', token: '--sc-color-brand-accent' },
+        { prop: 'On track · hover', token: '--sc-color-brand-accent-fill' },
         { prop: 'Disabled track', token: '--sc-color-surface-sunk' },
-        { prop: 'Thumb fill', token: '--sc-color-surface-page' },
-        { prop: 'Thumb edge', token: '--sc-color-border-default' },
+        { prop: 'Track recess', token: '--sc-shadow-switch-track' },
+        { prop: 'Knob rim', token: '--sc-color-switch-thumb-rim-top' },
+        { prop: 'Knob rim · base', token: '--sc-color-switch-thumb-rim-bottom' },
+        { prop: 'Knob face', token: '--sc-color-switch-thumb-face-top' },
+        { prop: 'Knob face · base', token: '--sc-color-switch-thumb-face-bottom' },
+        { prop: 'Knob lift', token: '--sc-shadow-switch-thumb' },
+        { prop: 'I mark', token: '--sc-color-switch-glyph-on' },
+        { prop: 'O ring', token: '--sc-color-switch-glyph-off' },
         { prop: 'Focus ring', token: '--sc-color-border-focus' },
         { prop: 'Ring weight', token: '--sc-border-width-focus' },
         { prop: 'Label type', token: '--sc-font-text-body-default', light: '16 / regular' },
         { prop: 'Switch → label', token: '--sc-space-component-gap-md' },
         { prop: 'Slide motion', token: '--sc-motion-reveal-duration', light: '200ms · quint-out' },
+        { prop: 'Press', token: '--sc-motion-press-scale' },
       ]}
       rulesTitle="Four rules for an honest binary."
       rules={[
         { name: 'Switch is immediate, not deferred', text: 'Flipping it applies the change now. If a setting needs a save step, it is a checkbox in a form, not a switch.' },
         { name: 'On rests on the accent', text: 'The active track is teal — the deliberate exception to “the accent is never a resting state.” A committed toggle has earned the colour.' },
-        { name: 'Disabled is visibly off the system', text: 'Disabled drops the track to sunk and the thumb edge to disabled ink. It reads as switched-off-and-locked, never as merely off.' },
+        { name: 'Disabled is visibly off the system', text: 'Disabled drops the track to sunk and flattens everything: no recess, no lift, no marks. It reads as switched-off-and-locked, never as merely off.' },
         { name: 'Label every switch', text: 'A switch with no label is a state with no name. The label says what is being turned on, in the body register, beside the control.' },
       ]}
     />
