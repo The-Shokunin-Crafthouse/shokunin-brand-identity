@@ -1848,3 +1848,13 @@ The follow-up named under "the library follows" above. `PlusSeparator.figma.tsx`
 - New effect styles: `shadow/switch/track`, `shadow/switch/thumb`, and `shadow/switch/dark/{track,thumb}` (effect styles carry no modes, so dark follows the `shadow/control/dark/*` convention).
 - Each variant: `Glyphs` (clipped row: `O` ring off, `I` bar on), `Knob` (the original rectangle, so instance overrides survive, now the rim) and `Face`. Hover and Disabled variants are not in the library yet; code has both.
 - Publishing the library is Levi's step.
+
+### 2026-10-07: sc-tune replaces the sound lab
+
+**Status:** Accepted. Levi asked for the sound-pairing page to become a skill that exposes every attribute of a component and records the final state as an exact spec plus a build.
+
+- **Lab** (`previews/tune/`, was `previews/sound-lab/`): mounts the real component as Shipped and Tuned. Every token its CSS consumes gets a typed control (colour + alpha, length, time, cubic-bezier, shadow scale/strength, number, text), plus props, sound (any of the 50 Drams sounds, volume, pitch), theme, ground and zoom. Overrides are custom properties on the Tuned stage only. State autosaves per component (`sc-tune:v1:<Component>`) and is read back with `window.scTune.export()`.
+- **Record** (`scripts/tune-record.mjs`): writes `output/tuning/<Component>/<stamp>/` with `spec.json`, `spec.md` (shipped → tuned per token, nearest primitive, off-ladder flags, paste-ready CSS) and `snapshot/`, a `--mode snapshot` build of the lab locked to the spec (`vite.tune.config.js`).
+- **Skill:** `skills/sc-tune/SKILL.md`, discoverable in Claude Code through `.claude/skills/sc-tune` (a symlink). Registry entries: Switch, Stepper, SegmentedControl, Button.
+- A record is a reference, not a change: applying one to SCDS is procedure D, run only when Levi asks.
+- Verified: the record command ran on a real export (learning #171); a non-sc-tune input exits 1 and writes nothing; the snapshot renders read-only. `instruction-lint` (agent mode): 0 proven. `ste-lint`: no real em dashes; its hits are frontmatter rules and possessives. No skill-vs-no-skill eval run yet (learning #265).
