@@ -86,10 +86,21 @@
       "nav": {
         "$type": "color",
         "$value": "{color.warmGray.40}",
-        "$description": "Brand-site sidebar card ground (the inset card that replaced the edge rail). Light = warmGray.40, dark = dark.raised2: one step above surface.hover (dark.raised1) so the nav hover pill still reads, as it does in light. 2026-10-07 (ADR brand-site-sidebar-redesign).",
+        "$description": "Brand-site sidebar card ground (the inset card that replaced the edge rail). Light = warmGray.40, dark = dark.raised1, the surface.raised ladder step. 2026-10-07 (ADR brand-site-sidebar-redesign; dark back to raised1 once the hover moved to surface.navHover, ADR sidebar-nav-pill-states).",
         "$extensions": {
           "modes": {
             "light": "{color.warmGray.40}",
+            "dark":  "{color.dark.raised1}"
+          }
+        }
+      },
+      "navHover": {
+        "$type": "color",
+        "$value": "{color.utility.white}",
+        "$description": "Brand-site sidebar link hover pill. Sits one step LIGHTER than surface.nav, the card it lifts out of: light = utility.white, dark = dark.raised2. 2026-10-07 (ADR sidebar-nav-pill-states).",
+        "$extensions": {
+          "modes": {
+            "light": "{color.utility.white}",
             "dark":  "{color.dark.raised2}"
           }
         }
@@ -897,7 +908,7 @@
         "navCurrent": {
           "$type": "typography",
           "$value": "{font.text.bold.13}",
-          "$description": "Nav current link: 13/bold, set in brand.accentInk (brand.accent fails AA at this size). NavLink State=Current. Figma text/label/nav-current. 2026-10-07 (ADR brand-site-sidebar-redesign).",
+          "$description": "Nav current link: 13/bold, set in brand.accentInk with an accent PlusBullet at the row end (ADR sidebar-nav-pill-states). NavLink State=Current. Figma text/label/nav-current. 2026-10-07 (ADR brand-site-sidebar-redesign).",
           "$extensions": { "modes": { "light": "{font.text.bold.13}", "dark": "{font.text.bold.13}" } }
         }
       },

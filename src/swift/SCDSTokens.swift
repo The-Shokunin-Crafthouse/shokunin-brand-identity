@@ -152,8 +152,8 @@ public enum SCDS {
     public static let semanticVersion = "0.1.0"
     public static let sourceGenerated = "2026-05-26"
     public static let primitivesHash = "14fc848f136ea999"
-    public static let semanticHash = "188c28d4e9aac30e"
-    public static let tokenCount = 151
+    public static let semanticHash = "9c0d4c45a495fa3f"
+    public static let tokenCount = 152
   }
 
   // MARK: - Color
@@ -199,6 +199,12 @@ public enum SCDS {
     /// `color.surface.nav`
     public static let surfaceNav = SwiftUI.Color.scdsDynamic(
         light: (0.960784, 0.941176, 0.913725, 1),
+        dark:  (0.203922, 0.227451, 0.254902, 1)
+    )
+
+    /// `color.surface.navHover`
+    public static let surfaceNavHover = SwiftUI.Color.scdsDynamic(
+        light: (1, 1, 1, 1),
         dark:  (0.231373, 0.258824, 0.286275, 1)
     )
 
