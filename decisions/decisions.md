@@ -2001,6 +2001,7 @@ Levi: the trailing arrow uses Phosphor's bold weight, not regular. Code: `ArrowR
 - Every ratio above is already a `tokens:verify` claim; no new guard needed.
 - **Open:** on `surface.sunk` in light mode, success-ink and warning-ink read 4.1:1 (a Badge inside a default Card). Not fixed here.
 - Docs captions in `src/sections/ComponentSections.jsx` name the new tokens.
+- **Figma library:** the library Badge set `9:404` has only `state=pass` and `state=fail`, so it does not mirror the code's five variants (pre-existing parity gap). `state=pass` (`9:405`) stroke and label (`84:16`) now bind `color/status/success-ink` (readback: both `VariableID:211:8`); `fail` already passes. The library has no NavBar master, so nothing to sync. The library `StatusPill` set `9:767` (Paused, Expired) also uses `color/status/warning` as text; it has no code component here and is left for its owner.
 
 ### 2026-10-07: `shadow.control.bevel` retired; `shadow.control.raised` held for Studio PM
 
@@ -2009,3 +2010,4 @@ Levi: the trailing arrow uses Phosphor's bold weight, not regular. Code: `ArrowR
 - **`bevel`:** no consumer anywhere. Removed from `tokens/semantic.json`; `tokens.css`, `SCDSTokens.swift` and `token-map.md` regenerated (157 semantic tokens, shadow 7).
 - **`raised`: held.** Studio PM's native `RunButton.swift` draws `SCDS.Shadow.controlRaised` from its vendored Swift tokens, and its tests and Money Bags' vendored-token tests assert it. Removing it now breaks Studio PM's next token vendor. Its description names that consumer; it goes when RunButton migrates to `shadow.control.key`.
 - No web consumer reads either token (client portal snapshot and crafthouse site carry the definitions only).
+- **Figma library:** effect styles `shadow/control/bevel` and `shadow/control/dark/bevel` removed (0 consumers). `shadow/control/raised` and `dark/raised` stay with the token.
