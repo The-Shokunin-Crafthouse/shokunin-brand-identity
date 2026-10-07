@@ -1880,4 +1880,5 @@ The follow-up named under "the library follows" above. `PlusSeparator.figma.tsx`
 - **Hover:** new `color.surface.navHover` (light `utility.white`, dark `dark.raised2`), one step above `surface.nav`. With the collision gone, `surface.nav` dark returns to `dark.raised1`, Levi's original pick. The letter roll still runs, but lands on `interactive.hover-ink`, not `interactive.hover`: teal-500 on the white pill measured below AA.
 - **Active:** `brand.accentFill` pill (teal-600) with `text.onAccent` label, Bold, on hover too. Not `brand.accent`: white on teal-500 is below AA at 13px; the fill step is the token built for white text. The active roll layer is also `text.onAccent` so the label never vanishes into the fill.
 - **SCDS library:** `color/surface/navHover` added, `color/surface/nav` dark rebound, NavLink Hover and Current variants restyled to match. Publishing stays Levi's step.
+- **Pill radius:** 8px (`radius.surface`), up from `radius.control` (3px), on both the hover and the active pill. Levi, same day.
 - Verified in both modes: hover pill lighter than the card, active label AA, hover roll AA; `tokens:verify` passes.

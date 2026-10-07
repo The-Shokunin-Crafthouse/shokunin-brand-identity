@@ -81,7 +81,7 @@
   /* Negative inline margin keeps the label on the eyebrow's left edge
    * while the hover pill extends 8px past it on both sides. */
   margin-inline: calc(-1 * var(--sc-p-space-8));
-  border-radius: var(--sc-radius-control);
+  border-radius: var(--sc-radius-surface);
   transition:
     background-color var(--sc-motion-hover-duration) var(--sc-motion-hover-easing),
     transform var(--sc-motion-press-duration) var(--sc-motion-press-easing);
