@@ -65,7 +65,7 @@ const ELASTIC = [
 ];
 const ELASTIC_COMPONENTS = [
   { name: 'Switch', prefix: 'switch', moves: 'The knob', press: 'Yes', ships: 'Spring 600ms · stretch 1.06 · squash 0.15 · lean 0.12' },
-  { name: 'SegmentedControl', prefix: 'segmented-control', moves: 'The indicator', press: 'Yes', ships: 'Inert' },
+  { name: 'SegmentedControl', prefix: 'segmented-control', moves: 'The indicator', press: 'Yes', ships: 'Spring 600ms · stretch 0.45 · squash 0.2 · lean 0.15' },
   { name: 'PlusUnderline', prefix: 'plus-underline', moves: 'The active underline, from the old tab to the new one', press: 'Yes', ships: 'Inert' },
   { name: 'NavBar', prefix: 'nav-bar', moves: 'Its optional underline (underline prop)', press: 'Yes', ships: 'Inert' },
   { name: 'Tooltip', prefix: 'tooltip', moves: 'The bubble on open, scaled from the arrow (it carries text)', press: 'No', ships: 'Inert' },

@@ -2119,3 +2119,20 @@ Levi: the trailing arrow uses Phosphor's bold weight, not regular. Code: `ArrowR
 - **Lab starts (concept seeds, lit from the top left per Gate 1 pick 1):** track recess = the Drams recess (inset 0 1px 2px at .25, the Switch's source before its ×0.45 scale) turned to the top left: `inset 0.71px 0.71px 2px` ink .25 light, black .45 dark. Indicator = the Button key, `shadow.control.key` and `color.control.keyShade` per mode. Plus the reel motion seed already in place.
 - **Lab engine:** registry seeds can be per mode (`seed.scoped`), checked per mode so a light seed does not block its dark twin.
 - Segment padding still reads the shared `padding-inline/block.*` tokens; procedure D gives it role tokens if Levi tunes them.
+
+### 2026-10-07: SegmentedControl record 2026-10-07-1645 concept A applied (procedure D)
+
+**Status:** Accepted. Levi: "apply it." Record `output/tuning/SegmentedControl/2026-10-07-1645/` (supersedes 1617: same values plus "add the 3%"); sync base `37ce7a4`. No notes.
+
+| Token | Was | Now |
+| --- | --- | --- |
+| `motion.segmentedControl.travel.duration` / `.easing` | = motion.reveal (200ms quint-out) | 600ms literal / `spring` { 146, 17.88, 1 } (the Switch's, 3% overshoot) |
+| `motion.segmentedControl.stretch` / `squash` / `press.lean` | 0 / 0 / 0 | 0.45 / 0.2 / 0.15 |
+| `shadow.segmentedControl.track` | zero alpha | `inset 0.71px 0.71px 2px 0` ink .25; dark black .45 |
+| `shadow.segmentedControl.indicator` | zero alpha | `shadow.control.key` values per mode, literal (its own role) |
+| `color.segmentedControl.indicatorShade` | transparent | ink .05; dark .25 |
+
+- **Unchanged:** track and indicator fills (surface.sunk / surface.floating values), press lean duration (160ms), segment padding (still shared tokens; Levi did not tune it), sound.
+- **Checks:** the generated `linear()` equals the record's; Shipped and concept A match by computed style in light and dark (track and indicator fill, shadows, face gradient, duration, curve, stretch, squash, lean). `tokens:verify`, `tokens:map:check`, `tokens:swift:check`, `npm run build`, `build:lib` exit 0; `swiftc -typecheck` passes.
+- **Figma library:** the generator listed nothing to bind, which was wrong here: the role tokens were created at 0 in `a0f3513` and never reached the library. Created variables `color/segmentedControl/track` (`508:156`), `/indicator` (`508:157`), `/indicatorShade` (`508:158`), `motion/segmentedControl/stretch` (`508:159`), `/squash` (`508:160`), `/press/lean` (`508:161`), `/travel/duration` (`508:162`); effect styles `shadow/segmentedControl/track`, `/indicator` and their `dark/*`. Bound: track `85:3` fill and recess style; Selected=true variants `137:30`–`137:34` fill to the indicator variable, plus the 135deg face gradient (Button key transform, stop bound to `indicatorShade`) and the key style on all but Disabled (flat). The selected instance `138:4` carried a fill override; overrides on `138:2/4/6` reset so they follow the masters. Library Selected Hover (`surface/raised`) and Active (`surface/sunk`) fills now match code's single indicator fill. Publishing is Levi's step.
+- **Generator gap:** `tune-figma-sync` decides "bind by hand" from the token diff, so a token that existed at the sync base but never reached Figma is reported as already bound. Worth a fix: check the library, not the diff.

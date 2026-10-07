@@ -60,3 +60,15 @@ Engine `src/motion/elastic.js` (reference: kabarza's elastic toggles, instagram.
 | `--sc-motion-segmented-control-press-lean` / `-lean-duration` | 0 / = `motion.press.duration` | On pointer down it leans toward the pressed item and holds; release travels from that pose, dragging off springs back |
 
 Reduced motion skips the engine.
+
+### Applied 2026-10-07 (record `output/tuning/SegmentedControl/2026-10-07-1645/`, concept A)
+
+| Token | Ships |
+| --- | --- |
+| `--sc-motion-segmented-control-travel-duration` / `-easing` | 600ms / spring k146 c17.88 m1 (the Switch's; 3% overshoot) |
+| `--sc-motion-segmented-control-stretch` / `-squash` / `-press-lean` | 0.45 / 0.2 / 0.15 |
+| `--sc-shadow-segmented-control-track` | `inset 0.71px 0.71px 2px` ink .25 (dark black .45): the Drams recess turned to the top left |
+| `--sc-shadow-segmented-control-indicator` | the Button key lift (`shadow.control.key` values), per mode |
+| `--sc-color-segmented-control-indicator-shade` | ink .05 (dark .25), the 135deg face shade |
+
+Track and indicator fills keep `surface.sunk` and `surface.floating` values through their role tokens. Disabled is flat.
