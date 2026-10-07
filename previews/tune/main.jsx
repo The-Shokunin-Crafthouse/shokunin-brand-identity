@@ -332,6 +332,15 @@ function Tune() {
   const setPin = (name, text) => editActive((c) => ({ ...c, pins: { ...c.pins, [name]: text } }));
   const setSound = (k, v) => editActive((c) => ({ ...c, sound: { ...c.sound, [k]: v } }));
   const setView = (k, v) => setState((p) => ({ ...p, view: { ...p.view, [k]: v } }));
+  // One state for every stage. hover/focus/active are forced (see
+  // forceStateCss); disabled is the component's own prop, set on every
+  // concept so all stages show it, and cleared when another state is picked.
+  const hasDisabled = entry.props.some((d) => d.name === 'disabled');
+  const setStageState = (v) => setState((p) => ({
+    ...p,
+    view: { ...p.view, force: v === 'disabled' ? 'rest' : v },
+    concepts: hasDisabled ? p.concepts.map((c) => ({ ...c, props: { ...c.props, disabled: v === 'disabled' } })) : p.concepts,
+  }));
 
   const addConcept = (fromActive) => mutate((prev) => {
     const id = IDS.find((x) => !prev.concepts.some((c) => c.id === x));
@@ -531,8 +540,6 @@ function Tune() {
           <legend>View</legend>
           <div className={s.prop}><label htmlFor="v-theme"><code>theme</code></label>
             <select id="v-theme" value={state.view.theme} onChange={(e) => setView('theme', e.target.value)}><option>light</option><option>dark</option></select></div>
-          <div className={s.prop}><label htmlFor="v-force"><code>state</code></label>
-            <select id="v-force" value={force} onChange={(e) => setView('force', e.target.value)}>{FORCE_STATES.map((f) => <option key={f}>{f}</option>)}</select></div>
           <div className={s.prop}><label htmlFor="v-zoom"><code>zoom</code></label>
             <input id="v-zoom" type="range" min="1" max="8" step="0.5" value={state.view.zoom} onChange={(e) => setView('zoom', +e.target.value)} /><span className={s.readout}>{state.view.zoom}×</span></div>
           <div className={s.prop}><label htmlFor="v-ground"><code>ground</code></label>
@@ -543,6 +550,13 @@ function Tune() {
 
         <fieldset className={s.group} disabled={SNAPSHOT}>
           <legend>{isMotion ? 'Motion' : 'Props'} · concept {concept.id}</legend>
+          {!isMotion && (
+            <div className={s.prop}><label htmlFor="p-state"><code>state</code></label>
+              <select id="p-state" value={hasDisabled && concept.props.disabled ? 'disabled' : force} onChange={(e) => setStageState(e.target.value)}>
+                {FORCE_STATES.map((f) => <option key={f} value={f}>{f === 'rest' ? 'default' : f}</option>)}
+                {hasDisabled && <option value="disabled">disabled</option>}
+              </select></div>
+          )}
           {entry.props.map((d) => (
             <PropControl key={d.name} def={d} value={concept.props[d.name]} spring={concept.springs[`prop:${d.name}`]} easingPresets={easingPresets}
               onChange={(v) => setPropFor(concept.id)(d.name, v)}
