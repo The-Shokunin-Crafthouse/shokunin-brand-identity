@@ -1858,3 +1858,17 @@ The follow-up named under "the library follows" above. `PlusSeparator.figma.tsx`
 - **Skill:** `skills/sc-tune/SKILL.md`, discoverable in Claude Code through `.claude/skills/sc-tune` (a symlink). Registry entries: Switch, Stepper, SegmentedControl, Button.
 - A record is a reference, not a change: applying one to SCDS is procedure D, run only when Levi asks.
 - Verified: the record command ran on a real export (learning #171); a non-sc-tune input exits 1 and writes nothing; the snapshot renders read-only. `instruction-lint` (agent mode): 0 proven. `ste-lint`: no real em dashes; its hits are frontmatter rules and possessives. No skill-vs-no-skill eval run yet (learning #265).
+
+### 2026-10-07: brand-site sidebar redesign (ADR brand-site-sidebar-redesign)
+
+**Status:** Accepted. Levi's direction: build the sidebar to the Figma "sidebar nav" layer (`ufNlysCwWz7y2FBk61DxbN`, node `2144:25`) on SCDS, current spec over SCDS on every row except the switch (SCDS Toggle), and keep the live site's hover and click states.
+
+- **Process:** an SCDS-strict build sat beside the spec (comparison frame `2661:6560`) so the gaps were visible before any change. Rows where the spec won became SCDS updates, not overrides.
+- **Tokens added:** `color.warmGray.40` `#F5F0E9`; `color.surface.nav` (light warmGray.40, dark `dark.raised2`); `space.20`, `space.28` (4pt steps; the card inset is 28/24/20/24); `font.text.medium.12`, `bold.13`, `displayTight.11` with semantic `font.text.label.uiMedium`, `navHeading`, `navCurrent`.
+- **Dark value:** Levi picked the raised1 step. It collided with `surface.hover` dark (also raised1), which hid the live hover pill on the card, so the card moved one step up to raised2. The hover stays a step below the card, as it does in light.
+- **Current link ink:** `brand.accentInk`, not `brand.accent`. Teal-500 measured 3.5:1 (light) and 2.9:1 (dark) on the card at 13px; accentInk measures 6.27:1 and 5.99:1.
+- **Hover/press:** unchanged from the live site: `surface.hover` pill on `radius.control`, outset 8px past the label, per-character slot roll to `interactive.hover`, press scale. The spec's white pill and 4px radius were not adopted, so no hover or radius token was added.
+- **Content:** the code's full list stays (4 groups, 34 links); Figma gains the Brand elements group and the three extra components. Group ordinals leave the heading (mobile crumb keeps them). Footer reads `© 2026` / `SCDS-v.01`; the version row is gone. The card hugs its content and sticks at the 24px inset.
+- **SCDS library** (`0zVoxaLJQkjHENYJlQk1VT`): new variables and text styles `text/label/{nav-heading,nav-current,ui-medium}`; NavLink gains `Label`, `Count`, `Show Count` properties and a `State=Hover` variant, Current drops the hidden bar; NavEyebrow drops the ordinal and gains `Label`. Publishing the library is Levi's step.
+- **Open:** the library holds the restored oatmeal warm-gray set (`warmGray/25` `#F8F6F2`, page `#E3DFD8`) that the repo JSON does not; reconciling the two is a separate pass.
+- Verified: `tokens:verify` passes; geometry matches the spec at 1440 (card 24/24/256, first label y 128.5 vs 129); AA on every sidebar label in both modes except the footer's `text.disabled` (its declared tier, unchanged).
