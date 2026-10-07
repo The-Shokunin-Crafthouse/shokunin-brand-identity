@@ -1,11 +1,12 @@
 /**
  * uiSound — the SCDS interaction-sound engine.
  *
- * Three role sounds, each owned by one component (decisions.md
- * 2026-10-07 · scds-ui-sounds):
+ * Four role sounds, each owned by one component (decisions.md
+ * 2026-10-07 · scds-ui-sounds, Button press added the same day):
  *   toggle  → Switch            (Drams 004 toggle switch)
  *   tick    → Stepper           (Drams 037 short tick)
  *   select  → SegmentedControl  (Drams 001 click)
+ *   press   → Button            (Drams 029)
  * Sounds by Drams · 1042.Studio (drams.framer.website), used with credit.
  *
  * Playback is Web Audio with pre-decoded buffers: an <audio> element adds
@@ -22,6 +23,7 @@ const LOADERS = {
   toggle: () => import('./assets/toggle.wav'),
   tick: () => import('./assets/tick.wav'),
   select: () => import('./assets/select.wav'),
+  press: () => import('./assets/press.wav'),
 };
 
 export const UI_SOUNDS = Object.keys(LOADERS);

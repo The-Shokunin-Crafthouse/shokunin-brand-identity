@@ -2,18 +2,18 @@
 
 Spec ref: §2 Tier 3 · 4.0 · Variants: primary, secondary, tertiary, destructive, disabled, loading.
 
-Pill-radius control with a trailing arrow (Phosphor `ArrowRight`, scds-v2 default icon family, `currentColor`). **The accent is a hover state, never a resting one** — primary rests neutral (neumorphic raise) and turns teal on hover; secondary is a fill-only subtle chip (scds-v2 Phase 2 — was an ink outline) that goes teal on hover/focus; tertiary is a persistent teal ghost.
+Pill-radius control with a trailing arrow (Phosphor `ArrowRight`, scds-v2 default icon family, `currentColor`). **The accent is a hover state, never a resting one** — primary rests neutral (a Drams OP-1 key) and turns teal on hover; secondary is a fill-only subtle chip (scds-v2 Phase 2 — was an ink outline) that goes teal on hover/focus; tertiary is a persistent teal ghost.
 
 ## Shared (every variant)
 
 | Token | Use |
 |---|---|
-| `--sc-space-component-padding-inline-lg` | inline padding |
+| `--sc-space-component-padding-inline-button-lg` / `-sm` | inline padding: 24 large, 16 small (Button roles, apart from the shared scale) |
 | `--sc-space-component-padding-block-md` | block padding |
 | `--sc-space-component-gap-md` | label ↔ arrow gap |
 | `--sc-radius-pill` | pill corner |
 | `--sc-border-width-default` | border weight |
-| `--sc-font-text-label-chrome-*` | NHG Text medium label (11/500), no uppercase |
+| `--sc-font-text-label-button-lg-*` / `-sm-*` | Labels: 14 large, 12 small; medium, loose 2.0 leading, slight 0.02em tracking, no uppercase. The leading sets the height: 46px large, 34px small, with the 1px border |
 | `--sc-color-border-focus` + `--sc-border-focus-offset` | styled focus ring |
 | `--sc-motion-hover-duration` + `-easing` | bg/border/color/shadow transition |
 | `--sc-motion-press-duration` + `-easing` + `-scale` (0.985) | press-in feedback (fast phase) |
@@ -23,10 +23,10 @@ Pill-radius control with a trailing arrow (Phosphor `ArrowRight`, scds-v2 defaul
 
 | Variant | Resting | Hover | Active |
 |---|---|---|---|
-| `primary` | fill = `surface-raised` (neutral), text = `text-primary`, **shadow = `shadow-control-raised` + `shadow-control-bevel`** (button-only neumorphic 4 outer + 2 inset) | fill → `brand-accent-fill` (teal.600), text → `text-on-accent` (white, AA 5.2) | fill → `brand-accent-deep` (teal.700) + scale |
+| `primary` | fill = `surface-raised` (neutral), text = `text-primary`, **face = `linear-gradient(135deg, transparent, control-key-shade)` over the fill; shadow = `shadow-control-key`** | fill → `control-key-hover-fill` (teal.600), text → `control-key-hover-ink` (white, AA 5.2); shadow → `shadow-control-key-hover` (= key until tuned) | fill → `brand-accent-deep` (teal.700) + scale; shadow → `shadow-control-key-pressed` |
 | `secondary` | fill = `surface-sunk`, text = `text-primary` (ink, AA) — fill-only, no stroke | fill → `surface-hover`, text → `interactive-hover` (teal, transient AA exception); focus matches | text → `interactive-active` + scale |
 | `tertiary` | text = `brand-accent-deep` (teal.700, AA 5.78), no border/fill | text → `interactive-hover` (teal) | text → `interactive-active` + scale |
-| `destructive` | fill + border = `status-error`, text = `text-on-accent`, shadow = `shadow-control-raised` + `shadow-control-bevel` | — | + scale |
+| `destructive` | fill + border = `status-error`, text = `text-on-accent`, same key face as primary | — | + scale; shadow → `shadow-control-key-pressed` |
 
 ## State-only
 
@@ -52,11 +52,23 @@ New tokens (added to `tokens/primitives.json` + `tokens/semantic.json`, regenera
 | `--sc-p-motion-duration-press-release` / `--sc-motion-press-release-duration` | 220ms | Release-phase duration. `--sc-motion-press-duration` (160ms) already existed and is reused for the press-in phase — no duplicate "fast" duration added. |
 | `--sc-p-motion-easing-spring-out` / `--sc-motion-press-release-easing` | `cubic-bezier(0.34, 1.56, 0.64, 1)` | Release-phase easing — the only genuinely new easing curve; the y > 1 overshoot is what makes it read as a spring instead of a linear settle. |
 
-## The neumorphic shadow (button-only)
+## The key face (filled variants, 2026-10-07)
 
-`--sc-shadow-control-raised` — 4 layers, 2 ink bottom-left + 2 white top-right, composed from the `ink-rgb`/`white-rgb` channel-triplet primitives; mode-aware (dark mode swaps to black shadows + faint white highlights). **Semantic to controls only** — no other element in the system carries a shadow. Added 2026-07-09 with the button redesign.
+Primary is the Drams OP-1 Keys key (drams/036), horizontal, on the page surface; Levi's pick. Destructive shares the face so the filled variants are one object in two colours.
 
-`--sc-shadow-control-bevel` — 2 inset layers, white top-right + ink (dark: black) bottom-left, so the pill's edges read rounded from inside. Composed after `raised` in one `box-shadow`. Separate token so `raised` stays outer-only (SwiftUI `scdsShadow` draws outer layers only). Dark-mode black alphas on both tokens match their white highlight's lightness delta (ΔL*), not a guess. Added 2026-10-02.
+`--sc-color-control-key-shade` — `linear-gradient(135deg, transparent, key-shade)` laid over the fill: the Drams #EEE → #E3E3E3 face is ink at 5% over the base, so one value serves neutral, teal and error.
+
+`--sc-shadow-control-key` — tuned by Levi (sc-tune record `output/tuning/Button/2026-10-07-1418`): a warm `2px 2px 6px` shade down-right (warm gray at 50%) and a tight `-1px -1px 1px 1px` lit rim up-left (warm white in light, cool white at 17% in dark). Lit from the top left. `--sc-shadow-control-key-hover` equals it, so hover changes colour only.
+
+`--sc-shadow-control-key-pressed` — the rest geometry with the shade and rim softened by the Drams pressed ratios, plus an inner light (`inset 1px 1px 8px`), while the press-spring scales the key.
+
+Disabled drops the face shade and the shadows: flat reads as unavailable.
+
+Arrow and loading mark: the label's size, 14px large and 12px small, from per-size role tokens (`--sc-size-button-icon-lg`, `--sc-size-button-icon-sm`). Label-to-arrow gap is 8px (`gap-md`) at both sizes.
+
+Sound: every click plays the `press` role sound (Drams 029). `sound={false}` opts one instance out. Loading shows the studio's `WorkingMark` in place of the arrow.
+
+Retired from Button: `--sc-shadow-control-raised` and `--sc-shadow-control-bevel` (neumorphic). The tokens stay published until no consumer reads them.
 
 ## Reduced-motion
 

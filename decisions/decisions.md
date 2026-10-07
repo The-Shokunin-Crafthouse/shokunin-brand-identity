@@ -1859,6 +1859,284 @@ The follow-up named under "the library follows" above. `PlusSeparator.figma.tsx`
 - A record is a reference, not a change: applying one to SCDS is procedure D, run only when Levi asks.
 - Verified: the record command ran on a real export (learning #171); a non-sc-tune input exits 1 and writes nothing; the snapshot renders read-only. `instruction-lint` (agent mode): 0 proven. `ste-lint`: no real em dashes; its hits are frontmatter rules and possessives. No skill-vs-no-skill eval run yet (learning #265).
 
+### 2026-10-07: physical controls, not flat (Button follows the Switch)
+
+**Status:** Accepted. Levi's direction: no flat UI methodology across SCDS; he wants physical rendering. The Drams-derived Switch knob is the reference light model: lit from above, a rim that catches light, a layered lift, a press that sits down.
+
+- **Button, filled variants** (primary, destructive): `color.control.sheenTop` → transparent 50% → `color.control.sheenBottom` laid over the fill; `shadow.control.rim` (half-pixel edge light and shade) + `shadow.control.lift` (Drams six layers ×0.6). `:active` swaps the lift for `shadow.control.pressed` (the three near-contact layers) while the existing press-spring scales it. Disabled stays flat.
+- The sheen is clear through the middle 50%, so the label band keeps the fill's own contrast: white on teal.600 stays AA 5.2.
+- **Unchanged, Levi's call later:** secondary (the outline pill, an approved exception) and tertiary (text ghost). Physical options there are a recessed chip or a raised neutral key; both blur the primary/secondary hierarchy, so neither ships without a pick.
+- `shadow.control.raised` and `shadow.control.bevel` (neumorphic) no longer style Button and are marked superseded; they stay published until no consumer reads them.
+- Earlier "fill-only, no shadow" rulings (SegmentedControl indicator, card hover inset) predate this direction and are candidates to revisit, not rules.
+- **Figma:** new variables `color/control/sheenTop`, `color/control/sheenBottom`; effect styles `shadow/control/lift`, `shadow/control/pressed` and `shadow/control/dark/*`. The 8 non-disabled Primary variants of `9:438` carry the sheen gradient (stops bound) and the lift style (Active: pressed). The library has no Destructive variant.
+- `tokens:build`, `tokens:swift`, `tokens:map` regenerated; `tokens:verify` passes.
+
+### 2026-10-07: Button primary is a Drams OP-1 key (amends "physical controls" above)
+
+**Status:** Accepted. Levi supplied the reference: the Drams OP-1 Keys key (drams/036), horizontal, with no surrounding well; the page surface is the ground.
+
+- **Supersedes** the sheen/rim/lift treatment logged earlier today, which never shipped. Its tokens (`color.control.sheen*`, `shadow.control.{rim,lift,pressed}`) and Figma items are removed.
+- **Face:** `linear-gradient(135deg, transparent, color.control.keyShade)` over the fill. Drams #EEE → #E3E3E3 is ink at 5% over the base, so one value serves neutral, teal and error.
+- **Shadows, Drams verbatim:** `shadow.control.key` = `3px 3px 7px` ink .39 down-right + `-3px -3px 4px 1px` white up-left. `shadow.control.keyPressed` = the Drams pressed variant (.29, white .9, `inset 1px 1px 8px` white .3). Dark: black shade, faint highlight.
+- Applies to primary and destructive. Hover still turns teal (accent is a hover state). Secondary and tertiary unchanged.
+- **Loading** shows `WorkingMark` instead of the spinner (Levi).
+- **Arrow** 12px (`size.icon.xs`) at both sizes (Levi: too heavy against the type). The library already specified 12px for Large (2026-10-06); code drew 1.4em (15.4px). Code now matches.
+- **Figma:** `color/control/keyShade`; effect styles `shadow/control/key`, `shadow/control/keyPressed`, `shadow/control/dark/*`; the 8 non-disabled Primary variants of `9:438` updated (Active: keyPressed).
+
+### 2026-10-07: Button arrow is Phosphor Bold
+
+Levi: the trailing arrow uses Phosphor's bold weight, not regular. Code: `ArrowRight weight="bold"` (still 12px, `size.icon.xs`). Figma: new `Icon/arrow-right-bold` (`487:147`, the regular glyph at Phosphor bold's 2.25 stroke on a 24 grid) beside `Icon/arrow-right`, which stays regular for other uses; all 30 Button variants swapped to it and the set's `Icon` swap default updated.
+
+### 2026-10-07: the oatmeal light surfaces return (reverses part of scds-v2)
+
+**Status:** Accepted. Levi: "restore the oatmeal set", after comparing the client portal's light mode (page #E3DFD8, card #F8F6F2) with SCDS.
+
+| Step | Role | scds-v2 (2026-06-22) | Restored |
+| --- | --- | --- | --- |
+| `warmGray.25` | surface.floating | #FBF9F6 | #F8F6F2 |
+| `warmGray.50` | surface.raised | #F4F1ED | #F1EFEB |
+| `warmGray.100` | surface.page | #EBE7E4 | #E3DFD8 |
+
+- Only the three surface steps change. The mid and dark ladder (`warmGray.200`–`900`, the 2026-07-28 warm rebuild, contrast re-derived since) stays.
+- **Inks re-derived for AA on the darker page**, by OKLCH lightness only (hue and chroma kept): `warmGray.450` / text.tertiary #6B665E → #66615A (4.63:1 on page), `status.success.ink.light` #28724D → #246E4A, `status.warning.ink.light` #B83E0B → #B13700, `interactive.hoverInk.light` #027175 → #006D72, and a new `status.info.ink.light` #2B57D5 (status.info-ink light re-points to it; the info fill keeps #2D5AD8, now 4.43:1 on page, fill-only).
+- `tokens:verify`: all 98 AA pairs pass; all 142 quoted figures re-measured and updated in their descriptions and in CLAIMS.
+- **Open:** teal.500 (`brand.accent`, `interactive.hover`) reads 2.99:1 on the page, down from 3.23. As hover text it was already the documented transient exception; as the Switch on-track it sits just under the 3:1 non-text line, with knob position and the I/O glyph also carrying state. Levi's call whether that needs a darker on-track.
+- **Physical controls gain:** the key's white top-left highlight reads stronger on the darker page (+11 L* vs +8), the effect the Drams originals get from their grey ground.
+- **Client portal 2026-07-22 "owed" reconciliation:** SCDS now matches the brand Figma file on `warmGray.50` and `.100`. `warmGray.250` still differs (Figma #D5D1CA, SCDS #C4BCB4 from the 2026-07-28 rebuild); left as is. The portal picks up the restored set at its next build (its snapshot fetches the live tokens.css).
+- **Figma library:** `color/warmGray/25`, `/50`, `/100`, `/450`, `color/status/successInkLight`, `warningInkLight`, `color/interactive/hoverInkLight` updated; new `color/status/infoInkLight` (`488:2`) with `color/status/info-ink` Light re-pointed; five Color-page swatch captions corrected.
+
+### 2026-10-07: the large Button label gets its own role token
+
+**Status:** Accepted. Levi asked why the tuning lab showed a small Button text size and no large one.
+
+- **Cause:** the large Button label read `font.text.label.chrome`, the token NavBar, Avatar, eyebrows and the type specimen also read. The lab lists tokens by name, so the large size appeared as "chrome", not as a Button size. Tuning it would also have moved every other chrome label once applied.
+- **Change:** new `font.text.label.buttonLg` (`--sc-font-text-label-button-lg-*`), aliasing `{font.text.11}` like `buttonSm`. Values are unchanged: both sizes ship an 11/medium/widest label. `Button.module.css` `.label` reads the new token; `label-chrome` keeps its other consumers.
+- **Lab:** saved Button sessions move `label-chrome-*` overrides onto `label-button-lg-*` on load (concept B's letter-spacing edit carried over).
+- **Figma library:** new text style `text/label/button-lg` (`S:674127ee…`), bound to the same variables as `text/label/chrome`, applied to the 15 Large Button labels; `text/label/button-sm` description corrected from 12 to 11.
+
+### 2026-10-07: the Button arrow gets per-size role tokens
+
+**Status:** Accepted. Levi asked for a size control on the arrow icon in the tuning lab, after giving the label its own per-size tokens.
+
+- **Change:** new `size.button.icon.lg` and `size.button.icon.sm` (`--sc-size-button-icon-*`), both `{space.12}`. Nothing changes visually. The Button sets a local `--sc-btn-icon` from the lg token and `.sm` swaps it to sm; the arrow and the loading WorkingMark read it. `size.icon.xs` keeps its other consumers.
+- **Lab:** icon-size tokens get step buttons (10, 12 xs, 14, 16 sm, 18, 24 md) beside the type-scale steps, recorded as the primitive reference.
+- **Figma library:** variables `size/button/icon/lg` (`490:122`) and `size/button/icon/sm` (`490:123`) alias `space/12`, scope width/height, WEB code syntax set; bound to width and height of the arrow instance in all 30 Button variants.
+
+### 2026-10-07: Button primary hover gets its own role tokens; the lab forces states
+
+**Status:** Accepted. Levi asked for dark-mode hover settings in the tuning lab, with the resting key already where he wants it.
+
+- **Tokens:** `color.control.keyHoverFill` (teal.600, same as `brand.accentFill`), `color.control.keyHoverInk` (white, same as `text.onAccent`) and `shadow.control.keyHover` (equal to `control.key` in both modes). Nothing changes visually. `.primary:hover` reads them, so the key's hover tunes per mode without moving the Switch or other accent fills, and hover can now carry its own shadow.
+- **Guard:** `tokens:verify` gains a label-on-fill AA check, `keyHoverInk` on `keyHoverFill` per mode, so a dark-only tune that drops the label under 4.5:1 fails the build. Planted-bug run: dark ink set to teal.500 failed at 1.31:1; restored, green.
+- **Lab:** a `state` view control (rest, hover, focus, active) mirrors every `:hover`, `:focus-visible` and `:active` rule onto a stage attribute, so the forced state shows on all stages, Shipped included. `*-hover` tokens with a rest sibling get "copy rest", which starts hover from the concept's tuned rest value (the hover shadow otherwise starts at the shipped key, not Levi's tuned rest).
+- **Figma library:** variables `color/control/keyHoverFill` (`491:10`), `keyHoverInk` (`491:11`); effect styles `shadow/control/keyHover` and `shadow/control/dark/keyHover`; bound on both Primary Hover variants (fill, label, arrow, effect).
+
+### 2026-10-07: Button tuned in sc-tune and applied, with cascade (record Button 2026-10-07-1418)
+
+**Status:** Accepted. Levi recorded his Button settings and asked to apply them, cascading to related settings where it makes sense. Record: `output/tuning/Button/2026-10-07-1418/`. Concept B carries every edit he made (A, C and D were Claude's earlier dark-halo experiments), so B is the build.
+
+| Setting | Shipped | Applied | How |
+| --- | --- | --- | --- |
+| Large label | 11/medium/1.5/0.08em | 14/medium/2.0/0.02em | `font.text.label.buttonLg` → new `font.text.button.14` |
+| Small label | 11/medium/1.5/0.08em | 12/medium/2.0/0.02em | `font.text.label.buttonSm` → new `font.text.button.12` |
+| Tracking | (none at 0.02em) | new primitive `font.tracking.slight` 0.02em | matches the library's 2% label tracking |
+| Large arrow | 12px | 14px (`space.micro.14`) | `size.button.icon.lg` |
+| Large inline padding | 16px (shared `padding-inline.lg`) | 24px | new `space.component.padding-inline.button-lg` |
+| Small inline padding | 12px (shared `padding-inline.md`) | 16px | new `space.component.padding-inline.button-sm` |
+| Small arrow gap | 2px (shared `padding-block.sm`) | 8px | `.sm` now inherits `gap-md`, same as large |
+| `shadow.control.key` light | `3 3 7 0 ink/.39, -3 -3 4 1 white` | `2 2 6 0 #645B4F/.50, -1 -1 1 1 #FDFAF6` | |
+| `shadow.control.key` dark | `3 3 7 0 black/.50, -3 -3 4 1 white/.06` | `3 3 7 0 black/.50, -1 -1 1 1 #DBEBFF/.17` | |
+| Sound | silent | `press` role, Drams 029, every click | supersedes the 2026-10-07 "Button left silent" line |
+
+- **Shared tokens kept:** Levi's edits landed on shared spacing tokens in the lab (`padding-inline.lg/md`, `padding-block.sm`), which also feed NavBar, Input, Tooltip, SegmentedControl, Badge and the docs site. Changing them would have moved every one of those, so the Button got role tokens with his values and the global spacing scale is unchanged.
+- **Cascade:**
+  - `shadow.control.keyHover` follows the new key in both modes, so hover changes colour only and does not jump.
+  - `shadow.control.keyPressed` keeps the new rest geometry and softens it by the original Drams pressed ratios: light shade .37, rim .90; dark shade .38, rim .14; inner light unchanged.
+  - The small arrow stays 12px, matching its 12px label, the same rule as large (arrow = label size).
+  - Secondary, tertiary and destructive inherit the label, padding and sound. Destructive also inherits the shadows.
+- **Heights:** 46px large and 34px small in code (2.0 leading + padding + 1px border). Figma reads 44/32 because a stroke adds no auto-layout height (a pre-existing 2px gap).
+- **Off-ladder colours, kept exact:** the warm shade #645B4F and rims #FDFAF6 / #DBEBFF are literal `rgb()` values inside the shadow tokens, the same form as the dark `rgb(0 0 0 / a)` shades. Levi's call whether they become primitives.
+- **Figma library:**
+  - Variables: `font/tracking/slight` (`493:2`), `space/component/padding-inline/button-lg` (`493:3`) and `/button-sm` (`493:4`). `size/button/icon/lg` now aliases `space/micro/14`.
+  - Text styles: `text/label/button-lg` / `-sm` are 14/12, 200% leading, 2% tracking.
+  - Variants: all 30 bind inline padding to the new roles, and Small binds its gap to `gap/md`.
+  - Effect styles: `key`, `keyHover`, `keyPressed` and the `dark/*` set are updated.
+
+### 2026-10-07: sc-tune syncs Figma from the token diff
+
+**Status:** Accepted. Levi asked whether the skill updates Figma with the recorded settings, and to automate it if not. It did not: Figma was a manual step at the end of procedure D, with nothing generating the work.
+
+- **Generator:** `scripts/tune-figma-sync.mjs --since <ref>` diffs `tokens/semantic.json` and `primitives.json` against `<ref>` and writes `figma-sync.js` (one idempotent `use_figma` call: variables by name with mode values and aliases, effect styles in light and `dark/*`, text-style size, leading and tracking) plus `figma-sync.md` (the table, and a "Bind by hand" list of new tokens, since no diff can say which masters should read a new token).
+- **Proof:** generated for the Button apply (`--since bcedc02^`), 12 operations, identical to the hand-applied values; run against the library: 12 done, 0 missing, no duplicates.
+- **Skill:** procedure D step 7 now runs the generator and the call every time an applied record ships ("code and library together"). Procedure C saves the export through a dev-only endpoint (`POST /__sc-tune/export`, `vite.config.js`) instead of transcribing the browser string, after a hand copy drifted from the page. D step 6 compares Shipped with the picked concept by computed style instead of pressing Reset all, which erased Levi's concepts.
+- **Limit:** Cowork receives only `SKILL.md` (learning #176), so the generator runs from a local Claude Code session on this repo.
+
+### 2026-10-07: physical-controls Gate 1 picks (Levi)
+
+**Status:** Accepted. Levi answered the five picks in `stages/03-build/physical-controls/CONTEXT.md` after the full-component re-audit (`d222acd`).
+
+| Pick | Answer | Consequence |
+| --- | --- | --- |
+| 1 Light source | B: top left (the Button's OP-1 key) | One light for the system. The Switch re-lights from top to top left, then gets its first sc-tune pass. The Card inset (lit from the top) re-lights with Card. |
+| 2 Button secondary | C: keep the outline pill | Secondary stays the approved exception; it inherits the Button role tokens and `press` sound. Out of the Tier 2 build. |
+| 3 Dark-mode material | B: dark keys with a faint top-left highlight (today's Button) | Every material in dark mode follows the tuned Button dark key. The Switch's light knob on a dark ground becomes a dark knob at its re-light. |
+| 4 Scope | B: Tier 1 + Tier 2 | This sprint builds the material layer, Tier 1 (Switch, SegmentedControl, Stepper, ProgressIndicator interactive, Input) and Tier 2 (Card, Tooltip, Badge, Avatar, Alert). NavBar (Tier 3) stays next. |
+| 5 Teal on-track contrast | A: keep teal.500 (2.99:1 on page) | Logged gap against WCAG 1.4.11; knob position and the I/O glyph carry the on state. No new on-track token. |
+
+- **Static meters stay flat.** ProgressIndicator bar (static), circular and step are read, not touched (directive 1). Only the interactive bar gets the material.
+
+### 2026-10-07: Badge and NavBar text moves to the ink tokens; NavBar gets a focus ring
+
+**Status:** Accepted. Levi: fix now, ahead of the tier order. The physical-controls audit found fill colours used as text.
+
+| Where | Was (light, on page) | Now | Light / dark on page |
+| --- | --- | --- | --- |
+| Badge default | `brand.accent` 2.99:1 | `brand.accentInk` | 5.35 / 7.61 |
+| Badge success | `status.success` 3.42:1 | `status.success-ink` | 4.64 / 5.89 |
+| Badge warning | `status.warning` 3.90:1 | `status.warning-ink` | 4.63 / 5.94 |
+| NavBar `aria-current` | `brand.accent` 2.99:1 | `brand.accentInk` | 5.35 / 7.61 |
+
+- The Badge border moves with its text, so each badge stays one colour (cascade, Claude). Error and neutral already pass and are unchanged.
+- NavBar links and the compact menu toggle get the styled `:focus-visible` ring every other control uses; they had none (five-state gap).
+- Every ratio above is already a `tokens:verify` claim; no new guard needed.
+- **Open:** on `surface.sunk` in light mode, success-ink and warning-ink read 4.1:1 (a Badge inside a default Card). Not fixed here.
+- Docs captions in `src/sections/ComponentSections.jsx` name the new tokens.
+- **Figma library:** the library Badge set `9:404` has only `state=pass` and `state=fail`, so it does not mirror the code's five variants (pre-existing parity gap). `state=pass` (`9:405`) stroke and label (`84:16`) now bind `color/status/success-ink` (readback: both `VariableID:211:8`); `fail` already passes. The library has no NavBar master, so nothing to sync. The library `StatusPill` set `9:767` (Paused, Expired) also uses `color/status/warning` as text; it has no code component here and is left for its owner.
+
+### 2026-10-07: `shadow.control.bevel` retired; `shadow.control.raised` held for Studio PM
+
+**Status:** Accepted. Levi: retire the superseded neumorphic tokens. Consumers checked across every studio repo first.
+
+- **`bevel`:** no consumer anywhere. Removed from `tokens/semantic.json`; `tokens.css`, `SCDSTokens.swift` and `token-map.md` regenerated (157 semantic tokens, shadow 7).
+- **`raised`: held.** Studio PM's native `RunButton.swift` draws `SCDS.Shadow.controlRaised` from its vendored Swift tokens, and its tests and Money Bags' vendored-token tests assert it. Removing it now breaks Studio PM's next token vendor. Its description names that consumer; it goes when RunButton migrates to `shadow.control.key`.
+- No web consumer reads either token (client portal snapshot and crafthouse site carry the definitions only).
+- **Figma library:** effect styles `shadow/control/bevel` and `shadow/control/dark/bevel` removed (0 consumers). `shadow/control/raised` and `dark/raised` stay with the token.
+
+### 2026-10-07: the Switch re-lit to the system light, dark knob per pick 3 (cascade, before its sc-tune pass)
+
+**Status:** Accepted. Levi: re-light the Switch once a light source is picked, then run it through sc-tune. Pick 1 is top left, pick 3 is dark keys. Every value below is a cascade from those two picks, not a tune; Levi tunes from this starting point in the lab.
+
+| Token | Was | Now | Cascade |
+| --- | --- | --- | --- |
+| `shadow.switch.thumb` (both modes) | six layers at `0 y` | each layer at `y/√2 y/√2` (0.37 → 0.26, 0.95 → 0.67, 1.9 → 1.34, 3.6 → 2.55, 7.16 → 5.06, 15.75 → 11.14) | offset rotated 45° toward the bottom right, length kept; blur, spread and colour unchanged |
+| `shadow.switch.track` (both modes) | `inset 0 0.45px 0.9px` | `inset 0.32px 0.32px 0.9px` | same rotation |
+| Knob rim and face gradients (`Switch.module.css`) | top to bottom (180°) | `135deg` | the Button key face's angle |
+| `color.switch.thumb.rimTop` dark | warmGray.200 | dark.raised5 | dark key: rim catches the light |
+| `color.switch.thumb.rimBottom` dark | warmGray.350 | dark.raised3 | |
+| `color.switch.thumb.faceTop` dark | warmGray.250 | dark.raised4 | face one to two ladder steps above the off track (dark.raised2), as the dark Button key sits one step above the page |
+| `color.switch.thumb.faceBottom` dark | warmGray.300 | dark.raised3 | |
+
+- Light-mode knob colours, the tracks, the glyphs and the motion are unchanged.
+- **Shared light-source token: not built.** The contract's Phase 0 asks for shade and highlight offsets in one place. Each shadow token is one composite string; reading a shared offset needs `calc()` inside the string, which `tokens-to-swift` and the Figma sync generator do not parse. Until one of them does, the single light lives as a rule: shade toward 135°, highlight toward 315°, and face gradients at `135deg`. `tokens:verify` does not check it yet.
+- `tokens:build`, `tokens:swift`, `tokens:map` regenerated; `tokens:verify`, `tokens:map:check`, `tokens:swift:check` and `npm run build` exit 0.
+- **Figma library:** `tune-figma-sync.mjs --since cb7d363` generated 8 operations (4 variables, `shadow/switch/{track,thumb}` and their `dark/*` styles); run on the library: 8 done, 0 missing. The knob gradients are master fills, not tokens, so they were rotated by hand: `Knob` and `Face` in both Toggle variants (`9:860`, `483:15`, `9:862`, `483:18`) moved from a vertical transform to the 135° diagonal, stops still bound to `color/switch/thumb/*`.
+
+### 2026-10-07: the Switch re-light is reverted; the Drams Switch stays; glyphs become optional
+
+**Status:** Accepted. Supersedes "the Switch re-lit to the system light, dark knob per pick 3" above (`4ab0729`, `1d39edf`). Levi: the Switch was already updated today, the repaint that matches the Drams Framer site (drams.framer.website, Standard Switch), and nothing changes on it except the option to remove the glyphs.
+
+- **Reverted in code:** `tokens/semantic.json` (switch shadows, dark knob colours), `Switch.module.css` (gradients back to top to bottom) and the generated files are back to `4ab0729^`. The `shadow.switch.*`, `color.switch.*` and `size.switch.*` groups and the Switch CSS are identical to `bece93f`, the Drams restyle.
+- **Reverted in Figma:** the four `color/switch/thumb/*` variables and `shadow/switch/{track,thumb}` plus `dark/*` restored (8 done, 0 missing); the `Knob` and `Face` gradients on `9:860`, `483:15`, `9:862`, `483:18` back to the vertical transform. Readback screenshot shows the shadow falling straight down.
+- **Exception to the one-light rule:** the Switch stays lit from the top while the Button and the rest of the system follow pick 1 (top left). Its dark knob stays light (it predates pick 3). Logged so the CONTEXT audit line "one light source" reads this as a known exception, not a miss.
+- **Glyphs optional:** `Switch` gains `glyphs` (default `true`). `glyphs={false}` drops the I/O row for a plain track. Knob position still carries state without colour (WCAG 1.4.1). Docs gain a "No glyphs" cell; the sc-tune registry gains the prop, and the lab now fills a prop added after a session was saved with its registry default (a saved Switch session otherwise showed the control off while the glyphs rendered).
+- **Figma:** the Toggle set `9:858` gains boolean property `Glyphs#498:0` (default on), bound to the visibility of `Glyphs` in both variants (`483:13`, `483:16`); the set description names the code prop.
+- `tokens:verify`, `tokens:map:check`, `tokens:swift:check` and `npm run build` exit 0.
+
+### 2026-10-07: the Switch track floor gets its own role tokens (no visual change)
+
+**Status:** Accepted. Levi, tuning the dark Switch in sc-tune: an inset shadow should sit on a floor darker than its ground, and he could not find where to change the floor. It was the shared `surface.deepSunk` (dark: dark.raised2 #3B4249, lighter than the page #2C3239), listed under a surface name and read by cards, inputs and meters.
+
+- New `color.switch.track.off` (= surface.deepSunk: warmGray.300 / dark.raised2) and `color.switch.track.offHover` (= surface.hover: warmGray.250 / dark.raised1). Values unchanged; `Switch.module.css` reads them. Levi likes the hover going darker in dark mode, so hover stays its own token next to the floor.
+- In the lab they show as `color-switch-track-off` and `-off-hover` in the Switch's colour group; tuning them moves only the Switch.
+- **Figma library:** variables `color/switch/track/off` (`499:2`) and `color/switch/track/offHover` (`499:3`), scoped to frame and shape fills, WEB syntax set. The Toggle `State=Off` track fill (`9:859`) now binds `499:2` instead of `color/surface/deepSunk`. The library has no hover variant, so `offHover` is not bound yet.
+- `tokens:verify`, `tokens:map:check`, `tokens:swift:check` and `npm run build` exit 0.
+
+### 2026-10-07: Switch motion settings from the elastic toggles reel, in sc-tune (shipped inert)
+
+**Status:** Accepted. Levi: add the motion specs from kabarza's reel (instagram.com/reel/DeK0AFcIRhf) to the lab, defaulting to what the reel shows. Also asked how to move the label down 1px; there was no control.
+
+- **Read from the reel** (frames sampled with the burned-in captions; values read off his article and playground): layers 03 slide (220ms "firm", "around 200ms it reads as instant but connected"), 04 stretch ("as long as it is fast, round again by the time it lands"; two ends and a bar is right, `scaleX` is wrong), 05 springs back (`bounce` sets the damping, firm 0, balanced 0.3 in the article; `squash` 22% flatter on the elastic row), 06 answers the press (lean toward the target on pointer down in 150ms, hold, release from that pose, drag off springs back; amount 0.83). The playground's Balanced preset, the one on screen at the end: stretch 0.45, squash 0.00, bounce 0.00, duration 520. Firm and Elastic were never expanded, so their exact numbers are not in the reel.
+- **Tokens (Switch role tokens, shipped inert so the Switch is unchanged):** `motion.switch.travel.duration` / `.easing` (= motion.reveal), `motion.switch.stretch` 0, `motion.switch.squash` 0, `motion.switch.press.lean` 0, `motion.switch.press.leanDuration` (= motion.press.duration), and `size.switch.labelOffset` 0px.
+- **Engine:** `src/components/Switch/switchMotion.js`. It samples the travel curve, makes the knob's width follow the curve's speed and its height flatten by squash, and plays it as WAAPI keyframes; press lean animates the front edge and holds. It runs only when stretch, squash or lean is above 0 and reduced motion is off. Verified in the lab: at stretch 0.45 the knob peaks at 19.9px on a 14px knob early in the flight and lands at 14px; lean 0.83 widens it to 16.9px; drag-off returns to 14px; release travels from the lean pose.
+- **Lab:** the registry gains `jsTokens` (tokens read in JS, which CSS discovery cannot see) and `seed` (where an inert setting starts in a concept): stretch 0.45, squash 0, lean 0.83, lean 150ms, and the travel spring at duration 520ms, bounce 0 (stiffness 146, damping 24.17, mass 1; settles in 1062ms). Seeds fill only tokens a concept has not touched, so concepts A and B keep Levi's colour and size edits. The spring editor gains duration and bounce sliders (duration = 2π√(m/k), bounce = 1 − ζ), the reel's own controls.
+- **Calibration that is Claude's, not the reel's:** the reel's lean amount has no stated unit. Here 1 = the front edge advances a quarter of the travel, so 0.83 leans 2.9px on the 14px travel. Tune it in the lab.
+- **Not in Figma:** motion has no Figma analogue on the Toggle masters; the tokens are code-only until a record ships.
+- `tokens:verify`, `tokens:map:check`, `tokens:swift:check`, `npm run build` and `build:lib` exit 0.
+
+### 2026-10-07: the Switch's elastic motion extends to SegmentedControl, PlusUnderline, NavBar and Tooltip (shipped inert)
+
+**Status:** Accepted. Levi: add the same motion to Tooltip, NavBar, SegmentedControl and PlusUnderline. Same rule as the Switch: every new setting ships at 0 (or equal to motion.reveal), so no component changes until Levi records and applies a concept.
+
+- **Shared engine:** `src/motion/elastic.js` (curve sampling, speed, two-ends-and-a-bar pill frames, press lean, WAAPI runner, zoom-safe rects). `switchMotion.js` now uses it; the Switch's frames are unchanged except that a pill now leaves and lands at rest (speed pinned to 0 at both ends; before, the first frame was already 2px long).
+- **Per component** (role tokens `--sc-motion-<prefix>-travel-duration/-easing`, `-stretch`, `-squash`, plus `-press-lean/-lean-duration` where something is pressed):
+  - SegmentedControl (`segmented-control`): the indicator travels, stretches with speed (× its height) and leans toward a pressed segment. Its measure now uses CSS px, so a zoomed ancestor (the lab stage) no longer skews it; identical outside the lab.
+  - PlusUnderline (`plus-underline`): the newly active underline travels from the previous one in the same nav, tablist, radiogroup or list, and leans toward a pressed tab. Shipped, it still jumps. The canvas redraws at every width, so the stretch adds marks instead of distorting them.
+  - NavBar (`nav-bar`): new `underline` prop (default false) puts a PlusUnderline under desktop links, carrying NavBar's tokens. Shipped NavBar is unchanged.
+  - Tooltip (`tooltip`): the open lift runs the travel curve; stretch and squash are a scale from the arrow (1 = 20% at peak speed), because the bubble carries text. No press lean. New optional `open` prop forces it open or shut (lab replay, docs).
+- **Lab:** registry entries for Tooltip, NavBar and PlusUnderline; SegmentedControl gains the elastic tokens. A `reel()` helper seeds each at the reel's Balanced preset (stretch 0.45, squash 0, lean 0.83 / 150ms, spring 520ms bounce 0). The sc-tune skill's procedure B now names `jsTokens` and `seed`.
+- **Verified** in the lab (keyframes read back, since the browser pane was hidden and its clock paused): indicator Day → Week peaks 67.3px and settles on the 60.6px segment, aligned to 0.00px in both stages; lean 60.6 → 72.8 → back; underline Month → Day travels 85.4px → 0 with a 44.3px peak; NavBar underline 34.8 → 42.0 with a 42.8px peak; tooltip lifts −4px → 0, peaks 1.09× tall; Shipped stages run no engine animation.
+- **Open (Levi's call):** the Motion page's stated rule, "Nothing in the system overshoots / never elastic, never back", contradicts a bounce above 0. Shipped motion still obeys it.
+- **Motion page** (`src/sections/MotionSection.jsx`, spec v1.3): new chapter iv, "Elastic controls / in tuning": the four settings with the reel's Balanced values and the shipped values, the five components and their token prefixes, and a live panel that runs the reel preset through token overrides on its own wrapper only (verified: the chapter iii Switch runs no engine; the demo Switch peaks at 20.3px on its 14px knob). The page's "nothing overshoots" hero and annotations are unchanged; the chapter states that elastic motion is in tuning and ships inert. `springEasing({ duration, bounce })` joins the engine so the site can build the reel's spring without importing lab code.
+
+### 2026-10-07: Switch record 2026-10-07-1539 concept B applied (procedure D)
+
+**Status:** Accepted. Levi: "B, apply it." Record `output/tuning/Switch/2026-10-07-1539/`; sync base `ff35f61`. B carries no notes.
+
+| Token | Was | Now |
+| --- | --- | --- |
+| `size.switch.track-width` / `-height` / `thumb` | 32 / 18 / 14px (space.32, space.micro.18, space.micro.14) | 40 / 22 / 15px, literal |
+| `motion.switch.travel.duration` | motion.reveal.duration (200ms) | 600ms, literal |
+| `motion.switch.travel.easing` | motion.reveal.easing (quint-out) | `spring` { stiffness 146, damping 17.88, mass 1 } (3% overshoot) |
+| `motion.switch.stretch` / `squash` / `press.lean` | 0 / 0 / 0 | 1.06 / 0.15 / 0.12 |
+| `color.switch.track.off` / `offHover` dark | dark.raised2 / dark.raised1 | dark.well / dark.floor |
+| `color.switch.thumb.rimTop` / `faceTop` / `faceBottom` dark | warmGray.200 / 250 / 300 | dark.textPrimary / warmGray.200 / dark.textTertiary |
+
+- **Unchanged from B:** `space.component.gap-md` (tuned 08px = shipped 8px), `press.leanDuration` (160ms, = motion.press.duration), light mode, glyph size, sound. B's props (checked, glyphs off) are lab state, not shipped defaults; `glyphs` still defaults on.
+- **Off-ladder values kept exact** (40px, 22px, 15px, 600ms) as literals in the role tokens, the Button precedent; Levi's call whether any becomes a primitive. 40px is on the 8pt grid with no ladder step; 22 and 15 are off the 4pt grid (learning #144).
+- **New token type `spring`:** a tuned spring is stored as physics, not as 60 sampled points. `tokens-to-css` compiles it with the lab's own simulation (now `src/motion/spring.js`, shared by the lab, the engine and the generators): the generated `linear()` is byte-identical to the record's. `tokens-to-swift` emits `SCDSSpring` (stiffness, damping, mass, natural settle) whose `animation(duration:)` time-scales the spring to the paired duration (stiffness × s², damping × s), so iOS lands when the web does; the generated Swift type-checks (`swiftc -typecheck`). `gen-token-map` prints springs; `tune-figma-sync` now reads literal `{ value, unit }` dimensions.
+- **Lab check (D step 6):** Shipped and concept B compared by computed style in dark and light: track 40 × 22, knob 15, 600ms, the `linear()` curve, stretch, squash, lean, floor and knob colours. No differences.
+- **Figma library:** 12 variables set, 0 missing; new `motion/switch/stretch`, `/squash`, `/press/lean`, `/travel/duration` (600; the library already keeps motion durations and scales as FLOAT). `size/switch/*` now hold 40 / 22 / 15. The Toggle masters' knob, face and glyph positions were fixed numbers, so they were re-seated by hand to the code's geometry (inset 3.5, travel 18): Off knob (3.5, 3.5), face (4, 4) 14 × 14, O ring (24.5, 8); On knob (21.5, 3.5), face (22, 4), I bar (12, 8). The Off knob had a locked aspect ratio that let it hold only one size binding; unlocked, it now binds width and height to `size/switch/thumb` like the On knob. Publishing the library is Levi's step.
+- **Docs:** Switch page lead, Switch CSS geometry comments, `Switch.tokens.md`, Motion page chapters iii and iv (the Switch spring is named as the one exception to "nothing overshoots"), CONTEXT audit row.
+
+### 2026-10-07: the no-overshoot rule stays, with the Switch as its named exception
+
+**Status:** Accepted. Levi: keep the rule with the exception. The Motion page keeps "Nothing in the system overshoots" and "never elastic, never back"; the "excluded curve" annotation (chapter i) and chapter iv name the Switch knob's 3% spring overshoot (record 2026-10-07-1539 B) as the one exception. A further overshoot anywhere else needs its own logged exception.
+
+### 2026-10-07: motion is fluid, overshoot is welcome (supersedes the no-overshoot rule and its Switch exception)
+
+**Status:** Accepted. Levi: "rewrite it, i love overshoots, we need to make my UI more fluid." Supersedes the two entries above that kept "Nothing in the system overshoots" (first as a rule, then with the Switch as its exception).
+
+- **Motion page, spec v2.0** (`src/sections/MotionSection.jsx`): eyebrow "fluid, with weight"; title "Things you touch have weight. They overshoot, swing back and settle."; the lead says controls you move travel on springs and pass their mark, while things you only read keep the four curves. Chapter i annotations become "Springs for touch, curves for reading" and "Overshoot is welcome"; chapter iii's "One language" points moving controls at their elastic tokens; chapter iv drops the exception wording.
+- **The old rule was already false:** `motion.easing.springOut` (Button release, 2026-07-23) rises to 1.56. The new copy names it.
+- **Direction for the build:** anything a finger moves (Switch, SegmentedControl, PlusUnderline, NavBar underline) travels on a tuned spring; bounce above 0 no longer needs an exception. Reading surfaces (Tooltip enter, panels, pages) keep the four curves unless Levi tunes otherwise. Values still come from sc-tune records, never set in code.
+- **Still open:** the formal SCDS motion-philosophy pick (sc-motion, Gate 1 of its own; CONTEXT "Out of scope"). This direction reads closest to Experiential / Spatial; the pick itself is Levi's.
+
+### 2026-10-07: SegmentedControl material tokens for its sc-tune session (shipped flat)
+
+**Status:** Accepted. Levi: open SegmentedControl in the lab. The audit's Tier 1 change (recessed track, key indicator) had no tokens to tune, and the track and indicator read shared surfaces.
+
+- **Role tokens, shipped equal to today:** `color.segmentedControl.track` (= surface.sunk), `.indicator` (= surface.floating), `.indicatorShade` (transparent), `shadow.segmentedControl.track` and `.indicator` (zero alpha). The indicator gains the Button key's face, `linear-gradient(135deg, transparent, indicatorShade)`, invisible while the shade is transparent. Disabled stays flat (no recess, no lift, no face).
+- **Lab starts (concept seeds, lit from the top left per Gate 1 pick 1):** track recess = the Drams recess (inset 0 1px 2px at .25, the Switch's source before its ×0.45 scale) turned to the top left: `inset 0.71px 0.71px 2px` ink .25 light, black .45 dark. Indicator = the Button key, `shadow.control.key` and `color.control.keyShade` per mode. Plus the reel motion seed already in place.
+- **Lab engine:** registry seeds can be per mode (`seed.scoped`), checked per mode so a light seed does not block its dark twin.
+- Segment padding still reads the shared `padding-inline/block.*` tokens; procedure D gives it role tokens if Levi tunes them.
+
+### 2026-10-07: SegmentedControl record 2026-10-07-1645 concept A applied (procedure D)
+
+**Status:** Accepted. Levi: "apply it." Record `output/tuning/SegmentedControl/2026-10-07-1645/` (supersedes 1617: same values plus "add the 3%"); sync base `37ce7a4`. No notes.
+
+| Token | Was | Now |
+| --- | --- | --- |
+| `motion.segmentedControl.travel.duration` / `.easing` | = motion.reveal (200ms quint-out) | 600ms literal / `spring` { 146, 17.88, 1 } (the Switch's, 3% overshoot) |
+| `motion.segmentedControl.stretch` / `squash` / `press.lean` | 0 / 0 / 0 | 0.45 / 0.2 / 0.15 |
+| `shadow.segmentedControl.track` | zero alpha | `inset 0.71px 0.71px 2px 0` ink .25; dark black .45 |
+| `shadow.segmentedControl.indicator` | zero alpha | `shadow.control.key` values per mode, literal (its own role) |
+| `color.segmentedControl.indicatorShade` | transparent | ink .05; dark .25 |
+
+- **Unchanged:** track and indicator fills (surface.sunk / surface.floating values), press lean duration (160ms), segment padding (still shared tokens; Levi did not tune it), sound.
+- **Checks:** the generated `linear()` equals the record's; Shipped and concept A match by computed style in light and dark (track and indicator fill, shadows, face gradient, duration, curve, stretch, squash, lean). `tokens:verify`, `tokens:map:check`, `tokens:swift:check`, `npm run build`, `build:lib` exit 0; `swiftc -typecheck` passes.
+- **Figma library:** the generator listed nothing to bind, which was wrong here: the role tokens were created at 0 in `a0f3513` and never reached the library. Created variables `color/segmentedControl/track` (`508:156`), `/indicator` (`508:157`), `/indicatorShade` (`508:158`), `motion/segmentedControl/stretch` (`508:159`), `/squash` (`508:160`), `/press/lean` (`508:161`), `/travel/duration` (`508:162`); effect styles `shadow/segmentedControl/track`, `/indicator` and their `dark/*`. Bound: track `85:3` fill and recess style; Selected=true variants `137:30`–`137:34` fill to the indicator variable, plus the 135deg face gradient (Button key transform, stop bound to `indicatorShade`) and the key style on all but Disabled (flat). The selected instance `138:4` carried a fill override; overrides on `138:2/4/6` reset so they follow the masters. Library Selected Hover (`surface/raised`) and Active (`surface/sunk`) fills now match code's single indicator fill. Publishing is Levi's step.
+- **Generator gap:** `tune-figma-sync` decides "bind by hand" from the token diff, so a token that existed at the sync base but never reached Figma is reported as already bound. Worth a fix: check the library, not the diff.
+
 ### 2026-10-07: brand-site sidebar redesign (ADR brand-site-sidebar-redesign)
 
 **Status:** Accepted. Levi's direction: build the sidebar to the Figma "sidebar nav" layer (`ufNlysCwWz7y2FBk61DxbN`, node `2144:25`) on SCDS, current spec over SCDS on every row except the switch (SCDS Toggle), and keep the live site's hover and click states.

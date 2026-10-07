@@ -1,6 +1,8 @@
 /* tokens:
- *   --sc-color-surface-sunk               · track ground
- *   --sc-color-surface-floating           · selected segment fill (raised, fill-only — no border/shadow)
+ *   --sc-color-segmented-control-track    · track ground (role token, = surface.sunk)
+ *   --sc-color-segmented-control-indicator · selected segment fill (role token, = surface.floating)
+ *   --sc-color-segmented-control-indicator-shade · 135deg face shade on the indicator (Button key face; shipped transparent)
+ *   --sc-shadow-segmented-control-track / -indicator · recess and key lift (shipped zero alpha; tuned in sc-tune)
  *   --sc-color-text-secondary             · unselected segment text
  *   --sc-color-text-primary               · selected segment text ("ink")
  *   --sc-color-text-disabled              · disabled segment text
@@ -17,7 +19,8 @@
  *   --sc-space-component-padding-inline-lg / --sc-space-component-padding-block-md · lg segment padding
  *   --sc-font-text-label-tab-*            · segment label (lg size)
  *   --sc-space-component-gap-lg           · label ↔ count gap
- *   --sc-motion-reveal-duration / -easing · indicator slide
+ *   --sc-motion-segmented-control-travel-duration / -easing · indicator slide (role tokens, = motion.reveal)
+ *   --sc-motion-segmented-control-stretch / -squash / -press-lean / -press-lean-duration · elastic motion (SegmentedControl.jsx; 0 = off)
  *   --sc-motion-hover-duration / -easing  · text color transition
  */
 
@@ -28,7 +31,8 @@
   gap: var(--sc-space-component-gap-sm);
   padding: var(--sc-space-component-padding-sm);
   border-radius: var(--sc-radius-pill);
-  background-color: var(--sc-color-surface-sunk);
+  background-color: var(--sc-color-segmented-control-track);
+  box-shadow: var(--sc-shadow-segmented-control-track);
 }
 
 .indicator {
@@ -37,10 +41,19 @@
   bottom: var(--sc-space-component-padding-sm);
   left: 0;
   border-radius: var(--sc-radius-pill);
-  background-color: var(--sc-color-surface-floating);
+  background-color: var(--sc-color-segmented-control-indicator);
+  background-image: linear-gradient(135deg, transparent, var(--sc-color-segmented-control-indicator-shade));
+  box-shadow: var(--sc-shadow-segmented-control-indicator);
   transition:
-    transform var(--sc-motion-reveal-duration) var(--sc-motion-reveal-easing),
-    width var(--sc-motion-reveal-duration) var(--sc-motion-reveal-easing);
+    transform var(--sc-motion-segmented-control-travel-duration) var(--sc-motion-segmented-control-travel-easing),
+    width var(--sc-motion-segmented-control-travel-duration) var(--sc-motion-segmented-control-travel-easing);
+}
+
+/* While the elastic engine drives the indicator (stretch, squash or lean
+   above 0), its keyframes own transform, width and height; a CSS
+   transition would outrank them in the cascade. */
+.track[data-driven] .indicator {
+  transition: none;
 }
 
 .segment {
@@ -113,6 +126,13 @@
 
 .disabled {
   cursor: not-allowed;
+}
+
+/* Disabled is flat: losing the material is the unavailable signal. */
+.disabled.track,
+.disabled .indicator {
+  box-shadow: none;
+  background-image: none;
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -1,11 +1,11 @@
 /* tokens:
- *   --sc-size-switch-track-width   · 32 track
- *   --sc-size-switch-track-height  · 18 track
- *   --sc-size-switch-thumb         · 14 thumb (2 inset)
+ *   --sc-size-switch-track-width   · 40 track (record Switch 2026-10-07-1539 B)
+ *   --sc-size-switch-track-height  · 22 track
+ *   --sc-size-switch-thumb         · 15 thumb (3.5 inset)
  *   --sc-size-switch-glyph         · 6 I bar height / O ring diameter
  *   --sc-radius-pill               · 9999 pill
- *   --sc-color-surface-deep-sunk   · off track ground
- *   --sc-color-surface-hover       · off track ground, hover
+ *   --sc-color-switch-track-off       · off track floor (role token, = surface.deepSunk)
+ *   --sc-color-switch-track-off-hover · off track floor, hover (role token, = surface.hover)
  *   --sc-color-brand-accent        · on track ground
  *   --sc-color-brand-accent-fill   · on track ground, hover
  *   --sc-color-surface-sunk        · disabled track ground
@@ -19,16 +19,19 @@
  *   --sc-border-width-default      · O ring stroke; rim = half of it
  *   --sc-font-text-body-default-*  · label
  *   --sc-space-component-gap-md    · switch ↔ label gap
- *   --sc-motion-reveal-duration / -easing  · knob + glyph travel
+ *   --sc-motion-switch-travel-duration / -easing · knob + glyph travel, track ground (role tokens, = motion.reveal)
+ *   --sc-motion-switch-stretch / -squash   · knob length and flattening at peak speed (Switch.jsx; 0 = rigid)
+ *   --sc-motion-switch-press-lean / -lean-duration · knob leans toward its target on pointer down (Switch.jsx; 0 = off)
+ *   --sc-size-switch-label-offset  · vertical label nudge (0 = centred)
  *   --sc-motion-hover-duration / -easing   · track ground change
  *   --sc-motion-press-duration / -easing / -scale · knob press
  *
  * Geometry (all derived, no magic values):
- *   inset  = (track-height − thumb) / 2            → 2
- *   travel = track-width − thumb − 2 × inset       → 14
+ *   inset  = (track-height − thumb) / 2            → 3.5
+ *   travel = track-width − thumb − 2 × inset       → 18
  *   The I mark sits centred in the free zone left of the knob when on
- *   (inset + travel/2 → 9); the O ring centred in the free zone right of
- *   the knob when off (inset + thumb + travel/2 → 23). Both ride one row
+ *   (inset + travel/2 → 12.5); the O ring centred in the free zone right of
+ *   the knob when off (inset + thumb + travel/2 → 27.5). Both ride one row
  *   that translates by `travel` with the knob, so the outgoing glyph slides
  *   out under the track edge exactly as the Drams original does.
  */
@@ -67,12 +70,12 @@
   width: var(--sc-size-switch-track-width);
   height: var(--sc-size-switch-track-height);
   border-radius: var(--sc-radius-pill);
-  background-color: var(--sc-color-surface-deep-sunk);
+  background-color: var(--sc-color-switch-track-off);
   box-shadow: var(--sc-shadow-switch-track);
   display: inline-flex;
   align-items: center;
   position: relative;
-  transition: background-color var(--sc-motion-reveal-duration) var(--sc-motion-reveal-easing);
+  transition: background-color var(--sc-motion-switch-travel-duration) var(--sc-motion-switch-travel-easing);
 }
 
 /* Glyph row · clipped to the track so the outgoing glyph slides out
@@ -90,7 +93,7 @@
   position: absolute;
   top: calc((var(--sc-size-switch-track-height) - var(--sc-size-switch-glyph)) / 2);
   height: var(--sc-size-switch-glyph);
-  transition: transform var(--sc-motion-reveal-duration) var(--sc-motion-reveal-easing);
+  transition: transform var(--sc-motion-switch-travel-duration) var(--sc-motion-switch-travel-easing);
 }
 
 .glyphOn {
@@ -121,8 +124,15 @@
   position: absolute;
   left: var(--inset);
   transition:
-    transform var(--sc-motion-reveal-duration) var(--sc-motion-reveal-easing),
+    transform var(--sc-motion-switch-travel-duration) var(--sc-motion-switch-travel-easing),
     scale var(--sc-motion-press-duration) var(--sc-motion-press-easing);
+}
+
+/* While Switch.jsx drives the knob (stretch, squash or press lean above 0),
+   its own animation owns transform, width and height; a CSS transition
+   would outrank it in the cascade. */
+.track[data-driven] .thumb {
+  transition: scale var(--sc-motion-press-duration) var(--sc-motion-press-easing);
 }
 
 .thumb::after {
@@ -147,7 +157,7 @@
 
 /* Hover — the ground shifts one ladder step; the knob does not move */
 .field:hover .input:not(:disabled) ~ .track {
-  background-color: var(--sc-color-surface-hover);
+  background-color: var(--sc-color-switch-track-off-hover);
 }
 .field:hover .input:not(:disabled):checked ~ .track {
   background-color: var(--sc-color-brand-accent-fill);
@@ -184,6 +194,7 @@
   line-height: var(--sc-font-text-body-default-line-height);
   letter-spacing: var(--sc-font-text-body-default-letter-spacing);
   color: var(--sc-color-text-primary);
+  translate: 0 var(--sc-size-switch-label-offset);
 }
 
 .disabled .label {

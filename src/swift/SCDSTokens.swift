@@ -60,6 +60,25 @@ public struct SCDSEasing: Sendable, Equatable {
     }
 }
 
+/// A spring tuned in sc-tune. CSS samples it into `linear()` over its natural
+/// `settle` time and runs that curve over the paired duration token, so the
+/// web may play it faster or slower than its physics.
+public struct SCDSSpring: Sendable, Equatable {
+    public let stiffness: Double, damping: Double, mass: Double
+    /// Natural settle time in seconds.
+    public let settle: TimeInterval
+    public init(stiffness: Double, damping: Double, mass: Double, settle: TimeInterval) {
+        self.stiffness = stiffness; self.damping = damping; self.mass = mass; self.settle = settle
+    }
+    /// The same spring run over `duration` (the paired duration token), so it
+    /// lands when the CSS does. Time scales by s = settle / duration: stiffness
+    /// by s², damping by s, which keeps the damping ratio (the overshoot).
+    public func animation(duration: TimeInterval) -> Animation {
+        let s = settle / duration
+        return .interpolatingSpring(mass: mass, stiffness: stiffness * s * s, damping: damping * s, initialVelocity: 0)
+    }
+}
+
 /// One layer of a composed shadow, in the shape SwiftUI's `.shadow` takes.
 public struct SCDSShadowLayer: Sendable, Equatable {
     /// CSS `inset`. SwiftUI's `.shadow` draws outside a shape only, so an
@@ -151,9 +170,9 @@ public enum SCDS {
     public static let primitivesVersion = "0.1.0"
     public static let semanticVersion = "0.1.0"
     public static let sourceGenerated = "2026-05-26"
-    public static let primitivesHash = "14fc848f136ea999"
-    public static let semanticHash = "9c0d4c45a495fa3f"
-    public static let tokenCount = 152
+    public static let primitivesHash = "f96efa487bcac29d"
+    public static let semanticHash = "b05621862af2dfcd"
+    public static let tokenCount = 198
   }
 
   // MARK: - Color
@@ -448,10 +467,28 @@ public enum SCDS {
         dark:  (0.945098, 0.937255, 0.921569, 1)
     )
 
+    /// `color.control.keyShade`
+    public static let controlKeyShade = SwiftUI.Color.scdsDynamic(
+        light: (0.101961, 0.094118, 0.082353, 0.05),
+        dark:  (0.101961, 0.094118, 0.082353, 0.25)
+    )
+
+    /// `color.control.keyHoverFill`
+    public static let controlKeyHoverFill = SwiftUI.Color.scdsDynamic(
+        light: (0.015686, 0.47451, 0.490196, 1),
+        dark:  (0.015686, 0.47451, 0.490196, 1)
+    )
+
+    /// `color.control.keyHoverInk`
+    public static let controlKeyHoverInk = SwiftUI.Color.scdsDynamic(
+        light: (1, 1, 1, 1),
+        dark:  (1, 1, 1, 1)
+    )
+
     /// `color.switch.thumb.rimTop`
     public static let switchThumbRimTop = SwiftUI.Color.scdsDynamic(
         light: (1, 1, 1, 1),
-        dark:  (0.847059, 0.819608, 0.8, 1)
+        dark:  (0.917647, 0.909804, 0.890196, 1)
     )
 
     /// `color.switch.thumb.rimBottom`
@@ -463,13 +500,13 @@ public enum SCDS {
     /// `color.switch.thumb.faceTop`
     public static let switchThumbFaceTop = SwiftUI.Color.scdsDynamic(
         light: (0.945098, 0.937255, 0.921569, 1),
-        dark:  (0.768627, 0.737255, 0.705882, 1)
+        dark:  (0.847059, 0.819608, 0.8, 1)
     )
 
     /// `color.switch.thumb.faceBottom`
     public static let switchThumbFaceBottom = SwiftUI.Color.scdsDynamic(
         light: (0.890196, 0.87451, 0.847059, 1),
-        dark:  (0.690196, 0.65098, 0.611765, 1)
+        dark:  (0.701961, 0.694118, 0.678431, 1)
     )
 
     /// `color.switch.glyph.on`
@@ -482,6 +519,36 @@ public enum SCDS {
     public static let switchGlyphOff = SwiftUI.Color.scdsDynamic(
         light: (0.972549, 0.964706, 0.94902, 1),
         dark:  (0.486275, 0.478431, 0.462745, 1)
+    )
+
+    /// `color.switch.track.off`
+    public static let switchTrackOff = SwiftUI.Color.scdsDynamic(
+        light: (0.690196, 0.65098, 0.611765, 1),
+        dark:  (0.121569, 0.145098, 0.172549, 1)
+    )
+
+    /// `color.switch.track.offHover`
+    public static let switchTrackOffHover = SwiftUI.Color.scdsDynamic(
+        light: (0.768627, 0.737255, 0.705882, 1),
+        dark:  (0.145098, 0.168627, 0.196078, 1)
+    )
+
+    /// `color.segmentedControl.track`
+    public static let segmentedControlTrack = SwiftUI.Color.scdsDynamic(
+        light: (0.847059, 0.819608, 0.8, 1),
+        dark:  (0.121569, 0.145098, 0.172549, 1)
+    )
+
+    /// `color.segmentedControl.indicator`
+    public static let segmentedControlIndicator = SwiftUI.Color.scdsDynamic(
+        light: (0.972549, 0.964706, 0.94902, 1),
+        dark:  (0.231373, 0.258824, 0.286275, 1)
+    )
+
+    /// `color.segmentedControl.indicatorShade`
+    public static let segmentedControlIndicatorShade = SwiftUI.Color.scdsDynamic(
+        light: (0.101961, 0.094118, 0.082353, 0.05),
+        dark:  (0.101961, 0.094118, 0.082353, 0.25)
     )
   }
 
@@ -529,14 +596,24 @@ public enum SCDS {
         trackingEm: 0
     )
 
-    /// `font.text.label.buttonSm` · Neue Haas Grotesk Text Pro 11/1.5
+    /// `font.text.label.buttonSm` · Neue Haas Grotesk Text Pro 12/2
     public static let textLabelButtonSm = SCDSTypeStyle(
         family: "Neue Haas Grotesk Text Pro",
         fallbacks: ["Helvetica Neue", "Inter", "system-ui", "sans-serif"],
-        size: 11,
+        size: 12,
         weight: .medium,
-        lineHeightMultiple: 1.5,
-        trackingEm: 0.08
+        lineHeightMultiple: 2,
+        trackingEm: 0.02
+    )
+
+    /// `font.text.label.buttonLg` · Neue Haas Grotesk Text Pro 14/2
+    public static let textLabelButtonLg = SCDSTypeStyle(
+        family: "Neue Haas Grotesk Text Pro",
+        fallbacks: ["Helvetica Neue", "Inter", "system-ui", "sans-serif"],
+        size: 14,
+        weight: .medium,
+        lineHeightMultiple: 2,
+        trackingEm: 0.02
     )
 
     /// `font.text.label.tab` · Neue Haas Grotesk Text Pro 13/1.5
@@ -818,6 +895,12 @@ public enum SCDS {
     /// `space.component.padding-inline.lg`
     public static let componentPaddingInlineLg: CGFloat = 16
 
+    /// `space.component.padding-inline.button-lg`
+    public static let componentPaddingInlineButtonLg: CGFloat = 24
+
+    /// `space.component.padding-inline.button-sm`
+    public static let componentPaddingInlineButtonSm: CGFloat = 16
+
     /// `space.component.padding-block.sm`
     public static let componentPaddingBlockSm: CGFloat = 2
 
@@ -906,16 +989,19 @@ public enum SCDS {
     public static let avatarLg: CGFloat = 64
 
     /// `size.switch.track-width`
-    public static let switchTrackWidth: CGFloat = 32
+    public static let switchTrackWidth: CGFloat = 40
 
     /// `size.switch.track-height`
-    public static let switchTrackHeight: CGFloat = 18
+    public static let switchTrackHeight: CGFloat = 22
 
     /// `size.switch.thumb`
-    public static let switchThumb: CGFloat = 14
+    public static let switchThumb: CGFloat = 15
 
     /// `size.switch.glyph`
     public static let switchGlyph: CGFloat = 6
+
+    /// `size.switch.labelOffset`
+    public static let switchLabelOffset: CGFloat = 0
 
     /// `size.progress.bar-height`
     public static let progressBarHeight: CGFloat = 4
@@ -931,6 +1017,12 @@ public enum SCDS {
 
     /// `size.progress.hit-slop`
     public static let progressHitSlop: CGFloat = 22
+
+    /// `size.button.icon.lg`
+    public static let buttonIconLg: CGFloat = 14
+
+    /// `size.button.icon.sm`
+    public static let buttonIconSm: CGFloat = 12
 
     /// `size.touch-target`
     public static let touchTarget: CGFloat = 48
@@ -993,6 +1085,90 @@ public enum SCDS {
 
     /// `motion.reveal.easing`
     public static let revealEasing = SCDSEasing(0.22, 1, 0.36, 1)
+
+    /// `motion.switch.travel.duration` · 600ms
+    public static let switchTravelDuration: TimeInterval = 0.6
+
+    /// `motion.switch.travel.easing` · spring k146 c17.88 m1, settles in 1093ms, overshoot 3%
+    public static let switchTravelEasing = SCDSSpring(stiffness: 146, damping: 17.88, mass: 1, settle: 1.093)
+
+    /// `motion.switch.stretch`
+    public static let switchStretch: CGFloat = 1.06
+
+    /// `motion.switch.squash`
+    public static let switchSquash: CGFloat = 0.15
+
+    /// `motion.switch.press.lean`
+    public static let switchPressLean: CGFloat = 0.12
+
+    /// `motion.switch.press.leanDuration` · 160ms
+    public static let switchPressLeanDuration: TimeInterval = 0.16
+
+    /// `motion.segmentedControl.travel.duration` · 600ms
+    public static let segmentedControlTravelDuration: TimeInterval = 0.6
+
+    /// `motion.segmentedControl.travel.easing` · spring k146 c17.88 m1, settles in 1093ms, overshoot 3%
+    public static let segmentedControlTravelEasing = SCDSSpring(stiffness: 146, damping: 17.88, mass: 1, settle: 1.093)
+
+    /// `motion.segmentedControl.stretch`
+    public static let segmentedControlStretch: CGFloat = 0.45
+
+    /// `motion.segmentedControl.squash`
+    public static let segmentedControlSquash: CGFloat = 0.2
+
+    /// `motion.segmentedControl.press.lean`
+    public static let segmentedControlPressLean: CGFloat = 0.15
+
+    /// `motion.segmentedControl.press.leanDuration` · 160ms
+    public static let segmentedControlPressLeanDuration: TimeInterval = 0.16
+
+    /// `motion.plusUnderline.travel.duration` · 200ms
+    public static let plusUnderlineTravelDuration: TimeInterval = 0.2
+
+    /// `motion.plusUnderline.travel.easing`
+    public static let plusUnderlineTravelEasing = SCDSEasing(0.22, 1, 0.36, 1)
+
+    /// `motion.plusUnderline.stretch`
+    public static let plusUnderlineStretch: CGFloat = 0
+
+    /// `motion.plusUnderline.squash`
+    public static let plusUnderlineSquash: CGFloat = 0
+
+    /// `motion.plusUnderline.press.lean`
+    public static let plusUnderlinePressLean: CGFloat = 0
+
+    /// `motion.plusUnderline.press.leanDuration` · 160ms
+    public static let plusUnderlinePressLeanDuration: TimeInterval = 0.16
+
+    /// `motion.navBar.travel.duration` · 200ms
+    public static let navBarTravelDuration: TimeInterval = 0.2
+
+    /// `motion.navBar.travel.easing`
+    public static let navBarTravelEasing = SCDSEasing(0.22, 1, 0.36, 1)
+
+    /// `motion.navBar.stretch`
+    public static let navBarStretch: CGFloat = 0
+
+    /// `motion.navBar.squash`
+    public static let navBarSquash: CGFloat = 0
+
+    /// `motion.navBar.press.lean`
+    public static let navBarPressLean: CGFloat = 0
+
+    /// `motion.navBar.press.leanDuration` · 160ms
+    public static let navBarPressLeanDuration: TimeInterval = 0.16
+
+    /// `motion.tooltip.travel.duration` · 200ms
+    public static let tooltipTravelDuration: TimeInterval = 0.2
+
+    /// `motion.tooltip.travel.easing`
+    public static let tooltipTravelEasing = SCDSEasing(0.22, 1, 0.36, 1)
+
+    /// `motion.tooltip.stretch`
+    public static let tooltipStretch: CGFloat = 0
+
+    /// `motion.tooltip.squash`
+    public static let tooltipSquash: CGFloat = 0
   }
 
   // MARK: - Shadow
@@ -1015,18 +1191,6 @@ public enum SCDS {
         ]
     )
 
-    /// `shadow.control.bevel` · 2 layers
-    public static let controlBevel = SCDSShadow(
-        light: [
-            SCDSShadowLayer(inset: true, x: -2, y: 2, blur: 4, spread: 0, rgb: (1, 1, 1), alpha: 0.7),
-            SCDSShadowLayer(inset: true, x: 2, y: -2, blur: 4, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0.06),
-        ],
-        dark: [
-            SCDSShadowLayer(inset: true, x: -2, y: 2, blur: 4, spread: 0, rgb: (1, 1, 1), alpha: 0.06),
-            SCDSShadowLayer(inset: true, x: 2, y: -2, blur: 4, spread: 0, rgb: (0, 0, 0), alpha: 0.2),
-        ]
-    )
-
     /// `shadow.control.inset` · 2 layers
     public static let controlInset = SCDSShadow(
         light: [
@@ -1036,6 +1200,44 @@ public enum SCDS {
         dark: [
             SCDSShadowLayer(inset: true, x: 0, y: 1, blur: 3, spread: 0, rgb: (0, 0, 0), alpha: 0.4),
             SCDSShadowLayer(inset: true, x: 0, y: 0, blur: 0, spread: 1, rgb: (1, 1, 1), alpha: 0.05),
+        ]
+    )
+
+    /// `shadow.control.key` · 2 layers
+    public static let controlKey = SCDSShadow(
+        light: [
+            SCDSShadowLayer(inset: false, x: 2, y: 2, blur: 6, spread: 0, rgb: (0.392157, 0.356863, 0.309804), alpha: 0.5),
+            SCDSShadowLayer(inset: false, x: -1, y: -1, blur: 1, spread: 1, rgb: (0.992157, 0.980392, 0.964706), alpha: 1),
+        ],
+        dark: [
+            SCDSShadowLayer(inset: false, x: 3, y: 3, blur: 7, spread: 0, rgb: (0, 0, 0), alpha: 0.5),
+            SCDSShadowLayer(inset: false, x: -1, y: -1, blur: 1, spread: 1, rgb: (0.858824, 0.921569, 1), alpha: 0.17),
+        ]
+    )
+
+    /// `shadow.control.keyHover` · 2 layers
+    public static let controlKeyHover = SCDSShadow(
+        light: [
+            SCDSShadowLayer(inset: false, x: 2, y: 2, blur: 6, spread: 0, rgb: (0.392157, 0.356863, 0.309804), alpha: 0.5),
+            SCDSShadowLayer(inset: false, x: -1, y: -1, blur: 1, spread: 1, rgb: (0.992157, 0.980392, 0.964706), alpha: 1),
+        ],
+        dark: [
+            SCDSShadowLayer(inset: false, x: 3, y: 3, blur: 7, spread: 0, rgb: (0, 0, 0), alpha: 0.5),
+            SCDSShadowLayer(inset: false, x: -1, y: -1, blur: 1, spread: 1, rgb: (0.858824, 0.921569, 1), alpha: 0.17),
+        ]
+    )
+
+    /// `shadow.control.keyPressed` · 3 layers
+    public static let controlKeyPressed = SCDSShadow(
+        light: [
+            SCDSShadowLayer(inset: false, x: 2, y: 2, blur: 6, spread: 0, rgb: (0.392157, 0.356863, 0.309804), alpha: 0.37),
+            SCDSShadowLayer(inset: false, x: -1, y: -1, blur: 1, spread: 1, rgb: (0.992157, 0.980392, 0.964706), alpha: 0.9),
+            SCDSShadowLayer(inset: true, x: 1, y: 1, blur: 8, spread: 0, rgb: (1, 1, 1), alpha: 0.3),
+        ],
+        dark: [
+            SCDSShadowLayer(inset: false, x: 3, y: 3, blur: 7, spread: 0, rgb: (0, 0, 0), alpha: 0.38),
+            SCDSShadowLayer(inset: false, x: -1, y: -1, blur: 1, spread: 1, rgb: (0.858824, 0.921569, 1), alpha: 0.14),
+            SCDSShadowLayer(inset: true, x: 1, y: 1, blur: 8, spread: 0, rgb: (1, 1, 1), alpha: 0.06),
         ]
     )
 
@@ -1066,6 +1268,28 @@ public enum SCDS {
             SCDSShadowLayer(inset: false, x: 0, y: 3.6, blur: 5.05, spread: -1.13, rgb: (0, 0, 0), alpha: 0.35),
             SCDSShadowLayer(inset: false, x: 0, y: 7.16, blur: 10.03, spread: -1.41, rgb: (0, 0, 0), alpha: 0.29),
             SCDSShadowLayer(inset: false, x: 0, y: 15.75, blur: 22.05, spread: 0, rgb: (0, 0, 0), alpha: 0.14),
+        ]
+    )
+
+    /// `shadow.segmentedControl.track` · 1 layers
+    public static let segmentedControlTrack = SCDSShadow(
+        light: [
+            SCDSShadowLayer(inset: true, x: 0.71, y: 0.71, blur: 2, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0.25),
+        ],
+        dark: [
+            SCDSShadowLayer(inset: true, x: 0.71, y: 0.71, blur: 2, spread: 0, rgb: (0, 0, 0), alpha: 0.45),
+        ]
+    )
+
+    /// `shadow.segmentedControl.indicator` · 2 layers
+    public static let segmentedControlIndicator = SCDSShadow(
+        light: [
+            SCDSShadowLayer(inset: false, x: 2, y: 2, blur: 6, spread: 0, rgb: (0.392157, 0.356863, 0.309804), alpha: 0.5),
+            SCDSShadowLayer(inset: false, x: -1, y: -1, blur: 1, spread: 1, rgb: (0.992157, 0.980392, 0.964706), alpha: 1),
+        ],
+        dark: [
+            SCDSShadowLayer(inset: false, x: 3, y: 3, blur: 7, spread: 0, rgb: (0, 0, 0), alpha: 0.5),
+            SCDSShadowLayer(inset: false, x: -1, y: -1, blur: 1, spread: 1, rgb: (0.858824, 0.921569, 1), alpha: 0.17),
         ]
     )
   }

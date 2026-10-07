@@ -49,12 +49,12 @@ export function ButtonPage() {
         { name: 'Disabled', token: '--sc-color-text-disabled', render: <Button disabled>Unavailable</Button> },
         { name: 'Loading', token: '--sc-motion-mode-duration', render: <Button loading>Saving</Button> },
         { name: 'Small · primary', token: '--sc-font-text-label-button-sm', render: <Button size="sm">Update</Button> },
-        { name: 'Small · secondary', token: '--sc-space-component-padding-inline-md', render: <Button size="sm" variant="secondary">Merge</Button> },
+        { name: 'Small · secondary', token: '--sc-space-component-padding-inline-button-sm', render: <Button size="sm" variant="secondary">Merge</Button> },
         { name: 'Small · tertiary', token: '--sc-space-component-padding-block-button-sm', render: <Button size="sm" variant="tertiary">View all</Button> },
-        { name: 'Small · disabled', token: '--sc-size-icon-xs', render: <Button size="sm" disabled>Unavailable</Button> },
+        { name: 'Small · disabled', token: '--sc-size-button-icon-sm', render: <Button size="sm" disabled>Unavailable</Button> },
       ]}
       tokenRows={[
-        { prop: 'Inline padding', token: '--sc-space-component-padding-inline-md' },
+        { prop: 'Inline padding', token: '--sc-space-component-padding-inline-button-lg' },
         { prop: 'Block padding', token: '--sc-space-component-padding-block-md' },
         { prop: 'Radius', token: '--sc-radius-surface' },
         { prop: 'Border', token: '--sc-border-width-default' },
@@ -98,9 +98,9 @@ export function BadgePage() {
         { title: 'Neutral decouples colour from border', body: 'Its text reads quieter than its border on purpose — “categorical, not stateful.” The one variant where colour and outline deliberately disagree.' },
       ]}
       states={[
-        { name: 'Default', token: '--sc-color-brand-accent', render: <Badge>Studio</Badge> },
-        { name: 'Success', token: '--sc-color-status-success', render: <Badge variant="success">Shipped</Badge> },
-        { name: 'Warning', token: '--sc-color-status-warning', render: <Badge variant="warning">In review</Badge> },
+        { name: 'Default', token: '--sc-color-brand-accent-ink', render: <Badge>Studio</Badge> },
+        { name: 'Success', token: '--sc-color-status-success-ink', render: <Badge variant="success">Shipped</Badge> },
+        { name: 'Warning', token: '--sc-color-status-warning-ink', render: <Badge variant="warning">In review</Badge> },
         { name: 'Error', token: '--sc-color-status-error', render: <Badge variant="error">Failed</Badge> },
         { name: 'Neutral', token: '--sc-color-text-secondary', render: <Badge variant="neutral">Draft</Badge> },
       ]}
@@ -110,9 +110,9 @@ export function BadgePage() {
         { prop: 'Radius', token: '--sc-radius-control' },
         { prop: 'Outline', token: '--sc-border-width-default' },
         { prop: 'Label type', token: '--sc-font-text-mono-chrome', light: 'mono 11 / caps' },
-        { prop: 'Default colour', token: '--sc-color-brand-accent' },
-        { prop: 'Success colour', token: '--sc-color-status-success' },
-        { prop: 'Warning colour', token: '--sc-color-status-warning' },
+        { prop: 'Default colour', token: '--sc-color-brand-accent-ink' },
+        { prop: 'Success colour', token: '--sc-color-status-success-ink' },
+        { prop: 'Warning colour', token: '--sc-color-status-warning-ink' },
         { prop: 'Error colour', token: '--sc-color-status-error' },
         { prop: 'Neutral text', token: '--sc-color-text-secondary' },
         { prop: 'Neutral border', token: '--sc-color-border-default' },
@@ -275,7 +275,7 @@ export function SwitchPage() {
       id="switch" label="Switch" tokensN={31}
       eyebrow={<>Switch<Slash />Drams Standard Switch, at our size</>}
       title={<>On is teal. <Em>The knob is an object.</Em></>}
-      lead={<>The switch is an immediate binary: it flips instantly, the brand accent fills the track when on, and a short mechanical click confirms it. The form follows the Drams Standard Switch, a recessed track under a lit, lifted knob, scaled to the 32 × 18 SCDS size. Every measurement, including the knob’s inset, its travel and the I/O marks, is derived by calc() from the size tokens.</>}
+      lead={<>The switch is an immediate binary: it flips instantly, the brand accent fills the track when on, and a short mechanical click confirms it. The form follows the Drams Standard Switch, a recessed track under a lit, lifted knob, at 40 × 22 with a 15px knob. The knob travels on a spring, stretches with its speed and leans toward its target when pressed, tuned in sc-tune (record 2026-10-07-1539). Every measurement, including the knob’s inset, its travel and the I/O marks, is derived by calc() from the size tokens.</>}
       statesTitle="Three states, no magic numbers."
       callouts={[
         { title: 'Thumb math, not thumb constants', body: 'Resting inset is (track-height − thumb) / 2; travel is track-width − thumb − 2 × inset. The I and O marks centre in the free zone either side of the knob and ride one row that moves with it.' },
@@ -287,6 +287,7 @@ export function SwitchPage() {
         { name: 'Off', token: '--sc-color-surface-deep-sunk', render: <Switch checked={false} onChange={noop} label="Off" /> },
         { name: 'On', token: '--sc-color-brand-accent', render: <Switch checked onChange={noop} label="On" /> },
         { name: 'Disabled', token: '--sc-color-surface-sunk', render: <Switch disabled onChange={noop} label="Disabled" /> },
+        { name: 'No glyphs', token: 'glyphs={false}', render: <Switch checked glyphs={false} onChange={noop} label="No glyphs" /> },
       ]}
       tokenRows={[
         { prop: 'Track width', token: '--sc-size-switch-track-width' },
@@ -561,7 +562,7 @@ export function NavBarPage() {
         { title: 'Compact folds, it does not shrink', body: 'The compact variant moves the same links into an expandable menu. Nothing is dropped — the link model is identical to desktop.' },
       ]}
       states={[
-        { name: 'Desktop · horizontal', token: '--sc-color-brand-accent', render: <NavBar brand={<span style={navBrand}>Shokunin</span>} links={links} trailing={<Button variant="secondary">Start a project</Button>} /> },
+        { name: 'Desktop · horizontal', token: '--sc-color-brand-accent-ink', render: <NavBar brand={<span style={navBrand}>Shokunin</span>} links={links} trailing={<Button variant="secondary">Start a project</Button>} /> },
         { name: 'Compact · toggle', token: '--sc-space-layout-inset-md', render: <NavBar compact brand={<span style={navBrand}>Shokunin</span>} links={links} trailing={<Button variant="primary">Start</Button>} /> },
       ]}
       tokenRows={[
@@ -573,7 +574,7 @@ export function NavBarPage() {
         { prop: 'Nav ground', token: '--sc-color-surface-page' },
         { prop: 'Resting link', token: '--sc-color-text-primary' },
         { prop: 'Hover link', token: '--sc-color-interactive-hover' },
-        { prop: 'Current link', token: '--sc-color-brand-accent' },
+        { prop: 'Current link', token: '--sc-color-brand-accent-ink' },
         { prop: 'Link type', token: '--sc-font-text-body-dense', light: '14 / regular' },
         { prop: 'Brand type', token: '--sc-font-text-label-chrome', light: '11 / medium / caps' },
         { prop: 'Hover motion', token: '--sc-motion-hover-duration', light: '200ms' },

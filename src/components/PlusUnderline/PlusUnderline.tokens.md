@@ -11,3 +11,16 @@ Brand element 2j. Composes `PlusField art="uline"`.
 ## Semantics
 
 `aria-hidden`. The tab carries `aria-current` or `aria-selected`.
+
+## Elastic motion
+
+Engine `src/motion/elastic.js` (reference: kabarza's elastic toggles, instagram.com/reel/DeK0AFcIRhf). Applies to the active underline (travel from the previous tab in the same nav, tablist, radiogroup or list). Shipped, stretch, squash and lean are 0, so it moves exactly as before; tune it in sc-tune (`previews/tune/?c=PlusUnderline`), where concepts start at the reel's Balanced preset.
+
+| Token | Shipped | Role |
+| --- | --- | --- |
+| `--sc-motion-plus-underline-travel-duration` / `-easing` | = `motion.reveal` (200ms, quint-out) | Travel time and curve; a spring set in the lab writes its settle time to the duration |
+| `--sc-motion-plus-underline-stretch` | 0 | Extra length at peak speed |
+| `--sc-motion-plus-underline-squash` | 0 | Flattening at peak speed |
+| `--sc-motion-plus-underline-press-lean` / `-lean-duration` | 0 / = `motion.press.duration` | On pointer down it leans toward the pressed item and holds; release travels from that pose, dragging off springs back |
+
+Reduced motion skips the engine.

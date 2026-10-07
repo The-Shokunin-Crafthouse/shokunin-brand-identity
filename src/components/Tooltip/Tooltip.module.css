@@ -6,7 +6,8 @@
  *   --sc-space-component-gap-md             · arrow offset (8) below trigger
  *   --sc-radius-control                     · 3 corner
  *   --sc-font-text-caption-*                · 13 / regular / relaxed
- *   --sc-motion-reveal-duration / -easing
+ *   --sc-motion-tooltip-travel-duration / -easing · enter lift (role tokens, = motion.reveal)
+ *   --sc-motion-tooltip-stretch / -squash · elastic scale on open (Tooltip.jsx; 0 = off)
  *   --sc-border-width-default               · arrow stroke (reused as triangle leg)
  */
 
@@ -33,9 +34,17 @@
   opacity: 0;
   pointer-events: none;
   transition:
-    opacity var(--sc-motion-reveal-duration) var(--sc-motion-reveal-easing),
-    transform var(--sc-motion-reveal-duration) var(--sc-motion-reveal-easing);
+    opacity var(--sc-motion-tooltip-travel-duration) var(--sc-motion-tooltip-travel-easing),
+    transform var(--sc-motion-tooltip-travel-duration) var(--sc-motion-tooltip-travel-easing);
+  /* Stretch and squash scale from the arrow (Tooltip.jsx; 0 = none). */
+  transform-origin: 50% 100%;
   z-index: 10;
+}
+
+/* While the elastic engine drives the open (stretch or squash above 0), its
+   keyframes own transform and opacity; a CSS transition would outrank them. */
+.wrapper[data-driven] .tooltip {
+  transition: none;
 }
 
 .tooltip::after {

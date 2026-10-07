@@ -1,0 +1,222 @@
+{
+  "tool": "sc-tune",
+  "version": 3,
+  "component": "SegmentedControl",
+  "kind": "component",
+  "recorded": "2026-10-07T22:45:42.696Z",
+  "theme": "light",
+  "notes": "",
+  "pick": null,
+  "concepts": [
+    {
+      "id": "A",
+      "notes": "",
+      "props": {
+        "value": "month",
+        "size": "md",
+        "disabled": false
+      },
+      "sound": {
+        "file": "drams-001-01.wav",
+        "volume": 0.7,
+        "rate": 1,
+        "shipped": "drams-001-01.wav",
+        "trigger": "a change of selection; re-selecting is silent"
+      },
+      "tokens": [
+        {
+          "name": "--sc-motion-segmented-control-stretch",
+          "mode": "all",
+          "category": "motion",
+          "kind": "number",
+          "shipped": "0",
+          "tuned": "0.45",
+          "override": "0.45"
+        },
+        {
+          "name": "--sc-motion-segmented-control-squash",
+          "mode": "all",
+          "category": "motion",
+          "kind": "number",
+          "shipped": "0",
+          "tuned": "0.2",
+          "override": "0.2"
+        },
+        {
+          "name": "--sc-motion-segmented-control-press-lean",
+          "mode": "all",
+          "category": "motion",
+          "kind": "number",
+          "shipped": "0",
+          "tuned": "0.15",
+          "override": "0.15"
+        },
+        {
+          "name": "--sc-motion-segmented-control-press-lean-duration",
+          "mode": "all",
+          "category": "motion",
+          "kind": "time",
+          "shipped": "160ms",
+          "tuned": "160ms",
+          "override": "160ms"
+        },
+        {
+          "name": "--sc-motion-segmented-control-travel-easing",
+          "mode": "all",
+          "category": "motion",
+          "kind": "easing",
+          "shipped": "cubic-bezier(0.22, 1, 0.36, 1)",
+          "tuned": "linear(0, 0.0249, 0.0823, 0.1659, 0.2573, 0.3589, 0.4546, 0.5507, 0.6347, 0.7141, 0.7799, 0.8393, 0.8863, 0.9268, 0.9573, 0.9822, 0.9999, 1.0133, 1.0218, 1.0273, 1.0299, 1.0305, 1.0296, 1.0277, 1.0251, 1.0223, 1.0192, 1.0163, 1.0134, 1.0109, 1.0085, 1.0065, 1.0047, 1.0033, 1.0021, 1.0012, 1.0005, 0.9999, 0.9996, 0.9993, 0.9992, 0.9991, 0.9991, 0.9991, 0.9992, 0.9992, 0.9993, 0.9994, 0.9995, 0.9996, 0.9997, 0.9997, 0.9998, 0.9999, 0.9999, 0.9999, 1, 1, 1, 1)",
+          "override": "linear(0, 0.0249, 0.0823, 0.1659, 0.2573, 0.3589, 0.4546, 0.5507, 0.6347, 0.7141, 0.7799, 0.8393, 0.8863, 0.9268, 0.9573, 0.9822, 0.9999, 1.0133, 1.0218, 1.0273, 1.0299, 1.0305, 1.0296, 1.0277, 1.0251, 1.0223, 1.0192, 1.0163, 1.0134, 1.0109, 1.0085, 1.0065, 1.0047, 1.0033, 1.0021, 1.0012, 1.0005, 0.9999, 0.9996, 0.9993, 0.9992, 0.9991, 0.9991, 0.9991, 0.9992, 0.9992, 0.9993, 0.9994, 0.9995, 0.9996, 0.9997, 0.9997, 0.9998, 0.9999, 0.9999, 0.9999, 1, 1, 1, 1)",
+          "spring": {
+            "stiffness": 146,
+            "damping": 17.88,
+            "mass": 1,
+            "settleMs": 1093,
+            "overshoot": 0.031,
+            "framerMotion": {
+              "type": "spring",
+              "stiffness": 146,
+              "damping": 17.88,
+              "mass": 1
+            }
+          }
+        },
+        {
+          "name": "--sc-motion-segmented-control-travel-duration",
+          "mode": "all",
+          "category": "motion",
+          "kind": "time",
+          "shipped": "200ms",
+          "tuned": "600ms",
+          "override": "600ms"
+        },
+        {
+          "name": "--sc-shadow-segmented-control-track",
+          "mode": "light",
+          "category": "shadow",
+          "kind": "shadow",
+          "shipped": "inset 0 0 0 0 rgb(26 24 21 / 0)",
+          "tuned": "inset 0.71px 0.71px 2px 0 rgb(26 24 21 / 0.25)",
+          "override": "inset 0.71px 0.71px 2px 0 rgb(26 24 21 / 0.25)"
+        },
+        {
+          "name": "--sc-shadow-segmented-control-indicator",
+          "mode": "light",
+          "category": "shadow",
+          "kind": "shadow",
+          "shipped": "0 0 0 0 rgb(26 24 21 / 0)",
+          "tuned": "2px 2px 6px 0 rgb(100 91 79 / 0.50), -1px -1px 1px 1px rgb(253 250 246 / 1)",
+          "override": "2px 2px 6px 0 rgb(100 91 79 / 0.50), -1px -1px 1px 1px rgb(253 250 246 / 1)"
+        },
+        {
+          "name": "--sc-color-segmented-control-indicator-shade",
+          "mode": "light",
+          "category": "color",
+          "kind": "color",
+          "shipped": "rgb(26 24 21 / 0)",
+          "tuned": "rgb(26 24 21 / 0.05)",
+          "override": "rgb(26 24 21 / 0.05)"
+        },
+        {
+          "name": "--sc-shadow-segmented-control-track",
+          "mode": "dark",
+          "category": "shadow",
+          "kind": "shadow",
+          "shipped": null,
+          "tuned": "inset 0.71px 0.71px 2px 0 rgb(0 0 0 / 0.45)",
+          "override": "inset 0.71px 0.71px 2px 0 rgb(0 0 0 / 0.45)"
+        },
+        {
+          "name": "--sc-shadow-segmented-control-indicator",
+          "mode": "dark",
+          "category": "shadow",
+          "kind": "shadow",
+          "shipped": null,
+          "tuned": "3px 3px 7px 0 rgb(0 0 0 / 0.50), -1px -1px 1px 1px rgb(219 235 255 / 0.17)",
+          "override": "3px 3px 7px 0 rgb(0 0 0 / 0.50), -1px -1px 1px 1px rgb(219 235 255 / 0.17)"
+        },
+        {
+          "name": "--sc-color-segmented-control-indicator-shade",
+          "mode": "dark",
+          "category": "color",
+          "kind": "color",
+          "shipped": null,
+          "tuned": "rgb(26 24 21 / 0.25)",
+          "override": "rgb(26 24 21 / 0.25)"
+        }
+      ],
+      "pins": {}
+    }
+  ],
+  "derived": {},
+  "tokenCount": 44,
+  "state": {
+    "component": "SegmentedControl",
+    "notes": "",
+    "active": "A",
+    "concepts": [
+      {
+        "id": "A",
+        "overrides": {
+          "all": {
+            "--sc-motion-segmented-control-stretch": "0.45",
+            "--sc-motion-segmented-control-squash": "0.2",
+            "--sc-motion-segmented-control-press-lean": "0.15",
+            "--sc-motion-segmented-control-press-lean-duration": "160ms",
+            "--sc-motion-segmented-control-travel-easing": "linear(0, 0.0249, 0.0823, 0.1659, 0.2573, 0.3589, 0.4546, 0.5507, 0.6347, 0.7141, 0.7799, 0.8393, 0.8863, 0.9268, 0.9573, 0.9822, 0.9999, 1.0133, 1.0218, 1.0273, 1.0299, 1.0305, 1.0296, 1.0277, 1.0251, 1.0223, 1.0192, 1.0163, 1.0134, 1.0109, 1.0085, 1.0065, 1.0047, 1.0033, 1.0021, 1.0012, 1.0005, 0.9999, 0.9996, 0.9993, 0.9992, 0.9991, 0.9991, 0.9991, 0.9992, 0.9992, 0.9993, 0.9994, 0.9995, 0.9996, 0.9997, 0.9997, 0.9998, 0.9999, 0.9999, 0.9999, 1, 1, 1, 1)",
+            "--sc-motion-segmented-control-travel-duration": "600ms"
+          },
+          "light": {
+            "--sc-shadow-segmented-control-track": "inset 0.71px 0.71px 2px 0 rgb(26 24 21 / 0.25)",
+            "--sc-shadow-segmented-control-indicator": "2px 2px 6px 0 rgb(100 91 79 / 0.50), -1px -1px 1px 1px rgb(253 250 246 / 1)",
+            "--sc-color-segmented-control-indicator-shade": "rgb(26 24 21 / 0.05)"
+          },
+          "dark": {
+            "--sc-shadow-segmented-control-track": "inset 0.71px 0.71px 2px 0 rgb(0 0 0 / 0.45)",
+            "--sc-shadow-segmented-control-indicator": "3px 3px 7px 0 rgb(0 0 0 / 0.50), -1px -1px 1px 1px rgb(219 235 255 / 0.17)",
+            "--sc-color-segmented-control-indicator-shade": "rgb(26 24 21 / 0.25)"
+          }
+        },
+        "shadowAdj": {
+          "all": {},
+          "light": {},
+          "dark": {}
+        },
+        "springs": {
+          "--sc-motion-segmented-control-travel-easing": {
+            "stiffness": 146,
+            "damping": 17.88,
+            "mass": 1
+          }
+        },
+        "pins": {},
+        "notes": "",
+        "props": {
+          "value": "month",
+          "size": "md",
+          "disabled": false
+        },
+        "sound": {
+          "file": "drams-001-01.wav",
+          "volume": 0.7,
+          "rate": 1
+        }
+      }
+    ],
+    "pick": {
+      "id": null,
+      "reason": ""
+    },
+    "view": {
+      "theme": "light",
+      "zoom": 2,
+      "ground": "--sc-color-surface-page",
+      "compare": false,
+      "blind": false,
+      "order": null,
+      "slow": 1
+    },
+    "updated": "2026-10-07T22:45:18.307Z"
+  }
+}

@@ -428,6 +428,7 @@
       "tight":    { "$type": "dimension", "$value": { "value": -0.018, "unit": "em" }, "$description": "Tight · -0.018em. Section titles 32px." },
       "snug":     { "$type": "dimension", "$value": { "value": -0.012, "unit": "em" }, "$description": "Snug · -0.012em. Card titles 24px." },
       "normal":   { "$type": "dimension", "$value": { "value": 0,      "unit": "em" }, "$description": "Normal · 0. Body copy default." },
+      "slight":   { "$type": "dimension", "$value": { "value": 0.02,   "unit": "em" }, "$description": "Slight · 0.02em. Button labels at 12 and 14px (Levi, sc-tune 2026-10-07; matches the library's 2% label tracking)." },
       "wide":     { "$type": "dimension", "$value": { "value": 0.04,   "unit": "em" }, "$description": "Wide · 0.04em. UI label rhythm at 12px." },
       "wider":    { "$type": "dimension", "$value": { "value": 0.06,   "unit": "em" }, "$description": "Wider · 0.06em. Mono caps at 11px in chrome." },
       "widest":   { "$type": "dimension", "$value": { "value": 0.08,   "unit": "em" }, "$description": "Widest · 0.08em. Eyebrows, buttons, badges, dashboards." },
@@ -590,6 +591,31 @@
             "letterSpacing": "{font.tracking.normal}"
           },
           "$description": "Tab label: 13/medium, no tracking (Figma text/label/tab). Studio PM segment tabs, 2026-10-05."
+        }
+      },
+      "button": {
+        "$description": "Button label compositions: medium, loose 2.0 leading, slight tracking. The leading sets the key's height (14 × 2 + 2 × 8 + 2px border = 46px large, 12 × 2 + 2 × 4 + 2px border = 34px small). Levi, sc-tune record output/tuning/Button/2026-10-07-1418.",
+        "14": {
+          "$type": "typography",
+          "$value": {
+            "fontFamily": "{font.family.text}",
+            "fontSize": "{font.size.14}",
+            "fontWeight": "{font.weight.medium}",
+            "lineHeight": "{font.lineHeight.loose}",
+            "letterSpacing": "{font.tracking.slight}"
+          },
+          "$description": "Large Button label: 14/medium/loose/slight (Figma text/label/button-lg). 2026-10-07."
+        },
+        "12": {
+          "$type": "typography",
+          "$value": {
+            "fontFamily": "{font.family.text}",
+            "fontSize": "{font.size.12}",
+            "fontWeight": "{font.weight.medium}",
+            "lineHeight": "{font.lineHeight.loose}",
+            "letterSpacing": "{font.tracking.slight}"
+          },
+          "$description": "Small Button label: 12/medium/loose/slight (Figma text/label/button-sm). 2026-10-07."
         }
       },
       "bold": {

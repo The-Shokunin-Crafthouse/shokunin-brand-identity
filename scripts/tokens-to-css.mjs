@@ -22,6 +22,7 @@
  * Sprint 4 deliverable. Run `npm run tokens:build` before Vite.
  */
 
+import { springToLinear } from '../src/motion/spring.js';
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -115,6 +116,10 @@ function formatPrimitive(token) {
       return typeof v === 'string' ? v : null;
     case 'cubicBezier':
       return `cubic-bezier(${v.join(', ')})`;
+    case 'spring':
+      // { stiffness, damping, mass } → the sampled curve the sc-tune lab shows
+      // (src/motion/spring.js). Its paired -duration token sets the time.
+      return springToLinear(v).easing;
     default:
       return null;
   }

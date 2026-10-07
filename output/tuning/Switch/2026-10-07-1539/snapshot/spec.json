@@ -1,0 +1,458 @@
+{
+  "tool": "sc-tune",
+  "version": 3,
+  "component": "Switch",
+  "kind": "component",
+  "recorded": "2026-10-07T21:39:07.924Z",
+  "theme": "dark",
+  "notes": "",
+  "pick": {
+    "concept": "B",
+    "reason": "Levi, 2026-10-07: \"A is good.\" Dark floor darker than the page with a lighter hover (mirrors light mode); dark knob lighter and less oatmeal from existing neutral tokens."
+  },
+  "concepts": [
+    {
+      "id": "A",
+      "notes": "",
+      "props": {
+        "checked": false,
+        "disabled": false,
+        "glyphs": false,
+        "label": "Notifications"
+      },
+      "sound": {
+        "file": "drams-004-toggle-switch-01.wav",
+        "volume": 0.7,
+        "rate": 1,
+        "shipped": "drams-004-toggle-switch-01.wav",
+        "trigger": "every on/off change"
+      },
+      "tokens": [
+        {
+          "name": "--sc-motion-switch-stretch",
+          "mode": "all",
+          "category": "motion",
+          "kind": "number",
+          "shipped": "0",
+          "tuned": "0.45",
+          "override": "0.45"
+        },
+        {
+          "name": "--sc-motion-switch-squash",
+          "mode": "all",
+          "category": "motion",
+          "kind": "number",
+          "shipped": "0",
+          "tuned": "0",
+          "override": "0"
+        },
+        {
+          "name": "--sc-motion-switch-press-lean",
+          "mode": "all",
+          "category": "motion",
+          "kind": "number",
+          "shipped": "0",
+          "tuned": "0.83",
+          "override": "0.83"
+        },
+        {
+          "name": "--sc-motion-switch-press-lean-duration",
+          "mode": "all",
+          "category": "motion",
+          "kind": "time",
+          "shipped": "160ms",
+          "tuned": "150ms",
+          "override": "150ms"
+        },
+        {
+          "name": "--sc-motion-switch-travel-easing",
+          "mode": "all",
+          "category": "motion",
+          "kind": "easing",
+          "shipped": "cubic-bezier(0.22, 1, 0.36, 1)",
+          "tuned": "linear(0, 0.0218, 0.0735, 0.1426, 0.2201, 0.3001, 0.3786, 0.4531, 0.5222, 0.5851, 0.6416, 0.6918, 0.736, 0.7746, 0.8082, 0.8372, 0.8622, 0.8836, 0.9018, 0.9174, 0.9306, 0.9417, 0.9512, 0.9591, 0.9658, 0.9715, 0.9762, 0.9802, 0.9835, 0.9862, 0.9886, 0.9905, 0.9921, 0.9934, 0.9946, 0.9955, 0.9963, 0.9969, 0.9974, 0.9979, 0.9982, 0.9985, 0.9988, 0.999, 0.9992, 0.9993, 0.9994, 0.9995, 0.9996, 0.9997, 0.9997, 0.9998, 0.9998, 0.9999, 0.9999, 0.9999, 0.9999, 0.9999, 0.9999, 1)",
+          "override": "linear(0, 0.0218, 0.0735, 0.1426, 0.2201, 0.3001, 0.3786, 0.4531, 0.5222, 0.5851, 0.6416, 0.6918, 0.736, 0.7746, 0.8082, 0.8372, 0.8622, 0.8836, 0.9018, 0.9174, 0.9306, 0.9417, 0.9512, 0.9591, 0.9658, 0.9715, 0.9762, 0.9802, 0.9835, 0.9862, 0.9886, 0.9905, 0.9921, 0.9934, 0.9946, 0.9955, 0.9963, 0.9969, 0.9974, 0.9979, 0.9982, 0.9985, 0.9988, 0.999, 0.9992, 0.9993, 0.9994, 0.9995, 0.9996, 0.9997, 0.9997, 0.9998, 0.9998, 0.9999, 0.9999, 0.9999, 0.9999, 0.9999, 0.9999, 1)",
+          "spring": {
+            "stiffness": 146,
+            "damping": 24.17,
+            "mass": 1,
+            "settleMs": 1062,
+            "overshoot": 0,
+            "framerMotion": {
+              "type": "spring",
+              "stiffness": 146,
+              "damping": 24.17,
+              "mass": 1
+            }
+          }
+        },
+        {
+          "name": "--sc-motion-switch-travel-duration",
+          "mode": "all",
+          "category": "motion",
+          "kind": "time",
+          "shipped": "200ms",
+          "tuned": "1062ms",
+          "override": "1062ms"
+        },
+        {
+          "name": "--sc-color-switch-track-off",
+          "mode": "dark",
+          "category": "color",
+          "kind": "color",
+          "shipped": "#3B4249",
+          "tuned": "#1F252C",
+          "override": "var(--sc-p-color-dark-well)"
+        },
+        {
+          "name": "--sc-color-switch-track-off-hover",
+          "mode": "dark",
+          "category": "color",
+          "kind": "color",
+          "shipped": "#343A41",
+          "tuned": "#252B32",
+          "override": "var(--sc-p-color-dark-floor)"
+        },
+        {
+          "name": "--sc-color-switch-thumb-rim-top",
+          "mode": "dark",
+          "category": "color",
+          "kind": "color",
+          "shipped": "#D8D1CC",
+          "tuned": "#F1EFEB",
+          "override": "var(--sc-p-color-warm-gray-50)"
+        },
+        {
+          "name": "--sc-color-switch-thumb-face-top",
+          "mode": "dark",
+          "category": "color",
+          "kind": "color",
+          "shipped": "#C4BCB4",
+          "tuned": "#EAE8E3",
+          "override": "var(--sc-p-color-dark-text-primary)"
+        },
+        {
+          "name": "--sc-color-switch-thumb-face-bottom",
+          "mode": "dark",
+          "category": "color",
+          "kind": "color",
+          "shipped": "#B0A69C",
+          "tuned": "#C9C7C3",
+          "override": "var(--sc-p-color-dark-text-secondary)"
+        },
+        {
+          "name": "--sc-color-switch-thumb-rim-bottom",
+          "mode": "dark",
+          "category": "color",
+          "kind": "color",
+          "shipped": "#9A9186",
+          "tuned": "#B3B1AD",
+          "override": "var(--sc-p-color-dark-text-tertiary)"
+        }
+      ],
+      "pins": {}
+    },
+    {
+      "id": "B",
+      "notes": "",
+      "props": {
+        "checked": true,
+        "disabled": false,
+        "glyphs": false,
+        "label": "Notifications"
+      },
+      "sound": {
+        "file": "drams-004-toggle-switch-01.wav",
+        "volume": 0.7,
+        "rate": 1,
+        "shipped": "drams-004-toggle-switch-01.wav",
+        "trigger": "every on/off change"
+      },
+      "tokens": [
+        {
+          "name": "--sc-size-switch-track-height",
+          "mode": "all",
+          "category": "size",
+          "kind": "length",
+          "shipped": "18px",
+          "tuned": "22px",
+          "override": "22px"
+        },
+        {
+          "name": "--sc-size-switch-track-width",
+          "mode": "all",
+          "category": "size",
+          "kind": "length",
+          "shipped": "32px",
+          "tuned": "40px",
+          "override": "40px"
+        },
+        {
+          "name": "--sc-size-switch-thumb",
+          "mode": "all",
+          "category": "size",
+          "kind": "length",
+          "shipped": "14px",
+          "tuned": "15px",
+          "override": "15px"
+        },
+        {
+          "name": "--sc-space-component-gap-md",
+          "mode": "all",
+          "category": "space",
+          "kind": "length",
+          "shipped": "8px",
+          "tuned": "08px",
+          "override": "08px"
+        },
+        {
+          "name": "--sc-motion-switch-stretch",
+          "mode": "all",
+          "category": "motion",
+          "kind": "number",
+          "shipped": "0",
+          "tuned": "1.06",
+          "override": "1.06"
+        },
+        {
+          "name": "--sc-motion-switch-squash",
+          "mode": "all",
+          "category": "motion",
+          "kind": "number",
+          "shipped": "0",
+          "tuned": "0.15",
+          "override": "0.15"
+        },
+        {
+          "name": "--sc-motion-switch-press-lean-duration",
+          "mode": "all",
+          "category": "motion",
+          "kind": "time",
+          "shipped": "160ms",
+          "tuned": "160ms",
+          "override": "160ms"
+        },
+        {
+          "name": "--sc-motion-switch-travel-easing",
+          "mode": "all",
+          "category": "motion",
+          "kind": "easing",
+          "shipped": "cubic-bezier(0.22, 1, 0.36, 1)",
+          "tuned": "linear(0, 0.0249, 0.0823, 0.1659, 0.2573, 0.3589, 0.4546, 0.5507, 0.6347, 0.7141, 0.7799, 0.8393, 0.8863, 0.9268, 0.9573, 0.9822, 0.9999, 1.0133, 1.0218, 1.0273, 1.0299, 1.0305, 1.0296, 1.0277, 1.0251, 1.0223, 1.0192, 1.0163, 1.0134, 1.0109, 1.0085, 1.0065, 1.0047, 1.0033, 1.0021, 1.0012, 1.0005, 0.9999, 0.9996, 0.9993, 0.9992, 0.9991, 0.9991, 0.9991, 0.9992, 0.9992, 0.9993, 0.9994, 0.9995, 0.9996, 0.9997, 0.9997, 0.9998, 0.9999, 0.9999, 0.9999, 1, 1, 1, 1)",
+          "override": "linear(0, 0.0249, 0.0823, 0.1659, 0.2573, 0.3589, 0.4546, 0.5507, 0.6347, 0.7141, 0.7799, 0.8393, 0.8863, 0.9268, 0.9573, 0.9822, 0.9999, 1.0133, 1.0218, 1.0273, 1.0299, 1.0305, 1.0296, 1.0277, 1.0251, 1.0223, 1.0192, 1.0163, 1.0134, 1.0109, 1.0085, 1.0065, 1.0047, 1.0033, 1.0021, 1.0012, 1.0005, 0.9999, 0.9996, 0.9993, 0.9992, 0.9991, 0.9991, 0.9991, 0.9992, 0.9992, 0.9993, 0.9994, 0.9995, 0.9996, 0.9997, 0.9997, 0.9998, 0.9999, 0.9999, 0.9999, 1, 1, 1, 1)",
+          "spring": {
+            "stiffness": 146,
+            "damping": 17.88,
+            "mass": 1,
+            "settleMs": 1093,
+            "overshoot": 0.031,
+            "framerMotion": {
+              "type": "spring",
+              "stiffness": 146,
+              "damping": 17.88,
+              "mass": 1
+            }
+          }
+        },
+        {
+          "name": "--sc-motion-switch-travel-duration",
+          "mode": "all",
+          "category": "motion",
+          "kind": "time",
+          "shipped": "200ms",
+          "tuned": "600ms",
+          "override": "600ms"
+        },
+        {
+          "name": "--sc-motion-switch-press-lean",
+          "mode": "all",
+          "category": "motion",
+          "kind": "number",
+          "shipped": "0",
+          "tuned": "0.12",
+          "override": "0.12"
+        },
+        {
+          "name": "--sc-color-switch-track-off",
+          "mode": "dark",
+          "category": "color",
+          "kind": "color",
+          "shipped": "#3B4249",
+          "tuned": "#1F252C",
+          "override": "var(--sc-p-color-dark-well)"
+        },
+        {
+          "name": "--sc-color-switch-track-off-hover",
+          "mode": "dark",
+          "category": "color",
+          "kind": "color",
+          "shipped": "#343A41",
+          "tuned": "#252B32",
+          "override": "var(--sc-p-color-dark-floor)"
+        },
+        {
+          "name": "--sc-color-switch-thumb-rim-top",
+          "mode": "dark",
+          "category": "color",
+          "kind": "color",
+          "shipped": "#D8D1CC",
+          "tuned": "#EAE8E3",
+          "override": "var(--sc-p-color-dark-text-primary)"
+        },
+        {
+          "name": "--sc-color-switch-thumb-face-top",
+          "mode": "dark",
+          "category": "color",
+          "kind": "color",
+          "shipped": "#C4BCB4",
+          "tuned": "#D8D1CC",
+          "override": "var(--sc-p-color-warm-gray-200)"
+        },
+        {
+          "name": "--sc-color-switch-thumb-face-bottom",
+          "mode": "dark",
+          "category": "color",
+          "kind": "color",
+          "shipped": "#B0A69C",
+          "tuned": "#B3B1AD",
+          "override": "var(--sc-p-color-dark-text-tertiary)"
+        },
+        {
+          "name": "--sc-color-switch-thumb-rim-bottom",
+          "mode": "dark",
+          "category": "color",
+          "kind": "color",
+          "shipped": "#9A9186",
+          "tuned": "#9A9186",
+          "override": "var(--sc-p-color-warm-gray-350)"
+        }
+      ],
+      "pins": {}
+    }
+  ],
+  "derived": {
+    "--inset": "3.5px",
+    "--travel": "18px"
+  },
+  "tokenCount": 40,
+  "state": {
+    "component": "Switch",
+    "notes": "",
+    "active": "B",
+    "concepts": [
+      {
+        "id": "A",
+        "overrides": {
+          "all": {
+            "--sc-motion-switch-stretch": "0.45",
+            "--sc-motion-switch-squash": "0",
+            "--sc-motion-switch-press-lean": "0.83",
+            "--sc-motion-switch-press-lean-duration": "150ms",
+            "--sc-motion-switch-travel-easing": "linear(0, 0.0218, 0.0735, 0.1426, 0.2201, 0.3001, 0.3786, 0.4531, 0.5222, 0.5851, 0.6416, 0.6918, 0.736, 0.7746, 0.8082, 0.8372, 0.8622, 0.8836, 0.9018, 0.9174, 0.9306, 0.9417, 0.9512, 0.9591, 0.9658, 0.9715, 0.9762, 0.9802, 0.9835, 0.9862, 0.9886, 0.9905, 0.9921, 0.9934, 0.9946, 0.9955, 0.9963, 0.9969, 0.9974, 0.9979, 0.9982, 0.9985, 0.9988, 0.999, 0.9992, 0.9993, 0.9994, 0.9995, 0.9996, 0.9997, 0.9997, 0.9998, 0.9998, 0.9999, 0.9999, 0.9999, 0.9999, 0.9999, 0.9999, 1)",
+            "--sc-motion-switch-travel-duration": "1062ms"
+          },
+          "light": {},
+          "dark": {
+            "--sc-color-switch-track-off": "var(--sc-p-color-dark-well)",
+            "--sc-color-switch-track-off-hover": "var(--sc-p-color-dark-floor)",
+            "--sc-color-switch-thumb-rim-top": "var(--sc-p-color-warm-gray-50)",
+            "--sc-color-switch-thumb-face-top": "var(--sc-p-color-dark-text-primary)",
+            "--sc-color-switch-thumb-face-bottom": "var(--sc-p-color-dark-text-secondary)",
+            "--sc-color-switch-thumb-rim-bottom": "var(--sc-p-color-dark-text-tertiary)"
+          }
+        },
+        "shadowAdj": {
+          "all": {},
+          "light": {},
+          "dark": {}
+        },
+        "springs": {
+          "--sc-motion-switch-travel-easing": {
+            "stiffness": 146,
+            "damping": 24.17,
+            "mass": 1
+          }
+        },
+        "pins": {},
+        "notes": "",
+        "props": {
+          "checked": false,
+          "disabled": false,
+          "glyphs": false,
+          "label": "Notifications"
+        },
+        "sound": {
+          "file": "drams-004-toggle-switch-01.wav",
+          "volume": 0.7,
+          "rate": 1
+        }
+      },
+      {
+        "id": "B",
+        "overrides": {
+          "all": {
+            "--sc-size-switch-track-height": "22px",
+            "--sc-size-switch-track-width": "40px",
+            "--sc-size-switch-thumb": "15px",
+            "--sc-space-component-gap-md": "08px",
+            "--sc-motion-switch-stretch": "1.06",
+            "--sc-motion-switch-squash": "0.15",
+            "--sc-motion-switch-press-lean-duration": "160ms",
+            "--sc-motion-switch-travel-easing": "linear(0, 0.0249, 0.0823, 0.1659, 0.2573, 0.3589, 0.4546, 0.5507, 0.6347, 0.7141, 0.7799, 0.8393, 0.8863, 0.9268, 0.9573, 0.9822, 0.9999, 1.0133, 1.0218, 1.0273, 1.0299, 1.0305, 1.0296, 1.0277, 1.0251, 1.0223, 1.0192, 1.0163, 1.0134, 1.0109, 1.0085, 1.0065, 1.0047, 1.0033, 1.0021, 1.0012, 1.0005, 0.9999, 0.9996, 0.9993, 0.9992, 0.9991, 0.9991, 0.9991, 0.9992, 0.9992, 0.9993, 0.9994, 0.9995, 0.9996, 0.9997, 0.9997, 0.9998, 0.9999, 0.9999, 0.9999, 1, 1, 1, 1)",
+            "--sc-motion-switch-travel-duration": "600ms",
+            "--sc-motion-switch-press-lean": "0.12"
+          },
+          "light": {},
+          "dark": {
+            "--sc-color-switch-track-off": "var(--sc-p-color-dark-well)",
+            "--sc-color-switch-track-off-hover": "var(--sc-p-color-dark-floor)",
+            "--sc-color-switch-thumb-rim-top": "var(--sc-p-color-dark-text-primary)",
+            "--sc-color-switch-thumb-face-top": "var(--sc-p-color-warm-gray-200)",
+            "--sc-color-switch-thumb-face-bottom": "var(--sc-p-color-dark-text-tertiary)",
+            "--sc-color-switch-thumb-rim-bottom": "var(--sc-p-color-warm-gray-350)"
+          }
+        },
+        "shadowAdj": {
+          "all": {},
+          "light": {},
+          "dark": {}
+        },
+        "springs": {
+          "--sc-motion-switch-travel-easing": {
+            "stiffness": 146,
+            "damping": 17.88,
+            "mass": 1
+          }
+        },
+        "pins": {},
+        "notes": "",
+        "props": {
+          "checked": true,
+          "disabled": false,
+          "glyphs": false,
+          "label": "Notifications"
+        },
+        "sound": {
+          "file": "drams-004-toggle-switch-01.wav",
+          "volume": 0.7,
+          "rate": 1
+        }
+      }
+    ],
+    "pick": {
+      "id": "B",
+      "reason": "Levi, 2026-10-07: \"A is good.\" Dark floor darker than the page with a lighter hover (mirrors light mode); dark knob lighter and less oatmeal from existing neutral tokens."
+    },
+    "view": {
+      "theme": "dark",
+      "zoom": 1,
+      "ground": "--sc-color-surface-page",
+      "compare": true,
+      "blind": false,
+      "order": null,
+      "slow": 1,
+      "force": "rest"
+    },
+    "updated": "2026-10-07T21:27:12.810Z"
+  }
+}

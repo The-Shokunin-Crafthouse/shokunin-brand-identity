@@ -47,3 +47,28 @@ The indicator is not a fixed `100% / N` width — each option can carry a differ
 ## Reduced-motion
 
 Indicator slide and label color transition are both suppressed; selection still updates instantly.
+
+## Elastic motion
+
+Engine `src/motion/elastic.js` (reference: kabarza's elastic toggles, instagram.com/reel/DeK0AFcIRhf). Applies to the sliding indicator. Shipped, stretch, squash and lean are 0, so it moves exactly as before; tune it in sc-tune (`previews/tune/?c=SegmentedControl`), where concepts start at the reel's Balanced preset.
+
+| Token | Shipped | Role |
+| --- | --- | --- |
+| `--sc-motion-segmented-control-travel-duration` / `-easing` | = `motion.reveal` (200ms, quint-out) | Travel time and curve; a spring set in the lab writes its settle time to the duration |
+| `--sc-motion-segmented-control-stretch` | 0 | Extra length at peak speed |
+| `--sc-motion-segmented-control-squash` | 0 | Flattening at peak speed |
+| `--sc-motion-segmented-control-press-lean` / `-lean-duration` | 0 / = `motion.press.duration` | On pointer down it leans toward the pressed item and holds; release travels from that pose, dragging off springs back |
+
+Reduced motion skips the engine.
+
+### Applied 2026-10-07 (record `output/tuning/SegmentedControl/2026-10-07-1645/`, concept A)
+
+| Token | Ships |
+| --- | --- |
+| `--sc-motion-segmented-control-travel-duration` / `-easing` | 600ms / spring k146 c17.88 m1 (the Switch's; 3% overshoot) |
+| `--sc-motion-segmented-control-stretch` / `-squash` / `-press-lean` | 0.45 / 0.2 / 0.15 |
+| `--sc-shadow-segmented-control-track` | `inset 0.71px 0.71px 2px` ink .25 (dark black .45): the Drams recess turned to the top left |
+| `--sc-shadow-segmented-control-indicator` | the Button key lift (`shadow.control.key` values), per mode |
+| `--sc-color-segmented-control-indicator-shade` | ink .05 (dark .25), the 135deg face shade |
+
+Track and indicator fills keep `surface.sunk` and `surface.floating` values through their role tokens. Disabled is flat.

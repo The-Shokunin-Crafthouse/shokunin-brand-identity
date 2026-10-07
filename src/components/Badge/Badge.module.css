@@ -6,8 +6,9 @@
  *   --sc-font-text-mono-chrome-*            · mono caps at 
  *   --sc-color-text-primary                 · default + neutral text
  *   --sc-color-text-secondary               · neutral text (muted)
- *   --sc-color-brand-accent                 · default border + text
- *   --sc-color-status-success / warning / error / info
+ *   --sc-color-brand-accent-ink             · default border + text (teal.700 / teal.200, AA)
+ *   --sc-color-status-success-ink / warning-ink · success, warning border + text (AA)
+ *   --sc-color-status-error                 · error border + text (passes AA as is)
  *   --sc-color-border-default               · neutral border
  */
 
@@ -30,18 +31,18 @@
 }
 
 .default {
-  color: var(--sc-color-brand-accent);
-  border-color: var(--sc-color-brand-accent);
+  color: var(--sc-color-brand-accent-ink);
+  border-color: var(--sc-color-brand-accent-ink);
 }
 
 .success {
-  color: var(--sc-color-status-success);
-  border-color: var(--sc-color-status-success);
+  color: var(--sc-color-status-success-ink);
+  border-color: var(--sc-color-status-success-ink);
 }
 
 .warning {
-  color: var(--sc-color-status-warning);
-  border-color: var(--sc-color-status-warning);
+  color: var(--sc-color-status-warning-ink);
+  border-color: var(--sc-color-status-warning-ink);
 }
 
 .error {

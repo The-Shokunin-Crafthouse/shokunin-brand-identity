@@ -5,7 +5,7 @@
 # Design Token Map — The Shokunin Crafthouse · Brand Identity
 
 **Generated** from `tokens/primitives.json` + `tokens/semantic.json`.
-**Source fingerprint:** `49c9a71d391b` · **183 primitives · 152 semantic tokens.**
+**Source fingerprint:** `798098663abc` · **186 primitives · 198 semantic tokens.**
 
 > **This file is a mirror, not the source.** `tokens/*.json` is upstream; this document and the Figma
 > library are generated from / synced to it. It previously claimed the opposite — that both were
@@ -249,6 +249,7 @@ primitives directly. Surfaced here for traceability.
 | `font/tracking/tight` | `--sc-p-font-tracking-tight` | `-0.018em` | Tight · -0.018em. |
 | `font/tracking/snug` | `--sc-p-font-tracking-snug` | `-0.012em` | Snug · -0.012em. |
 | `font/tracking/normal` | `--sc-p-font-tracking-normal` | `0em` | Normal · 0. |
+| `font/tracking/slight` | `--sc-p-font-tracking-slight` | `0.02em` | Slight · 0.02em. |
 | `font/tracking/wide` | `--sc-p-font-tracking-wide` | `0.04em` | Wide · 0.04em. |
 | `font/tracking/wider` | `--sc-p-font-tracking-wider` | `0.06em` | Wider · 0.06em. |
 | `font/tracking/widest` | `--sc-p-font-tracking-widest` | `0.08em` | Widest · 0.08em. |
@@ -272,6 +273,8 @@ primitives directly. Surfaced here for traceability.
 | `font/text/120` | `--sc-p-font-text-120` | `fontFamily: {font.family.display} · fontSize: {font.size.120} · fontWeight: {font.weight.black} · lineHeight: {font.lineHeight.flat} · letterSpacing: {font.tracking.tightest}` | Maximum display, hero monumental. |
 | `font/text/medium/12` | `--sc-p-font-text-medium-12` | `fontFamily: {font.family.text} · fontSize: {font.size.12} · fontWeight: {font.weight.medium} · lineHeight: {font.lineHeight.base} · letterSpacing: {font.tracking.normal}` | UI label, medium: 12/medium, no tracking (Figma text/label/ui-medium). |
 | `font/text/medium/13` | `--sc-p-font-text-medium-13` | `fontFamily: {font.family.text} · fontSize: {font.size.13} · fontWeight: {font.weight.medium} · lineHeight: {font.lineHeight.base} · letterSpacing: {font.tracking.normal}` | Tab label: 13/medium, no tracking (Figma text/label/tab). |
+| `font/text/button/12` | `--sc-p-font-text-button-12` | `fontFamily: {font.family.text} · fontSize: {font.size.12} · fontWeight: {font.weight.medium} · lineHeight: {font.lineHeight.loose} · letterSpacing: {font.tracking.slight}` | Small Button label: 12/medium/loose/slight (Figma text/label/button-sm). |
+| `font/text/button/14` | `--sc-p-font-text-button-14` | `fontFamily: {font.family.text} · fontSize: {font.size.14} · fontWeight: {font.weight.medium} · lineHeight: {font.lineHeight.loose} · letterSpacing: {font.tracking.slight}` | Large Button label: 14/medium/loose/slight (Figma text/label/button-lg). |
 | `font/text/bold/12` | `--sc-p-font-text-bold-12` | `fontFamily: {font.family.text} · fontSize: {font.size.12} · fontWeight: {font.weight.bold} · lineHeight: {font.lineHeight.base} · letterSpacing: {font.tracking.normal}` | UI label, tight: 12/bold, no tracking (Figma text/label/ui-tight). |
 | `font/text/bold/13` | `--sc-p-font-text-bold-13` | `fontFamily: {font.family.text} · fontSize: {font.size.13} · fontWeight: {font.weight.bold} · lineHeight: {font.lineHeight.base} · letterSpacing: {font.tracking.normal}` | Nav current: 13/bold, no tracking (Figma text/label/nav-current). |
 | `font/text/bold/14` | `--sc-p-font-text-bold-14` | `fontFamily: {font.family.text} · fontSize: {font.size.14} · fontWeight: {font.weight.bold} · lineHeight: {font.lineHeight.base} · letterSpacing: {font.tracking.normal}` | Dense body, bold (Figma text/body/dense/bold). |
@@ -549,16 +552,34 @@ channel-triplet primitives) rather than an alias to a single primitive.
 |---|---|---|---|---|---|---|
 | `color/surface-inverse` | `--sc-color-surface-inverse` | `color/warmGray/800` | `#1A1815` | `color/warmGray/50` | `#F1EFEB` | Sprint 4 addition · inverted surface. |
 
+#### `color/control`
+
+| Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
+|---|---|---|---|---|---|---|
+| `color/control/keyShade` | `--sc-color-control-key-shade` | _literal_ | `rgb(var(--sc-p-color-ink-rgb) / 0.05)` | _literal_ | `rgb(var(--sc-p-color-ink-rgb) / 0.25)` | 2026-10-07 · Button primary = Drams OP-1 Keys (drams/036), horizontal, on the page surface (Levi). |
+| `color/control/keyHoverFill` | `--sc-color-control-key-hover-fill` | `color/teal/600` | `#04797D` | `color/teal/600` | `#04797D` | 2026-10-07 · Button primary key face on hover. |
+| `color/control/keyHoverInk` | `--sc-color-control-key-hover-ink` | `color/utility/white` | `#FFFFFF` | `color/utility/white` | `#FFFFFF` | 2026-10-07 · Button primary label and arrow on hover, over keyHoverFill. |
+
 #### `color/switch`
 
 | Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
 |---|---|---|---|---|---|---|
-| `color/switch/thumb/rimTop` | `--sc-color-switch-thumb-rim-top` | `color/utility/white` | `#FFFFFF` | `color/warmGray/200` | `#D8D1CC` | 2026-10-07 · Switch restyled to the Drams Standard Switch (drams/001) at SCDS size. |
+| `color/switch/thumb/rimTop` | `--sc-color-switch-thumb-rim-top` | `color/utility/white` | `#FFFFFF` | `color/dark/textPrimary` | `#EAE8E3` | Dark per Record Switch 2026-10-07-1539, concept B (Levi), applied 2026-10-07. |
 | `color/switch/thumb/rimBottom` | `--sc-color-switch-thumb-rim-bottom` | `color/warmGray/200` | `#D8D1CC` | `color/warmGray/350` | `#9A9186` | 2026-10-07 · Switch restyled to the Drams Standard Switch (drams/001) at SCDS size. |
-| `color/switch/thumb/faceTop` | `--sc-color-switch-thumb-face-top` | `color/warmGray/50` | `#F1EFEB` | `color/warmGray/250` | `#C4BCB4` | 2026-10-07 · Switch restyled to the Drams Standard Switch (drams/001) at SCDS size. |
-| `color/switch/thumb/faceBottom` | `--sc-color-switch-thumb-face-bottom` | `color/warmGray/100` | `#E3DFD8` | `color/warmGray/300` | `#B0A69C` | 2026-10-07 · Switch restyled to the Drams Standard Switch (drams/001) at SCDS size. |
+| `color/switch/thumb/faceTop` | `--sc-color-switch-thumb-face-top` | `color/warmGray/50` | `#F1EFEB` | `color/warmGray/200` | `#D8D1CC` | Dark per Record Switch 2026-10-07-1539, concept B (Levi), applied 2026-10-07. |
+| `color/switch/thumb/faceBottom` | `--sc-color-switch-thumb-face-bottom` | `color/warmGray/100` | `#E3DFD8` | `color/dark/textTertiary` | `#B3B1AD` | Dark per Record Switch 2026-10-07-1539, concept B (Levi), applied 2026-10-07. |
 | `color/switch/glyph/on` | `--sc-color-switch-glyph-on` | `color/utility/white` | `#FFFFFF` | `color/utility/white` | `#FFFFFF` | 2026-10-07 · Switch restyled to the Drams Standard Switch (drams/001) at SCDS size. |
 | `color/switch/glyph/off` | `--sc-color-switch-glyph-off` | `color/warmGray/25` | `#F8F6F2` | `color/dark/textDisabled` | `#7C7A76` | 2026-10-07 · Switch restyled to the Drams Standard Switch (drams/001) at SCDS size. |
+| `color/switch/track/off` | `--sc-color-switch-track-off` | `color/warmGray/300` | `#B0A69C` | `color/dark/well` | `#1F252C` | Dark per Record Switch 2026-10-07-1539, concept B (Levi), applied 2026-10-07. |
+| `color/switch/track/offHover` | `--sc-color-switch-track-off-hover` | `color/warmGray/250` | `#C4BCB4` | `color/dark/floor` | `#252B32` | Dark per Record Switch 2026-10-07-1539, concept B (Levi), applied 2026-10-07. |
+
+#### `color/segmentedControl`
+
+| Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
+|---|---|---|---|---|---|---|
+| `color/segmentedControl/track` | `--sc-color-segmented-control-track` | `color/warmGray/200` | `#D8D1CC` | `color/dark/well` | `#1F252C` | 2026-10-07 · SegmentedControl material (physical-controls Tier 1: recessed track, key indicator), tuned in sc-tune. |
+| `color/segmentedControl/indicator` | `--sc-color-segmented-control-indicator` | `color/warmGray/25` | `#F8F6F2` | `color/dark/raised2` | `#3B4249` | 2026-10-07 · SegmentedControl material (physical-controls Tier 1: recessed track, key indicator), tuned in sc-tune. |
+| `color/segmentedControl/indicatorShade` | `--sc-color-segmented-control-indicator-shade` | _literal_ | `rgb(var(--sc-p-color-ink-rgb) / 0.05)` | _literal_ | `rgb(var(--sc-p-color-ink-rgb) / 0.25)` | 2026-10-07 · SegmentedControl material (physical-controls Tier 1), lit from the top left (Gate 1 pick 1). |
 
 ### Typography · Semantic
 
@@ -570,7 +591,8 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | `font/text/label/ui` | `--sc-font-text-label-ui` | `font/text/12` | `fontFamily: {font.family.text} · fontSize: {font.size.12} · fontWeight: {font.weight.bold} · lineHeight: {font.lineHeight.base} · letterSpacing: {font.tracking.wide}` | `font/text/12` | `fontFamily: {font.family.text} · fontSize: {font.size.12} · fontWeight: {font.weight.bold} · lineHeight: {font.lineHeight.base} · letterSpacing: {font.tracking.wide}` | Sprint 4 addition · UI labels · 12/medium/wide. |
 | `font/text/label/uiTight` | `--sc-font-text-label-ui-tight` | `font/text/bold/12` | `fontFamily: {font.family.text} · fontSize: {font.size.12} · fontWeight: {font.weight.bold} · lineHeight: {font.lineHeight.base} · letterSpacing: {font.tracking.normal}` | `font/text/bold/12` | `fontFamily: {font.family.text} · fontSize: {font.size.12} · fontWeight: {font.weight.bold} · lineHeight: {font.lineHeight.base} · letterSpacing: {font.tracking.normal}` | UI label, tight: 12/bold, no tracking. |
 | `font/text/label/uiMedium` | `--sc-font-text-label-ui-medium` | `font/text/medium/12` | `fontFamily: {font.family.text} · fontSize: {font.size.12} · fontWeight: {font.weight.medium} · lineHeight: {font.lineHeight.base} · letterSpacing: {font.tracking.normal}` | `font/text/medium/12` | `fontFamily: {font.family.text} · fontSize: {font.size.12} · fontWeight: {font.weight.medium} · lineHeight: {font.lineHeight.base} · letterSpacing: {font.tracking.normal}` | UI label, medium: 12/medium, no tracking. |
-| `font/text/label/buttonSm` | `--sc-font-text-label-button-sm` | `font/text/11` | `fontFamily: {font.family.text} · fontSize: {font.size.11} · fontWeight: {font.weight.medium} · lineHeight: {font.lineHeight.base} · letterSpacing: {font.tracking.widest}` | `font/text/11` | `fontFamily: {font.family.text} · fontSize: {font.size.11} · fontWeight: {font.weight.medium} · lineHeight: {font.lineHeight.base} · letterSpacing: {font.tracking.widest}` | Small Button label: 11/medium/widest, the chrome label (Figma text/label/button-sm). |
+| `font/text/label/buttonSm` | `--sc-font-text-label-button-sm` | `font/text/button/12` | `fontFamily: {font.family.text} · fontSize: {font.size.12} · fontWeight: {font.weight.medium} · lineHeight: {font.lineHeight.loose} · letterSpacing: {font.tracking.slight}` | `font/text/button/12` | `fontFamily: {font.family.text} · fontSize: {font.size.12} · fontWeight: {font.weight.medium} · lineHeight: {font.lineHeight.loose} · letterSpacing: {font.tracking.slight}` | Small Button label: 12/medium/loose/slight (Figma text/label/button-sm). |
+| `font/text/label/buttonLg` | `--sc-font-text-label-button-lg` | `font/text/button/14` | `fontFamily: {font.family.text} · fontSize: {font.size.14} · fontWeight: {font.weight.medium} · lineHeight: {font.lineHeight.loose} · letterSpacing: {font.tracking.slight}` | `font/text/button/14` | `fontFamily: {font.family.text} · fontSize: {font.size.14} · fontWeight: {font.weight.medium} · lineHeight: {font.lineHeight.loose} · letterSpacing: {font.tracking.slight}` | Large Button label: 14/medium/loose/slight, its own role apart from the chrome label (Figma text/label/button-lg). |
 | `font/text/label/tab` | `--sc-font-text-label-tab` | `font/text/medium/13` | `fontFamily: {font.family.text} · fontSize: {font.size.13} · fontWeight: {font.weight.medium} · lineHeight: {font.lineHeight.base} · letterSpacing: {font.tracking.normal}` | `font/text/medium/13` | `fontFamily: {font.family.text} · fontSize: {font.size.13} · fontWeight: {font.weight.medium} · lineHeight: {font.lineHeight.base} · letterSpacing: {font.tracking.normal}` | Tab label: 13/medium, no tracking. |
 | `font/text/label/navHeading` | `--sc-font-text-label-nav-heading` | `font/text/displayTight/11` | `fontFamily: {font.family.display} · fontSize: {font.size.11} · fontWeight: {font.weight.black} · lineHeight: {font.lineHeight.base} · letterSpacing: {font.tracking.normal}` | `font/text/displayTight/11` | `fontFamily: {font.family.display} · fontSize: {font.size.11} · fontWeight: {font.weight.black} · lineHeight: {font.lineHeight.base} · letterSpacing: {font.tracking.normal}` | Nav group heading: 11/black display, sentence case, text.primary. |
 | `font/text/label/navCurrent` | `--sc-font-text-label-nav-current` | `font/text/bold/13` | `fontFamily: {font.family.text} · fontSize: {font.size.13} · fontWeight: {font.weight.bold} · lineHeight: {font.lineHeight.base} · letterSpacing: {font.tracking.normal}` | `font/text/bold/13` | `fontFamily: {font.family.text} · fontSize: {font.size.13} · fontWeight: {font.weight.bold} · lineHeight: {font.lineHeight.base} · letterSpacing: {font.tracking.normal}` | Nav current link: 13/bold, set in brand.accentInk with an accent PlusBullet at the row end (ADR sidebar-nav-pill-states). |
@@ -607,6 +629,8 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | `space/component/padding-inline/sm` | `--sc-space-component-padding-inline-sm` | `space/micro/6` | `6px` | `space/micro/6` | `6px` | Sprint 4 addition · tight inline padding (6px). |
 | `space/component/padding-inline/md` | `--sc-space-component-padding-inline-md` | `space/12` | `12px` | `space/12` | `12px` | Sprint 4 addition · default inline padding (12px). |
 | `space/component/padding-inline/lg` | `--sc-space-component-padding-inline-lg` | `space/16` | `16px` | `space/16` | `16px` | Sprint 4 addition · generous inline padding (16px). |
+| `space/component/padding-inline/button-lg` | `--sc-space-component-padding-inline-button-lg` | `space/24` | `24px` | `space/24` | `24px` | Large Button inline padding (24px). |
+| `space/component/padding-inline/button-sm` | `--sc-space-component-padding-inline-button-sm` | `space/16` | `16px` | `space/16` | `16px` | Small Button inline padding (16px). |
 | `space/component/padding-block/sm` | `--sc-space-component-padding-block-sm` | `space/micro/2` | `2px` | `space/micro/2` | `2px` | Sprint 4 addition · ultra-thin block padding (2px). |
 | `space/component/padding-block/md` | `--sc-space-component-padding-block-md` | `space/8` | `8px` | `space/8` | `8px` | Sprint 4 addition · default block padding (8px). |
 | `space/component/padding-block/lg` | `--sc-space-component-padding-block-lg` | `space/12` | `12px` | `space/12` | `12px` | Sprint 4 addition · generous block padding (12px). |
@@ -701,15 +725,72 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | `motion/reveal/duration` | `--sc-motion-reveal-duration` | `motion/duration/micro` | `200ms` | `motion/duration/micro` | `200ms` | Sprint 4 addition · Tooltip enter, Alert enter, Switch thumb slide (200ms). |
 | `motion/reveal/easing` | `--sc-motion-reveal-easing` | `motion/easing/out` | `cubic-bezier(0.22, 1, 0.36, 1)` | `motion/easing/out` | `cubic-bezier(0.22, 1, 0.36, 1)` | Sprint 4 addition · quint-out · reveal entrance. |
 
+#### `motion/switch`
+
+| Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
+|---|---|---|---|---|---|---|
+| `motion/switch/travel/duration` | `--sc-motion-switch-travel-duration` | _literal_ | `600ms` | _literal_ | `600ms` | 2026-10-07 · Elastic Switch motion (kabarza's elastic toggles reel), engine src/motion/elastic.js. |
+| `motion/switch/travel/easing` | `--sc-motion-switch-travel-easing` | _literal_ | `spring k146 c17.88 m1` | _literal_ | `spring k146 c17.88 m1` | 2026-10-07 · Elastic Switch motion (kabarza's elastic toggles reel), engine src/motion/elastic.js. |
+| `motion/switch/stretch` | `--sc-motion-switch-stretch` | _literal_ | `1.06` | _literal_ | `1.06` | 2026-10-07 · Elastic Switch motion (kabarza's elastic toggles reel), engine src/motion/elastic.js. |
+| `motion/switch/squash` | `--sc-motion-switch-squash` | _literal_ | `0.15` | _literal_ | `0.15` | 2026-10-07 · Elastic Switch motion (kabarza's elastic toggles reel), engine src/motion/elastic.js. |
+| `motion/switch/press/lean` | `--sc-motion-switch-press-lean` | _literal_ | `0.12` | _literal_ | `0.12` | 2026-10-07 · Elastic Switch motion (kabarza's elastic toggles reel), engine src/motion/elastic.js. |
+| `motion/switch/press/leanDuration` | `--sc-motion-switch-press-lean-duration` | `motion/duration/press` | `160ms` | `motion/duration/press` | `160ms` | 2026-10-07 · Switch motion, from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), added to sc-tune for Levi. |
+
+#### `motion/segmentedControl`
+
+| Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
+|---|---|---|---|---|---|---|
+| `motion/segmentedControl/travel/duration` | `--sc-motion-segmented-control-travel-duration` | _literal_ | `600ms` | _literal_ | `600ms` | 2026-10-07 · Elastic motion (kabarza's elastic toggles reel), engine src/motion/elastic.js. |
+| `motion/segmentedControl/travel/easing` | `--sc-motion-segmented-control-travel-easing` | _literal_ | `spring k146 c17.88 m1` | _literal_ | `spring k146 c17.88 m1` | 2026-10-07 · Elastic motion (kabarza's elastic toggles reel), engine src/motion/elastic.js. |
+| `motion/segmentedControl/stretch` | `--sc-motion-segmented-control-stretch` | _literal_ | `0.45` | _literal_ | `0.45` | 2026-10-07 · Elastic motion (kabarza's elastic toggles reel), engine src/motion/elastic.js. |
+| `motion/segmentedControl/squash` | `--sc-motion-segmented-control-squash` | _literal_ | `0.2` | _literal_ | `0.2` | 2026-10-07 · Elastic motion (kabarza's elastic toggles reel), engine src/motion/elastic.js. |
+| `motion/segmentedControl/press/lean` | `--sc-motion-segmented-control-press-lean` | _literal_ | `0.15` | _literal_ | `0.15` | 2026-10-07 · Elastic motion (kabarza's elastic toggles reel), engine src/motion/elastic.js. |
+| `motion/segmentedControl/press/leanDuration` | `--sc-motion-segmented-control-press-lean-duration` | `motion/duration/press` | `160ms` | `motion/duration/press` | `160ms` | 2026-10-07 · Elastic motion from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), engine src/motion/elastic.js, tuned in sc-tune. |
+
+#### `motion/plusUnderline`
+
+| Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
+|---|---|---|---|---|---|---|
+| `motion/plusUnderline/travel/duration` | `--sc-motion-plus-underline-travel-duration` | `motion/duration/micro` | `200ms` | `motion/duration/micro` | `200ms` | 2026-10-07 · Elastic motion from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), engine src/motion/elastic.js, tuned in sc-tune. |
+| `motion/plusUnderline/travel/easing` | `--sc-motion-plus-underline-travel-easing` | `motion/easing/out` | `cubic-bezier(0.22, 1, 0.36, 1)` | `motion/easing/out` | `cubic-bezier(0.22, 1, 0.36, 1)` | 2026-10-07 · Elastic motion from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), engine src/motion/elastic.js, tuned in sc-tune. |
+| `motion/plusUnderline/stretch` | `--sc-motion-plus-underline-stretch` | _literal_ | `0` | _literal_ | `0` | 2026-10-07 · Elastic motion from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), engine src/motion/elastic.js, tuned in sc-tune. |
+| `motion/plusUnderline/squash` | `--sc-motion-plus-underline-squash` | _literal_ | `0` | _literal_ | `0` | 2026-10-07 · Elastic motion from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), engine src/motion/elastic.js, tuned in sc-tune. |
+| `motion/plusUnderline/press/lean` | `--sc-motion-plus-underline-press-lean` | _literal_ | `0` | _literal_ | `0` | 2026-10-07 · Elastic motion from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), engine src/motion/elastic.js, tuned in sc-tune. |
+| `motion/plusUnderline/press/leanDuration` | `--sc-motion-plus-underline-press-lean-duration` | `motion/duration/press` | `160ms` | `motion/duration/press` | `160ms` | 2026-10-07 · Elastic motion from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), engine src/motion/elastic.js, tuned in sc-tune. |
+
+#### `motion/navBar`
+
+| Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
+|---|---|---|---|---|---|---|
+| `motion/navBar/travel/duration` | `--sc-motion-nav-bar-travel-duration` | `motion/duration/micro` | `200ms` | `motion/duration/micro` | `200ms` | 2026-10-07 · Elastic motion from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), engine src/motion/elastic.js, tuned in sc-tune. |
+| `motion/navBar/travel/easing` | `--sc-motion-nav-bar-travel-easing` | `motion/easing/out` | `cubic-bezier(0.22, 1, 0.36, 1)` | `motion/easing/out` | `cubic-bezier(0.22, 1, 0.36, 1)` | 2026-10-07 · Elastic motion from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), engine src/motion/elastic.js, tuned in sc-tune. |
+| `motion/navBar/stretch` | `--sc-motion-nav-bar-stretch` | _literal_ | `0` | _literal_ | `0` | 2026-10-07 · Elastic motion from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), engine src/motion/elastic.js, tuned in sc-tune. |
+| `motion/navBar/squash` | `--sc-motion-nav-bar-squash` | _literal_ | `0` | _literal_ | `0` | 2026-10-07 · Elastic motion from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), engine src/motion/elastic.js, tuned in sc-tune. |
+| `motion/navBar/press/lean` | `--sc-motion-nav-bar-press-lean` | _literal_ | `0` | _literal_ | `0` | 2026-10-07 · Elastic motion from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), engine src/motion/elastic.js, tuned in sc-tune. |
+| `motion/navBar/press/leanDuration` | `--sc-motion-nav-bar-press-lean-duration` | `motion/duration/press` | `160ms` | `motion/duration/press` | `160ms` | 2026-10-07 · Elastic motion from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), engine src/motion/elastic.js, tuned in sc-tune. |
+
+#### `motion/tooltip`
+
+| Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
+|---|---|---|---|---|---|---|
+| `motion/tooltip/travel/duration` | `--sc-motion-tooltip-travel-duration` | `motion/duration/micro` | `200ms` | `motion/duration/micro` | `200ms` | 2026-10-07 · Elastic motion from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), engine src/motion/elastic.js, tuned in sc-tune. |
+| `motion/tooltip/travel/easing` | `--sc-motion-tooltip-travel-easing` | `motion/easing/out` | `cubic-bezier(0.22, 1, 0.36, 1)` | `motion/easing/out` | `cubic-bezier(0.22, 1, 0.36, 1)` | 2026-10-07 · Elastic motion from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), engine src/motion/elastic.js, tuned in sc-tune. |
+| `motion/tooltip/stretch` | `--sc-motion-tooltip-stretch` | _literal_ | `0` | _literal_ | `0` | 2026-10-07 · Elastic motion from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), engine src/motion/elastic.js, tuned in sc-tune. |
+| `motion/tooltip/squash` | `--sc-motion-tooltip-squash` | _literal_ | `0` | _literal_ | `0` | 2026-10-07 · Elastic motion from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), engine src/motion/elastic.js, tuned in sc-tune. |
+
 ### Shadow · Semantic
 
 | Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
 |---|---|---|---|---|---|---|
-| `shadow/control/raised` | `--sc-shadow-control-raised` | _literal_ | `-4px 4px 8px rgb(var(--sc-p-color-ink-rgb) / 0.10), -2px 2px 4px rgb(var(--sc-p-color-ink-rgb) / 0.08), 4px -4px 8px rgb(var(--sc-p-color-white-rgb) / 0.90), 2px -2px 4px rgb(var(--sc-p-color-white-rgb) / 0.70)` | _literal_ | `-4px 4px 8px rgb(0 0 0 / 0.24), -2px 2px 4px rgb(0 0 0 / 0.16), 4px -4px 8px rgb(var(--sc-p-color-white-rgb) / 0.06), 2px -2px 4px rgb(var(--sc-p-color-white-rgb) / 0.04)` | Button-only neumorphic raise · 4 layers (2 ink bottom-left, 2 white top-right) composed from the channel-triplet primitives. |
-| `shadow/control/bevel` | `--sc-shadow-control-bevel` | _literal_ | `inset -2px 2px 4px rgb(var(--sc-p-color-white-rgb) / 0.70), inset 2px -2px 4px rgb(var(--sc-p-color-ink-rgb) / 0.06)` | _literal_ | `inset -2px 2px 4px rgb(var(--sc-p-color-white-rgb) / 0.06), inset 2px -2px 4px rgb(0 0 0 / 0.20)` | Button-only inner bevel · 2 inset layers (white top-right, ink/black bottom-left) that round the pill's edges from inside. |
+| `shadow/control/raised` | `--sc-shadow-control-raised` | _literal_ | `-4px 4px 8px rgb(var(--sc-p-color-ink-rgb) / 0.10), -2px 2px 4px rgb(var(--sc-p-color-ink-rgb) / 0.08), 4px -4px 8px rgb(var(--sc-p-color-white-rgb) / 0.90), 2px -2px 4px rgb(var(--sc-p-color-white-rgb) / 0.70)` | _literal_ | `-4px 4px 8px rgb(0 0 0 / 0.24), -2px 2px 4px rgb(0 0 0 / 0.16), 4px -4px 8px rgb(var(--sc-p-color-white-rgb) / 0.06), 2px -2px 4px rgb(var(--sc-p-color-white-rgb) / 0.04)` | SUPERSEDED 2026-10-07 by control.key (Drams OP-1 Keys); no SCDS web consumer. |
 | `shadow/control/inset` | `--sc-shadow-control-inset` | _literal_ | `inset 0 1px 3px rgb(var(--sc-p-color-ink-rgb) / 0.08), inset 0 0 0 1px rgb(var(--sc-p-color-ink-rgb) / 0.06)` | _literal_ | `inset 0 1px 3px rgb(0 0 0 / 0.40), inset 0 0 0 1px rgb(var(--sc-p-color-white-rgb) / 0.05)` | Fill-only inset feedback · soft inner ring for interactive surfaces on hover/focus (cards, tiles). scds-v2 Phase 2 — replaces the resting stroke frame: rest carries no shadow, the inset appears only on hover/focus to narrate interactivity without an outline. |
+| `shadow/control/key` | `--sc-shadow-control-key` | _literal_ | `2px 2px 6px 0 rgb(100 91 79 / 0.50), -1px -1px 1px 1px rgb(253 250 246 / 1)` | _literal_ | `3px 3px 7px 0 rgb(0 0 0 / 0.50), -1px -1px 1px 1px rgb(219 235 255 / 0.17)` | 2026-10-07 · Button primary = Drams OP-1 Keys (drams/036), horizontal, on the page surface (Levi). |
+| `shadow/control/keyHover` | `--sc-shadow-control-key-hover` | _literal_ | `2px 2px 6px 0 rgb(100 91 79 / 0.50), -1px -1px 1px 1px rgb(253 250 246 / 1)` | _literal_ | `3px 3px 7px 0 rgb(0 0 0 / 0.50), -1px -1px 1px 1px rgb(219 235 255 / 0.17)` | 2026-10-07 · Button primary key on hover. |
+| `shadow/control/keyPressed` | `--sc-shadow-control-key-pressed` | _literal_ | `2px 2px 6px 0 rgb(100 91 79 / 0.37), -1px -1px 1px 1px rgb(253 250 246 / 0.90), inset 1px 1px 8px 0 rgb(var(--sc-p-color-white-rgb) / 0.30)` | _literal_ | `3px 3px 7px 0 rgb(0 0 0 / 0.38), -1px -1px 1px 1px rgb(219 235 255 / 0.14), inset 1px 1px 8px 0 rgb(var(--sc-p-color-white-rgb) / 0.06)` | 2026-10-07 · Button primary = Drams OP-1 Keys (drams/036), horizontal, on the page surface (Levi). |
 | `shadow/switch/track` | `--sc-shadow-switch-track` | _literal_ | `inset 0 0.45px 0.9px rgb(var(--sc-p-color-ink-rgb) / 0.25)` | _literal_ | `inset 0 0.45px 0.9px rgb(0 0 0 / 0.45)` | 2026-10-07 · Switch restyled to the Drams Standard Switch (drams/001) at SCDS size. |
 | `shadow/switch/thumb` | `--sc-shadow-switch-thumb` | _literal_ | `0 0.37px 0.52px -0.28px rgb(var(--sc-p-color-ink-rgb) / 0.26), 0 0.95px 1.33px -0.56px rgb(var(--sc-p-color-ink-rgb) / 0.25), 0 1.9px 2.66px -0.84px rgb(var(--sc-p-color-ink-rgb) / 0.24), 0 3.6px 5.05px -1.13px rgb(var(--sc-p-color-ink-rgb) / 0.22), 0 7.16px 10.03px -1.41px rgb(var(--sc-p-color-ink-rgb) / 0.18), 0 15.75px 22.05px 0 rgb(var(--sc-p-color-ink-rgb) / 0.09)` | _literal_ | `0 0.37px 0.52px -0.28px rgb(0 0 0 / 0.42), 0 0.95px 1.33px -0.56px rgb(0 0 0 / 0.40), 0 1.9px 2.66px -0.84px rgb(0 0 0 / 0.38), 0 3.6px 5.05px -1.13px rgb(0 0 0 / 0.35), 0 7.16px 10.03px -1.41px rgb(0 0 0 / 0.29), 0 15.75px 22.05px 0 rgb(0 0 0 / 0.14)` | 2026-10-07 · Switch restyled to the Drams Standard Switch (drams/001) at SCDS size. |
+| `shadow/segmentedControl/track` | `--sc-shadow-segmented-control-track` | _literal_ | `inset 0.71px 0.71px 2px 0 rgb(var(--sc-p-color-ink-rgb) / 0.25)` | _literal_ | `inset 0.71px 0.71px 2px 0 rgb(0 0 0 / 0.45)` | 2026-10-07 · SegmentedControl material (physical-controls Tier 1), lit from the top left (Gate 1 pick 1). |
+| `shadow/segmentedControl/indicator` | `--sc-shadow-segmented-control-indicator` | _literal_ | `2px 2px 6px 0 rgb(100 91 79 / 0.50), -1px -1px 1px 1px rgb(253 250 246 / 1)` | _literal_ | `3px 3px 7px 0 rgb(0 0 0 / 0.50), -1px -1px 1px 1px rgb(219 235 255 / 0.17)` | 2026-10-07 · SegmentedControl material (physical-controls Tier 1), lit from the top left (Gate 1 pick 1). |
 
 ### Size · Semantic
 
@@ -735,10 +816,11 @@ channel-triplet primitives) rather than an alias to a single primitive.
 
 | Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
 |---|---|---|---|---|---|---|
-| `size/switch/track-width` | `--sc-size-switch-track-width` | `space/32` | `32px` | `space/32` | `32px` | Sprint 4 addition · switch track width (32px). |
-| `size/switch/track-height` | `--sc-size-switch-track-height` | `space/micro/18` | `18px` | `space/micro/18` | `18px` | Sprint 4 addition · switch track height (18px). |
-| `size/switch/thumb` | `--sc-size-switch-thumb` | `space/micro/14` | `14px` | `space/micro/14` | `14px` | Sprint 4 addition · switch thumb diameter (14px) · 2px inset inside 18px track. |
+| `size/switch/track-width` | `--sc-size-switch-track-width` | _literal_ | `40px` | _literal_ | `40px` | Switch track width, 40px. |
+| `size/switch/track-height` | `--sc-size-switch-track-height` | _literal_ | `22px` | _literal_ | `22px` | Switch track height, 22px. |
+| `size/switch/thumb` | `--sc-size-switch-thumb` | _literal_ | `15px` | _literal_ | `15px` | Switch knob diameter, 15px, 3.5px inset inside the 22px track. |
 | `size/switch/glyph` | `--sc-size-switch-glyph` | `space/micro/6` | `6px` | `space/micro/6` | `6px` | 2026-10-07 · Switch restyled to the Drams Standard Switch (drams/001) at SCDS size. |
+| `size/switch/labelOffset` | `--sc-size-switch-label-offset` | _literal_ | `0px` | _literal_ | `0px` | 2026-10-07 · Vertical nudge for the Switch label, positive moves it down (Levi asked to move the text down 1px; tune it in the lab). |
 
 #### `size/progress`
 
@@ -749,6 +831,13 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | `size/progress/circular-stroke` | `--sc-size-progress-circular-stroke` | `space/4` | `4px` | `space/4` | `4px` | Sprint 4 addition · circular stroke width (4px). |
 | `size/progress/bar-height-active` | `--sc-size-progress-bar-height-active` | `space/micro/6` | `6px` | `space/micro/6` | `6px` | Sprint 5 addition · Drams #4/#5 (Volume Visible Track / Standard Volume) · interactive bar variant, active/dragging track thickness (6px). |
 | `size/progress/hit-slop` | `--sc-size-progress-hit-slop` | `space/micro/22` | `22px` | `space/micro/22` | `22px` | Sprint 5 addition · Drams #5 (Standard Volume) · interactive bar variant, invisible hit-area padding above/below the visual track (block padding on the interactive wrapper, not the track itself). |
+
+#### `size/button`
+
+| Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
+|---|---|---|---|---|---|---|
+| `size/button/icon/lg` | `--sc-size-button-icon-lg` | `space/micro/14` | `14px` | `space/micro/14` | `14px` | Large Button arrow and loading mark (14px), matching the 14px label; small stays 12 to match its 12px label (Figma size/button/icon/lg). |
+| `size/button/icon/sm` | `--sc-size-button-icon-sm` | `space/12` | `12px` | `space/12` | `12px` | Small Button arrow and loading mark (12px). |
 
 #### `size/touch-target`
 

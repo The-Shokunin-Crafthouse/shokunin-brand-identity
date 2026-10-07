@@ -576,13 +576,33 @@
         }
       }
     },
+    "control": {
+      "keyShade": {
+        "$type": "color",
+        "$value": "rgb(var(--sc-p-color-ink-rgb) / 0.05)",
+        "$description": "2026-10-07 · Button primary = Drams OP-1 Keys (drams/036), horizontal, on the page surface (Levi). Shade at the far corner of a key face: linear-gradient(135deg, transparent, keyShade) over the fill. Drams #EEE to #E3E3E3 is ink at 5% over the base; one value serves neutral, teal and error fills.",
+        "$extensions": { "modes": { "light": "rgb(var(--sc-p-color-ink-rgb) / 0.05)", "dark": "rgb(var(--sc-p-color-ink-rgb) / 0.25)" } }
+      },
+      "keyHoverFill": {
+        "$type": "color",
+        "$value": "{color.teal.600}",
+        "$description": "2026-10-07 · Button primary key face on hover. Same value as brand.accentFill, its own role so the key's hover tunes per mode without moving other accent fills.",
+        "$extensions": { "modes": { "light": "{color.teal.600}", "dark": "{color.teal.600}" } }
+      },
+      "keyHoverInk": {
+        "$type": "color",
+        "$value": "{color.utility.white}",
+        "$description": "2026-10-07 · Button primary label and arrow on hover, over keyHoverFill. Same value as text.onAccent, its own role so the key's hover tunes per mode.",
+        "$extensions": { "modes": { "light": "{color.utility.white}", "dark": "{color.utility.white}" } }
+      }
+    },
     "switch": {
       "thumb": {
         "rimTop": {
           "$type": "color",
           "$value": "{color.utility.white}",
-          "$description": "2026-10-07 · Switch restyled to the Drams Standard Switch (drams/001) at SCDS size. Knob rim gradient, top stop. A 0.5px rim catches the light above the face (Drams #FFF to #D1D1D1).",
-          "$extensions": { "modes": { "light": "{color.utility.white}", "dark": "{color.warmGray.200}" } }
+          "$description": "Dark per Record Switch 2026-10-07-1539, concept B (Levi), applied 2026-10-07. 2026-10-07 · Switch restyled to the Drams Standard Switch (drams/001) at SCDS size. Knob rim gradient, top stop. A 0.5px rim catches the light above the face (Drams #FFF to #D1D1D1).",
+          "$extensions": { "modes": { "light": "{color.utility.white}", "dark": "{color.dark.textPrimary}" } }
         },
         "rimBottom": {
           "$type": "color",
@@ -593,14 +613,14 @@
         "faceTop": {
           "$type": "color",
           "$value": "{color.warmGray.50}",
-          "$description": "2026-10-07 · Switch restyled to the Drams Standard Switch (drams/001) at SCDS size. Knob face gradient, top stop (Drams #F2F2F2 to #E8E8E8). Dark keeps a light physical knob, dimmed per stop, so the object keeps its material at night.",
-          "$extensions": { "modes": { "light": "{color.warmGray.50}", "dark": "{color.warmGray.250}" } }
+          "$description": "Dark per Record Switch 2026-10-07-1539, concept B (Levi), applied 2026-10-07. 2026-10-07 · Switch restyled to the Drams Standard Switch (drams/001) at SCDS size. Knob face gradient, top stop (Drams #F2F2F2 to #E8E8E8). Dark keeps a light physical knob: warmGray.200 to dark.textTertiary, less oatmeal than the light knob.",
+          "$extensions": { "modes": { "light": "{color.warmGray.50}", "dark": "{color.warmGray.200}" } }
         },
         "faceBottom": {
           "$type": "color",
           "$value": "{color.warmGray.100}",
-          "$description": "2026-10-07 · Switch restyled to the Drams Standard Switch (drams/001) at SCDS size. Knob face gradient, bottom stop.",
-          "$extensions": { "modes": { "light": "{color.warmGray.100}", "dark": "{color.warmGray.300}" } }
+          "$description": "Dark per Record Switch 2026-10-07-1539, concept B (Levi), applied 2026-10-07. 2026-10-07 · Switch restyled to the Drams Standard Switch (drams/001) at SCDS size. Knob face gradient, bottom stop.",
+          "$extensions": { "modes": { "light": "{color.warmGray.100}", "dark": "{color.dark.textTertiary}" } }
         }
       },
       "glyph": {
@@ -616,7 +636,26 @@
           "$description": "2026-10-07 · Switch restyled to the Drams Standard Switch (drams/001) at SCDS size. O ring on the off track. Second half of the non-colour on/off cue.",
           "$extensions": { "modes": { "light": "{color.warmGray.25}", "dark": "{color.dark.textDisabled}" } }
         }
+      },
+      "track": {
+        "off": {
+          "$type": "color",
+          "$value": "{color.warmGray.300}",
+          "$description": "Dark per Record Switch 2026-10-07-1539, concept B (Levi), applied 2026-10-07. 2026-10-07 · Switch off-track floor, the recess under the knob. Light = surface.deepSunk (warmGray.300); dark = dark.well, darker than the page so the recess reads as a recess; its own role so the Switch floor tunes in sc-tune without moving cards, inputs and meters that read deepSunk (Levi).",
+          "$extensions": { "modes": { "light": "{color.warmGray.300}", "dark": "{color.dark.well}" } }
+        },
+        "offHover": {
+          "$type": "color",
+          "$value": "{color.warmGray.250}",
+          "$description": "Dark per Record Switch 2026-10-07-1539, concept B (Levi), applied 2026-10-07. 2026-10-07 · Switch off-track floor on hover. Light = surface.hover (warmGray.250); dark = dark.floor, a hair lighter than the resting floor in both modes; its own role so it tunes with the floor.",
+          "$extensions": { "modes": { "light": "{color.warmGray.250}", "dark": "{color.dark.floor}" } }
+        }
       }
+    },
+    "segmentedControl": {
+      "track": { "$type": "color", "$value": "{color.warmGray.200}", "$description": "2026-10-07 \u00b7 SegmentedControl material (physical-controls Tier 1: recessed track, key indicator), tuned in sc-tune. Track ground. Shipped = surface.sunk; its own role so the track tunes without moving cards and other sunk surfaces.", "$extensions": { "modes": { "light": "{color.warmGray.200}", "dark": "{color.dark.well}" } } },
+      "indicator": { "$type": "color", "$value": "{color.warmGray.25}", "$description": "2026-10-07 \u00b7 SegmentedControl material (physical-controls Tier 1: recessed track, key indicator), tuned in sc-tune. Selected-segment indicator fill. Shipped = surface.floating.", "$extensions": { "modes": { "light": "{color.warmGray.25}", "dark": "{color.dark.raised2}" } } },
+      "indicatorShade": { "$type": "color", "$value": "rgb(var(--sc-p-color-ink-rgb) / 0.05)", "$description": "2026-10-07 \u00b7 SegmentedControl material (physical-controls Tier 1), lit from the top left (Gate 1 pick 1). Shade at the far corner of the indicator face, linear-gradient(135deg, transparent, indicatorShade): the Button key face (control.keyShade values). Record SegmentedControl 2026-10-07-1645, concept A (Levi), applied 2026-10-07; was transparent.", "$extensions": { "modes": { "light": "rgb(var(--sc-p-color-ink-rgb) / 0.05)", "dark": "rgb(var(--sc-p-color-ink-rgb) / 0.25)" } } }
     }
   },
   "border": {
@@ -685,20 +724,11 @@
     "control": {
       "raised": {
         "$type": "shadow",
-        "$description": "Button-only neumorphic raise · 4 layers (2 ink bottom-left, 2 white top-right) composed from the channel-triplet primitives. Semantic to controls — NOT a general elevation token; only controls carry a shadow (Button here, Switch track + knob in shadow.switch.*). Added 2026-07-09 with the button redesign. 2026-10-02: dark black layers 0.55/0.45 → 0.24/0.16 so each matches its white highlight's lightness delta on surface-page (ΔL* 5.6 / 3.7).",
+        "$description": "SUPERSEDED 2026-10-07 by control.key (Drams OP-1 Keys); no SCDS web consumer. Kept only because Studio PM's native RunButton reads SCDS.Shadow.controlRaised from its vendored Swift tokens; remove once that migrates. Button-only neumorphic raise · 4 layers (2 ink bottom-left, 2 white top-right) composed from the channel-triplet primitives. Semantic to controls — NOT a general elevation token; only controls carry a shadow (Button here, Switch track + knob in shadow.switch.*). Added 2026-07-09 with the button redesign. 2026-10-02: dark black layers 0.55/0.45 → 0.24/0.16 so each matches its white highlight's lightness delta on surface-page (ΔL* 5.6 / 3.7).",
         "$value": "-4px 4px 8px rgb(var(--sc-p-color-ink-rgb) / 0.10), -2px 2px 4px rgb(var(--sc-p-color-ink-rgb) / 0.08), 4px -4px 8px rgb(var(--sc-p-color-white-rgb) / 0.90), 2px -2px 4px rgb(var(--sc-p-color-white-rgb) / 0.70)",
         "$extensions": { "modes": {
           "light": "-4px 4px 8px rgb(var(--sc-p-color-ink-rgb) / 0.10), -2px 2px 4px rgb(var(--sc-p-color-ink-rgb) / 0.08), 4px -4px 8px rgb(var(--sc-p-color-white-rgb) / 0.90), 2px -2px 4px rgb(var(--sc-p-color-white-rgb) / 0.70)",
           "dark":  "-4px 4px 8px rgb(0 0 0 / 0.24), -2px 2px 4px rgb(0 0 0 / 0.16), 4px -4px 8px rgb(var(--sc-p-color-white-rgb) / 0.06), 2px -2px 4px rgb(var(--sc-p-color-white-rgb) / 0.04)"
-        } }
-      },
-      "bevel": {
-        "$type": "shadow",
-        "$description": "Button-only inner bevel · 2 inset layers (white top-right, ink/black bottom-left) that round the pill's edges from inside. Pairs with control.raised (compose both in one box-shadow); kept a separate token so control.raised stays outer-only and SwiftUI-drawable. Dark black alpha matches the white highlight's lightness delta on surface-raised (ΔL* 5.2). Added 2026-10-02.",
-        "$value": "inset -2px 2px 4px rgb(var(--sc-p-color-white-rgb) / 0.70), inset 2px -2px 4px rgb(var(--sc-p-color-ink-rgb) / 0.06)",
-        "$extensions": { "modes": {
-          "light": "inset -2px 2px 4px rgb(var(--sc-p-color-white-rgb) / 0.70), inset 2px -2px 4px rgb(var(--sc-p-color-ink-rgb) / 0.06)",
-          "dark":  "inset -2px 2px 4px rgb(var(--sc-p-color-white-rgb) / 0.06), inset 2px -2px 4px rgb(0 0 0 / 0.20)"
         } }
       },
       "inset": {
@@ -708,6 +738,33 @@
         "$extensions": { "modes": {
           "light": "inset 0 1px 3px rgb(var(--sc-p-color-ink-rgb) / 0.08), inset 0 0 0 1px rgb(var(--sc-p-color-ink-rgb) / 0.06)",
           "dark":  "inset 0 1px 3px rgb(0 0 0 / 0.40), inset 0 0 0 1px rgb(var(--sc-p-color-white-rgb) / 0.05)"
+        } }
+      },
+      "key": {
+        "$type": "shadow",
+        "$description": "2026-10-07 · Button primary = Drams OP-1 Keys (drams/036), horizontal, on the page surface (Levi). Resting key, lit from the top left: a soft warm shade cast down-right (warm gray #645B4F at 50%, not ink, so it reads as shadow on oatmeal) and a tight 1px lit rim up-left (warm white #FDFAF6 in light, cool white #DBEBFF at 17% in dark). Tuned by Levi, sc-tune record output/tuning/Button/2026-10-07-1418.",
+        "$value": "2px 2px 6px 0 rgb(100 91 79 / 0.50), -1px -1px 1px 1px rgb(253 250 246 / 1)",
+        "$extensions": { "modes": {
+          "light": "2px 2px 6px 0 rgb(100 91 79 / 0.50), -1px -1px 1px 1px rgb(253 250 246 / 1)",
+          "dark":  "3px 3px 7px 0 rgb(0 0 0 / 0.50), -1px -1px 1px 1px rgb(219 235 255 / 0.17)"
+        } }
+      },
+      "keyHover": {
+        "$type": "shadow",
+        "$description": "2026-10-07 · Button primary key on hover. Equal to control.key in both modes (cascaded from the sc-tune record Button 2026-10-07-1418 so hover never jumps); its own token so hover can lift or glow apart from rest.",
+        "$value": "2px 2px 6px 0 rgb(100 91 79 / 0.50), -1px -1px 1px 1px rgb(253 250 246 / 1)",
+        "$extensions": { "modes": {
+          "light": "2px 2px 6px 0 rgb(100 91 79 / 0.50), -1px -1px 1px 1px rgb(253 250 246 / 1)",
+          "dark":  "3px 3px 7px 0 rgb(0 0 0 / 0.50), -1px -1px 1px 1px rgb(219 235 255 / 0.17)"
+        } }
+      },
+      "keyPressed": {
+        "$type": "shadow",
+        "$description": "2026-10-07 · Button primary = Drams OP-1 Keys (drams/036), horizontal, on the page surface (Levi). Pressed key: control.key's geometry with the shade and rim softened by the original Drams ratios (shade x0.74, rim x0.83 to x0.90) and a soft inner light, so the key reads as pushed in. Cascaded from the sc-tune record Button 2026-10-07-1418.",
+        "$value": "2px 2px 6px 0 rgb(100 91 79 / 0.37), -1px -1px 1px 1px rgb(253 250 246 / 0.90), inset 1px 1px 8px 0 rgb(var(--sc-p-color-white-rgb) / 0.30)",
+        "$extensions": { "modes": {
+          "light": "2px 2px 6px 0 rgb(100 91 79 / 0.37), -1px -1px 1px 1px rgb(253 250 246 / 0.90), inset 1px 1px 8px 0 rgb(var(--sc-p-color-white-rgb) / 0.30)",
+          "dark":  "3px 3px 7px 0 rgb(0 0 0 / 0.38), -1px -1px 1px 1px rgb(219 235 255 / 0.14), inset 1px 1px 8px 0 rgb(var(--sc-p-color-white-rgb) / 0.06)"
         } }
       }
     },
@@ -730,6 +787,10 @@
           "dark":  "0 0.37px 0.52px -0.28px rgb(0 0 0 / 0.42), 0 0.95px 1.33px -0.56px rgb(0 0 0 / 0.40), 0 1.9px 2.66px -0.84px rgb(0 0 0 / 0.38), 0 3.6px 5.05px -1.13px rgb(0 0 0 / 0.35), 0 7.16px 10.03px -1.41px rgb(0 0 0 / 0.29), 0 15.75px 22.05px 0 rgb(0 0 0 / 0.14)"
         } }
       }
+    },
+    "segmentedControl": {
+      "track": { "$type": "shadow", "$value": "inset 0.71px 0.71px 2px 0 rgb(var(--sc-p-color-ink-rgb) / 0.25)", "$description": "2026-10-07 \u00b7 SegmentedControl material (physical-controls Tier 1), lit from the top left (Gate 1 pick 1). Track recess: the Drams recess (inset 0 1px 2px at .25, the Switch's source before its \u00d70.45 scale) turned to the top left; dark black .45. Record SegmentedControl 2026-10-07-1645, concept A (Levi), applied 2026-10-07; was flat.", "$extensions": { "modes": { "light": "inset 0.71px 0.71px 2px 0 rgb(var(--sc-p-color-ink-rgb) / 0.25)", "dark": "inset 0.71px 0.71px 2px 0 rgb(0 0 0 / 0.45)" } } },
+      "indicator": { "$type": "shadow", "$value": "2px 2px 6px 0 rgb(100 91 79 / 0.50), -1px -1px 1px 1px rgb(253 250 246 / 1)", "$description": "2026-10-07 \u00b7 SegmentedControl material (physical-controls Tier 1), lit from the top left (Gate 1 pick 1). Indicator key lift: the Button key (shadow.control.key) values, held as its own role so a later Button tune does not move it. Record SegmentedControl 2026-10-07-1645, concept A (Levi), applied 2026-10-07; was flat.", "$extensions": { "modes": { "light": "2px 2px 6px 0 rgb(100 91 79 / 0.50), -1px -1px 1px 1px rgb(253 250 246 / 1)", "dark": "3px 3px 7px 0 rgb(0 0 0 / 0.50), -1px -1px 1px 1px rgb(219 235 255 / 0.17)" } } }
     }
   },
   "motion": {
@@ -858,6 +919,62 @@
         "$description": "Sprint 4 addition · quint-out · reveal entrance.",
         "$extensions": { "modes": { "light": "{motion.easing.out}", "dark": "{motion.easing.out}" } }
       }
+    },
+    "switch": {
+      "travel": {
+        "duration": { "$type": "duration", "$value": { "value": 600, "unit": "ms" }, "$description": "2026-10-07 \u00b7 Elastic Switch motion (kabarza's elastic toggles reel), engine src/motion/elastic.js. Knob and glyph travel, 600ms. Record Switch 2026-10-07-1539, concept B (Levi), applied 2026-10-07; was motion.reveal.duration (200ms). The spring's natural settle is 1093ms; CSS plays its curve over this time. Off the duration ladder, kept exact.", "$extensions": { "modes": { "light": { "value": 600, "unit": "ms" }, "dark": { "value": 600, "unit": "ms" } } } },
+        "easing": { "$type": "spring", "$value": { "stiffness": 146, "damping": 17.88, "mass": 1 }, "$description": "2026-10-07 \u00b7 Elastic Switch motion (kabarza's elastic toggles reel), engine src/motion/elastic.js. Travel curve: a spring, stiffness 146, damping 17.88, mass 1 (duration 520ms, bounce 0.26 in the lab's terms; overshoot 3%). Record Switch 2026-10-07-1539, concept B (Levi), applied 2026-10-07; was motion.reveal.easing (quint-out). Compiles to linear() through src/motion/spring.js, the lab's own simulation.", "$extensions": { "modes": { "light": { "stiffness": 146, "damping": 17.88, "mass": 1 }, "dark": { "stiffness": 146, "damping": 17.88, "mass": 1 } } } }
+      },
+      "stretch": { "$type": "number", "$value": 1.06, "$description": "2026-10-07 \u00b7 Elastic Switch motion (kabarza's elastic toggles reel), engine src/motion/elastic.js. Extra knob length at peak speed, \u00d7 knob: 1.06 (the knob reaches about twice its length mid-flight, round again by the time it lands). Record Switch 2026-10-07-1539, concept B (Levi), applied 2026-10-07; was 0.", "$extensions": { "modes": { "light": 1.06, "dark": 1.06 } } },
+      "squash": { "$type": "number", "$value": 0.15, "$description": "2026-10-07 \u00b7 Elastic Switch motion (kabarza's elastic toggles reel), engine src/motion/elastic.js. Knob flattening at peak speed, \u00d7 knob: 0.15 (15% flatter while long). Record Switch 2026-10-07-1539, concept B (Levi), applied 2026-10-07; was 0.", "$extensions": { "modes": { "light": 0.15, "dark": 0.15 } } },
+      "press": {
+        "lean": { "$type": "number", "$value": 0.12, "$description": "2026-10-07 \u00b7 Elastic Switch motion (kabarza's elastic toggles reel), engine src/motion/elastic.js. Press feedback: on pointer down the knob's front edge leans toward where it will go (1 = a quarter of the travel; 0.12 leans about 0.5px on the 18px travel) and holds; release travels from that pose, dragging off springs back. Record Switch 2026-10-07-1539, concept B (Levi), applied 2026-10-07; was 0.", "$extensions": { "modes": { "light": 0.12, "dark": 0.12 } } },
+        "leanDuration": { "$type": "duration", "$value": "{motion.duration.press}", "$description": "2026-10-07 \u00b7 Switch motion, from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), added to sc-tune for Levi. Time the knob takes to lean on pointer down (the reel uses 150ms). Inert while press.lean is 0.", "$extensions": { "modes": { "light": "{motion.duration.press}", "dark": "{motion.duration.press}" } } }
+      }
+    },
+    "segmentedControl": {
+      "travel": {
+        "duration": { "$type": "duration", "$value": { "value": 600, "unit": "ms" }, "$description": "2026-10-07 \u00b7 Elastic motion (kabarza's elastic toggles reel), engine src/motion/elastic.js. Indicator travel, 600ms. Record SegmentedControl 2026-10-07-1645, concept A (Levi), applied 2026-10-07; was motion.reveal.duration (200ms). The spring settles in 1093ms on its own; CSS plays its curve over this time. Off the duration ladder, kept exact (as the Switch).", "$extensions": { "modes": { "light": { "value": 600, "unit": "ms" }, "dark": { "value": 600, "unit": "ms" } } } },
+        "easing": { "$type": "spring", "$value": { "stiffness": 146, "damping": 17.88, "mass": 1 }, "$description": "2026-10-07 \u00b7 Elastic motion (kabarza's elastic toggles reel), engine src/motion/elastic.js. Indicator travel curve: the Switch's spring, stiffness 146, damping 17.88, mass 1 (3% overshoot; Levi: \"add the 3%\"). Record SegmentedControl 2026-10-07-1645, concept A (Levi), applied 2026-10-07; was motion.reveal.easing (quint-out).", "$extensions": { "modes": { "light": { "stiffness": 146, "damping": 17.88, "mass": 1 }, "dark": { "stiffness": 146, "damping": 17.88, "mass": 1 } } } }
+      },
+      "stretch": { "$type": "number", "$value": 0.45, "$description": "2026-10-07 \u00b7 Elastic motion (kabarza's elastic toggles reel), engine src/motion/elastic.js. Indicator extra length at peak speed, \u00d7 its height: 0.45. Record SegmentedControl 2026-10-07-1645, concept A (Levi), applied 2026-10-07; was 0.", "$extensions": { "modes": { "light": 0.45, "dark": 0.45 } } },
+      "squash": { "$type": "number", "$value": 0.2, "$description": "2026-10-07 \u00b7 Elastic motion (kabarza's elastic toggles reel), engine src/motion/elastic.js. Indicator flattening at peak speed, \u00d7 its height: 0.2 (20% flatter while long). Record SegmentedControl 2026-10-07-1645, concept A (Levi), applied 2026-10-07; was 0.", "$extensions": { "modes": { "light": 0.2, "dark": 0.2 } } },
+      "press": {
+        "lean": { "$type": "number", "$value": 0.15, "$description": "2026-10-07 \u00b7 Elastic motion (kabarza's elastic toggles reel), engine src/motion/elastic.js. On pointer down the indicator leans toward the pressed segment (1 = its leading edge advances a quarter of the way) and holds; release travels from that pose, dragging off springs back. Record SegmentedControl 2026-10-07-1645, concept A (Levi), applied 2026-10-07; was 0.", "$extensions": { "modes": { "light": 0.15, "dark": 0.15 } } },
+        "leanDuration": { "$type": "duration", "$value": "{motion.duration.press}", "$description": "2026-10-07 \u00b7 Elastic motion from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), engine src/motion/elastic.js, tuned in sc-tune. Time to lean on pointer down (the reel uses 150ms). Inert while press.lean is 0.", "$extensions": { "modes": { "light": "{motion.duration.press}", "dark": "{motion.duration.press}" } } }
+      }
+    },
+    "plusUnderline": {
+      "travel": {
+        "duration": { "$type": "duration", "$value": "{motion.duration.micro}", "$description": "2026-10-07 \u00b7 Elastic motion from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), engine src/motion/elastic.js, tuned in sc-tune. Travel time for the active underline travelling from the old tab to the new one. Shipped = motion.reveal; shipped, the underline jumps (no travel), so this only applies once stretch, squash or lean is above 0. A spring set on travel.easing writes its settle time here.", "$extensions": { "modes": { "light": "{motion.duration.micro}", "dark": "{motion.duration.micro}" } } },
+        "easing": { "$type": "cubicBezier", "$value": "{motion.easing.out}", "$description": "2026-10-07 \u00b7 Elastic motion from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), engine src/motion/elastic.js, tuned in sc-tune. Travel curve for the active underline travelling from the old tab to the new one. Tuned in the lab by duration and bounce.", "$extensions": { "modes": { "light": "{motion.easing.out}", "dark": "{motion.easing.out}" } } }
+      },
+      "stretch": { "$type": "number", "$value": 0, "$description": "2026-10-07 \u00b7 Elastic motion from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), engine src/motion/elastic.js, tuned in sc-tune. Extra length of the underline at peak speed, \u00d7 its height (its end diameter): two round ends and a bar, never scaleX. 0 = rigid (shipped).", "$extensions": { "modes": { "light": 0, "dark": 0 } } },
+      "squash": { "$type": "number", "$value": 0, "$description": "2026-10-07 \u00b7 Elastic motion from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), engine src/motion/elastic.js, tuned in sc-tune. Flattening of the underline at peak speed, \u00d7 its height. 0 = none (shipped).", "$extensions": { "modes": { "light": 0, "dark": 0 } } },
+      "press": {
+        "lean": { "$type": "number", "$value": 0, "$description": "2026-10-07 \u00b7 Elastic motion from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), engine src/motion/elastic.js, tuned in sc-tune. On pointer down the underline leans toward the item pressed and holds; release travels from that pose, dragging off springs back. 1 = the leading edge advances a quarter of the way. 0 = off (shipped).", "$extensions": { "modes": { "light": 0, "dark": 0 } } },
+        "leanDuration": { "$type": "duration", "$value": "{motion.duration.press}", "$description": "2026-10-07 \u00b7 Elastic motion from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), engine src/motion/elastic.js, tuned in sc-tune. Time to lean on pointer down (the reel uses 150ms). Inert while press.lean is 0.", "$extensions": { "modes": { "light": "{motion.duration.press}", "dark": "{motion.duration.press}" } } }
+      }
+    },
+    "navBar": {
+      "travel": {
+        "duration": { "$type": "duration", "$value": "{motion.duration.micro}", "$description": "2026-10-07 \u00b7 Elastic motion from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), engine src/motion/elastic.js, tuned in sc-tune. Travel time for NavBar's optional active underline (underline prop). Shipped = motion.reveal; shipped, the underline jumps. A spring set on travel.easing writes its settle time here.", "$extensions": { "modes": { "light": "{motion.duration.micro}", "dark": "{motion.duration.micro}" } } },
+        "easing": { "$type": "cubicBezier", "$value": "{motion.easing.out}", "$description": "2026-10-07 \u00b7 Elastic motion from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), engine src/motion/elastic.js, tuned in sc-tune. Travel curve for NavBar's optional active underline (underline prop). Tuned in the lab by duration and bounce.", "$extensions": { "modes": { "light": "{motion.easing.out}", "dark": "{motion.easing.out}" } } }
+      },
+      "stretch": { "$type": "number", "$value": 0, "$description": "2026-10-07 \u00b7 Elastic motion from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), engine src/motion/elastic.js, tuned in sc-tune. Extra length of the underline at peak speed, \u00d7 its height (its end diameter): two round ends and a bar, never scaleX. 0 = rigid (shipped).", "$extensions": { "modes": { "light": 0, "dark": 0 } } },
+      "squash": { "$type": "number", "$value": 0, "$description": "2026-10-07 \u00b7 Elastic motion from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), engine src/motion/elastic.js, tuned in sc-tune. Flattening of the underline at peak speed, \u00d7 its height. 0 = none (shipped).", "$extensions": { "modes": { "light": 0, "dark": 0 } } },
+      "press": {
+        "lean": { "$type": "number", "$value": 0, "$description": "2026-10-07 \u00b7 Elastic motion from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), engine src/motion/elastic.js, tuned in sc-tune. On pointer down the underline leans toward the item pressed and holds; release travels from that pose, dragging off springs back. 1 = the leading edge advances a quarter of the way. 0 = off (shipped).", "$extensions": { "modes": { "light": 0, "dark": 0 } } },
+        "leanDuration": { "$type": "duration", "$value": "{motion.duration.press}", "$description": "2026-10-07 \u00b7 Elastic motion from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), engine src/motion/elastic.js, tuned in sc-tune. Time to lean on pointer down (the reel uses 150ms). Inert while press.lean is 0.", "$extensions": { "modes": { "light": "{motion.duration.press}", "dark": "{motion.duration.press}" } } }
+      }
+    },
+    "tooltip": {
+      "travel": {
+        "duration": { "$type": "duration", "$value": "{motion.duration.micro}", "$description": "2026-10-07 \u00b7 Elastic motion from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), engine src/motion/elastic.js, tuned in sc-tune. Travel time for the tooltip lift on open. Shipped = motion.reveal (200ms quint-out), the lift shipped today. A spring set on travel.easing writes its settle time here.", "$extensions": { "modes": { "light": "{motion.duration.micro}", "dark": "{motion.duration.micro}" } } },
+        "easing": { "$type": "cubicBezier", "$value": "{motion.easing.out}", "$description": "2026-10-07 \u00b7 Elastic motion from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), engine src/motion/elastic.js, tuned in sc-tune. Travel curve for the tooltip lift on open. Tuned in the lab by duration and bounce.", "$extensions": { "modes": { "light": "{motion.easing.out}", "dark": "{motion.easing.out}" } } }
+      },
+      "stretch": { "$type": "number", "$value": 0, "$description": "2026-10-07 \u00b7 Elastic motion from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), engine src/motion/elastic.js, tuned in sc-tune. Vertical stretch of the bubble at peak speed: 1 = 20% taller, scaled from the arrow (a text box scales; the two-ends rule is for pills). 0 = none (shipped).", "$extensions": { "modes": { "light": 0, "dark": 0 } } },
+      "squash": { "$type": "number", "$value": 0, "$description": "2026-10-07 \u00b7 Elastic motion from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), engine src/motion/elastic.js, tuned in sc-tune. Horizontal squeeze of the bubble at peak speed: 1 = 20% narrower. 0 = none (shipped).", "$extensions": { "modes": { "light": 0, "dark": 0 } } }
     }
   },
   "font": {
@@ -889,9 +1006,15 @@
         },
         "buttonSm": {
           "$type": "typography",
-          "$value": "{font.text.11}",
-          "$description": "Small Button label: 11/medium/widest, the chrome label (Figma text/label/button-sm). 2026-10-05 (ADR scds-button-size-small; 12 to 11 amended 2026-10-06).",
-          "$extensions": { "modes": { "light": "{font.text.11}", "dark": "{font.text.11}" } }
+          "$value": "{font.text.button.12}",
+          "$description": "Small Button label: 12/medium/loose/slight (Figma text/label/button-sm). 2026-10-05 (ADR scds-button-size-small); 12/loose/slight from sc-tune record Button 2026-10-07-1418.",
+          "$extensions": { "modes": { "light": "{font.text.button.12}", "dark": "{font.text.button.12}" } }
+        },
+        "buttonLg": {
+          "$type": "typography",
+          "$value": "{font.text.button.14}",
+          "$description": "Large Button label: 14/medium/loose/slight, its own role apart from the chrome label (Figma text/label/button-lg). 2026-10-07, sc-tune record Button 2026-10-07-1418.",
+          "$extensions": { "modes": { "light": "{font.text.button.14}", "dark": "{font.text.button.14}" } }
         },
         "tab": {
           "$type": "typography",
@@ -1101,28 +1224,29 @@
     "switch": {
       "track-width": {
         "$type": "dimension",
-        "$value": "{space.32}",
-        "$description": "Sprint 4 addition · switch track width (32px).",
-        "$extensions": { "modes": { "light": "{space.32}", "dark": "{space.32}" } }
+        "$value": { "value": 40, "unit": "px" },
+        "$description": "Switch track width, 40px. Record Switch 2026-10-07-1539, concept B (Levi), applied 2026-10-07; was 32px (space.32). Off the space ladder (no 40 step), kept exact (learning #144).",
+        "$extensions": { "modes": { "light": { "value": 40, "unit": "px" }, "dark": { "value": 40, "unit": "px" } } }
       },
       "track-height": {
         "$type": "dimension",
-        "$value": "{space.micro.18}",
-        "$description": "Sprint 4 addition · switch track height (18px).",
-        "$extensions": { "modes": { "light": "{space.micro.18}", "dark": "{space.micro.18}" } }
+        "$value": { "value": 22, "unit": "px" },
+        "$description": "Switch track height, 22px. Record Switch 2026-10-07-1539, concept B (Levi), applied 2026-10-07; was 18px (space.micro.18). Off the 4pt grid, kept exact (learning #144).",
+        "$extensions": { "modes": { "light": { "value": 22, "unit": "px" }, "dark": { "value": 22, "unit": "px" } } }
       },
       "thumb": {
         "$type": "dimension",
-        "$value": "{space.micro.14}",
-        "$description": "Sprint 4 addition · switch thumb diameter (14px) · 2px inset inside 18px track.",
-        "$extensions": { "modes": { "light": "{space.micro.14}", "dark": "{space.micro.14}" } }
+        "$value": { "value": 15, "unit": "px" },
+        "$description": "Switch knob diameter, 15px, 3.5px inset inside the 22px track. Record Switch 2026-10-07-1539, concept B (Levi), applied 2026-10-07; was 14px (space.micro.14). Off the 4pt grid, kept exact (learning #144).",
+        "$extensions": { "modes": { "light": { "value": 15, "unit": "px" }, "dark": { "value": 15, "unit": "px" } } }
       },
       "glyph": {
         "$type": "dimension",
         "$value": "{space.micro.6}",
         "$description": "2026-10-07 · Switch restyled to the Drams Standard Switch (drams/001) at SCDS size. On/off glyph box: I bar height and O ring diameter (Drams 16px at a 40px track, scaled to the 18px track).",
         "$extensions": { "modes": { "light": "{space.micro.6}", "dark": "{space.micro.6}" } }
-      }
+      },
+      "labelOffset": { "$type": "dimension", "$value": { "value": 0, "unit": "px" }, "$description": "2026-10-07 · Vertical nudge for the Switch label, positive moves it down (Levi asked to move the text down 1px; tune it in the lab). 0 = centred on the track by flex alignment (shipped).", "$extensions": { "modes": { "light": { "value": 0, "unit": "px" }, "dark": { "value": 0, "unit": "px" } } } }
     },
     "progress": {
       "bar-height": {
@@ -1154,6 +1278,22 @@
         "$value": "{space.micro.22}",
         "$description": "Sprint 5 addition · Drams #5 (Standard Volume) · interactive bar variant, invisible hit-area padding above/below the visual track (block padding on the interactive wrapper, not the track itself). Judgment call: the brief asked for a ~44px hit target; 44 has no home on the layout or micro ladder, so this uses micro.22 (22px) top + bottom around the 4px track = 48px total — meets/exceeds the touch-target guideline while staying token-derived. Logged in ProgressIndicator.tokens.md.",
         "$extensions": { "modes": { "light": "{space.micro.22}", "dark": "{space.micro.22}" } }
+      }
+    },
+    "button": {
+      "icon": {
+        "lg": {
+          "$type": "dimension",
+          "$value": "{space.micro.14}",
+          "$description": "Large Button arrow and loading mark (14px), matching the 14px label; small stays 12 to match its 12px label (Figma size/button/icon/lg). 2026-10-07, sc-tune record Button 2026-10-07-1418.",
+          "$extensions": { "modes": { "light": "{space.micro.14}", "dark": "{space.micro.14}" } }
+        },
+        "sm": {
+          "$type": "dimension",
+          "$value": "{space.12}",
+          "$description": "Small Button arrow and loading mark (12px). Its own role, so the Button icon tunes apart from size.icon.xs (Figma size/button/icon/sm). 2026-10-07.",
+          "$extensions": { "modes": { "light": "{space.12}", "dark": "{space.12}" } }
+        }
       }
     },
     "touch-target": {
@@ -1217,6 +1357,18 @@
           "$type": "dimension",
           "$value": "{space.16}",
           "$description": "Sprint 4 addition · generous inline padding (16px). Card, Alert.",
+          "$extensions": { "modes": { "light": "{space.16}", "dark": "{space.16}" } }
+        },
+        "button-lg": {
+          "$type": "dimension",
+          "$value": "{space.24}",
+          "$description": "Large Button inline padding (24px). Its own role so the shared padding-inline scale (NavBar, Input, Tooltip, SegmentedControl) stays put. sc-tune record Button 2026-10-07-1418.",
+          "$extensions": { "modes": { "light": "{space.24}", "dark": "{space.24}" } }
+        },
+        "button-sm": {
+          "$type": "dimension",
+          "$value": "{space.16}",
+          "$description": "Small Button inline padding (16px). Its own role, apart from the shared padding-inline scale. sc-tune record Button 2026-10-07-1418.",
           "$extensions": { "modes": { "light": "{space.16}", "dark": "{space.16}" } }
         }
       },
