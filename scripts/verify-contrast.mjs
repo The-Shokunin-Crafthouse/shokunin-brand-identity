@@ -171,15 +171,18 @@ const CLAIMS = [
   ['semantic', 'color.text.secondary', 6.68, 'color.text.secondary', 'color.surface.floating', 'light'],
   ['semantic', 'color.text.secondary', 3.01, 'color.text.secondary', 'color.surface.deepSunk', 'light'],
   ['semantic', 'color.text.secondary', 3.84, 'color.text.secondary', 'color.surface.hover', 'light'],
-  ['semantic', 'color.text.tertiary', 4.63, 'color.text.tertiary', 'color.surface.page', 'light'],
+  ['semantic', 'color.text.tertiary', 4.62, 'color.text.tertiary', 'color.surface.page', 'light'],
   ['semantic', 'color.text.tertiary', 5.34, 'color.text.tertiary', 'color.surface.raised', 'light'],
   ['semantic', 'color.text.tertiary', 5.68, 'color.text.tertiary', 'color.surface.floating', 'light'],
   ['semantic', 'color.text.tertiary', 4.06, 'color.text.tertiary', 'color.surface.sunk', 'light'],
+  ['semantic', 'color.interactive.hover', 3.92, 'color.interactive.hover', 'color.surface.page', 'light'],
+  ['semantic', 'color.interactive.hover', 4.53, 'color.interactive.hover', 'color.surface.raised', 'light'],
+  ['semantic', 'color.interactive.hover', 4.82, 'color.interactive.hover', 'color.surface.floating', 'light'],
   ['semantic', 'color.text.tertiary', 2.57, 'color.text.tertiary', 'color.surface.deepSunk', 'light'],
   ['semantic', 'color.text.tertiary', 3.27, 'color.text.tertiary', 'color.surface.hover', 'light'],
   ['primitives', 'color.warmGray.500', 4.77, 'color.warmGray.500', 'color.warmGray.200', null],
   ['primitives', 'color.warmGray.500', 5.43, 'color.warmGray.500', 'color.warmGray.100', null],
-  ['primitives', 'color.warmGray.450', 4.63, 'color.warmGray.450', 'color.warmGray.100', null],
+  ['primitives', 'color.warmGray.450', 4.62, 'color.warmGray.450', 'color.warmGray.100', null],
   ['primitives', 'color.warmGray.450', 5.34, 'color.warmGray.450', 'color.warmGray.50', null],
   ['primitives', 'color.warmGray.450', 5.68, 'color.warmGray.450', 'color.warmGray.25', null],
 
@@ -211,9 +214,10 @@ const CLAIMS = [
   ['semantic', 'color.brand.accentFill', 3.97, 'color.utility.white', 'color.teal.500', null],
   ['primitives', 'color.interactive.hoverInk.light', 4.61, 'color.interactive.hoverInk.light', 'color.warmGray.100', null],
   ['primitives', 'color.interactive.hoverInk.light', 2.99, 'color.teal.500', 'color.warmGray.100', null],
-  ['semantic', 'color.interactive.hover', 2.99, 'color.teal.500', 'color.warmGray.100', null],
+  ['primitives', 'color.interactive.hoverInk.light', 3.92, 'color.teal.600', 'color.warmGray.100', null],
+  ['semantic', 'color.interactive.hover', 3.92, 'color.teal.600', 'color.warmGray.100', null],
   ['semantic', 'color.interactive.hover-ink', 4.61, 'color.interactive.hoverInk.light', 'color.warmGray.100', null],
-  ['semantic', 'color.interactive.hover-ink', 2.99, 'color.teal.500', 'color.warmGray.100', null],
+  ['semantic', 'color.interactive.hover-ink', 3.92, 'color.teal.600', 'color.warmGray.100', null],
 
   // --- status ---------------------------------------------------------------
   ['primitives', 'color.status.success.light', 3.42, 'color.status.success.light', 'color.warmGray.100', null],
@@ -227,6 +231,18 @@ const CLAIMS = [
   ['semantic', 'color.status.warning-ink', 4.63, 'color.status.warning.ink.light', 'color.warmGray.100', null],
   ['semantic', 'color.status.warning-ink', 3.90, 'color.status.warning.light', 'color.warmGray.100', null],
   ['semantic', 'color.status.info-ink', 4.43, 'color.status.info.light', 'color.warmGray.100', null],
+  // --- oatmeal restore, 2026-10-07 (decisions.md): light inks re-derived on #E3DFD8
+  ['primitives', 'color.status.info.ink.light', 4.61, 'color.status.info.ink.light', 'color.warmGray.100', null],
+  ['primitives', 'color.status.info.ink.light', 5.34, 'color.status.info.ink.light', 'color.warmGray.50', null],
+  ['primitives', 'color.status.info.ink.light', 5.68, 'color.status.info.ink.light', 'color.warmGray.25', null],
+  ['primitives', 'color.warmGray.450', 4.62, 'color.warmGray.450', 'color.warmGray.100', null],
+  ['primitives', 'color.warmGray.450', 5.34, 'color.warmGray.450', 'color.warmGray.50', null],
+  ['primitives', 'color.warmGray.450', 5.68, 'color.warmGray.450', 'color.warmGray.25', null],
+  ['semantic', 'color.status.info-ink', 4.61, 'color.status.info-ink', 'color.surface.page', 'light'],
+  ['semantic', 'color.text.tertiary', 4.06, 'color.text.tertiary', 'color.surface.sunk', 'light'],
+  ['semantic', 'color.interactive.hover', 3.92, 'color.interactive.hover', 'color.surface.page', 'light'],
+  ['semantic', 'color.interactive.hover', 4.53, 'color.interactive.hover', 'color.surface.raised', 'light'],
+  ['semantic', 'color.interactive.hover', 4.82, 'color.interactive.hover', 'color.surface.floating', 'light'],
 
   // --- dark mode · slate ladder, 2026-09-24 (decisions.md) --------------------
   // Every dark figure below was re-measured against the slate ladder. The
@@ -325,6 +341,16 @@ const CLAIMS = [
 // cannot be re-measured from the current token tree. Each is pinned to the hex
 // pair it was measured against so the number stays auditable after the fact.
 const HISTORICAL = [
+  // scds-v2 desaturated light ladder, retired 2026-10-07 by the oatmeal restore
+  // (decisions.md 2026-10-07). Pinned to the retired hex pair.
+  [3.69, 'status.success.light #2F855A on the retired scds-v2 page #EBE7E4'],
+  [4.79, 'status.info.light #2D5AD8 on the retired scds-v2 page #EBE7E4'],
+  [2.52, 'border.default warmGray.350 #9A9186 on the retired scds-v2 page #EBE7E4'],
+  [1.53, 'border.subtle warmGray.250 #C4BCB4 on the retired scds-v2 page #EBE7E4'],
+  [4.29, 'warmGray.450 pre-restore #6B665E on the oatmeal page #E3DFD8 — re-derived 2026-10-07 to #66615A'],
+  [4.39, 'success ink light pre-restore #28724D on the oatmeal page #E3DFD8 — re-derived 2026-10-07 to #246E4A'],
+  [4.24, 'warning ink light pre-restore #B83E0B on the oatmeal page #E3DFD8 — re-derived 2026-10-07 to #B13700'],
+  [4.37, 'hoverInk light pre-restore #027175 on the oatmeal page #E3DFD8 — re-derived 2026-10-07 to #006D72'],
   [4.42, 'text.secondary pre-fix: warmGray.500 #5F5C55 on surface.sunk #D8D1CC — the regression this ADR fixes'],
   [3.42, 'status.success.light #2F855A on the pre-desaturation page #E3DFD8'],
   [4.43, 'status.info.light #2D5AD8 on the pre-desaturation page #E3DFD8'],

@@ -86,10 +86,21 @@
       "nav": {
         "$type": "color",
         "$value": "{color.warmGray.40}",
-        "$description": "Brand-site sidebar card ground (the inset card that replaced the edge rail). Light = warmGray.40, dark = dark.raised2: one step above surface.hover (dark.raised1) so the nav hover pill still reads, as it does in light. 2026-10-07 (ADR brand-site-sidebar-redesign).",
+        "$description": "Brand-site sidebar card ground (the inset card that replaced the edge rail). Light = warmGray.40, dark = dark.raised1, the surface.raised ladder step. 2026-10-07 (ADR brand-site-sidebar-redesign; dark back to raised1 once the hover moved to surface.navHover, ADR sidebar-nav-pill-states).",
         "$extensions": {
           "modes": {
             "light": "{color.warmGray.40}",
+            "dark":  "{color.dark.raised1}"
+          }
+        }
+      },
+      "navHover": {
+        "$type": "color",
+        "$value": "{color.utility.white}",
+        "$description": "Brand-site sidebar link hover pill. Sits one step LIGHTER than surface.nav, the card it lifts out of: light = utility.white, dark = dark.raised2. 2026-10-07 (ADR sidebar-nav-pill-states).",
+        "$extensions": {
+          "modes": {
+            "light": "{color.utility.white}",
             "dark":  "{color.dark.raised2}"
           }
         }
@@ -121,7 +132,7 @@
       "secondary": {
         "$type": "color",
         "$value": "{color.warmGray.500}",
-        "$description": "Secondary text · eyebrows, metadata, descriptions. Light (warmGray.500 #5A5750): AA on surface.page (5.43:1), surface.sunk (4.77:1), surface.raised (6.28:1), surface.floating (6.68:1). USAGE RESTRICTION: must not render on surface.deepSunk, surface.rail, or surface.hover in light mode — see $extensions.usageRestrictions. Dark (dark.textSecondary, slate ladder): AA on every surface, AAA on page, sunk and rail (6.04–9.15:1), no restrictions. Light figures re-measured 2026-08-17 (ADR text-secondary-aa-sunk); dark figures 2026-09-24 (ADR dark slate ladder).",
+        "$description": "Secondary text · eyebrows, metadata, descriptions. Light (warmGray.500 #5A5750): AA on surface.page (5.43:1), surface.sunk (4.77:1), surface.raised (6.28:1), surface.floating (6.68:1); figures re-measured for the 2026-10-07 oatmeal restore. USAGE RESTRICTION: must not render on surface.deepSunk, surface.rail, or surface.hover in light mode — see $extensions.usageRestrictions. Dark (dark.textSecondary, slate ladder): AA on every surface, AAA on page, sunk and rail (6.04–9.15:1), no restrictions. Light figures re-measured 2026-08-17 (ADR text-secondary-aa-sunk); dark figures 2026-09-24 (ADR dark slate ladder).",
         "$extensions": {
           "modes": {
             "light": "{color.warmGray.500}",
@@ -141,7 +152,7 @@
       "tertiary": {
         "$type": "color",
         "$value": "{color.warmGray.450}",
-        "$description": "Tertiary text · lowest readable tier (de-emphasized metadata). scds-v2 addition. Light = warmGray.450 (AA 4.63:1 on page, 5.34:1 raised, 5.68:1 floating); dark = dark.textTertiary, re-derived 2026-09-24 for the slate ladder to #B3B1AD — AA 6.05:1 on page, 7.22:1 sunk, 5.37:1 raised, 4.76:1 deepSunk/floating, 6.67:1 rail, clearing every dark surface including surface.raised, the default card ground. USAGE RESTRICTION: light only now — see $extensions.usageRestrictions. All figures re-measured 2026-08-17 (ADR text-secondary-aa-sunk) , 2026-09-06 (ADR brand.accentInk / dark tertiary re-derivation) and 2026-09-24 (ADR dark slate ladder).",
+        "$description": "Tertiary text · lowest readable tier (de-emphasized metadata). scds-v2 addition. Light = warmGray.450 (AA 4.62:1 on page, 5.34:1 raised, 5.68:1 floating; #66615A since the 2026-10-07 oatmeal restore); dark = dark.textTertiary, re-derived 2026-09-24 for the slate ladder to #B3B1AD — AA 6.05:1 on page, 7.22:1 sunk, 5.37:1 raised, 4.76:1 deepSunk/floating, 6.67:1 rail, clearing every dark surface including surface.raised, the default card ground. USAGE RESTRICTION: light only now — see $extensions.usageRestrictions. All figures re-measured 2026-08-17 (ADR text-secondary-aa-sunk) , 2026-09-06 (ADR brand.accentInk / dark tertiary re-derivation) and 2026-09-24 (ADR dark slate ladder).",
         "$extensions": {
           "modes": {
             "light": "{color.warmGray.450}",
@@ -153,7 +164,7 @@
               "light": ["color.surface.sunk", "color.surface.deepSunk", "color.surface.rail", "color.surface.hover"],
               "dark": []
             },
-            "reason": "Tertiary contrast compresses below WCAG AA 4.5:1 on the compressed pairs — light: sunk 3.77:1, deepSunk/rail 2.38:1, hover 3.03:1. Dark (pre-2026-09-06, #7C7C7A) failed on raised/hover 4.40:1 and deepSunk/floating 4.16:1 — both cleared by the re-derivation to #858583 (WQ-040). The 2026-09-24 slate tier #B3B1AD reads 4.76:1 at its worst (deepSunk/floating).",
+            "reason": "Tertiary contrast compresses below WCAG AA 4.5:1 on the compressed pairs — light: sunk 4.06:1, deepSunk/rail 2.57:1, hover 3.27:1 (oatmeal restore, 2026-10-07). Dark (pre-2026-09-06, #7C7C7A) failed on raised/hover 4.40:1 and deepSunk/floating 4.16:1 — both cleared by the re-derivation to #858583 (WQ-040). The 2026-09-24 slate tier #B3B1AD reads 4.76:1 at its worst (deepSunk/floating).",
             "substitute": "{color.text.secondary}"
           }
         }
@@ -185,7 +196,7 @@
       "default": {
         "$type": "color",
         "$value": "{color.warmGray.350}",
-        "$description": "Default 1px solid hairline. Structural dividers, title block, section rules. 2026-07-28 SCDS audit Block 2 (P1-2): swapped alias with border.subtle — light mode had subtle (1.44:1) measurably stronger than default (1.22:1), inverted from dark mode's correct direction. Now 2.34:1 post warmGray P2-8 rebuild.",
+        "$description": "Default 1px solid hairline. Structural dividers, title block, section rules. 2026-07-28 SCDS audit Block 2 (P1-2): swapped alias with border.subtle — light mode had subtle (1.44:1) measurably stronger than default (1.22:1), inverted from dark mode's correct direction. Now 2.34:1 on the oatmeal page restored 2026-10-07 (2.52:1 on the retired scds-v2 page).",
         "$extensions": {
           "modes": {
             "light": "{color.warmGray.350}",
@@ -196,7 +207,7 @@
       "subtle": {
         "$type": "color",
         "$value": "{color.warmGray.250}",
-        "$description": "Dashed inner divisions. Secondary structural rules inside cards and sections. 2026-07-28 SCDS audit Block 2 (P1-2): swapped alias with border.default (see above). Now 1.41:1 post warmGray P2-8 rebuild.",
+        "$description": "Dashed inner divisions. Secondary structural rules inside cards and sections. 2026-07-28 SCDS audit Block 2 (P1-2): swapped alias with border.default (see above). Now 1.41:1 on the oatmeal page restored 2026-10-07 (1.53:1 on the retired scds-v2 page).",
         "$extensions": {
           "modes": {
             "light": "{color.warmGray.250}",
@@ -271,11 +282,11 @@
       },
       "hover": {
         "$type": "color",
-        "$value": "{color.teal.500}",
-        "$description": "Hover state · primary button text/icon/border turn brand teal. ICON/BORDER ONLY as a documented AA exception (2.99:1 on surface.page — underline mitigant applies, learning #67); brand-signal use justifies. When the hover color renders as body text use interactive.hover-ink (4.61:1). Dark mode uses teal.300 since 2026-09-24 (icon/border tier: 5.51:1 on surface.page, 4.34:1 on surface.floating, its tightest dark ground); teal.400, the previous dark alias, reads 3.10:1 on the slate floating ground. 2026-08-17 re-verification: the retired vermilion this is compared against (shu.500 #C8281C) measured 4.52:1 on surface.page, not the 3.8:1 quoted here — the rebrand widened the exception considerably more than the note claimed.",
+        "$value": "{color.teal.600}",
+        "$description": "Hover state · primary button text/icon/border turn brand teal. Light = teal.600 since 2026-10-07 (Levi): on the oatmeal page teal.500 read 2.99:1, under the WCAG 1.4.11 non-text floor; teal.600 reads 3.92:1 on surface.page, 4.53:1 raised, 4.82:1 floating, so the icon/border use clears the non-text floor on every light ground it sits on. Light hover now equals brand.accentFill. Body text is still a documented AA exception (underline mitigant applies, learning #67). When the hover color renders as body text use interactive.hover-ink (4.61:1). Dark mode uses teal.300 since 2026-09-24 (icon/border tier: 5.51:1 on surface.page, 4.34:1 on surface.floating, its tightest dark ground); teal.400, the previous dark alias, reads 3.10:1 on the slate floating ground. 2026-08-17 re-verification: the retired vermilion this is compared against (shu.500 #C8281C) measured 4.52:1 on surface.page, not the 3.8:1 quoted here — the rebrand widened the exception considerably more than the note claimed.",
         "$extensions": {
           "modes": {
-            "light": "{color.teal.500}",
+            "light": "{color.teal.600}",
             "dark":  "{color.teal.300}"
           }
         }
@@ -283,7 +294,7 @@
       "hover-ink": {
         "$type": "color",
         "$value": "{color.interactive.hoverInk.light}",
-        "$description": "2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier for interactive.hover — use when the hover color renders as body text (not icon/border), 4.61:1 on warmGray.100. Base interactive.hover fails AA for text at 2.99:1 (documented exception, learning #67) but is fine for icon/border use. Dark mode aliases teal.200 since 2026-09-24 (7.61:1 on surface.page, 5.99:1 on surface.floating); teal.400, the previous dark alias, reads 3.10:1 on the slate floating ground.",
+        "$description": "2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier for interactive.hover — use when the hover color renders as body text (not icon/border), 4.61:1 on warmGray.100 (re-derived 2026-10-07 for the oatmeal page). Base interactive.hover (teal.600 since 2026-10-07) fails AA for text at 3.92:1 (documented exception, learning #67) but is fine for icon/border use. Dark mode aliases teal.200 since 2026-09-24 (7.61:1 on surface.page, 5.99:1 on surface.floating); teal.400, the previous dark alias, reads 3.10:1 on the slate floating ground.",
         "$extensions": {
           "modes": {
             "light": "{color.interactive.hoverInk.light}",
@@ -407,7 +418,7 @@
       "info-ink": {
         "$type": "color",
         "$value": "{color.status.info.ink.light}",
-        "$description": "2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier for status.info — light mode got its own ink 2026-10-07 (status.info.ink.light) when the oatmeal page restore dropped the shared fill below AA; dark mode gets a dedicated ink (5.97:1 on its page ground, 4.70:1 on surface.floating; re-derived 2026-09-24 for the slate ladder) since base status.info.dark reads 3.75:1 on surface.floating.",
+        "$description": "2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier for status.info — light mode reads status.info.ink.light since the 2026-10-07 oatmeal restore (4.61:1 on the #E3DFD8 page; the fill reads 4.43:1 there, so it reused status.info.light directly only while the page was #EBE7E4); dark mode gets a dedicated ink (5.97:1 on its page ground, 4.70:1 on surface.floating; re-derived 2026-09-24 for the slate ladder) since base status.info.dark reads 3.75:1 on surface.floating.",
         "$extensions": {
           "modes": {
             "light": "{color.status.info.ink.light}",
@@ -503,7 +514,7 @@
       "accentDeep": {
         "$type": "color",
         "$value": "{color.teal.700}",
-        "$description": "Brand accent deep · pressed accent state. teal.700 in both modes (5.35:1 on warmGray.100), unchanged. For accent as text, use color.brand.accentInk (added 2026-09-06, WQ-040) instead — accentDeep has no mode-following text ink: its dark value is the same teal.700, which measures only 1.62:1 on surface.raised (the slate dark.raised1 #343A41), far below AA. accentDeep stays teal.700/teal.700 because consumers depend on it as a pressed-state fill.",
+        "$description": "Brand accent deep · pressed accent state. teal.700 in both modes (5.35:1 on warmGray.100 (oatmeal page, 2026-10-07)), unchanged. For accent as text, use color.brand.accentInk (added 2026-09-06, WQ-040) instead — accentDeep has no mode-following text ink: its dark value is the same teal.700, which measures only 1.62:1 on surface.raised (the slate dark.raised1 #343A41), far below AA. accentDeep stays teal.700/teal.700 because consumers depend on it as a pressed-state fill.",
         "$extensions": {
           "modes": {
             "light": "{color.teal.700}",
@@ -1020,7 +1031,7 @@
         "navCurrent": {
           "$type": "typography",
           "$value": "{font.text.bold.13}",
-          "$description": "Nav current link: 13/bold, set in brand.accentInk (brand.accent fails AA at this size). NavLink State=Current. Figma text/label/nav-current. 2026-10-07 (ADR brand-site-sidebar-redesign).",
+          "$description": "Nav current link: 13/bold, set in brand.accentInk with an accent PlusBullet at the row end (ADR sidebar-nav-pill-states). NavLink State=Current. Figma text/label/nav-current. 2026-10-07 (ADR brand-site-sidebar-redesign).",
           "$extensions": { "modes": { "light": "{font.text.bold.13}", "dark": "{font.text.bold.13}" } }
         }
       },

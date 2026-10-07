@@ -2183,3 +2183,32 @@ Levi: the trailing arrow uses Phosphor's bold weight, not regular. Code: `ArrowR
 - **Result:** the same call re-checked all 330 library-syncable names and returned `absent: []`, `missing: []`.
 - **Tests:** 7 in `npm run test:scripts`, each new one committed red first (`38361eb`, `435ce3b`). `figma-plugin-check` and `compare-figma-variables` still run (exit 0).
 - **Not run:** the full value-parity pass (`figma-plugin-check`) on the live library; the values written today come from the token files, and older value drift, if any, is that check's job.
+
+### 2026-10-07: the oatmeal warm-gray set returns; the library is canonical
+
+**Status:** Accepted. Supersedes the scds-v2 light-surface desaturation (warmGray.25/50/100 only). Closes the "Open" line of the sidebar redesign entry above. Levi's call: "this is the floor #E3DFD8, update the warmgrey color ramp to match."
+
+- **Drift found:** the SCDS library Primitives (`0zVoxaLJQkjHENYJlQk1VT`) carried the restored oatmeal set and re-derived inks, while `tokens/primitives.json` still held the scds-v2 values. No branch on origin carried the restore. The repo now matches the library, value for value.
+- **Ramp:** `warmGray.25` `#FBF9F6` → `#F8F6F2`, `.50` `#F4F1ED` → `#F1EFEB`, `.100` (page) `#EBE7E4` → `#E3DFD8`. 200 to 900 unchanged.
+- **warmGray.40 ordering:** `#F5F0E9` (PR #81) now sits between 25 and 50 by relative luminance (0.923 > 0.876 > 0.864). On the scds-v2 values it did not: it read darker than `.50` (0.876 < 0.883).
+- **Inks re-derived for AA on `#E3DFD8`** (library values; figures measured by `tokens:verify`):
+  - `warmGray.450` (text.tertiary) `#6B665E` → `#66615A`: 4.29 → 4.62:1 on page.
+  - `status.success.ink.light` `#28724D` → `#246E4A`: 4.39 → 4.64:1.
+  - `status.warning.ink.light` `#B83E0B` → `#B13700`: 4.24 → 4.63:1.
+  - `interactive.hoverInk.light` `#027175` → `#006D72`: 4.37 → 4.61:1.
+  - New `status.info.ink.light` `#2B57D5` (4.61:1). The info fill `#2D5AD8` reads 4.43:1 on the oatmeal page, so `status.info-ink` light now aliases the new ink instead of the fill. Library name: `color/status/infoInkLight`.
+- **Claim register:** `scripts/verify-contrast.mjs` CLAIMS re-measured (150 claims); the scds-v2 figures that descriptions still quote as history are pinned in HISTORICAL. Every quoted figure in the token descriptions was updated to the oatmeal measurement.
+- **Resolved same day (Levi: "point it at 600"):** on the oatmeal page `interactive.hover` light (teal.500 `#038E93`) measured 2.99:1, under the WCAG 1.4.11 non-text floor (3:1) for the icon/border use its exception allows (3.23:1 on scds-v2). Light hover now aliases `teal.600` (`#04797D`, the `brand.accentFill` value): 3.92:1 on page, 4.53:1 raised, 4.82:1 floating, 4.59:1 on the nav card (`warmGray.40`). Dark stays `teal.300`; active stays `teal.700`, so the 600 to 700 press step holds. Body text in the hover color is still the documented exception; `interactive.hover-ink` covers it. The library Semantic `color/interactive/hover` Light was rebound to `color/teal/600` the same day. `border.default` reads 2.34:1 on page (was 2.52:1); it was already below 3:1 and is a decorative rule.
+- **Dark mode:** unaffected except the tokens that alias `warmGray.50` in dark (`border.strong`, `interactive.default`, `surface.inverse`) move from `#F4F1ED` to `#F1EFEB`.
+- Verified: `tokens:build`, `tokens:map`, `tokens:swift` regenerated; `tokens:verify` passes (112 AA pairs, 150 claims, 0 orphans); `tokens:map:check`, `tokens:swift:check`, `npm run build` and `build:lib` exit 0. `public/tokens.css` snapshot refreshed. The library needed no change for the ramp; only the hover rebind above.
+
+### 2026-10-07: sidebar nav pill states (ADR sidebar-nav-pill-states)
+
+**Status:** Accepted. Levi's direction after PR #81 shipped: the nav hover pill should sit lighter than the card, not darker; the active page becomes white text on an accent fill; weight stays Text 75 Bold (the heaviest Text cut).
+
+- **Hover:** new `color.surface.navHover` (light `utility.white`, dark `dark.raised2`), one step above `surface.nav`. With the collision gone, `surface.nav` dark returns to `dark.raised1`, Levi's original pick. The letter roll still runs, but lands on `interactive.hover-ink`, not `interactive.hover`: teal-500 on the white pill measured below AA.
+- **Active:** `brand.accentFill` pill (teal-600) with `text.onAccent` label, Bold, on hover too. Not `brand.accent`: white on teal-500 is below AA at 13px; the fill step is the token built for white text. The active roll layer is also `text.onAccent` so the label never vanishes into the fill.
+- **SCDS library:** `color/surface/navHover` added, `color/surface/nav` dark rebound, NavLink Hover and Current variants restyled to match. Publishing stays Levi's step.
+- **Pill radius:** 8px (`radius.surface`), up from `radius.control` (3px), on the hover pill. Levi, same day.
+- **Active, revised (Levi, same day):** the solid accent pill is out. Six concepts were boarded (`previews/nav-active/`, dev-only): solid pill, raised key, recessed well, plus-block tail, plus underline, hanging plus; Levi picked the plus-block tail with the label in his accent. The current page now has no container: label Bold in `brand.accentInk` (teal-500 as 13px text is below AA on the card in both modes), and an accent `PlusBullet` (the brand's current-item mark, `size.icon.sm`) at the row end. Hovering the current page shows the normal hover pill. The nav count (`num`, only ever `12` on Button) is removed from code and the library NavLink (Count / Show Count properties).
+- Verified in both modes: hover pill lighter than the card, active label AA, hover roll AA; `tokens:verify` passes.
