@@ -2077,3 +2077,23 @@ Levi: the trailing arrow uses Phosphor's bold weight, not regular. Code: `ArrowR
 - **Verified** in the lab (keyframes read back, since the browser pane was hidden and its clock paused): indicator Day → Week peaks 67.3px and settles on the 60.6px segment, aligned to 0.00px in both stages; lean 60.6 → 72.8 → back; underline Month → Day travels 85.4px → 0 with a 44.3px peak; NavBar underline 34.8 → 42.0 with a 42.8px peak; tooltip lifts −4px → 0, peaks 1.09× tall; Shipped stages run no engine animation.
 - **Open (Levi's call):** the Motion page's stated rule, "Nothing in the system overshoots / never elastic, never back", contradicts a bounce above 0. Shipped motion still obeys it.
 - **Motion page** (`src/sections/MotionSection.jsx`, spec v1.3): new chapter iv, "Elastic controls / in tuning": the four settings with the reel's Balanced values and the shipped values, the five components and their token prefixes, and a live panel that runs the reel preset through token overrides on its own wrapper only (verified: the chapter iii Switch runs no engine; the demo Switch peaks at 20.3px on its 14px knob). The page's "nothing overshoots" hero and annotations are unchanged; the chapter states that elastic motion is in tuning and ships inert. `springEasing({ duration, bounce })` joins the engine so the site can build the reel's spring without importing lab code.
+
+### 2026-10-07: Switch record 2026-10-07-1539 concept B applied (procedure D)
+
+**Status:** Accepted. Levi: "B, apply it." Record `output/tuning/Switch/2026-10-07-1539/`; sync base `ff35f61`. B carries no notes.
+
+| Token | Was | Now |
+| --- | --- | --- |
+| `size.switch.track-width` / `-height` / `thumb` | 32 / 18 / 14px (space.32, space.micro.18, space.micro.14) | 40 / 22 / 15px, literal |
+| `motion.switch.travel.duration` | motion.reveal.duration (200ms) | 600ms, literal |
+| `motion.switch.travel.easing` | motion.reveal.easing (quint-out) | `spring` { stiffness 146, damping 17.88, mass 1 } (3% overshoot) |
+| `motion.switch.stretch` / `squash` / `press.lean` | 0 / 0 / 0 | 1.06 / 0.15 / 0.12 |
+| `color.switch.track.off` / `offHover` dark | dark.raised2 / dark.raised1 | dark.well / dark.floor |
+| `color.switch.thumb.rimTop` / `faceTop` / `faceBottom` dark | warmGray.200 / 250 / 300 | dark.textPrimary / warmGray.200 / dark.textTertiary |
+
+- **Unchanged from B:** `space.component.gap-md` (tuned 08px = shipped 8px), `press.leanDuration` (160ms, = motion.press.duration), light mode, glyph size, sound. B's props (checked, glyphs off) are lab state, not shipped defaults; `glyphs` still defaults on.
+- **Off-ladder values kept exact** (40px, 22px, 15px, 600ms) as literals in the role tokens, the Button precedent; Levi's call whether any becomes a primitive. 40px is on the 8pt grid with no ladder step; 22 and 15 are off the 4pt grid (learning #144).
+- **New token type `spring`:** a tuned spring is stored as physics, not as 60 sampled points. `tokens-to-css` compiles it with the lab's own simulation (now `src/motion/spring.js`, shared by the lab, the engine and the generators): the generated `linear()` is byte-identical to the record's. `tokens-to-swift` emits `SCDSSpring` (stiffness, damping, mass, natural settle) whose `animation(duration:)` time-scales the spring to the paired duration (stiffness × s², damping × s), so iOS lands when the web does; the generated Swift type-checks (`swiftc -typecheck`). `gen-token-map` prints springs; `tune-figma-sync` now reads literal `{ value, unit }` dimensions.
+- **Lab check (D step 6):** Shipped and concept B compared by computed style in dark and light: track 40 × 22, knob 15, 600ms, the `linear()` curve, stretch, squash, lean, floor and knob colours. No differences.
+- **Figma library:** 12 variables set, 0 missing; new `motion/switch/stretch`, `/squash`, `/press/lean`, `/travel/duration` (600; the library already keeps motion durations and scales as FLOAT). `size/switch/*` now hold 40 / 22 / 15. The Toggle masters' knob, face and glyph positions were fixed numbers, so they were re-seated by hand to the code's geometry (inset 3.5, travel 18): Off knob (3.5, 3.5), face (4, 4) 14 × 14, O ring (24.5, 8); On knob (21.5, 3.5), face (22, 4), I bar (12, 8). The Off knob had a locked aspect ratio that let it hold only one size binding; unlocked, it now binds width and height to `size/switch/thumb` like the On knob. Publishing the library is Levi's step.
+- **Docs:** Switch page lead, Switch CSS geometry comments, `Switch.tokens.md`, Motion page chapters iii and iv (the Switch spring is named as the one exception to "nothing overshoots"), CONTEXT audit row.

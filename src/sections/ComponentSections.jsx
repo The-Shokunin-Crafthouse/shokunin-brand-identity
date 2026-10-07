@@ -275,7 +275,7 @@ export function SwitchPage() {
       id="switch" label="Switch" tokensN={31}
       eyebrow={<>Switch<Slash />Drams Standard Switch, at our size</>}
       title={<>On is teal. <Em>The knob is an object.</Em></>}
-      lead={<>The switch is an immediate binary: it flips instantly, the brand accent fills the track when on, and a short mechanical click confirms it. The form follows the Drams Standard Switch, a recessed track under a lit, lifted knob, scaled to the 32 × 18 SCDS size. Every measurement, including the knob’s inset, its travel and the I/O marks, is derived by calc() from the size tokens.</>}
+      lead={<>The switch is an immediate binary: it flips instantly, the brand accent fills the track when on, and a short mechanical click confirms it. The form follows the Drams Standard Switch, a recessed track under a lit, lifted knob, at 40 × 22 with a 15px knob. The knob travels on a spring, stretches with its speed and leans toward its target when pressed, tuned in sc-tune (record 2026-10-07-1539). Every measurement, including the knob’s inset, its travel and the I/O marks, is derived by calc() from the size tokens.</>}
       statesTitle="Three states, no magic numbers."
       callouts={[
         { title: 'Thumb math, not thumb constants', body: 'Resting inset is (track-height − thumb) / 2; travel is track-width − thumb − 2 × inset. The I and O marks centre in the free zone either side of the knob and ride one row that moves with it.' },

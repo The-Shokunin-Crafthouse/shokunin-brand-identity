@@ -62,11 +62,11 @@ const ELASTIC = [
     does: 'On pointer down it leans toward where it will go and holds. Release travels from that pose; drag off and it springs back.' },
 ];
 const ELASTIC_COMPONENTS = [
-  { name: 'Switch', prefix: 'switch', moves: 'The knob', press: 'Yes' },
-  { name: 'SegmentedControl', prefix: 'segmented-control', moves: 'The indicator', press: 'Yes' },
-  { name: 'PlusUnderline', prefix: 'plus-underline', moves: 'The active underline, from the old tab to the new one', press: 'Yes' },
-  { name: 'NavBar', prefix: 'nav-bar', moves: 'Its optional underline (underline prop)', press: 'Yes' },
-  { name: 'Tooltip', prefix: 'tooltip', moves: 'The bubble on open, scaled from the arrow (it carries text)', press: 'No' },
+  { name: 'Switch', prefix: 'switch', moves: 'The knob', press: 'Yes', ships: 'Spring 600ms · stretch 1.06 · squash 0.15 · lean 0.12' },
+  { name: 'SegmentedControl', prefix: 'segmented-control', moves: 'The indicator', press: 'Yes', ships: 'Inert' },
+  { name: 'PlusUnderline', prefix: 'plus-underline', moves: 'The active underline, from the old tab to the new one', press: 'Yes', ships: 'Inert' },
+  { name: 'NavBar', prefix: 'nav-bar', moves: 'Its optional underline (underline prop)', press: 'Yes', ships: 'Inert' },
+  { name: 'Tooltip', prefix: 'tooltip', moves: 'The bubble on open, scaled from the arrow (it carries text)', press: 'No', ships: 'Inert' },
 ];
 const reelSpring = springEasing({ duration: REEL.duration, bounce: REEL.bounce });
 const reelVars = Object.fromEntries(ELASTIC_COMPONENTS.flatMap(({ prefix }) => {
@@ -231,11 +231,11 @@ export function MotionSection() {
           </div>
 
           <div className={kit.panel}>
-            <div className={kit.panelHead}><span><b>Switch</b><Slash />reveal</span><span>out<Slash />200ms</span></div>
+            <div className={kit.panelHead}><span><b>Switch</b><Slash />elastic</span><span>spring<Slash />600ms<Slash />stretch 1.06</span></div>
             <div className={styles.pairDemo}>
               <Switch checked={on} onChange={() => setOn((v) => !v)} label={on ? 'On' : 'Off'} />
             </div>
-            <p className={styles.pairNote}>Thumb slide: <code>--sc-motion-reveal</code> runs quint-out at 200ms. Toggle it — the thumb commits fast and settles.</p>
+            <p className={styles.pairNote}>Thumb travel: the Switch&rsquo;s own <code>--sc-motion-switch-*</code> tokens, a spring played over 600ms with a 3% overshoot. The knob stretches with its speed and leans when pressed (record 2026-10-07-1539, chapter iv).</p>
           </div>
 
           <div className={kit.panel}>
@@ -254,17 +254,17 @@ export function MotionSection() {
       <Chapter
         ord="iv"
         eyebrow="Elastic controls / in tuning"
-        title="Things you touch can stretch, lean and spring. None of it ships yet."
-        premise="Four settings from kabarza\u2019s elastic toggles: duration and bounce, stretch, squash, press lean. Five components carry them as their own tokens, and every one ships inert, so the library above still never overshoots. Values are chosen in the sc-tune lab and reach a component only through a recorded, applied concept."
+        title="Things you touch can stretch, lean and spring."
+        premise="Four settings from kabarza\u2019s elastic toggles: duration and bounce, stretch, squash, press lean. Five components carry them as their own tokens. The Switch ships Levi\u2019s tuned values (record 2026-10-07-1539, concept B); the other four ship inert. Values are chosen in the sc-tune lab and reach a component only through a recorded, applied concept."
         annotations={[
           { title: 'As long as it is fast', body: 'Length follows the speed of the travel curve, so the pill is longest mid-flight and round again by the time it lands. It grows as two round ends and a bar; scaleX would turn it into an egg.' },
           { title: 'Press is a gesture', body: 'A click only counts on release. Leaning on pointer down answers the finger at once, and dragging off before release springs it back, so a change of mind costs nothing.' },
-          { title: 'Inert until picked', body: 'Stretch, squash and lean ship at 0 and travel ships equal to reveal. The engine (src/motion/elastic.js) runs only above 0 and never under reduced motion.' },
+          { title: 'Inert until picked', body: 'Until a concept is applied, stretch, squash and lean ship at 0 and travel equals reveal. The Switch is the first applied: a spring with a 3% overshoot, the one exception to the no-overshoot rule above. The engine (src/motion/elastic.js) runs only above 0 and never under reduced motion.' },
         ]}
       >
         <div className={kit.tableScroll}>
           <table className={kit.dataTable}>
-            <thead><tr><th>Setting</th><th>Token</th><th>Reel · Balanced</th><th>Shipped</th><th>What it does</th></tr></thead>
+            <thead><tr><th>Setting</th><th>Token</th><th>Reel · Balanced</th><th>Inert default</th><th>What it does</th></tr></thead>
             <tbody>
               {ELASTIC.map((e) => (
                 <tr key={e.setting}>
@@ -280,7 +280,7 @@ export function MotionSection() {
         </div>
         <div className={kit.tableScroll}>
           <table className={kit.dataTable}>
-            <thead><tr><th>Component</th><th>Token prefix</th><th>What moves</th><th>Press lean</th></tr></thead>
+            <thead><tr><th>Component</th><th>Token prefix</th><th>What moves</th><th>Press lean</th><th>Ships</th></tr></thead>
             <tbody>
               {ELASTIC_COMPONENTS.map((c) => (
                 <tr key={c.name}>
@@ -288,6 +288,7 @@ export function MotionSection() {
                   <td className={kit.mono}>--sc-motion-{c.prefix}-*</td>
                   <td>{c.moves}</td>
                   <td>{c.press}</td>
+                  <td>{c.ships}</td>
                 </tr>
               ))}
             </tbody>

@@ -1,7 +1,7 @@
 /* tokens:
- *   --sc-size-switch-track-width   · 32 track
- *   --sc-size-switch-track-height  · 18 track
- *   --sc-size-switch-thumb         · 14 thumb (2 inset)
+ *   --sc-size-switch-track-width   · 40 track (record Switch 2026-10-07-1539 B)
+ *   --sc-size-switch-track-height  · 22 track
+ *   --sc-size-switch-thumb         · 15 thumb (3.5 inset)
  *   --sc-size-switch-glyph         · 6 I bar height / O ring diameter
  *   --sc-radius-pill               · 9999 pill
  *   --sc-color-switch-track-off       · off track floor (role token, = surface.deepSunk)
@@ -27,11 +27,11 @@
  *   --sc-motion-press-duration / -easing / -scale · knob press
  *
  * Geometry (all derived, no magic values):
- *   inset  = (track-height − thumb) / 2            → 2
- *   travel = track-width − thumb − 2 × inset       → 14
+ *   inset  = (track-height − thumb) / 2            → 3.5
+ *   travel = track-width − thumb − 2 × inset       → 18
  *   The I mark sits centred in the free zone left of the knob when on
- *   (inset + travel/2 → 9); the O ring centred in the free zone right of
- *   the knob when off (inset + thumb + travel/2 → 23). Both ride one row
+ *   (inset + travel/2 → 12.5); the O ring centred in the free zone right of
+ *   the knob when off (inset + thumb + travel/2 → 27.5). Both ride one row
  *   that translates by `travel` with the knob, so the outgoing glyph slides
  *   out under the track edge exactly as the Drams original does.
  */

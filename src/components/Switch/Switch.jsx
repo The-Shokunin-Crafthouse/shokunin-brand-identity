@@ -5,7 +5,7 @@
  * full label area; switch state drives both visual position and ARIA.
  *
  * 2026-10-07 · restyled to the Drams Standard Switch (drams/001) at the
- * SCDS 32 × 18 size: recessed track, a 3D knob (gradient rim over a
+ * SCDS size (40 × 22 since record Switch 2026-10-07-1539 B): recessed track, a 3D knob (gradient rim over a
  * gradient face, six-layer lift), and an I/O glyph row that slides with
  * the knob so on/off reads without colour. Each change plays the `toggle`
  * role sound (Drams 004); `sound={false}` opts one instance out and
