@@ -5,7 +5,7 @@
 # Design Token Map — The Shokunin Crafthouse · Brand Identity
 
 **Generated** from `tokens/primitives.json` + `tokens/semantic.json`.
-**Source fingerprint:** `8638e2461382` · **186 primitives · 197 semantic tokens.**
+**Source fingerprint:** `798098663abc` · **186 primitives · 198 semantic tokens.**
 
 > **This file is a mirror, not the source.** `tokens/*.json` is upstream; this document and the Figma
 > library are generated from / synced to it. It previously claimed the opposite — that both were
@@ -48,7 +48,7 @@ Pairs that fail WCAG AA and must not be used together. Generated from
 | Token | Mode | Forbidden surfaces | Substitute | Reason |
 |---|---|---|---|---|
 | `color/text/secondary` | light | `color/surface/deepSunk`, `color/surface/rail`, `color/surface/hover` | `color/text/primary` | Light mode: deepSunk and rail (both warmGray.300) measure 3.01:1 and hover (warmGray.250) measures 3.84:1 — all below WCAG AA 4.5:1. Dark mode clears AA on every surface (6.04:1 worst case, surface.deepSunk/floating, slate ladder 2026-09-24). |
-| `color/text/tertiary` | light | `color/surface/sunk`, `color/surface/deepSunk`, `color/surface/rail`, `color/surface/hover` | `color/text/secondary` | Tertiary contrast compresses below WCAG AA 4.5:1 on the compressed pairs — light: sunk 3.77:1, deepSunk/rail 2.38:1, hover 3.03:1. Dark (pre-2026-09-06, #7C7C7A) failed on raised/hover 4.40:1 and deepSunk/floating 4.16:1 — both cleared by the re-derivation to #858583 (WQ-040). The 2026-09-24 slate tier #B3B1AD reads 4.76:1 at its worst (deepSunk/floating). |
+| `color/text/tertiary` | light | `color/surface/sunk`, `color/surface/deepSunk`, `color/surface/rail`, `color/surface/hover` | `color/text/secondary` | Tertiary contrast compresses below WCAG AA 4.5:1 on the compressed pairs — light: sunk 4.06:1, deepSunk/rail 2.57:1, hover 3.27:1 (oatmeal restore, 2026-10-07). Dark (pre-2026-09-06, #7C7C7A) failed on raised/hover 4.40:1 and deepSunk/floating 4.16:1 — both cleared by the re-derivation to #858583 (WQ-040). The 2026-09-24 slate tier #B3B1AD reads 4.76:1 at its worst (deepSunk/floating). |
 | `color/status/success-ink` | light | `color/surface/sunk`, `color/surface/deepSunk`, `color/surface/rail`, `color/surface/hover` | `color/text/primary` | Light: sunk 3.86:1, deepSunk/rail 2.44:1, hover 3.11:1 — every one below AA for the success hue. Dark cleared 2026-09-06 by the re-derivation to #3C9366, and again 2026-09-24 by the slate re-derivation to #6AC090 (4.64:1 worst case, deepSunk/floating); the reused status.success.dark it replaced read 4.37:1 on surface.deepSunk and surface.floating. |
 | `color/status/warning-ink` | light | `color/surface/sunk`, `color/surface/deepSunk`, `color/surface/rail`, `color/surface/hover` | `color/text/primary` | Light: sunk 3.73:1, deepSunk/rail 2.35:1, hover 3.00:1 — every one below AA for the warning hue. Dark cleared 2026-09-06 by the re-derivation to #DC5A33, and again 2026-09-24 by the slate re-derivation to #FE9374 (4.68:1 worst case, deepSunk/floating); the retired #D2512A read 4.34:1 on surface.raised and 4.10:1 on surface.deepSunk. |
 | `color/status/info-ink` | light | `color/surface/sunk`, `color/surface/deepSunk`, `color/surface/rail`, `color/surface/hover` | `color/text/primary` | Light: sunk 3.90:1, deepSunk/rail 2.46:1, hover 3.14:1 — every one below AA for the info hue. Dark cleared 2026-09-06 by the re-derivation to #517DF3, and again 2026-09-24 by the slate re-derivation to #8DAFFD (4.70:1 worst case, deepSunk/floating); the retired #4A74EA read 4.37:1 on surface.raised and 4.13:1 on surface.deepSunk. |
@@ -76,7 +76,7 @@ primitives directly. Surfaced here for traceability.
 | `color/warmGray/300` | `--sc-p-color-warm-gray-300` | `#B0A69C` | Sunk surface · form inputs, card hover, nested states. |
 | `color/warmGray/350` | `--sc-p-color-warm-gray-350` | `#9A9186` | Subtle hairline · dashed inner divisions. |
 | `color/warmGray/400` | `--sc-p-color-warm-gray-400` | `#847C71` | Faint warm gray · disabled text and decorative marks (fails AA by spec). |
-| `color/warmGray/450` | `--sc-p-color-warm-gray-450` | `#66615A` | Re-derived 2026-10-07 for the restored oatmeal page #E3DFD8 (OKLCH lightness only, hue and chroma kept): was #6B665E. |
+| `color/warmGray/450` | `--sc-p-color-warm-gray-450` | `#66615A` | Tertiary text · light. scds-v2 addition — AA on page/raised/floating (4.62/5.34/5.68:1). |
 | `color/warmGray/500` | `--sc-p-color-warm-gray-500` | `#5A5750` | Muted warm gray · secondary copy, metadata. |
 | `color/warmGray/600` | `--sc-p-color-warm-gray-600` | `#484640` | Mid-deep · derived between 500 and 800. |
 | `color/warmGray/700` | `--sc-p-color-warm-gray-700` | `#312F2A` | Near-ink · derived between 500 and 800. |
@@ -104,15 +104,15 @@ primitives directly. Surfaced here for traceability.
 |---|---|---|---|
 | `color/status/success/light` | `--sc-p-color-status-success-light` | `#2F855A` | Forest green · success states on light ground. |
 | `color/status/success/dark` | `--sc-p-color-status-success-dark` | `#57AD7F` | Lifted green · success fill/border/dot on dark ground. |
-| `color/status/success/ink/light` | `--sc-p-color-status-success-ink-light` | `#246E4A` | Re-derived 2026-10-07 for the restored oatmeal page #E3DFD8 (OKLCH lightness only, hue and chroma kept): was #28724D. |
+| `color/status/success/ink/light` | `--sc-p-color-status-success-ink-light` | `#246E4A` | 2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier, hue-locked to success, 4.64:1 on warmGray.100 (base success/light fails at 3.42:1 for body text). |
 | `color/status/success/ink/dark` | `--sc-p-color-status-success-ink-dark` | `#6AC090` | Text-only tier, hue-locked to success (learning #56). |
 | `color/status/warning/light` | `--sc-p-color-status-warning-light` | `#C2410C` | Burnt orange · warning states on light ground · hue ~20°. |
 | `color/status/warning/dark` | `--sc-p-color-status-warning-dark` | `#F67751` | Lifted orange · warning fill/border/dot on dark ground. |
-| `color/status/warning/ink/light` | `--sc-p-color-status-warning-ink-light` | `#B13700` | Re-derived 2026-10-07 for the restored oatmeal page #E3DFD8 (OKLCH lightness only, hue and chroma kept): was #B83E0B. |
+| `color/status/warning/ink/light` | `--sc-p-color-status-warning-ink-light` | `#B13700` | 2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier, hue-locked to warning, 4.63:1 on warmGray.100 (base warning/light fails at 3.90:1 for body text). |
 | `color/status/warning/ink/dark` | `--sc-p-color-status-warning-ink-dark` | `#FE9374` | Text-only tier, hue-locked to warning (learning #56). |
-| `color/status/info/light` | `--sc-p-color-status-info-light` | `#2D5AD8` | Royal blue · info states on light ground · AA 4.43:1 on warmGray.100 (clears AA as text, which is why status.info-ink reuses it directly in light mode). |
+| `color/status/info/light` | `--sc-p-color-status-info-light` | `#2D5AD8` | Royal blue · info states on light ground · AA 4.79:1 on the scds-v2 #EBE7E4 page; 4.43:1 on the oatmeal #E3DFD8 page restored 2026-10-07, below AA as text, so status.info-ink now reads status.info.ink.light. |
 | `color/status/info/dark` | `--sc-p-color-status-info-dark` | `#709AFD` | Lifted blue · info fill/border/dot on dark ground. |
-| `color/status/info/ink/light` | `--sc-p-color-status-info-ink-light` | `#2B57D5` | Text tier for status.info in light mode. |
+| `color/status/info/ink/light` | `--sc-p-color-status-info-ink-light` | `#2B57D5` | Text-only tier for status.info in light mode, hue-locked to info (learning #56). |
 | `color/status/info/ink/dark` | `--sc-p-color-status-info-ink-dark` | `#8DAFFD` | Text-only tier, hue-locked to info (learning #56). |
 | `color/status/error/light` | `--sc-p-color-status-error-light` | `#7F1D1D` | Oxblood · error states on light ground · deep + serious, pulled deliberately off the brand band so brand-accent and danger can never be confused. |
 | `color/status/error/dark` | `--sc-p-color-status-error-dark` | `#FE6B67` | Lifted rose · error states on dark ground. |
@@ -184,7 +184,7 @@ primitives directly. Surfaced here for traceability.
 
 | Token Name | CSS var | Value | Notes |
 |---|---|---|---|
-| `color/interactive/hoverInk/light` | `--sc-p-color-interactive-hover-ink-light` | `#006D72` | Re-derived 2026-10-07 for the restored oatmeal page #E3DFD8 (OKLCH lightness only, hue and chroma kept): was #027175. |
+| `color/interactive/hoverInk/light` | `--sc-p-color-interactive-hover-ink-light` | `#006D72` | 2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier for interactive/hover, hue-locked to teal, 4.61:1 on warmGray.100. |
 
 ### Typography · Primitives
 
@@ -459,7 +459,8 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | `color/surface/raised` | `--sc-color-surface-raised` | `color/warmGray/50` | `#F1EFEB` | `color/dark/raised1` | `#343A41` | Lifted-above-page surface · default card ground. |
 | `color/surface/floating` | `--sc-color-surface-floating` | `color/warmGray/25` | `#F8F6F2` | `color/dark/raised2` | `#3B4249` | Highest surface · popovers, interactive-card hover. |
 | `color/surface/rail` | `--sc-color-surface-rail` | `color/warmGray/300` | `#B0A69C` | `color/dark/floor` | `#252B32` | Sidebar / left-rail ground. |
-| `color/surface/nav` | `--sc-color-surface-nav` | `color/warmGray/40` | `#F5F0E9` | `color/dark/raised2` | `#3B4249` | Brand-site sidebar card ground (the inset card that replaced the edge rail). |
+| `color/surface/nav` | `--sc-color-surface-nav` | `color/warmGray/40` | `#F5F0E9` | `color/dark/raised1` | `#343A41` | Brand-site sidebar card ground (the inset card that replaced the edge rail). |
+| `color/surface/navHover` | `--sc-color-surface-nav-hover` | `color/utility/white` | `#FFFFFF` | `color/dark/raised2` | `#3B4249` | Brand-site sidebar link hover pill. |
 | `color/surface/hover` | `--sc-color-surface-hover` | `color/warmGray/250` | `#C4BCB4` | `color/dark/raised1` | `#343A41` | Hover-highlight ground for nav links and similar row-level affordances. |
 
 #### `color/text`
@@ -494,8 +495,8 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
 |---|---|---|---|---|---|---|
 | `color/interactive/default` | `--sc-color-interactive-default` | `color/warmGray/800` | `#1A1815` | `color/warmGray/50` | `#F1EFEB` | Resting state for interactive elements · button text + border. |
-| `color/interactive/hover` | `--sc-color-interactive-hover` | `color/teal/500` | `#038E93` | `color/teal/300` | `#52B8BC` | Hover state · primary button text/icon/border turn brand teal. |
-| `color/interactive/hover-ink` | `--sc-color-interactive-hover-ink` | `color/interactive/hoverInk/light` | `#006D72` | `color/teal/200` | `#8FD2D5` | 2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier for interactive.hover — use when the hover color renders as body text (not icon/border), 4.61:1 on warmGray.100. |
+| `color/interactive/hover` | `--sc-color-interactive-hover` | `color/teal/600` | `#04797D` | `color/teal/300` | `#52B8BC` | Hover state · primary button text/icon/border turn brand teal. |
+| `color/interactive/hover-ink` | `--sc-color-interactive-hover-ink` | `color/interactive/hoverInk/light` | `#006D72` | `color/teal/200` | `#8FD2D5` | 2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier for interactive.hover — use when the hover color renders as body text (not icon/border), 4.61:1 on warmGray.100 (re-derived 2026-10-07 for the oatmeal page). |
 | `color/interactive/selected` | `--sc-color-interactive-selected` | _literal_ | `#038E931A` | _literal_ | `#038E931A` | Selected-option tint: brand teal (teal.500) at 10%. |
 | `color/interactive/active` | `--sc-color-interactive-active` | `color/teal/700` | `#056268` | `color/teal/500` | `#038E93` | Pressed/active state · one step deeper than hover. |
 
@@ -509,7 +510,7 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | `color/status/info` | `--sc-color-status-info` | `color/status/info/light` | `#2D5AD8` | `color/status/info/dark` | `#709AFD` | Info state · royal blue on light, lifted blue on dark. |
 | `color/status/success-ink` | `--sc-color-status-success-ink` | `color/status/success/ink/light` | `#246E4A` | `color/status/success/ink/dark` | `#6AC090` | 2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier for status.success — use when rendered as body text, 4.64:1 (L) / 5.89:1 (D) on their respective page grounds. |
 | `color/status/warning-ink` | `--sc-color-status-warning-ink` | `color/status/warning/ink/light` | `#B13700` | `color/status/warning/ink/dark` | `#FE9374` | 2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier for status.warning — use when rendered as body text, 4.63:1 (L) / 5.94:1 (D) on their respective page grounds. |
-| `color/status/info-ink` | `--sc-color-status-info-ink` | `color/status/info/ink/light` | `#2B57D5` | `color/status/info/ink/dark` | `#8DAFFD` | 2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier for status.info — light mode got its own ink 2026-10-07 (status.info.ink.light) when the oatmeal page restore dropped the shared fill below AA; dark mode gets a dedicated ink (5.97:1 on its page ground, 4.70:1 on surface.floating; re-derived 2026-09… |
+| `color/status/info-ink` | `--sc-color-status-info-ink` | `color/status/info/ink/light` | `#2B57D5` | `color/status/info/ink/dark` | `#8DAFFD` | 2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier for status.info — light mode reads status.info.ink.light since the 2026-10-07 oatmeal restore (4.61:1 on the #E3DFD8 page; the fill reads 4.43:1 there, so it reused status.info.light directly only while the page was #EBE7E4); dark mode gets a dedica… |
 
 #### `color/signal`
 
@@ -535,7 +536,7 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
 |---|---|---|---|---|---|---|
 | `color/brand/accent` | `--sc-color-brand-accent` | `color/teal/500` | `#038E93` | `color/teal/500` | `#038E93` | Brand accent · teal kept consistent across modes for brand-mark continuity. |
-| `color/brand/accentDeep` | `--sc-color-brand-accent-deep` | `color/teal/700` | `#056268` | `color/teal/700` | `#056268` | Brand accent deep · pressed accent state. teal.700 in both modes (5.35:1 on warmGray.100), unchanged. |
+| `color/brand/accentDeep` | `--sc-color-brand-accent-deep` | `color/teal/700` | `#056268` | `color/teal/700` | `#056268` | Brand accent deep · pressed accent state. teal.700 in both modes (5.35:1 on warmGray.100 (oatmeal page, 2026-10-07)), unchanged. |
 | `color/brand/accentInk` | `--sc-color-brand-accent-ink` | `color/teal/700` | `#056268` | `color/teal/200` | `#8FD2D5` | Brand accent as text ink · mode-following counterpart of accentDeep's light-only text claim (added 2026-09-06, WQ-040). |
 | `color/brand/accentFill` | `--sc-color-brand-accent-fill` | `color/teal/600` | `#04797D` | `color/teal/600` | `#04797D` | Brand accent fill · the fill for accent surfaces that carry text (primary/accent buttons). teal.600 so white text passes AA (5.20:1). brand.accent (teal.500) fails white-text AA at 3.97:1 and stays for the mark and non-text uses. |
 
@@ -594,7 +595,7 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | `font/text/label/buttonLg` | `--sc-font-text-label-button-lg` | `font/text/button/14` | `fontFamily: {font.family.text} · fontSize: {font.size.14} · fontWeight: {font.weight.medium} · lineHeight: {font.lineHeight.loose} · letterSpacing: {font.tracking.slight}` | `font/text/button/14` | `fontFamily: {font.family.text} · fontSize: {font.size.14} · fontWeight: {font.weight.medium} · lineHeight: {font.lineHeight.loose} · letterSpacing: {font.tracking.slight}` | Large Button label: 14/medium/loose/slight, its own role apart from the chrome label (Figma text/label/button-lg). |
 | `font/text/label/tab` | `--sc-font-text-label-tab` | `font/text/medium/13` | `fontFamily: {font.family.text} · fontSize: {font.size.13} · fontWeight: {font.weight.medium} · lineHeight: {font.lineHeight.base} · letterSpacing: {font.tracking.normal}` | `font/text/medium/13` | `fontFamily: {font.family.text} · fontSize: {font.size.13} · fontWeight: {font.weight.medium} · lineHeight: {font.lineHeight.base} · letterSpacing: {font.tracking.normal}` | Tab label: 13/medium, no tracking. |
 | `font/text/label/navHeading` | `--sc-font-text-label-nav-heading` | `font/text/displayTight/11` | `fontFamily: {font.family.display} · fontSize: {font.size.11} · fontWeight: {font.weight.black} · lineHeight: {font.lineHeight.base} · letterSpacing: {font.tracking.normal}` | `font/text/displayTight/11` | `fontFamily: {font.family.display} · fontSize: {font.size.11} · fontWeight: {font.weight.black} · lineHeight: {font.lineHeight.base} · letterSpacing: {font.tracking.normal}` | Nav group heading: 11/black display, sentence case, text.primary. |
-| `font/text/label/navCurrent` | `--sc-font-text-label-nav-current` | `font/text/bold/13` | `fontFamily: {font.family.text} · fontSize: {font.size.13} · fontWeight: {font.weight.bold} · lineHeight: {font.lineHeight.base} · letterSpacing: {font.tracking.normal}` | `font/text/bold/13` | `fontFamily: {font.family.text} · fontSize: {font.size.13} · fontWeight: {font.weight.bold} · lineHeight: {font.lineHeight.base} · letterSpacing: {font.tracking.normal}` | Nav current link: 13/bold, set in brand.accentInk (brand.accent fails AA at this size). |
+| `font/text/label/navCurrent` | `--sc-font-text-label-nav-current` | `font/text/bold/13` | `fontFamily: {font.family.text} · fontSize: {font.size.13} · fontWeight: {font.weight.bold} · lineHeight: {font.lineHeight.base} · letterSpacing: {font.tracking.normal}` | `font/text/bold/13` | `fontFamily: {font.family.text} · fontSize: {font.size.13} · fontWeight: {font.weight.bold} · lineHeight: {font.lineHeight.base} · letterSpacing: {font.tracking.normal}` | Nav current link: 13/bold, set in brand.accentInk with an accent PlusBullet at the row end (ADR sidebar-nav-pill-states). |
 | `font/text/caption` | `--sc-font-text-caption` | `font/text/13` | `fontFamily: {font.family.text} · fontSize: {font.size.13} · fontWeight: {font.weight.regular} · lineHeight: {font.lineHeight.relaxed} · letterSpacing: {font.tracking.normal}` | `font/text/13` | `fontFamily: {font.family.text} · fontSize: {font.size.13} · fontWeight: {font.weight.regular} · lineHeight: {font.lineHeight.relaxed} · letterSpacing: {font.tracking.normal}` | Sprint 4 addition · caption · 13/regular/relaxed. |
 | `font/text/body/dense` | `--sc-font-text-body-dense` | `font/text/14` | `fontFamily: {font.family.text} · fontSize: {font.size.14} · fontWeight: {font.weight.regular} · lineHeight: {font.lineHeight.base} · letterSpacing: {font.tracking.normal}` | `font/text/14` | `fontFamily: {font.family.text} · fontSize: {font.size.14} · fontWeight: {font.weight.regular} · lineHeight: {font.lineHeight.base} · letterSpacing: {font.tracking.normal}` | Sprint 4 addition · dense body · 14/regular/base. |
 | `font/text/body/default` | `--sc-font-text-body-default` | `font/text/16` | `fontFamily: {font.family.text} · fontSize: {font.size.16} · fontWeight: {font.weight.regular} · lineHeight: {font.lineHeight.base} · letterSpacing: {font.tracking.normal}` | `font/text/16` | `fontFamily: {font.family.text} · fontSize: {font.size.16} · fontWeight: {font.weight.regular} · lineHeight: {font.lineHeight.base} · letterSpacing: {font.tracking.normal}` | Sprint 4 addition · body default · 16/regular/base. |
