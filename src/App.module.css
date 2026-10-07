@@ -29,9 +29,10 @@
 /* ── Sidebar ─────────────────────────────────────────────
  * Inset card (Figma "sidebar nav", node 2144:25), hugging its content.
  * Spec values that had no token were tokenised 2026-10-07 (surface.nav,
- * space 20/28, label nav-heading / nav-current / ui-medium). Hover and
- * press keep the live-site behaviour: surface-hover pill outset 8px past
- * the label, per-character slot roll, press scale. */
+ * space 20/28, label nav-heading / nav-current / ui-medium). Hover is a
+ * pill one step LIGHTER than the card (surface-nav-hover), outset 8px past
+ * the label, with the live per-character slot roll and press scale. The
+ * current page is a filled accent pill (accent-fill, on-accent text). */
 
 .sidebar {
   display: flex;
@@ -86,20 +87,24 @@
     transform var(--sc-motion-press-duration) var(--sc-motion-press-easing);
   will-change: transform;
 }
-.navLink:hover { background: var(--sc-color-surface-hover); }
+.navLink:hover { background: var(--sc-color-surface-nav-hover); }
 .navLink:active { transform: scale(var(--sc-motion-press-scale)); }
 .navNum {
   font: var(--sc-font-text-mono-chrome);
   letter-spacing: 0;
   color: var(--sc-color-text-disabled);
 }
-.navLinkActive {
+/* accent-fill, not brand-accent: white on teal-500 is 3.97:1 at 13px;
+ * the fill step (teal-600) is the AA pair for on-accent text. */
+.navLinkActive,
+.navLinkActive:hover {
   font: var(--sc-font-text-label-nav-current);
   letter-spacing: var(--sc-font-text-label-nav-current-letter-spacing);
-  /* accent-ink, not brand-accent: teal-500 is 3.5:1 (light) / 2.9:1 (dark)
-   * on surface-nav at 13px; the ink pair clears AA in both modes. */
-  color: var(--sc-color-brand-accent-ink);
+  color: var(--sc-color-text-on-accent);
+  background: var(--sc-color-brand-accent-fill);
 }
+.navLinkActive .navNum,
+.navLinkActive .navCharLayerHover { color: var(--sc-color-text-on-accent); }
 
 /* Per-character slot-machine animation — each char wrapped in an
  * overflow:hidden container with two stacked layers (default visible,
@@ -135,7 +140,8 @@
   position: absolute;
   left: 0;
   top: 100%;
-  color: var(--sc-color-interactive-hover);
+  /* hover-ink: teal-500 on the white hover pill is 3.97:1. */
+  color: var(--sc-color-interactive-hover-ink);
 }
 .navLink:hover .navCharLayer { transform: translateY(-100%); }
 

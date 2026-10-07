@@ -1872,3 +1872,12 @@ The follow-up named under "the library follows" above. `PlusSeparator.figma.tsx`
 - **SCDS library** (`0zVoxaLJQkjHENYJlQk1VT`): new variables and text styles `text/label/{nav-heading,nav-current,ui-medium}`; NavLink gains `Label`, `Count`, `Show Count` properties and a `State=Hover` variant, Current drops the hidden bar; NavEyebrow drops the ordinal and gains `Label`. Publishing the library is Levi's step.
 - **Open:** the library holds the restored oatmeal warm-gray set (`warmGray/25` `#F8F6F2`, page `#E3DFD8`) that the repo JSON does not; reconciling the two is a separate pass.
 - Verified: `tokens:verify` passes; geometry matches the spec at 1440 (card 24/24/256, first label y 128.5 vs 129); AA on every sidebar label in both modes except the footer's `text.disabled` (its declared tier, unchanged).
+
+### 2026-10-07: sidebar nav pill states (ADR sidebar-nav-pill-states)
+
+**Status:** Accepted. Levi's direction after PR #81 shipped: the nav hover pill should sit lighter than the card, not darker; the active page becomes white text on an accent fill; weight stays Text 75 Bold (the heaviest Text cut).
+
+- **Hover:** new `color.surface.navHover` (light `utility.white`, dark `dark.raised2`), one step above `surface.nav`. With the collision gone, `surface.nav` dark returns to `dark.raised1`, Levi's original pick. The letter roll still runs, but lands on `interactive.hover-ink`, not `interactive.hover`: teal-500 on the white pill measured below AA.
+- **Active:** `brand.accentFill` pill (teal-600) with `text.onAccent` label, Bold, on hover too. Not `brand.accent`: white on teal-500 is below AA at 13px; the fill step is the token built for white text. The active roll layer is also `text.onAccent` so the label never vanishes into the fill.
+- **SCDS library:** `color/surface/navHover` added, `color/surface/nav` dark rebound, NavLink Hover and Current variants restyled to match. Publishing stays Levi's step.
+- Verified in both modes: hover pill lighter than the card, active label AA, hover roll AA; `tokens:verify` passes.
