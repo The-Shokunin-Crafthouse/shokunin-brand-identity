@@ -665,7 +665,7 @@
   --sc-color-surface-raised: var(--sc-p-color-dark-raised1);
   --sc-color-surface-floating: var(--sc-p-color-dark-raised2);
   --sc-color-surface-rail: var(--sc-p-color-dark-floor);
-  --sc-color-surface-nav: var(--sc-p-color-dark-raised1);
+  --sc-color-surface-nav: var(--sc-p-color-dark-raised2);
   --sc-color-surface-hover: var(--sc-p-color-dark-raised1);
   --sc-color-text-primary: var(--sc-p-color-dark-text-primary);
   --sc-color-text-secondary: var(--sc-p-color-dark-text-secondary);

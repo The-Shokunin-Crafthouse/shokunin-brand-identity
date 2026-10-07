@@ -86,11 +86,11 @@
       "nav": {
         "$type": "color",
         "$value": "{color.warmGray.40}",
-        "$description": "Brand-site sidebar card ground (the inset card that replaced the edge rail). Light = warmGray.40, dark = dark.raised1, the surface.raised ladder step. 2026-10-07 (ADR brand-site-sidebar-redesign).",
+        "$description": "Brand-site sidebar card ground (the inset card that replaced the edge rail). Light = warmGray.40, dark = dark.raised2: one step above surface.hover (dark.raised1) so the nav hover pill still reads, as it does in light. 2026-10-07 (ADR brand-site-sidebar-redesign).",
         "$extensions": {
           "modes": {
             "light": "{color.warmGray.40}",
-            "dark":  "{color.dark.raised1}"
+            "dark":  "{color.dark.raised2}"
           }
         }
       },
@@ -897,7 +897,7 @@
         "navCurrent": {
           "$type": "typography",
           "$value": "{font.text.bold.13}",
-          "$description": "Nav current link: 13/bold, set in brand.accent. NavLink State=Current. Figma text/label/nav-current. 2026-10-07 (ADR brand-site-sidebar-redesign).",
+          "$description": "Nav current link: 13/bold, set in brand.accentInk (brand.accent fails AA at this size). NavLink State=Current. Figma text/label/nav-current. 2026-10-07 (ADR brand-site-sidebar-redesign).",
           "$extensions": { "modes": { "light": "{font.text.bold.13}", "dark": "{font.text.bold.13}" } }
         }
       },
