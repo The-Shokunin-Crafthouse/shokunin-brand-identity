@@ -553,6 +553,48 @@
           "dark":  "{color.warmGray.50}"
         }
       }
+    },
+    "switch": {
+      "thumb": {
+        "rimTop": {
+          "$type": "color",
+          "$value": "{color.utility.white}",
+          "$description": "2026-10-07 · Switch restyled to the Drams Standard Switch (drams/001) at SCDS size. Knob rim gradient, top stop. A 0.5px rim catches the light above the face (Drams #FFF to #D1D1D1).",
+          "$extensions": { "modes": { "light": "{color.utility.white}", "dark": "{color.warmGray.200}" } }
+        },
+        "rimBottom": {
+          "$type": "color",
+          "$value": "{color.warmGray.200}",
+          "$description": "2026-10-07 · Switch restyled to the Drams Standard Switch (drams/001) at SCDS size. Knob rim gradient, bottom stop.",
+          "$extensions": { "modes": { "light": "{color.warmGray.200}", "dark": "{color.warmGray.350}" } }
+        },
+        "faceTop": {
+          "$type": "color",
+          "$value": "{color.warmGray.50}",
+          "$description": "2026-10-07 · Switch restyled to the Drams Standard Switch (drams/001) at SCDS size. Knob face gradient, top stop (Drams #F2F2F2 to #E8E8E8). Dark keeps a light physical knob, dimmed per stop, so the object keeps its material at night.",
+          "$extensions": { "modes": { "light": "{color.warmGray.50}", "dark": "{color.warmGray.250}" } }
+        },
+        "faceBottom": {
+          "$type": "color",
+          "$value": "{color.warmGray.100}",
+          "$description": "2026-10-07 · Switch restyled to the Drams Standard Switch (drams/001) at SCDS size. Knob face gradient, bottom stop.",
+          "$extensions": { "modes": { "light": "{color.warmGray.100}", "dark": "{color.warmGray.300}" } }
+        }
+      },
+      "glyph": {
+        "on": {
+          "$type": "color",
+          "$value": "{color.utility.white}",
+          "$description": "2026-10-07 · Switch restyled to the Drams Standard Switch (drams/001) at SCDS size. I mark on the accent track (on state). Matches text.onAccent. Non-colour on/off cue (WCAG 1.4.1).",
+          "$extensions": { "modes": { "light": "{color.utility.white}", "dark": "{color.utility.white}" } }
+        },
+        "off": {
+          "$type": "color",
+          "$value": "{color.warmGray.25}",
+          "$description": "2026-10-07 · Switch restyled to the Drams Standard Switch (drams/001) at SCDS size. O ring on the off track. Second half of the non-colour on/off cue.",
+          "$extensions": { "modes": { "light": "{color.warmGray.25}", "dark": "{color.dark.textDisabled}" } }
+        }
+      }
     }
   },
   "border": {
@@ -644,6 +686,26 @@
         "$extensions": { "modes": {
           "light": "inset 0 1px 3px rgb(var(--sc-p-color-ink-rgb) / 0.08), inset 0 0 0 1px rgb(var(--sc-p-color-ink-rgb) / 0.06)",
           "dark":  "inset 0 1px 3px rgb(0 0 0 / 0.40), inset 0 0 0 1px rgb(var(--sc-p-color-white-rgb) / 0.05)"
+        } }
+      }
+    },
+    "switch": {
+      "track": {
+        "$type": "shadow",
+        "$description": "2026-10-07 · Switch restyled to the Drams Standard Switch (drams/001) at SCDS size. Recessed track. Drams inset 0 1px 2px at 0.25, scaled x0.45 to the 18px track.",
+        "$value": "inset 0 0.45px 0.9px rgb(var(--sc-p-color-ink-rgb) / 0.25)",
+        "$extensions": { "modes": {
+          "light": "inset 0 0.45px 0.9px rgb(var(--sc-p-color-ink-rgb) / 0.25)",
+          "dark":  "inset 0 0.45px 0.9px rgb(0 0 0 / 0.45)"
+        } }
+      },
+      "thumb": {
+        "$type": "shadow",
+        "$description": "2026-10-07 · Switch restyled to the Drams Standard Switch (drams/001) at SCDS size. Knob lift. The Drams six-layer drop shadow with every offset, blur and spread scaled x0.45 (34px knob to 14px). Control-scoped like control.raised; not a general elevation token.",
+        "$value": "0 0.37px 0.52px -0.28px rgb(var(--sc-p-color-ink-rgb) / 0.26), 0 0.95px 1.33px -0.56px rgb(var(--sc-p-color-ink-rgb) / 0.25), 0 1.9px 2.66px -0.84px rgb(var(--sc-p-color-ink-rgb) / 0.24), 0 3.6px 5.05px -1.13px rgb(var(--sc-p-color-ink-rgb) / 0.22), 0 7.16px 10.03px -1.41px rgb(var(--sc-p-color-ink-rgb) / 0.18), 0 15.75px 22.05px 0 rgb(var(--sc-p-color-ink-rgb) / 0.09)",
+        "$extensions": { "modes": {
+          "light": "0 0.37px 0.52px -0.28px rgb(var(--sc-p-color-ink-rgb) / 0.26), 0 0.95px 1.33px -0.56px rgb(var(--sc-p-color-ink-rgb) / 0.25), 0 1.9px 2.66px -0.84px rgb(var(--sc-p-color-ink-rgb) / 0.24), 0 3.6px 5.05px -1.13px rgb(var(--sc-p-color-ink-rgb) / 0.22), 0 7.16px 10.03px -1.41px rgb(var(--sc-p-color-ink-rgb) / 0.18), 0 15.75px 22.05px 0 rgb(var(--sc-p-color-ink-rgb) / 0.09)",
+          "dark":  "0 0.37px 0.52px -0.28px rgb(0 0 0 / 0.42), 0 0.95px 1.33px -0.56px rgb(0 0 0 / 0.40), 0 1.9px 2.66px -0.84px rgb(0 0 0 / 0.38), 0 3.6px 5.05px -1.13px rgb(0 0 0 / 0.35), 0 7.16px 10.03px -1.41px rgb(0 0 0 / 0.29), 0 15.75px 22.05px 0 rgb(0 0 0 / 0.14)"
         } }
       }
     }
@@ -1014,6 +1076,12 @@
         "$value": "{space.micro.14}",
         "$description": "Sprint 4 addition · switch thumb diameter (14px) · 2px inset inside 18px track.",
         "$extensions": { "modes": { "light": "{space.micro.14}", "dark": "{space.micro.14}" } }
+      },
+      "glyph": {
+        "$type": "dimension",
+        "$value": "{space.micro.6}",
+        "$description": "2026-10-07 · Switch restyled to the Drams Standard Switch (drams/001) at SCDS size. On/off glyph box: I bar height and O ring diameter (Drams 16px at a 40px track, scaled to the 18px track).",
+        "$extensions": { "modes": { "light": "{space.micro.6}", "dark": "{space.micro.6}" } }
       }
     },
     "progress": {

@@ -1812,3 +1812,31 @@ Done in the SCDS library file the same day (publishing is Levi's step):
 ### 2026-10-06: PlusSeparator's Code Connect follows the Tone set
 
 The follow-up named under "the library follows" above. `PlusSeparator.figma.tsx` now resolves to the set `474:56316` instead of its Default variant `459:2370`, and maps `Tone` (`Default` | `Muted`) to `tone` (`default` | `muted`). `CODE-CONNECT.md` updated. `figma:parse` validates it; publishing stays plan-gated.
+
+### 2026-10-07: interaction sounds land on three components (scds-ui-sounds)
+
+**Status:** Accepted. Levi picked one sound per component in the sound lab (`previews/sound-lab/`, state read back from `scds-sound-lab:v1`).
+
+| Component | Role sound | Source | Fires on |
+| --- | --- | --- | --- |
+| Switch | `toggle` | Drams 004 toggle switch (`drams-004-toggle-switch-01.wav`) | every on/off change |
+| Stepper | `tick` | Drams 037 (`drams-037-01.wav`) | every committed step, hold-repeat and Home/End included; silent at a bound |
+| SegmentedControl | `select` | Drams 001 (`drams-001-01.wav`) | a change of selection; re-selecting is silent |
+
+- **Engine** (`src/sound/`): Web Audio with pre-decoded buffers, because an `<audio>` element's start latency is longer than the 77 ms tick. The context arms on the first pointerdown/keydown; a sound still decoding plays only if ready within 120 ms. Each sound is a dynamic import, so a consumer that never mounts a sounding component downloads none (library chunks: toggle 73 kB, select 29 kB, tick 15 kB; `index.js` unchanged in kind).
+- **Defaults:** on. `SoundProvider enabled={false}` silences every sound (wire it to a user setting); `volume` sets the master level (default 0.7); `sound={false}` opts one instance out.
+- **Files:** the picks are re-encoded 48 kHz mono 16-bit (400 kB → 88 kB) into `src/sound/assets/`. The full Drams set stays in `assets/sounds/drams/` outside the deploy.
+- **Credit:** Drams by 1042.Studio permits commercial use with a shoutout. Credited in `src/sound/README.md`, the Switch docs page and `assets/sounds/drams/README.md`.
+- Button and Alert were considered and left silent: a sound on every button press fatigues, and a sound that arrives without a press is intrusive.
+
+### 2026-10-07: Switch restyled to the Drams Standard Switch, size kept
+
+**Status:** Accepted. Levi's direction: match the Drams Standard Switch (drams/001, mapping #1) but keep the SCDS 32 × 18 size; the knob should read as 3D.
+
+- **Kept:** track 32 × 18, thumb 14, 2 inset, teal on-track, the existing off/disabled grounds, all geometry by calc().
+- **Ported, scaled ×0.45:** recessed track (`shadow.switch.track`); knob as a gradient rim over a gradient face (`color.switch.thumb.*`) lifted by the Drams six-layer shadow (`shadow.switch.thumb`); an I/O glyph row (`size.switch.glyph` 6px, `color.switch.glyph.*`) that slides with the knob, so on/off reads without colour (WCAG 1.4.1).
+- **Not ported:** the Drams orange (SCDS keeps teal) and its 79 × 40 size.
+- **Dark mode** keeps a light physical knob, one ladder step dimmer per stop, so the object keeps its material at night.
+- **States added:** hover (track ground one step: `surface.hover` off, `brand.accentFill` on) and active (knob press, `motion.press.scale`); the Switch had neither. Disabled is flat: no recess, no lift, no glyphs, knob at 0.6 like the Stepper.
+- Second control-scoped shadow after `shadow.control.raised`; the "no other element carries a shadow" rule now reads "controls only".
+- `tokens:build`, `tokens:swift`, `tokens:map` regenerated; `tokens:verify` passes; `npm run build` and `build:lib` exit 0.

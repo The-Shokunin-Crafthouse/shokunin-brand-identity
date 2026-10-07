@@ -37,6 +37,12 @@ export { TypographySpecimen } from './components/TypographySpecimen/TypographySp
 export { WorkingMark } from './components/WorkingMark/WorkingMark.jsx';
 export { WORKING_MARK_LOOPS, WORKING_MARK_VIEWBOX } from './components/WorkingMark/workingMarkPaths.js';
 
+// Interaction sounds (decisions.md 2026-10-07 · scds-ui-sounds). Switch,
+// Stepper and SegmentedControl play their role sound by default;
+// SoundProvider sets the app-wide on/off and volume.
+export { SoundProvider, useUISound } from './sound/SoundProvider.jsx';
+export { playUISound, preloadUISound, UI_SOUNDS } from './sound/uiSound.js';
+
 // Brand elements: the plus-sign halftone system (decisions.md 2026-10-04 · plus-field).
 export { PlusField } from './components/PlusField/PlusField.jsx';
 export { SectionDivider } from './components/SectionDivider/SectionDivider.jsx';

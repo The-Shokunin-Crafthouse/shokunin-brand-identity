@@ -152,8 +152,8 @@ public enum SCDS {
     public static let semanticVersion = "0.1.0"
     public static let sourceGenerated = "2026-05-26"
     public static let primitivesHash = "1f49d61d1412de67"
-    public static let semanticHash = "d4da3bb73718308b"
-    public static let tokenCount = 138
+    public static let semanticHash = "38c731b51d0162af"
+    public static let tokenCount = 147
   }
 
   // MARK: - Color
@@ -434,6 +434,42 @@ public enum SCDS {
     public static let surfaceInverse = SwiftUI.Color.scdsDynamic(
         light: (0.101961, 0.094118, 0.082353, 1),
         dark:  (0.956863, 0.945098, 0.929412, 1)
+    )
+
+    /// `color.switch.thumb.rimTop`
+    public static let switchThumbRimTop = SwiftUI.Color.scdsDynamic(
+        light: (1, 1, 1, 1),
+        dark:  (0.847059, 0.819608, 0.8, 1)
+    )
+
+    /// `color.switch.thumb.rimBottom`
+    public static let switchThumbRimBottom = SwiftUI.Color.scdsDynamic(
+        light: (0.847059, 0.819608, 0.8, 1),
+        dark:  (0.603922, 0.568627, 0.52549, 1)
+    )
+
+    /// `color.switch.thumb.faceTop`
+    public static let switchThumbFaceTop = SwiftUI.Color.scdsDynamic(
+        light: (0.956863, 0.945098, 0.929412, 1),
+        dark:  (0.768627, 0.737255, 0.705882, 1)
+    )
+
+    /// `color.switch.thumb.faceBottom`
+    public static let switchThumbFaceBottom = SwiftUI.Color.scdsDynamic(
+        light: (0.921569, 0.905882, 0.894118, 1),
+        dark:  (0.690196, 0.65098, 0.611765, 1)
+    )
+
+    /// `color.switch.glyph.on`
+    public static let switchGlyphOn = SwiftUI.Color.scdsDynamic(
+        light: (1, 1, 1, 1),
+        dark:  (1, 1, 1, 1)
+    )
+
+    /// `color.switch.glyph.off`
+    public static let switchGlyphOff = SwiftUI.Color.scdsDynamic(
+        light: (0.984314, 0.976471, 0.964706, 1),
+        dark:  (0.486275, 0.478431, 0.462745, 1)
     )
   }
 
@@ -836,6 +872,9 @@ public enum SCDS {
     /// `size.switch.thumb`
     public static let switchThumb: CGFloat = 14
 
+    /// `size.switch.glyph`
+    public static let switchGlyph: CGFloat = 6
+
     /// `size.progress.bar-height`
     public static let progressBarHeight: CGFloat = 4
 
@@ -955,6 +994,36 @@ public enum SCDS {
         dark: [
             SCDSShadowLayer(inset: true, x: 0, y: 1, blur: 3, spread: 0, rgb: (0, 0, 0), alpha: 0.4),
             SCDSShadowLayer(inset: true, x: 0, y: 0, blur: 0, spread: 1, rgb: (1, 1, 1), alpha: 0.05),
+        ]
+    )
+
+    /// `shadow.switch.track` · 1 layers
+    public static let switchTrack = SCDSShadow(
+        light: [
+            SCDSShadowLayer(inset: true, x: 0, y: 0.45, blur: 0.9, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0.25),
+        ],
+        dark: [
+            SCDSShadowLayer(inset: true, x: 0, y: 0.45, blur: 0.9, spread: 0, rgb: (0, 0, 0), alpha: 0.45),
+        ]
+    )
+
+    /// `shadow.switch.thumb` · 6 layers
+    public static let switchThumb = SCDSShadow(
+        light: [
+            SCDSShadowLayer(inset: false, x: 0, y: 0.37, blur: 0.52, spread: -0.28, rgb: (0.101961, 0.094118, 0.082353), alpha: 0.26),
+            SCDSShadowLayer(inset: false, x: 0, y: 0.95, blur: 1.33, spread: -0.56, rgb: (0.101961, 0.094118, 0.082353), alpha: 0.25),
+            SCDSShadowLayer(inset: false, x: 0, y: 1.9, blur: 2.66, spread: -0.84, rgb: (0.101961, 0.094118, 0.082353), alpha: 0.24),
+            SCDSShadowLayer(inset: false, x: 0, y: 3.6, blur: 5.05, spread: -1.13, rgb: (0.101961, 0.094118, 0.082353), alpha: 0.22),
+            SCDSShadowLayer(inset: false, x: 0, y: 7.16, blur: 10.03, spread: -1.41, rgb: (0.101961, 0.094118, 0.082353), alpha: 0.18),
+            SCDSShadowLayer(inset: false, x: 0, y: 15.75, blur: 22.05, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0.09),
+        ],
+        dark: [
+            SCDSShadowLayer(inset: false, x: 0, y: 0.37, blur: 0.52, spread: -0.28, rgb: (0, 0, 0), alpha: 0.42),
+            SCDSShadowLayer(inset: false, x: 0, y: 0.95, blur: 1.33, spread: -0.56, rgb: (0, 0, 0), alpha: 0.4),
+            SCDSShadowLayer(inset: false, x: 0, y: 1.9, blur: 2.66, spread: -0.84, rgb: (0, 0, 0), alpha: 0.38),
+            SCDSShadowLayer(inset: false, x: 0, y: 3.6, blur: 5.05, spread: -1.13, rgb: (0, 0, 0), alpha: 0.35),
+            SCDSShadowLayer(inset: false, x: 0, y: 7.16, blur: 10.03, spread: -1.41, rgb: (0, 0, 0), alpha: 0.29),
+            SCDSShadowLayer(inset: false, x: 0, y: 15.75, blur: 22.05, spread: 0, rgb: (0, 0, 0), alpha: 0.14),
         ]
     )
   }
