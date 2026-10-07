@@ -15,8 +15,8 @@
 //   - every Primitives / Semantic variable value, per mode, aliases resolved
 //   - every font.text.* composite against its Figma text style
 //   - every shadow.* composite against its Figma effect style (light, and dark/)
-// It reuses compare-figma-variables.mjs's NAME_MAP verbatim, so the two checks can
-// never disagree on a name. font.family.* stays the standing exception (Trial faces
+// It reads its names from scripts/figma-names.mjs, as compare-figma-variables and
+// tune-figma-sync do, so the three can never disagree on a name. font.family.* stays the standing exception (Trial faces
 // in Figma, licensed stacks in the repo; decisions.md 2026-08-16).
 //
 // USE
@@ -25,14 +25,14 @@
 //   The call returns { verdict: "in-sync" | "drift", ... }. Run it after every library
 //   publish and after every tokens/ change; the reader is the session that publishes.
 import { readFileSync } from 'node:fs';
+import { VARIABLE_NAMES, textStyleName } from '../figma-names.mjs';
 
 const root = new URL('../../', import.meta.url);
 const j = (p) => JSON.parse(readFileSync(new URL(p, root), 'utf8'));
 const prim = j('tokens/primitives.json');
 const sem = j('tokens/semantic.json');
 
-const parity = readFileSync(new URL('scripts/parity/compare-figma-variables.mjs', root), 'utf8');
-const NAME_MAP = Function(`return (${/const NAME_MAP = (\{[\s\S]*?\n\});/.exec(parity)[1]})`)();
+const NAME_MAP = VARIABLE_NAMES;
 
 /* ---------- resolve ---------- */
 const jp = new Map(), js = new Map();
@@ -81,16 +81,14 @@ for (const [tier, map] of [['P', jp], ['S', js]]) for (const [path, t] of map) {
 }
 
 /* ---------- text styles ---------- */
-// font.text.body.dense -> text/body/dense/regular (Figma splits regular/bold); the rest map 1:1.
+// Library names from scripts/figma-names.mjs (body regular/bold folders, nav under body, kebab segments).
 const text = [];
 for (const [path, t] of js) {
   if (t.type !== 'typography' || !path.startsWith('font.text.')) continue;
   const v = res(t.value, 'Value');
   const comp = typeof v === 'object' ? v : {};
   const rest = path.slice('font.text.'.length).split('.');
-  // Figma's names where they are not the path with dots as slashes (2026-10-03).
-  const FIGMA_TEXT = { 'label.uiTight': 'text/label/ui-tight', 'body.denseBold': 'text/body/dense/bold', 'body.defaultBold': 'text/body/default/bold', 'body.leadBold': 'text/body/lead/bold', 'nav.header': 'text/body/nav/header', 'nav.node': 'text/body/nav/node' };
-  const name = FIGMA_TEXT[rest.join('.')] ?? ('text/' + rest.join('/') + (rest[0] === 'body' ? '/regular' : ''));
+  const name = textStyleName(path); // scripts/figma-names.mjs
   const num = (x) => Number(norm(res(x, 'Value')));
   text.push({ name, weight: num(comp.fontWeight), size: num(comp.fontSize), lineHeight: num(comp.lineHeight), trackingEm: num(comp.letterSpacing) });
 }

@@ -31,7 +31,9 @@
  * `created` lists what the run made; those, and only those, need binding on
  * the masters by hand, because no token file says which master reads a token.
  *
- * Library naming (verified against the file 2026-10-07):
+ * Library naming (verified against the file 2026-10-07; the documented exceptions,
+ * flat ink tier, onInverse, release-duration, body/nav text styles, live in
+ * scripts/figma-names.mjs):
  *   variable      token path with "/" for "."      color/control/keyShade
  *                 (reported as Primitives:<name> for the Primitives collection)
  *                 collections "Primitives" (mode "Value") and
@@ -48,6 +50,7 @@
 import { execFileSync } from 'node:child_process';
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { resolve } from 'node:path';
+import { variableName, textStyleName } from './figma-names.mjs';
 
 const root = resolve(import.meta.dirname, '..');
 const arg = (k, d) => { const i = process.argv.indexOf(k); return i > 0 ? process.argv[i + 1] : d; };
@@ -128,8 +131,9 @@ function composite(v) {
 
 /* ---------- library names and scopes ---------- */
 const VARIABLE_TYPES = ['color', 'dimension', 'number', 'duration'];
-const varName = (path) => path.replace(/\./g, '/');
-const textName = (path) => `text/${path.replace(/^font\.text\./, '').split('.').map(kebab).join('/')}`;
+// Library names come from scripts/figma-names.mjs, shared with the parity checks.
+const varName = variableName;
+const textName = textStyleName;
 const effectNames = (path) => {
   const seg = path.split('.');
   return [`shadow/${seg.slice(1).join('/')}`, `shadow/${seg.slice(1, -1).join('/')}/dark/${seg.at(-1)}`];
