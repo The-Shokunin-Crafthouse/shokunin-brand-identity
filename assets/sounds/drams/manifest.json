@@ -1,0 +1,534 @@
+{
+  "source": "https://drams.framer.website/",
+  "license": "Drams (1042.Studio): \"Feel free to use these Framer assets for your own personal or commercial projects. Just give us a shoutout if you do so.\" Do not redistribute modified assets as your own.",
+  "retrieved": "2026-10-07",
+  "sounds": [
+    {
+      "file": "drams-001-01.wav",
+      "seconds": 0.182,
+      "bytes": 50362,
+      "usedOn": [
+        "https://drams.framer.website/drams/001",
+        "https://drams.framer.website/drams/018",
+        "https://drams.framer.website/drams/044",
+        "https://drams.framer.website/drams/050",
+        "https://drams.framer.website/drams/052",
+        "https://drams.framer.website/sk2"
+      ],
+      "source": "https://framerusercontent.com/assets/kjE5ZkSkczjtJJkdDhP4kiyPyo.wav"
+    },
+    {
+      "file": "drams-002-01.wav",
+      "seconds": 0.607,
+      "bytes": 178855,
+      "usedOn": [
+        "https://drams.framer.website/drams/002"
+      ],
+      "source": "https://framerusercontent.com/assets/QolF2MYXOfrMwc2JNfZmr7ynTUQ.wav"
+    },
+    {
+      "file": "drams-003-01.wav",
+      "seconds": 1.497,
+      "bytes": 866626,
+      "usedOn": [
+        "https://drams.framer.website/drams/003",
+        "https://drams.framer.website/drams/010",
+        "https://drams.framer.website/drams/021",
+        "https://drams.framer.website/drams/022"
+      ],
+      "source": "https://framerusercontent.com/assets/OLpRqpSuLjpTTlLD7o4ozNjSgY.wav"
+    },
+    {
+      "file": "drams-004-toggle-switch-01.wav",
+      "seconds": 0.528,
+      "bytes": 308008,
+      "usedOn": [
+        "https://drams.framer.website/drams/004",
+        "https://drams.framer.website/drams/017"
+      ],
+      "source": "https://framerusercontent.com/assets/7vOgtLKxAJWLK9np4OcgHCMlHM.wav"
+    },
+    {
+      "file": "drams-005-toggle-switch-01.wav",
+      "seconds": 0.067,
+      "bytes": 42484,
+      "usedOn": [
+        "https://drams.framer.website/drams/005"
+      ],
+      "source": "https://framerusercontent.com/assets/ilJUGC7UBys7STnljTFX6GpAxb4.wav"
+    },
+    {
+      "file": "drams-006-01.wav",
+      "seconds": 0.169,
+      "bytes": 52909,
+      "usedOn": [
+        "https://drams.framer.website/drams/006",
+        "https://drams.framer.website/drams/011",
+        "https://drams.framer.website/drams/033"
+      ],
+      "source": "https://framerusercontent.com/assets/CCydVmRgDweGAuUjuWZgB2ZrU.wav"
+    },
+    {
+      "file": "drams-006-02.wav",
+      "seconds": 0.188,
+      "bytes": 58342,
+      "usedOn": [
+        "https://drams.framer.website/drams/006",
+        "https://drams.framer.website/drams/033"
+      ],
+      "source": "https://framerusercontent.com/assets/bR5uOMNR5rTv9Fi8cZl8LWxRGe8.wav"
+    },
+    {
+      "file": "drams-007-01.wav",
+      "seconds": 0.116,
+      "bytes": 71068,
+      "usedOn": [
+        "https://drams.framer.website/drams/007",
+        "https://drams.framer.website/drams/014",
+        "https://drams.framer.website/drams/027"
+      ],
+      "source": "https://framerusercontent.com/assets/c8SaqWUTqPZMB4POQUfFfad8zpA.wav"
+    },
+    {
+      "file": "drams-008-01.wav",
+      "seconds": 0.67,
+      "bytes": 390088,
+      "usedOn": [
+        "https://drams.framer.website/drams/008"
+      ],
+      "source": "https://framerusercontent.com/assets/FCFHo4sb5lzInhFWpU2TTyJTwCA.wav"
+    },
+    {
+      "file": "drams-009-01.wav",
+      "seconds": 0.225,
+      "bytes": 133798,
+      "usedOn": [
+        "https://drams.framer.website/drams/009",
+        "https://drams.framer.website/drams/020"
+      ],
+      "source": "https://framerusercontent.com/assets/YxK35XfSiLCLfkjIthhHoeqoS5A.wav"
+    },
+    {
+      "file": "drams-012-01.wav",
+      "seconds": 0.668,
+      "bytes": 388942,
+      "usedOn": [
+        "https://drams.framer.website/drams/012",
+        "https://drams.framer.website/drams/025",
+        "https://drams.framer.website/drams/032",
+        "https://drams.framer.website/drams/034",
+        "https://drams.framer.website/drams/040"
+      ],
+      "source": "https://framerusercontent.com/assets/XLvtuC2sNZjraTmzXqSlMBSxNk.wav"
+    },
+    {
+      "file": "drams-013-01.wav",
+      "seconds": 0.636,
+      "bytes": 370618,
+      "usedOn": [
+        "https://drams.framer.website/drams/013",
+        "https://drams.framer.website/drams/023"
+      ],
+      "source": "https://framerusercontent.com/assets/oXnul4LTj2aOpiYQxv1KofddE4.wav"
+    },
+    {
+      "file": "drams-014-01.wav",
+      "seconds": 1.154,
+      "bytes": 670034,
+      "usedOn": [
+        "https://drams.framer.website/drams/014"
+      ],
+      "source": "https://framerusercontent.com/assets/AtZunovT6GUvFwTCDNKGJP5OpE.wav"
+    },
+    {
+      "file": "drams-015-01.wav",
+      "seconds": 0.927,
+      "bytes": 271081,
+      "usedOn": [
+        "https://drams.framer.website/drams/015"
+      ],
+      "source": "https://framerusercontent.com/assets/tM4z3zw9WZQPkBjMHFbGSkHtrqI.wav"
+    },
+    {
+      "file": "drams-016-detent-knob-01.wav",
+      "seconds": 0.178,
+      "bytes": 55405,
+      "usedOn": [
+        "https://drams.framer.website/drams/016"
+      ],
+      "source": "https://framerusercontent.com/assets/SPjjzCfBsGxehueT9SU5gscqGs.wav"
+    },
+    {
+      "file": "drams-019-01.wav",
+      "seconds": 0.954,
+      "bytes": 553828,
+      "usedOn": [
+        "https://drams.framer.website/drams/019"
+      ],
+      "source": "https://framerusercontent.com/assets/hkZLahlNpTOQ0XIPvAVNQ8h9Vq8.wav"
+    },
+    {
+      "file": "drams-024-01.wav",
+      "seconds": 0.824,
+      "bytes": 237524,
+      "usedOn": [
+        "https://drams.framer.website/drams/024",
+        "https://drams.framer.website/drams/028"
+      ],
+      "source": "https://framerusercontent.com/assets/Tnl8yDpD8Nbfxc3MD0fyr8NRk.wav"
+    },
+    {
+      "file": "drams-026-01.wav",
+      "seconds": 0.226,
+      "bytes": 134062,
+      "usedOn": [
+        "https://drams.framer.website/drams/026"
+      ],
+      "source": "https://framerusercontent.com/assets/lwX0zsdJPYyVImK1dHKEcfx9mU.wav"
+    },
+    {
+      "file": "drams-029-01.wav",
+      "seconds": 0.239,
+      "bytes": 138002,
+      "usedOn": [
+        "https://drams.framer.website/drams/029"
+      ],
+      "source": "https://framerusercontent.com/assets/c3w1HXHem46lLYRjw1TVRt1rVd4.wav"
+    },
+    {
+      "file": "drams-030-01.wav",
+      "seconds": 0.575,
+      "bytes": 330998,
+      "usedOn": [
+        "https://drams.framer.website/drams/030"
+      ],
+      "source": "https://framerusercontent.com/assets/jiTly7Q5hstsgUheQMdxuGjCUs.wav"
+    },
+    {
+      "file": "drams-031-01.wav",
+      "seconds": 0.106,
+      "bytes": 65032,
+      "usedOn": [
+        "https://drams.framer.website/drams/031"
+      ],
+      "source": "https://framerusercontent.com/assets/9RlGnAQ6taLNiobP8qbWlx9KXo.wav"
+    },
+    {
+      "file": "drams-031-02.wav",
+      "seconds": 0.07,
+      "bytes": 24211,
+      "usedOn": [
+        "https://drams.framer.website/drams/031"
+      ],
+      "source": "https://framerusercontent.com/assets/VqbEM3UhPy2VpJyZIne6cw1B3Y.wav"
+    },
+    {
+      "file": "drams-035-01.wav",
+      "seconds": 0.459,
+      "bytes": 134408,
+      "usedOn": [
+        "https://drams.framer.website/drams/035"
+      ],
+      "source": "https://framerusercontent.com/assets/FlZf2RsZqvgtA0YAYvFiwkeY.wav"
+    },
+    {
+      "file": "drams-036-op-1-keys-01.wav",
+      "seconds": 3.019,
+      "bytes": 532608,
+      "usedOn": [
+        "https://drams.framer.website/drams/036"
+      ],
+      "source": "https://framerusercontent.com/assets/6XMjdu3wl4Ofbt0yQJxhS2N4GUk.wav"
+    },
+    {
+      "file": "drams-036-op-1-keys-02.wav",
+      "seconds": 3.325,
+      "bytes": 586624,
+      "usedOn": [
+        "https://drams.framer.website/drams/036"
+      ],
+      "source": "https://framerusercontent.com/assets/8zFS7pqbftNZTlinAQkRZ4vHzA.wav"
+    },
+    {
+      "file": "drams-036-op-1-keys-03.wav",
+      "seconds": 3.901,
+      "bytes": 688256,
+      "usedOn": [
+        "https://drams.framer.website/drams/036"
+      ],
+      "source": "https://framerusercontent.com/assets/O5fBWCVPgz82OrDNR7HUsIjKs.wav"
+    },
+    {
+      "file": "drams-036-op-1-keys-04.wav",
+      "seconds": 3.454,
+      "bytes": 609408,
+      "usedOn": [
+        "https://drams.framer.website/drams/036"
+      ],
+      "source": "https://framerusercontent.com/assets/YRsTJrJ4X1w2I2wNVsYuUzGToE.wav"
+    },
+    {
+      "file": "drams-036-op-1-keys-05.wav",
+      "seconds": 3.117,
+      "bytes": 550016,
+      "usedOn": [
+        "https://drams.framer.website/drams/036"
+      ],
+      "source": "https://framerusercontent.com/assets/qbSVAuFWpToQ2a4OxMkK9QT9c4.wav"
+    },
+    {
+      "file": "drams-036-op-1-keys-06.wav",
+      "seconds": 2.621,
+      "bytes": 462464,
+      "usedOn": [
+        "https://drams.framer.website/drams/036"
+      ],
+      "source": "https://framerusercontent.com/assets/uNCSSZ0MXRRrmSYzqOPqHicaK4.wav"
+    },
+    {
+      "file": "drams-036-op-1-keys-07.wav",
+      "seconds": 2.856,
+      "bytes": 503936,
+      "usedOn": [
+        "https://drams.framer.website/drams/036"
+      ],
+      "source": "https://framerusercontent.com/assets/x0DQwlBkqJQeKThZcdCS1nzcOQ4.wav"
+    },
+    {
+      "file": "drams-037-01.wav",
+      "seconds": 0.077,
+      "bytes": 48484,
+      "usedOn": [
+        "https://drams.framer.website/drams/037"
+      ],
+      "source": "https://framerusercontent.com/assets/vYGJHtZFxQflgfxC0MYQ02SeAN4.wav"
+    },
+    {
+      "file": "drams-038-01.wav",
+      "seconds": 0.651,
+      "bytes": 114870,
+      "usedOn": [
+        "https://drams.framer.website/drams/038"
+      ],
+      "source": "https://framerusercontent.com/assets/eCK5cCh4ofwqy5ZfzpecHn2mMg.wav"
+    },
+    {
+      "file": "drams-038-02.wav",
+      "seconds": 0.879,
+      "bytes": 155198,
+      "usedOn": [
+        "https://drams.framer.website/drams/038"
+      ],
+      "source": "https://framerusercontent.com/assets/gO0MfsNkyLSNfmMwKBfccK37o.wav"
+    },
+    {
+      "file": "drams-039-01.wav",
+      "seconds": 0.304,
+      "bytes": 179380,
+      "usedOn": [
+        "https://drams.framer.website/drams/039"
+      ],
+      "source": "https://framerusercontent.com/assets/gMPPdiCpVIH2JXiTbcZ15roJgzs.wav"
+    },
+    {
+      "file": "drams-041-01.wav",
+      "seconds": 0.293,
+      "bytes": 88513,
+      "usedOn": [
+        "https://drams.framer.website/drams/041"
+      ],
+      "source": "https://framerusercontent.com/assets/CvDFdP2xP9s6Qasq3ajnW9KLSk.wav"
+    },
+    {
+      "file": "drams-042-01.wav",
+      "seconds": 0.616,
+      "bytes": 122312,
+      "usedOn": [
+        "https://drams.framer.website/drams/042"
+      ],
+      "source": "https://framerusercontent.com/assets/JppBPXk593fMQ7JX3ZCBqHU6E.wav"
+    },
+    {
+      "file": "drams-043-01.wav",
+      "seconds": 0.998,
+      "bytes": 578884,
+      "usedOn": [
+        "https://drams.framer.website/drams/043"
+      ],
+      "source": "https://framerusercontent.com/assets/s032pT3ymmdrjbKBu8MmOyJRDLw.wav"
+    },
+    {
+      "file": "drams-043-02.wav",
+      "seconds": 0.827,
+      "bytes": 480580,
+      "usedOn": [
+        "https://drams.framer.website/drams/043"
+      ],
+      "source": "https://framerusercontent.com/assets/xGAStpyfEnzpMBcdbbliCB4j1bc.wav"
+    },
+    {
+      "file": "drams-044-01.mp3",
+      "seconds": 0.914,
+      "bytes": 30587,
+      "usedOn": [
+        "https://drams.framer.website/drams/044"
+      ],
+      "source": "https://framerusercontent.com/assets/5xlpqiaOzNx3xdPAUOY4n9ziQ.mp3"
+    },
+    {
+      "file": "drams-045-three-way-slide-switch-01.wav",
+      "seconds": 0.426,
+      "bytes": 249466,
+      "usedOn": [
+        "https://drams.framer.website/drams/045"
+      ],
+      "source": "https://framerusercontent.com/assets/ZvyZaaKhVMM0MPd4F1CvKEUkUM.wav"
+    },
+    {
+      "file": "drams-046-pendulum-01.wav",
+      "seconds": 0.267,
+      "bytes": 158080,
+      "usedOn": [
+        "https://drams.framer.website/drams/046"
+      ],
+      "source": "https://framerusercontent.com/assets/529h1sDGzj2AbrAzgWN3RUtZqw.wav"
+    },
+    {
+      "file": "drams-047-bouncin-ball-01.wav",
+      "seconds": 0.243,
+      "bytes": 50848,
+      "usedOn": [
+        "https://drams.framer.website/drams/047"
+      ],
+      "source": "https://framerusercontent.com/assets/tiuK2wW3lNJIQj9YjckLpJ7Y9Kw.wav"
+    },
+    {
+      "file": "drams-047-bouncin-ball-02.wav",
+      "seconds": 0.188,
+      "bytes": 40120,
+      "usedOn": [
+        "https://drams.framer.website/drams/047"
+      ],
+      "source": "https://framerusercontent.com/assets/zKESE7aiqXxH6edJVcZ1viQ7Do.wav"
+    },
+    {
+      "file": "drams-048-r2d2-01.mp3",
+      "seconds": 1.149,
+      "bytes": 15712,
+      "usedOn": [
+        "https://drams.framer.website/drams/048"
+      ],
+      "source": "https://framerusercontent.com/assets/Tq4A2qq72EesA1Vbf8Rbbmes0.mp3"
+    },
+    {
+      "file": "drams-048-r2d2-02.mp3",
+      "seconds": 1.019,
+      "bytes": 14405,
+      "usedOn": [
+        "https://drams.framer.website/drams/048"
+      ],
+      "source": "https://framerusercontent.com/assets/whr02DkwTk5wjSmgFjj6EMRvLA.mp3"
+    },
+    {
+      "file": "drams-048-r2d2-03.mp3",
+      "seconds": 0.627,
+      "bytes": 10487,
+      "usedOn": [
+        "https://drams.framer.website/drams/048"
+      ],
+      "source": "https://framerusercontent.com/assets/xppWBBYGx7AriNW5ULz3xnslsI.mp3"
+    },
+    {
+      "file": "drams-051-braun-electric-shaver-01.wav",
+      "seconds": 9.932,
+      "bytes": 2864593,
+      "usedOn": [
+        "https://drams.framer.website/drams/051"
+      ],
+      "source": "https://framerusercontent.com/assets/HZ5dN5MgHoQMzUE6CEB3f882I8.wav"
+    },
+    {
+      "file": "sk2-01.wav",
+      "seconds": 1.982,
+      "bytes": 1145770,
+      "usedOn": [
+        "https://drams.framer.website/sk2"
+      ],
+      "source": "https://framerusercontent.com/assets/4okQt9dhsWsZ68ig5R8qCk1U54.wav"
+    },
+    {
+      "file": "sk2-02.wav",
+      "seconds": 1.979,
+      "bytes": 1144120,
+      "usedOn": [
+        "https://drams.framer.website/sk2"
+      ],
+      "source": "https://framerusercontent.com/assets/IfLDQtrZ28mPpftuJmyKsM39cV8.wav"
+    },
+    {
+      "file": "sk2-03.wav",
+      "seconds": 1.85,
+      "bytes": 1069786,
+      "usedOn": [
+        "https://drams.framer.website/sk2"
+      ],
+      "source": "https://framerusercontent.com/assets/s3WvRe8bfcKoULIrjbIkugO94I.wav"
+    }
+  ],
+  "skipped": [
+    {
+      "source": "https://framerusercontent.com/assets/8w3IUatLX9a5JVJ6XPCVuHi94.mp3",
+      "pages": [
+        "experiments__sk2-2",
+        "experiments__sk2-3",
+        "experiments__the-dancers"
+      ],
+      "seconds": 48.64,
+      "reason": "long-form music/ambience, not a UI sound"
+    },
+    {
+      "source": "https://framerusercontent.com/assets/JgTNWhDpw2gKggOb6gIQQAwbvSM.wav",
+      "pages": [
+        "experiments__the-dancers"
+      ],
+      "seconds": 155.28,
+      "reason": "long-form music/ambience, not a UI sound"
+    },
+    {
+      "source": "https://framerusercontent.com/assets/G1ieRwtsiXiyRk47SZyidqweynQ.wav",
+      "pages": [
+        "experiments__the-dancers-3"
+      ],
+      "seconds": 40.42,
+      "reason": "long-form music/ambience, not a UI sound"
+    },
+    {
+      "source": "https://framerusercontent.com/assets/IAlJF3BdmvQnrt0u4l77HJzGUzI.mp3",
+      "pages": [
+        "experiments__the-dancers-3"
+      ],
+      "seconds": 392.01,
+      "reason": "long-form music/ambience, not a UI sound"
+    },
+    {
+      "source": "https://framerusercontent.com/assets/YVo4LlFjEKqe4Iywcw1zvOShqe0.wav",
+      "pages": [
+        "experiments__the-dancers-3"
+      ],
+      "seconds": 16.22,
+      "reason": "long-form music/ambience, not a UI sound"
+    },
+    {
+      "source": "https://framerusercontent.com/assets/RX2qO1WFFlfaLFm2eQKoEK0Z2w.m4a",
+      "pages": [
+        "experiments__sk2-3"
+      ],
+      "seconds": 170.42,
+      "reason": "long-form music/ambience, not a UI sound"
+    },
+    {
+      "source": "radio streams (publicradio.org, somafm, kexp, npr, fip, ilovemusic, 80s80s) and mixkit-tech-house-vibes-130.mp3",
+      "reason": "live radio streams and a third-party placeholder music track, not Drams UI sounds"
+    }
+  ]
+}
