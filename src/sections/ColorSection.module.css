@@ -5,6 +5,9 @@
  * value references a --sc-* token; structural column widths are
  * named --col-* constants (derived from the 1440 frame). Mobile-first:
  * single column by default, the content+gutter grid engages at md.
+ * Multi-column blocks key off .chapterBody's own width (container
+ * queries), not the viewport: the sidebar rail takes 256-304px of a
+ * 768/1024 viewport, so a viewport breakpoint over-promises the column.
  * ============================================================ */
 
 .color {
@@ -12,6 +15,7 @@
   --col-gutter: 168px;
   --col-max: 1080px;
   --col-verdict: 380px;
+  width: 100%; /* a shrink-to-fit flex item at md would collapse the contained .chapterBody */
   max-width: var(--col-max);
 }
 
@@ -85,7 +89,7 @@
   text-wrap: balance;
 }
 .premise { font: var(--sc-p-font-text-offscale-body-18); color: var(--sc-color-text-secondary); text-wrap: pretty; } /* OFFSCALE 18px — labeled, Color page only */
-.chapterBody { display: flex; flex-direction: column; gap: var(--sc-space-layout-stack-md); }
+.chapterBody { display: flex; flex-direction: column; gap: var(--sc-space-layout-stack-md); container: chapter / inline-size; }
 
 .rowEyebrow {
   display: flex; flex-wrap: wrap; gap: var(--sc-space-component-gap-md);
@@ -109,8 +113,16 @@
 .annotation b { display: block; color: var(--sc-color-text-primary); font-weight: var(--sc-p-font-weight-medium); margin-bottom: var(--sc-space-component-gap-sm); }
 
 /* ── Warm ramp ───────────────────────────────────────────── */
+/* Track owns the 13 columns; swatches and labels share them via subgrid,
+ * so a column is never narrower than its label. When 13 labels outgrow
+ * the chapter column, the track scrolls, never the page. */
+.rampTrack {
+  display: grid; grid-template-columns: repeat(13, minmax(max-content, 1fr));
+  overflow-x: auto; overscroll-behavior-x: contain;
+  scrollbar-width: thin; scrollbar-color: var(--sc-color-text-disabled) transparent;
+}
 .ramp {
-  display: grid; grid-template-columns: repeat(13, 1fr);
+  grid-column: 1 / -1; display: grid; grid-template-columns: subgrid;
   height: var(--sc-p-space-96);
   border: var(--sc-border-width-default) solid var(--sc-color-border-default);
   border-radius: var(--sc-radius-control); overflow: hidden;
@@ -122,8 +134,8 @@
   transition: box-shadow var(--sc-motion-hover-duration) var(--sc-motion-hover-easing);
 }
 .stop:hover::after, .stopSel::after { box-shadow: inset 0 0 0 var(--sc-border-width-focus) var(--sc-color-brand-accent); }
-.rampLabels { display: grid; grid-template-columns: repeat(13, 1fr); }
-.rampLabel { display: flex; flex-direction: column; gap: var(--sc-p-space-micro-2); padding-top: var(--sc-p-space-micro-2); font: var(--sc-font-text-mono-chrome); letter-spacing: 0; }
+.rampLabels { grid-column: 1 / -1; display: grid; grid-template-columns: subgrid; }
+.rampLabel { display: flex; flex-direction: column; gap: var(--sc-p-space-micro-2); padding-top: var(--sc-p-space-micro-2); padding-inline-end: var(--sc-space-component-gap-md); font: var(--sc-font-text-mono-chrome); letter-spacing: 0; }
 .rampStep { color: var(--sc-color-text-primary); font-weight: var(--sc-p-font-weight-medium); }
 .rampHex { display: none; color: var(--sc-color-text-secondary); } /* step-only on mobile; hex revealed at >=768 */
 .rampKey {
@@ -152,7 +164,7 @@
   text-transform: uppercase;
 }
 .plateGlyph { font: var(--sc-font-text-display-xl); align-self: flex-end; line-height: 1; }
-.plateFoot { display: flex; justify-content: space-between; align-items: baseline; }
+.plateFoot { display: flex; flex-wrap: wrap; column-gap: var(--sc-space-component-gap-md); justify-content: space-between; align-items: baseline; }
 .plateFoot b { font-weight: var(--sc-p-font-weight-medium); }
 .shuRail { display: flex; flex-direction: column; gap: var(--sc-border-width-default); border-radius: var(--sc-radius-control); overflow: hidden; }
 .shuStep {
@@ -193,6 +205,7 @@
   background: var(--sc-color-surface-sunk);
   border: var(--sc-border-width-default) solid var(--sc-color-border-default);
   color: var(--sc-color-text-primary); font: var(--sc-font-text-body-dense);
+  min-width: 0; max-width: 100%;
 }
 .demoMark { width: var(--sc-p-space-64); height: var(--sc-p-space-48); background: var(--sc-color-text-primary); position: relative; }
 .demoMark::after { content: ""; position: absolute; right: 0; top: 0; width: var(--sc-p-space-16); height: var(--sc-p-space-16); background: var(--sc-p-color-teal-500); }
@@ -280,23 +293,31 @@
 @media (min-width: 768px) {
   .heroTitle { font: var(--sc-font-text-display-md); letter-spacing: var(--sc-font-text-display-md-letter-spacing); }
   .pAa, .ratioValue { font: var(--sc-font-text-display-lg); letter-spacing: var(--sc-font-text-display-lg-letter-spacing); }
-  .shuBlock { grid-template-columns: 2fr 1fr; }
-  .plateGlyph { font: var(--sc-p-font-text-offscale-display-200); letter-spacing: var(--sc-p-font-text-offscale-display-200-letter-spacing); line-height: 0.9; } /* OFFSCALE 200px — labeled, desktop */
   .rampHex { display: block; }
-  .threeJobs { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* ── Chapter column ≥ 560: side-by-side tiles ─────────────── */
+@container chapter (min-width: 560px) {
+  .threeJobs { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .job { border-bottom: 0; border-right: var(--sc-border-width-default) solid var(--sc-color-border-default); }
   .job:last-child { border-right: 0; }
-  .statusRow { grid-template-columns: repeat(2, 1fr); }
-  .checkerTop { grid-template-columns: 1fr 1fr; }
+  .statusRow { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .checkerTop { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .checkerSide:first-child { border-right: var(--sc-border-width-default) solid var(--sc-color-border-default); }
-  .checkerBottom { grid-template-columns: 1fr minmax(0, var(--col-verdict)); }
+}
+
+/* ── Chapter column ≥ 720: plate + rail, ratio + verdicts ── */
+@container chapter (min-width: 720px) {
+  .checkerBottom { grid-template-columns: minmax(0, 1fr) minmax(0, var(--col-verdict)); }
   .ratioCell { border-bottom: 0; border-right: var(--sc-border-width-default) solid var(--sc-color-border-default); }
+  .shuBlock { grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); }
+  .plateGlyph { font: var(--sc-p-font-text-offscale-display-200); letter-spacing: var(--sc-p-font-text-offscale-display-200-letter-spacing); line-height: 0.9; } /* OFFSCALE 200px — labeled, desktop */
 }
 
 /* ── ≥ md: scale display type + content/gutter grid ──────── */
 @media (min-width: 1280px) {
   .heroTitle { font: var(--sc-font-text-display-lg); letter-spacing: var(--sc-font-text-display-lg-letter-spacing); }
-  .statusRow { grid-template-columns: repeat(4, 1fr); }
+  .statusRow { grid-template-columns: repeat(4, minmax(0, 1fr)); }
   .chapter {
     display: grid;
     grid-template-columns: minmax(0, var(--col-content)) var(--sc-p-space-32) var(--col-gutter);
