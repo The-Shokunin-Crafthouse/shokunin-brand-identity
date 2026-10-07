@@ -71,7 +71,14 @@ function nearest(t) {
     return best ? `${best.d === 0 ? 'equals' : 'nearest'} ${best.n} (${best.v}${best.d ? `, Δ${best.d.toFixed(1)}` : ''})` : 'raw';
   }
   if (t.kind === 'length' || t.kind === 'time') {
-    const hit = (t.kind === 'length' ? lengthPrims : timePrims).find((p) => p.v === t.tuned);
+    // Compare numbers ("08px" is 8px), and prefer the primitive family the
+    // token belongs to: a space token matches --sc-p-space-*, not a font size.
+    const num = parseFloat(t.tuned);
+    const unit = String(t.tuned).replace(/^-?[\d.]+/, '');
+    const family = t.name.match(/^--sc-(space|size|font|radius|border|motion)-/)?.[1];
+    const pool = (t.kind === 'length' ? lengthPrims : timePrims).filter((p) => parseFloat(p.v) === num && p.v.replace(/^-?[\d.]+/, '') === unit);
+    const fam = { space: /-space-/, size: /-space-|-size-/, font: /-font-/, radius: /-radius-/, border: /-border-/, motion: /-motion-|-duration-/ }[family];
+    const hit = (fam && pool.find((p) => fam.test(p.n))) || pool[0];
     return hit ? `equals ${hit.n}` : 'raw, off the token ladder';
   }
   return 'raw';

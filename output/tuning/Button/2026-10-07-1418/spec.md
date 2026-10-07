@@ -65,10 +65,10 @@ Treat every note as a requirement. A note the build cannot meet goes back to Lev
 | `--sc-size-button-icon-lg` | both | length | `12px` | `14px` | `var(--sc-p-space-micro-14)` | token --sc-p-space-micro-14 |  |
 | `--sc-space-component-padding-block-md` | both | length | `8px` | `8px` | `8px` | equals --sc-p-space-8 |  |
 | `--sc-space-component-padding-block-button-sm` | both | length | `4px` | `4px` | `4px` | equals --sc-p-space-4 |  |
-| `--sc-space-component-padding-inline-lg` | both | length | `16px` | `24px` | `24px` | equals --sc-p-font-size-24 |  |
+| `--sc-space-component-padding-inline-lg` | both | length | `16px` | `24px` | `24px` | equals --sc-p-space-24 |  |
 | `--sc-space-component-gap-md` | both | length | `8px` | `8px` | `8px` | equals --sc-p-space-8 |  |
-| `--sc-space-component-padding-block-sm` | both | length | `2px` | `08px` | `08px` | raw, off the token ladder |  |
-| `--sc-space-component-padding-inline-md` | both | length | `12px` | `16px` | `16px` | equals --sc-p-font-size-16 |  |
+| `--sc-space-component-padding-block-sm` | both | length | `2px` | `08px` | `08px` | equals --sc-p-space-8 |  |
+| `--sc-space-component-padding-inline-md` | both | length | `12px` | `16px` | `16px` | equals --sc-p-space-16 |  |
 | `--sc-font-text-label-button-sm-letter-spacing` | both | text | `0.08em` | `0.02em` | `0.02em` | raw |  |
 | `--sc-shadow-control-key` | light | shadow | `3px 3px 7px 0 rgb(26 24 21 / 0.39), -3px -3px 4px 1px rgb(255 255 255 / 1)` | `2px 2px 6px 0px rgb(100 91 79 / 0.5), -1px -1px 1px 1px #FDFAF6` | `2px 2px 6px 0px rgb(100 91 79 / 0.5), -1px -1px 1px 1px #FDFAF6` | raw |  |
 | `--sc-shadow-control-key` | dark | shadow | `` | `3px 3px 7px 0px rgb(0 0 0 / 0.50), -1px -1px 1px 1px rgb(219 235 255 / 0.17)` | `3px 3px 7px 0px rgb(0 0 0 / 0.50), -1px -1px 1px 1px rgb(219 235 255 / 0.17)` | raw |  |
