@@ -23,14 +23,45 @@ import { Switch } from '../../src/components/Switch/Switch.jsx';
 import { Stepper } from '../../src/components/Stepper/Stepper.jsx';
 import { SegmentedControl } from '../../src/components/SegmentedControl/SegmentedControl.jsx';
 import { Button } from '../../src/components/Button/Button.jsx';
+import { Tooltip } from '../../src/components/Tooltip/Tooltip.jsx';
+import { NavBar } from '../../src/components/NavBar/NavBar.jsx';
+import { PlusUnderline } from '../../src/components/PlusUnderline/PlusUnderline.jsx';
 import switchCss from '../../src/components/Switch/Switch.module.css?raw';
 import stepperCss from '../../src/components/Stepper/Stepper.module.css?raw';
 import iconCss from '../../src/components/Icon/Icon.module.css?raw';
 import segmentedCss from '../../src/components/SegmentedControl/SegmentedControl.module.css?raw';
 import buttonCss from '../../src/components/Button/Button.module.css?raw';
+import tooltipCss from '../../src/components/Tooltip/Tooltip.module.css?raw';
+import navBarCss from '../../src/components/NavBar/NavBar.module.css?raw';
+import underlineCss from '../../src/components/PlusUnderline/PlusUnderline.module.css?raw';
 import s from './Tune.module.css';
 
 const SEGMENTS = ['day', 'week', 'month'];
+const PAGES = ['work', 'studio', 'journal'];
+
+/*
+ * The elastic motion seed, from kabarza's elastic toggles reel
+ * (instagram.com/reel/DeK0AFcIRhf): the playground's Balanced preset
+ * (stretch 0.45, squash 0, bounce 0, duration 520ms) and the article's press
+ * layer (amount 0.83, 150ms). A component's elastic tokens ship at 0 (or
+ * equal to motion.reveal), so these reach SCDS only through a recorded
+ * concept. Spring: duration 520ms, bounce 0 → stiffness (2π/0.52)², damping
+ * 4π/0.52, mass 1.
+ */
+const reel = (prefix, { press = true } = {}) => {
+  const t = `--sc-motion-${prefix}`;
+  return {
+    jsTokens: [`${t}-stretch`, `${t}-squash`, ...(press ? [`${t}-press-lean`, `${t}-press-lean-duration`, '--sc-motion-press-easing'] : [])],
+    seed: {
+      overrides: {
+        [`${t}-stretch`]: '0.45',
+        [`${t}-squash`]: '0',
+        ...(press ? { [`${t}-press-lean`]: '0.83', [`${t}-press-lean-duration`]: '150ms' } : {}),
+      },
+      springs: { [`${t}-travel-easing`]: { stiffness: 146, damping: 24.17, mass: 1 } },
+    },
+  };
+};
 
 /* ---------- motion sandbox ---------- */
 
@@ -141,6 +172,7 @@ export const REGISTRY = {
   },
   SegmentedControl: {
     css: [segmentedCss],
+    ...reel('segmented-control'),
     shippedSound: 'drams-001-01.wav',
     trigger: 'a change of selection; re-selecting is silent',
     props: [
@@ -166,6 +198,76 @@ export const REGISTRY = {
           set('value', v);
         }}
       />
+    ),
+  },
+  Tooltip: {
+    css: [tooltipCss],
+    ...reel('tooltip', { press: false }),
+    shippedSound: null,
+    trigger: 'ships silent',
+    props: [
+      { name: 'open', type: 'boolean', default: true },
+      { name: 'multiline', type: 'boolean', default: false },
+      { name: 'content', type: 'text', default: 'Copied to clipboard' },
+    ],
+    play: (p, set) => set('open', !p.open),
+    render: (p) => (
+      <span style={{ display: 'inline-block', paddingTop: 'var(--sc-space-layout-stack-md)' }}>
+        <Tooltip content={p.content} multiline={p.multiline} open={p.open}>
+          <span style={{ font: 'inherit' }}>Hover or press Play</span>
+        </Tooltip>
+      </span>
+    ),
+  },
+  NavBar: {
+    css: [navBarCss, underlineCss],
+    ...reel('nav-bar'),
+    shippedSound: null,
+    trigger: 'ships silent',
+    props: [
+      { name: 'current', type: 'enum', options: PAGES, default: 'work' },
+      { name: 'underline', type: 'boolean', default: true },
+    ],
+    play: (p, set) => set('current', PAGES[(PAGES.indexOf(p.current) + 1) % PAGES.length]),
+    render: (p, set) => (
+      // Links are in-page anchors: a click moves `current` instead of navigating.
+      <div onClickCapture={(e) => {
+        const a = e.target.closest('a');
+        if (!a) return;
+        e.preventDefault();
+        set('current', a.textContent.trim().toLowerCase());
+      }}>
+        <NavBar
+          brand={<span>Shokunin</span>}
+          underline={p.underline}
+          links={PAGES.map((x) => ({ href: `#${x}`, label: x[0].toUpperCase() + x.slice(1), current: x === p.current }))}
+        />
+      </div>
+    ),
+  },
+  PlusUnderline: {
+    css: [underlineCss],
+    ...reel('plus-underline'),
+    shippedSound: null,
+    trigger: 'ships silent',
+    props: [{ name: 'active', type: 'enum', options: SEGMENTS, default: 'day' }],
+    play: (p, set) => set('active', SEGMENTS[(SEGMENTS.indexOf(p.active) + 1) % SEGMENTS.length]),
+    render: (p, set) => (
+      <div role="tablist" aria-label="Range" style={{ display: 'flex', gap: 'var(--sc-space-component-gap-lg)' }}>
+        {SEGMENTS.map((x) => (
+          <button
+            key={x}
+            type="button"
+            role="tab"
+            aria-selected={x === p.active}
+            onClick={() => set('active', x)}
+            style={{ display: 'inline-flex', flexDirection: 'column', gap: 'var(--sc-space-component-gap-sm)', background: 'none', border: 0, padding: 0, font: 'inherit', color: 'var(--sc-color-text-primary)', cursor: 'pointer' }}
+          >
+            {x[0].toUpperCase() + x.slice(1)}
+            <PlusUnderline active={x === p.active} />
+          </button>
+        ))}
+      </div>
     ),
   },
   Button: {

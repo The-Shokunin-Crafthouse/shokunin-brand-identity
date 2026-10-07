@@ -47,6 +47,8 @@ Do this when a component has no `REGISTRY` entry. One entry teaches the engine w
 
 1. Import the component, and import its CSS module with the `?raw` suffix. Also import with `?raw` the CSS of every SCDS child the component renders (the Stepper renders `Icon`, so its entry lists `iconCss`).
    If a child's CSS is missing, that child's tokens are missing from the panel and Levi cannot tune them.
+   If the component reads a token in JavaScript instead of through `var()` in its CSS (the elastic motion tokens in `src/motion/elastic.js`), list it in `jsTokens`. Otherwise the panel cannot show it.
+   If a setting ships inert (0) and Levi wants the lab to start somewhere else, put that start in `seed` (`overrides`, plus `springs` for a travel easing). A seed fills only tokens a concept has not touched. The `reel()` helper in the registry builds both for an elastic component.
 2. List the props worth tuning. Give each one `name`, `type` (`boolean`, `enum`, `number` or `text`) and `default`. Give an `enum` its `options`.
 3. Set `shippedSound` to the Drams file the component's role sound came from (see `src/sound/README.md`). Set it to `null` if the component ships silent.
 4. Set `trigger` to the moment the shipped component plays its sound, in a few words.

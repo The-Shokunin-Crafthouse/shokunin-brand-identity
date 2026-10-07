@@ -33,3 +33,15 @@ Spec ref: §2 Tier 3 · 3.8 · States: single-line, multi-line.
 ## Reduced-motion
 
 Transition suppressed. Open/closed state still flips via opacity 0/1 (instant) — no functional regression.
+
+## Elastic motion
+
+Engine `src/motion/elastic.js` (reference: kabarza's elastic toggles, instagram.com/reel/DeK0AFcIRhf). Applies to the bubble on open (scales from the arrow, since it carries text. Shipped, stretch, squash and lean are 0, so it moves exactly as before; tune it in sc-tune (`previews/tune/?c=Tooltip`), where concepts start at the reel's Balanced preset.
+
+| Token | Shipped | Role |
+| --- | --- | --- |
+| `--sc-motion-tooltip-travel-duration` / `-easing` | = `motion.reveal` (200ms, quint-out) | Travel time and curve; a spring set in the lab writes its settle time to the duration |
+| `--sc-motion-tooltip-stretch` | 0 | Extra length at peak speed |
+| `--sc-motion-tooltip-squash` | 0 | Flattening at peak speed |
+
+Reduced motion skips the engine.

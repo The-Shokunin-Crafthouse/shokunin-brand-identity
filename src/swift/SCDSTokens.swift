@@ -152,8 +152,8 @@ public enum SCDS {
     public static let semanticVersion = "0.1.0"
     public static let sourceGenerated = "2026-05-26"
     public static let primitivesHash = "aa28930704213cf1"
-    public static let semanticHash = "785a6dec08e7617f"
-    public static let tokenCount = 166
+    public static let semanticHash = "2d651ccedad2577f"
+    public static let tokenCount = 188
   }
 
   // MARK: - Color
@@ -1024,6 +1024,72 @@ public enum SCDS {
 
     /// `motion.switch.press.leanDuration` · 160ms
     public static let switchPressLeanDuration: TimeInterval = 0.16
+
+    /// `motion.segmentedControl.travel.duration` · 200ms
+    public static let segmentedControlTravelDuration: TimeInterval = 0.2
+
+    /// `motion.segmentedControl.travel.easing`
+    public static let segmentedControlTravelEasing = SCDSEasing(0.22, 1, 0.36, 1)
+
+    /// `motion.segmentedControl.stretch`
+    public static let segmentedControlStretch: CGFloat = 0
+
+    /// `motion.segmentedControl.squash`
+    public static let segmentedControlSquash: CGFloat = 0
+
+    /// `motion.segmentedControl.press.lean`
+    public static let segmentedControlPressLean: CGFloat = 0
+
+    /// `motion.segmentedControl.press.leanDuration` · 160ms
+    public static let segmentedControlPressLeanDuration: TimeInterval = 0.16
+
+    /// `motion.plusUnderline.travel.duration` · 200ms
+    public static let plusUnderlineTravelDuration: TimeInterval = 0.2
+
+    /// `motion.plusUnderline.travel.easing`
+    public static let plusUnderlineTravelEasing = SCDSEasing(0.22, 1, 0.36, 1)
+
+    /// `motion.plusUnderline.stretch`
+    public static let plusUnderlineStretch: CGFloat = 0
+
+    /// `motion.plusUnderline.squash`
+    public static let plusUnderlineSquash: CGFloat = 0
+
+    /// `motion.plusUnderline.press.lean`
+    public static let plusUnderlinePressLean: CGFloat = 0
+
+    /// `motion.plusUnderline.press.leanDuration` · 160ms
+    public static let plusUnderlinePressLeanDuration: TimeInterval = 0.16
+
+    /// `motion.navBar.travel.duration` · 200ms
+    public static let navBarTravelDuration: TimeInterval = 0.2
+
+    /// `motion.navBar.travel.easing`
+    public static let navBarTravelEasing = SCDSEasing(0.22, 1, 0.36, 1)
+
+    /// `motion.navBar.stretch`
+    public static let navBarStretch: CGFloat = 0
+
+    /// `motion.navBar.squash`
+    public static let navBarSquash: CGFloat = 0
+
+    /// `motion.navBar.press.lean`
+    public static let navBarPressLean: CGFloat = 0
+
+    /// `motion.navBar.press.leanDuration` · 160ms
+    public static let navBarPressLeanDuration: TimeInterval = 0.16
+
+    /// `motion.tooltip.travel.duration` · 200ms
+    public static let tooltipTravelDuration: TimeInterval = 0.2
+
+    /// `motion.tooltip.travel.easing`
+    public static let tooltipTravelEasing = SCDSEasing(0.22, 1, 0.36, 1)
+
+    /// `motion.tooltip.stretch`
+    public static let tooltipStretch: CGFloat = 0
+
+    /// `motion.tooltip.squash`
+    public static let tooltipSquash: CGFloat = 0
   }
 
   // MARK: - Shadow

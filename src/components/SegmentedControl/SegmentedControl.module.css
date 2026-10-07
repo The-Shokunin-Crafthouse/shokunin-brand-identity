@@ -17,7 +17,8 @@
  *   --sc-space-component-padding-inline-lg / --sc-space-component-padding-block-md · lg segment padding
  *   --sc-font-text-label-tab-*            · segment label (lg size)
  *   --sc-space-component-gap-lg           · label ↔ count gap
- *   --sc-motion-reveal-duration / -easing · indicator slide
+ *   --sc-motion-segmented-control-travel-duration / -easing · indicator slide (role tokens, = motion.reveal)
+ *   --sc-motion-segmented-control-stretch / -squash / -press-lean / -press-lean-duration · elastic motion (SegmentedControl.jsx; 0 = off)
  *   --sc-motion-hover-duration / -easing  · text color transition
  */
 
@@ -39,8 +40,15 @@
   border-radius: var(--sc-radius-pill);
   background-color: var(--sc-color-surface-floating);
   transition:
-    transform var(--sc-motion-reveal-duration) var(--sc-motion-reveal-easing),
-    width var(--sc-motion-reveal-duration) var(--sc-motion-reveal-easing);
+    transform var(--sc-motion-segmented-control-travel-duration) var(--sc-motion-segmented-control-travel-easing),
+    width var(--sc-motion-segmented-control-travel-duration) var(--sc-motion-segmented-control-travel-easing);
+}
+
+/* While the elastic engine drives the indicator (stretch, squash or lean
+   above 0), its keyframes own transform, width and height; a CSS
+   transition would outrank them in the cascade. */
+.track[data-driven] .indicator {
+  transition: none;
 }
 
 .segment {

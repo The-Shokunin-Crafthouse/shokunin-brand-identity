@@ -38,3 +38,16 @@ Spec ref: §2 Tier 3 · 3.7 · States: desktop horizontal, mobile compact.
 ## Reduced-motion
 
 Link colour transition suppressed. Hover still triggers an instant colour change.
+
+## Elastic motion
+
+Engine `src/motion/elastic.js` (reference: kabarza's elastic toggles, instagram.com/reel/DeK0AFcIRhf). Applies to the optional active underline (`underline` prop, off by default; a PlusUnderline carrying these tokens). Shipped, stretch, squash and lean are 0, so it moves exactly as before; tune it in sc-tune (`previews/tune/?c=NavBar`), where concepts start at the reel's Balanced preset.
+
+| Token | Shipped | Role |
+| --- | --- | --- |
+| `--sc-motion-nav-bar-travel-duration` / `-easing` | = `motion.reveal` (200ms, quint-out) | Travel time and curve; a spring set in the lab writes its settle time to the duration |
+| `--sc-motion-nav-bar-stretch` | 0 | Extra length at peak speed |
+| `--sc-motion-nav-bar-squash` | 0 | Flattening at peak speed |
+| `--sc-motion-nav-bar-press-lean` / `-lean-duration` | 0 / = `motion.press.duration` | On pointer down it leans toward the pressed item and holds; release travels from that pose, dragging off springs back |
+
+Reduced motion skips the engine.

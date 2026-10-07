@@ -2062,3 +2062,17 @@ Levi: the trailing arrow uses Phosphor's bold weight, not regular. Code: `ArrowR
 - **Calibration that is Claude's, not the reel's:** the reel's lean amount has no stated unit. Here 1 = the front edge advances a quarter of the travel, so 0.83 leans 2.9px on the 14px travel. Tune it in the lab.
 - **Not in Figma:** motion has no Figma analogue on the Toggle masters; the tokens are code-only until a record ships.
 - `tokens:verify`, `tokens:map:check`, `tokens:swift:check`, `npm run build` and `build:lib` exit 0.
+
+### 2026-10-07: the Switch's elastic motion extends to SegmentedControl, PlusUnderline, NavBar and Tooltip (shipped inert)
+
+**Status:** Accepted. Levi: add the same motion to Tooltip, NavBar, SegmentedControl and PlusUnderline. Same rule as the Switch: every new setting ships at 0 (or equal to motion.reveal), so no component changes until Levi records and applies a concept.
+
+- **Shared engine:** `src/motion/elastic.js` (curve sampling, speed, two-ends-and-a-bar pill frames, press lean, WAAPI runner, zoom-safe rects). `switchMotion.js` now uses it; the Switch's frames are unchanged except that a pill now leaves and lands at rest (speed pinned to 0 at both ends; before, the first frame was already 2px long).
+- **Per component** (role tokens `--sc-motion-<prefix>-travel-duration/-easing`, `-stretch`, `-squash`, plus `-press-lean/-lean-duration` where something is pressed):
+  - SegmentedControl (`segmented-control`): the indicator travels, stretches with speed (× its height) and leans toward a pressed segment. Its measure now uses CSS px, so a zoomed ancestor (the lab stage) no longer skews it; identical outside the lab.
+  - PlusUnderline (`plus-underline`): the newly active underline travels from the previous one in the same nav, tablist, radiogroup or list, and leans toward a pressed tab. Shipped, it still jumps. The canvas redraws at every width, so the stretch adds marks instead of distorting them.
+  - NavBar (`nav-bar`): new `underline` prop (default false) puts a PlusUnderline under desktop links, carrying NavBar's tokens. Shipped NavBar is unchanged.
+  - Tooltip (`tooltip`): the open lift runs the travel curve; stretch and squash are a scale from the arrow (1 = 20% at peak speed), because the bubble carries text. No press lean. New optional `open` prop forces it open or shut (lab replay, docs).
+- **Lab:** registry entries for Tooltip, NavBar and PlusUnderline; SegmentedControl gains the elastic tokens. A `reel()` helper seeds each at the reel's Balanced preset (stretch 0.45, squash 0, lean 0.83 / 150ms, spring 520ms bounce 0). The sc-tune skill's procedure B now names `jsTokens` and `seed`.
+- **Verified** in the lab (keyframes read back, since the browser pane was hidden and its clock paused): indicator Day → Week peaks 67.3px and settles on the 60.6px segment, aligned to 0.00px in both stages; lean 60.6 → 72.8 → back; underline Month → Day travels 85.4px → 0 with a 44.3px peak; NavBar underline 34.8 → 42.0 with a 42.8px peak; tooltip lifts −4px → 0, peaks 1.09× tall; Shipped stages run no engine animation.
+- **Open (Levi's call):** the Motion page's stated rule, "Nothing in the system overshoots / never elastic, never back", contradicts a bounce above 0. Shipped motion still obeys it.

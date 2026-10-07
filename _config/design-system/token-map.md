@@ -5,7 +5,7 @@
 # Design Token Map — The Shokunin Crafthouse · Brand Identity
 
 **Generated** from `tokens/primitives.json` + `tokens/semantic.json`.
-**Source fingerprint:** `19f1b8bbcd7a` · **180 primitives · 166 semantic tokens.**
+**Source fingerprint:** `1055fdc4e27c` · **180 primitives · 188 semantic tokens.**
 
 > **This file is a mirror, not the source.** `tokens/*.json` is upstream; this document and the Figma
 > library are generated from / synced to it. It previously claimed the opposite — that both were
@@ -706,6 +706,48 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | `motion/switch/squash` | `--sc-motion-switch-squash` | _literal_ | `0` | _literal_ | `0` | 2026-10-07 · Switch motion, from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), added to sc-tune for Levi. |
 | `motion/switch/press/lean` | `--sc-motion-switch-press-lean` | _literal_ | `0` | _literal_ | `0` | 2026-10-07 · Switch motion, from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), added to sc-tune for Levi. |
 | `motion/switch/press/leanDuration` | `--sc-motion-switch-press-lean-duration` | `motion/duration/press` | `160ms` | `motion/duration/press` | `160ms` | 2026-10-07 · Switch motion, from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), added to sc-tune for Levi. |
+
+#### `motion/segmentedControl`
+
+| Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
+|---|---|---|---|---|---|---|
+| `motion/segmentedControl/travel/duration` | `--sc-motion-segmented-control-travel-duration` | `motion/duration/micro` | `200ms` | `motion/duration/micro` | `200ms` | 2026-10-07 · Elastic motion from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), engine src/motion/elastic.js, tuned in sc-tune. |
+| `motion/segmentedControl/travel/easing` | `--sc-motion-segmented-control-travel-easing` | `motion/easing/out` | `cubic-bezier(0.22, 1, 0.36, 1)` | `motion/easing/out` | `cubic-bezier(0.22, 1, 0.36, 1)` | 2026-10-07 · Elastic motion from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), engine src/motion/elastic.js, tuned in sc-tune. |
+| `motion/segmentedControl/stretch` | `--sc-motion-segmented-control-stretch` | _literal_ | `0` | _literal_ | `0` | 2026-10-07 · Elastic motion from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), engine src/motion/elastic.js, tuned in sc-tune. |
+| `motion/segmentedControl/squash` | `--sc-motion-segmented-control-squash` | _literal_ | `0` | _literal_ | `0` | 2026-10-07 · Elastic motion from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), engine src/motion/elastic.js, tuned in sc-tune. |
+| `motion/segmentedControl/press/lean` | `--sc-motion-segmented-control-press-lean` | _literal_ | `0` | _literal_ | `0` | 2026-10-07 · Elastic motion from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), engine src/motion/elastic.js, tuned in sc-tune. |
+| `motion/segmentedControl/press/leanDuration` | `--sc-motion-segmented-control-press-lean-duration` | `motion/duration/press` | `160ms` | `motion/duration/press` | `160ms` | 2026-10-07 · Elastic motion from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), engine src/motion/elastic.js, tuned in sc-tune. |
+
+#### `motion/plusUnderline`
+
+| Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
+|---|---|---|---|---|---|---|
+| `motion/plusUnderline/travel/duration` | `--sc-motion-plus-underline-travel-duration` | `motion/duration/micro` | `200ms` | `motion/duration/micro` | `200ms` | 2026-10-07 · Elastic motion from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), engine src/motion/elastic.js, tuned in sc-tune. |
+| `motion/plusUnderline/travel/easing` | `--sc-motion-plus-underline-travel-easing` | `motion/easing/out` | `cubic-bezier(0.22, 1, 0.36, 1)` | `motion/easing/out` | `cubic-bezier(0.22, 1, 0.36, 1)` | 2026-10-07 · Elastic motion from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), engine src/motion/elastic.js, tuned in sc-tune. |
+| `motion/plusUnderline/stretch` | `--sc-motion-plus-underline-stretch` | _literal_ | `0` | _literal_ | `0` | 2026-10-07 · Elastic motion from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), engine src/motion/elastic.js, tuned in sc-tune. |
+| `motion/plusUnderline/squash` | `--sc-motion-plus-underline-squash` | _literal_ | `0` | _literal_ | `0` | 2026-10-07 · Elastic motion from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), engine src/motion/elastic.js, tuned in sc-tune. |
+| `motion/plusUnderline/press/lean` | `--sc-motion-plus-underline-press-lean` | _literal_ | `0` | _literal_ | `0` | 2026-10-07 · Elastic motion from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), engine src/motion/elastic.js, tuned in sc-tune. |
+| `motion/plusUnderline/press/leanDuration` | `--sc-motion-plus-underline-press-lean-duration` | `motion/duration/press` | `160ms` | `motion/duration/press` | `160ms` | 2026-10-07 · Elastic motion from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), engine src/motion/elastic.js, tuned in sc-tune. |
+
+#### `motion/navBar`
+
+| Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
+|---|---|---|---|---|---|---|
+| `motion/navBar/travel/duration` | `--sc-motion-nav-bar-travel-duration` | `motion/duration/micro` | `200ms` | `motion/duration/micro` | `200ms` | 2026-10-07 · Elastic motion from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), engine src/motion/elastic.js, tuned in sc-tune. |
+| `motion/navBar/travel/easing` | `--sc-motion-nav-bar-travel-easing` | `motion/easing/out` | `cubic-bezier(0.22, 1, 0.36, 1)` | `motion/easing/out` | `cubic-bezier(0.22, 1, 0.36, 1)` | 2026-10-07 · Elastic motion from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), engine src/motion/elastic.js, tuned in sc-tune. |
+| `motion/navBar/stretch` | `--sc-motion-nav-bar-stretch` | _literal_ | `0` | _literal_ | `0` | 2026-10-07 · Elastic motion from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), engine src/motion/elastic.js, tuned in sc-tune. |
+| `motion/navBar/squash` | `--sc-motion-nav-bar-squash` | _literal_ | `0` | _literal_ | `0` | 2026-10-07 · Elastic motion from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), engine src/motion/elastic.js, tuned in sc-tune. |
+| `motion/navBar/press/lean` | `--sc-motion-nav-bar-press-lean` | _literal_ | `0` | _literal_ | `0` | 2026-10-07 · Elastic motion from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), engine src/motion/elastic.js, tuned in sc-tune. |
+| `motion/navBar/press/leanDuration` | `--sc-motion-nav-bar-press-lean-duration` | `motion/duration/press` | `160ms` | `motion/duration/press` | `160ms` | 2026-10-07 · Elastic motion from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), engine src/motion/elastic.js, tuned in sc-tune. |
+
+#### `motion/tooltip`
+
+| Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
+|---|---|---|---|---|---|---|
+| `motion/tooltip/travel/duration` | `--sc-motion-tooltip-travel-duration` | `motion/duration/micro` | `200ms` | `motion/duration/micro` | `200ms` | 2026-10-07 · Elastic motion from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), engine src/motion/elastic.js, tuned in sc-tune. |
+| `motion/tooltip/travel/easing` | `--sc-motion-tooltip-travel-easing` | `motion/easing/out` | `cubic-bezier(0.22, 1, 0.36, 1)` | `motion/easing/out` | `cubic-bezier(0.22, 1, 0.36, 1)` | 2026-10-07 · Elastic motion from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), engine src/motion/elastic.js, tuned in sc-tune. |
+| `motion/tooltip/stretch` | `--sc-motion-tooltip-stretch` | _literal_ | `0` | _literal_ | `0` | 2026-10-07 · Elastic motion from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), engine src/motion/elastic.js, tuned in sc-tune. |
+| `motion/tooltip/squash` | `--sc-motion-tooltip-squash` | _literal_ | `0` | _literal_ | `0` | 2026-10-07 · Elastic motion from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), engine src/motion/elastic.js, tuned in sc-tune. |
 
 ### Shadow · Semantic
 
