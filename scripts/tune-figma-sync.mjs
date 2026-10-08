@@ -44,6 +44,11 @@
  *   effect style  "shadow/<group>/<name>" for light, shadow/control/key
  *                 "shadow/<group>/dark/<name>" for   shadow/control/dark/key
  *                 dark (styles carry no modes)
+ *   glass style   "glass/<component>/<level>" from   glass/card/frosted
+ *                 size.<component>.glass.<level>.{frost, refraction, depth,
+ *                 splay, light}: one Figma Glass effect in Figma's units
+ *                 (refraction, splay, light / 100), the system light angle
+ *                 (-45deg) and dispersion 0 (not built in code)
  * Code only (no Figma analogue, listed in the report): spring, cubicBezier,
  * fontFamily and fontWeight tokens.
  */
@@ -169,8 +174,12 @@ const manifest = { variables: [], effects: [], texts: [] };
 const byLibraryName = {};
 // Primitives and Semantic share names (color/signal/live is in both), so a
 // variable is checked in its own collection: primitives as "Primitives:<name>".
+// A channel triplet ("26 24 21", composed as rgb(var(--sc-p-…-rgb) / A)) is
+// not a colour a Figma variable can hold: code-only. Its compositions sync
+// as resolved colours.
+const isTriplet = (t) => t.$type === 'color' && /^\d{1,3} \d{1,3} \d{1,3}$/.test(String(t.$value).trim());
 for (const [path, t] of Object.entries(primNew)) {
-  if (!VARIABLE_TYPES.includes(t.$type)) continue;
+  if (!VARIABLE_TYPES.includes(t.$type) || isTriplet(t)) continue;
   const n = `Primitives:${varName(path)}`;
   manifest.variables.push(n); byLibraryName[n] = path;
 }
@@ -179,6 +188,23 @@ for (const [path, t] of Object.entries(semNew)) {
   else if (t.$type === 'shadow') for (const n of effectNames(path)) { manifest.effects.push(n); byLibraryName[n] = path; }
   else if (t.$type === 'typography' && path.startsWith('font.text.')) { manifest.texts.push(textName(path)); byLibraryName[textName(path)] = path; }
 }
+
+/* Glass effect styles: size.<component>.glass.<level>.<key> → glass/<component>/<level>. */
+const GLASS_KEYS = ['frost', 'refraction', 'depth', 'splay', 'light'];
+const glassGroups = {};
+for (const path of Object.keys(semNew)) {
+  const m = path.match(/^size\.(.+)\.glass\.([^.]+)\.([a-z]+)$/);
+  if (!m || !GLASS_KEYS.includes(m[3])) continue;
+  (glassGroups[`glass/${m[1].split('.').join('/')}/${m[2]}`] ??= {})[m[3]] = path;
+}
+for (const name of Object.keys(glassGroups)) manifest.effects.push(name);
+// Follow aliases (semantic or primitive) to a number: {space.4} → 4, {value: 9, unit: 'px'} → 9.
+const numberOf = (v) => {
+  const r = refPath(v);
+  if (r) { const t = semNew[r] || primNew[r]; return t ? numberOf(modesOf(t).light) : NaN; }
+  if (v && typeof v === 'object' && 'value' in v) return Number(v.value);
+  return parseFloat(deref(String(v)));
+};
 
 /* ---------- build the change list ---------- */
 const ops = []; const rows = []; const codeOnly = []; const unknown = [];
@@ -215,6 +241,7 @@ function semanticOps(path, t) {
 function primitiveOps(path, t) {
   if (t.$type === 'typography') return; // compositions live on text styles
   if (!VARIABLE_TYPES.includes(t.$type)) { codeOnly.push([path, t.$type]); return; }
+  if (isTriplet(t)) { codeOnly.push([path, 'channel triplet']); return; }
   const value = literal(t.$type, t.$value);
   if (value.number !== undefined && Number.isNaN(value.number)) { codeOnly.push([path, `${t.$type} (unparsed value)`]); return; }
   ops.push({ kind: 'variable', collection: 'Primitives', name: varName(path), type: t.$type === 'color' ? 'COLOR' : 'FLOAT', values: { Value: value }, scopes: scopesFor(path, t.$type), desc: t.$description });
@@ -227,12 +254,27 @@ if (since) {
 }
 for (const n of named) {
   const dotted = n.replace(/^Primitives:/, '').replace(/\//g, '.');
-  const path = byLibraryName[n] ?? (semNew[n] || primNew[n] ? n : semNew[dotted] || primNew[dotted] ? dotted : null);
+  const path = glassGroups[n] ? n : byLibraryName[n] ?? (semNew[n] || primNew[n] ? n : semNew[dotted] || primNew[dotted] ? dotted : null);
   if (path) wanted.add(path); else unknown.push(n);
 }
 for (const path of wanted) {
   if (semNew[path]) semanticOps(path, semNew[path]);
   else if (primNew[path]) primitiveOps(path, primNew[path]);
+}
+// A glass style is wanted by name, or when any of its level tokens is.
+for (const [name, g] of Object.entries(glassGroups)) {
+  if (!wanted.has(name) && !Object.values(g).some((p) => wanted.has(p))) continue;
+  const missingKeys = GLASS_KEYS.filter((k) => !g[k]);
+  if (missingKeys.length) { console.error(`tune-figma-sync: ${name} lacks ${missingKeys.join(', ')}`); process.exit(1); }
+  const val = (k) => {
+    const m = modesOf(semNew[g[k]]);
+    const [l, d] = [numberOf(m.light), numberOf(m.dark)];
+    if (!Number.isFinite(l) || l !== d) { console.error(`tune-figma-sync: ${g[k]} must be one finite number in both modes (effect styles carry no modes)`); process.exit(1); }
+    return l;
+  };
+  ops.push({ kind: 'effect', name, effects: [{ type: 'GLASS', visible: true, lightIntensity: val('light') / 100, lightAngle: -45, refraction: val('refraction') / 100, depth: val('depth'), dispersion: 0, radius: val('frost'), splay: val('splay') / 100 }],
+    desc: `Generated by tune-figma-sync from ${g.frost.replace(/\.frost$/, '')}.* : light ${val('light')}% at -45deg (the system light), refraction ${val('refraction')}, depth ${val('depth')}, frost ${val('frost')}, splay ${val('splay')}, dispersion 0 (not built in code).` });
+  rows.push([`${g.frost.replace(/\.frost$/, '')}.*`, 'glass effect style', name]);
 }
 if (unknown.length) { console.error(`tune-figma-sync: no token for ${unknown.join(', ')}`); process.exit(1); }
 

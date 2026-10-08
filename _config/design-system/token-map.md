@@ -5,7 +5,7 @@
 # Design Token Map — The Shokunin Crafthouse · Brand Identity
 
 **Generated** from `tokens/primitives.json` + `tokens/semantic.json`.
-**Source fingerprint:** `58044eda254a` · **186 primitives · 254 semantic tokens.**
+**Source fingerprint:** `e1d84ccf077e` · **187 primitives · 290 semantic tokens.**
 
 > **This file is a mirror, not the source.** `tokens/*.json` is upstream; this document and the Figma
 > library are generated from / synced to it. It previously claimed the opposite — that both were
@@ -172,6 +172,12 @@ primitives directly. Surfaced here for traceability.
 | Token Name | CSS var | Value | Notes |
 |---|---|---|---|
 | `color/inkRgb` | `--sc-p-color-ink-rgb` | `26 24 21` | Channel triplet (sRGB) of warmGray.800 ink (#1A1815) for rgb()/rgba() composition. |
+
+#### `color/blackRgb`
+
+| Token Name | CSS var | Value | Notes |
+|---|---|---|---|
+| `color/blackRgb` | `--sc-p-color-black-rgb` | `0 0 0` | Channel triplet (sRGB) of utility.black (#000000) for rgb()/rgba() composition. |
 
 #### `color/focusRing`
 
@@ -618,6 +624,21 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | `color/input/adornment` | `--sc-color-input-adornment` | `color/warmGray/500` | `#5A5750` | `color/dark/textSecondary` | `#C9C7C3` | 2026-10-07 · Input material (physical-controls Tier 1), tuned in sc-tune. |
 | `color/input/divider` | `--sc-color-input-divider` | `color/warmGray/300` | `#B0A69C` | `color/dark/raised2` | `#3B4249` | 2026-10-07 · Input material (physical-controls Tier 1), tuned in sc-tune. |
 
+#### `color/card`
+
+| Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
+|---|---|---|---|---|---|---|
+| `color/card/flat` | `--sc-color-card-flat` | `color/surface/floating` | `⚠ unresolved` | `color/surface/floating` | `⚠ unresolved` | 2026-10-08 · Card (physical-controls Tier 2), Levi: two card styles, a flat floating surface with no border and a liquid-glass card in three levels (clear, frosted, thick; renamed from subtle, regular, heavy), each in a light and a dark tone. |
+| `color/card/flatHover` | `--sc-color-card-flat-hover` | `color/surface/raised` | `⚠ unresolved` | `color/surface/raised` | `⚠ unresolved` | 2026-10-08 · Card (physical-controls Tier 2), Levi: two card styles, a flat floating surface with no border and a liquid-glass card in three levels (clear, frosted, thick; renamed from subtle, regular, heavy), each in a light and a dark tone. |
+| `color/card/glass/clear/light` | `--sc-color-card-glass-clear-light` | _literal_ | `rgb(var(--sc-p-color-white-rgb) / 0.16)` | _literal_ | `rgb(var(--sc-p-color-white-rgb) / 0.05)` | 2026-10-08 · Card glass (physical-controls Tier 2). |
+| `color/card/glass/clear/dark` | `--sc-color-card-glass-clear-dark` | _literal_ | `rgb(var(--sc-p-color-ink-rgb) / 0.06)` | _literal_ | `rgb(var(--sc-p-color-black-rgb) / 0.20)` | 2026-10-08 · Card glass (physical-controls Tier 2). |
+| `color/card/glass/frosted/light` | `--sc-color-card-glass-frosted-light` | _literal_ | `rgb(var(--sc-p-color-white-rgb) / 0.24)` | _literal_ | `rgb(var(--sc-p-color-white-rgb) / 0.08)` | 2026-10-08 · Card glass (physical-controls Tier 2). |
+| `color/card/glass/frosted/dark` | `--sc-color-card-glass-frosted-dark` | _literal_ | `rgb(var(--sc-p-color-ink-rgb) / 0.10)` | _literal_ | `rgb(var(--sc-p-color-black-rgb) / 0.32)` | 2026-10-08 · Card glass (physical-controls Tier 2). |
+| `color/card/glass/thick/light` | `--sc-color-card-glass-thick-light` | _literal_ | `rgb(var(--sc-p-color-white-rgb) / 0.36)` | _literal_ | `rgb(var(--sc-p-color-white-rgb) / 0.12)` | 2026-10-08 · Card glass (physical-controls Tier 2). |
+| `color/card/glass/thick/dark` | `--sc-color-card-glass-thick-dark` | _literal_ | `rgb(var(--sc-p-color-ink-rgb) / 0.16)` | _literal_ | `rgb(var(--sc-p-color-black-rgb) / 0.45)` | 2026-10-08 · Card glass (physical-controls Tier 2). |
+| `color/card/glass/hover/light` | `--sc-color-card-glass-hover-light` | _literal_ | `rgb(var(--sc-p-color-white-rgb) / 0.08)` | _literal_ | `rgb(var(--sc-p-color-white-rgb) / 0.05)` | 2026-10-08 · Card glass (physical-controls Tier 2). |
+| `color/card/glass/hover/dark` | `--sc-color-card-glass-hover-dark` | _literal_ | `rgb(var(--sc-p-color-ink-rgb) / 0.06)` | _literal_ | `rgb(var(--sc-p-color-black-rgb) / 0.12)` | 2026-10-08 · Card glass (physical-controls Tier 2). |
+
 ### Typography · Semantic
 
 #### `font/text`
@@ -663,6 +684,7 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | `space/component/padding/sm` | `--sc-space-component-padding-sm` | `space/8` | `8px` | `space/8` | `8px` | Small component padding · 8px. |
 | `space/component/padding/md` | `--sc-space-component-padding-md` | `space/16` | `16px` | `space/16` | `16px` | Medium component padding · 16px. |
 | `space/component/padding/lg` | `--sc-space-component-padding-lg` | `space/24` | `24px` | `space/24` | `24px` | Large component padding · 24px. |
+| `space/component/padding/card` | `--sc-space-component-padding-card` | `space/24` | `24px` | `space/24` | `24px` | 2026-10-07 · Card (physical-controls Tier 2: flat, or liquid glass in three levels and two tones, Levi 2026-10-08). |
 | `space/component/padding-inline/sm` | `--sc-space-component-padding-inline-sm` | `space/micro/6` | `6px` | `space/micro/6` | `6px` | Sprint 4 addition · tight inline padding (6px). |
 | `space/component/padding-inline/md` | `--sc-space-component-padding-inline-md` | `space/12` | `12px` | `space/12` | `12px` | Sprint 4 addition · default inline padding (12px). |
 | `space/component/padding-inline/lg` | `--sc-space-component-padding-inline-lg` | `space/16` | `16px` | `space/16` | `16px` | Sprint 4 addition · generous inline padding (16px). |
@@ -698,6 +720,7 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
 |---|---|---|---|---|---|---|
 | `radius/field` | `--sc-radius-field` | `radius/default` | `8px` | `radius/default` | `8px` | 2026-10-07 · Input material (physical-controls Tier 1), tuned in sc-tune. |
+| `radius/card` | `--sc-radius-card` | `radius/surface` | `⚠ unresolved` | `radius/surface` | `⚠ unresolved` | 2026-10-07 · Card (physical-controls Tier 2: flat, or liquid glass in three levels and two tones, Levi 2026-10-08). |
 | `radius/control` | `--sc-radius-control` | `radius/input` | `3px` | `radius/input` | `3px` | Sprint 4 addition · controls that read as inscribed rather than lifted (3px). |
 | `radius/surface` | `--sc-radius-surface` | `radius/default` | `8px` | `radius/default` | `8px` | Sprint 4 addition · raised surfaces (8px). |
 | `radius/surfaceLarge` | `--sc-radius-surface-large` | `radius/large` | `16px` | `radius/large` | `16px` | 2026-08-16 Figma variable sync · large raised surfaces (16px). |
@@ -844,6 +867,12 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | `motion/slider/squash` | `--sc-motion-slider-squash` | _literal_ | `0` | _literal_ | `0` | 2026-10-07 · Slider motion (physical-controls Tier 1; split from ProgressIndicator's interactive bar, Levi 2026-10-07), engine src/motion/elastic.js via Slider.jsx, tuned in sc-tune. |
 | `motion/slider/thumbPressScale` | `--sc-motion-slider-thumb-press-scale` | _literal_ | `0.985` | _literal_ | `0.985` | 2026-10-07 · Slider motion (physical-controls Tier 1; split from ProgressIndicator's interactive bar, Levi 2026-10-07), engine src/motion/elastic.js via Slider.jsx, tuned in sc-tune. |
 
+#### `motion/card`
+
+| Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
+|---|---|---|---|---|---|---|
+| `motion/card/pressScale` | `--sc-motion-card-press-scale` | _literal_ | `1` | _literal_ | `1` | 2026-10-07 · Card (physical-controls Tier 2: flat, or liquid glass in three levels and two tones, Levi 2026-10-08). |
+
 ### Shadow · Semantic
 
 #### `shadow/control`
@@ -893,7 +922,40 @@ channel-triplet primitives) rather than an alias to a single primitive.
 |---|---|---|---|---|---|---|
 | `shadow/input/well` | `--sc-shadow-input-well` | _literal_ | `inset 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)` | _literal_ | `inset 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)` | 2026-10-07 · Input material (physical-controls Tier 1: a true recessed well, the focus underline stays, a hover state), tuned in sc-tune. |
 
+#### `shadow/card`
+
+| Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
+|---|---|---|---|---|---|---|
+| `shadow/card/glass/clear` | `--sc-shadow-card-glass-clear` | _literal_ | `inset 1px 1px 0 0 rgb(var(--sc-p-color-white-rgb) / 0.20), inset -1px -1px 0 0 rgb(var(--sc-p-color-white-rgb) / 0.1), 4px 4px 16px 0 rgb(100 91 79 / 0.12)` | _literal_ | `inset 1px 1px 0 0 rgb(var(--sc-p-color-white-rgb) / 0.20), inset -1px -1px 0 0 rgb(var(--sc-p-color-white-rgb) / 0.1), 4px 4px 16px 0 rgb(0 0 0 / 0.24)` | 2026-10-08 · Card glass (physical-controls Tier 2). |
+| `shadow/card/glass/frosted` | `--sc-shadow-card-glass-frosted` | _literal_ | `inset 1px 1px 0 0 rgb(var(--sc-p-color-white-rgb) / 0.30), inset -1px -1px 0 0 rgb(var(--sc-p-color-white-rgb) / 0.15), 6px 6px 24px 0 rgb(100 91 79 / 0.14)` | _literal_ | `inset 1px 1px 0 0 rgb(var(--sc-p-color-white-rgb) / 0.30), inset -1px -1px 0 0 rgb(var(--sc-p-color-white-rgb) / 0.15), 6px 6px 24px 0 rgb(0 0 0 / 0.30)` | 2026-10-08 · Card glass (physical-controls Tier 2). |
+| `shadow/card/glass/thick` | `--sc-shadow-card-glass-thick` | _literal_ | `inset 1px 1px 0 0 rgb(var(--sc-p-color-white-rgb) / 0.45), inset -1px -1px 0 0 rgb(var(--sc-p-color-white-rgb) / 0.225), 10px 10px 32px 0 rgb(100 91 79 / 0.18)` | _literal_ | `inset 1px 1px 0 0 rgb(var(--sc-p-color-white-rgb) / 0.45), inset -1px -1px 0 0 rgb(var(--sc-p-color-white-rgb) / 0.225), 10px 10px 32px 0 rgb(0 0 0 / 0.38)` | 2026-10-08 · Card glass (physical-controls Tier 2). |
+| `shadow/card/glass/text/light` | `--sc-shadow-card-glass-text-light` | _literal_ | `0 0 2px rgb(var(--sc-p-color-white-rgb) / 0.60)` | _literal_ | `0 0 2px rgb(0 0 0 / 0.60)` | 2026-10-08 · Card glass (physical-controls Tier 2). |
+| `shadow/card/glass/text/dark` | `--sc-shadow-card-glass-text-dark` | _literal_ | `0 0 2px rgb(var(--sc-p-color-white-rgb) / 0.50)` | _literal_ | `0 0 2px rgb(0 0 0 / 0.70)` | 2026-10-08 · Card glass (physical-controls Tier 2). |
+
 ### Size · Semantic
+
+#### `size/card`
+
+| Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
+|---|---|---|---|---|---|---|
+| `size/card/glass/clear/frost` | `--sc-size-card-glass-clear-frost` | `space/4` | `4px` | `space/4` | `4px` | 2026-10-08 · Card (physical-controls Tier 2), Levi: a liquid-glass card in three levels. |
+| `size/card/glass/clear/refraction` | `--sc-size-card-glass-clear-refraction` | _literal_ | `40` | _literal_ | `40` | 2026-10-08 · Card (physical-controls Tier 2), Levi: a liquid-glass card in three levels. |
+| `size/card/glass/clear/depth` | `--sc-size-card-glass-clear-depth` | _literal_ | `40` | _literal_ | `40` | 2026-10-08 · Card (physical-controls Tier 2), Levi: a liquid-glass card in three levels. |
+| `size/card/glass/clear/splay` | `--sc-size-card-glass-clear-splay` | _literal_ | `57` | _literal_ | `57` | 2026-10-08 · Card (physical-controls Tier 2), Levi: a liquid-glass card in three levels. |
+| `size/card/glass/clear/saturation` | `--sc-size-card-glass-clear-saturation` | _literal_ | `140` | _literal_ | `140` | 2026-10-08 · Card glass (physical-controls Tier 2), from Levi's liquid-glass best practices (legibility and vibrancy). |
+| `size/card/glass/clear/light` | `--sc-size-card-glass-clear-light` | _literal_ | `20` | _literal_ | `20` | 2026-10-08 · Card glass (physical-controls Tier 2). |
+| `size/card/glass/frosted/frost` | `--sc-size-card-glass-frosted-frost` | _literal_ | `9px` | _literal_ | `9px` | 2026-10-08 · Card (physical-controls Tier 2), Levi: a liquid-glass card in three levels. |
+| `size/card/glass/frosted/refraction` | `--sc-size-card-glass-frosted-refraction` | _literal_ | `65` | _literal_ | `65` | 2026-10-08 · Card (physical-controls Tier 2), Levi: a liquid-glass card in three levels. |
+| `size/card/glass/frosted/depth` | `--sc-size-card-glass-frosted-depth` | _literal_ | `68` | _literal_ | `68` | 2026-10-08 · Card (physical-controls Tier 2), Levi: a liquid-glass card in three levels. |
+| `size/card/glass/frosted/splay` | `--sc-size-card-glass-frosted-splay` | _literal_ | `57` | _literal_ | `57` | 2026-10-08 · Card (physical-controls Tier 2), Levi: a liquid-glass card in three levels. |
+| `size/card/glass/frosted/saturation` | `--sc-size-card-glass-frosted-saturation` | _literal_ | `160` | _literal_ | `160` | 2026-10-08 · Card glass (physical-controls Tier 2), from Levi's liquid-glass best practices (legibility and vibrancy). |
+| `size/card/glass/frosted/light` | `--sc-size-card-glass-frosted-light` | _literal_ | `30` | _literal_ | `30` | 2026-10-08 · Card glass (physical-controls Tier 2). |
+| `size/card/glass/thick/frost` | `--sc-size-card-glass-thick-frost` | `space/16` | `16px` | `space/16` | `16px` | 2026-10-08 · Card (physical-controls Tier 2), Levi: a liquid-glass card in three levels. |
+| `size/card/glass/thick/refraction` | `--sc-size-card-glass-thick-refraction` | _literal_ | `85` | _literal_ | `85` | 2026-10-08 · Card (physical-controls Tier 2), Levi: a liquid-glass card in three levels. |
+| `size/card/glass/thick/depth` | `--sc-size-card-glass-thick-depth` | _literal_ | `85` | _literal_ | `85` | 2026-10-08 · Card (physical-controls Tier 2), Levi: a liquid-glass card in three levels. |
+| `size/card/glass/thick/splay` | `--sc-size-card-glass-thick-splay` | _literal_ | `57` | _literal_ | `57` | 2026-10-08 · Card (physical-controls Tier 2), Levi: a liquid-glass card in three levels. |
+| `size/card/glass/thick/saturation` | `--sc-size-card-glass-thick-saturation` | _literal_ | `180` | _literal_ | `180` | 2026-10-08 · Card glass (physical-controls Tier 2), from Levi's liquid-glass best practices (legibility and vibrancy). |
+| `size/card/glass/thick/light` | `--sc-size-card-glass-thick-light` | _literal_ | `45` | _literal_ | `45` | 2026-10-08 · Card glass (physical-controls Tier 2). |
 
 #### `size/icon`
 

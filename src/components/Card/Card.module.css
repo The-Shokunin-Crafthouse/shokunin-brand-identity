@@ -1,56 +1,166 @@
 /* tokens:
- *   --sc-space-component-padding-lg          · generous internal padding
- *   --sc-space-component-gap-lg              · stack rhythm inside card body
- *   --sc-radius-surface                      · corner
- *   --sc-color-surface-sunk                  · default + interactive resting bg
- *   --sc-color-surface-deep-sunk             · interactive hover bg
- *   --sc-color-surface-page                  · elevated bg (lifted against sunk)
- *   --sc-color-text-primary                  · text inherits via reset
- *   --sc-shadow-control-inset                · hover/focus feedback (fill-only, no resting frame)
+ *   --sc-space-component-padding-card        · inner padding (role token, = padding.lg 24)
+ *   --sc-radius-card                         · corner (role token, = radius.surface 8)
+ *   --sc-color-card-flat / -flat-hover       · flat ground (surface.floating) / interactive hover
+ *   --sc-color-card-glass-{clear,frosted,thick}-{light,dark} · glass tint per level and tone
+ *   --sc-color-card-glass-hover-{light,dark} · interactive glass hover veil per tone
+ *   --sc-shadow-card-glass-{level}           · rim (Figma light -45deg) + a subtle floating shade
+ *   --sc-shadow-card-glass-text-{light,dark} · text halo per tone (zero offset)
+ *   --sc-size-card-glass-{level}-frost       · backdrop blur radius (Figma frost; CSS takes half)
+ *   --sc-size-card-glass-{level}-saturation  · backdrop saturation in percent
+ *   --sc-size-card-glass-{level}-refraction / -depth / -splay · read by glass.js (Figma units)
+ *   --sc-motion-card-press-scale             · press scale (shipped 1: no press)
+ *   --sc-motion-press-duration / -easing     · press timing (shared press pair)
+ *   --sc-color-text-primary                  · text
  *   --sc-color-border-focus / -width-focus / -focus-offset · focus ring
- *   --sc-motion-hover-duration / -easing
+ *   --sc-motion-hover-duration / -easing     · ground transition
  *
- * scds-v2 Phase 2 — fill-only elevation. The resting stroke frame is gone;
- * surface fill alone separates default (sunk) / elevated (page). Interactivity
- * is narrated by an inset shadow on hover/focus, never a resting outline.
+ * Two styles (Levi, 2026-10-08). Flat: a floating surface with no border and
+ * no shadow. Glass, in three levels named for the surface (clear, frosted,
+ * thick) and two tones (light lightens, dark darkens): frost, tint and a lit rim here; the refraction filter is
+ * built per card by glass.js and arrives as --glass-refract (Chromium only).
+ * Shadow and filter changes snap: cards repeat in grids.
  */
 
 .card {
+  position: relative;
   display: block;
   width: 100%;
   text-align: left;
-  padding: var(--sc-space-component-padding-lg);
-  border-radius: var(--sc-radius-surface);
-  /* Shadow changes snap: cards repeat in grids (physical-controls Phase 0). */
-  transition: background-color var(--sc-motion-hover-duration) var(--sc-motion-hover-easing);
-}
-
-.default {
-  background-color: var(--sc-color-surface-sunk);
+  padding: var(--sc-space-component-padding-card);
+  border-radius: var(--sc-radius-card);
   color: var(--sc-color-text-primary);
+  transition:
+    background-color var(--sc-motion-hover-duration) var(--sc-motion-hover-easing),
+    transform var(--sc-motion-press-duration) var(--sc-motion-press-easing);
 }
 
+.defs {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* ── flat ── */
+.flat { background-color: var(--sc-color-card-flat); }
+.flat.interactive:hover:not(:disabled) { background-color: var(--sc-color-card-flat-hover); }
+
+/* ── glass ── */
+.clear {
+  --glass-tint-l: var(--sc-color-card-glass-clear-light);
+  --glass-tint-d: var(--sc-color-card-glass-clear-dark);
+  --glass-rim: var(--sc-shadow-card-glass-clear);
+  --glass-frost: var(--sc-size-card-glass-clear-frost);
+  --glass-refraction: var(--sc-size-card-glass-clear-refraction);
+  --glass-depth: var(--sc-size-card-glass-clear-depth);
+  --glass-splay: var(--sc-size-card-glass-clear-splay);
+  --glass-saturation: var(--sc-size-card-glass-clear-saturation);
+}
+.frosted {
+  --glass-tint-l: var(--sc-color-card-glass-frosted-light);
+  --glass-tint-d: var(--sc-color-card-glass-frosted-dark);
+  --glass-rim: var(--sc-shadow-card-glass-frosted);
+  --glass-frost: var(--sc-size-card-glass-frosted-frost);
+  --glass-refraction: var(--sc-size-card-glass-frosted-refraction);
+  --glass-depth: var(--sc-size-card-glass-frosted-depth);
+  --glass-splay: var(--sc-size-card-glass-frosted-splay);
+  --glass-saturation: var(--sc-size-card-glass-frosted-saturation);
+}
+.thick {
+  --glass-tint-l: var(--sc-color-card-glass-thick-light);
+  --glass-tint-d: var(--sc-color-card-glass-thick-dark);
+  --glass-rim: var(--sc-shadow-card-glass-thick);
+  --glass-frost: var(--sc-size-card-glass-thick-frost);
+  --glass-refraction: var(--sc-size-card-glass-thick-refraction);
+  --glass-depth: var(--sc-size-card-glass-thick-depth);
+  --glass-splay: var(--sc-size-card-glass-thick-splay);
+  --glass-saturation: var(--sc-size-card-glass-thick-saturation);
+}
+/* Tone: light glass lightens what is behind it, dark glass darkens it. */
+.toneLight {
+  --glass-tint: var(--glass-tint-l);
+  --glass-halo: var(--sc-shadow-card-glass-text-light);
+  --glass-veil: var(--sc-color-card-glass-hover-light);
+}
+.toneDark {
+  --glass-tint: var(--glass-tint-d);
+  --glass-halo: var(--sc-shadow-card-glass-text-dark);
+  --glass-veil: var(--sc-color-card-glass-hover-dark);
+}
+.glass {
+  background-color: var(--glass-tint);
+  box-shadow: var(--glass-rim);
+  text-shadow: var(--glass-halo);
+  /* Figma frost is a blur radius; CSS blur() takes the standard deviation, half of it.
+   * Saturation is in percent (100 = none). */
+  -webkit-backdrop-filter: blur(calc(var(--glass-frost) / 2)) saturate(calc(var(--glass-saturation) / 100));
+  backdrop-filter: var(--glass-refract, ) blur(calc(var(--glass-frost) / 2)) saturate(calc(var(--glass-saturation) / 100));
+}
+.glass.interactive:hover:not(:disabled) {
+  background-image: linear-gradient(135deg, var(--glass-veil), var(--glass-veil));
+}
+
+/* ── interactive ── */
 .interactive {
-  background-color: var(--sc-color-surface-sunk);
-  color: var(--sc-color-text-primary);
   cursor: pointer;
   font: inherit;
-}
-.interactive:hover {
-  background-color: var(--sc-color-surface-deep-sunk);
-  box-shadow: var(--sc-shadow-control-inset);
 }
 .interactive:focus-visible {
   outline: var(--sc-border-width-focus) solid var(--sc-color-border-focus);
   outline-offset: var(--sc-border-focus-offset);
-  box-shadow: var(--sc-shadow-control-inset);
 }
-
-.elevated {
-  background-color: var(--sc-color-surface-page);
-  color: var(--sc-color-text-primary);
+.interactive:active:not(:disabled) {
+  transform: scale(var(--sc-motion-card-press-scale));
+}
+/* Disabled is flat (directive 5): the glass loses its rim and refraction, keeps the frost. */
+.interactive:disabled {
+  cursor: not-allowed;
+}
+.glass.interactive:disabled {
+  box-shadow: none;
+  backdrop-filter: blur(calc(var(--glass-frost) / 2)) saturate(calc(var(--glass-saturation) / 100));
 }
 
 @media (prefers-reduced-motion: reduce) {
   .card { transition: none; }
+  .interactive:active:not(:disabled) { transform: none; }
+}
+
+/* Opaque fallbacks: glass becomes the flat card when transparency is turned
+ * off, when more contrast is asked for, and on an engine with no backdrop-filter
+ * (a bare tint over unknown content is not readable). */
+@media (prefers-reduced-transparency: reduce), (prefers-contrast: more) {
+  .glass {
+    background-color: var(--sc-color-card-flat);
+    background-image: none;
+    box-shadow: none;
+    text-shadow: none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .glass {
+    background-color: var(--sc-color-card-flat);
+    box-shadow: none;
+    text-shadow: none;
+  }
+}
+
+/* Forced colors drop every ground, rim and filter: an inset edge keeps each card. */
+@media (forced-colors: active) {
+  .card {
+    outline: var(--sc-border-width-default) solid CanvasText;
+    outline-offset: calc(-1 * var(--sc-border-width-default));
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+  .interactive { outline-color: ButtonBorder; }
+  .interactive:disabled { outline-color: GrayText; }
+  .interactive:focus-visible {
+    outline: var(--sc-border-width-focus) solid Highlight;
+    outline-offset: var(--sc-border-focus-offset);
+  }
 }

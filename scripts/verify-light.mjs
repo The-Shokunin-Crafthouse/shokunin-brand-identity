@@ -25,7 +25,9 @@
  *      repaints every frame. Press motion stays on transform.
  *
  * A layer with zero alpha is inert (role tokens ship that way until a tuning
- * record is applied) and is not graded. Exemptions name their decision and
+ * record is applied) and is not graded. A mode that aliases an exempt token
+ * inherits the exemption (the light is graded once, at the target); a copy
+ * by value is graded. Exemptions name their decision and
  * must still exist, so the list cannot outlive what it excuses.
  *
  * Exits non-zero on any failure. Runs inside `npm run tokens:verify`.
@@ -38,7 +40,7 @@ import { fileURLToPath } from 'node:url';
 export const EXEMPT = [
   { path: 'shadow.switch', why: 'the Switch stays the Drams repaint, lit from the top (decisions 2026-10-07, "the Switch re-light is reverted")' },
   { path: 'shadow.control.raised', why: 'superseded, held for Studio PM RunButton.swift (decisions 2026-10-07, "shadow.control.bevel retired")' },
-  { path: 'shadow.control.inset', why: 'the Card hover inset, lit from the top; Card moves to its own plate and well tokens in Tier 2' },
+  { path: 'shadow.control.inset', why: 'no SCDS consumer since Card went flat and glass (decisions 2026-10-08); held, lit from the top, for Money Bags, whose vendored Swift test reads SCDS.Shadow.controlInset; remove once that test moves' },
 ];
 const EXEMPT_CSS = [
   { file: 'src/components/Switch/Switch.module.css', why: 'the Switch knob gradients run top to bottom (same decision as shadow.switch)' },
@@ -105,6 +107,14 @@ function resolveAlias(value, all) {
   return hit ? resolveAlias(hit.node.$value, all) : value;
 }
 
+/* Every token path an alias passes through on the way to its value. */
+function aliasChain(value, all, seen = []) {
+  const m = typeof value === 'string' && value.match(/^\{(.+)\}$/);
+  if (!m || seen.includes(m[1])) return seen;
+  const hit = all.find((t) => t.path === m[1]);
+  return hit ? aliasChain(hit.node.$value, all, [...seen, m[1]]) : [...seen, m[1]];
+}
+
 export function checkLight({ semantic, css, exempt = EXEMPT, exemptCss = EXEMPT_CSS }) {
   const failures = [];
   const all = []; walk(semantic, [], all);
@@ -121,6 +131,8 @@ export function checkLight({ semantic, css, exempt = EXEMPT, exemptCss = EXEMPT_
     if (isExempt(path)) continue;
     const modes = node.$extensions?.modes ?? { value: node.$value };
     for (const [mode, raw] of Object.entries(modes)) {
+      // An alias to an exempt token inherits the exemption: graded once, at the target.
+      if (aliasChain(raw, all).some(isExempt)) continue;
       const value = resolveAlias(raw, all);
       if (typeof value !== 'string' || value === 'none') continue;
       for (const src of layers(value)) {

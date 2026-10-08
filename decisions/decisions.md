@@ -2442,3 +2442,98 @@ Levi: the trailing arrow uses Phosphor's bold weight, not regular. Code: `ArrowR
 - **Masters re-seated to code:** the `TextField` set (`9:487`) predated the code (a pill box, a 1px stroke, the sunk fill, the title in primary ink). All variants now read the code: title `text/label/ui` in `text/secondary` (disabled `text/disabled`); box fill `color/input/well` (`wellDisabled` on Disabled) written with its resolved colour, no stroke, corners on `radius/field`, padding on `padding-inline/input` / `padding-block/input`, slot gap on `gap/input-inline`, `shadow/input/well`; value in `text/body/default/regular`, placeholder ink on Default, Hover, Focus and Disabled, primary on Active and Error. New boolean properties `Leading icon` (envelope, bold, 20px on `size/input/icon`, `color/input/adornment`), `Clear` (x, bold, 16px on `size/input/clear`) and `Subcopy` (a `text/caption` line under the title), all off by default as in code; the `Value` text property defaults to the placeholder. The focus ring keeps its 2px stroke at the 2px offset, corner 12 (8 + offset + width). New variant `State=Error` (`528:95`): a 1px inside edge on `color/status/error` (weight on `border/width/default`) and the error text in `text/caption`. Readback with every slot on matches the code measurement: title 18, gap 4, subcopy 20 (code 20.14), box at y 46 and 48 tall, icon 20 at (16, 14), value from 52 to W − 48, clear 16 at (W − 32, 16). Publishing the library is Levi's step.
 - **Docs:** `Input.tokens.md` (Figma ids).
 - `tokens:verify`, `tokens:map:check`, `tokens:swift:check`, `npm run build`, `build:lib` and `swiftc -typecheck` exit 0.
+
+### 2026-10-07: Card material tokens for its sc-tune session (shipped equal to today)
+
+**Status:** Accepted. Tier 2, the first component (branch `feat/physical-controls-4`). Audit row: two materials, a raised `plate` lit from the top left and a recessed `well`; an interactive plate presses on click; no `box-shadow` transition.
+
+| Token | Shipped (= today) | Lab start (concept seed) |
+| --- | --- | --- |
+| `color.card.well` (default) | surface.sunk | unchanged |
+| `shadow.card.well` | zero alpha | the top-left recess (SegmentedControl 1645 track) |
+| `color.card.plate` (elevated) | surface.page | the Button key fill (surface.raised values) |
+| `shadow.card.plate` | zero alpha | shadow.control.key values |
+| `color.card.interactive` / `.interactiveHover` | surface.sunk / surface.deepSunk | surface.raised values / = rest |
+| `shadow.card.interactive` / `.interactiveHover` / `.interactivePressed` | zero alpha / control.inset / control.inset (aliases) | control.key / = rest / control.keyPressed values |
+| `motion.card.pressScale` | 1 | 0.995 (motion.press.card.scale) |
+| `space.component.padding.card` | padding.lg (24px) | unchanged |
+| `radius.card` | radius.surface (8px) | unchanged |
+
+- **Variants map to materials:** `default` is the well, `elevated` the plate, `interactive` the plate that presses. The API is unchanged; whether `interactive` reads the plate tokens directly is a call for the apply step, once Levi's values say whether they differ.
+- **Role tokens for shared values (finding 5):** `padding.lg` (sections, frames) and `radius.surface` (Button, Alert) stay shared; the card reads `padding.card` and `radius.card`. The brief named `gap-lg` too: the Card stylesheet only listed it in a comment and never read it, so there is no gap token and the stale comment is gone.
+- **Hover and focus** both read `interactiveHover` (today's card treats them the same); press reads `interactivePressed` and scales on the shared press pair (`motion.press.duration` / `easing`). Reduced motion removes the scale.
+- **Disabled is flat (directive 5):** no lift, no hover ground, `not-allowed` cursor. Today a disabled interactive card still took the hover ground; that was the only behaviour change, a five-state fix.
+- **Forced colors:** an inset `CanvasText` outline on every card (`ButtonBorder` interactive, `GrayText` disabled) and a `Highlight` focus ring; outline, so no size change. Verified in headless Chromium with `forcedColors: 'active'`.
+- **No box-shadow transition:** the card transitions its ground and `transform` only.
+- **verify-light:** the two role tokens that alias `shadow.control.inset` were graded again through the alias and failed. A mode that aliases an exempt token now inherits the exemption (the light is graded once, at the target); a copy by value is still graded. Tests committed red first (`7ebb335`); planted bug (inherit line disabled) turned 3 red. `shadow.control.inset` stays exempt until the Card record replaces the aliases; then it has no SCDS consumer and the retire check runs.
+- **Checks:** main and this branch compared on the Card docs page by computed style, every state (rest, hover, pressed, keyboard focus), both modes: 168 values, 8 differ, all inert (a zero-alpha shadow for `none`, an identity matrix for `none`); the 6 card screenshots are byte-identical. `tokens:verify`, `tokens:map:check`, `tokens:swift:check`, `test:scripts` (20), `npm run build`, `build:lib` and `swiftc -typecheck` exit 0.
+- **Lab:** `?c=Card`, 21 tokens, no console errors. Shown on one stage: well, plate and interactive plate side by side (`show` picks one). Served from this session's worktree on port 5174, because the main checkout's 5173 server serves `main`.
+
+### 2026-10-08: Card is flat or liquid glass, in three levels (supersedes the plate and well tokens above)
+
+**Status:** Accepted. Levi: "I need 2 styles of cards, 1 flat no border color surface floating and another card with liquid glass", with his Figma Glass setting (light -45deg 30%, refraction 65, depth 68, dispersion 0, frost 9, splay 57), and "3 different level settings from subtle, regular, and heavy". Ships now (Levi's direction, the Input reference precedent); the lab tunes from here.
+
+- **API:** `variant` `flat` (default) or `glass`; `level` `subtle`, `regular` (default) or `heavy`; `interactive` (a button: hover, focus ring, press, disabled). `default`, `elevated` and `interactive` map to `flat` for one release; drop the mapping next release.
+- **Flat:** `color.card.flat` = surface.floating, no border, no shadow. Interactive hover `color.card.flatHover` = surface.raised (Claude's start).
+- **Glass, regular = Levi's Figma values.** Frost 9 is the blur radius; CSS `blur()` takes the standard deviation, so the card blurs at 4.5px. Light -45deg is the system light (Gate 1 pick 1, top left); 30% becomes the rim, a 1px inset highlight on the top-left inner wall and half that on the far wall where the glass carries light through (both graded by verify-light). Dispersion 0: not built.
+- **Refraction** (`src/components/Card/glass.js`): a displacement map per card, rebuilt on resize and on a lab token change, applied as `backdrop-filter: url(#id) blur()`. Near the edge the backdrop is sampled from further in, as at the edge of a lens. Mapping from Figma units: band = depth/100 of the card's half short side; edge shift = refraction/100 x band/2; falloff (1 - t)^p with p = 1 + 3 x (1 - splay/100). The mapping is Claude's; Levi judges it in the lab against his Figma frame.
+- **Subtle and heavy, and every tint, are Claude's start:** subtle frost 4, refraction 40, depth 40, light 20%; heavy frost 16, refraction 85, depth 85, light 45%; splay 57 for all. Tints white 12 / 20 / 30% light, 4 / 6 / 10% dark (the Figma effect carries no fill). Hover veil white 8% / 5%. Levi sets each in the lab.
+- **Browsers:** only Chromium applies an SVG filter as a backdrop-filter, so only Chromium refracts. Firefox and WebKit keep frost, tint and rim (computed style checked in each; no page errors). Reduced transparency turns glass into the flat card; forced colors draw an inset edge and drop the filter (headless Chromium).
+- **Slop blocklist:** it names "glassmorphism panels". This is Levi's direction with a sourced setting (his Figma Glass effect), logged here as the exception directive 3 asks for. It is not a decorative blur: the glass carries the system light and refracts.
+- **Directive 1 (reading stays flat):** the flat card is the reading default. Glass is for cards over imagery, colour or scrolling content.
+- **Contrast gap:** glass text contrast depends on the backdrop. Over the lab's bright backdrop in dark mode, secondary text is unreadable. Logged; the docs rule says to measure over the real backdrop and reach for a heavier level or the flat card.
+- **Removed:** `color.card.{well,plate,interactive,interactiveHover}` and `shadow.card.{well,plate,interactive,interactiveHover,interactivePressed}` (made on this branch, never on main or in Figma). Kept: `padding.card`, `radius.card`, `motion.card.pressScale` (1).
+- **`shadow.control.inset`:** Card no longer reads it; no SCDS consumer remains. Money Bags' vendored Swift test reads `SCDS.Shadow.controlInset`, so it is held (the `control.raised` precedent) and the verify-light exemption now names that consumer.
+- **Lab:** `?c=Card` shows flat and the three glass levels over a backdrop (`backdrop`: type and colour, type, none), with `interactive` and `disabled`. Claude's 17 plate and well seeds were removed from the saved concept A (all equal to the seed; nothing of Levi's was in it). The lab now fires `sc-tokens-change` when a concept or theme changes, so the glass map rebuilds.
+
+### 2026-10-08: Card glass concepts A (lightens) and B (darkens) from Levi's liquid-glass best practices; a floating shadow
+
+**Status:** Proposed in the lab; Levi picks. Levi: "give me an option B that makes glass darken instead of lighten", "take the below best practices into consideration and update concept A and B" (a pasted set: layering, legibility and contrast, performance, accessibility fallbacks, and a sample CSS), then "the glass cards dont have to be flat, you can add a subtle shadow so it looks like its floating".
+
+| Setting | A (lightens) | B (darkens) |
+| --- | --- | --- |
+| Tint, light (subtle / regular / heavy) | white 16 / 24 / 36% | ink 6 / 10 / 16% |
+| Tint, dark | white 5 / 8 / 12% | black 20 / 32 / 45% |
+| Saturation (both modes) | 140 / 160 / 180% | 140 / 160 / 180% |
+| Rim | the shipped rim (Figma light 20 / 30 / 45%) | same |
+| Floating shade (added to the rim) | 4 / 6 / 10px offset on the 135deg diagonal, 16 / 24 / 32px blur; warm gray 12 / 14 / 18% light, black 24 / 30 / 38% dark | same |
+| Text halo | `0 0 2px` white 60% light, black 60% dark | white 50% light, black 70% dark |
+| Hover veil | lightens (white 8% / 5%) | darkens (ink 6% light, black 12% dark) |
+
+- **Taken from the best practices:** vibrancy (a saturation boost, new `size.card.glass.{level}.saturation`, shipped 100 = none); legibility (a text halo, new `shadow.card.glass.text`, zero offset, shipped zero alpha); opaque fallbacks (glass becomes the flat card under `prefers-reduced-transparency`, `prefers-contrast: more`, and on an engine with no `backdrop-filter`; forced colors already drew an edge); a depth shadow so the glass floats (Levi); docs rules for layering (glass is a floating layer, never the content layer) and performance (one glass layer, no nesting; group controls into one card).
+- **Not taken from the sample CSS:** its straight-down shadow and top-edge glow (the system light is top left; the floating shade falls on the 135deg diagonal, graded by verify-light at apply); its `box-shadow` transition and `will-change` (rule 6: shadow changes snap, cards repeat); its hover lift (press stays on scale); its 1px border (the Figma rim carries the edge); its fixed dark fallback colours (the fallback is the flat card's token).
+- **Shipped look unchanged:** saturation 100 and a zero-alpha halo render as today. Every concept value is Claude's proposal; the record carries Levi's pick and any edits.
+- **Lab state:** concepts A and B written on a non-saving page (`?c=Nonexistent`); concept A had no values of Levi's. The view zoom is set to 1 so the four cards fit.
+- `tokens:verify`, `tokens:map:check`, `tokens:swift:check`, `test:scripts` (20), `npm run build`, `build:lib` and `swiftc -typecheck` exit 0.
+
+### 2026-10-08: Card record 2026-10-08-0921 applied: flat plus three glass levels in two tones, 14 cards (procedure D)
+
+**Status:** Accepted. Levi: "I actually want both light and dark options along with the 3 glass variants ... for a total of 14 cards", "rename the 3 glass types so visually i know what to expect from each rendered surface", "then record the settings and apply it". Record `output/tuning/Card/2026-10-08-0921/` (two concepts, no pick in the lab: its pick control holds one; Levi's word keeps both). Sync base `d0143f8` (no Card token was in the library).
+
+- **Reading of "14":** 7 surfaces (flat; clear, frosted, thick, each in a light and a dark tone) x 2 themes (light and dark mode). Concept A became the light tone (`tone="light"`, lightens what is behind it); concept B the dark tone (`tone="dark"`, darkens it).
+- **Names (Claude, for what each surface looks like):** `clear` (was subtle: thin frost, light bend), `frosted` (was regular: Levi's Figma Glass), `thick` (was heavy: heavy frost, strongest bend and tint). Level `subtle`/`regular`/`heavy` never left this branch, so there is no mapping.
+- **Tokens (values equal the record):** `color.card.glass.{clear,frosted,thick}.{light,dark}`, `color.card.glass.hover.{light,dark}`, `shadow.card.glass.{clear,frosted,thick}` (rim plus floating shade, both tones), `shadow.card.glass.text.{light,dark}`, `size.card.glass.{level}.saturation` 140 / 160 / 180. Frost, refraction, depth and splay unchanged.
+- **New primitive** `color.blackRgb` (0 0 0): Swift composes a colour only from a channel triplet, and the dark tone's dark-mode tints are black. `tune-figma-sync` treated the first new triplet as a colour and threw; a triplet is now code-only (tests red first `c19ceae`; planted bug, both guards removed, turned 4 red).
+- **Lab check (D step 6):** the record's values against the Shipped stage, every glass card, both themes (tint, rim and float, text halo, saturation, hover veil): 60 values, 0 differ.
+- **Figma library:** the generated call created 28 variables and 10 effect styles (`color/card/*`, `radius/card`, `space/component/padding/card`, `motion/card/pressScale`, `size/card/glass/*`, `shadow/card/glass/*` + `dark/*`); `color.blackRgb` is code-only. New page **Card** (`535:2`) in GLOBAL after Progress, with the first SCDS **Card** set (`535:43`): `Surface` (Flat, Clear light, Frosted light, Thick light, Clear dark, Frosted dark, Thick dark) x `Theme` (Light, Dark) = 14 variants (`535:3` to `535:40`), each 320 wide with padding on `space/component/padding/card`, corners on `radius/card`, fill on its Card variable written with its resolved colour, Theme as an explicit Semantic mode, the glass rim and float as the effect style, the text halo as the text's effect style, and a `Content` text property. Each glass variant carries Figma's native Glass effect with the record's values (light -45deg at 20 / 30 / 45%, refraction 0.40 / 0.65 / 0.85, depth 40 / 68 / 85, dispersion 0, frost 4 / 9 / 16). A backdrop frame (`535:45`) sits behind the set so the glass has something to bend; it is not part of the component. Readback: fill alpha per theme equals the token, padding 24, radius 8, effect styles bound. The read-only re-check over all 428 library names returned `absent: []`, `missing: []`. Publishing is Levi's step.
+- **Not in Figma:** splay (the Plugin API's Glass effect has no splay field; set it in the Glass panel by hand if it matters), saturation (no backdrop saturation in Figma), the code's refraction mapping (Figma renders its own), interactive states (hover, press, focus are code-only for now). Glass effects cannot bind variables, so the masters carry the values directly.
+- `tokens:verify`, `tokens:map:check`, `tokens:swift:check`, `test:scripts` (21), `npm run build`, `build:lib` and `swiftc -typecheck` exit 0.
+
+### 2026-10-08: Figma glass effect styles for the three Card glass levels
+
+**Status:** Accepted. Levi: "you cant add a glass effect style for each 3 variants?"
+
+- New effect styles `glass/card/clear`, `glass/card/frosted`, `glass/card/thick`, each one Figma Glass effect with the `size.card.glass.<level>.*` values (light -45deg at 20 / 30 / 45%, refraction 0.40 / 0.65 / 0.85, depth 40 / 68 / 85, dispersion 0, frost 4 / 9 / 16). Bound on the `Glass` layer of all 12 glass variants of the Card set `535:43` (readback: each layer reads its style and the style's values). Glass is the same in both themes, so there is no `dark/` pair.
+- Splay (57) has no Plugin API field: set it once per style in the Glass panel and every variant follows.
+- `tune-figma-sync` does not generate these styles yet; a change to a `size.card.glass.*` token leaves them stale until they are edited by hand (open question: teach the sync to write them).
+
+### 2026-10-08: tune-figma-sync writes the glass effect styles (closes the open question above)
+
+**Status:** Accepted. Levi: "yes, teach the sync to write them, ive set them to 57 splay in figma".
+
+- **Source:** `size.<component>.glass.<level>.{frost, refraction, depth, splay, light}` become one Figma Glass effect style, `glass/<component>/<level>`, in Figma's units (refraction, splay and light / 100; depth and frost as they are; an aliased frost resolves to pixels). Light angle -45deg (the system light, Gate 1 pick 1); dispersion 0 (not built in code). A style is written when one of its level tokens changes or it is named; every glass style joins the library check. A level token that differs between modes stops the run (effect styles carry no modes).
+- **Splay:** the Plugin API does read and write a `splay` field on a Glass effect (0.57 after Levi's edit; it is missing from the typings). The sync writes `splay / 100`, so Levi's 57 is now the token's 57.
+- **New tokens** `size.card.glass.{clear,frosted,thick}.light` = 20 / 30 / 45: the light intensity had lived only as the rim's alpha. A `test:scripts` data check holds `light / 100` equal to the rim's top-left highlight alpha in both modes.
+- **Tests** committed red (`c45723d`, 4 red); planted bug (splay dropped from the op) turned 2 red. `sc-tune` procedure D notes the glass styles.
+- **Library:** the run (`--since 7a58285`) created `size/card/glass/{clear,frosted,thick}/light` and rewrote the three glass styles in place (bindings on the 12 variants unchanged). Readback: clear L0.20 R0.40 D40 F4 S0.57, frosted L0.30 R0.65 D68 F9 S0.57, thick L0.45 R0.85 D85 F16 S0.57, angle -45, dispersion 0. All 434 library names: `absent: []`, `missing: []`.
+- `tokens:verify`, `tokens:map:check`, `tokens:swift:check`, `test:scripts` (26), `npm run build`, `build:lib` and `swiftc -typecheck` exit 0.

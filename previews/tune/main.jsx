@@ -426,6 +426,10 @@ function Tune() {
     return style;
   };
 
+  // A component that reads tokens in JS once per layout (Card's glass map)
+  // rebuilds on this event; CSS-only components never hear it.
+  useEffect(() => { window.dispatchEvent(new Event('sc-tokens-change')); }, [state.concepts, state.view.theme]);
+
   /* ----- export ----- */
   const exportSpec = useCallback(() => {
     const host = shippedRef.current;

@@ -28,6 +28,7 @@ import { NavBar } from '../../src/components/NavBar/NavBar.jsx';
 import { PlusUnderline } from '../../src/components/PlusUnderline/PlusUnderline.jsx';
 import { Slider } from '../../src/components/Slider/Slider.jsx';
 import { Input } from '../../src/components/Input/Input.jsx';
+import { Card } from '../../src/components/Card/Card.jsx';
 import { MagnifyingGlass, EnvelopeSimple, MapPin, Eye, Copy, CalendarBlank, Clock, CaretDown } from '@phosphor-icons/react';
 import switchCss from '../../src/components/Switch/Switch.module.css?raw';
 import stepperCss from '../../src/components/Stepper/Stepper.module.css?raw';
@@ -39,6 +40,7 @@ import navBarCss from '../../src/components/NavBar/NavBar.module.css?raw';
 import underlineCss from '../../src/components/PlusUnderline/PlusUnderline.module.css?raw';
 import sliderCss from '../../src/components/Slider/Slider.module.css?raw';
 import inputCss from '../../src/components/Input/Input.module.css?raw';
+import cardCss from '../../src/components/Card/Card.module.css?raw';
 import s from './Tune.module.css';
 
 const SEGMENTS = ['day', 'week', 'month'];
@@ -109,6 +111,38 @@ const KNOB = {
 /* Input slot options: Phosphor glyphs, rendered bold by the Input. */
 const INPUT_ICONS = { none: undefined, search: MagnifyingGlass, mail: EnvelopeSimple, location: MapPin };
 const INPUT_TRAILING = { none: undefined, eye: Eye, copy: Copy, calendar: CalendarBlank, clock: Clock, caret: CaretDown };
+
+/* Card styles (Levi, 2026-10-08) and what sits behind them: glass needs a backdrop to bend. */
+const CARD_STYLES = {
+  flat: { variant: 'flat' },
+  'clear · light': { variant: 'glass', level: 'clear', tone: 'light' },
+  'frosted · light': { variant: 'glass', level: 'frosted', tone: 'light' },
+  'thick · light': { variant: 'glass', level: 'thick', tone: 'light' },
+  'clear · dark': { variant: 'glass', level: 'clear', tone: 'dark' },
+  'frosted · dark': { variant: 'glass', level: 'frosted', tone: 'dark' },
+  'thick · dark': { variant: 'glass', level: 'thick', tone: 'dark' },
+};
+const BACKDROP = { position: 'absolute', inset: 0, overflow: 'hidden', borderRadius: 'var(--sc-radius-card)' };
+const CARD_BACKDROPS = {
+  // Follows the theme: page ground, primary-ink type, sunk and floating blocks.
+  'page (follows theme)': (
+    <div aria-hidden="true" style={{ ...BACKDROP, background: 'var(--sc-color-surface-page)' }}>
+      <div style={{ position: 'absolute', inset: '0 50% 0 0', background: 'var(--sc-color-surface-sunk)' }} />
+      <div style={{ position: 'absolute', inset: '30% 0 30% 25%', background: 'var(--sc-color-surface-floating)' }} />
+      <div style={{ position: 'absolute', inset: 0, display: 'flex', flexWrap: 'wrap', alignContent: 'center', font: 'var(--sc-font-text-display-xs)', color: 'var(--sc-color-text-primary)', lineHeight: 1, wordBreak: 'break-all' }}>SHOKUNIN CRAFTHOUSE SHOKUNIN CRAFTHOUSE</div>
+    </div>
+  ),
+  'type and colour': (
+    <div aria-hidden="true" style={BACKDROP}>
+      <div style={{ position: 'absolute', inset: 0, background: 'repeating-linear-gradient(135deg, var(--sc-color-atmosphere-celadon) 0 24px, var(--sc-color-atmosphere-river) 24px 48px, var(--sc-color-atmosphere-lapis) 48px 72px)' }} />
+      <div style={{ position: 'absolute', inset: 0, display: 'flex', flexWrap: 'wrap', alignContent: 'center', font: 'var(--sc-font-text-display-xs)', color: 'var(--sc-color-text-primary)', lineHeight: 1, wordBreak: 'break-all' }}>SHOKUNIN CRAFTHOUSE SHOKUNIN CRAFTHOUSE</div>
+    </div>
+  ),
+  type: (
+    <div aria-hidden="true" style={{ ...BACKDROP, display: 'flex', flexWrap: 'wrap', alignContent: 'center', font: 'var(--sc-font-text-title-card)', color: 'var(--sc-color-text-primary)', wordBreak: 'break-all' }}>SHOKUNIN CRAFTHOUSE SHOKUNIN CRAFTHOUSE SHOKUNIN CRAFTHOUSE</div>
+  ),
+  none: null,
+};
 
 /* Set on a keyboard step so the lab's tick plays on keys only, never on a drag. */
 let keyStep = false;
@@ -453,6 +487,44 @@ export const REGISTRY = {
         />
       </div>
     ),
+  },
+  Card: {
+    css: [cardCss],
+    // Two styles (Levi, 2026-10-08): flat, and liquid glass in three levels
+    // named for the surface (clear, frosted = his Figma Glass, thick) and two
+    // tones (light lightens, dark darkens): 7 cards, 14 with the theme.
+    // The refraction numbers are read by src/components/Card/glass.js.
+    jsTokens: ['clear', 'frosted', 'thick'].flatMap((l) => ['refraction', 'depth', 'splay'].map((k) => `--sc-size-card-glass-${l}-${k}`)),
+    shippedSound: null,
+    trigger: 'ships silent',
+    props: [
+      { name: 'show', type: 'enum', options: ['all', ...Object.keys(CARD_STYLES)], default: 'all' },
+      { name: 'backdrop', type: 'enum', options: Object.keys(CARD_BACKDROPS), default: 'page (follows theme)' },
+      { name: 'interactive', type: 'boolean', default: false },
+      { name: 'disabled', type: 'boolean', default: false },
+      { name: 'title', type: 'text', default: 'Studio journal' },
+      { name: 'body', type: 'text', default: 'Notes from the bench.' },
+    ],
+    play: null,
+    render: (p) => {
+      const shown = p.show === 'all' ? Object.keys(CARD_STYLES) : [p.show];
+      return (
+        <div style={{ position: 'relative', padding: 'var(--sc-space-layout-stack-sm)' }}>
+          {CARD_BACKDROPS[p.backdrop]}
+          <div style={{ position: 'relative', display: 'grid', gridTemplateColumns: `repeat(${Math.min(shown.length, 4)}, calc(var(--sc-space-layout-stack-xl) * 2.5))`, gap: 'var(--sc-space-layout-stack-sm)' }}>
+            {shown.map((name) => [
+              // Light tones on the first row beside flat, dark tones under them.
+              p.show === 'all' && name === 'clear · dark' ? <span key="gap" /> : null,
+              <Card key={name} {...CARD_STYLES[name]} interactive={p.interactive} disabled={p.interactive ? p.disabled : undefined} onClick={() => {}}>
+                <span style={{ display: 'block', font: 'var(--sc-font-text-label-ui)', color: 'var(--sc-color-text-secondary)' }}>{name}</span>
+                <span style={{ display: 'block', font: 'var(--sc-font-text-body-default)' }}>{p.title}</span>
+                <span style={{ display: 'block', font: 'var(--sc-font-text-body-dense)', color: 'var(--sc-color-text-secondary)' }}>{p.body}</span>
+              </Card>,
+            ])}
+          </div>
+        </div>
+      );
+    },
   },
   Button: {
     css: [buttonCss],

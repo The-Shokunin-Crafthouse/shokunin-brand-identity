@@ -170,9 +170,9 @@ public enum SCDS {
     public static let primitivesVersion = "0.1.0"
     public static let semanticVersion = "0.1.0"
     public static let sourceGenerated = "2026-05-26"
-    public static let primitivesHash = "f96efa487bcac29d"
-    public static let semanticHash = "380fdbb98607a3a6"
-    public static let tokenCount = 254
+    public static let primitivesHash = "41d576559668277a"
+    public static let semanticHash = "f7ff4f62caa437ec"
+    public static let tokenCount = 290
   }
 
   // MARK: - Color
@@ -682,6 +682,66 @@ public enum SCDS {
         light: (0.690196, 0.65098, 0.611765, 1),
         dark:  (0.231373, 0.258824, 0.286275, 1)
     )
+
+    /// `color.card.flat`
+    public static let cardFlat = SwiftUI.Color.scdsDynamic(
+        light: (0.972549, 0.964706, 0.94902, 1),
+        dark:  (0.231373, 0.258824, 0.286275, 1)
+    )
+
+    /// `color.card.flatHover`
+    public static let cardFlatHover = SwiftUI.Color.scdsDynamic(
+        light: (0.945098, 0.937255, 0.921569, 1),
+        dark:  (0.203922, 0.227451, 0.254902, 1)
+    )
+
+    /// `color.card.glass.clear.light`
+    public static let cardGlassClearLight = SwiftUI.Color.scdsDynamic(
+        light: (1, 1, 1, 0.16),
+        dark:  (1, 1, 1, 0.05)
+    )
+
+    /// `color.card.glass.clear.dark`
+    public static let cardGlassClearDark = SwiftUI.Color.scdsDynamic(
+        light: (0.101961, 0.094118, 0.082353, 0.06),
+        dark:  (0, 0, 0, 0.2)
+    )
+
+    /// `color.card.glass.frosted.light`
+    public static let cardGlassFrostedLight = SwiftUI.Color.scdsDynamic(
+        light: (1, 1, 1, 0.24),
+        dark:  (1, 1, 1, 0.08)
+    )
+
+    /// `color.card.glass.frosted.dark`
+    public static let cardGlassFrostedDark = SwiftUI.Color.scdsDynamic(
+        light: (0.101961, 0.094118, 0.082353, 0.1),
+        dark:  (0, 0, 0, 0.32)
+    )
+
+    /// `color.card.glass.thick.light`
+    public static let cardGlassThickLight = SwiftUI.Color.scdsDynamic(
+        light: (1, 1, 1, 0.36),
+        dark:  (1, 1, 1, 0.12)
+    )
+
+    /// `color.card.glass.thick.dark`
+    public static let cardGlassThickDark = SwiftUI.Color.scdsDynamic(
+        light: (0.101961, 0.094118, 0.082353, 0.16),
+        dark:  (0, 0, 0, 0.45)
+    )
+
+    /// `color.card.glass.hover.light`
+    public static let cardGlassHoverLight = SwiftUI.Color.scdsDynamic(
+        light: (1, 1, 1, 0.08),
+        dark:  (1, 1, 1, 0.05)
+    )
+
+    /// `color.card.glass.hover.dark`
+    public static let cardGlassHoverDark = SwiftUI.Color.scdsDynamic(
+        light: (0.101961, 0.094118, 0.082353, 0.06),
+        dark:  (0, 0, 0, 0.12)
+    )
   }
 
   // MARK: - Typography
@@ -1018,6 +1078,9 @@ public enum SCDS {
     /// `space.component.padding.lg`
     public static let componentPaddingLg: CGFloat = 24
 
+    /// `space.component.padding.card`
+    public static let componentPaddingCard: CGFloat = 24
+
     /// `space.component.padding-inline.sm`
     public static let componentPaddingInlineSm: CGFloat = 6
 
@@ -1077,6 +1140,9 @@ public enum SCDS {
     /// `radius.field`
     public static let field: CGFloat = 8
 
+    /// `radius.card`
+    public static let card: CGFloat = 8
+
     /// `radius.control`
     public static let control: CGFloat = 3
 
@@ -1114,6 +1180,60 @@ public enum SCDS {
 
   /// Named element sizes, including the touch-target floor.
   public enum Size {
+    /// `size.card.glass.clear.frost`
+    public static let cardGlassClearFrost: CGFloat = 4
+
+    /// `size.card.glass.clear.refraction`
+    public static let cardGlassClearRefraction: CGFloat = 40
+
+    /// `size.card.glass.clear.depth`
+    public static let cardGlassClearDepth: CGFloat = 40
+
+    /// `size.card.glass.clear.splay`
+    public static let cardGlassClearSplay: CGFloat = 57
+
+    /// `size.card.glass.clear.saturation`
+    public static let cardGlassClearSaturation: CGFloat = 140
+
+    /// `size.card.glass.clear.light`
+    public static let cardGlassClearLight: CGFloat = 20
+
+    /// `size.card.glass.frosted.frost`
+    public static let cardGlassFrostedFrost: CGFloat = 9
+
+    /// `size.card.glass.frosted.refraction`
+    public static let cardGlassFrostedRefraction: CGFloat = 65
+
+    /// `size.card.glass.frosted.depth`
+    public static let cardGlassFrostedDepth: CGFloat = 68
+
+    /// `size.card.glass.frosted.splay`
+    public static let cardGlassFrostedSplay: CGFloat = 57
+
+    /// `size.card.glass.frosted.saturation`
+    public static let cardGlassFrostedSaturation: CGFloat = 160
+
+    /// `size.card.glass.frosted.light`
+    public static let cardGlassFrostedLight: CGFloat = 30
+
+    /// `size.card.glass.thick.frost`
+    public static let cardGlassThickFrost: CGFloat = 16
+
+    /// `size.card.glass.thick.refraction`
+    public static let cardGlassThickRefraction: CGFloat = 85
+
+    /// `size.card.glass.thick.depth`
+    public static let cardGlassThickDepth: CGFloat = 85
+
+    /// `size.card.glass.thick.splay`
+    public static let cardGlassThickSplay: CGFloat = 57
+
+    /// `size.card.glass.thick.saturation`
+    public static let cardGlassThickSaturation: CGFloat = 180
+
+    /// `size.card.glass.thick.light`
+    public static let cardGlassThickLight: CGFloat = 45
+
     /// `size.icon.xs`
     public static let iconXs: CGFloat = 12
 
@@ -1379,6 +1499,9 @@ public enum SCDS {
 
     /// `motion.slider.thumbPressScale`
     public static let sliderThumbPressScale: CGFloat = 0.985
+
+    /// `motion.card.pressScale`
+    public static let cardPressScale: CGFloat = 1
   }
 
   // MARK: - Shadow
@@ -1594,6 +1717,68 @@ public enum SCDS {
         ],
         dark: [
             SCDSShadowLayer(inset: true, x: 0, y: 0, blur: 0, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0),
+        ]
+    )
+
+    /// `shadow.card.glass.clear` · 3 layers
+    public static let cardGlassClear = SCDSShadow(
+        light: [
+            SCDSShadowLayer(inset: true, x: 1, y: 1, blur: 0, spread: 0, rgb: (1, 1, 1), alpha: 0.2),
+            SCDSShadowLayer(inset: true, x: -1, y: -1, blur: 0, spread: 0, rgb: (1, 1, 1), alpha: 0.1),
+            SCDSShadowLayer(inset: false, x: 4, y: 4, blur: 16, spread: 0, rgb: (0.392157, 0.356863, 0.309804), alpha: 0.12),
+        ],
+        dark: [
+            SCDSShadowLayer(inset: true, x: 1, y: 1, blur: 0, spread: 0, rgb: (1, 1, 1), alpha: 0.2),
+            SCDSShadowLayer(inset: true, x: -1, y: -1, blur: 0, spread: 0, rgb: (1, 1, 1), alpha: 0.1),
+            SCDSShadowLayer(inset: false, x: 4, y: 4, blur: 16, spread: 0, rgb: (0, 0, 0), alpha: 0.24),
+        ]
+    )
+
+    /// `shadow.card.glass.frosted` · 3 layers
+    public static let cardGlassFrosted = SCDSShadow(
+        light: [
+            SCDSShadowLayer(inset: true, x: 1, y: 1, blur: 0, spread: 0, rgb: (1, 1, 1), alpha: 0.3),
+            SCDSShadowLayer(inset: true, x: -1, y: -1, blur: 0, spread: 0, rgb: (1, 1, 1), alpha: 0.15),
+            SCDSShadowLayer(inset: false, x: 6, y: 6, blur: 24, spread: 0, rgb: (0.392157, 0.356863, 0.309804), alpha: 0.14),
+        ],
+        dark: [
+            SCDSShadowLayer(inset: true, x: 1, y: 1, blur: 0, spread: 0, rgb: (1, 1, 1), alpha: 0.3),
+            SCDSShadowLayer(inset: true, x: -1, y: -1, blur: 0, spread: 0, rgb: (1, 1, 1), alpha: 0.15),
+            SCDSShadowLayer(inset: false, x: 6, y: 6, blur: 24, spread: 0, rgb: (0, 0, 0), alpha: 0.3),
+        ]
+    )
+
+    /// `shadow.card.glass.thick` · 3 layers
+    public static let cardGlassThick = SCDSShadow(
+        light: [
+            SCDSShadowLayer(inset: true, x: 1, y: 1, blur: 0, spread: 0, rgb: (1, 1, 1), alpha: 0.45),
+            SCDSShadowLayer(inset: true, x: -1, y: -1, blur: 0, spread: 0, rgb: (1, 1, 1), alpha: 0.225),
+            SCDSShadowLayer(inset: false, x: 10, y: 10, blur: 32, spread: 0, rgb: (0.392157, 0.356863, 0.309804), alpha: 0.18),
+        ],
+        dark: [
+            SCDSShadowLayer(inset: true, x: 1, y: 1, blur: 0, spread: 0, rgb: (1, 1, 1), alpha: 0.45),
+            SCDSShadowLayer(inset: true, x: -1, y: -1, blur: 0, spread: 0, rgb: (1, 1, 1), alpha: 0.225),
+            SCDSShadowLayer(inset: false, x: 10, y: 10, blur: 32, spread: 0, rgb: (0, 0, 0), alpha: 0.38),
+        ]
+    )
+
+    /// `shadow.card.glass.text.light` · 1 layers
+    public static let cardGlassTextLight = SCDSShadow(
+        light: [
+            SCDSShadowLayer(inset: false, x: 0, y: 0, blur: 2, spread: 0, rgb: (1, 1, 1), alpha: 0.6),
+        ],
+        dark: [
+            SCDSShadowLayer(inset: false, x: 0, y: 0, blur: 2, spread: 0, rgb: (0, 0, 0), alpha: 0.6),
+        ]
+    )
+
+    /// `shadow.card.glass.text.dark` · 1 layers
+    public static let cardGlassTextDark = SCDSShadow(
+        light: [
+            SCDSShadowLayer(inset: false, x: 0, y: 0, blur: 2, spread: 0, rgb: (1, 1, 1), alpha: 0.5),
+        ],
+        dark: [
+            SCDSShadowLayer(inset: false, x: 0, y: 0, blur: 2, spread: 0, rgb: (0, 0, 0), alpha: 0.7),
         ]
     )
   }

@@ -133,3 +133,72 @@ test('a shadow that aliases another shadow syncs its target\'s layers per mode',
   assert.deepEqual(byName('shadow/stepper/keyHover'), byName('shadow/control/keyHover'), 'light layers equal the target');
   assert.deepEqual(byName('shadow/stepper/dark/keyHover'), byName('shadow/control/dark/keyHover'), 'dark layers equal the target');
 });
+
+/*
+ * A channel triplet ("0 0 0", composed as rgb(var(--sc-p-color-black-rgb) / A))
+ * is not a colour a Figma variable can hold. The generator threw on the first
+ * new one (color.blackRgb, 2026-10-08); it is code-only, and the semantic
+ * colours composed from it sync as resolved colours.
+ */
+test('a channel-triplet primitive is code-only, never parsed as a colour', () => {
+  const { code, md } = run('--tokens', 'Primitives:color/blackRgb,color.card.glass.clear.dark');
+  assert.match(md, /color\.blackRgb/, 'the triplet is named in the report');
+  const ops = opsOf(code);
+  assert.ok(!ops.some((o) => o.collection === 'Primitives' && /blackRgb/.test(o.name)), 'no Primitives op for the triplet');
+  const tint = ops.find((o) => o.name === 'color/card/glass/clear/dark');
+  assert.equal(tint.values.Dark.color.a, 0.2);
+  const manifest = JSON.parse(code.match(/^const MANIFEST = (.*);$/m)[1]);
+  assert.ok(!manifest.variables.includes('Primitives:color/blackRgb'), 'the triplet is not in the library check');
+});
+
+/*
+ * Glass effect styles (2026-10-08, Levi: "teach the sync to write them").
+ * size.<component>.glass.<level>.{frost,refraction,depth,splay,light} become
+ * one Figma Glass effect style, glass/<component>/<level>, in Figma's units
+ * (refraction, splay and light as 0 to 1; depth and frost as is). The light
+ * angle is the system light (-45deg, Gate 1 pick 1); dispersion is 0 (not
+ * built in code). Splay is written too: Levi set 57 by hand before the sync
+ * knew the field.
+ */
+const glassOp = (ops, name) => ops.find((o) => o.kind === 'effect' && o.name === name);
+
+test('a glass style name builds one Figma Glass effect from its level tokens', () => {
+  const { code } = run('--tokens', 'glass/card/frosted');
+  const op = glassOp(opsOf(code), 'glass/card/frosted');
+  assert.ok(op, 'an effect op for glass/card/frosted');
+  assert.deepEqual(op.effects, [{ type: 'GLASS', visible: true, lightIntensity: 0.3, lightAngle: -45, refraction: 0.65, depth: 68, dispersion: 0, radius: 9, splay: 0.57 }]);
+});
+
+test('a glass level token pulls its glass style in, and an aliased frost resolves to pixels', () => {
+  const { code } = run('--tokens', 'size.card.glass.clear.frost');
+  const op = glassOp(opsOf(code), 'glass/card/clear');
+  assert.ok(op, 'changing a level token rewrites its style');
+  assert.equal(op.effects[0].radius, 4, '{space.4} resolves to 4');
+});
+
+test('every glass style is in the library check', () => {
+  const { code } = run('--tokens', 'glass/card/thick');
+  const manifest = JSON.parse(code.match(/^const MANIFEST = (.*);$/m)[1]);
+  for (const lv of ['clear', 'frosted', 'thick']) assert.ok(manifest.effects.includes(`glass/card/${lv}`), lv);
+});
+
+test('the run writes the glass effect, splay included', async () => {
+  const { code } = run('--tokens', 'glass/card/thick');
+  const figma = fakeFigma();
+  const r = await execute(code, figma);
+  assert.ok(r.created.includes('glass/card/thick'));
+  const s = figma.effects.find((e) => e.name === 'glass/card/thick');
+  assert.equal(s.effects[0].type, 'GLASS');
+  assert.equal(s.effects[0].splay, 0.57);
+});
+
+test('the glass light equals the rim highlight alpha in both modes', () => {
+  const sem = JSON.parse(readFileSync(join(root, 'tokens/semantic.json'), 'utf8'));
+  for (const [lv, g] of Object.entries(sem.size.card.glass)) {
+    for (const mode of ['light', 'dark']) {
+      const rim = sem.shadow.card.glass[lv].$extensions.modes[mode];
+      const alpha = Number(rim.match(/^inset 1px 1px 0 0 rgb\([^/]+\/\s*([\d.]+)\)/)[1]);
+      assert.equal(alpha * 100, g.light.$value, `${lv} ${mode}: rim ${alpha} vs light ${g.light.$value}`);
+    }
+  }
+});
