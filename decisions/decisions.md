@@ -2312,3 +2312,31 @@ Levi: the trailing arrow uses Phosphor's bold weight, not regular. Code: `ArrowR
 - **Masters re-seated to code:** the Stepper set `139:51` predated the code geometry (keys 32 square, gap 0, pill padding bound to `space/4` while code reads `padding-sm` 8px). All variants now read 146.75 × 56: padding `space/component/padding/sm`, gap and readout inline padding `space/component/gap/stepper`, keys 40 × 40 on `radius/pill` at x 8 and 98.75, readout 34.75 wide at x 56 with `text/mono/body`, numeral centred. Track: `color/stepper/track` + `shadow/stepper/track`. Keys: `color/stepper/key` + the 135deg face (stop bound to `keyShade`) + `shadow/stepper/key`; keys at a bound and the Disabled variant are flat; Disabled is at 0.6 with no recess. New variants `State=Hover` (`519:2`) and `State=Pressed` (`519:12`) show the + key in that state (`keyHover` / `keyPressed` fill, ink and style). Readback matches code except the readout box height, 25 in Figma vs 24.8 in code (Figma rounds the 1.55 line height). The clones first held the bind placeholder colour (black); every bound paint was rewritten with its variable's resolved value. Motion (roll, glyph scale) has no Figma analogue on the masters. Publishing the library is Levi's step.
 - **Docs:** Stepper page lead, states and token rows (`src/sections/ComponentSections.jsx`), `Stepper.tokens.md`.
 - `tokens:verify`, `tokens:map:check`, `tokens:swift:check`, `test:scripts`, `npm run build` and `build:lib` exit 0.
+
+### 2026-10-07: ProgressIndicator interactive bar material and motion tokens for its sc-tune session (shipped equal to today)
+
+**Status:** Accepted. Tier 1, after the Stepper (branch `feat/physical-controls-3`). The audit row: a recessed track and a physical thumb that carries the non-text cue the fill misses (teal.500 on the track is 1.66:1). Static meters (bar, circular, step) stay flat.
+
+| Token | Shipped (= today) | Lab start (concept seed) |
+| --- | --- | --- |
+| `color.progressSlider.track` / `.trackDisabled` | surface.deepSunk / surface.sunk values | unchanged |
+| `color.progressSlider.fill` / `.fillHover` / `.fillDisabled` | brand.accent / interactive.hover / text.disabled values | unchanged |
+| `shadow.progressSlider.track` | zero alpha | the top-left recess (SegmentedControl 1645 track) |
+| `size.progressSlider.track` | space.4 (= bar-height) | unchanged |
+| `size.progressSlider.thumb` | 0px (thumbless) | 15px, the Switch knob |
+| `color.progressSlider.thumb{RimTop,RimBottom,FaceTop,FaceBottom}` | transparent | the Switch knob values per mode, as values, at 135deg |
+| `shadow.progressSlider.thumb` / `.thumbPressed` | zero alpha | `shadow.control.key` / `.keyPressed` values per mode (the Button key) |
+| `motion.progressSlider.travel` | = motion.reveal | reel spring (520ms, bounce 0) |
+| `motion.progressSlider.drag` | = motion.reveal | unchanged |
+| `motion.progressSlider.stretch` / `.squash` | 0 / 0 | 0.45 / 0 (reel) |
+| `motion.progressSlider.thumbPressScale` | 1 | 0.985, the Switch knob press |
+
+- **Own tokens, never the Switch's:** the thumb reads only `progressSlider` tokens; the registry copies the knob's hex values (`KNOB` in `previews/tune/registry.jsx`). The Switch is untouched.
+- **The 135deg conflict:** the Switch knob gradients run top to bottom, and `verify-light` grades every face gradient at 135deg. The thumb's rim and face run at 135deg, the system light. No exemption is added; running them top to bottom is Levi's call and would need one.
+- **Structure (Claude's, Levi's values):** the thumb rides inside the track (centre from thumb/2 to width − thumb/2) and the fill ends under its centre; the pointer maps through the same inset. A seek (click, key) travels on `travel` and, through `src/motion/elastic.js`, stretches the thumb with speed (two ends and a bar). A drag trails the pointer on `drag`, split from travel so a slow spring never lags the finger; shipped, both are today's 200ms. Dragging scales the thumb and softens its lift (directive 4). Disabled is flat.
+- **Shared tokens kept shared:** the focus ring (`border.width.focus`, `border.focusOffset`, `border.focus`), `border.width.default` (the thumb rim hairline), `radius.pill`, `motion.reveal` (track thickening), `motion.hover` (fill colour) and `motion.press` (thumb scale timing). Procedure D gives any of them a role token if Levi tunes it.
+- **Forced colors:** the track gets a `CanvasText` border (border-box, no size change), the fill `Highlight`, the thumb a solid `ButtonText` disc, `GrayText` when disabled. Verified in headless Chromium with `forcedColors: 'active'`.
+- **Sound:** none shipped. The registry plays the concept's sound on a keyboard step that changes the value; Levi picks the file (a `tick` candidate).
+- **Lab:** `?c=<name>` with no registry entry shows "no lab entry for <name>"; it used to open (and save into) the Switch session silently. The ProgressIndicator panel lists the interactive block's 34 tokens, not the 53 of the whole stylesheet.
+- **Checks:** Shipped stage by computed style, both modes: track 4px on the deepSunk value, no recess, fill teal.500 at value × width with the 200ms quint-out, thumb 0 × 0; every role token equals its source token. Concept A: thumb 15px centred on the fill end; an End key step plays 60 keyframes over 1062ms, the thumb 15 → 21.75 → 15px, landing at offset 0. `tokens:verify` (light rule included), `tokens:map:check`, `tokens:swift:check`, `test:scripts` (17), `npm run build`, `build:lib` and `swiftc -typecheck` exit 0.
+- **Open (Levi's call):** Gate 1 pick 3 B gives dark mode dark keys with a faint highlight; the seed follows the Switch knob in dark (a light knob, record 1539 B) with the Button's dark lift. Duplicate the concept to try a dark thumb.
