@@ -558,7 +558,7 @@
   --sc-motion-stepper-roll: 1;
   --sc-motion-stepper-stretch: 0.45;
   --sc-motion-stepper-squash: 0;
-  --sc-motion-slider-travel-duration: 1062ms;
+  --sc-motion-slider-travel-duration: var(--sc-p-motion-duration-orchestrated);
   --sc-motion-slider-travel-easing: linear(0, 0.0218, 0.0735, 0.1426, 0.2201, 0.3001, 0.3786, 0.4531, 0.5222, 0.5851, 0.6416, 0.6918, 0.736, 0.7746, 0.8082, 0.8372, 0.8622, 0.8836, 0.9018, 0.9174, 0.9306, 0.9417, 0.9512, 0.9591, 0.9658, 0.9715, 0.9762, 0.9802, 0.9835, 0.9862, 0.9886, 0.9905, 0.9921, 0.9934, 0.9946, 0.9955, 0.9963, 0.9969, 0.9974, 0.9979, 0.9982, 0.9985, 0.9988, 0.999, 0.9992, 0.9993, 0.9994, 0.9995, 0.9996, 0.9997, 0.9997, 0.9998, 0.9998, 0.9999, 0.9999, 0.9999, 0.9999, 0.9999, 0.9999, 1);
   --sc-motion-slider-drag-duration: var(--sc-p-motion-duration-micro);
   --sc-motion-slider-drag-easing: var(--sc-p-motion-easing-out);
@@ -780,7 +780,7 @@
   --sc-size-slider-track: var(--sc-p-space-4);
   --sc-size-slider-track-active: var(--sc-p-space-micro-6);
   --sc-size-slider-hit-slop: var(--sc-p-space-micro-22);
-  --sc-size-slider-thumb: 15px;
+  --sc-size-slider-thumb: var(--sc-p-space-16);
   --sc-size-button-icon-lg: var(--sc-p-space-micro-14);
   --sc-size-button-icon-sm: var(--sc-p-space-12);
   --sc-size-touch-target: var(--sc-p-space-48);
@@ -995,7 +995,7 @@
   --sc-motion-stepper-roll: 1;
   --sc-motion-stepper-stretch: 0.45;
   --sc-motion-stepper-squash: 0;
-  --sc-motion-slider-travel-duration: 1062ms;
+  --sc-motion-slider-travel-duration: var(--sc-p-motion-duration-orchestrated);
   --sc-motion-slider-travel-easing: linear(0, 0.0218, 0.0735, 0.1426, 0.2201, 0.3001, 0.3786, 0.4531, 0.5222, 0.5851, 0.6416, 0.6918, 0.736, 0.7746, 0.8082, 0.8372, 0.8622, 0.8836, 0.9018, 0.9174, 0.9306, 0.9417, 0.9512, 0.9591, 0.9658, 0.9715, 0.9762, 0.9802, 0.9835, 0.9862, 0.9886, 0.9905, 0.9921, 0.9934, 0.9946, 0.9955, 0.9963, 0.9969, 0.9974, 0.9979, 0.9982, 0.9985, 0.9988, 0.999, 0.9992, 0.9993, 0.9994, 0.9995, 0.9996, 0.9997, 0.9997, 0.9998, 0.9998, 0.9999, 0.9999, 0.9999, 0.9999, 0.9999, 0.9999, 1);
   --sc-motion-slider-drag-duration: var(--sc-p-motion-duration-micro);
   --sc-motion-slider-drag-easing: var(--sc-p-motion-easing-out);
@@ -1217,7 +1217,7 @@
   --sc-size-slider-track: var(--sc-p-space-4);
   --sc-size-slider-track-active: var(--sc-p-space-micro-6);
   --sc-size-slider-hit-slop: var(--sc-p-space-micro-22);
-  --sc-size-slider-thumb: 15px;
+  --sc-size-slider-thumb: var(--sc-p-space-16);
   --sc-size-button-icon-lg: var(--sc-p-space-micro-14);
   --sc-size-button-icon-sm: var(--sc-p-space-12);
   --sc-size-touch-target: var(--sc-p-space-48);

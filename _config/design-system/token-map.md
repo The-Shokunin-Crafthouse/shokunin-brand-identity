@@ -5,7 +5,7 @@
 # Design Token Map — The Shokunin Crafthouse · Brand Identity
 
 **Generated** from `tokens/primitives.json` + `tokens/semantic.json`.
-**Source fingerprint:** `b505af8bad7d` · **187 primitives · 288 semantic tokens.**
+**Source fingerprint:** `ae84c0ac76d5` · **187 primitives · 288 semantic tokens.**
 
 > **This file is a mirror, not the source.** `tokens/*.json` is upstream; this document and the Figma
 > library are generated from / synced to it. It previously claimed the opposite — that both were
@@ -859,7 +859,7 @@ channel-triplet primitives) rather than an alias to a single primitive.
 
 | Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
 |---|---|---|---|---|---|---|
-| `motion/slider/travel/duration` | `--sc-motion-slider-travel-duration` | _literal_ | `1062ms` | _literal_ | `1062ms` | 2026-10-07 · Slider motion (physical-controls Tier 1; split from ProgressIndicator's interactive bar, Levi 2026-10-07), engine src/motion/elastic.js via Slider.jsx, tuned in sc-tune. |
+| `motion/slider/travel/duration` | `--sc-motion-slider-travel-duration` | `motion/duration/orchestrated` | `720ms` | `motion/duration/orchestrated` | `720ms` | 2026-10-07 · Slider motion (physical-controls Tier 1; split from ProgressIndicator's interactive bar, Levi 2026-10-07), engine src/motion/elastic.js via Slider.jsx, tuned in sc-tune. |
 | `motion/slider/travel/easing` | `--sc-motion-slider-travel-easing` | _literal_ | `spring k146 c24.17 m1` | _literal_ | `spring k146 c24.17 m1` | 2026-10-07 · Slider motion (physical-controls Tier 1; split from ProgressIndicator's interactive bar, Levi 2026-10-07), engine src/motion/elastic.js via Slider.jsx, tuned in sc-tune. |
 | `motion/slider/drag/duration` | `--sc-motion-slider-drag-duration` | `motion/duration/micro` | `200ms` | `motion/duration/micro` | `200ms` | 2026-10-07 · Slider motion (physical-controls Tier 1; split from ProgressIndicator's interactive bar, Levi 2026-10-07), engine src/motion/elastic.js via Slider.jsx, tuned in sc-tune. |
 | `motion/slider/drag/easing` | `--sc-motion-slider-drag-easing` | `motion/easing/out` | `cubic-bezier(0.22, 1, 0.36, 1)` | `motion/easing/out` | `cubic-bezier(0.22, 1, 0.36, 1)` | 2026-10-07 · Slider motion (physical-controls Tier 1; split from ProgressIndicator's interactive bar, Levi 2026-10-07), engine src/motion/elastic.js via Slider.jsx, tuned in sc-tune. |
@@ -1008,7 +1008,7 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | `size/slider/track` | `--sc-size-slider-track` | `space/4` | `4px` | `space/4` | `4px` | 2026-10-07 · Slider material (physical-controls Tier 1; split from ProgressIndicator's interactive bar, Levi 2026-10-07: a progress indicator is read, a slider is moved. |
 | `size/slider/trackActive` | `--sc-size-slider-track-active` | `space/micro/6` | `6px` | `space/micro/6` | `6px` | 2026-10-07 · Slider (physical-controls Tier 1; split from ProgressIndicator's interactive bar, Levi 2026-10-07). |
 | `size/slider/hitSlop` | `--sc-size-slider-hit-slop` | `space/micro/22` | `22px` | `space/micro/22` | `22px` | 2026-10-07 · Slider (physical-controls Tier 1; split from ProgressIndicator's interactive bar, Levi 2026-10-07). |
-| `size/slider/thumb` | `--sc-size-slider-thumb` | _literal_ | `15px` | _literal_ | `15px` | 2026-10-07 · Slider material (physical-controls Tier 1; split from ProgressIndicator's interactive bar, Levi 2026-10-07: a progress indicator is read, a slider is moved. |
+| `size/slider/thumb` | `--sc-size-slider-thumb` | `space/16` | `16px` | `space/16` | `16px` | 2026-10-07 · Slider material (physical-controls Tier 1; split from ProgressIndicator's interactive bar, Levi 2026-10-07: a progress indicator is read, a slider is moved. |
 
 #### `size/button`
 

@@ -171,7 +171,7 @@ public enum SCDS {
     public static let semanticVersion = "0.1.0"
     public static let sourceGenerated = "2026-05-26"
     public static let primitivesHash = "41d576559668277a"
-    public static let semanticHash = "7307f349489d8ed4"
+    public static let semanticHash = "922398d3a36bad13"
     public static let tokenCount = 288
   }
 
@@ -1301,7 +1301,7 @@ public enum SCDS {
     public static let sliderHitSlop: CGFloat = 22
 
     /// `size.slider.thumb`
-    public static let sliderThumb: CGFloat = 15
+    public static let sliderThumb: CGFloat = 16
 
     /// `size.button.icon.lg`
     public static let buttonIconLg: CGFloat = 14
@@ -1473,8 +1473,8 @@ public enum SCDS {
     /// `motion.stepper.squash`
     public static let stepperSquash: CGFloat = 0
 
-    /// `motion.slider.travel.duration` · 1062ms
-    public static let sliderTravelDuration: TimeInterval = 1.062
+    /// `motion.slider.travel.duration` · 720ms
+    public static let sliderTravelDuration: TimeInterval = 0.72
 
     /// `motion.slider.travel.easing` · spring k146 c24.17 m1, settles in 1062ms, overshoot 0%
     public static let sliderTravelEasing = SCDSSpring(stiffness: 146, damping: 24.17, mass: 1, settle: 1.062)
