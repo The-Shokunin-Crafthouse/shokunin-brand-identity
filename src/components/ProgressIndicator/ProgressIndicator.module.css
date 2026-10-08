@@ -1,34 +1,25 @@
 /* tokens:
  *   --sc-size-progress-bar-height        · 4 bar height (also the min-fill floor, see below)
- *   --sc-size-progress-bar-height-active · 6 interactive bar, active/dragging track thickness
- *   --sc-size-progress-hit-slop          · 22 interactive bar, invisible hit-slop block padding
  *   --sc-size-progress-circular          · 48 circle diameter
  *   --sc-size-progress-circular-stroke   · 4 stroke
  *   --sc-radius-pill                     · 9999 pill caps on bar
  *   --sc-color-surface-deep-sunk         · bar + ring track (resting)
- *   --sc-color-surface-sunk              · interactive bar, disabled track
  *   --sc-color-brand-accent              · fill (active progress, resting)
  *   --sc-color-signal-progress           · bar fill, tone="progress"
  *   --sc-color-status-warning            · bar fill, tone="warning"
  *   --sc-color-surface-sunk              · bar track, track="sunk"
- *   --sc-color-interactive-hover         · interactive bar, hover/default fill brighten
- *   --sc-color-text-disabled             · interactive bar, disabled fill
  *   --sc-color-text-secondary            · step dot text (resting)
  *   --sc-color-text-on-accent            · step dot text (active)
  *   --sc-color-border-default            · resting step dot border
  *   --sc-color-border-strong             · current step dot border
- *   --sc-color-border-focus              · interactive bar, focus ring
  *   --sc-border-width-default            · borders
- *   --sc-border-width-focus              · interactive bar, focus ring weight
- *   --sc-border-focus-offset             · interactive bar, focus ring offset
  *   --sc-space-component-gap-md          · step item gap
  *   --sc-space-layout-stack-sm           · step dot diameter (reuses 16 space token)
  *   --sc-font-text-mono-chrome-*         · step numerals (chrome mono)
  *   --sc-motion-reveal-duration / -easing
- *   --sc-motion-hover-duration / -easing · interactive bar fill-brighten transition
  *
- * Min-fill (Drams #3/#4 Line Volume / Volume Visible Track): both bar
- * variants render fill width as max(pct%, --sc-size-progress-bar-height)
+ * Min-fill (Drams #3/#4 Line Volume / Volume Visible Track): the bar
+ * renders fill width as max(pct%, --sc-size-progress-bar-height)
  * instead of a raw percentage, so at value=0 the fill never fully
  * vanishes — it reads as a track-height pill/circle (a "radius cap"),
  * not a thumbless 2px lead-in. Reuses the existing bar-height token
@@ -58,81 +49,6 @@
 .toneProgress .barFill { background-color: var(--sc-color-signal-progress); }
 .toneWarning .barFill { background-color: var(--sc-color-status-warning); }
 .trackSunk { background-color: var(--sc-color-surface-sunk); }
-
-/* --- Bar · interactive (Drams #4/#5) -------------------------------
-   Wrapper carries the ARIA + pointer/keyboard contract (role="slider")
-   and a 44px-class invisible hit-slop via block padding — the visual
-   track inside stays 4px (6px while dragging). Thumbless throughout:
-   the track itself thickens rather than surfacing a drag handle. */
-
-.barInteractiveWrapper {
-  position: relative;
-  display: flex;
-  align-items: center;
-  width: 100%;
-  padding-block: var(--sc-size-progress-hit-slop);
-  touch-action: none;
-  cursor: pointer;
-}
-
-.barInteractiveWrapper[aria-disabled='true'] {
-  cursor: not-allowed;
-}
-
-.barInteractiveWrapper:focus-visible {
-  outline: none;
-}
-
-.barInteractiveTrack {
-  position: relative;
-  display: block;
-  width: 100%;
-  height: var(--sc-size-progress-bar-height);
-  border-radius: var(--sc-radius-pill);
-  background-color: var(--sc-color-surface-deep-sunk);
-  transition: height var(--sc-motion-reveal-duration) var(--sc-motion-reveal-easing);
-}
-
-.barInteractiveFill {
-  position: absolute;
-  inset-block: 0;
-  left: 0;
-  display: block;
-  border-radius: var(--sc-radius-pill);
-  background-color: var(--sc-color-brand-accent);
-  transition:
-    width var(--sc-motion-reveal-duration) var(--sc-motion-reveal-easing),
-    background-color var(--sc-motion-hover-duration) var(--sc-motion-hover-easing);
-}
-
-/* Hover / default — fill brightens via the existing interactive token
-   (teal.500 in light, teal.300 in dark — a genuine brighten in dark
-   mode, a held value in light) rather than introducing a new hover
-   color for this one control. */
-.barInteractiveWrapper:hover:not([aria-disabled='true']) .barInteractiveFill {
-  background-color: var(--sc-color-interactive-hover);
-}
-
-/* Focus — ring surfaces on the visual track, not the padded hit-slop
-   box, so it reads as a 4px control getting focus, not a 48px band. */
-.barInteractiveWrapper:focus-visible .barInteractiveTrack {
-  outline: var(--sc-border-width-focus) solid var(--sc-color-border-focus);
-  outline-offset: var(--sc-border-focus-offset);
-}
-
-/* Active / dragging — thumbless: the track thickens 4px → 6px instead
-   of revealing a handle. */
-.barInteractiveTrack.dragging {
-  height: var(--sc-size-progress-bar-height-active);
-}
-
-/* Disabled */
-.barInteractiveWrapper[aria-disabled='true'] .barInteractiveTrack {
-  background-color: var(--sc-color-surface-sunk);
-}
-.barInteractiveWrapper[aria-disabled='true'] .barInteractiveFill {
-  background-color: var(--sc-color-text-disabled);
-}
 
 /* --- Circular ----------------------------------------------------- */
 
@@ -224,5 +140,4 @@
 
 @media (prefers-reduced-motion: reduce) {
   .barFill, .circularFill, .stepDot { transition: none; }
-  .barInteractiveTrack, .barInteractiveFill { transition: none; }
 }

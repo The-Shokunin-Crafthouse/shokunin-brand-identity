@@ -26,6 +26,9 @@ import { Button } from '../../src/components/Button/Button.jsx';
 import { Tooltip } from '../../src/components/Tooltip/Tooltip.jsx';
 import { NavBar } from '../../src/components/NavBar/NavBar.jsx';
 import { PlusUnderline } from '../../src/components/PlusUnderline/PlusUnderline.jsx';
+import { Slider } from '../../src/components/Slider/Slider.jsx';
+import { Input } from '../../src/components/Input/Input.jsx';
+import { MagnifyingGlass, EnvelopeSimple, MapPin, Eye, Copy, CalendarBlank, Clock, CaretDown } from '@phosphor-icons/react';
 import switchCss from '../../src/components/Switch/Switch.module.css?raw';
 import stepperCss from '../../src/components/Stepper/Stepper.module.css?raw';
 import iconCss from '../../src/components/Icon/Icon.module.css?raw';
@@ -34,6 +37,8 @@ import buttonCss from '../../src/components/Button/Button.module.css?raw';
 import tooltipCss from '../../src/components/Tooltip/Tooltip.module.css?raw';
 import navBarCss from '../../src/components/NavBar/NavBar.module.css?raw';
 import underlineCss from '../../src/components/PlusUnderline/PlusUnderline.module.css?raw';
+import sliderCss from '../../src/components/Slider/Slider.module.css?raw';
+import inputCss from '../../src/components/Input/Input.module.css?raw';
 import s from './Tune.module.css';
 
 const SEGMENTS = ['day', 'week', 'month'];
@@ -88,6 +93,25 @@ const MATERIAL = {
 };
 /* One seed per mode from MATERIAL: map(m) → { token: value }. */
 const perMode = (map) => ({ light: map(MATERIAL.light), dark: map(MATERIAL.dark) });
+
+/*
+ * The Switch knob's values (record Switch 2026-10-07-1539 B: rim white →
+ * warmGray.200 over a warmGray.50 → 100 face; dark rim dark.textPrimary →
+ * warmGray.350 over warmGray.200 → dark.textTertiary), copied as values so
+ * the Slider thumb never reads a Switch token. The Switch runs its
+ * gradients top to bottom; the thumb runs them at 135deg, the system light.
+ */
+const KNOB = {
+  light: { rimTop: '#FFFFFF', rimBottom: '#D8D1CC', faceTop: '#F1EFEB', faceBottom: '#E3DFD8' },
+  dark: { rimTop: '#EAE8E3', rimBottom: '#9A9186', faceTop: '#D8D1CC', faceBottom: '#B3B1AD' },
+};
+
+/* Input slot options: Phosphor glyphs, rendered bold by the Input. */
+const INPUT_ICONS = { none: undefined, search: MagnifyingGlass, mail: EnvelopeSimple, location: MapPin };
+const INPUT_TRAILING = { none: undefined, eye: Eye, copy: Copy, calendar: CalendarBlank, clock: Clock, caret: CaretDown };
+
+/* Set on a keyboard step so the lab's tick plays on keys only, never on a drag. */
+let keyStep = false;
 
 /* ---------- motion sandbox ---------- */
 
@@ -329,6 +353,104 @@ export const REGISTRY = {
             <PlusUnderline active={x === p.active} />
           </button>
         ))}
+      </div>
+    ),
+  },
+  Slider: {
+    css: [sliderCss],
+    // Thumb stretch and squash are read by Slider.jsx.
+    jsTokens: reel('slider', { press: false }).jsTokens,
+    seed: {
+      overrides: {
+        ...reel('slider', { press: false }).seed.overrides,
+        // The Switch knob's diameter and press scale (values, not its tokens).
+        '--sc-size-slider-thumb': '15px',
+        '--sc-motion-slider-thumb-press-scale': '0.985',
+      },
+      springs: reel('slider', { press: false }).seed.springs,
+      // Track = the top-left recess; thumb face = the Switch knob at 135deg;
+      // thumb lift = the Button key, softened to keyPressed while dragged.
+      scoped: perMode((m) => {
+        const k = m === MATERIAL.light ? KNOB.light : KNOB.dark;
+        return {
+          '--sc-shadow-slider-track': m.recess,
+          '--sc-color-slider-thumb-rim-top': k.rimTop,
+          '--sc-color-slider-thumb-rim-bottom': k.rimBottom,
+          '--sc-color-slider-thumb-face-top': k.faceTop,
+          '--sc-color-slider-thumb-face-bottom': k.faceBottom,
+          '--sc-shadow-slider-thumb': m.key,
+          '--sc-shadow-slider-thumb-pressed': m.keyPressed,
+        };
+      }),
+    },
+    // The slide role sound (Drams 009), Levi's pick in record 2026-10-07-2207.
+    shippedSound: 'drams-009-01.wav',
+    trigger: 'a keyboard step that changes the value; a drag is silent',
+    props: [
+      { name: 'value', type: 'range', min: 0, max: 1, step: 0.01, default: 0.5 },
+      { name: 'disabled', type: 'boolean', default: false },
+      { name: 'label', type: 'text', default: 'Volume' },
+    ],
+    play: (p, set) => set('value', p.value >= 0.75 ? 0.25 : 0.75),
+    render: (p, set, sound) => (
+      <div
+        style={{ width: 'calc(var(--sc-space-layout-stack-xl) * 2)' }}
+        onKeyDownCapture={() => { keyStep = true; }}
+        onKeyUpCapture={() => { keyStep = false; }}
+      >
+        <Slider
+          value={p.value}
+          disabled={p.disabled}
+          label={p.label}
+          sound={false}
+          onChange={(v) => {
+            const next = Math.round(v * 100) / 100;
+            if (keyStep && next !== p.value) sound();
+            set('value', next);
+          }}
+        />
+      </div>
+    ),
+  },
+  Input: {
+    css: [inputCss, iconCss],
+    // No seeds: concept A starts from shipped, which is Levi's filled-field
+    // reference (2026-10-07). Icons are Phosphor, bold.
+    shippedSound: null,
+    trigger: 'ships silent',
+    props: [
+      { name: 'label', type: 'text', default: 'Email address' },
+      { name: 'description', type: 'text', default: '' },
+      { name: 'placeholder', type: 'text', default: 'you@studio.com' },
+      { name: 'value', type: 'text', default: 'levi@levibahn.com' },
+      { name: 'icon', type: 'enum', options: Object.keys(INPUT_ICONS), default: 'mail' },
+      { name: 'prefix', type: 'text', default: '' },
+      { name: 'suffix', type: 'text', default: '' },
+      { name: 'trailing', type: 'enum', options: Object.keys(INPUT_TRAILING), default: 'none' },
+      { name: 'clearable', type: 'boolean', default: true },
+      { name: 'helper', type: 'text', default: '' },
+      { name: 'error', type: 'text', default: '' },
+      { name: 'disabled', type: 'boolean', default: false },
+    ],
+    play: null,
+    render: (p, set) => (
+      <div style={{ width: 'calc(var(--sc-space-layout-stack-xl) * 4)' }}>
+        <Input
+          label={p.label}
+          description={p.description || undefined}
+          placeholder={p.placeholder}
+          value={p.value}
+          icon={INPUT_ICONS[p.icon]}
+          prefix={p.prefix || undefined}
+          suffix={p.suffix || undefined}
+          trailing={INPUT_TRAILING[p.trailing]}
+          clearable={p.clearable}
+          onClear={() => set('value', '')}
+          helper={p.helper || undefined}
+          error={p.error || undefined}
+          disabled={p.disabled}
+          onChange={(e) => set('value', e.target.value)}
+        />
       </div>
     ),
   },

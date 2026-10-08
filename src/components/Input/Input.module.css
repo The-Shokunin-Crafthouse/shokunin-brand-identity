@@ -1,33 +1,40 @@
 /* tokens:
- *   --sc-space-component-padding-inline-md  · 12 inline
- *   --sc-space-component-padding-block-md   · 8 block
- *   --sc-space-component-gap-sm             · label ↔ input gap (4)
- *   --sc-radius-control                     · 3 corner — inscribed register
- *   --sc-border-width-default               · 1 bottom rule
- *   --sc-font-text-body-default-*           · 16 input value
- *   --sc-font-text-label-ui-*               · 12 label
- *   --sc-font-text-caption-*                · 13 helper/error
- *   --sc-color-surface-sunk                 · resting fill (inset well)
- *   --sc-color-surface-page                 · focus fill-shift (lifts)
- *   --sc-color-border-default               · resting bottom rule
- *   --sc-color-border-strong                · filled bottom rule
- *   --sc-color-border-focus                 · focus bottom rule
- *   --sc-color-text-primary                 · value ink
- *   --sc-color-text-secondary               · label + helper
- *   --sc-color-text-disabled                · disabled value
- *   --sc-color-status-error                 · error bottom rule + helper
+ *   --sc-space-component-gap-input            · label ↔ description ↔ field ↔ helper (4)
+ *   --sc-space-component-padding-inline-input · 16 inline, inside the field box
+ *   --sc-space-component-padding-block-input  · 12 block, inside the field box
+ *   --sc-space-component-gap-input-inline     · 16 between prefix, icon, value, suffix, clear, trailing
+ *   --sc-radius-field                         · 8 field corner (role token, = radius.default; Levi)
+ *   --sc-size-input-icon                      · 20 leading / trailing icon (Phosphor, bold)
+ *   --sc-size-input-clear / -clear-target     · 16 clear mark (Phosphor X, bold) in a 32 button
+ *   --sc-color-input-well / -well-hover / -well-focus / -well-disabled · field fill (white 46% light, white 15% dark)
+ *   --sc-shadow-input-well                    · recess of the field (shipped zero alpha: the reference is flat)
+ *   --sc-color-input-adornment                · icons, suffix, clear (= text.secondary)
+ *   --sc-color-input-divider                  · rule after a prefix segment
+ *   --sc-font-text-body-default-*             · 16 value, prefix, suffix
+ *   --sc-font-text-label-ui-*                 · 12 label (form title)
+ *   --sc-font-text-caption-*                  · 13 description, helper, error
+ *   --sc-color-text-primary                   · value ink
+ *   --sc-color-text-secondary                 · label, description, helper
+ *   --sc-color-text-disabled                  · placeholder, disabled ink
+ *   --sc-color-status-error                   · error edge + error text
+ *   --sc-color-border-focus, --sc-border-width-focus, --sc-border-focus-offset · focus ring
+ *   --sc-border-width-default                 · error edge, prefix rule
+ *   --sc-motion-hover-duration / -easing      · fill and clear-ink transitions
  *
- * scds-v2 Phase 2 — filled field, no box frame. The input is an inset fill
- * (surface-sunk) with a single bottom rule. Focus lifts the fill to
- * surface-page and doubles the bottom rule to the focus colour (2px via an
- * inset shadow, no reflow). "fill-shift + bottom-border" carries every state.
+ * Levi's filled-field reference (2026-10-07): a tinted box with no rule and
+ * no frame, a leading icon, a clear button and trailing slots. One change:
+ * the label stays above the field, left-aligned, with optional subcopy
+ * (description) between it and the field. Focus is the system focus ring on
+ * the box; an error draws a hairline edge in the status colour.
  */
 
 .field {
   display: flex;
   flex-direction: column;
-  gap: var(--sc-space-component-gap-sm);
+  align-items: stretch;
+  gap: var(--sc-space-component-gap-input);
   width: 100%;
+  text-align: start;
 }
 
 .label {
@@ -39,45 +46,7 @@
   color: var(--sc-color-text-secondary);
 }
 
-.input {
-  padding-inline: var(--sc-space-component-padding-inline-md);
-  padding-block: var(--sc-space-component-padding-block-md);
-  border: none;
-  border-radius: var(--sc-radius-control);
-  border-bottom: var(--sc-border-width-default) solid var(--sc-color-border-default);
-  background-color: var(--sc-color-surface-sunk);
-  color: var(--sc-color-text-primary);
-  font-family: var(--sc-font-text-body-default-family);
-  font-size: var(--sc-font-text-body-default-size);
-  font-weight: var(--sc-font-text-body-default-weight);
-  line-height: var(--sc-font-text-body-default-line-height);
-  letter-spacing: var(--sc-font-text-body-default-letter-spacing);
-  width: 100%;
-  transition:
-    background-color var(--sc-motion-hover-duration) var(--sc-motion-hover-easing),
-    border-bottom-color var(--sc-motion-hover-duration) var(--sc-motion-hover-easing);
-  /* The focus underline's second pixel (an inset shadow) snaps: forms
-     repeat inputs (physical-controls Phase 0). */
-}
-
-.input::placeholder {
-  color: var(--sc-color-text-disabled);
-}
-
-/* Filled — content present: bottom rule darkens to strong. */
-.input:not(:placeholder-shown):not(:disabled) {
-  border-bottom-color: var(--sc-color-border-strong);
-}
-
-/* Focus — fill lifts to page, bottom rule goes focus colour, doubled to 2px
-   via an inset shadow so the underline reads at AA without reflowing. */
-.input:focus {
-  outline: none;
-  background-color: var(--sc-color-surface-page);
-  border-bottom-color: var(--sc-color-border-focus);
-  box-shadow: inset 0 -1px 0 0 var(--sc-color-border-focus);
-}
-
+.description,
 .helper {
   font-family: var(--sc-font-text-caption-family);
   font-size: var(--sc-font-text-caption-size);
@@ -87,34 +56,172 @@
   color: var(--sc-color-text-secondary);
 }
 
+/* The field box carries the fill, the corner and the slots. */
+.box {
+  display: flex;
+  align-items: center;
+  gap: var(--sc-space-component-gap-input-inline);
+  padding-inline: var(--sc-space-component-padding-inline-input);
+  padding-block: var(--sc-space-component-padding-block-input);
+  border-radius: var(--sc-radius-field);
+  background-color: var(--sc-color-input-well);
+  box-shadow: var(--sc-shadow-input-well);
+  color: var(--sc-color-input-adornment);
+  cursor: text;
+  transition: background-color var(--sc-motion-hover-duration) var(--sc-motion-hover-easing);
+}
+
+.input {
+  flex: 1;
+  min-width: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--sc-color-text-primary);
+  font-family: var(--sc-font-text-body-default-family);
+  font-size: var(--sc-font-text-body-default-size);
+  font-weight: var(--sc-font-text-body-default-weight);
+  line-height: var(--sc-font-text-body-default-line-height);
+  letter-spacing: var(--sc-font-text-body-default-letter-spacing);
+}
+
+.input:focus {
+  outline: none;
+}
+
+.input::placeholder {
+  color: var(--sc-color-text-disabled);
+}
+
+.icon,
+.trailing {
+  display: inline-flex;
+  flex: none;
+  font-size: var(--sc-size-input-icon);
+  line-height: 0;
+}
+
+.prefix,
+.suffix {
+  flex: none;
+  font-family: var(--sc-font-text-body-default-family);
+  font-size: var(--sc-font-text-body-default-size);
+  line-height: var(--sc-font-text-body-default-line-height);
+  letter-spacing: var(--sc-font-text-body-default-letter-spacing);
+}
+
+/* A prefix segment (currency, country code) is set off by a full-height
+   rule: it reaches the box edges through the block padding. */
+.prefix {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sc-space-component-gap-sm);
+  align-self: stretch;
+  margin-block: calc(-1 * var(--sc-space-component-padding-block-input));
+  padding-inline-end: var(--sc-space-component-gap-input-inline);
+  border-inline-end: var(--sc-border-width-default) solid var(--sc-color-input-divider);
+  color: var(--sc-color-text-primary);
+}
+
+/* Clear · a 16px mark with a 32px button around it; the negative margin
+   keeps the mark on the inline padding line. */
+.clear {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--sc-size-input-clear-target);
+  block-size: var(--sc-size-input-clear-target);
+  margin-block: calc(-1 * var(--sc-space-component-gap-sm));
+  margin-inline: calc(-1 * var(--sc-space-component-gap-md));
+  padding: 0;
+  border: none;
+  border-radius: var(--sc-radius-pill);
+  background: none;
+  color: var(--sc-color-input-adornment);
+  font-size: var(--sc-size-input-clear);
+  line-height: 0;
+  cursor: pointer;
+  transition: color var(--sc-motion-hover-duration) var(--sc-motion-hover-easing);
+}
+
+.clear:hover {
+  color: var(--sc-color-text-primary);
+}
+
+.clear:focus-visible {
+  outline: var(--sc-border-width-focus) solid var(--sc-color-border-focus);
+  outline-offset: calc(-1 * var(--sc-border-width-focus));
+}
+
+/* Hover */
+.box:hover {
+  background-color: var(--sc-color-input-well-hover);
+}
+
+/* Focus — the system focus ring on the box. */
+.box:has(.input:focus) {
+  background-color: var(--sc-color-input-well-focus);
+  outline: var(--sc-border-width-focus) solid var(--sc-color-border-focus);
+  outline-offset: var(--sc-border-focus-offset);
+}
+
 .helperError {
   color: var(--sc-color-status-error);
 }
 
 /* --- Error state -------------------------------------------------- */
 
-.errored .input {
-  border-bottom-color: var(--sc-color-status-error);
+.errored .box {
+  outline: var(--sc-border-width-default) solid var(--sc-color-status-error);
+  outline-offset: calc(-1 * var(--sc-border-width-default));
 }
 
-.errored .input:focus {
-  border-bottom-color: var(--sc-color-status-error);
-  box-shadow: inset 0 -1px 0 0 var(--sc-color-status-error);
+.errored .box:has(.input:focus) {
+  outline: var(--sc-border-width-focus) solid var(--sc-color-status-error);
+  outline-offset: var(--sc-border-focus-offset);
 }
 
-/* --- Disabled state ----------------------------------------------- */
+/* --- Disabled state -----------------------------------------------
+   Disabled is flat (directive 5): no recess; ink and icons go disabled. */
 
-.disabled .label {
+.disabled .label,
+.disabled .description {
   color: var(--sc-color-text-disabled);
 }
 
-.input:disabled {
-  background-color: var(--sc-color-surface-sunk);
-  border-bottom-color: transparent;
+.disabled .box {
+  background-color: var(--sc-color-input-well-disabled);
+  box-shadow: none;
   color: var(--sc-color-text-disabled);
   cursor: not-allowed;
 }
 
+.input:disabled {
+  color: var(--sc-color-text-disabled);
+  cursor: not-allowed;
+}
+
+.disabled .prefix {
+  color: var(--sc-color-text-disabled);
+}
+
+/* Forced colors (Windows high contrast): the fill and the recess drop. The
+   box keeps a full edge; focus is a Highlight outline; disabled is
+   GrayText. */
+@media (forced-colors: active) {
+  .box {
+    border: var(--sc-border-width-default) solid CanvasText;
+  }
+  .box:has(.input:focus) {
+    outline-color: Highlight;
+  }
+  .disabled .box {
+    border-color: GrayText;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .input { transition: none; }
+  .box,
+  .clear { transition: none; }
 }

@@ -171,8 +171,8 @@ public enum SCDS {
     public static let semanticVersion = "0.1.0"
     public static let sourceGenerated = "2026-05-26"
     public static let primitivesHash = "f96efa487bcac29d"
-    public static let semanticHash = "e20775b1c914c470"
-    public static let tokenCount = 216
+    public static let semanticHash = "380fdbb98607a3a6"
+    public static let tokenCount = 254
   }
 
   // MARK: - Color
@@ -592,6 +592,96 @@ public enum SCDS {
         light: (0.101961, 0.094118, 0.082353, 0.05),
         dark:  (0.101961, 0.094118, 0.082353, 0.25)
     )
+
+    /// `color.slider.track`
+    public static let sliderTrack = SwiftUI.Color.scdsDynamic(
+        light: (0.690196, 0.65098, 0.611765, 1),
+        dark:  (0.231373, 0.258824, 0.286275, 1)
+    )
+
+    /// `color.slider.trackDisabled`
+    public static let sliderTrackDisabled = SwiftUI.Color.scdsDynamic(
+        light: (0.847059, 0.819608, 0.8, 1),
+        dark:  (0.121569, 0.145098, 0.172549, 1)
+    )
+
+    /// `color.slider.fill`
+    public static let sliderFill = SwiftUI.Color.scdsDynamic(
+        light: (0.011765, 0.556863, 0.576471, 1),
+        dark:  (0.011765, 0.556863, 0.576471, 1)
+    )
+
+    /// `color.slider.fillHover`
+    public static let sliderFillHover = SwiftUI.Color.scdsDynamic(
+        light: (0.015686, 0.47451, 0.490196, 1),
+        dark:  (0.321569, 0.721569, 0.737255, 1)
+    )
+
+    /// `color.slider.fillDisabled`
+    public static let sliderFillDisabled = SwiftUI.Color.scdsDynamic(
+        light: (0.517647, 0.486275, 0.443137, 1),
+        dark:  (0.486275, 0.478431, 0.462745, 1)
+    )
+
+    /// `color.slider.thumbRimTop`
+    public static let sliderThumbRimTop = SwiftUI.Color.scdsDynamic(
+        light: (1, 1, 1, 1),
+        dark:  (0.917647, 0.909804, 0.890196, 1)
+    )
+
+    /// `color.slider.thumbRimBottom`
+    public static let sliderThumbRimBottom = SwiftUI.Color.scdsDynamic(
+        light: (0.847059, 0.819608, 0.8, 1),
+        dark:  (0.603922, 0.568627, 0.52549, 1)
+    )
+
+    /// `color.slider.thumbFaceTop`
+    public static let sliderThumbFaceTop = SwiftUI.Color.scdsDynamic(
+        light: (0.945098, 0.937255, 0.921569, 1),
+        dark:  (0.847059, 0.819608, 0.8, 1)
+    )
+
+    /// `color.slider.thumbFaceBottom`
+    public static let sliderThumbFaceBottom = SwiftUI.Color.scdsDynamic(
+        light: (0.890196, 0.87451, 0.847059, 1),
+        dark:  (0.701961, 0.694118, 0.678431, 1)
+    )
+
+    /// `color.input.well`
+    public static let inputWell = SwiftUI.Color.scdsDynamic(
+        light: (1, 1, 1, 0.46),
+        dark:  (1, 1, 1, 0.15)
+    )
+
+    /// `color.input.wellHover`
+    public static let inputWellHover = SwiftUI.Color.scdsDynamic(
+        light: (1, 1, 1, 0.46),
+        dark:  (1, 1, 1, 0.15)
+    )
+
+    /// `color.input.wellFocus`
+    public static let inputWellFocus = SwiftUI.Color.scdsDynamic(
+        light: (1, 1, 1, 0.46),
+        dark:  (1, 1, 1, 0.15)
+    )
+
+    /// `color.input.wellDisabled`
+    public static let inputWellDisabled = SwiftUI.Color.scdsDynamic(
+        light: (1, 1, 1, 0.46),
+        dark:  (1, 1, 1, 0.15)
+    )
+
+    /// `color.input.adornment`
+    public static let inputAdornment = SwiftUI.Color.scdsDynamic(
+        light: (0.352941, 0.341176, 0.313725, 1),
+        dark:  (0.788235, 0.780392, 0.764706, 1)
+    )
+
+    /// `color.input.divider`
+    public static let inputDivider = SwiftUI.Color.scdsDynamic(
+        light: (0.690196, 0.65098, 0.611765, 1),
+        dark:  (0.231373, 0.258824, 0.286275, 1)
+    )
   }
 
   // MARK: - Typography
@@ -943,6 +1033,9 @@ public enum SCDS {
     /// `space.component.padding-inline.button-sm`
     public static let componentPaddingInlineButtonSm: CGFloat = 16
 
+    /// `space.component.padding-inline.input`
+    public static let componentPaddingInlineInput: CGFloat = 16
+
     /// `space.component.padding-block.sm`
     public static let componentPaddingBlockSm: CGFloat = 2
 
@@ -955,6 +1048,9 @@ public enum SCDS {
     /// `space.component.padding-block.button-sm`
     public static let componentPaddingBlockButtonSm: CGFloat = 4
 
+    /// `space.component.padding-block.input`
+    public static let componentPaddingBlockInput: CGFloat = 12
+
     /// `space.component.gap.sm`
     public static let componentGapSm: CGFloat = 4
 
@@ -966,12 +1062,21 @@ public enum SCDS {
 
     /// `space.component.gap.stepper`
     public static let componentGapStepper: CGFloat = 8
+
+    /// `space.component.gap.input`
+    public static let componentGapInput: CGFloat = 4
+
+    /// `space.component.gap.input-inline`
+    public static let componentGapInputInline: CGFloat = 16
   }
 
   // MARK: - Radius
 
   /// Corner radii, as authored.
   public enum Radius {
+    /// `radius.field`
+    public static let field: CGFloat = 8
+
     /// `radius.control`
     public static let control: CGFloat = 3
 
@@ -1062,6 +1167,27 @@ public enum SCDS {
 
     /// `size.progress.hit-slop`
     public static let progressHitSlop: CGFloat = 22
+
+    /// `size.input.icon`
+    public static let inputIcon: CGFloat = 20
+
+    /// `size.input.clear`
+    public static let inputClear: CGFloat = 16
+
+    /// `size.input.clearTarget`
+    public static let inputClearTarget: CGFloat = 32
+
+    /// `size.slider.track`
+    public static let sliderTrack: CGFloat = 4
+
+    /// `size.slider.trackActive`
+    public static let sliderTrackActive: CGFloat = 6
+
+    /// `size.slider.hitSlop`
+    public static let sliderHitSlop: CGFloat = 22
+
+    /// `size.slider.thumb`
+    public static let sliderThumb: CGFloat = 15
 
     /// `size.button.icon.lg`
     public static let buttonIconLg: CGFloat = 14
@@ -1232,6 +1358,27 @@ public enum SCDS {
 
     /// `motion.stepper.squash`
     public static let stepperSquash: CGFloat = 0
+
+    /// `motion.slider.travel.duration` · 1062ms
+    public static let sliderTravelDuration: TimeInterval = 1.062
+
+    /// `motion.slider.travel.easing` · spring k146 c24.17 m1, settles in 1062ms, overshoot 0%
+    public static let sliderTravelEasing = SCDSSpring(stiffness: 146, damping: 24.17, mass: 1, settle: 1.062)
+
+    /// `motion.slider.drag.duration` · 200ms
+    public static let sliderDragDuration: TimeInterval = 0.2
+
+    /// `motion.slider.drag.easing`
+    public static let sliderDragEasing = SCDSEasing(0.22, 1, 0.36, 1)
+
+    /// `motion.slider.stretch`
+    public static let sliderStretch: CGFloat = 0.45
+
+    /// `motion.slider.squash`
+    public static let sliderSquash: CGFloat = 0
+
+    /// `motion.slider.thumbPressScale`
+    public static let sliderThumbPressScale: CGFloat = 0.985
   }
 
   // MARK: - Shadow
@@ -1401,6 +1548,52 @@ public enum SCDS {
             SCDSShadowLayer(inset: false, x: 3, y: 3, blur: 7, spread: 0, rgb: (0, 0, 0), alpha: 0.38),
             SCDSShadowLayer(inset: false, x: -1, y: -1, blur: 1, spread: 1, rgb: (0.858824, 0.921569, 1), alpha: 0.14),
             SCDSShadowLayer(inset: true, x: 1, y: 1, blur: 8, spread: 0, rgb: (1, 1, 1), alpha: 0.06),
+        ]
+    )
+
+    /// `shadow.slider.track` · 1 layers
+    public static let sliderTrack = SCDSShadow(
+        light: [
+            SCDSShadowLayer(inset: true, x: 0.71, y: 0.71, blur: 2, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0.25),
+        ],
+        dark: [
+            SCDSShadowLayer(inset: true, x: 0.71, y: 0.71, blur: 2, spread: 0, rgb: (0, 0, 0), alpha: 0.45),
+        ]
+    )
+
+    /// `shadow.slider.thumb` · 2 layers
+    public static let sliderThumb = SCDSShadow(
+        light: [
+            SCDSShadowLayer(inset: false, x: 2, y: 2, blur: 6, spread: 0, rgb: (0.392157, 0.356863, 0.309804), alpha: 0.5),
+            SCDSShadowLayer(inset: false, x: -1, y: -1, blur: 1, spread: 1, rgb: (0.992157, 0.980392, 0.964706), alpha: 1),
+        ],
+        dark: [
+            SCDSShadowLayer(inset: false, x: 3, y: 3, blur: 7, spread: 0, rgb: (0, 0, 0), alpha: 0.5),
+            SCDSShadowLayer(inset: false, x: -1, y: -1, blur: 1, spread: 1, rgb: (0.858824, 0.921569, 1), alpha: 0.17),
+        ]
+    )
+
+    /// `shadow.slider.thumbPressed` · 3 layers
+    public static let sliderThumbPressed = SCDSShadow(
+        light: [
+            SCDSShadowLayer(inset: false, x: 2, y: 2, blur: 6, spread: 0, rgb: (0.392157, 0.356863, 0.309804), alpha: 0.37),
+            SCDSShadowLayer(inset: false, x: -1, y: -1, blur: 1, spread: 1, rgb: (0.992157, 0.980392, 0.964706), alpha: 0.9),
+            SCDSShadowLayer(inset: true, x: 1, y: 1, blur: 8, spread: 0, rgb: (1, 1, 1), alpha: 0.3),
+        ],
+        dark: [
+            SCDSShadowLayer(inset: false, x: 3, y: 3, blur: 7, spread: 0, rgb: (0, 0, 0), alpha: 0.38),
+            SCDSShadowLayer(inset: false, x: -1, y: -1, blur: 1, spread: 1, rgb: (0.858824, 0.921569, 1), alpha: 0.14),
+            SCDSShadowLayer(inset: true, x: 1, y: 1, blur: 8, spread: 0, rgb: (1, 1, 1), alpha: 0.06),
+        ]
+    )
+
+    /// `shadow.input.well` · 1 layers
+    public static let inputWell = SCDSShadow(
+        light: [
+            SCDSShadowLayer(inset: true, x: 0, y: 0, blur: 0, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0),
+        ],
+        dark: [
+            SCDSShadowLayer(inset: true, x: 0, y: 0, blur: 0, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0),
         ]
     )
   }

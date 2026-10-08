@@ -373,9 +373,11 @@ fieldset:disabled {
   color-scheme: dark;
 }
 
-.app select,
-.app input[type='text'],
-.app input[type='number'] {
+/* Scoped to the header and the panel: a staged component (Input) must
+   render with its own styles, not the lab's. */
+:is(.bar, .panel) select,
+:is(.bar, .panel) input[type='text'],
+:is(.bar, .panel) input[type='number'] {
   font: inherit;
   font-size: var(--sc-font-text-caption-size);
   color: var(--sc-color-text-primary);
@@ -385,19 +387,19 @@ fieldset:disabled {
   padding: var(--sc-space-component-padding-block-sm) var(--sc-space-component-padding-inline-sm);
 }
 
-.app select:hover,
-.app input[type='text']:hover,
-.app input[type='number']:hover {
+:is(.bar, .panel) select:hover,
+:is(.bar, .panel) input[type='text']:hover,
+:is(.bar, .panel) input[type='number']:hover {
   border-color: var(--sc-color-border-strong);
 }
 
-.app select:disabled,
-.app input:disabled,
-.app textarea:disabled {
+:is(.bar, .panel) select:disabled,
+:is(.bar, .panel) input:disabled,
+:is(.bar, .panel) textarea:disabled {
   color: var(--sc-color-text-disabled);
 }
 
-.app ::placeholder {
+:is(.bar, .panel) ::placeholder {
   color: var(--sc-color-text-tertiary);
 }
 

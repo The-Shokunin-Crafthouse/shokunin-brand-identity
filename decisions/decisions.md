@@ -2312,3 +2312,133 @@ Levi: the trailing arrow uses Phosphor's bold weight, not regular. Code: `ArrowR
 - **Masters re-seated to code:** the Stepper set `139:51` predated the code geometry (keys 32 square, gap 0, pill padding bound to `space/4` while code reads `padding-sm` 8px). All variants now read 146.75 × 56: padding `space/component/padding/sm`, gap and readout inline padding `space/component/gap/stepper`, keys 40 × 40 on `radius/pill` at x 8 and 98.75, readout 34.75 wide at x 56 with `text/mono/body`, numeral centred. Track: `color/stepper/track` + `shadow/stepper/track`. Keys: `color/stepper/key` + the 135deg face (stop bound to `keyShade`) + `shadow/stepper/key`; keys at a bound and the Disabled variant are flat; Disabled is at 0.6 with no recess. New variants `State=Hover` (`519:2`) and `State=Pressed` (`519:12`) show the + key in that state (`keyHover` / `keyPressed` fill, ink and style). Readback matches code except the readout box height, 25 in Figma vs 24.8 in code (Figma rounds the 1.55 line height). The clones first held the bind placeholder colour (black); every bound paint was rewritten with its variable's resolved value. Motion (roll, glyph scale) has no Figma analogue on the masters. Publishing the library is Levi's step.
 - **Docs:** Stepper page lead, states and token rows (`src/sections/ComponentSections.jsx`), `Stepper.tokens.md`.
 - `tokens:verify`, `tokens:map:check`, `tokens:swift:check`, `test:scripts`, `npm run build` and `build:lib` exit 0.
+
+### 2026-10-07: ProgressIndicator interactive bar material and motion tokens for its sc-tune session (shipped equal to today)
+
+**Status:** Accepted. Tier 1, after the Stepper (branch `feat/physical-controls-3`). The audit row: a recessed track and a physical thumb that carries the non-text cue the fill misses (teal.500 on the track is 1.66:1). Static meters (bar, circular, step) stay flat.
+
+| Token | Shipped (= today) | Lab start (concept seed) |
+| --- | --- | --- |
+| `color.progressSlider.track` / `.trackDisabled` | surface.deepSunk / surface.sunk values | unchanged |
+| `color.progressSlider.fill` / `.fillHover` / `.fillDisabled` | brand.accent / interactive.hover / text.disabled values | unchanged |
+| `shadow.progressSlider.track` | zero alpha | the top-left recess (SegmentedControl 1645 track) |
+| `size.progressSlider.track` | space.4 (= bar-height) | unchanged |
+| `size.progressSlider.thumb` | 0px (thumbless) | 15px, the Switch knob |
+| `color.progressSlider.thumb{RimTop,RimBottom,FaceTop,FaceBottom}` | transparent | the Switch knob values per mode, as values, at 135deg |
+| `shadow.progressSlider.thumb` / `.thumbPressed` | zero alpha | `shadow.control.key` / `.keyPressed` values per mode (the Button key) |
+| `motion.progressSlider.travel` | = motion.reveal | reel spring (520ms, bounce 0) |
+| `motion.progressSlider.drag` | = motion.reveal | unchanged |
+| `motion.progressSlider.stretch` / `.squash` | 0 / 0 | 0.45 / 0 (reel) |
+| `motion.progressSlider.thumbPressScale` | 1 | 0.985, the Switch knob press |
+
+- **Own tokens, never the Switch's:** the thumb reads only `progressSlider` tokens; the registry copies the knob's hex values (`KNOB` in `previews/tune/registry.jsx`). The Switch is untouched.
+- **The 135deg conflict:** the Switch knob gradients run top to bottom, and `verify-light` grades every face gradient at 135deg. The thumb's rim and face run at 135deg, the system light. No exemption is added; running them top to bottom is Levi's call and would need one.
+- **Structure (Claude's, Levi's values):** the thumb rides inside the track (centre from thumb/2 to width − thumb/2) and the fill ends under its centre; the pointer maps through the same inset. A seek (click, key) travels on `travel` and, through `src/motion/elastic.js`, stretches the thumb with speed (two ends and a bar). A drag trails the pointer on `drag`, split from travel so a slow spring never lags the finger; shipped, both are today's 200ms. Dragging scales the thumb and softens its lift (directive 4). Disabled is flat.
+- **Shared tokens kept shared:** the focus ring (`border.width.focus`, `border.focusOffset`, `border.focus`), `border.width.default` (the thumb rim hairline), `radius.pill`, `motion.reveal` (track thickening), `motion.hover` (fill colour) and `motion.press` (thumb scale timing). Procedure D gives any of them a role token if Levi tunes it.
+- **Forced colors:** the track gets a `CanvasText` border (border-box, no size change), the fill `Highlight`, the thumb a solid `ButtonText` disc, `GrayText` when disabled. Verified in headless Chromium with `forcedColors: 'active'`.
+- **Sound:** none shipped. The registry plays the concept's sound on a keyboard step that changes the value; Levi picks the file (a `tick` candidate).
+- **Lab:** `?c=<name>` with no registry entry shows "no lab entry for <name>"; it used to open (and save into) the Switch session silently. The ProgressIndicator panel lists the interactive block's 34 tokens, not the 53 of the whole stylesheet.
+- **Checks:** Shipped stage by computed style, both modes: track 4px on the deepSunk value, no recess, fill teal.500 at value × width with the 200ms quint-out, thumb 0 × 0; every role token equals its source token. Concept A: thumb 15px centred on the fill end; an End key step plays 60 keyframes over 1062ms, the thumb 15 → 21.75 → 15px, landing at offset 0. `tokens:verify` (light rule included), `tokens:map:check`, `tokens:swift:check`, `test:scripts` (17), `npm run build`, `build:lib` and `swiftc -typecheck` exit 0.
+- **Open (Levi's call):** Gate 1 pick 3 B gives dark mode dark keys with a faint highlight; the seed follows the Switch knob in dark (a light knob, record 1539 B) with the Button's dark lift. Duplicate the concept to try a dark thumb.
+
+### 2026-10-07: Slider splits from ProgressIndicator; ProgressIndicator stays flat (amends the ProgressIndicator slider tokens entry above)
+
+**Status:** Accepted. Levi: "isnt the progress indicator something that dynamically grows to show how complete something is and not an interactive slider?", then "A, progress indicator stays flat".
+
+- **Why:** the `interactive` prop (commit `09dde30`, Drams #4/#5) turned the progress bar into a volume control (`role="slider"`). A meter is read; a slider is moved. Screen readers already treat them as two controls.
+- **Slider** (`src/components/Slider/`, exported from `src/index.js`): the interactive bar with the recessed track and the physical thumb from the entry above. Tokens renamed `*.progressSlider.*` → `*.slider.*`, values unchanged. New `size.slider.trackActive` (space.micro.6) and `size.slider.hitSlop` (space.micro.22), equal to the `size.progress.*` tokens it read before.
+- **ProgressIndicator:** bar, ring and steps are byte-equal to main (comments aside) and flat. `interactive` renders a Slider for one release, marked deprecated; drop it next release. `size.progress.bar-height-active` and `size.progress.hit-slop` stay published with no SCDS consumer (retire question below).
+- **Lab:** the entry is `Slider` (`?c=Slider`). Levi's saved session moved from `sc-tune:v2:ProgressIndicator` to `sc-tune:v2:Slider` with only the token names renamed (on a non-saving page, then reloaded): concept A, dark, value 0.67, sound `drams-009-01.wav`. The old key is kept and no longer loads. A backup export sits in the session scratchpad.
+- **Docs:** new Slider page (nav after Progress); the Progress page drops the interactive states, rows and callout, and its rule now reads "A meter is never a control". PlusProgress, the brand-element callout and the Code Connect table name Slider.
+- **Record:** `output/tuning/Slider/2026-10-07-2207/` (Levi: "for the slider, you can record A"). One concept, so the lab shows no pick control and the spec says none was picked; Levi's word is the pick. A = the seeds untouched plus the keyboard-step sound `drams-009-01.wav`. Off the ladder: 15px thumb, 1062ms. Not applied.
+- `tokens:verify`, `tokens:map:check`, `tokens:swift:check`, `test:scripts` (17), `npm run build`, `build:lib` and `swiftc -typecheck` exit 0.
+- **Open:** retire `size.progress.bar-height-active` and `size.progress.hit-slop` (also in the Figma library) once consumers are checked; the Figma Progress page (`139:52`) interactive masters move to a Slider set at apply.
+
+### 2026-10-07: Slider record 2026-10-07-2207 concept A applied (procedure D)
+
+**Status:** Accepted. Levi: "apply it". Record `output/tuning/Slider/2026-10-07-2207/`; sync base `8ff271d`. One concept, no notes.
+
+| Token | Was | Now |
+| --- | --- | --- |
+| `shadow.slider.track` | zero alpha | `inset 0.71px 0.71px 2px 0` ink .25; dark black .45 |
+| `shadow.slider.thumb` / `.thumbPressed` | zero alpha | `{shadow.control.key}` / `{shadow.control.keyPressed}` |
+| `color.slider.thumbRimTop` / `RimBottom` | transparent | white / warmGray.200; dark dark.textPrimary / warmGray.350 |
+| `color.slider.thumbFaceTop` / `FaceBottom` | transparent | warmGray.50 / warmGray.100; dark warmGray.200 / dark.textTertiary |
+| `size.slider.thumb` | 0px | 15px literal |
+| `motion.slider.travel.duration` / `.easing` | = motion.reveal (200ms quint-out) | 1062ms literal / `spring` { 146, 24.17, 1 } (no overshoot) |
+| `motion.slider.stretch` | 0 | 0.45 |
+| `motion.slider.thumbPressScale` | 1 | 0.985 |
+| sound | none | new role `slide` = Drams 009 (`src/sound/assets/slide.wav`, 48 kHz mono 16-bit), on a keyboard step that changes the value; a drag is silent. `Slider` takes `sound` (default true) |
+
+- **Cascade (Claude):** the thumb lift and its pressed lift alias the Button key shadows instead of copying their values (as the Stepper keys), so a Button retune moves the thumb too. The rim and face alias the primitives the Switch knob uses, never the Switch tokens. Values equal the record.
+- **Unchanged:** track, fill and disabled colours, track heights, hit slop, the drag curve (still 200ms), squash 0.
+- **Off the ladder, kept exact:** 15px (off the 4pt grid, learning #144), 1062ms (the spring's settle time).
+- **Lab check (D step 6):** Shipped and concept A compared by computed style in dark and light (track height, ground and recess; fill width, colour and curve; thumb size, position, rim, face, lift and curve; stretch, squash, press scale, travel duration): no differences. The generated `linear()` is byte-identical to the record's.
+- **Figma library:** the generated call created `color/slider/thumb{RimTop,RimBottom,FaceTop,FaceBottom}` (`522:2`–`522:5`), `motion/slider/travel/duration` (`522:12`), `/stretch` (`522:13`), `/thumbPressScale` (`522:14`), `size/slider/thumb` (`522:15`) and effect styles `shadow/slider/{track,thumb,thumbPressed}` + `dark/*`. `absent` named the 10 slider tokens made earlier and never synced; the `--tokens` call created `color/slider/{track,trackDisabled,fill,fillHover,fillDisabled}` (`523:2`–`523:6`), `motion/slider/drag/duration` (`523:7`), `/squash` (`523:8`), `size/slider/{track,trackActive,hitSlop}` (`523:9`–`523:11`). The read-only re-check over all 376 library names returned `absent: []`, `missing: []`.
+- **Masters:** new component set `Slider` (`524:21`) on the Progress page beside the Progress set, variants `State=Default` (`524:2`), `Hover` (`524:7`), `Pressed` (`524:12`), `Disabled` (`524:17`), each 320 × 48 (the hit box) at value 0.5, geometry from the lab measurement: track at y 22, 4px (`size/slider/track`; Pressed y 21, 6px on `trackActive`), fill 160 wide, thumb 15 × 15 at (152.5, 16.5) bound to `size/slider/thumb`, rim and face gradients at the 135deg transform with every stop bound, `shadow/slider/track` / `thumb` / `thumbPressed`. Disabled is flat: `trackDisabled`, a solid `fillDisabled` thumb, no face, no effects. Every bound paint was written with its variable's resolved colour (no placeholder). Readback matches the code; the press scale (0.985) is motion and is not drawn. The Progress set's old `Variant=BarActive` (`140:23`) is left in place for consumers (retire question). Publishing is Levi's step.
+- `tokens:verify`, `tokens:map:check`, `tokens:swift:check`, `test:scripts` (17), `npm run build`, `build:lib` and `swiftc -typecheck` exit 0.
+
+### 2026-10-07: Input material tokens for its sc-tune session (shipped flat)
+
+**Status:** Accepted. Levi: "open Input in the lab". The last Tier 1 component. Audit row: a true recessed well, the focus underline stays, a hover state.
+
+| Token | Shipped (= today) | Lab start (concept seed) |
+| --- | --- | --- |
+| `color.input.well` / `.wellFocus` / `.wellDisabled` | surface.sunk / surface.page / surface.sunk values | unchanged |
+| `color.input.wellHover` (new state) | = well | surface.hover values (#C4BCB4; dark #343A41), the Switch track hover precedent |
+| `shadow.input.well` | zero alpha | the top-left recess + `inset -2px -2px 2px` white (.70 light, .06 dark) |
+| `color.input.rule` / `.ruleFilled` / `.ruleFocus` | border.default / strong / focus values | unchanged |
+| `color.input.ruleHover` (new state) | = rule | unchanged |
+| `space.component.padding-inline.input` / `padding-block.input` / `gap.input` | 12 / 8 / 4px | unchanged |
+
+- **Seed sources:** the recess is the system's top-left recess (SegmentedControl 1645). The white bounce is the Drams 036 container's `inset -2px -2px 2px` white, lighting the bottom-right inner wall (the same light); its alphas come from `shadow.control.bevel`'s highlight (light .70, dark .06), because the Drams figure carries none. Both are Claude's start; Levi sets every value.
+- **Hover:** new, shipped equal to rest. The well shifts on any enabled, unfocused hover; the rule moves only on an empty, valid field, so a filled field keeps `ruleFilled` and an error keeps the status colour. Checked in headless Chromium: hover on a filled field reads the strong rule.
+- **Focus and error** draw their 2px underline on top of the well's recess (`box-shadow: well, inset 0 -1px 0 0 …`). Disabled is flat: no recess.
+- **Forced colors:** a full `CanvasText` edge, a `Highlight` focus outline, `GrayText` when disabled. Verified in headless Chromium.
+- **Shared tokens kept shared:** `radius.control`, the type styles, the text colours, `status.error` (a signal colour never aliases into a role, learning #39), `motion.hover`.
+- **Lab fix:** the lab's own field styles were scoped to `.app` and restyled the staged Input (warmGray.50 ground, 2/6 padding). They are now scoped to the header and the panel; the staged Input renders its own CSS.
+- **Checks:** every role token equals its source token in both modes; the Shipped stage reads the sunk well, 8/12 padding and the default rule with a zero-alpha recess. `tokens:verify`, `tokens:map:check`, `tokens:swift:check`, `test:scripts` (17), `npm run build`, `build:lib` and `swiftc -typecheck` exit 0.
+
+### 2026-10-07: Input follows Levi's filled-field reference; the title stays above with optional subcopy (amends the Input tokens entry above)
+
+**Status:** Accepted. Levi, with a reference sheet (a filled-field set in light and dark): "use these for input with 1 change, keep the form title above and left justified", "also add subcopy helper text as an option to have under the form title above the input field", "use phosphor for the icons in the bold weight". Ships now (Levi's direction, the Stepper hover precedent); the lab tunes from here.
+
+- **Measured off the reference** (2000 × 1500, 1x): field 520 × 70, about 6px corner, no rule, no shadow; fill white at about 15% over the dark ground and ink at about 7% over the light one; value 20px (cap 15px), label 15px, icons 24px, clear mark 15px, icon-to-text 21px.
+- **Mapped x0.8** to the 16px body (the type system holds): padding 16/12 (48px tall with the label outside), icons 20px, clear 16px in a 32px button, slot gap 16px, corner 3px (`radius.input`; 4.8 has no step, Levi's call), fill `rgb(ink / 0.07)` light and `rgb(white / 0.15)` dark.
+- **The one change:** the label stays above the field, left-aligned, not inside it. New `description` prop: subcopy under the title, above the field, in `text.caption`, wired into `aria-describedby`. `helper` and `error` stay under the field.
+- **Slots:** `icon`, `prefix` (a segment set off by a rule), `suffix`, `trailing`, `clearable` + `onClear`. Phosphor components render bold. Not built here: the reference's select, chips, card-number group, date and time pickers; each is its own component.
+- **States:** hover and focus keep the fill (the reference shows neither); focus is the system ring on the box, since there is no rule to recolour; error is a hairline `status.error` edge (2px when focused). Disabled is flat. Forced colors: a full edge, a `Highlight` ring, `GrayText` when disabled (headless Chromium).
+- **Tokens:** `color.input.rule*` removed (no rule; made earlier today on this branch, never on main or in Figma). New `color.input.adornment`, `.divider`, `size.input.{icon,clear,clearTarget}`, `space.component.gap.input-inline`, `radius.field`. `shadow.input.well` stays at zero alpha.
+- **Lab:** Claude's two Input seeds (recess with a white bounce, darker hover well) left the registry, and were removed from the saved concept A where they still equalled the seed (four values; nothing else was in it). The entry gains the slot props.
+- **Non-text contrast (1.4.11):** the tinted box is under 3:1 against the page in both modes, as the sunk field was (1.14:1). The title, the value and the placeholder carry the field; logged as a gap.
+- **Figma:** the Input masters follow at the record's apply, with the variables.
+- `tokens:verify`, `tokens:map:check`, `tokens:swift:check`, `test:scripts` (17), `npm run build`, `build:lib` and `swiftc -typecheck` exit 0.
+
+### 2026-10-07: Input corner 8px; the reference's other parts stay out; the field contrast gap is accepted
+
+**Status:** Accepted. Levi, answering the three open questions: "1. 8", "2. no", "3. accept".
+
+- **Corner:** `radius.field` = `{radius.default}` (8px); was 3px (`radius.input`). Ships now; both lab stages read 8px.
+- **Scope:** the reference's select, chips, card-number group and date and time pickers are not built.
+- **Non-text contrast:** the tinted box stays under 3:1 against the page in both modes. Accepted by Levi; the title, value and placeholder carry the field.
+- `tokens:verify`, `tokens:map:check`, `tokens:swift:check`, `test:scripts` (17), `npm run build`, `build:lib` and `swiftc -typecheck` exit 0.
+
+### 2026-10-07: the light Input field goes lighter than the page, at the same contrast
+
+**Status:** Accepted. Levi: "make the light mode the same contrast but lighter instead of darker".
+
+- `color.input.well`, `.wellHover`, `.wellFocus`, `.wellDisabled` light: `rgb(white / 0.46)`; was `rgb(ink / 0.07)`. Dark unchanged (white 15%).
+- **Matched contrast:** against `surface.page` (#E3DFD8), ink at 7% composites to rgb(213 209 202), 1.146:1; white at 46% composites to rgb(240 238 234), 1.146:1. White at 45% gives 1.139:1, so 46% is the nearest whole step.
+- **On a raised surface** (`surface.raised`, #F1EFEB, the docs cards) the same fill composites to rgb(247 246 244), 1.06:1, so the field nearly disappears there. The Levi-accepted contrast gap covers it; a card-specific fill is a later call if it matters.
+- `tokens:verify`, `tokens:map:check`, `tokens:swift:check`, `npm run build`, `build:lib` and `swiftc -typecheck` exit 0; headless Chromium reads `rgba(255, 255, 255, 0.46)` on the light field, and the lab's dark stages still read white 15%.
+
+### 2026-10-07: Input record 2026-10-07-2237 concept A applied (procedure D)
+
+**Status:** Accepted. Levi: "apply it". Record `output/tuning/Input/2026-10-07-2237/`; sync base `a8d0584^` (`bf2b3cd`, before the Input tokens). One concept, no notes, no token changes: concept A equals the shipped Input (Levi's filled-field reference, the 8px corner, the light fill white 46%).
+
+- **Code:** nothing to change. Lab check (D step 6): Shipped and concept A compared by computed style (fill, corner, padding, slot gap, recess, height, title gap, value size and ink): identical. The only edit is `shadow.input.well`'s description, which still named Claude's removed lab seed; it now says the reference is flat.
+- **Figma variables:** the generated call created `color/input/{well,wellHover,wellFocus,wellDisabled,adornment,divider}` (`526:2`–`526:7`), `radius/field` (`526:8`), `size/input/{icon,clear,clearTarget}` (`526:11`–`526:13`), `space/component/padding-inline/input` (`526:14`), `padding-block/input` (`526:15`), `gap/input` (`526:16`), `gap/input-inline` (`526:17`) and effect styles `shadow/input/well` + `dark/well`. `missing: []`. The read-only re-check over all 392 library names returned `absent: []`, `missing: []`.
+- **Icons:** new `Icon/x-bold` (`527:4`) and `Icon/envelope-simple-bold` (`527:8`) on the Icons page, from Phosphor's bold outlines on the 256 grid, fill bound to `color/text/primary`, SCALE constraints (the `Icon/arrow-right-bold` precedent).
+- **Masters re-seated to code:** the `TextField` set (`9:487`) predated the code (a pill box, a 1px stroke, the sunk fill, the title in primary ink). All variants now read the code: title `text/label/ui` in `text/secondary` (disabled `text/disabled`); box fill `color/input/well` (`wellDisabled` on Disabled) written with its resolved colour, no stroke, corners on `radius/field`, padding on `padding-inline/input` / `padding-block/input`, slot gap on `gap/input-inline`, `shadow/input/well`; value in `text/body/default/regular`, placeholder ink on Default, Hover, Focus and Disabled, primary on Active and Error. New boolean properties `Leading icon` (envelope, bold, 20px on `size/input/icon`, `color/input/adornment`), `Clear` (x, bold, 16px on `size/input/clear`) and `Subcopy` (a `text/caption` line under the title), all off by default as in code; the `Value` text property defaults to the placeholder. The focus ring keeps its 2px stroke at the 2px offset, corner 12 (8 + offset + width). New variant `State=Error` (`528:95`): a 1px inside edge on `color/status/error` (weight on `border/width/default`) and the error text in `text/caption`. Readback with every slot on matches the code measurement: title 18, gap 4, subcopy 20 (code 20.14), box at y 46 and 48 tall, icon 20 at (16, 14), value from 52 to W − 48, clear 16 at (W − 32, 16). Publishing the library is Levi's step.
+- **Docs:** `Input.tokens.md` (Figma ids).
+- `tokens:verify`, `tokens:map:check`, `tokens:swift:check`, `npm run build`, `build:lib` and `swiftc -typecheck` exit 0.

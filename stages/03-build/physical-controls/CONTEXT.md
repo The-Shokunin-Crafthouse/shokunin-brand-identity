@@ -1,6 +1,6 @@
 # Sprint: physical-controls
 Stage: 03-build
-Status: Gate 1 picked 2026-10-07 (1B, 2C, 3B, 4B, 5A; see decisions.md); Phase 0 done (feat/physical-controls-2); Stepper applied; ProgressIndicator next
+Status: Gate 1 picked 2026-10-07 (1B, 2C, 3B, 4B, 5A; see decisions.md); Phase 0 done (feat/physical-controls-2); Stepper applied; Slider and Input applied (feat/physical-controls-3); Tier 1 done, Tier 2 next
 ---
 
 One sentence: take SCDS from a flat methodology to a physical one, where everything you touch is an object under one light, and everything you read stays flat.
@@ -43,9 +43,9 @@ Reference numbers: `Drams NNN` is the Drams component (and its sound file in `as
 | Switch | Physical: the Drams Standard Switch repaint, lit from the top. Record 2026-10-07-1539 concept B applied: 40 × 22, 15px knob, spring travel (600ms, 3% overshoot), stretch 1.06, squash 0.15, press lean 0.12, darker dark floor and lighter dark knob. On-track teal.500 2.99:1 (pick 5 A, logged gap) | Drams 001 Standard Switch (#1); motion kabarza elastic toggles | Done. Exempt from the top-left re-light. Glyphs optional | `toggle`, Drams 004 | Done |
 | SegmentedControl | Physical since record 2026-10-07-1645 A: recessed track (top-left), key indicator (Button key lift and face), spring travel 600ms with 3% overshoot, stretch 0.45, squash 0.2, lean 0.15. Gaps: no `:active` on segments; padding still on shared tokens | Drams 045 Three-Way Slide Switch (#7) | Done (material and motion). Open: `:active` press, forced-colors edge | `select`, Drams 001 | 1 |
 | Stepper | Physical since record 2026-10-07-1847 A: ± are the Button key (rest, hover and press alias the Button tokens), recessed pill lit from the top left, flat numeral in a two-digit readout (keys never move 0 to 99), readout roll (1 height, stretch 0.45, 1062ms spring), ± press scale 0.85 on top of the key's, gap role token 8px. Disabled dims to 0.6 and goes flat (Levi) | Drams 016 Detent Knob; ± as Drams 036 keys (#8) | Done | `tick`, Drams 037 | Done |
-| ProgressIndicator bar, interactive | Thumbless 4px track (`deep-sunk`, 1.80:1 on page), thickens to 6px on drag; fill teal.500 (1.66:1 on the track) | #5 Standard Volume, #12 Dynamic Slider | Recessed track; the Switch knob becomes its thumb (the thumb carries the 3:1 cue the fill misses); not in the lab registry yet | optional `tick` on keyboard steps (Levi's pick) | 1 |
-| ProgressIndicator bar (static), circular, step | Flat track and fill; step dots with border | #3 Line Volume, #4 Volume Visible Track | Keep flat (Levi, 2026-10-07): a static meter is read, not touched (directive 1) | none | Keep |
-| Input | Sunk fill (1.14:1 on page), bottom rule `border.default` (2.06:1 on fill, 2.34:1 on page), focus doubles the rule by inset shadow. No hover state. Transitions `box-shadow` | Drams 036 OP-1 container well (`inset -1px -1px 2px`, white `inset -2px -2px 2px`) | True recessed well; focus underline stays; add a hover state; drop the `box-shadow` transition (forms repeat inputs) | none | 1 |
+| Slider (was ProgressIndicator bar, interactive) | Physical since record 2026-10-07-2207 A: recessed track (top-left), a 15px thumb with the Switch knob's colours at 135deg and the Button key lift (aliased), seek on a 1062ms spring with stretch 0.45, drag trails at 200ms, press scale 0.985, `slide` sound on keyboard steps. Figma set `524:21` | #5 Standard Volume, #12 Dynamic Slider | Done | `slide`, Drams 009 | Done |
+| ProgressIndicator bar, circular, step | Flat track and fill; step dots with border. `interactive` renders a Slider (deprecated) | #3 Line Volume, #4 Volume Visible Track | Keep flat (Levi, 2026-10-07): a static meter is read, not touched (directive 1) | none | Keep |
+| Input | Levi's filled-field reference, record 2026-10-07-2237 applied: tinted box (white 46% light, lighter than the page; white 15% dark), no rule, 48px, 8px corner, title above and left-aligned with optional subcopy, icon / prefix / suffix / clear / trailing slots (Phosphor bold), focus ring on the box, hairline error edge. Figma `TextField` `9:487` re-seated, `State=Error` `528:95` | Levi's reference sheet | Done. Box under 3:1 on page (gap accepted by Levi) | none | Done |
 | Card | Fill only; interactive hover adds `shadow.control.inset` (lit from the top); transitions `box-shadow` | Drams 036 OP-1 container | Two materials: `plate` (raised) and `well` (recessed); interactive plate presses on click; no `box-shadow` transition (cards repeat in grids) | none | 2 |
 | Tooltip | Flat inverse surface, fades and lifts | none (floating plate) | Raised plate with a short lift | none | 2 |
 | Badge | Flat outline chip. Text fails AA today: default teal.500 2.99:1, success 3.42:1, warning 3.90:1 on page | Drams LED Switch (#9) | LED dot that glows for live states. Text and border moved to the `-ink` tokens 2026-10-07 | none | 2 |
@@ -91,8 +91,8 @@ Each pick is made in the sc-tune lab as concepts A and B, then recorded (procedu
 - Figma: effect styles `shadow/material/*` (light and dark), variables for the face shades.
 
 ### Phase 1: Tier 1 components
-- SegmentedControl, Stepper, ProgressIndicator (interactive), Input.
-- Each gets an sc-tune record before code: material values, press motion (spring or bezier), and its sound role (SegmentedControl and Stepper keep theirs; ProgressIndicator interactive gets a sound only if Levi picks one).
+- SegmentedControl, Stepper, Slider (split from ProgressIndicator's interactive bar), Input.
+- Each gets an sc-tune record before code: material values, press motion (spring or bezier), and its sound role (SegmentedControl and Stepper keep theirs; Slider gets a sound only if Levi picks one).
 - Figma masters follow in the same change.
 
 ### Phase 2 (in this sprint, pick 4 B): Tier 2

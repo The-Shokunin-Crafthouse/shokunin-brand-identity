@@ -30,6 +30,7 @@ export { Input } from './components/Input/Input.jsx';
 export { NavBar } from './components/NavBar/NavBar.jsx';
 export { ProgressIndicator } from './components/ProgressIndicator/ProgressIndicator.jsx';
 export { SegmentedControl } from './components/SegmentedControl/SegmentedControl.jsx';
+export { Slider } from './components/Slider/Slider.jsx';
 export { Stepper } from './components/Stepper/Stepper.jsx';
 export { Switch } from './components/Switch/Switch.jsx';
 export { Tooltip } from './components/Tooltip/Tooltip.jsx';
@@ -38,7 +39,7 @@ export { WorkingMark } from './components/WorkingMark/WorkingMark.jsx';
 export { WORKING_MARK_LOOPS, WORKING_MARK_VIEWBOX } from './components/WorkingMark/workingMarkPaths.js';
 
 // Interaction sounds (decisions.md 2026-10-07 · scds-ui-sounds). Switch,
-// Stepper and SegmentedControl play their role sound by default;
+// Stepper, SegmentedControl, Button and Slider play their role sound by default;
 // SoundProvider sets the app-wide on/off and volume.
 export { SoundProvider, useUISound } from './sound/SoundProvider.jsx';
 export { playUISound, preloadUISound, UI_SOUNDS } from './sound/uiSound.js';

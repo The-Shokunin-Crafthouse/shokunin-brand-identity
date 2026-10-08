@@ -13,10 +13,12 @@ import { Button } from '../components/Button/Button.jsx';
 import { Badge } from '../components/Badge/Badge.jsx';
 import { Card } from '../components/Card/Card.jsx';
 import { Input } from '../components/Input/Input.jsx';
+import { EnvelopeSimple, MagnifyingGlass, MapPin, CalendarBlank } from '@phosphor-icons/react';
 import { Alert } from '../components/Alert/Alert.jsx';
 import { Switch } from '../components/Switch/Switch.jsx';
 import { Avatar } from '../components/Avatar/Avatar.jsx';
 import { ProgressIndicator } from '../components/ProgressIndicator/ProgressIndicator.jsx';
+import { Slider } from '../components/Slider/Slider.jsx';
 import { Tooltip } from '../components/Tooltip/Tooltip.jsx';
 import { Divider } from '../components/Divider/Divider.jsx';
 import { NavBar } from '../components/NavBar/NavBar.jsx';
@@ -173,50 +175,58 @@ function CardBody({ children }) {
 }
 
 /* ── 3.4 Input ───────────────────────────────────────────── */
+function InputDemo({ initial = '', ...props }) {
+  const [value, setValue] = useState(initial);
+  return <Input {...props} value={value} onChange={(e) => setValue(e.target.value)} onClear={() => setValue('')} />;
+}
+
 export function InputPage() {
   return (
     <ComponentPage
-      id="input" label="Input" tokensN={18}
-      eyebrow={<>Input<Slash />the field that earns its frame</>}
-      title={<>Empty is quiet. <Accent>Filled</Accent> earns a <Em>darker frame.</Em></>}
-      lead={<>The border tells the story: a resting field sits at the same weight as its card, focus turns the frame teal, and once content lands the frame strengthens to ink. The state is legible from the border alone, no colour wash required.</>}
-      statesTitle="Five states, read from the border."
+      id="input" label="Input" tokensN={24}
+      eyebrow={<>Input<Slash />a filled field, titled above</>}
+      title={<>The title sits above. <Accent>The field</Accent> is a quiet <Em>tinted box.</Em></>}
+      lead={<>A filled field: a tinted box with no rule and no frame, holding the value with a leading icon, a prefix or suffix, a clear button and a trailing control where the field needs them. The title stays above it, left-aligned, with optional subcopy between the title and the field. Icons are Phosphor, bold.</>}
+      statesTitle="Six states and the slots a field can carry."
       callouts={[
-        { title: 'Why filled earns border-strong', body: 'An empty field sits at card weight. Once content lands the field has earned a stronger frame — ink in light, near-white in dark — asserting the active control without changing colour.' },
-        { title: 'Focus is carried by the border', body: 'The native outline is suppressed; the border turns to the focus colour instead. One frame does both jobs, so the control never wears two rings.' },
-        { title: 'Error replaces the helper', body: 'When error is set, the helper text is the error text — the field never shows guidance and a failure at the same time.' },
+        { title: 'The title stays outside', body: 'The label sits above the box, left-aligned, and never moves into the field. Subcopy, when a field needs it, goes between the title and the box.' },
+        { title: 'Focus is the system ring', body: 'The box has no rule to recolour, so focus draws the same ring every control uses. An error draws a hairline edge in the status colour and keeps it on focus.' },
+        { title: 'Clear only when there is something to clear', body: 'A clearable field shows its clear button while it holds a value. The button names the field it clears for screen readers.' },
       ]}
       states={[
-        { name: 'Default', token: '--sc-color-border-default', render: <Input label="Email" placeholder="you@studio.com" /> },
-        { name: 'Focus', token: '--sc-color-border-focus', render: <Input label="Focus (tab in)" placeholder="The border turns teal" /> },
-        { name: 'Filled', token: '--sc-color-border-strong', render: <Input label="Filled" defaultValue="levi@levibahn.com" /> },
-        { name: 'Error', token: '--sc-color-status-error', render: <Input label="Email" error="That isn’t an email yet." defaultValue="levi@" /> },
-        { name: 'Disabled', token: '--sc-color-surface-sunk', render: <Input label="Disabled" disabled placeholder="Unavailable" /> },
+        { name: 'Default', token: '--sc-color-input-well', render: <InputDemo label="Full name" placeholder="Your name" /> },
+        { name: 'Subcopy', token: '--sc-font-text-caption', render: <InputDemo label="Email address" description="We only use it for receipts." icon={EnvelopeSimple} placeholder="you@studio.com" /> },
+        { name: 'Filled, clearable', token: '--sc-color-input-adornment', render: <InputDemo label="Search" icon={MagnifyingGlass} clearable initial="apple macbook pro 14" /> },
+        { name: 'Prefix and suffix', token: '--sc-color-input-divider', render: <InputDemo label="Display" prefix="Size" suffix="inches" initial="14" /> },
+        { name: 'Trailing icon', token: '--sc-size-input-icon', render: <InputDemo label="Date" trailing={CalendarBlank} initial="9 February, 2022" /> },
+        { name: 'Focus (tab in)', token: '--sc-color-border-focus', render: <InputDemo label="Street" icon={MapPin} placeholder="4220 Joy Lane" /> },
+        { name: 'Error', token: '--sc-color-status-error', render: <InputDemo label="Email address" icon={EnvelopeSimple} error="That isn’t an email yet." clearable initial="levi@" /> },
+        { name: 'Disabled', token: '--sc-color-text-disabled', render: <InputDemo label="Disabled" icon={EnvelopeSimple} disabled placeholder="Unavailable" /> },
       ]}
       tokenRows={[
-        { prop: 'Inline padding', token: '--sc-space-component-padding-inline-md' },
-        { prop: 'Block padding', token: '--sc-space-component-padding-block-md' },
-        { prop: 'Label → field gap', token: '--sc-space-component-gap-sm' },
-        { prop: 'Radius', token: '--sc-radius-control' },
-        { prop: 'Border', token: '--sc-border-width-default' },
+        { prop: 'Field fill', token: '--sc-color-input-well', light: 'white 46%', dark: 'white 15%' },
+        { prop: 'Field corner', token: '--sc-radius-field', light: '8px' },
+        { prop: 'Inline padding', token: '--sc-space-component-padding-inline-input', light: '16px' },
+        { prop: 'Block padding', token: '--sc-space-component-padding-block-input', light: '12px' },
+        { prop: 'Slot gap', token: '--sc-space-component-gap-input-inline', light: '16px' },
+        { prop: 'Title → field gap', token: '--sc-space-component-gap-input', light: '4px' },
+        { prop: 'Icon', token: '--sc-size-input-icon', light: '20px · Phosphor bold' },
+        { prop: 'Clear mark', token: '--sc-size-input-clear', light: '16px · Phosphor bold' },
+        { prop: 'Icons, suffix, clear', token: '--sc-color-input-adornment' },
+        { prop: 'Prefix rule', token: '--sc-color-input-divider' },
         { prop: 'Value type', token: '--sc-font-text-body-default', light: '16 / regular' },
-        { prop: 'Label type', token: '--sc-font-text-label-ui', light: '12 / medium' },
-        { prop: 'Input ground', token: '--sc-color-surface-page' },
-        { prop: 'Disabled ground', token: '--sc-color-surface-sunk' },
-        { prop: 'Resting border', token: '--sc-color-border-default' },
-        { prop: 'Filled border', token: '--sc-color-border-strong' },
-        { prop: 'Focus border', token: '--sc-color-border-focus' },
+        { prop: 'Title type', token: '--sc-font-text-label-ui', light: '12 / medium' },
+        { prop: 'Subcopy, helper', token: '--sc-font-text-caption', light: '13 / regular' },
+        { prop: 'Focus ring', token: '--sc-color-border-focus' },
         { prop: 'Error', token: '--sc-color-status-error' },
-        { prop: 'Value ink', token: '--sc-color-text-primary' },
-        { prop: 'Label / helper', token: '--sc-color-text-secondary' },
         { prop: 'Placeholder', token: '--sc-color-text-disabled' },
       ]}
-      rulesTitle="Four rules for a field that speaks in borders."
+      rulesTitle="Four rules for a field that stays quiet."
       rules={[
-        { name: 'State lives in the border, not a wash', text: 'Default, focus, filled, error each move only the border colour (error also flips the helper). No tinted backgrounds — the frame carries the whole signal.' },
-        { name: 'Helper or error, never both', text: 'Error text occupies the helper slot. A field showing instructions and a failure at once is a field that buried its own error.' },
-        { name: 'Placeholder is not a label', text: 'The label sits above and stays. Placeholders use disabled ink and vanish on input — they hint at format, they do not name the field.' },
-        { name: 'Disabled is the only grounded state', text: 'Only disabled changes the ground (to sunk). Every other state keeps the page ground so the field reads as live until it is explicitly switched off.' },
+        { name: 'The title names the field', text: 'The label sits above and stays. Placeholders use disabled ink and vanish on input; they hint at format, they do not name the field.' },
+        { name: 'Subcopy before, helper after', text: 'Guidance the user needs before typing goes in the subcopy under the title. Feedback about what they typed goes under the field, and an error replaces the helper.' },
+        { name: 'Icons say what the field holds', text: 'A leading icon names the kind of value (search, email, place). A trailing icon is an action or a picker (reveal, copy, date). Both are Phosphor, bold.' },
+        { name: 'No frame until it matters', text: 'The box carries no rule. Focus and error are the only states that draw an edge, so an edge always means something.' },
       ]}
     />
   );
@@ -372,31 +382,12 @@ export function AvatarPage() {
 
 /* ── 3.10 Progress ───────────────────────────────────────── */
 
-// Interactive bar demo — needs its own controlled value, so it is a
-// small stateful wrapper rather than a bare <ProgressIndicator /> render.
-function InteractiveBarDemo() {
-  const [value, setValue] = useState(0.3);
+// Slider demo: needs its own controlled value.
+function SliderDemo({ initial = 0.3, label = 'Volume', disabled = false }) {
+  const [value, setValue] = useState(initial);
   return (
     <div style={{ width: '100%' }}>
-      <ProgressIndicator variant="bar" interactive value={value} onChange={setValue} label="Volume" />
-    </div>
-  );
-}
-
-function InteractiveBarLowValueDemo() {
-  const [value, setValue] = useState(0.02);
-  return (
-    <div style={{ width: '100%' }}>
-      <ProgressIndicator variant="bar" interactive value={value} onChange={setValue} label="Low value" />
-    </div>
-  );
-}
-
-function InteractiveBarDisabledDemo() {
-  const [value] = useState(0.4);
-  return (
-    <div style={{ width: '100%' }}>
-      <ProgressIndicator variant="bar" interactive value={value} disabled label="Disabled" />
+      <Slider value={value} onChange={setValue} label={label} disabled={disabled} />
     </div>
   );
 }
@@ -407,14 +398,13 @@ export function ProgressPage() {
       id="progress" label="Progress" tokensN={22}
       eyebrow={<>Progress<Slash />three shapes, one fill</>}
       title={<>Bar, ring, steps. <Accent>Teal</Accent> is always the <Em>fill.</Em></>}
-      lead={<>Three indicators for three situations: a bar for a single continuous task, a ring for a compact or circular slot, steps for a discrete sequence. All three fill with the brand accent against a deep-sunk track, and the circular ring decouples its drawing from its size by maths, not magic. The bar also comes in an interactive form — Drams' Standard Volume reference — that turns the same track into a scrubbable, keyboard-operable slider.</>}
-      statesTitle="Three variants, one fill colour — plus the interactive bar's own five states."
+      lead={<>Three indicators for three situations: a bar for a single continuous task, a ring for a compact or circular slot, steps for a discrete sequence. All three fill with the brand accent against a deep-sunk track, and the circular ring decouples its drawing from its size by maths, not magic. Every one is read, never touched, so all three stay flat. A value the user sets is a Slider.</>}
+      statesTitle="Three variants, one fill colour."
       callouts={[
         { title: 'The ring decouples size from drawing', body: 'The SVG viewBox is a unitless 0–100; real size flows from the size token. Stroke width maps via calc(stroke / diameter * 100) so the ratio holds as either token moves.' },
         { title: 'Steps carry three sub-states', body: 'Done, current, and resting each pull their own ink and border from the semantic layer. The connector fills as each step completes.' },
         { title: 'Accent fills, never frames', body: 'Teal is the progress itself; the track is always deep-sunk. Progress is the one place the accent measures quantity, not intent.' },
-        { title: 'The interactive bar is thumbless', body: 'No handle ever renders. Dragging thickens the track itself (4px → 6px) — the affordance is the track’s own weight changing, not a circle riding on top of it.' },
-        { title: 'Fill never fully disappears', body: 'Both bar forms render fill width as max(value%, track-height) — at 0 the fill still reads as a small pill the size of the track, never a blank line (Drams #3/#4 Line Volume / Volume Visible Track).' },
+        { title: 'Fill never fully disappears', body: 'The bar renders fill width as max(value%, track-height) — at 0 the fill still reads as a small pill the size of the track, never a blank line (Drams #3/#4 Line Volume / Volume Visible Track).' },
       ]}
       states={[
         { name: 'Bar', token: '--sc-size-progress-bar-height', render: <div style={{ width: '100%' }}><ProgressIndicator variant="bar" value={0.62} label="62 percent" /></div> },
@@ -422,9 +412,6 @@ export function ProgressPage() {
         { name: 'Bar · tone warning, sunk track', token: '--sc-color-status-warning', render: <div style={{ width: '100%' }}><ProgressIndicator variant="bar" tone="warning" track="sunk" value={0.84} label="84 percent" /></div> },
         { name: 'Circular', token: '--sc-size-progress-circular', render: <ProgressIndicator variant="circular" value={0.7} label="70 percent" /> },
         { name: 'Step', token: '--sc-color-border-strong', render: <ProgressIndicator variant="step" steps={4} current={2} /> },
-        { name: 'Interactive · default/hover', token: '--sc-color-interactive-hover', render: <InteractiveBarDemo /> },
-        { name: 'Interactive · low value (min-fill)', token: '--sc-size-progress-bar-height', render: <InteractiveBarLowValueDemo /> },
-        { name: 'Interactive · disabled', token: '--sc-color-text-disabled', render: <InteractiveBarDisabledDemo /> },
       ]}
       tokenRows={[
         { prop: 'Bar height', token: '--sc-size-progress-bar-height' },
@@ -441,12 +428,6 @@ export function ProgressPage() {
         { prop: 'Step gap', token: '--sc-space-component-gap-md' },
         { prop: 'Numeral type', token: '--sc-font-text-mono-chrome', light: 'mono 11 / caps' },
         { prop: 'Fill motion', token: '--sc-motion-reveal-duration', light: '200ms · quint-out' },
-        { prop: 'Interactive · active track height', token: '--sc-size-progress-bar-height-active' },
-        { prop: 'Interactive · hit-slop padding', token: '--sc-size-progress-hit-slop' },
-        { prop: 'Interactive · hover fill', token: '--sc-color-interactive-hover' },
-        { prop: 'Interactive · disabled fill', token: '--sc-color-text-disabled' },
-        { prop: 'Interactive · disabled track', token: '--sc-color-surface-sunk' },
-        { prop: 'Interactive · focus ring', token: '--sc-color-border-focus' },
       ]}
       rulesTitle="Five rules for measuring with one colour."
       rules={[
@@ -454,7 +435,52 @@ export function ProgressPage() {
         { name: 'The accent measures, the track holds', text: 'Fill is always teal, track always deep-sunk. Recolouring the fill by status would make progress compete with the alert system.' },
         { name: 'Circular for compact slots only', text: 'The ring is for a dashboard tile or an inline badge. For a page-width task, the bar reads the distance far better.' },
         { name: 'Steps are zero-based and honest', text: 'Current is the index in progress; everything before it is done, everything after resting. A “done” step the user has not finished is a lie the component must not tell.' },
-        { name: 'Interactive is opt-in, never a silent upgrade', text: 'The static bar keeps role="progressbar" until interactive is passed explicitly. A progress bar a keyboard user can suddenly drag is a bug, not a feature, if it happens without the caller asking for it.' },
+        { name: 'A meter is never a control', text: 'Every variant is role="progressbar" and takes no drag or key. A value the user sets is a Slider: a progress bar a keyboard user can suddenly drag is a bug, not a feature.' },
+      ]}
+    />
+  );
+}
+
+/* ── Slider ──────────────────────────────────────────────── */
+export function SliderPage() {
+  return (
+    <ComponentPage
+      id="slider" label="Slider" tokensN={32}
+      eyebrow={<>Slider<Slash />new · Drams #5</>}
+      title={<>Progress is read. <Em>A slider is moved.</Em></>}
+      lead={<>A value the user sets by dragging or by keys: Drams' Standard Volume as a recessed track with a physical thumb, lit from the top left. Split from the progress bar, which stays a flat meter. A click or an arrow key sends the thumb along a spring; a drag trails the pointer.</>}
+      statesTitle="Five states on one track."
+      callouts={[
+        { title: 'The thumb rides inside the track', body: 'Its centre runs from half a thumb in from each end, and the fill ends under it, so 0 and 100 never hang the thumb off the track.' },
+        { title: 'The thumb carries the contrast', body: 'Teal on the track sits under the non-text line. The thumb is the cue that says where the value is, so it is the part that clears it.' },
+        { title: 'Fill never fully disappears', body: 'Fill width is floored at the track height, so 0 still reads as a small pill, never a blank line (Drams #3/#4).' },
+      ]}
+      states={[
+        { name: 'Default / hover', token: '--sc-color-slider-fill-hover', render: <SliderDemo initial={0.3} /> },
+        { name: 'Low value (min-fill)', token: '--sc-size-slider-track', render: <SliderDemo initial={0.02} label="Low value" /> },
+        { name: 'Disabled', token: '--sc-color-slider-fill-disabled', render: <SliderDemo initial={0.4} label="Disabled" disabled /> },
+      ]}
+      tokenRows={[
+        { prop: 'Track', token: '--sc-color-slider-track' },
+        { prop: 'Track recess', token: '--sc-shadow-slider-track' },
+        { prop: 'Track height', token: '--sc-size-slider-track' },
+        { prop: 'Track height, dragging', token: '--sc-size-slider-track-active' },
+        { prop: 'Hit-slop padding', token: '--sc-size-slider-hit-slop' },
+        { prop: 'Fill', token: '--sc-color-slider-fill' },
+        { prop: 'Fill hover', token: '--sc-color-slider-fill-hover' },
+        { prop: 'Thumb', token: '--sc-size-slider-thumb' },
+        { prop: 'Thumb face', token: '--sc-color-slider-thumb-face-top', light: '135deg' },
+        { prop: 'Thumb lift', token: '--sc-shadow-slider-thumb' },
+        { prop: 'Disabled', token: '--sc-color-slider-fill-disabled' },
+        { prop: 'Focus ring', token: '--sc-color-border-focus' },
+        { prop: 'Seek motion', token: '--sc-motion-slider-travel-duration' },
+        { prop: 'Drag motion', token: '--sc-motion-slider-drag-duration' },
+      ]}
+      rulesTitle="Three rules for a control you hold."
+      rules={[
+        { name: 'A slider sets, a meter reports', text: 'Use a Slider for a value the user chooses. For how far along something is, use ProgressIndicator; it never takes a drag or a key.' },
+        { name: 'Keys and pointer reach the same values', text: 'Arrows step, Shift steps further, Home and End jump to the bounds. Anything a drag can set, a keyboard can set.' },
+        { name: 'Disabled is flat', text: 'A disabled slider loses its recess, its lift and its face. Losing the material is the signal.' },
       ]}
     />
   );

@@ -64,6 +64,7 @@ that needs the real node URLs.
 | Input | — | ☐ TODO |
 | NavBar | — | ☐ TODO |
 | ProgressIndicator | — | ☐ TODO |
+| Slider | — | ☐ TODO |
 | Switch | — | ☐ TODO |
 | Tooltip | — | ☐ TODO |
 | TypographySpecimen | — | ☐ TODO |
