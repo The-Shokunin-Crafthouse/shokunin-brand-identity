@@ -1,0 +1,531 @@
+{
+  "tool": "sc-tune",
+  "version": 3,
+  "component": "Card",
+  "kind": "component",
+  "recorded": "2026-10-08T15:21:50.502Z",
+  "theme": "dark",
+  "notes": "",
+  "pick": null,
+  "concepts": [
+    {
+      "id": "A",
+      "notes": "Glass lightens (Claude, from Levi's best practices). Tint white 16/24/36% light, 5/8/12% dark; saturation 140/160/180%; rim = Figma light plus a subtle floating shade cast down-right on the 135deg diagonal (4/6/10px offset, 16/24/32px blur; warm gray 12/14/18% light, black 24/30/38% dark; Levi: a subtle shadow so it floats); text halo white 60% light, black 60% dark; hover veil lightens.",
+      "props": {
+        "show": "all",
+        "backdrop": "page (follows theme)",
+        "interactive": false,
+        "disabled": false,
+        "title": "Studio journal",
+        "body": "Notes from the bench."
+      },
+      "sound": {
+        "file": null,
+        "volume": 0.7,
+        "rate": 1,
+        "shipped": null,
+        "trigger": "ships silent"
+      },
+      "tokens": [
+        {
+          "name": "--sc-size-card-glass-subtle-saturation",
+          "mode": "all",
+          "category": "size",
+          "kind": "number",
+          "shipped": "100",
+          "tuned": "140",
+          "override": "140"
+        },
+        {
+          "name": "--sc-size-card-glass-regular-saturation",
+          "mode": "all",
+          "category": "size",
+          "kind": "number",
+          "shipped": "100",
+          "tuned": "160",
+          "override": "160"
+        },
+        {
+          "name": "--sc-size-card-glass-heavy-saturation",
+          "mode": "all",
+          "category": "size",
+          "kind": "number",
+          "shipped": "100",
+          "tuned": "180",
+          "override": "180"
+        },
+        {
+          "name": "--sc-color-card-glass-subtle",
+          "mode": "light",
+          "category": "color",
+          "kind": "color",
+          "shipped": null,
+          "tuned": "rgb(255 255 255 / 0.16)",
+          "override": "rgb(255 255 255 / 0.16)"
+        },
+        {
+          "name": "--sc-shadow-card-glass-subtle",
+          "mode": "light",
+          "category": "shadow",
+          "kind": "shadow",
+          "shipped": null,
+          "tuned": "inset 1px 1px 0 0 rgb(255 255 255 / 0.20), inset -1px -1px 0 0 rgb(255 255 255 / 0.1), 4px 4px 16px 0 rgb(100 91 79 / 0.12)",
+          "override": "inset 1px 1px 0 0 rgb(255 255 255 / 0.20), inset -1px -1px 0 0 rgb(255 255 255 / 0.1), 4px 4px 16px 0 rgb(100 91 79 / 0.12)"
+        },
+        {
+          "name": "--sc-color-card-glass-regular",
+          "mode": "light",
+          "category": "color",
+          "kind": "color",
+          "shipped": null,
+          "tuned": "rgb(255 255 255 / 0.24)",
+          "override": "rgb(255 255 255 / 0.24)"
+        },
+        {
+          "name": "--sc-shadow-card-glass-regular",
+          "mode": "light",
+          "category": "shadow",
+          "kind": "shadow",
+          "shipped": null,
+          "tuned": "inset 1px 1px 0 0 rgb(255 255 255 / 0.30), inset -1px -1px 0 0 rgb(255 255 255 / 0.15), 6px 6px 24px 0 rgb(100 91 79 / 0.14)",
+          "override": "inset 1px 1px 0 0 rgb(255 255 255 / 0.30), inset -1px -1px 0 0 rgb(255 255 255 / 0.15), 6px 6px 24px 0 rgb(100 91 79 / 0.14)"
+        },
+        {
+          "name": "--sc-color-card-glass-heavy",
+          "mode": "light",
+          "category": "color",
+          "kind": "color",
+          "shipped": null,
+          "tuned": "rgb(255 255 255 / 0.36)",
+          "override": "rgb(255 255 255 / 0.36)"
+        },
+        {
+          "name": "--sc-shadow-card-glass-heavy",
+          "mode": "light",
+          "category": "shadow",
+          "kind": "shadow",
+          "shipped": null,
+          "tuned": "inset 1px 1px 0 0 rgb(255 255 255 / 0.45), inset -1px -1px 0 0 rgb(255 255 255 / 0.225), 10px 10px 32px 0 rgb(100 91 79 / 0.18)",
+          "override": "inset 1px 1px 0 0 rgb(255 255 255 / 0.45), inset -1px -1px 0 0 rgb(255 255 255 / 0.225), 10px 10px 32px 0 rgb(100 91 79 / 0.18)"
+        },
+        {
+          "name": "--sc-shadow-card-glass-text",
+          "mode": "light",
+          "category": "shadow",
+          "kind": "shadow",
+          "shipped": null,
+          "tuned": "0 0 2px rgb(255 255 255 / 0.60)",
+          "override": "0 0 2px rgb(255 255 255 / 0.60)"
+        },
+        {
+          "name": "--sc-color-card-glass-hover",
+          "mode": "light",
+          "category": "color",
+          "kind": "color",
+          "shipped": null,
+          "tuned": "rgb(255 255 255 / 0.08)",
+          "override": "rgb(255 255 255 / 0.08)"
+        },
+        {
+          "name": "--sc-color-card-glass-subtle",
+          "mode": "dark",
+          "category": "color",
+          "kind": "color",
+          "shipped": "rgb(255 255 255 / 0.12)",
+          "tuned": "rgb(255 255 255 / 0.05)",
+          "override": "rgb(255 255 255 / 0.05)"
+        },
+        {
+          "name": "--sc-shadow-card-glass-subtle",
+          "mode": "dark",
+          "category": "shadow",
+          "kind": "shadow",
+          "shipped": "inset 1px 1px 0 0 rgb(255 255 255 / 0.20), inset -1px -1px 0 0 rgb(255 255 255 / 0.1)",
+          "tuned": "inset 1px 1px 0 0 rgb(255 255 255 / 0.20), inset -1px -1px 0 0 rgb(255 255 255 / 0.1), 4px 4px 16px 0 rgb(0 0 0 / 0.24)",
+          "override": "inset 1px 1px 0 0 rgb(255 255 255 / 0.20), inset -1px -1px 0 0 rgb(255 255 255 / 0.1), 4px 4px 16px 0 rgb(0 0 0 / 0.24)"
+        },
+        {
+          "name": "--sc-color-card-glass-regular",
+          "mode": "dark",
+          "category": "color",
+          "kind": "color",
+          "shipped": "rgb(255 255 255 / 0.20)",
+          "tuned": "rgb(255 255 255 / 0.08)",
+          "override": "rgb(255 255 255 / 0.08)"
+        },
+        {
+          "name": "--sc-shadow-card-glass-regular",
+          "mode": "dark",
+          "category": "shadow",
+          "kind": "shadow",
+          "shipped": "inset 1px 1px 0 0 rgb(255 255 255 / 0.30), inset -1px -1px 0 0 rgb(255 255 255 / 0.15)",
+          "tuned": "inset 1px 1px 0 0 rgb(255 255 255 / 0.30), inset -1px -1px 0 0 rgb(255 255 255 / 0.15), 6px 6px 24px 0 rgb(0 0 0 / 0.30)",
+          "override": "inset 1px 1px 0 0 rgb(255 255 255 / 0.30), inset -1px -1px 0 0 rgb(255 255 255 / 0.15), 6px 6px 24px 0 rgb(0 0 0 / 0.30)"
+        },
+        {
+          "name": "--sc-color-card-glass-heavy",
+          "mode": "dark",
+          "category": "color",
+          "kind": "color",
+          "shipped": "rgb(255 255 255 / 0.30)",
+          "tuned": "rgb(255 255 255 / 0.12)",
+          "override": "rgb(255 255 255 / 0.12)"
+        },
+        {
+          "name": "--sc-shadow-card-glass-heavy",
+          "mode": "dark",
+          "category": "shadow",
+          "kind": "shadow",
+          "shipped": "inset 1px 1px 0 0 rgb(255 255 255 / 0.45), inset -1px -1px 0 0 rgb(255 255 255 / 0.225)",
+          "tuned": "inset 1px 1px 0 0 rgb(255 255 255 / 0.45), inset -1px -1px 0 0 rgb(255 255 255 / 0.225), 10px 10px 32px 0 rgb(0 0 0 / 0.38)",
+          "override": "inset 1px 1px 0 0 rgb(255 255 255 / 0.45), inset -1px -1px 0 0 rgb(255 255 255 / 0.225), 10px 10px 32px 0 rgb(0 0 0 / 0.38)"
+        },
+        {
+          "name": "--sc-shadow-card-glass-text",
+          "mode": "dark",
+          "category": "shadow",
+          "kind": "shadow",
+          "shipped": "0 0 0 rgb(26 24 21 / 0)",
+          "tuned": "0 0 2px rgb(0 0 0 / 0.60)",
+          "override": "0 0 2px rgb(0 0 0 / 0.60)"
+        },
+        {
+          "name": "--sc-color-card-glass-hover",
+          "mode": "dark",
+          "category": "color",
+          "kind": "color",
+          "shipped": "rgb(255 255 255 / 0.08)",
+          "tuned": "rgb(255 255 255 / 0.05)",
+          "override": "rgb(255 255 255 / 0.05)"
+        }
+      ],
+      "pins": {}
+    },
+    {
+      "id": "B",
+      "notes": "Glass darkens (Levi's option B). Tint ink 6/10/16% light, black 20/32/45% dark; saturation 140/160/180%; same rim and outer shade as A; text halo white 50% light, black 70% dark; hover veil darkens.",
+      "props": {
+        "show": "all",
+        "backdrop": "page (follows theme)",
+        "interactive": false,
+        "disabled": false,
+        "title": "Studio journal",
+        "body": "Notes from the bench."
+      },
+      "sound": {
+        "file": null,
+        "volume": 0.7,
+        "rate": 1,
+        "shipped": null,
+        "trigger": "ships silent"
+      },
+      "tokens": [
+        {
+          "name": "--sc-size-card-glass-subtle-saturation",
+          "mode": "all",
+          "category": "size",
+          "kind": "number",
+          "shipped": "100",
+          "tuned": "140",
+          "override": "140"
+        },
+        {
+          "name": "--sc-size-card-glass-regular-saturation",
+          "mode": "all",
+          "category": "size",
+          "kind": "number",
+          "shipped": "100",
+          "tuned": "160",
+          "override": "160"
+        },
+        {
+          "name": "--sc-size-card-glass-heavy-saturation",
+          "mode": "all",
+          "category": "size",
+          "kind": "number",
+          "shipped": "100",
+          "tuned": "180",
+          "override": "180"
+        },
+        {
+          "name": "--sc-color-card-glass-subtle",
+          "mode": "light",
+          "category": "color",
+          "kind": "color",
+          "shipped": null,
+          "tuned": "rgb(26 24 21 / 0.06)",
+          "override": "rgb(26 24 21 / 0.06)"
+        },
+        {
+          "name": "--sc-shadow-card-glass-subtle",
+          "mode": "light",
+          "category": "shadow",
+          "kind": "shadow",
+          "shipped": null,
+          "tuned": "inset 1px 1px 0 0 rgb(255 255 255 / 0.20), inset -1px -1px 0 0 rgb(255 255 255 / 0.1), 4px 4px 16px 0 rgb(100 91 79 / 0.12)",
+          "override": "inset 1px 1px 0 0 rgb(255 255 255 / 0.20), inset -1px -1px 0 0 rgb(255 255 255 / 0.1), 4px 4px 16px 0 rgb(100 91 79 / 0.12)"
+        },
+        {
+          "name": "--sc-color-card-glass-regular",
+          "mode": "light",
+          "category": "color",
+          "kind": "color",
+          "shipped": null,
+          "tuned": "rgb(26 24 21 / 0.10)",
+          "override": "rgb(26 24 21 / 0.10)"
+        },
+        {
+          "name": "--sc-shadow-card-glass-regular",
+          "mode": "light",
+          "category": "shadow",
+          "kind": "shadow",
+          "shipped": null,
+          "tuned": "inset 1px 1px 0 0 rgb(255 255 255 / 0.30), inset -1px -1px 0 0 rgb(255 255 255 / 0.15), 6px 6px 24px 0 rgb(100 91 79 / 0.14)",
+          "override": "inset 1px 1px 0 0 rgb(255 255 255 / 0.30), inset -1px -1px 0 0 rgb(255 255 255 / 0.15), 6px 6px 24px 0 rgb(100 91 79 / 0.14)"
+        },
+        {
+          "name": "--sc-color-card-glass-heavy",
+          "mode": "light",
+          "category": "color",
+          "kind": "color",
+          "shipped": null,
+          "tuned": "rgb(26 24 21 / 0.16)",
+          "override": "rgb(26 24 21 / 0.16)"
+        },
+        {
+          "name": "--sc-shadow-card-glass-heavy",
+          "mode": "light",
+          "category": "shadow",
+          "kind": "shadow",
+          "shipped": null,
+          "tuned": "inset 1px 1px 0 0 rgb(255 255 255 / 0.45), inset -1px -1px 0 0 rgb(255 255 255 / 0.225), 10px 10px 32px 0 rgb(100 91 79 / 0.18)",
+          "override": "inset 1px 1px 0 0 rgb(255 255 255 / 0.45), inset -1px -1px 0 0 rgb(255 255 255 / 0.225), 10px 10px 32px 0 rgb(100 91 79 / 0.18)"
+        },
+        {
+          "name": "--sc-shadow-card-glass-text",
+          "mode": "light",
+          "category": "shadow",
+          "kind": "shadow",
+          "shipped": null,
+          "tuned": "0 0 2px rgb(255 255 255 / 0.50)",
+          "override": "0 0 2px rgb(255 255 255 / 0.50)"
+        },
+        {
+          "name": "--sc-color-card-glass-hover",
+          "mode": "light",
+          "category": "color",
+          "kind": "color",
+          "shipped": null,
+          "tuned": "rgb(26 24 21 / 0.06)",
+          "override": "rgb(26 24 21 / 0.06)"
+        },
+        {
+          "name": "--sc-color-card-glass-subtle",
+          "mode": "dark",
+          "category": "color",
+          "kind": "color",
+          "shipped": "rgb(255 255 255 / 0.12)",
+          "tuned": "rgb(0 0 0 / 0.20)",
+          "override": "rgb(0 0 0 / 0.20)"
+        },
+        {
+          "name": "--sc-shadow-card-glass-subtle",
+          "mode": "dark",
+          "category": "shadow",
+          "kind": "shadow",
+          "shipped": "inset 1px 1px 0 0 rgb(255 255 255 / 0.20), inset -1px -1px 0 0 rgb(255 255 255 / 0.1)",
+          "tuned": "inset 1px 1px 0 0 rgb(255 255 255 / 0.20), inset -1px -1px 0 0 rgb(255 255 255 / 0.1), 4px 4px 16px 0 rgb(0 0 0 / 0.24)",
+          "override": "inset 1px 1px 0 0 rgb(255 255 255 / 0.20), inset -1px -1px 0 0 rgb(255 255 255 / 0.1), 4px 4px 16px 0 rgb(0 0 0 / 0.24)"
+        },
+        {
+          "name": "--sc-color-card-glass-regular",
+          "mode": "dark",
+          "category": "color",
+          "kind": "color",
+          "shipped": "rgb(255 255 255 / 0.20)",
+          "tuned": "rgb(0 0 0 / 0.32)",
+          "override": "rgb(0 0 0 / 0.32)"
+        },
+        {
+          "name": "--sc-shadow-card-glass-regular",
+          "mode": "dark",
+          "category": "shadow",
+          "kind": "shadow",
+          "shipped": "inset 1px 1px 0 0 rgb(255 255 255 / 0.30), inset -1px -1px 0 0 rgb(255 255 255 / 0.15)",
+          "tuned": "inset 1px 1px 0 0 rgb(255 255 255 / 0.30), inset -1px -1px 0 0 rgb(255 255 255 / 0.15), 6px 6px 24px 0 rgb(0 0 0 / 0.30)",
+          "override": "inset 1px 1px 0 0 rgb(255 255 255 / 0.30), inset -1px -1px 0 0 rgb(255 255 255 / 0.15), 6px 6px 24px 0 rgb(0 0 0 / 0.30)"
+        },
+        {
+          "name": "--sc-color-card-glass-heavy",
+          "mode": "dark",
+          "category": "color",
+          "kind": "color",
+          "shipped": "rgb(255 255 255 / 0.30)",
+          "tuned": "rgb(0 0 0 / 0.45)",
+          "override": "rgb(0 0 0 / 0.45)"
+        },
+        {
+          "name": "--sc-shadow-card-glass-heavy",
+          "mode": "dark",
+          "category": "shadow",
+          "kind": "shadow",
+          "shipped": "inset 1px 1px 0 0 rgb(255 255 255 / 0.45), inset -1px -1px 0 0 rgb(255 255 255 / 0.225)",
+          "tuned": "inset 1px 1px 0 0 rgb(255 255 255 / 0.45), inset -1px -1px 0 0 rgb(255 255 255 / 0.225), 10px 10px 32px 0 rgb(0 0 0 / 0.38)",
+          "override": "inset 1px 1px 0 0 rgb(255 255 255 / 0.45), inset -1px -1px 0 0 rgb(255 255 255 / 0.225), 10px 10px 32px 0 rgb(0 0 0 / 0.38)"
+        },
+        {
+          "name": "--sc-shadow-card-glass-text",
+          "mode": "dark",
+          "category": "shadow",
+          "kind": "shadow",
+          "shipped": "0 0 0 rgb(26 24 21 / 0)",
+          "tuned": "0 0 2px rgb(0 0 0 / 0.70)",
+          "override": "0 0 2px rgb(0 0 0 / 0.70)"
+        },
+        {
+          "name": "--sc-color-card-glass-hover",
+          "mode": "dark",
+          "category": "color",
+          "kind": "color",
+          "shipped": "rgb(255 255 255 / 0.08)",
+          "tuned": "rgb(0 0 0 / 0.12)",
+          "override": "rgb(0 0 0 / 0.12)"
+        }
+      ],
+      "pins": {}
+    }
+  ],
+  "derived": {
+    "--glass-tint": "0px",
+    "--glass-rim": "0px",
+    "--glass-frost": "0px",
+    "--glass-refraction": "0px",
+    "--glass-depth": "0px",
+    "--glass-splay": "0px",
+    "--glass-saturation": "0px"
+  },
+  "tokenCount": 37,
+  "state": {
+    "component": "Card",
+    "notes": "",
+    "active": "A",
+    "concepts": [
+      {
+        "id": "A",
+        "overrides": {
+          "all": {
+            "--sc-size-card-glass-subtle-saturation": "140",
+            "--sc-size-card-glass-regular-saturation": "160",
+            "--sc-size-card-glass-heavy-saturation": "180"
+          },
+          "light": {
+            "--sc-color-card-glass-subtle": "rgb(255 255 255 / 0.16)",
+            "--sc-shadow-card-glass-subtle": "inset 1px 1px 0 0 rgb(255 255 255 / 0.20), inset -1px -1px 0 0 rgb(255 255 255 / 0.1), 4px 4px 16px 0 rgb(100 91 79 / 0.12)",
+            "--sc-color-card-glass-regular": "rgb(255 255 255 / 0.24)",
+            "--sc-shadow-card-glass-regular": "inset 1px 1px 0 0 rgb(255 255 255 / 0.30), inset -1px -1px 0 0 rgb(255 255 255 / 0.15), 6px 6px 24px 0 rgb(100 91 79 / 0.14)",
+            "--sc-color-card-glass-heavy": "rgb(255 255 255 / 0.36)",
+            "--sc-shadow-card-glass-heavy": "inset 1px 1px 0 0 rgb(255 255 255 / 0.45), inset -1px -1px 0 0 rgb(255 255 255 / 0.225), 10px 10px 32px 0 rgb(100 91 79 / 0.18)",
+            "--sc-shadow-card-glass-text": "0 0 2px rgb(255 255 255 / 0.60)",
+            "--sc-color-card-glass-hover": "rgb(255 255 255 / 0.08)"
+          },
+          "dark": {
+            "--sc-color-card-glass-subtle": "rgb(255 255 255 / 0.05)",
+            "--sc-shadow-card-glass-subtle": "inset 1px 1px 0 0 rgb(255 255 255 / 0.20), inset -1px -1px 0 0 rgb(255 255 255 / 0.1), 4px 4px 16px 0 rgb(0 0 0 / 0.24)",
+            "--sc-color-card-glass-regular": "rgb(255 255 255 / 0.08)",
+            "--sc-shadow-card-glass-regular": "inset 1px 1px 0 0 rgb(255 255 255 / 0.30), inset -1px -1px 0 0 rgb(255 255 255 / 0.15), 6px 6px 24px 0 rgb(0 0 0 / 0.30)",
+            "--sc-color-card-glass-heavy": "rgb(255 255 255 / 0.12)",
+            "--sc-shadow-card-glass-heavy": "inset 1px 1px 0 0 rgb(255 255 255 / 0.45), inset -1px -1px 0 0 rgb(255 255 255 / 0.225), 10px 10px 32px 0 rgb(0 0 0 / 0.38)",
+            "--sc-shadow-card-glass-text": "0 0 2px rgb(0 0 0 / 0.60)",
+            "--sc-color-card-glass-hover": "rgb(255 255 255 / 0.05)"
+          }
+        },
+        "shadowAdj": {
+          "all": {},
+          "light": {},
+          "dark": {}
+        },
+        "springs": {},
+        "pins": {},
+        "notes": "Glass lightens (Claude, from Levi's best practices). Tint white 16/24/36% light, 5/8/12% dark; saturation 140/160/180%; rim = Figma light plus a subtle floating shade cast down-right on the 135deg diagonal (4/6/10px offset, 16/24/32px blur; warm gray 12/14/18% light, black 24/30/38% dark; Levi: a subtle shadow so it floats); text halo white 60% light, black 60% dark; hover veil lightens.",
+        "props": {
+          "show": "all",
+          "backdrop": "page (follows theme)",
+          "interactive": false,
+          "disabled": false,
+          "title": "Studio journal",
+          "body": "Notes from the bench."
+        },
+        "sound": {
+          "file": null,
+          "volume": 0.7,
+          "rate": 1
+        }
+      },
+      {
+        "id": "B",
+        "overrides": {
+          "all": {
+            "--sc-size-card-glass-subtle-saturation": "140",
+            "--sc-size-card-glass-regular-saturation": "160",
+            "--sc-size-card-glass-heavy-saturation": "180"
+          },
+          "light": {
+            "--sc-color-card-glass-subtle": "rgb(26 24 21 / 0.06)",
+            "--sc-shadow-card-glass-subtle": "inset 1px 1px 0 0 rgb(255 255 255 / 0.20), inset -1px -1px 0 0 rgb(255 255 255 / 0.1), 4px 4px 16px 0 rgb(100 91 79 / 0.12)",
+            "--sc-color-card-glass-regular": "rgb(26 24 21 / 0.10)",
+            "--sc-shadow-card-glass-regular": "inset 1px 1px 0 0 rgb(255 255 255 / 0.30), inset -1px -1px 0 0 rgb(255 255 255 / 0.15), 6px 6px 24px 0 rgb(100 91 79 / 0.14)",
+            "--sc-color-card-glass-heavy": "rgb(26 24 21 / 0.16)",
+            "--sc-shadow-card-glass-heavy": "inset 1px 1px 0 0 rgb(255 255 255 / 0.45), inset -1px -1px 0 0 rgb(255 255 255 / 0.225), 10px 10px 32px 0 rgb(100 91 79 / 0.18)",
+            "--sc-shadow-card-glass-text": "0 0 2px rgb(255 255 255 / 0.50)",
+            "--sc-color-card-glass-hover": "rgb(26 24 21 / 0.06)"
+          },
+          "dark": {
+            "--sc-color-card-glass-subtle": "rgb(0 0 0 / 0.20)",
+            "--sc-shadow-card-glass-subtle": "inset 1px 1px 0 0 rgb(255 255 255 / 0.20), inset -1px -1px 0 0 rgb(255 255 255 / 0.1), 4px 4px 16px 0 rgb(0 0 0 / 0.24)",
+            "--sc-color-card-glass-regular": "rgb(0 0 0 / 0.32)",
+            "--sc-shadow-card-glass-regular": "inset 1px 1px 0 0 rgb(255 255 255 / 0.30), inset -1px -1px 0 0 rgb(255 255 255 / 0.15), 6px 6px 24px 0 rgb(0 0 0 / 0.30)",
+            "--sc-color-card-glass-heavy": "rgb(0 0 0 / 0.45)",
+            "--sc-shadow-card-glass-heavy": "inset 1px 1px 0 0 rgb(255 255 255 / 0.45), inset -1px -1px 0 0 rgb(255 255 255 / 0.225), 10px 10px 32px 0 rgb(0 0 0 / 0.38)",
+            "--sc-shadow-card-glass-text": "0 0 2px rgb(0 0 0 / 0.70)",
+            "--sc-color-card-glass-hover": "rgb(0 0 0 / 0.12)"
+          }
+        },
+        "shadowAdj": {
+          "all": {},
+          "light": {},
+          "dark": {}
+        },
+        "springs": {},
+        "pins": {},
+        "notes": "Glass darkens (Levi's option B). Tint ink 6/10/16% light, black 20/32/45% dark; saturation 140/160/180%; same rim and outer shade as A; text halo white 50% light, black 70% dark; hover veil darkens.",
+        "props": {
+          "show": "all",
+          "backdrop": "page (follows theme)",
+          "interactive": false,
+          "disabled": false,
+          "title": "Studio journal",
+          "body": "Notes from the bench."
+        },
+        "sound": {
+          "file": null,
+          "volume": 0.7,
+          "rate": 1
+        }
+      }
+    ],
+    "pick": {
+      "id": null,
+      "reason": ""
+    },
+    "view": {
+      "theme": "dark",
+      "zoom": 1,
+      "ground": "--sc-color-surface-page",
+      "compare": false,
+      "blind": false,
+      "order": null,
+      "slow": 1
+    },
+    "updated": "2026-10-08T14:56:18.043Z"
+  }
+}
