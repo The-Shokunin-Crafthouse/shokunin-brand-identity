@@ -171,8 +171,8 @@ public enum SCDS {
     public static let semanticVersion = "0.1.0"
     public static let sourceGenerated = "2026-05-26"
     public static let primitivesHash = "f96efa487bcac29d"
-    public static let semanticHash = "794bdb3c049a2aee"
-    public static let tokenCount = 251
+    public static let semanticHash = "a1ab239e9a187b41"
+    public static let tokenCount = 254
   }
 
   // MARK: - Color
@@ -649,50 +649,38 @@ public enum SCDS {
 
     /// `color.input.well`
     public static let inputWell = SwiftUI.Color.scdsDynamic(
-        light: (0.847059, 0.819608, 0.8, 1),
-        dark:  (0.121569, 0.145098, 0.172549, 1)
+        light: (0.101961, 0.094118, 0.082353, 0.07),
+        dark:  (1, 1, 1, 0.15)
     )
 
     /// `color.input.wellHover`
     public static let inputWellHover = SwiftUI.Color.scdsDynamic(
-        light: (0.847059, 0.819608, 0.8, 1),
-        dark:  (0.121569, 0.145098, 0.172549, 1)
+        light: (0.101961, 0.094118, 0.082353, 0.07),
+        dark:  (1, 1, 1, 0.15)
     )
 
     /// `color.input.wellFocus`
     public static let inputWellFocus = SwiftUI.Color.scdsDynamic(
-        light: (0.890196, 0.87451, 0.847059, 1),
-        dark:  (0.172549, 0.196078, 0.223529, 1)
+        light: (0.101961, 0.094118, 0.082353, 0.07),
+        dark:  (1, 1, 1, 0.15)
     )
 
     /// `color.input.wellDisabled`
     public static let inputWellDisabled = SwiftUI.Color.scdsDynamic(
-        light: (0.847059, 0.819608, 0.8, 1),
-        dark:  (0.121569, 0.145098, 0.172549, 1)
+        light: (0.101961, 0.094118, 0.082353, 0.07),
+        dark:  (1, 1, 1, 0.15)
     )
 
-    /// `color.input.rule`
-    public static let inputRule = SwiftUI.Color.scdsDynamic(
-        light: (0.603922, 0.568627, 0.52549, 1),
-        dark:  (0.301961, 0.32549, 0.356863, 1)
+    /// `color.input.adornment`
+    public static let inputAdornment = SwiftUI.Color.scdsDynamic(
+        light: (0.352941, 0.341176, 0.313725, 1),
+        dark:  (0.788235, 0.780392, 0.764706, 1)
     )
 
-    /// `color.input.ruleHover`
-    public static let inputRuleHover = SwiftUI.Color.scdsDynamic(
-        light: (0.603922, 0.568627, 0.52549, 1),
-        dark:  (0.301961, 0.32549, 0.356863, 1)
-    )
-
-    /// `color.input.ruleFilled`
-    public static let inputRuleFilled = SwiftUI.Color.scdsDynamic(
-        light: (0.101961, 0.094118, 0.082353, 1),
-        dark:  (0.945098, 0.937255, 0.921569, 1)
-    )
-
-    /// `color.input.ruleFocus`
-    public static let inputRuleFocus = SwiftUI.Color.scdsDynamic(
-        light: (0.121569, 0.12549, 0.141176, 1),
-        dark:  (0.913725, 0.921569, 0.933333, 1)
+    /// `color.input.divider`
+    public static let inputDivider = SwiftUI.Color.scdsDynamic(
+        light: (0.690196, 0.65098, 0.611765, 1),
+        dark:  (0.231373, 0.258824, 0.286275, 1)
     )
   }
 
@@ -1046,7 +1034,7 @@ public enum SCDS {
     public static let componentPaddingInlineButtonSm: CGFloat = 16
 
     /// `space.component.padding-inline.input`
-    public static let componentPaddingInlineInput: CGFloat = 12
+    public static let componentPaddingInlineInput: CGFloat = 16
 
     /// `space.component.padding-block.sm`
     public static let componentPaddingBlockSm: CGFloat = 2
@@ -1061,7 +1049,7 @@ public enum SCDS {
     public static let componentPaddingBlockButtonSm: CGFloat = 4
 
     /// `space.component.padding-block.input`
-    public static let componentPaddingBlockInput: CGFloat = 8
+    public static let componentPaddingBlockInput: CGFloat = 12
 
     /// `space.component.gap.sm`
     public static let componentGapSm: CGFloat = 4
@@ -1077,12 +1065,18 @@ public enum SCDS {
 
     /// `space.component.gap.input`
     public static let componentGapInput: CGFloat = 4
+
+    /// `space.component.gap.input-inline`
+    public static let componentGapInputInline: CGFloat = 16
   }
 
   // MARK: - Radius
 
   /// Corner radii, as authored.
   public enum Radius {
+    /// `radius.field`
+    public static let field: CGFloat = 3
+
     /// `radius.control`
     public static let control: CGFloat = 3
 
@@ -1173,6 +1167,15 @@ public enum SCDS {
 
     /// `size.progress.hit-slop`
     public static let progressHitSlop: CGFloat = 22
+
+    /// `size.input.icon`
+    public static let inputIcon: CGFloat = 20
+
+    /// `size.input.clear`
+    public static let inputClear: CGFloat = 16
+
+    /// `size.input.clearTarget`
+    public static let inputClearTarget: CGFloat = 32
 
     /// `size.slider.track`
     public static let sliderTrack: CGFloat = 4

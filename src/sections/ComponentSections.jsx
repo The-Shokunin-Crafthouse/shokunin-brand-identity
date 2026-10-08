@@ -13,6 +13,7 @@ import { Button } from '../components/Button/Button.jsx';
 import { Badge } from '../components/Badge/Badge.jsx';
 import { Card } from '../components/Card/Card.jsx';
 import { Input } from '../components/Input/Input.jsx';
+import { EnvelopeSimple, MagnifyingGlass, MapPin, CalendarBlank } from '@phosphor-icons/react';
 import { Alert } from '../components/Alert/Alert.jsx';
 import { Switch } from '../components/Switch/Switch.jsx';
 import { Avatar } from '../components/Avatar/Avatar.jsx';
@@ -174,50 +175,58 @@ function CardBody({ children }) {
 }
 
 /* ── 3.4 Input ───────────────────────────────────────────── */
+function InputDemo({ initial = '', ...props }) {
+  const [value, setValue] = useState(initial);
+  return <Input {...props} value={value} onChange={(e) => setValue(e.target.value)} onClear={() => setValue('')} />;
+}
+
 export function InputPage() {
   return (
     <ComponentPage
-      id="input" label="Input" tokensN={18}
-      eyebrow={<>Input<Slash />the field that earns its frame</>}
-      title={<>Empty is quiet. <Accent>Filled</Accent> earns a <Em>darker frame.</Em></>}
-      lead={<>The border tells the story: a resting field sits at the same weight as its card, focus turns the frame teal, and once content lands the frame strengthens to ink. The state is legible from the border alone, no colour wash required.</>}
-      statesTitle="Five states, read from the border."
+      id="input" label="Input" tokensN={24}
+      eyebrow={<>Input<Slash />a filled field, titled above</>}
+      title={<>The title sits above. <Accent>The field</Accent> is a quiet <Em>tinted box.</Em></>}
+      lead={<>A filled field: a tinted box with no rule and no frame, holding the value with a leading icon, a prefix or suffix, a clear button and a trailing control where the field needs them. The title stays above it, left-aligned, with optional subcopy between the title and the field. Icons are Phosphor, bold.</>}
+      statesTitle="Six states and the slots a field can carry."
       callouts={[
-        { title: 'Why filled earns border-strong', body: 'An empty field sits at card weight. Once content lands the field has earned a stronger frame — ink in light, near-white in dark — asserting the active control without changing colour.' },
-        { title: 'Focus is carried by the border', body: 'The native outline is suppressed; the border turns to the focus colour instead. One frame does both jobs, so the control never wears two rings.' },
-        { title: 'Error replaces the helper', body: 'When error is set, the helper text is the error text — the field never shows guidance and a failure at the same time.' },
+        { title: 'The title stays outside', body: 'The label sits above the box, left-aligned, and never moves into the field. Subcopy, when a field needs it, goes between the title and the box.' },
+        { title: 'Focus is the system ring', body: 'The box has no rule to recolour, so focus draws the same ring every control uses. An error draws a hairline edge in the status colour and keeps it on focus.' },
+        { title: 'Clear only when there is something to clear', body: 'A clearable field shows its clear button while it holds a value. The button names the field it clears for screen readers.' },
       ]}
       states={[
-        { name: 'Default', token: '--sc-color-border-default', render: <Input label="Email" placeholder="you@studio.com" /> },
-        { name: 'Focus', token: '--sc-color-border-focus', render: <Input label="Focus (tab in)" placeholder="The border turns teal" /> },
-        { name: 'Filled', token: '--sc-color-border-strong', render: <Input label="Filled" defaultValue="levi@levibahn.com" /> },
-        { name: 'Error', token: '--sc-color-status-error', render: <Input label="Email" error="That isn’t an email yet." defaultValue="levi@" /> },
-        { name: 'Disabled', token: '--sc-color-surface-sunk', render: <Input label="Disabled" disabled placeholder="Unavailable" /> },
+        { name: 'Default', token: '--sc-color-input-well', render: <InputDemo label="Full name" placeholder="Your name" /> },
+        { name: 'Subcopy', token: '--sc-font-text-caption', render: <InputDemo label="Email address" description="We only use it for receipts." icon={EnvelopeSimple} placeholder="you@studio.com" /> },
+        { name: 'Filled, clearable', token: '--sc-color-input-adornment', render: <InputDemo label="Search" icon={MagnifyingGlass} clearable initial="apple macbook pro 14" /> },
+        { name: 'Prefix and suffix', token: '--sc-color-input-divider', render: <InputDemo label="Display" prefix="Size" suffix="inches" initial="14" /> },
+        { name: 'Trailing icon', token: '--sc-size-input-icon', render: <InputDemo label="Date" trailing={CalendarBlank} initial="9 February, 2022" /> },
+        { name: 'Focus (tab in)', token: '--sc-color-border-focus', render: <InputDemo label="Street" icon={MapPin} placeholder="4220 Joy Lane" /> },
+        { name: 'Error', token: '--sc-color-status-error', render: <InputDemo label="Email address" icon={EnvelopeSimple} error="That isn’t an email yet." clearable initial="levi@" /> },
+        { name: 'Disabled', token: '--sc-color-text-disabled', render: <InputDemo label="Disabled" icon={EnvelopeSimple} disabled placeholder="Unavailable" /> },
       ]}
       tokenRows={[
-        { prop: 'Inline padding', token: '--sc-space-component-padding-inline-md' },
-        { prop: 'Block padding', token: '--sc-space-component-padding-block-md' },
-        { prop: 'Label → field gap', token: '--sc-space-component-gap-sm' },
-        { prop: 'Radius', token: '--sc-radius-control' },
-        { prop: 'Border', token: '--sc-border-width-default' },
+        { prop: 'Field fill', token: '--sc-color-input-well', light: 'ink 7%', dark: 'white 15%' },
+        { prop: 'Field corner', token: '--sc-radius-field', light: '3px' },
+        { prop: 'Inline padding', token: '--sc-space-component-padding-inline-input', light: '16px' },
+        { prop: 'Block padding', token: '--sc-space-component-padding-block-input', light: '12px' },
+        { prop: 'Slot gap', token: '--sc-space-component-gap-input-inline', light: '16px' },
+        { prop: 'Title → field gap', token: '--sc-space-component-gap-input', light: '4px' },
+        { prop: 'Icon', token: '--sc-size-input-icon', light: '20px · Phosphor bold' },
+        { prop: 'Clear mark', token: '--sc-size-input-clear', light: '16px · Phosphor bold' },
+        { prop: 'Icons, suffix, clear', token: '--sc-color-input-adornment' },
+        { prop: 'Prefix rule', token: '--sc-color-input-divider' },
         { prop: 'Value type', token: '--sc-font-text-body-default', light: '16 / regular' },
-        { prop: 'Label type', token: '--sc-font-text-label-ui', light: '12 / medium' },
-        { prop: 'Input ground', token: '--sc-color-surface-page' },
-        { prop: 'Disabled ground', token: '--sc-color-surface-sunk' },
-        { prop: 'Resting border', token: '--sc-color-border-default' },
-        { prop: 'Filled border', token: '--sc-color-border-strong' },
-        { prop: 'Focus border', token: '--sc-color-border-focus' },
+        { prop: 'Title type', token: '--sc-font-text-label-ui', light: '12 / medium' },
+        { prop: 'Subcopy, helper', token: '--sc-font-text-caption', light: '13 / regular' },
+        { prop: 'Focus ring', token: '--sc-color-border-focus' },
         { prop: 'Error', token: '--sc-color-status-error' },
-        { prop: 'Value ink', token: '--sc-color-text-primary' },
-        { prop: 'Label / helper', token: '--sc-color-text-secondary' },
         { prop: 'Placeholder', token: '--sc-color-text-disabled' },
       ]}
-      rulesTitle="Four rules for a field that speaks in borders."
+      rulesTitle="Four rules for a field that stays quiet."
       rules={[
-        { name: 'State lives in the border, not a wash', text: 'Default, focus, filled, error each move only the border colour (error also flips the helper). No tinted backgrounds — the frame carries the whole signal.' },
-        { name: 'Helper or error, never both', text: 'Error text occupies the helper slot. A field showing instructions and a failure at once is a field that buried its own error.' },
-        { name: 'Placeholder is not a label', text: 'The label sits above and stays. Placeholders use disabled ink and vanish on input — they hint at format, they do not name the field.' },
-        { name: 'Disabled is the only grounded state', text: 'Only disabled changes the ground (to sunk). Every other state keeps the page ground so the field reads as live until it is explicitly switched off.' },
+        { name: 'The title names the field', text: 'The label sits above and stays. Placeholders use disabled ink and vanish on input; they hint at format, they do not name the field.' },
+        { name: 'Subcopy before, helper after', text: 'Guidance the user needs before typing goes in the subcopy under the title. Feedback about what they typed goes under the field, and an error replaces the helper.' },
+        { name: 'Icons say what the field holds', text: 'A leading icon names the kind of value (search, email, place). A trailing icon is an action or a picker (reveal, copy, date). Both are Phosphor, bold.' },
+        { name: 'No frame until it matters', text: 'The box carries no rule. Focus and error are the only states that draw an edge, so an edge always means something.' },
       ]}
     />
   );

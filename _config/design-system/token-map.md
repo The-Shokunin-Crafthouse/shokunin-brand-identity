@@ -5,7 +5,7 @@
 # Design Token Map — The Shokunin Crafthouse · Brand Identity
 
 **Generated** from `tokens/primitives.json` + `tokens/semantic.json`.
-**Source fingerprint:** `6bff7cb90013` · **186 primitives · 251 semantic tokens.**
+**Source fingerprint:** `75714425f033` · **186 primitives · 254 semantic tokens.**
 
 > **This file is a mirror, not the source.** `tokens/*.json` is upstream; this document and the Figma
 > library are generated from / synced to it. It previously claimed the opposite — that both were
@@ -611,14 +611,12 @@ channel-triplet primitives) rather than an alias to a single primitive.
 
 | Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
 |---|---|---|---|---|---|---|
-| `color/input/well` | `--sc-color-input-well` | `color/warmGray/200` | `#D8D1CC` | `color/dark/well` | `#1F252C` | 2026-10-07 · Input material (physical-controls Tier 1: a true recessed well, the focus underline stays, a hover state), tuned in sc-tune. |
-| `color/input/wellHover` | `--sc-color-input-well-hover` | `color/warmGray/200` | `#D8D1CC` | `color/dark/well` | `#1F252C` | 2026-10-07 · Input material (physical-controls Tier 1: a true recessed well, the focus underline stays, a hover state), tuned in sc-tune. |
-| `color/input/wellFocus` | `--sc-color-input-well-focus` | `color/warmGray/100` | `#E3DFD8` | `color/dark/surfacePage` | `#2C3239` | 2026-10-07 · Input material (physical-controls Tier 1: a true recessed well, the focus underline stays, a hover state), tuned in sc-tune. |
-| `color/input/wellDisabled` | `--sc-color-input-well-disabled` | `color/warmGray/200` | `#D8D1CC` | `color/dark/well` | `#1F252C` | 2026-10-07 · Input material (physical-controls Tier 1: a true recessed well, the focus underline stays, a hover state), tuned in sc-tune. |
-| `color/input/rule` | `--sc-color-input-rule` | `color/warmGray/350` | `#9A9186` | `color/dark/border` | `#4D535B` | 2026-10-07 · Input material (physical-controls Tier 1: a true recessed well, the focus underline stays, a hover state), tuned in sc-tune. |
-| `color/input/ruleHover` | `--sc-color-input-rule-hover` | `color/warmGray/350` | `#9A9186` | `color/dark/border` | `#4D535B` | 2026-10-07 · Input material (physical-controls Tier 1: a true recessed well, the focus underline stays, a hover state), tuned in sc-tune. |
-| `color/input/ruleFilled` | `--sc-color-input-rule-filled` | `color/warmGray/800` | `#1A1815` | `color/warmGray/50` | `#F1EFEB` | 2026-10-07 · Input material (physical-controls Tier 1: a true recessed well, the focus underline stays, a hover state), tuned in sc-tune. |
-| `color/input/ruleFocus` | `--sc-color-input-rule-focus` | `color/focusRing/light` | `#1F2024` | `color/focusRing/dark` | `#E9EBEE` | 2026-10-07 · Input material (physical-controls Tier 1: a true recessed well, the focus underline stays, a hover state), tuned in sc-tune. |
+| `color/input/well` | `--sc-color-input-well` | _literal_ | `rgb(var(--sc-p-color-ink-rgb) / 0.07)` | _literal_ | `rgb(var(--sc-p-color-white-rgb) / 0.15)` | 2026-10-07 · Input material (physical-controls Tier 1), tuned in sc-tune. |
+| `color/input/wellHover` | `--sc-color-input-well-hover` | _literal_ | `rgb(var(--sc-p-color-ink-rgb) / 0.07)` | _literal_ | `rgb(var(--sc-p-color-white-rgb) / 0.15)` | 2026-10-07 · Input material (physical-controls Tier 1), tuned in sc-tune. |
+| `color/input/wellFocus` | `--sc-color-input-well-focus` | _literal_ | `rgb(var(--sc-p-color-ink-rgb) / 0.07)` | _literal_ | `rgb(var(--sc-p-color-white-rgb) / 0.15)` | 2026-10-07 · Input material (physical-controls Tier 1), tuned in sc-tune. |
+| `color/input/wellDisabled` | `--sc-color-input-well-disabled` | _literal_ | `rgb(var(--sc-p-color-ink-rgb) / 0.07)` | _literal_ | `rgb(var(--sc-p-color-white-rgb) / 0.15)` | 2026-10-07 · Input material (physical-controls Tier 1), tuned in sc-tune. |
+| `color/input/adornment` | `--sc-color-input-adornment` | `color/warmGray/500` | `#5A5750` | `color/dark/textSecondary` | `#C9C7C3` | 2026-10-07 · Input material (physical-controls Tier 1), tuned in sc-tune. |
+| `color/input/divider` | `--sc-color-input-divider` | `color/warmGray/300` | `#B0A69C` | `color/dark/raised2` | `#3B4249` | 2026-10-07 · Input material (physical-controls Tier 1), tuned in sc-tune. |
 
 ### Typography · Semantic
 
@@ -670,17 +668,18 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | `space/component/padding-inline/lg` | `--sc-space-component-padding-inline-lg` | `space/16` | `16px` | `space/16` | `16px` | Sprint 4 addition · generous inline padding (16px). |
 | `space/component/padding-inline/button-lg` | `--sc-space-component-padding-inline-button-lg` | `space/24` | `24px` | `space/24` | `24px` | Large Button inline padding (24px). |
 | `space/component/padding-inline/button-sm` | `--sc-space-component-padding-inline-button-sm` | `space/16` | `16px` | `space/16` | `16px` | Small Button inline padding (16px). |
-| `space/component/padding-inline/input` | `--sc-space-component-padding-inline-input` | `space/12` | `12px` | `space/12` | `12px` | 2026-10-07 · Input material (physical-controls Tier 1: a true recessed well, the focus underline stays, a hover state), tuned in sc-tune. |
+| `space/component/padding-inline/input` | `--sc-space-component-padding-inline-input` | `space/16` | `16px` | `space/16` | `16px` | 2026-10-07 · Input material (physical-controls Tier 1: a true recessed well, the focus underline stays, a hover state), tuned in sc-tune. |
 | `space/component/padding-block/sm` | `--sc-space-component-padding-block-sm` | `space/micro/2` | `2px` | `space/micro/2` | `2px` | Sprint 4 addition · ultra-thin block padding (2px). |
 | `space/component/padding-block/md` | `--sc-space-component-padding-block-md` | `space/8` | `8px` | `space/8` | `8px` | Sprint 4 addition · default block padding (8px). |
 | `space/component/padding-block/lg` | `--sc-space-component-padding-block-lg` | `space/12` | `12px` | `space/12` | `12px` | Sprint 4 addition · generous block padding (12px). |
 | `space/component/padding-block/button-sm` | `--sc-space-component-padding-block-button-sm` | `space/4` | `4px` | `space/4` | `4px` | Small Button block padding (4px, the dense 4pt step). |
-| `space/component/padding-block/input` | `--sc-space-component-padding-block-input` | `space/8` | `8px` | `space/8` | `8px` | 2026-10-07 · Input material (physical-controls Tier 1: a true recessed well, the focus underline stays, a hover state), tuned in sc-tune. |
+| `space/component/padding-block/input` | `--sc-space-component-padding-block-input` | `space/12` | `12px` | `space/12` | `12px` | 2026-10-07 · Input material (physical-controls Tier 1: a true recessed well, the focus underline stays, a hover state), tuned in sc-tune. |
 | `space/component/gap/sm` | `--sc-space-component-gap-sm` | `space/4` | `4px` | `space/4` | `4px` | Sprint 4 addition · tightest inter-element gap (4px). |
 | `space/component/gap/md` | `--sc-space-component-gap-md` | `space/8` | `8px` | `space/8` | `8px` | Sprint 4 addition · default inter-element gap (8px). |
 | `space/component/gap/lg` | `--sc-space-component-gap-lg` | `space/12` | `12px` | `space/12` | `12px` | Sprint 4 addition · generous gap (12px). |
 | `space/component/gap/stepper` | `--sc-space-component-gap-stepper` | `space/8` | `8px` | `space/8` | `8px` | 2026-10-07 · Stepper role gap: between the pill's keys and the readout, and the readout's inline padding (8px). |
 | `space/component/gap/input` | `--sc-space-component-gap-input` | `space/4` | `4px` | `space/4` | `4px` | 2026-10-07 · Input material (physical-controls Tier 1: a true recessed well, the focus underline stays, a hover state), tuned in sc-tune. |
+| `space/component/gap/input-inline` | `--sc-space-component-gap-input-inline` | `space/16` | `16px` | `space/16` | `16px` | 2026-10-07 · Input material (physical-controls Tier 1), tuned in sc-tune. |
 
 #### `space/layout`
 
@@ -698,6 +697,7 @@ channel-triplet primitives) rather than an alias to a single primitive.
 
 | Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
 |---|---|---|---|---|---|---|
+| `radius/field` | `--sc-radius-field` | `radius/input` | `3px` | `radius/input` | `3px` | 2026-10-07 · Input material (physical-controls Tier 1), tuned in sc-tune. |
 | `radius/control` | `--sc-radius-control` | `radius/input` | `3px` | `radius/input` | `3px` | Sprint 4 addition · controls that read as inscribed rather than lifted (3px). |
 | `radius/surface` | `--sc-radius-surface` | `radius/default` | `8px` | `radius/default` | `8px` | Sprint 4 addition · raised surfaces (8px). |
 | `radius/surfaceLarge` | `--sc-radius-surface-large` | `radius/large` | `16px` | `radius/large` | `16px` | 2026-08-16 Figma variable sync · large raised surfaces (16px). |
@@ -932,6 +932,14 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | `size/progress/circular-stroke` | `--sc-size-progress-circular-stroke` | `space/4` | `4px` | `space/4` | `4px` | Sprint 4 addition · circular stroke width (4px). |
 | `size/progress/bar-height-active` | `--sc-size-progress-bar-height-active` | `space/micro/6` | `6px` | `space/micro/6` | `6px` | Sprint 5 addition · Drams #4/#5 (Volume Visible Track / Standard Volume) · interactive bar variant, active/dragging track thickness (6px). |
 | `size/progress/hit-slop` | `--sc-size-progress-hit-slop` | `space/micro/22` | `22px` | `space/micro/22` | `22px` | Sprint 5 addition · Drams #5 (Standard Volume) · interactive bar variant, invisible hit-area padding above/below the visual track (block padding on the interactive wrapper, not the track itself). |
+
+#### `size/input`
+
+| Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
+|---|---|---|---|---|---|---|
+| `size/input/icon` | `--sc-size-input-icon` | `space/20` | `20px` | `space/20` | `20px` | 2026-10-07 · Input material (physical-controls Tier 1), tuned in sc-tune. |
+| `size/input/clear` | `--sc-size-input-clear` | `space/16` | `16px` | `space/16` | `16px` | 2026-10-07 · Input material (physical-controls Tier 1), tuned in sc-tune. |
+| `size/input/clearTarget` | `--sc-size-input-clear-target` | `space/32` | `32px` | `space/32` | `32px` | 2026-10-07 · Input material (physical-controls Tier 1), tuned in sc-tune. |
 
 #### `size/slider`
 

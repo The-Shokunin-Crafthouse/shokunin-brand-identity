@@ -678,14 +678,12 @@
       "thumbFaceBottom": { "$type": "color", "$value": "{color.warmGray.100}", "$description": "2026-10-07 \u00b7 Slider material (physical-controls Tier 1; split from ProgressIndicator's interactive bar, Levi 2026-10-07: a progress indicator is read, a slider is moved. A recessed track and a physical thumb, lit from the top left; the thumb carries the non-text contrast cue the fill misses), tuned in sc-tune. Thumb face gradient, bottom-right stop (135deg). Shipped transparent. Record Slider 2026-10-07-2207, concept A (Levi), applied 2026-10-07: warmGray.100; dark dark.textTertiary (the Switch knob values); was transparent.", "$extensions": {"modes": {"light": "{color.warmGray.100}", "dark": "{color.dark.textTertiary}"}} }
     },
     "input": {
-      "well": { "$type": "color", "$value": "{color.warmGray.200}", "$description": "2026-10-07 \u00b7 Input material (physical-controls Tier 1: a true recessed well, the focus underline stays, a hover state), tuned in sc-tune. Field fill at rest (the well). Shipped = surface.sunk (today); its own role so the well tunes without moving cards, the Stepper and other sunk surfaces.", "$extensions": { "modes": { "light": "{color.warmGray.200}", "dark": "{color.dark.well}" } } },
-      "wellHover": { "$type": "color", "$value": "{color.warmGray.200}", "$description": "2026-10-07 \u00b7 Input material (physical-controls Tier 1: a true recessed well, the focus underline stays, a hover state), tuned in sc-tune. Field fill on hover (new state). Shipped = well (hover derived from rest, no visible change until a record).", "$extensions": { "modes": { "light": "{color.warmGray.200}", "dark": "{color.dark.well}" } } },
-      "wellFocus": { "$type": "color", "$value": "{color.warmGray.100}", "$description": "2026-10-07 \u00b7 Input material (physical-controls Tier 1: a true recessed well, the focus underline stays, a hover state), tuned in sc-tune. Field fill on focus. Shipped = surface.page (today's fill-shift).", "$extensions": { "modes": { "light": "{color.warmGray.100}", "dark": "{color.dark.surfacePage}" } } },
-      "wellDisabled": { "$type": "color", "$value": "{color.warmGray.200}", "$description": "2026-10-07 \u00b7 Input material (physical-controls Tier 1: a true recessed well, the focus underline stays, a hover state), tuned in sc-tune. Field fill when disabled. Shipped = surface.sunk (today).", "$extensions": { "modes": { "light": "{color.warmGray.200}", "dark": "{color.dark.well}" } } },
-      "rule": { "$type": "color", "$value": "{color.warmGray.350}", "$description": "2026-10-07 \u00b7 Input material (physical-controls Tier 1: a true recessed well, the focus underline stays, a hover state), tuned in sc-tune. Bottom rule at rest. Shipped = border.default (today).", "$extensions": { "modes": { "light": "{color.warmGray.350}", "dark": "{color.dark.border}" } } },
-      "ruleHover": { "$type": "color", "$value": "{color.warmGray.350}", "$description": "2026-10-07 \u00b7 Input material (physical-controls Tier 1: a true recessed well, the focus underline stays, a hover state), tuned in sc-tune. Bottom rule on hover (new state). Shipped = rule (no visible change until a record).", "$extensions": { "modes": { "light": "{color.warmGray.350}", "dark": "{color.dark.border}" } } },
-      "ruleFilled": { "$type": "color", "$value": "{color.warmGray.800}", "$description": "2026-10-07 \u00b7 Input material (physical-controls Tier 1: a true recessed well, the focus underline stays, a hover state), tuned in sc-tune. Bottom rule when the field holds a value. Shipped = border.strong (today).", "$extensions": { "modes": { "light": "{color.warmGray.800}", "dark": "{color.warmGray.50}" } } },
-      "ruleFocus": { "$type": "color", "$value": "{color.focusRing.light}", "$description": "2026-10-07 \u00b7 Input material (physical-controls Tier 1: a true recessed well, the focus underline stays, a hover state), tuned in sc-tune. Bottom rule on focus, doubled to 2px by an inset line. Shipped = border.focus (today).", "$extensions": { "modes": { "light": "{color.focusRing.light}", "dark": "{color.focusRing.dark}" } } }
+      "well": { "$type": "color", "$value": "rgb(var(--sc-p-color-ink-rgb) / 0.07)", "$description": "2026-10-07 \u00b7 Input material (physical-controls Tier 1), tuned in sc-tune. Levi's reference (2026-10-07, a filled-field set: tinted fill, no rule, leading icon, clear and trailing slots; the label stays above, left-aligned), scaled x0.8 to the 16px body. Field fill: ink at 7% (light), white at 15% (dark), measured off the reference (ground to field). Was surface.sunk (the flat field).", "$extensions": { "modes": { "light": "rgb(var(--sc-p-color-ink-rgb) / 0.07)", "dark": "rgb(var(--sc-p-color-white-rgb) / 0.15)" } } },
+      "wellHover": { "$type": "color", "$value": "rgb(var(--sc-p-color-ink-rgb) / 0.07)", "$description": "2026-10-07 \u00b7 Input material (physical-controls Tier 1), tuned in sc-tune. Field fill on hover. Shipped = well (the reference shows no hover).", "$extensions": { "modes": { "light": "rgb(var(--sc-p-color-ink-rgb) / 0.07)", "dark": "rgb(var(--sc-p-color-white-rgb) / 0.15)" } } },
+      "wellFocus": { "$type": "color", "$value": "rgb(var(--sc-p-color-ink-rgb) / 0.07)", "$description": "2026-10-07 \u00b7 Input material (physical-controls Tier 1), tuned in sc-tune. Field fill on focus. Shipped = well; the focus ring carries focus (the reference shows no focus fill). Was surface.page.", "$extensions": { "modes": { "light": "rgb(var(--sc-p-color-ink-rgb) / 0.07)", "dark": "rgb(var(--sc-p-color-white-rgb) / 0.15)" } } },
+      "wellDisabled": { "$type": "color", "$value": "rgb(var(--sc-p-color-ink-rgb) / 0.07)", "$description": "2026-10-07 \u00b7 Input material (physical-controls Tier 1), tuned in sc-tune. Field fill when disabled. Shipped = well; the disabled ink carries it.", "$extensions": { "modes": { "light": "rgb(var(--sc-p-color-ink-rgb) / 0.07)", "dark": "rgb(var(--sc-p-color-white-rgb) / 0.15)" } } },
+      "adornment": { "$type": "color", "$value": "{color.warmGray.500}", "$description": "2026-10-07 \u00b7 Input material (physical-controls Tier 1), tuned in sc-tune. Leading icon, suffix text, clear and trailing icons. = text.secondary values.", "$extensions": { "modes": { "light": "{color.warmGray.500}", "dark": "{color.dark.textSecondary}" } } },
+      "divider": { "$type": "color", "$value": "{color.warmGray.300}", "$description": "2026-10-07 \u00b7 Input material (physical-controls Tier 1), tuned in sc-tune. The rule between a prefix segment (currency, country code) and the value, as in the reference. Light warmGray.300; dark dark.raised2.", "$extensions": { "modes": { "light": "{color.warmGray.300}", "dark": "{color.dark.raised2}" } } }
     }
   },
   "border": {
@@ -719,6 +717,7 @@
     }
   },
   "radius": {
+    "field": { "$type": "dimension", "$value": "{radius.input}", "$description": "2026-10-07 \u00b7 Input material (physical-controls Tier 1), tuned in sc-tune. Levi's reference (2026-10-07), scaled x0.8 to the 16px body: the 6px corner scales to 4.8px; the nearest radius step is 3px (radius.input). Its own role so the field tunes without moving other controls.", "$extensions": { "modes": { "light": "{radius.input}", "dark": "{radius.input}" } } },
     "control": {
       "$type": "dimension",
       "$value": "{radius.input}",
@@ -1347,6 +1346,11 @@
         "$extensions": { "modes": { "light": "{space.micro.22}", "dark": "{space.micro.22}" } }
       }
     },
+    "input": {
+      "icon": { "$type": "dimension", "$value": "{space.20}", "$description": "2026-10-07 \u00b7 Input material (physical-controls Tier 1), tuned in sc-tune. Levi's reference (2026-10-07), scaled x0.8 to the 16px body: the 24px leading and trailing icons become 20px (Phosphor, bold weight, Levi).", "$extensions": { "modes": { "light": "{space.20}", "dark": "{space.20}" } } },
+      "clear": { "$type": "dimension", "$value": "{space.16}", "$description": "2026-10-07 \u00b7 Input material (physical-controls Tier 1), tuned in sc-tune. Levi's reference (2026-10-07), scaled x0.8 to the 16px body: the 15px clear mark becomes a 16px Phosphor X, bold.", "$extensions": { "modes": { "light": "{space.16}", "dark": "{space.16}" } } },
+      "clearTarget": { "$type": "dimension", "$value": "{space.32}", "$description": "2026-10-07 \u00b7 Input material (physical-controls Tier 1), tuned in sc-tune. The clear button around the 16px mark (32px); a field 48.8px tall gives it room, and its hit area reaches the field's edges.", "$extensions": { "modes": { "light": "{space.32}", "dark": "{space.32}" } } }
+    },
     "slider": {
       "track": { "$type": "dimension", "$value": "{space.4}", "$description": "2026-10-07 \u00b7 Slider material (physical-controls Tier 1; split from ProgressIndicator's interactive bar, Levi 2026-10-07: a progress indicator is read, a slider is moved. A recessed track and a physical thumb, lit from the top left; the thumb carries the non-text contrast cue the fill misses), tuned in sc-tune. Track height at rest. Shipped = size.progress.bar-height (4px, today); its own role so the progress bar keeps its height when the slider tunes.", "$extensions": { "modes": { "light": "{space.4}", "dark": "{space.4}" } } },
       "trackActive": { "$type": "dimension", "$value": "{space.micro.6}", "$description": "2026-10-07 \u00b7 Slider (physical-controls Tier 1; split from ProgressIndicator's interactive bar, Levi 2026-10-07). Track height while dragged (6px). Shipped = size.progress.bar-height-active, which the slider read before the split.", "$extensions": { "modes": { "light": "{space.micro.6}", "dark": "{space.micro.6}" } } },
@@ -1446,9 +1450,9 @@
         },
         "input": {
           "$type": "dimension",
-          "$value": "{space.12}",
-          "$description": "2026-10-07 \u00b7 Input material (physical-controls Tier 1: a true recessed well, the focus underline stays, a hover state), tuned in sc-tune. Inline padding inside the field. Shipped = padding-inline.md (12px, today); its own role so a tune never moves SegmentedControl, NavBar, Tooltip or Badge (CONTEXT finding 5).",
-          "$extensions": { "modes": { "light": "{space.12}", "dark": "{space.12}" } }
+          "$value": "{space.16}",
+          "$description": "2026-10-07 \u00b7 Input material (physical-controls Tier 1: a true recessed well, the focus underline stays, a hover state), tuned in sc-tune. Inline padding inside the field. Shipped = padding-inline.md (12px, today); its own role so a tune never moves SegmentedControl, NavBar, Tooltip or Badge (CONTEXT finding 5). Levi's reference (2026-10-07), scaled x0.8 to the 16px body: 20px inline padding becomes 16px. Was 12px.",
+          "$extensions": { "modes": { "light": "{space.16}", "dark": "{space.16}" } }
         }
       },
       "padding-block": {
@@ -1478,9 +1482,9 @@
         },
         "input": {
           "$type": "dimension",
-          "$value": "{space.8}",
-          "$description": "2026-10-07 \u00b7 Input material (physical-controls Tier 1: a true recessed well, the focus underline stays, a hover state), tuned in sc-tune. Block padding inside the field. Shipped = padding-block.md (8px, today); its own role (CONTEXT finding 5).",
-          "$extensions": { "modes": { "light": "{space.8}", "dark": "{space.8}" } }
+          "$value": "{space.12}",
+          "$description": "2026-10-07 \u00b7 Input material (physical-controls Tier 1: a true recessed well, the focus underline stays, a hover state), tuned in sc-tune. Block padding inside the field. Shipped = padding-block.md (8px, today); its own role (CONTEXT finding 5). Levi's reference (2026-10-07), scaled x0.8 to the 16px body: 12px block padding gives a 48.8px field (16px body, 1.55 line). Was 8px.",
+          "$extensions": { "modes": { "light": "{space.12}", "dark": "{space.12}" } }
         }
       },
       "gap": {
@@ -1513,6 +1517,12 @@
           "$value": "{space.4}",
           "$description": "2026-10-07 \u00b7 Input material (physical-controls Tier 1: a true recessed well, the focus underline stays, a hover state), tuned in sc-tune. Label, field and helper rhythm. Shipped = gap.sm (4px, today); its own role (CONTEXT finding 5).",
           "$extensions": { "modes": { "light": "{space.4}", "dark": "{space.4}" } }
+        },
+        "input-inline": {
+          "$type": "dimension",
+          "$value": "{space.16}",
+          "$description": "2026-10-07 \u00b7 Input material (physical-controls Tier 1), tuned in sc-tune. Levi's reference (2026-10-07), scaled x0.8 to the 16px body: the gap between the leading icon, the value, the suffix and the clear or trailing icon (21px measured, 16px here).",
+          "$extensions": { "modes": { "light": "{space.16}", "dark": "{space.16}" } }
         }
       }
     },
