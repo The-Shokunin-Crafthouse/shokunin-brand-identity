@@ -678,9 +678,35 @@ function springToLinearMeta(sp) {
   return { settleMs: r.settleMs, overshoot: round(r.overshoot, 3), framerMotion: { type: 'spring', stiffness: sp.stiffness, damping: sp.damping, mass: sp.mass } };
 }
 
+/* An unregistered ?c= name says so. It used to fall back to the Switch,
+   so a mistyped or missing entry silently opened (and saved into) the
+   Switch session. */
+function NoEntry({ name }) {
+  return (
+    <div className={s.app}>
+      <header className={s.bar}>
+        <span className={s.brand}>sc-tune</span>
+        <select aria-label="Subject" value="" onChange={(e) => { location.search = `?c=${e.target.value}`; }}>
+          <option value="" disabled>choose a subject</option>
+          {Object.keys(REGISTRY).map((c) => <option key={c}>{c}</option>)}
+        </select>
+      </header>
+      <main className={s.stages}>
+        <p className={s.meta} role="alert">no lab entry for {name}</p>
+      </main>
+    </div>
+  );
+}
+
+function Lab() {
+  const asked = new URLSearchParams(location.search).get('c');
+  if (!SNAPSHOT && asked !== null && !Object.hasOwn(REGISTRY, asked)) return <NoEntry name={asked} />;
+  return <Tune />;
+}
+
 // Guard: a snapshot served through the dev server can evaluate twice.
 const host = document.getElementById('root');
 if (!host.dataset.mounted) {
   host.dataset.mounted = 'true';
-  ReactDOM.createRoot(host).render(<Tune />);
+  ReactDOM.createRoot(host).render(<Lab />);
 }

@@ -26,6 +26,7 @@ import { Button } from '../../src/components/Button/Button.jsx';
 import { Tooltip } from '../../src/components/Tooltip/Tooltip.jsx';
 import { NavBar } from '../../src/components/NavBar/NavBar.jsx';
 import { PlusUnderline } from '../../src/components/PlusUnderline/PlusUnderline.jsx';
+import { ProgressIndicator } from '../../src/components/ProgressIndicator/ProgressIndicator.jsx';
 import switchCss from '../../src/components/Switch/Switch.module.css?raw';
 import stepperCss from '../../src/components/Stepper/Stepper.module.css?raw';
 import iconCss from '../../src/components/Icon/Icon.module.css?raw';
@@ -34,6 +35,7 @@ import buttonCss from '../../src/components/Button/Button.module.css?raw';
 import tooltipCss from '../../src/components/Tooltip/Tooltip.module.css?raw';
 import navBarCss from '../../src/components/NavBar/NavBar.module.css?raw';
 import underlineCss from '../../src/components/PlusUnderline/PlusUnderline.module.css?raw';
+import progressCss from '../../src/components/ProgressIndicator/ProgressIndicator.module.css?raw';
 import s from './Tune.module.css';
 
 const SEGMENTS = ['day', 'week', 'month'];
@@ -88,6 +90,21 @@ const MATERIAL = {
 };
 /* One seed per mode from MATERIAL: map(m) → { token: value }. */
 const perMode = (map) => ({ light: map(MATERIAL.light), dark: map(MATERIAL.dark) });
+
+/*
+ * The Switch knob's values (record Switch 2026-10-07-1539 B: rim white →
+ * warmGray.200 over a warmGray.50 → 100 face; dark rim dark.textPrimary →
+ * warmGray.350 over warmGray.200 → dark.textTertiary), copied as values so
+ * the ProgressIndicator thumb never reads a Switch token. The Switch runs its
+ * gradients top to bottom; the thumb runs them at 135deg, the system light.
+ */
+const KNOB = {
+  light: { rimTop: '#FFFFFF', rimBottom: '#D8D1CC', faceTop: '#F1EFEB', faceBottom: '#E3DFD8' },
+  dark: { rimTop: '#EAE8E3', rimBottom: '#9A9186', faceTop: '#D8D1CC', faceBottom: '#B3B1AD' },
+};
+
+/* Set on a keyboard step so the lab's tick plays on keys only, never on a drag. */
+let keyStep = false;
 
 /* ---------- motion sandbox ---------- */
 
@@ -329,6 +346,64 @@ export const REGISTRY = {
             <PlusUnderline active={x === p.active} />
           </button>
         ))}
+      </div>
+    ),
+  },
+  ProgressIndicator: {
+    css: [progressCss],
+    // The interactive bar only; static meters stay flat (Levi, 2026-10-07).
+    // Thumb stretch and squash are read by ProgressIndicator.jsx.
+    jsTokens: reel('progress-slider', { press: false }).jsTokens,
+    seed: {
+      overrides: {
+        ...reel('progress-slider', { press: false }).seed.overrides,
+        // The Switch knob's diameter and press scale (values, not its tokens).
+        '--sc-size-progress-slider-thumb': '15px',
+        '--sc-motion-progress-slider-thumb-press-scale': '0.985',
+      },
+      springs: reel('progress-slider', { press: false }).seed.springs,
+      // Track = the top-left recess; thumb face = the Switch knob at 135deg;
+      // thumb lift = the Button key, softened to keyPressed while dragged.
+      scoped: perMode((m) => {
+        const k = m === MATERIAL.light ? KNOB.light : KNOB.dark;
+        return {
+          '--sc-shadow-progress-slider-track': m.recess,
+          '--sc-color-progress-slider-thumb-rim-top': k.rimTop,
+          '--sc-color-progress-slider-thumb-rim-bottom': k.rimBottom,
+          '--sc-color-progress-slider-thumb-face-top': k.faceTop,
+          '--sc-color-progress-slider-thumb-face-bottom': k.faceBottom,
+          '--sc-shadow-progress-slider-thumb': m.key,
+          '--sc-shadow-progress-slider-thumb-pressed': m.keyPressed,
+        };
+      }),
+    },
+    // Optional tick on keyboard steps: ships silent, Levi picks in the lab.
+    shippedSound: null,
+    trigger: 'a keyboard step that changes the value (ships silent)',
+    props: [
+      { name: 'value', type: 'range', min: 0, max: 1, step: 0.01, default: 0.5 },
+      { name: 'disabled', type: 'boolean', default: false },
+      { name: 'label', type: 'text', default: 'Volume' },
+    ],
+    play: (p, set) => set('value', p.value >= 0.75 ? 0.25 : 0.75),
+    render: (p, set, sound) => (
+      <div
+        style={{ width: 'calc(var(--sc-space-layout-stack-xl) * 3)' }}
+        onKeyDownCapture={() => { keyStep = true; }}
+        onKeyUpCapture={() => { keyStep = false; }}
+      >
+        <ProgressIndicator
+          variant="bar"
+          interactive
+          value={p.value}
+          disabled={p.disabled}
+          label={p.label}
+          onChange={(v) => {
+            const next = Math.round(v * 100) / 100;
+            if (keyStep && next !== p.value) sound();
+            set('value', next);
+          }}
+        />
       </div>
     ),
   },
