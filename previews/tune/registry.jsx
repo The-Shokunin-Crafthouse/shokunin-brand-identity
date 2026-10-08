@@ -376,9 +376,9 @@ export const REGISTRY = {
         };
       }),
     },
-    // Optional tick on keyboard steps: ships silent, Levi picks in the lab.
-    shippedSound: null,
-    trigger: 'a keyboard step that changes the value (ships silent)',
+    // The slide role sound (Drams 009), Levi's pick in record 2026-10-07-2207.
+    shippedSound: 'drams-009-01.wav',
+    trigger: 'a keyboard step that changes the value; a drag is silent',
     props: [
       { name: 'value', type: 'range', min: 0, max: 1, step: 0.01, default: 0.5 },
       { name: 'disabled', type: 'boolean', default: false },
@@ -395,6 +395,7 @@ export const REGISTRY = {
           value={p.value}
           disabled={p.disabled}
           label={p.label}
+          sound={false}
           onChange={(v) => {
             const next = Math.round(v * 100) / 100;
             if (keyStep && next !== p.value) sound();

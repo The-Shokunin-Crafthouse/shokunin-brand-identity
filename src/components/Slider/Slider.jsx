@@ -8,7 +8,11 @@
  * component for one release.
  *
  * API: value, onChange, min (0), max (1), step (0.01), bigStep (0.05),
- * label, disabled, className.
+ * label, disabled, sound (default true; SoundProvider can silence it
+ * app-wide), className.
+ *
+ * A keyboard step that changes the value plays the `slide` role sound
+ * (Drams 009, record Slider 2026-10-07-2207). A drag is silent.
  *
  * Pointer: pointerdown seeks to the click and starts a drag
  * (setPointerCapture keeps it live outside the track). Keyboard
@@ -27,6 +31,7 @@ import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react
 import {
   readElastic, isActive, prefersReducedMotion, travelFrames, run, cssRect, poseOf,
 } from '../../motion/elastic.js';
+import { useUISound } from '../../sound/SoundProvider.jsx';
 import styles from './Slider.module.css';
 
 export function Slider({
@@ -38,8 +43,10 @@ export function Slider({
   bigStep = 0.05,
   label,
   disabled = false,
+  sound = true,
   className = '',
 }) {
+  const playSlide = useUISound('slide', sound);
   const trackRef = useRef(null);
   const thumbRef = useRef(null);
   const [dragging, setDragging] = useState(false);
@@ -138,7 +145,10 @@ export function Slider({
         return;
     }
     e.preventDefault();
-    if (clamp(next) !== clamp(value)) markSeek();
+    if (clamp(next) !== clamp(value)) {
+      markSeek();
+      playSlide();
+    }
     onChange?.(clamp(next));
   };
 

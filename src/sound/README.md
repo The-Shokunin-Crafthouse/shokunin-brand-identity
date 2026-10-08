@@ -1,6 +1,6 @@
 # SCDS interaction sounds
 
-Four role sounds, one per component. See `decisions/decisions.md` (2026-10-07, scds-ui-sounds).
+Five role sounds, one per component. See `decisions/decisions.md` (2026-10-07, scds-ui-sounds).
 
 | Role | Component | File | Source |
 | --- | --- | --- | --- |
@@ -8,6 +8,7 @@ Four role sounds, one per component. See `decisions/decisions.md` (2026-10-07, s
 | `tick` | Stepper | `assets/tick.wav` | Drams 037 |
 | `select` | SegmentedControl | `assets/select.wav` | Drams 001 |
 | `press` | Button | `assets/press.wav` | Drams 029 |
+| `slide` | Slider (keyboard steps only) | `assets/slide.wav` | Drams 009 |
 
 Sounds by [Drams](https://drams.framer.website/), 1042.Studio (@mrblackstudio, @karimeshrimp). Drams permits personal and commercial use with credit. Any product that ships these sounds credits Drams.
 
