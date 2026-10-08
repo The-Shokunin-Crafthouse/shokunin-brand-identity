@@ -711,6 +711,10 @@
           "auto": { "$type": "color", "$value": "{color.card.glass.hover.light}", "$description": "2026-10-08 \u00b7 Card glass (physical-controls Tier 2). Auto tone, the default (Levi: a rule that can be broken based on what the card sits on): the light tone in light mode, the dark tone in dark mode, so the glass pushes the backdrop away from the text ink. A card breaks it with tone=light or tone=dark when the backdrop already gives the text its contrast. Interactive hover veil.", "$extensions": { "modes": { "light": "{color.card.glass.hover.light}", "dark": "{color.card.glass.hover.dark}" } } }
         }
       }
+    },
+    "tooltip": {
+      "surface": { "$type": "color", "$value": "{color.warmGray.800}", "$description": "2026-10-08 \u00b7 Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. Bubble ground. Shipped = surface.inverse (today: ink in light, near-white in dark); its own role so the tooltip tunes without moving PlusField and the other inverse grounds. The lab starts concept A from the Button key fill (surface.raised values).", "$extensions": { "modes": { "light": "{color.warmGray.800}", "dark": "{color.warmGray.50}" } } },
+      "text": { "$type": "color", "$value": "{color.warmGray.50}", "$description": "2026-10-08 \u00b7 Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. Bubble text. Shipped = text-on-inverse (today); its own role, paired with color.tooltip.surface. The lab starts concept A from text.primary values.", "$extensions": { "modes": { "light": "{color.warmGray.50}", "dark": "{color.warmGray.800}" } } }
     }
   },
   "border": {
@@ -746,6 +750,7 @@
   "radius": {
     "field": { "$type": "dimension", "$value": "{radius.default}", "$description": "2026-10-07 \u00b7 Input material (physical-controls Tier 1), tuned in sc-tune. Levi's reference (2026-10-07), scaled x0.8 to the 16px body: the 6px corner scales to 4.8px; the nearest radius step is 3px (radius.input). Its own role so the field tunes without moving other controls. Levi, 2026-10-07: 8px (radius.default); was 3px (radius.input).", "$extensions": {"modes": {"light": "{radius.default}", "dark": "{radius.default}"}} },
     "card": { "$type": "dimension", "$value": "{radius.surface}", "$description": "2026-10-07 \u00b7 Card (physical-controls Tier 2: flat, or liquid glass in three levels and two tones, Levi 2026-10-08). Corner. Shipped = radius.surface (8px, today); its own role so the card tunes without moving the Button and Alert, which share radius.surface.", "$extensions": { "modes": { "light": "{radius.surface}", "dark": "{radius.surface}" } } },
+    "tooltip": { "$type": "dimension", "$value": "{radius.input}", "$description": "2026-10-08 \u00b7 Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. Corner. Shipped = radius.control (radius.input, 3px, today); its own role so the tooltip tunes without moving the controls that share radius.control.", "$extensions": { "modes": { "light": "{radius.input}", "dark": "{radius.input}" } } },
     "control": {
       "$type": "dimension",
       "$value": "{radius.input}",
@@ -874,6 +879,9 @@
           "auto": { "$type": "shadow", "$value": "{shadow.card.glass.text.light}", "$description": "2026-10-08 \u00b7 Card glass (physical-controls Tier 2). Auto tone, the default (Levi: a rule that can be broken based on what the card sits on): the light tone in light mode, the dark tone in dark mode, so the glass pushes the backdrop away from the text ink. A card breaks it with tone=light or tone=dark when the backdrop already gives the text its contrast. Text halo.", "$extensions": { "modes": { "light": "{shadow.card.glass.text.light}", "dark": "{shadow.card.glass.text.dark}" } } }
         }
       }
+    },
+    "tooltip": {
+      "plate": { "$type": "shadow", "$value": "inset 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)", "$description": "2026-10-08 \u00b7 Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. Lift of the bubble. Shipped with zero alpha (flat, today); the lab starts concept A from shadow.control.key, the Button key, lit from the top left. Snaps, never transitions (tokens:verify rule 6).", "$extensions": { "modes": { "light": "inset 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)", "dark": "inset 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)" } } }
     }
   },
   "motion": {
@@ -1278,6 +1286,10 @@
     }
   },
   "size": {
+    "tooltip": {
+      "arrow": { "$type": "dimension", "$value": "{space.4}", "$description": "2026-10-08 \u00b7 Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. Arrow leg: the triangle under the bubble is this tall and twice this wide. Shipped = gap.sm (4px, today); its own role. 0 drops the arrow.", "$extensions": { "modes": { "light": "{space.4}", "dark": "{space.4}" } } },
+      "lift": { "$type": "dimension", "$value": "{space.4}", "$description": "2026-10-08 \u00b7 Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. How far the bubble rises as it opens (it starts this far below its rest). Shipped = gap.sm (4px, today); its own role, apart from the arrow.", "$extensions": { "modes": { "light": "{space.4}", "dark": "{space.4}" } } }
+    },
     "card": {
       "glass": {
         "clear": {
@@ -1513,6 +1525,12 @@
           "$value": "{space.16}",
           "$description": "2026-10-07 \u00b7 Input material (physical-controls Tier 1: a true recessed well, the focus underline stays, a hover state), tuned in sc-tune. Inline padding inside the field. Shipped = padding-inline.md (12px, today); its own role so a tune never moves SegmentedControl, NavBar, Tooltip or Badge (CONTEXT finding 5). Levi's reference (2026-10-07), scaled x0.8 to the 16px body: 20px inline padding becomes 16px. Was 12px.",
           "$extensions": { "modes": { "light": "{space.16}", "dark": "{space.16}" } }
+        },
+        "tooltip": {
+          "$type": "dimension",
+          "$value": "{space.12}",
+          "$description": "2026-10-08 \u00b7 Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. Inline padding. Shipped = padding-inline.md (12px, today); its own role (CONTEXT finding 5) so the tooltip tunes without moving NavBar, SegmentedControl and Badge.",
+          "$extensions": { "modes": { "light": "{space.12}", "dark": "{space.12}" } }
         }
       },
       "padding-block": {
@@ -1545,6 +1563,12 @@
           "$value": "{space.12}",
           "$description": "2026-10-07 \u00b7 Input material (physical-controls Tier 1: a true recessed well, the focus underline stays, a hover state), tuned in sc-tune. Block padding inside the field. Shipped = padding-block.md (8px, today); its own role (CONTEXT finding 5). Levi's reference (2026-10-07), scaled x0.8 to the 16px body: 12px block padding gives a 48.8px field (16px body, 1.55 line). Was 8px.",
           "$extensions": { "modes": { "light": "{space.12}", "dark": "{space.12}" } }
+        },
+        "tooltip": {
+          "$type": "dimension",
+          "$value": "{space.8}",
+          "$description": "2026-10-08 \u00b7 Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. Block padding. Shipped = padding-block.md (8px, today); its own role (CONTEXT finding 5).",
+          "$extensions": { "modes": { "light": "{space.8}", "dark": "{space.8}" } }
         }
       },
       "gap": {
@@ -1583,6 +1607,12 @@
           "$value": "{space.16}",
           "$description": "2026-10-07 \u00b7 Input material (physical-controls Tier 1), tuned in sc-tune. Levi's reference (2026-10-07), scaled x0.8 to the 16px body: the gap between the leading icon, the value, the suffix and the clear or trailing icon (21px measured, 16px here).",
           "$extensions": { "modes": { "light": "{space.16}", "dark": "{space.16}" } }
+        },
+        "tooltip": {
+          "$type": "dimension",
+          "$value": "{space.8}",
+          "$description": "2026-10-08 \u00b7 Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. Offset between the trigger and the arrow tip. Shipped = gap.md (8px, today); its own role (CONTEXT finding 5).",
+          "$extensions": { "modes": { "light": "{space.8}", "dark": "{space.8}" } }
         }
       }
     },
