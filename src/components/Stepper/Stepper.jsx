@@ -17,8 +17,9 @@
  * Readout roll (src/motion/elastic.js, tokens --sc-motion-stepper-*): on a
  * committed step the new numeral rolls into the readout from below
  * (increase) or above (decrease), clipped by its box, along the travel
- * curve, lengthening and narrowing with speed. Shipped, roll, stretch and squash are 0 and the
- * numeral changes in place as before.
+ * curve, lengthening and narrowing with speed (record Stepper
+ * 2026-10-07-1847 A: roll 1, stretch 0.45, 1062ms spring). Roll, stretch
+ * and squash at 0 turn it off; reduced motion skips it.
  */
 
 import { useEffect, useLayoutEffect, useRef } from 'react';

@@ -1,15 +1,15 @@
 /* tokens:
  *   --sc-color-stepper-track        · recessed pill ground (role token, = surface.sunk)
- *   --sc-color-stepper-key          · ± key face at rest (role token; shipped transparent)
+ *   --sc-color-stepper-key          · ± key face at rest (= surface.raised, the Button key fill)
  *   --sc-color-stepper-key-hover / -key-hover-ink · hover face and glyph (= Button primary hover: teal.600, white)
  *   --sc-color-stepper-key-pressed / -key-pressed-ink · pressed face and glyph (= brand.accentDeep teal.700, white)
- *   --sc-color-stepper-key-shade    · 135deg face shade on each key (Button key face; shipped transparent)
- *   --sc-shadow-stepper-track       · recess of the pill (shipped zero alpha)
- *   --sc-shadow-stepper-key         · key lift at rest (shipped zero alpha)
+ *   --sc-color-stepper-key-shade    · 135deg face shade on each key (= control.keyShade, the Button key face)
+ *   --sc-shadow-stepper-track       · recess of the pill, top left (record Stepper 2026-10-07-1847 A)
+ *   --sc-shadow-stepper-key         · key lift at rest (= shadow.control.key, the Button key)
  *   --sc-shadow-stepper-key-hover / -key-pressed · hover lift and press (= Button primary: control.keyHover / keyPressed)
- *   --sc-motion-stepper-travel-duration / -easing · readout roll (Stepper.jsx; inert while roll, stretch and squash are 0)
- *   --sc-motion-stepper-roll / -stretch / -squash  · roll distance and numeral stretch/squash (Stepper.jsx; 0 = off)
- *   --sc-motion-stepper-glyph-press-scale · ± glyph's own press scale, on top of the key's (1 = with the key only)
+ *   --sc-motion-stepper-travel-duration / -easing · readout roll: 1062ms spring (Stepper.jsx)
+ *   --sc-motion-stepper-roll / -stretch / -squash  · roll 1 height, stretch 0.45, squash 0 (Stepper.jsx; 0 = off)
+ *   --sc-motion-stepper-glyph-press-scale · ± glyph's own press scale, 0.85, on top of the key's 0.985
  *   --sc-color-text-primary         · button ink + readout numeral
  *   --sc-color-text-disabled        · disabled button + readout
  *   --sc-color-border-focus         · focus ring
@@ -18,7 +18,7 @@
  *   --sc-radius-pill                · control + button radius
  *   --sc-radius-control             · readout focus-ring radius
  *   --sc-size-icon-md               · glyph box (buttons sized off this via calc, no new size token)
- *   --sc-space-component-gap-sm     · control → readout gaps
+ *   --sc-space-component-gap-stepper · key → readout gaps and readout inline padding (role token, 8)
  *   --sc-space-component-padding-sm · control inset + button hit-area padding
  *   --sc-font-text-mono-body-*      · numeral readout (mono)
  *   --sc-motion-hover-duration / -easing  · key bg/color transition (shadow changes snap)
@@ -28,7 +28,7 @@
 .stepper {
   display: inline-flex;
   align-items: center;
-  gap: var(--sc-space-component-gap-sm);
+  gap: var(--sc-space-component-gap-stepper);
   padding: var(--sc-space-component-padding-sm);
   border-radius: var(--sc-radius-pill);
   background-color: var(--sc-color-stepper-track);
@@ -45,8 +45,8 @@
   height: calc(var(--sc-size-icon-md) + 2 * var(--sc-space-component-padding-sm));
   border: none;
   border-radius: var(--sc-radius-pill);
-  /* A small Drams 036 key: fill, a 135deg face shade, a lift lit from the
-     top left. Shipped transparent and flat (today's ghost buttons). */
+  /* A small Drams 036 key: the Button key's fill, 135deg face shade and
+     top-left lift (record Stepper 2026-10-07-1847 A). */
   background-color: var(--sc-color-stepper-key);
   background-image: linear-gradient(135deg, transparent, var(--sc-color-stepper-key-shade));
   box-shadow: var(--sc-shadow-stepper-key);
@@ -102,7 +102,7 @@
   /* Fixed to two digits, so 9 → 10 never moves the keys (Levi,
      2026-10-07). border-box: the padding and the tracking after each digit
      sit inside the width. A third character (−10, 100) still grows it. */
-  min-width: calc(2ch + 2 * var(--sc-font-text-mono-body-letter-spacing) + 2 * var(--sc-space-component-gap-sm));
+  min-width: calc(2ch + 2 * var(--sc-font-text-mono-body-letter-spacing) + 2 * var(--sc-space-component-gap-stepper));
   text-align: center;
   font-variant-numeric: tabular-nums;
   font-family: var(--sc-font-text-mono-body-family);
@@ -111,7 +111,7 @@
   line-height: var(--sc-font-text-mono-body-line-height);
   letter-spacing: var(--sc-font-text-mono-body-letter-spacing);
   color: var(--sc-color-text-primary);
-  padding-inline: var(--sc-space-component-gap-sm);
+  padding-inline: var(--sc-space-component-gap-stepper);
   user-select: none;
   /* No window, no inset (Levi, 2026-10-07): the numeral sits flat on the
      pill. Its box still clips the roll. */

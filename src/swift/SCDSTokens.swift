@@ -171,8 +171,8 @@ public enum SCDS {
     public static let semanticVersion = "0.1.0"
     public static let sourceGenerated = "2026-05-26"
     public static let primitivesHash = "f96efa487bcac29d"
-    public static let semanticHash = "9ced6241f364b637"
-    public static let tokenCount = 215
+    public static let semanticHash = "e20775b1c914c470"
+    public static let tokenCount = 216
   }
 
   // MARK: - Color
@@ -559,8 +559,8 @@ public enum SCDS {
 
     /// `color.stepper.key`
     public static let stepperKey = SwiftUI.Color.scdsDynamic(
-        light: (0.101961, 0.094118, 0.082353, 0),
-        dark:  (0.101961, 0.094118, 0.082353, 0)
+        light: (0.945098, 0.937255, 0.921569, 1),
+        dark:  (0.203922, 0.227451, 0.254902, 1)
     )
 
     /// `color.stepper.keyHover`
@@ -589,8 +589,8 @@ public enum SCDS {
 
     /// `color.stepper.keyShade`
     public static let stepperKeyShade = SwiftUI.Color.scdsDynamic(
-        light: (0.101961, 0.094118, 0.082353, 0),
-        dark:  (0.101961, 0.094118, 0.082353, 0)
+        light: (0.101961, 0.094118, 0.082353, 0.05),
+        dark:  (0.101961, 0.094118, 0.082353, 0.25)
     )
   }
 
@@ -963,6 +963,9 @@ public enum SCDS {
 
     /// `space.component.gap.lg`
     public static let componentGapLg: CGFloat = 12
+
+    /// `space.component.gap.stepper`
+    public static let componentGapStepper: CGFloat = 8
   }
 
   // MARK: - Radius
@@ -1212,20 +1215,20 @@ public enum SCDS {
     /// `motion.tooltip.squash`
     public static let tooltipSquash: CGFloat = 0
 
-    /// `motion.stepper.travel.duration` · 200ms
-    public static let stepperTravelDuration: TimeInterval = 0.2
+    /// `motion.stepper.travel.duration` · 1062ms
+    public static let stepperTravelDuration: TimeInterval = 1.062
 
-    /// `motion.stepper.travel.easing`
-    public static let stepperTravelEasing = SCDSEasing(0.22, 1, 0.36, 1)
+    /// `motion.stepper.travel.easing` · spring k146 c24.17 m1, settles in 1062ms, overshoot 0%
+    public static let stepperTravelEasing = SCDSSpring(stiffness: 146, damping: 24.17, mass: 1, settle: 1.062)
 
     /// `motion.stepper.glyphPressScale`
-    public static let stepperGlyphPressScale: CGFloat = 1
+    public static let stepperGlyphPressScale: CGFloat = 0.85
 
     /// `motion.stepper.roll`
-    public static let stepperRoll: CGFloat = 0
+    public static let stepperRoll: CGFloat = 1
 
     /// `motion.stepper.stretch`
-    public static let stepperStretch: CGFloat = 0
+    public static let stepperStretch: CGFloat = 0.45
 
     /// `motion.stepper.squash`
     public static let stepperSquash: CGFloat = 0
@@ -1356,20 +1359,22 @@ public enum SCDS {
     /// `shadow.stepper.track` · 1 layers
     public static let stepperTrack = SCDSShadow(
         light: [
-            SCDSShadowLayer(inset: true, x: 0, y: 0, blur: 0, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0),
+            SCDSShadowLayer(inset: true, x: 0.71, y: 0.71, blur: 2, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0.25),
         ],
         dark: [
-            SCDSShadowLayer(inset: true, x: 0, y: 0, blur: 0, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0),
+            SCDSShadowLayer(inset: true, x: 0.71, y: 0.71, blur: 2, spread: 0, rgb: (0, 0, 0), alpha: 0.45),
         ]
     )
 
-    /// `shadow.stepper.key` · 1 layers
+    /// `shadow.stepper.key` · 2 layers
     public static let stepperKey = SCDSShadow(
         light: [
-            SCDSShadowLayer(inset: false, x: 0, y: 0, blur: 0, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0),
+            SCDSShadowLayer(inset: false, x: 2, y: 2, blur: 6, spread: 0, rgb: (0.392157, 0.356863, 0.309804), alpha: 0.5),
+            SCDSShadowLayer(inset: false, x: -1, y: -1, blur: 1, spread: 1, rgb: (0.992157, 0.980392, 0.964706), alpha: 1),
         ],
         dark: [
-            SCDSShadowLayer(inset: false, x: 0, y: 0, blur: 0, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0),
+            SCDSShadowLayer(inset: false, x: 3, y: 3, blur: 7, spread: 0, rgb: (0, 0, 0), alpha: 0.5),
+            SCDSShadowLayer(inset: false, x: -1, y: -1, blur: 1, spread: 1, rgb: (0.858824, 0.921569, 1), alpha: 0.17),
         ]
     )
 

@@ -5,7 +5,7 @@
 # Design Token Map — The Shokunin Crafthouse · Brand Identity
 
 **Generated** from `tokens/primitives.json` + `tokens/semantic.json`.
-**Source fingerprint:** `66f055f500e8` · **186 primitives · 215 semantic tokens.**
+**Source fingerprint:** `f3527cf0bc87` · **186 primitives · 216 semantic tokens.**
 
 > **This file is a mirror, not the source.** `tokens/*.json` is upstream; this document and the Figma
 > library are generated from / synced to it. It previously claimed the opposite — that both were
@@ -586,12 +586,12 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
 |---|---|---|---|---|---|---|
 | `color/stepper/track` | `--sc-color-stepper-track` | `color/warmGray/200` | `#D8D1CC` | `color/dark/well` | `#1F252C` | 2026-10-07 · Stepper material (physical-controls Tier 1: ± as small Drams 036 keys on a recessed pill; the numeral sits flat, no window, Levi 2026-10-07), tuned in sc-tune. |
-| `color/stepper/key` | `--sc-color-stepper-key` | _literal_ | `rgb(var(--sc-p-color-ink-rgb) / 0)` | _literal_ | `rgb(var(--sc-p-color-ink-rgb) / 0)` | 2026-10-07 · Stepper material (physical-controls Tier 1: ± as small Drams 036 keys on a recessed pill; the numeral sits flat, no window, Levi 2026-10-07), tuned in sc-tune. |
+| `color/stepper/key` | `--sc-color-stepper-key` | `color/surface/raised` | `⚠ unresolved` | `color/surface/raised` | `⚠ unresolved` | 2026-10-07 · Stepper material (physical-controls Tier 1: ± as small Drams 036 keys on a recessed pill; the numeral sits flat, no window, Levi 2026-10-07), tuned in sc-tune. |
 | `color/stepper/keyHover` | `--sc-color-stepper-key-hover` | `color/control/keyHoverFill` | `⚠ unresolved` | `color/control/keyHoverFill` | `⚠ unresolved` | 2026-10-07 · Stepper material (physical-controls Tier 1), Levi's direction in the lab: hover is his Button primary hover, pressed one accent step darker. |
 | `color/stepper/keyHoverInk` | `--sc-color-stepper-key-hover-ink` | `color/control/keyHoverInk` | `⚠ unresolved` | `color/control/keyHoverInk` | `⚠ unresolved` | 2026-10-07 · Stepper material (physical-controls Tier 1), Levi's direction in the lab: hover is his Button primary hover, pressed one accent step darker. ± glyph on hover = control.keyHoverInk (white), fading in on the hover transition. |
 | `color/stepper/keyPressed` | `--sc-color-stepper-key-pressed` | `color/brand/accentDeep` | `⚠ unresolved` | `color/brand/accentDeep` | `⚠ unresolved` | 2026-10-07 · Stepper material (physical-controls Tier 1), Levi's direction in the lab: hover is his Button primary hover, pressed one accent step darker. |
 | `color/stepper/keyPressedInk` | `--sc-color-stepper-key-pressed-ink` | `color/text/onAccent` | `⚠ unresolved` | `color/text/onAccent` | `⚠ unresolved` | 2026-10-07 · Stepper material (physical-controls Tier 1), Levi's direction in the lab: hover is his Button primary hover, pressed one accent step darker. ± glyph while pressed = text.onAccent (white), as the Button primary's pressed label. |
-| `color/stepper/keyShade` | `--sc-color-stepper-key-shade` | _literal_ | `rgb(var(--sc-p-color-ink-rgb) / 0)` | _literal_ | `rgb(var(--sc-p-color-ink-rgb) / 0)` | 2026-10-07 · Stepper material (physical-controls Tier 1: ± as small Drams 036 keys on a recessed pill; the numeral sits flat, no window, Levi 2026-10-07), tuned in sc-tune. |
+| `color/stepper/keyShade` | `--sc-color-stepper-key-shade` | `color/control/keyShade` | `⚠ unresolved` | `color/control/keyShade` | `⚠ unresolved` | 2026-10-07 · Stepper material (physical-controls Tier 1: ± as small Drams 036 keys on a recessed pill; the numeral sits flat, no window, Levi 2026-10-07), tuned in sc-tune. |
 
 ### Typography · Semantic
 
@@ -650,6 +650,7 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | `space/component/gap/sm` | `--sc-space-component-gap-sm` | `space/4` | `4px` | `space/4` | `4px` | Sprint 4 addition · tightest inter-element gap (4px). |
 | `space/component/gap/md` | `--sc-space-component-gap-md` | `space/8` | `8px` | `space/8` | `8px` | Sprint 4 addition · default inter-element gap (8px). |
 | `space/component/gap/lg` | `--sc-space-component-gap-lg` | `space/12` | `12px` | `space/12` | `12px` | Sprint 4 addition · generous gap (12px). |
+| `space/component/gap/stepper` | `--sc-space-component-gap-stepper` | `space/8` | `8px` | `space/8` | `8px` | 2026-10-07 · Stepper role gap: between the pill's keys and the readout, and the readout's inline padding (8px). |
 
 #### `space/layout`
 
@@ -794,11 +795,11 @@ channel-triplet primitives) rather than an alias to a single primitive.
 
 | Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
 |---|---|---|---|---|---|---|
-| `motion/stepper/travel/duration` | `--sc-motion-stepper-travel-duration` | `motion/duration/micro` | `200ms` | `motion/duration/micro` | `200ms` | 2026-10-07 · Stepper readout roll (physical-controls Tier 1), engine src/motion/elastic.js via Stepper.jsx, tuned in sc-tune. |
-| `motion/stepper/travel/easing` | `--sc-motion-stepper-travel-easing` | `motion/easing/out` | `cubic-bezier(0.22, 1, 0.36, 1)` | `motion/easing/out` | `cubic-bezier(0.22, 1, 0.36, 1)` | 2026-10-07 · Stepper readout roll (physical-controls Tier 1), engine src/motion/elastic.js via Stepper.jsx, tuned in sc-tune. |
-| `motion/stepper/glyphPressScale` | `--sc-motion-stepper-glyph-press-scale` | _literal_ | `1` | _literal_ | `1` | 2026-10-07 · Stepper (physical-controls Tier 1), Levi: the ± should visibly scale on press. |
-| `motion/stepper/roll` | `--sc-motion-stepper-roll` | _literal_ | `0` | _literal_ | `0` | 2026-10-07 · Stepper readout roll (physical-controls Tier 1), engine src/motion/elastic.js via Stepper.jsx, tuned in sc-tune. |
-| `motion/stepper/stretch` | `--sc-motion-stepper-stretch` | _literal_ | `0` | _literal_ | `0` | 2026-10-07 · Stepper readout roll (physical-controls Tier 1), engine src/motion/elastic.js via Stepper.jsx, tuned in sc-tune. |
+| `motion/stepper/travel/duration` | `--sc-motion-stepper-travel-duration` | _literal_ | `1062ms` | _literal_ | `1062ms` | 2026-10-07 · Stepper readout roll (physical-controls Tier 1), engine src/motion/elastic.js via Stepper.jsx, tuned in sc-tune. |
+| `motion/stepper/travel/easing` | `--sc-motion-stepper-travel-easing` | _literal_ | `spring k146 c24.17 m1` | _literal_ | `spring k146 c24.17 m1` | 2026-10-07 · Stepper readout roll (physical-controls Tier 1), engine src/motion/elastic.js via Stepper.jsx, tuned in sc-tune. |
+| `motion/stepper/glyphPressScale` | `--sc-motion-stepper-glyph-press-scale` | _literal_ | `0.85` | _literal_ | `0.85` | 2026-10-07 · Stepper (physical-controls Tier 1), Levi: the ± should visibly scale on press. |
+| `motion/stepper/roll` | `--sc-motion-stepper-roll` | _literal_ | `1` | _literal_ | `1` | 2026-10-07 · Stepper readout roll (physical-controls Tier 1), engine src/motion/elastic.js via Stepper.jsx, tuned in sc-tune. |
+| `motion/stepper/stretch` | `--sc-motion-stepper-stretch` | _literal_ | `0.45` | _literal_ | `0.45` | 2026-10-07 · Stepper readout roll (physical-controls Tier 1), engine src/motion/elastic.js via Stepper.jsx, tuned in sc-tune. |
 | `motion/stepper/squash` | `--sc-motion-stepper-squash` | _literal_ | `0` | _literal_ | `0` | 2026-10-07 · Stepper readout roll (physical-controls Tier 1), engine src/motion/elastic.js via Stepper.jsx, tuned in sc-tune. |
 
 ### Shadow · Semantic
@@ -831,8 +832,8 @@ channel-triplet primitives) rather than an alias to a single primitive.
 
 | Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
 |---|---|---|---|---|---|---|
-| `shadow/stepper/track` | `--sc-shadow-stepper-track` | _literal_ | `inset 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)` | _literal_ | `inset 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)` | 2026-10-07 · Stepper material (physical-controls Tier 1: ± as small Drams 036 keys on a recessed pill; the numeral sits flat, no window, Levi 2026-10-07), tuned in sc-tune. |
-| `shadow/stepper/key` | `--sc-shadow-stepper-key` | _literal_ | `0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)` | _literal_ | `0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)` | 2026-10-07 · Stepper material (physical-controls Tier 1: ± as small Drams 036 keys on a recessed pill; the numeral sits flat, no window, Levi 2026-10-07), tuned in sc-tune. |
+| `shadow/stepper/track` | `--sc-shadow-stepper-track` | _literal_ | `inset 0.71px 0.71px 2px 0 rgb(var(--sc-p-color-ink-rgb) / 0.25)` | _literal_ | `inset 0.71px 0.71px 2px 0 rgb(0 0 0 / 0.45)` | 2026-10-07 · Stepper material (physical-controls Tier 1: ± as small Drams 036 keys on a recessed pill; the numeral sits flat, no window, Levi 2026-10-07), tuned in sc-tune. |
+| `shadow/stepper/key` | `--sc-shadow-stepper-key` | `shadow/control/key` | `⚠ unresolved` | `shadow/control/key` | `⚠ unresolved` | 2026-10-07 · Stepper material (physical-controls Tier 1: ± as small Drams 036 keys on a recessed pill; the numeral sits flat, no window, Levi 2026-10-07), tuned in sc-tune. |
 | `shadow/stepper/keyHover` | `--sc-shadow-stepper-key-hover` | `shadow/control/keyHover` | `⚠ unresolved` | `shadow/control/keyHover` | `⚠ unresolved` | 2026-10-07 · Stepper material (physical-controls Tier 1). |
 | `shadow/stepper/keyPressed` | `--sc-shadow-stepper-key-pressed` | `shadow/control/keyPressed` | `⚠ unresolved` | `shadow/control/keyPressed` | `⚠ unresolved` | 2026-10-07 · Stepper material (physical-controls Tier 1). |
 
