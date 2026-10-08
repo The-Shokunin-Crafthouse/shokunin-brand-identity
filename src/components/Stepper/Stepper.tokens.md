@@ -2,37 +2,43 @@
 
 Spec ref: Drams-component-mapping #8 (Plus Minus Knob → new component). Numeric increment/decrement, bordered-free control on the sunk ground.
 
-New component — every token below already existed in the semantic layer; no new tokens were added.
+Physical since record Stepper 2026-10-07-1847 concept A (Levi), applied 2026-10-07: ± keys are the Button key on a recessed pill, lit from the top left; hover and press are the Button primary's.
 
 ## Tokens
 
 | Token | Use |
 |---|---|
-| `--sc-color-surface-sunk` | control ground |
-| `--sc-color-surface-deep-sunk` | ± button hover/active ground |
-| `--sc-color-text-primary` | button ink (glyph) + readout numeral |
-| `--sc-color-text-disabled` | disabled button glyph + readout numeral |
-| `--sc-color-border-focus` | focus ring (buttons + readout) |
-| `--sc-border-width-focus` | focus ring weight |
-| `--sc-border-focus-offset` | focus ring offset |
-| `--sc-radius-pill` | control + button radius |
-| `--sc-radius-control` | readout's own focus-ring radius (smaller control-grade radius) |
-| `--sc-size-icon-md` | glyph box — button hit-area is `calc(icon-md + 2 × padding-sm)`, not a fixed pixel value |
-| `--sc-space-component-gap-sm` | control → readout gaps, readout inline padding |
-| `--sc-space-component-padding-sm` | control inset; also the padding half of each button's hit-area calc |
-| `--sc-font-text-mono-body-*` | numeral readout — mono, per the spec ("mono numeral readout") |
-| `--sc-motion-hover-duration` + `-easing` | button bg/color transition |
-| `--sc-motion-press-duration` + `-easing` + `-scale` | button press feedback — reuses the same press pair `Button` uses (0.985 scale, 160ms outStrong); the Stepper's ± buttons get the studio press affordance for free rather than inventing a second one |
+| `--sc-color-stepper-track` | pill ground (= surface.sunk) |
+| `--sc-shadow-stepper-track` | pill recess, top left |
+| `--sc-color-stepper-key` / `-key-shade` | key face fill and its 135deg shade (= surface.raised, control.keyShade) |
+| `--sc-shadow-stepper-key` | key lift at rest (= shadow.control.key) |
+| `--sc-color-stepper-key-hover` / `-key-hover-ink` | hover face and glyph (= control.keyHoverFill / keyHoverInk) |
+| `--sc-shadow-stepper-key-hover` | hover lift (= shadow.control.keyHover) |
+| `--sc-color-stepper-key-pressed` / `-key-pressed-ink` | pressed face and glyph (= brand.accentDeep / text.onAccent) |
+| `--sc-shadow-stepper-key-pressed` | pressed (= shadow.control.keyPressed) |
+| `--sc-color-text-primary` | glyph + readout numeral at rest |
+| `--sc-color-text-disabled` | disabled glyph + readout numeral |
+| `--sc-color-border-focus` / `--sc-border-width-focus` / `--sc-border-focus-offset` | focus ring (keys + readout) |
+| `--sc-radius-pill` / `--sc-radius-control` | control + key radius / readout radius |
+| `--sc-size-icon-md` | key hit-area is `calc(icon-md + 2 × padding-sm)` = 40 |
+| `--sc-space-component-gap-stepper` | key → readout gaps, readout inline padding (8; role token) |
+| `--sc-space-component-padding-sm` | control inset; also the padding half of each key's hit-area calc |
+| `--sc-font-text-mono-body-*` | numeral readout, fixed to two digits (`2ch` + tracking + padding) |
+| `--sc-motion-stepper-travel-*`, `-roll`, `-stretch`, `-squash` | readout roll: 1 height, stretch 0.45, 1062ms spring (Stepper.jsx, src/motion/elastic.js) |
+| `--sc-motion-stepper-glyph-press-scale` | glyph's own press scale, 0.85, on top of the key's |
+| `--sc-motion-hover-*` | key colour transition (the glyph fades to white); shadows snap |
+| `--sc-motion-press-*` | key press: 0.985 scale, 160ms outStrong |
 
-## States × tokens (each ± button)
+## States × tokens (each ± key)
 
 | State | Selector | Token shift |
 |---|---|---|
-| Default | resting | glyph: `--sc-color-text-primary` · ground transparent |
-| Hover | `:hover:not(:disabled)` | ground → `--sc-color-surface-deep-sunk` |
-| Focus | `:focus-visible` | ring: `--sc-color-border-focus` at `--sc-border-width-focus` / `--sc-border-focus-offset` |
-| Active / pressed (incl. held-repeat) | `:active:not(:disabled)` | ground stays `--sc-color-surface-deep-sunk` + `transform: scale(--sc-motion-press-scale)` |
-| Disabled (at bound) | native `:disabled` (`aria-disabled` mirrors it via `disabled` prop) | glyph: `--sc-color-text-disabled` · `cursor: not-allowed` — computed automatically from `value <= min` / `value >= max`, not a separate flag callers must track |
+| Default | resting | key face + shade + lift; glyph `text-primary` |
+| Hover | `:hover:not(:disabled)` | face `key-hover`, glyph `key-hover-ink`, lift `key-hover` |
+| Focus | `:focus-visible` | ring: `--sc-color-border-focus` |
+| Active / pressed (incl. held-repeat) | `:active:not(:disabled)` | face `key-pressed`, glyph `key-pressed-ink`, shadow `key-pressed`, key 0.985, glyph 0.85 |
+| Disabled (at bound) | native `:disabled` | flat: no face, shade or lift; glyph `text-disabled` |
+| Disabled (control) | `disabled` prop | whole control at 0.6; pill recess off |
 
 ## Hold-to-repeat
 

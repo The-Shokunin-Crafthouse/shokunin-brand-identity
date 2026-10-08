@@ -675,10 +675,10 @@ function StepperDemo({ defaultValue = 4, min = 0, max = 10, disabled = false }) 
 export function StepperPage() {
   return (
     <ComponentPage
-      id="stepper" label="Stepper" tokensN={15}
+      id="stepper" label="Stepper" tokensN={29}
       eyebrow={<>Stepper<Slash />new · Drams #8</>}
       title={<>Minus. Number. Plus. <Em>Nothing else on the control.</Em></>}
-      lead={<>A bounded numeric increment/decrement — Drams' Plus Minus Knob with the physical dial replaced by a borderless pill and the two ends replaced by Phosphor glyphs. The numeral sits in mono so it never re-flows as it changes width, and holding either end repeats until released.</>}
+      lead={<>A bounded numeric increment/decrement: Drams' Plus Minus Knob as two small keys on a recessed pill, lit from the top left like the Button key. The numeral sits flat in a two-digit mono readout, so the keys never move from 9 to 10, and rolls in from the direction of the step. Holding either key repeats until released.</>}
       statesTitle="Five states per button, one shared readout."
       callouts={[
         { title: 'Bounds disable, they do not just visually gray out', body: '± buttons use native disabled at min/max — computed from value against min/max on every render, never a separate flag a caller has to remember to set.' },
@@ -686,27 +686,34 @@ export function StepperPage() {
         { title: 'Hold-to-repeat cancels on leave, not just on release', body: 'pointerleave clears the repeat interval the same as pointerup — dragging off the button while holding it down cannot leave a runaway repeat firing in the background.' },
       ]}
       states={[
-        { name: 'Default', token: '--sc-color-surface-sunk', render: <StepperDemo defaultValue={4} /> },
-        { name: 'Hover (hover a button)', token: '--sc-color-surface-deep-sunk', render: <StepperDemo defaultValue={5} /> },
-        { name: 'Focus (tab to a button)', token: '--sc-color-border-focus', render: <StepperDemo defaultValue={3} /> },
+        { name: 'Default', token: '--sc-color-stepper-key', render: <StepperDemo defaultValue={4} /> },
+        { name: 'Hover (hover a key)', token: '--sc-color-stepper-key-hover', render: <StepperDemo defaultValue={5} /> },
+        { name: 'Focus (tab to a key)', token: '--sc-color-border-focus', render: <StepperDemo defaultValue={3} /> },
         { name: 'At min (− disabled)', token: '--sc-color-text-disabled', render: <StepperDemo defaultValue={0} min={0} max={10} /> },
         { name: 'Disabled', token: '--sc-color-text-disabled', render: <StepperDemo defaultValue={4} disabled /> },
       ]}
       tokenRows={[
-        { prop: 'Control ground', token: '--sc-color-surface-sunk' },
-        { prop: 'Button hover/active ground', token: '--sc-color-surface-deep-sunk' },
-        { prop: 'Button ink', token: '--sc-color-text-primary' },
+        { prop: 'Pill ground', token: '--sc-color-stepper-track' },
+        { prop: 'Pill recess', token: '--sc-shadow-stepper-track', light: 'inset top left' },
+        { prop: 'Key face', token: '--sc-color-stepper-key', light: '= surface.raised (Button key)' },
+        { prop: 'Key face shade', token: '--sc-color-stepper-key-shade', light: '135deg' },
+        { prop: 'Key lift', token: '--sc-shadow-stepper-key', light: '= shadow.control.key' },
+        { prop: 'Key hover', token: '--sc-color-stepper-key-hover', light: '= Button hover (teal.600)' },
+        { prop: 'Key hover glyph', token: '--sc-color-stepper-key-hover-ink', light: 'white' },
+        { prop: 'Key pressed', token: '--sc-color-stepper-key-pressed', light: 'teal.700' },
+        { prop: 'Key pressed glyph', token: '--sc-color-stepper-key-pressed-ink', light: 'white' },
         { prop: 'Disabled ink', token: '--sc-color-text-disabled' },
         { prop: 'Focus ring', token: '--sc-color-border-focus' },
         { prop: 'Radius (control)', token: '--sc-radius-pill' },
         { prop: 'Readout focus radius', token: '--sc-radius-control' },
         { prop: 'Glyph size', token: '--sc-size-icon-md' },
-        { prop: 'Control → readout gap', token: '--sc-space-component-gap-sm' },
+        { prop: 'Key → readout gap', token: '--sc-space-component-gap-stepper', light: '8px' },
         { prop: 'Control inset', token: '--sc-space-component-padding-sm' },
         { prop: 'Numeral type', token: '--sc-font-text-mono-body', light: 'mono 16 / regular' },
+        { prop: 'Readout roll', token: '--sc-motion-stepper-roll', light: '1 height · stretch 0.45 · 1062ms spring' },
         { prop: 'Hover motion', token: '--sc-motion-hover-duration', light: '200ms' },
         { prop: 'Press motion', token: '--sc-motion-press-duration', light: '160ms · outStrong' },
-        { prop: 'Press scale', token: '--sc-motion-press-scale', light: '0.985' },
+        { prop: 'Press scale', token: '--sc-motion-press-scale', light: '0.985 key · 0.85 glyph' },
       ]}
       rulesTitle="Four rules for a control that only ever does one thing."
       rules={[

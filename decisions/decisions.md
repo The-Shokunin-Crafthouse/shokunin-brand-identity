@@ -2288,3 +2288,27 @@ Levi: the trailing arrow uses Phosphor's bold weight, not regular. Code: `ArrowR
 - **Added:** `motion.stepper.glyphPressScale` (number, shipped 1 = with the key only), read by `.button:active .glyph` as `scale`, on the press pair (`motion.press.duration` / `easing`), compounding with the key's scale. Reduced motion removes it. Icon instances carry `styles.glyph`.
 - **Lab start:** 0.85, Claude's start so the press reads; Levi sets the value. Measured in the lab with the forced active state: concept A 16 → 13.4px, Shipped 16 → 15.76px (unchanged).
 - `tokens:verify`, `tokens:map:check`, `tokens:swift:check`, `test:scripts`, `npm run build` and `build:lib` exit 0.
+
+### 2026-10-07: Stepper record 2026-10-07-1847 concept A applied (procedure D)
+
+**Status:** Accepted. Levi: "apply it." Record `output/tuning/Stepper/2026-10-07-1847/`; sync base `68cbdfb`. One concept, no notes.
+
+| Token | Was | Now |
+| --- | --- | --- |
+| `space.component.gap.stepper` (new role) | (gap-sm, 4px) | `{space.8}`: Levi's lab edit of the shared gap-sm 4 → 8px |
+| `shadow.stepper.track` | zero alpha | `inset 0.71px 0.71px 2px 0` ink .25; dark black .45 |
+| `color.stepper.key` | transparent | `{color.surface.raised}` (#F1EFEB / #343A41) |
+| `color.stepper.keyShade` | transparent | `{color.control.keyShade}` (ink .05 / .25) |
+| `shadow.stepper.key` | zero alpha | `{shadow.control.key}` |
+| `motion.stepper.travel.duration` / `.easing` | = motion.reveal (200ms quint-out) | 1062ms literal / `spring` { 146, 24.17, 1 } (no overshoot) |
+| `motion.stepper.roll` / `stretch` / `squash` | 0 / 0 / 0 | 1 / 0.45 / 0 |
+| `motion.stepper.glyphPressScale` | 1 | 0.85 |
+
+- **Shared token kept:** `gap-sm` also feeds SegmentedControl, Input, Tooltip, Alert, Divider and the type specimen, so it stays 4px. The Stepper's three uses (pill gap, readout inline padding, readout min-width) read the new role token. The control grows 130.75 → 146.75px wide and stays fixed from 0 to 99.
+- **Cascade (Claude):** the key's rest fill, face and lift alias the Button key tokens rather than copying their values, the same as hover and press (Levi: "same as my button component"), so one Button retune moves every Stepper key state together. Values equal the record.
+- **Off the ladder, kept exact:** 1062ms (the spring's settle time), as the Switch and SegmentedControl durations.
+- **Lab check (D step 6):** Shipped and concept A compared by computed style in light and dark (17 properties each: width, gap, track ground and recess, key fill, face, lift, hover and pressed fill and shadow, readout padding and min-width, roll duration and curve, roll, stretch, squash, glyph scale): no differences. The generated `linear()` is byte-identical to the record's. `swiftc -typecheck` passes.
+- **Figma library:** generated call (11 ops): created `color/stepper/key` (`517:2`), `/keyShade` (`517:3`), `motion/stepper/travel/duration` (`517:8`), `/glyphPressScale` (`517:9`), `/roll` (`517:10`), `/stretch` (`517:11`), `space/component/gap/stepper` (`517:12`), and effect styles `shadow/stepper/{track,key}` + `dark/*`. `absent` named the 10 Stepper tokens made earlier today and never synced; the `--tokens` call created `color/stepper/track` (`518:2`), `/keyHover` (`518:3`), `/keyHoverInk` (`518:4`), `/keyPressed` (`518:5`), `/keyPressedInk` (`518:6`), `motion/stepper/squash` (`518:7`), and `shadow/stepper/{keyHover,keyPressed}` + `dark/*`. The read-only re-check over all 352 library names returned `absent: []`, `missing: []`.
+- **Masters re-seated to code:** the Stepper set `139:51` predated the code geometry (keys 32 square, gap 0, pill padding bound to `space/4` while code reads `padding-sm` 8px). All variants now read 146.75 × 56: padding `space/component/padding/sm`, gap and readout inline padding `space/component/gap/stepper`, keys 40 × 40 on `radius/pill` at x 8 and 98.75, readout 34.75 wide at x 56 with `text/mono/body`, numeral centred. Track: `color/stepper/track` + `shadow/stepper/track`. Keys: `color/stepper/key` + the 135deg face (stop bound to `keyShade`) + `shadow/stepper/key`; keys at a bound and the Disabled variant are flat; Disabled is at 0.6 with no recess. New variants `State=Hover` (`519:2`) and `State=Pressed` (`519:12`) show the + key in that state (`keyHover` / `keyPressed` fill, ink and style). Readback matches code except the readout box height, 25 in Figma vs 24.8 in code (Figma rounds the 1.55 line height). The clones first held the bind placeholder colour (black); every bound paint was rewritten with its variable's resolved value. Motion (roll, glyph scale) has no Figma analogue on the masters. Publishing the library is Levi's step.
+- **Docs:** Stepper page lead, states and token rows (`src/sections/ComponentSections.jsx`), `Stepper.tokens.md`.
+- `tokens:verify`, `tokens:map:check`, `tokens:swift:check`, `test:scripts`, `npm run build` and `build:lib` exit 0.
