@@ -17,6 +17,7 @@ import { Alert } from '../components/Alert/Alert.jsx';
 import { Switch } from '../components/Switch/Switch.jsx';
 import { Avatar } from '../components/Avatar/Avatar.jsx';
 import { ProgressIndicator } from '../components/ProgressIndicator/ProgressIndicator.jsx';
+import { Slider } from '../components/Slider/Slider.jsx';
 import { Tooltip } from '../components/Tooltip/Tooltip.jsx';
 import { Divider } from '../components/Divider/Divider.jsx';
 import { NavBar } from '../components/NavBar/NavBar.jsx';
@@ -372,31 +373,12 @@ export function AvatarPage() {
 
 /* ── 3.10 Progress ───────────────────────────────────────── */
 
-// Interactive bar demo — needs its own controlled value, so it is a
-// small stateful wrapper rather than a bare <ProgressIndicator /> render.
-function InteractiveBarDemo() {
-  const [value, setValue] = useState(0.3);
+// Slider demo: needs its own controlled value.
+function SliderDemo({ initial = 0.3, label = 'Volume', disabled = false }) {
+  const [value, setValue] = useState(initial);
   return (
     <div style={{ width: '100%' }}>
-      <ProgressIndicator variant="bar" interactive value={value} onChange={setValue} label="Volume" />
-    </div>
-  );
-}
-
-function InteractiveBarLowValueDemo() {
-  const [value, setValue] = useState(0.02);
-  return (
-    <div style={{ width: '100%' }}>
-      <ProgressIndicator variant="bar" interactive value={value} onChange={setValue} label="Low value" />
-    </div>
-  );
-}
-
-function InteractiveBarDisabledDemo() {
-  const [value] = useState(0.4);
-  return (
-    <div style={{ width: '100%' }}>
-      <ProgressIndicator variant="bar" interactive value={value} disabled label="Disabled" />
+      <Slider value={value} onChange={setValue} label={label} disabled={disabled} />
     </div>
   );
 }
@@ -407,14 +389,13 @@ export function ProgressPage() {
       id="progress" label="Progress" tokensN={22}
       eyebrow={<>Progress<Slash />three shapes, one fill</>}
       title={<>Bar, ring, steps. <Accent>Teal</Accent> is always the <Em>fill.</Em></>}
-      lead={<>Three indicators for three situations: a bar for a single continuous task, a ring for a compact or circular slot, steps for a discrete sequence. All three fill with the brand accent against a deep-sunk track, and the circular ring decouples its drawing from its size by maths, not magic. The bar also comes in an interactive form — Drams' Standard Volume reference — that turns the same track into a scrubbable, keyboard-operable slider.</>}
-      statesTitle="Three variants, one fill colour — plus the interactive bar's own five states."
+      lead={<>Three indicators for three situations: a bar for a single continuous task, a ring for a compact or circular slot, steps for a discrete sequence. All three fill with the brand accent against a deep-sunk track, and the circular ring decouples its drawing from its size by maths, not magic. Every one is read, never touched, so all three stay flat. A value the user sets is a Slider.</>}
+      statesTitle="Three variants, one fill colour."
       callouts={[
         { title: 'The ring decouples size from drawing', body: 'The SVG viewBox is a unitless 0–100; real size flows from the size token. Stroke width maps via calc(stroke / diameter * 100) so the ratio holds as either token moves.' },
         { title: 'Steps carry three sub-states', body: 'Done, current, and resting each pull their own ink and border from the semantic layer. The connector fills as each step completes.' },
         { title: 'Accent fills, never frames', body: 'Teal is the progress itself; the track is always deep-sunk. Progress is the one place the accent measures quantity, not intent.' },
-        { title: 'The interactive bar is thumbless', body: 'No handle ever renders. Dragging thickens the track itself (4px → 6px) — the affordance is the track’s own weight changing, not a circle riding on top of it.' },
-        { title: 'Fill never fully disappears', body: 'Both bar forms render fill width as max(value%, track-height) — at 0 the fill still reads as a small pill the size of the track, never a blank line (Drams #3/#4 Line Volume / Volume Visible Track).' },
+        { title: 'Fill never fully disappears', body: 'The bar renders fill width as max(value%, track-height) — at 0 the fill still reads as a small pill the size of the track, never a blank line (Drams #3/#4 Line Volume / Volume Visible Track).' },
       ]}
       states={[
         { name: 'Bar', token: '--sc-size-progress-bar-height', render: <div style={{ width: '100%' }}><ProgressIndicator variant="bar" value={0.62} label="62 percent" /></div> },
@@ -422,9 +403,6 @@ export function ProgressPage() {
         { name: 'Bar · tone warning, sunk track', token: '--sc-color-status-warning', render: <div style={{ width: '100%' }}><ProgressIndicator variant="bar" tone="warning" track="sunk" value={0.84} label="84 percent" /></div> },
         { name: 'Circular', token: '--sc-size-progress-circular', render: <ProgressIndicator variant="circular" value={0.7} label="70 percent" /> },
         { name: 'Step', token: '--sc-color-border-strong', render: <ProgressIndicator variant="step" steps={4} current={2} /> },
-        { name: 'Interactive · default/hover', token: '--sc-color-interactive-hover', render: <InteractiveBarDemo /> },
-        { name: 'Interactive · low value (min-fill)', token: '--sc-size-progress-bar-height', render: <InteractiveBarLowValueDemo /> },
-        { name: 'Interactive · disabled', token: '--sc-color-text-disabled', render: <InteractiveBarDisabledDemo /> },
       ]}
       tokenRows={[
         { prop: 'Bar height', token: '--sc-size-progress-bar-height' },
@@ -441,12 +419,6 @@ export function ProgressPage() {
         { prop: 'Step gap', token: '--sc-space-component-gap-md' },
         { prop: 'Numeral type', token: '--sc-font-text-mono-chrome', light: 'mono 11 / caps' },
         { prop: 'Fill motion', token: '--sc-motion-reveal-duration', light: '200ms · quint-out' },
-        { prop: 'Interactive · active track height', token: '--sc-size-progress-bar-height-active' },
-        { prop: 'Interactive · hit-slop padding', token: '--sc-size-progress-hit-slop' },
-        { prop: 'Interactive · hover fill', token: '--sc-color-interactive-hover' },
-        { prop: 'Interactive · disabled fill', token: '--sc-color-text-disabled' },
-        { prop: 'Interactive · disabled track', token: '--sc-color-surface-sunk' },
-        { prop: 'Interactive · focus ring', token: '--sc-color-border-focus' },
       ]}
       rulesTitle="Five rules for measuring with one colour."
       rules={[
@@ -454,7 +426,52 @@ export function ProgressPage() {
         { name: 'The accent measures, the track holds', text: 'Fill is always teal, track always deep-sunk. Recolouring the fill by status would make progress compete with the alert system.' },
         { name: 'Circular for compact slots only', text: 'The ring is for a dashboard tile or an inline badge. For a page-width task, the bar reads the distance far better.' },
         { name: 'Steps are zero-based and honest', text: 'Current is the index in progress; everything before it is done, everything after resting. A “done” step the user has not finished is a lie the component must not tell.' },
-        { name: 'Interactive is opt-in, never a silent upgrade', text: 'The static bar keeps role="progressbar" until interactive is passed explicitly. A progress bar a keyboard user can suddenly drag is a bug, not a feature, if it happens without the caller asking for it.' },
+        { name: 'A meter is never a control', text: 'Every variant is role="progressbar" and takes no drag or key. A value the user sets is a Slider: a progress bar a keyboard user can suddenly drag is a bug, not a feature.' },
+      ]}
+    />
+  );
+}
+
+/* ── Slider ──────────────────────────────────────────────── */
+export function SliderPage() {
+  return (
+    <ComponentPage
+      id="slider" label="Slider" tokensN={32}
+      eyebrow={<>Slider<Slash />new · Drams #5</>}
+      title={<>Progress is read. <Em>A slider is moved.</Em></>}
+      lead={<>A value the user sets by dragging or by keys: Drams' Standard Volume as a recessed track with a physical thumb, lit from the top left. Split from the progress bar, which stays a flat meter. A click or an arrow key sends the thumb along a spring; a drag trails the pointer.</>}
+      statesTitle="Five states on one track."
+      callouts={[
+        { title: 'The thumb rides inside the track', body: 'Its centre runs from half a thumb in from each end, and the fill ends under it, so 0 and 100 never hang the thumb off the track.' },
+        { title: 'The thumb carries the contrast', body: 'Teal on the track sits under the non-text line. The thumb is the cue that says where the value is, so it is the part that clears it.' },
+        { title: 'Fill never fully disappears', body: 'Fill width is floored at the track height, so 0 still reads as a small pill, never a blank line (Drams #3/#4).' },
+      ]}
+      states={[
+        { name: 'Default / hover', token: '--sc-color-slider-fill-hover', render: <SliderDemo initial={0.3} /> },
+        { name: 'Low value (min-fill)', token: '--sc-size-slider-track', render: <SliderDemo initial={0.02} label="Low value" /> },
+        { name: 'Disabled', token: '--sc-color-slider-fill-disabled', render: <SliderDemo initial={0.4} label="Disabled" disabled /> },
+      ]}
+      tokenRows={[
+        { prop: 'Track', token: '--sc-color-slider-track' },
+        { prop: 'Track recess', token: '--sc-shadow-slider-track' },
+        { prop: 'Track height', token: '--sc-size-slider-track' },
+        { prop: 'Track height, dragging', token: '--sc-size-slider-track-active' },
+        { prop: 'Hit-slop padding', token: '--sc-size-slider-hit-slop' },
+        { prop: 'Fill', token: '--sc-color-slider-fill' },
+        { prop: 'Fill hover', token: '--sc-color-slider-fill-hover' },
+        { prop: 'Thumb', token: '--sc-size-slider-thumb' },
+        { prop: 'Thumb face', token: '--sc-color-slider-thumb-face-top', light: '135deg' },
+        { prop: 'Thumb lift', token: '--sc-shadow-slider-thumb' },
+        { prop: 'Disabled', token: '--sc-color-slider-fill-disabled' },
+        { prop: 'Focus ring', token: '--sc-color-border-focus' },
+        { prop: 'Seek motion', token: '--sc-motion-slider-travel-duration' },
+        { prop: 'Drag motion', token: '--sc-motion-slider-drag-duration' },
+      ]}
+      rulesTitle="Three rules for a control you hold."
+      rules={[
+        { name: 'A slider sets, a meter reports', text: 'Use a Slider for a value the user chooses. For how far along something is, use ProgressIndicator; it never takes a drag or a key.' },
+        { name: 'Keys and pointer reach the same values', text: 'Arrows step, Shift steps further, Home and End jump to the bounds. Anything a drag can set, a keyboard can set.' },
+        { name: 'Disabled is flat', text: 'A disabled slider loses its recess, its lift and its face. Losing the material is the signal.' },
       ]}
     />
   );

@@ -21,7 +21,7 @@ import { MarkSection } from './sections/MarkSection.jsx';
 import {
   ButtonPage, BadgePage, CardPage, InputPage, AlertPage, SwitchPage,
   AvatarPage, ProgressPage, TooltipPage, DividerPage, NavBarPage,
-  SegmentedControlPage, StepperPage, WorkingMarkPage,
+  SegmentedControlPage, StepperPage, SliderPage, WorkingMarkPage,
 } from './sections/ComponentSections.jsx';
 import {
   PlusFieldPage, SectionDividerPage, HeadingRulePage, PlusUnderlinePage, PlusProgressPage,
@@ -90,6 +90,7 @@ const NAV = [
       { id: 'switch', label: 'Switch' },
       { id: 'avatar', label: 'Avatar' },
       { id: 'progress', label: 'Progress' },
+      { id: 'slider', label: 'Slider' },
       { id: 'tooltip', label: 'Tooltip' },
       { id: 'divider', label: 'Divider' },
       { id: 'navbar', label: 'NavBar' },
@@ -170,6 +171,7 @@ const SECTIONS = {
   switch: SwitchPage,
   avatar: AvatarPage,
   progress: ProgressPage,
+  slider: SliderPage,
   tooltip: TooltipPage,
   divider: DividerPage,
   navbar: NavBarPage,

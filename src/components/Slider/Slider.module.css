@@ -1,0 +1,199 @@
+/* tokens:
+ *   --sc-size-slider-track / -track-active · track height at rest / while dragged (4 / 6)
+ *   --sc-size-slider-hit-slop              · 22 invisible hit-slop block padding (48 total with the track)
+ *   --sc-size-slider-thumb                 · thumb diameter
+ *   --sc-color-slider-track / -track-disabled · track ground
+ *   --sc-color-slider-fill / -fill-hover / -fill-disabled · fill; the disabled thumb is a flat fill-disabled disc
+ *   --sc-color-slider-thumb-rim-top / -rim-bottom   · thumb rim, 135deg
+ *   --sc-color-slider-thumb-face-top / -face-bottom · thumb face, 135deg
+ *   --sc-shadow-slider-track               · recess of the track
+ *   --sc-shadow-slider-thumb / -thumb-pressed · thumb lift at rest / while dragged
+ *   --sc-motion-slider-travel-duration / -easing · fill + thumb on a seek (click, key)
+ *   --sc-motion-slider-drag-duration / -easing   · fill + thumb trailing the pointer
+ *   --sc-motion-slider-stretch / -squash   · thumb stretch with travel speed (Slider.jsx; 0 = rigid)
+ *   --sc-motion-slider-thumb-press-scale   · thumb scale while dragged (1 = none)
+ *   --sc-motion-press-duration / -easing   · thumb press scale transition
+ *   --sc-motion-reveal-duration / -easing  · track thickening on drag
+ *   --sc-motion-hover-duration / -easing   · fill colour on hover
+ *   --sc-radius-pill                       · track, fill and thumb caps
+ *   --sc-border-width-default              · thumb rim (half a hairline shows around the face); forced-colors edge
+ *   --sc-color-border-focus, --sc-border-width-focus, --sc-border-focus-offset · focus ring
+ *
+ * Geometry: the thumb rides inside the track, its centre running from
+ * thumb/2 to width − thumb/2, and the fill ends under its centre, floored
+ * at the track height so a 0 still reads as a small pill (Drams #3/#4).
+ * `--value` (0..1) is set on the track by Slider.jsx.
+ */
+
+/* The wrapper carries the ARIA + pointer/keyboard contract and a 44px-class
+   invisible hit-slop via block padding; the visual track sits inside. */
+.slider {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding-block: var(--sc-size-slider-hit-slop);
+  touch-action: none;
+  cursor: pointer;
+}
+
+.slider[aria-disabled='true'] {
+  cursor: not-allowed;
+}
+
+.slider:focus-visible {
+  outline: none;
+}
+
+.track {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: var(--sc-size-slider-track);
+  border-radius: var(--sc-radius-pill);
+  background-color: var(--sc-color-slider-track);
+  box-shadow: var(--sc-shadow-slider-track);
+  transition: height var(--sc-motion-reveal-duration) var(--sc-motion-reveal-easing);
+}
+
+.fill {
+  position: absolute;
+  inset-block: 0;
+  left: 0;
+  display: block;
+  width: max(
+    calc(var(--sc-size-slider-thumb) / 2 + (100% - var(--sc-size-slider-thumb)) * var(--value)),
+    var(--sc-size-slider-track)
+  );
+  border-radius: var(--sc-radius-pill);
+  background-color: var(--sc-color-slider-fill);
+  transition:
+    width var(--sc-motion-slider-travel-duration) var(--sc-motion-slider-travel-easing),
+    background-color var(--sc-motion-hover-duration) var(--sc-motion-hover-easing);
+}
+
+/* Thumb · the element is the rim, ::after the face inset by half a hairline;
+   both gradients run at 135deg (the system light, top left). */
+.thumb {
+  position: absolute;
+  top: calc(50% - var(--sc-size-slider-thumb) / 2);
+  left: calc((100% - var(--sc-size-slider-thumb)) * var(--value));
+  width: var(--sc-size-slider-thumb);
+  height: var(--sc-size-slider-thumb);
+  border-radius: var(--sc-radius-pill);
+  background-image: linear-gradient(
+    135deg,
+    var(--sc-color-slider-thumb-rim-top),
+    var(--sc-color-slider-thumb-rim-bottom)
+  );
+  box-shadow: var(--sc-shadow-slider-thumb);
+  pointer-events: none;
+  transition:
+    left var(--sc-motion-slider-travel-duration) var(--sc-motion-slider-travel-easing),
+    scale var(--sc-motion-press-duration) var(--sc-motion-press-easing);
+}
+
+.thumb::after {
+  content: '';
+  position: absolute;
+  inset: calc(var(--sc-border-width-default) / 2);
+  border-radius: var(--sc-radius-pill);
+  background-image: linear-gradient(
+    135deg,
+    var(--sc-color-slider-thumb-face-top),
+    var(--sc-color-slider-thumb-face-bottom)
+  );
+}
+
+/* While Slider.jsx drives the thumb (stretch or squash above 0), its
+   animation owns the travel; a CSS transition on left would double it. */
+.track[data-driven] .thumb {
+  transition: scale var(--sc-motion-press-duration) var(--sc-motion-press-easing);
+}
+
+/* Hover — the fill brightens. */
+.slider:hover:not([aria-disabled='true']) .fill {
+  background-color: var(--sc-color-slider-fill-hover);
+}
+
+/* Focus — the ring surfaces on the visual track, not the padded hit-slop
+   box, so it reads as a 4px control getting focus, not a 48px band. */
+.slider:focus-visible .track {
+  outline: var(--sc-border-width-focus) solid var(--sc-color-border-focus);
+  outline-offset: var(--sc-border-focus-offset);
+}
+
+/* Active / dragging — the track thickens, the thumb is held: it scales and
+   its lift softens (press felt as shadow and scale, directive 4). */
+.track.dragging {
+  height: var(--sc-size-slider-track-active);
+}
+.track.dragging .thumb {
+  scale: var(--sc-motion-slider-thumb-press-scale);
+  box-shadow: var(--sc-shadow-slider-thumb-pressed);
+}
+
+/* Moving — once the pointer moves, fill and thumb trail it by the drag
+   curve instead of the travel curve. */
+.track.moving .fill {
+  transition:
+    width var(--sc-motion-slider-drag-duration) var(--sc-motion-slider-drag-easing),
+    background-color var(--sc-motion-hover-duration) var(--sc-motion-hover-easing);
+}
+.track.moving .thumb {
+  transition:
+    left var(--sc-motion-slider-drag-duration) var(--sc-motion-slider-drag-easing),
+    scale var(--sc-motion-press-duration) var(--sc-motion-press-easing);
+}
+
+/* Disabled is flat (directive 5): no recess, no lift, no face. */
+.slider[aria-disabled='true'] .track {
+  background-color: var(--sc-color-slider-track-disabled);
+  box-shadow: none;
+}
+.slider[aria-disabled='true'] .fill {
+  background-color: var(--sc-color-slider-fill-disabled);
+}
+.slider[aria-disabled='true'] .thumb {
+  background-image: none;
+  background-color: var(--sc-color-slider-fill-disabled);
+  box-shadow: none;
+}
+.slider[aria-disabled='true'] .thumb::after {
+  background-image: none;
+}
+
+/* Forced colors (Windows high contrast): the recess, the lift and both
+   gradients drop. The track keeps an edge, the fill is the system
+   highlight and the thumb a solid system-ink disc. */
+@media (forced-colors: active) {
+  .track {
+    box-sizing: border-box;
+    border: var(--sc-border-width-default) solid CanvasText;
+  }
+  .fill {
+    background-color: Highlight;
+  }
+  .thumb,
+  .thumb::after {
+    background-image: none;
+    background-color: ButtonText;
+  }
+  .slider[aria-disabled='true'] .track {
+    border-color: GrayText;
+  }
+  .slider[aria-disabled='true'] .fill,
+  .slider[aria-disabled='true'] .thumb,
+  .slider[aria-disabled='true'] .thumb::after {
+    background-color: GrayText;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .track,
+  .fill,
+  .thumb,
+  .track.moving .fill,
+  .track.moving .thumb { transition: none; }
+  .track.dragging .thumb { scale: none; }
+}

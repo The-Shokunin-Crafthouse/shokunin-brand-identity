@@ -1,25 +1,10 @@
 /* tokens:
  *   --sc-size-progress-bar-height        · 4 bar height (also the min-fill floor, see below)
- *   --sc-size-progress-bar-height-active · 6 interactive bar, active/dragging track thickness
- *   --sc-size-progress-hit-slop          · 22 interactive bar, invisible hit-slop block padding
- *   --sc-size-progress-slider-track      · interactive track height at rest (role token, = bar-height 4)
- *   --sc-size-progress-slider-thumb      · interactive thumb diameter (role token; shipped 0 = thumbless)
  *   --sc-size-progress-circular          · 48 circle diameter
  *   --sc-size-progress-circular-stroke   · 4 stroke
  *   --sc-radius-pill                     · 9999 pill caps on bar
- *   --sc-color-surface-deep-sunk         · static bar + ring track
- *   --sc-color-brand-accent              · static fill (bar, ring, done steps)
- *   --sc-color-progress-slider-track / -track-disabled · interactive track ground (role tokens, = deepSunk / sunk)
- *   --sc-color-progress-slider-fill / -fill-hover / -fill-disabled · interactive fill (role tokens, = accent / interactive.hover / text.disabled); disabled thumb
- *   --sc-color-progress-slider-thumb-rim-top / -rim-bottom   · thumb rim, 135deg (shipped transparent)
- *   --sc-color-progress-slider-thumb-face-top / -face-bottom · thumb face, 135deg (shipped transparent)
- *   --sc-shadow-progress-slider-track    · recess of the interactive track (shipped zero alpha)
- *   --sc-shadow-progress-slider-thumb / -thumb-pressed · thumb lift at rest / while dragged (shipped zero alpha)
- *   --sc-motion-progress-slider-travel-duration / -easing · fill + thumb on a seek (click, key; = motion.reveal)
- *   --sc-motion-progress-slider-drag-duration / -easing   · fill + thumb trailing the pointer (= motion.reveal)
- *   --sc-motion-progress-slider-stretch / -squash · thumb stretch with travel speed (ProgressIndicator.jsx; 0 = rigid)
- *   --sc-motion-progress-slider-thumb-press-scale · thumb scale while dragged (1 = none)
- *   --sc-motion-press-duration / -easing · thumb press scale transition
+ *   --sc-color-surface-deep-sunk         · bar + ring track (resting)
+ *   --sc-color-brand-accent              · fill (active progress, resting)
  *   --sc-color-signal-progress           · bar fill, tone="progress"
  *   --sc-color-status-warning            · bar fill, tone="warning"
  *   --sc-color-surface-sunk              · bar track, track="sunk"
@@ -27,19 +12,14 @@
  *   --sc-color-text-on-accent            · step dot text (active)
  *   --sc-color-border-default            · resting step dot border
  *   --sc-color-border-strong             · current step dot border
- *   --sc-color-border-focus              · interactive bar, focus ring
  *   --sc-border-width-default            · borders
- *   --sc-border-width-focus              · interactive bar, focus ring weight
- *   --sc-border-focus-offset             · interactive bar, focus ring offset
  *   --sc-space-component-gap-md          · step item gap
  *   --sc-space-layout-stack-sm           · step dot diameter (reuses 16 space token)
  *   --sc-font-text-mono-chrome-*         · step numerals (chrome mono)
  *   --sc-motion-reveal-duration / -easing
- *   --sc-motion-hover-duration / -easing · interactive bar fill-brighten transition
- *   --sc-border-width-default            · thumb rim (half a hairline shows around the face)
  *
- * Min-fill (Drams #3/#4 Line Volume / Volume Visible Track): both bar
- * variants render fill width as max(pct%, --sc-size-progress-bar-height)
+ * Min-fill (Drams #3/#4 Line Volume / Volume Visible Track): the bar
+ * renders fill width as max(pct%, --sc-size-progress-bar-height)
  * instead of a raw percentage, so at value=0 the fill never fully
  * vanishes — it reads as a track-height pill/circle (a "radius cap"),
  * not a thumbless 2px lead-in. Reuses the existing bar-height token
@@ -69,181 +49,6 @@
 .toneProgress .barFill { background-color: var(--sc-color-signal-progress); }
 .toneWarning .barFill { background-color: var(--sc-color-status-warning); }
 .trackSunk { background-color: var(--sc-color-surface-sunk); }
-
-/* --- Bar · interactive (Drams #4/#5) -------------------------------
-   Wrapper carries the ARIA + pointer/keyboard contract (role="slider")
-   and a 44px-class invisible hit-slop via block padding. The visual track
-   inside is a recess (physical-controls Tier 1) holding the fill and a
-   thumb, all on the slider's own role tokens. `--value` (0..1) is set on
-   the track by ProgressIndicator.jsx.
-
-   Geometry: the thumb rides inside the track, its centre running from
-   thumb/2 to width − thumb/2, and the fill ends under its centre. With the
-   shipped 0px thumb both reduce to today's thumbless bar: fill width =
-   value × 100%, floored at the track height (min-fill). */
-
-.barInteractiveWrapper {
-  position: relative;
-  display: flex;
-  align-items: center;
-  width: 100%;
-  padding-block: var(--sc-size-progress-hit-slop);
-  touch-action: none;
-  cursor: pointer;
-}
-
-.barInteractiveWrapper[aria-disabled='true'] {
-  cursor: not-allowed;
-}
-
-.barInteractiveWrapper:focus-visible {
-  outline: none;
-}
-
-.barInteractiveTrack {
-  position: relative;
-  display: block;
-  width: 100%;
-  height: var(--sc-size-progress-slider-track);
-  border-radius: var(--sc-radius-pill);
-  background-color: var(--sc-color-progress-slider-track);
-  box-shadow: var(--sc-shadow-progress-slider-track);
-  transition: height var(--sc-motion-reveal-duration) var(--sc-motion-reveal-easing);
-}
-
-.barInteractiveFill {
-  position: absolute;
-  inset-block: 0;
-  left: 0;
-  display: block;
-  width: max(
-    calc(var(--sc-size-progress-slider-thumb) / 2 + (100% - var(--sc-size-progress-slider-thumb)) * var(--value)),
-    var(--sc-size-progress-slider-track)
-  );
-  border-radius: var(--sc-radius-pill);
-  background-color: var(--sc-color-progress-slider-fill);
-  transition:
-    width var(--sc-motion-progress-slider-travel-duration) var(--sc-motion-progress-slider-travel-easing),
-    background-color var(--sc-motion-hover-duration) var(--sc-motion-hover-easing);
-}
-
-/* Thumb · the element is the rim, ::after the face inset by half a hairline;
-   both gradients run at 135deg (the system light, top left). Lit from the
-   Switch knob's values in the lab, on its own tokens. Shipped 0px and flat. */
-.barInteractiveThumb {
-  position: absolute;
-  top: calc(50% - var(--sc-size-progress-slider-thumb) / 2);
-  left: calc((100% - var(--sc-size-progress-slider-thumb)) * var(--value));
-  width: var(--sc-size-progress-slider-thumb);
-  height: var(--sc-size-progress-slider-thumb);
-  border-radius: var(--sc-radius-pill);
-  background-image: linear-gradient(
-    135deg,
-    var(--sc-color-progress-slider-thumb-rim-top),
-    var(--sc-color-progress-slider-thumb-rim-bottom)
-  );
-  box-shadow: var(--sc-shadow-progress-slider-thumb);
-  pointer-events: none;
-  transition:
-    left var(--sc-motion-progress-slider-travel-duration) var(--sc-motion-progress-slider-travel-easing),
-    scale var(--sc-motion-press-duration) var(--sc-motion-press-easing);
-}
-
-.barInteractiveThumb::after {
-  content: '';
-  position: absolute;
-  inset: calc(var(--sc-border-width-default) / 2);
-  border-radius: var(--sc-radius-pill);
-  background-image: linear-gradient(
-    135deg,
-    var(--sc-color-progress-slider-thumb-face-top),
-    var(--sc-color-progress-slider-thumb-face-bottom)
-  );
-}
-
-/* While ProgressIndicator.jsx drives the thumb (stretch or squash above 0),
-   its animation owns the travel; a CSS transition on left would double it. */
-.barInteractiveTrack[data-driven] .barInteractiveThumb {
-  transition: scale var(--sc-motion-press-duration) var(--sc-motion-press-easing);
-}
-
-/* Hover — the fill brightens (its own role, = interactive.hover). */
-.barInteractiveWrapper:hover:not([aria-disabled='true']) .barInteractiveFill {
-  background-color: var(--sc-color-progress-slider-fill-hover);
-}
-
-/* Focus — ring surfaces on the visual track, not the padded hit-slop
-   box, so it reads as a 4px control getting focus, not a 48px band. */
-.barInteractiveWrapper:focus-visible .barInteractiveTrack {
-  outline: var(--sc-border-width-focus) solid var(--sc-color-border-focus);
-  outline-offset: var(--sc-border-focus-offset);
-}
-
-/* Active / dragging — the track thickens 4px → 6px, the thumb is held:
-   it scales and its lift softens (press felt as shadow and scale). */
-.barInteractiveTrack.dragging {
-  height: var(--sc-size-progress-bar-height-active);
-}
-.barInteractiveTrack.dragging .barInteractiveThumb {
-  scale: var(--sc-motion-progress-slider-thumb-press-scale);
-  box-shadow: var(--sc-shadow-progress-slider-thumb-pressed);
-}
-
-/* Moving — once the pointer moves, fill and thumb trail it by the drag
-   curve instead of the travel curve. */
-.barInteractiveTrack.moving .barInteractiveFill {
-  transition:
-    width var(--sc-motion-progress-slider-drag-duration) var(--sc-motion-progress-slider-drag-easing),
-    background-color var(--sc-motion-hover-duration) var(--sc-motion-hover-easing);
-}
-.barInteractiveTrack.moving .barInteractiveThumb {
-  transition:
-    left var(--sc-motion-progress-slider-drag-duration) var(--sc-motion-progress-slider-drag-easing),
-    scale var(--sc-motion-press-duration) var(--sc-motion-press-easing);
-}
-
-/* Disabled is flat (directive 5): no recess, no lift, no face. */
-.barInteractiveWrapper[aria-disabled='true'] .barInteractiveTrack {
-  background-color: var(--sc-color-progress-slider-track-disabled);
-  box-shadow: none;
-}
-.barInteractiveWrapper[aria-disabled='true'] .barInteractiveFill {
-  background-color: var(--sc-color-progress-slider-fill-disabled);
-}
-.barInteractiveWrapper[aria-disabled='true'] .barInteractiveThumb {
-  background-image: none;
-  background-color: var(--sc-color-progress-slider-fill-disabled);
-  box-shadow: none;
-}
-.barInteractiveWrapper[aria-disabled='true'] .barInteractiveThumb::after {
-  background-image: none;
-}
-
-/* Forced colors (Windows high contrast): the recess, the lift and both
-   gradients drop. The track keeps an edge, the fill is the system
-   highlight and the thumb a solid system-ink disc. */
-@media (forced-colors: active) {
-  .barInteractiveTrack {
-    box-sizing: border-box;
-    border: var(--sc-border-width-default) solid CanvasText;
-  }
-  .barInteractiveFill {
-    background-color: Highlight;
-  }
-  .barInteractiveThumb,
-  .barInteractiveThumb::after {
-    background-image: none;
-    background-color: ButtonText;
-  }
-  .barInteractiveWrapper[aria-disabled='true'] .barInteractiveTrack {
-    border-color: GrayText;
-  }
-  .barInteractiveWrapper[aria-disabled='true'] .barInteractiveFill,
-  .barInteractiveWrapper[aria-disabled='true'] .barInteractiveThumb,
-  .barInteractiveWrapper[aria-disabled='true'] .barInteractiveThumb::after {
-    background-color: GrayText;
-  }
-}
 
 /* --- Circular ----------------------------------------------------- */
 
@@ -335,8 +140,4 @@
 
 @media (prefers-reduced-motion: reduce) {
   .barFill, .circularFill, .stepDot { transition: none; }
-  .barInteractiveTrack, .barInteractiveFill, .barInteractiveThumb,
-  .barInteractiveTrack.moving .barInteractiveFill,
-  .barInteractiveTrack.moving .barInteractiveThumb { transition: none; }
-  .barInteractiveTrack.dragging .barInteractiveThumb { scale: none; }
 }

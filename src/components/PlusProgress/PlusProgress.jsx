@@ -6,7 +6,7 @@
  *
  * `value` runs 0–1. The marks are decorative; a visually hidden role="progressbar" carries the
  * value (aria-valuenow 0–100) and `label` names it. Teal is the progress fill, one of the three
- * teal roles. For a draggable bar use ProgressIndicator interactive instead.
+ * teal roles. For a draggable bar use Slider instead.
  * Decision: decisions/decisions.md 2026-10-04 · plus-field.
  */
 

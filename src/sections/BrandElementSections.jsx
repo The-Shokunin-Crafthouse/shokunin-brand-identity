@@ -222,7 +222,7 @@ export function PlusProgressPage() {
       statesTitle="Thin, band, and both ends of the range."
       callouts={[
         { title: 'Progress is current state', body: 'Teal marks how far the work has come right now. That keeps it inside the rule: teal for state, never for decoration.' },
-        { title: 'Display, not control', body: 'Nothing here takes a drag or a key press. For a value the user sets, use ProgressIndicator with interactive.' },
+        { title: 'Display, not control', body: 'Nothing here takes a drag or a key press. For a value the user sets, use Slider.' },
         { title: 'Always labelled', body: 'The label names the hidden progressbar. Without one, a screen reader announces a number with no subject.' },
       ]}
       states={[

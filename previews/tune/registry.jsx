@@ -26,7 +26,7 @@ import { Button } from '../../src/components/Button/Button.jsx';
 import { Tooltip } from '../../src/components/Tooltip/Tooltip.jsx';
 import { NavBar } from '../../src/components/NavBar/NavBar.jsx';
 import { PlusUnderline } from '../../src/components/PlusUnderline/PlusUnderline.jsx';
-import { ProgressIndicator } from '../../src/components/ProgressIndicator/ProgressIndicator.jsx';
+import { Slider } from '../../src/components/Slider/Slider.jsx';
 import switchCss from '../../src/components/Switch/Switch.module.css?raw';
 import stepperCss from '../../src/components/Stepper/Stepper.module.css?raw';
 import iconCss from '../../src/components/Icon/Icon.module.css?raw';
@@ -35,7 +35,7 @@ import buttonCss from '../../src/components/Button/Button.module.css?raw';
 import tooltipCss from '../../src/components/Tooltip/Tooltip.module.css?raw';
 import navBarCss from '../../src/components/NavBar/NavBar.module.css?raw';
 import underlineCss from '../../src/components/PlusUnderline/PlusUnderline.module.css?raw';
-import progressCss from '../../src/components/ProgressIndicator/ProgressIndicator.module.css?raw';
+import sliderCss from '../../src/components/Slider/Slider.module.css?raw';
 import s from './Tune.module.css';
 
 const SEGMENTS = ['day', 'week', 'month'];
@@ -95,7 +95,7 @@ const perMode = (map) => ({ light: map(MATERIAL.light), dark: map(MATERIAL.dark)
  * The Switch knob's values (record Switch 2026-10-07-1539 B: rim white →
  * warmGray.200 over a warmGray.50 → 100 face; dark rim dark.textPrimary →
  * warmGray.350 over warmGray.200 → dark.textTertiary), copied as values so
- * the ProgressIndicator thumb never reads a Switch token. The Switch runs its
+ * the Slider thumb never reads a Switch token. The Switch runs its
  * gradients top to bottom; the thumb runs them at 135deg, the system light.
  */
 const KNOB = {
@@ -349,32 +349,30 @@ export const REGISTRY = {
       </div>
     ),
   },
-  ProgressIndicator: {
-    // The interactive bar only: its CSS block, so the panel lists what the
-    // stage renders. Static meters stay flat (Levi, 2026-10-07).
-    css: [progressCss.slice(progressCss.indexOf('/* --- Bar · interactive'), progressCss.indexOf('/* --- Circular'))],
-    // Thumb stretch and squash are read by ProgressIndicator.jsx.
-    jsTokens: reel('progress-slider', { press: false }).jsTokens,
+  Slider: {
+    css: [sliderCss],
+    // Thumb stretch and squash are read by Slider.jsx.
+    jsTokens: reel('slider', { press: false }).jsTokens,
     seed: {
       overrides: {
-        ...reel('progress-slider', { press: false }).seed.overrides,
+        ...reel('slider', { press: false }).seed.overrides,
         // The Switch knob's diameter and press scale (values, not its tokens).
-        '--sc-size-progress-slider-thumb': '15px',
-        '--sc-motion-progress-slider-thumb-press-scale': '0.985',
+        '--sc-size-slider-thumb': '15px',
+        '--sc-motion-slider-thumb-press-scale': '0.985',
       },
-      springs: reel('progress-slider', { press: false }).seed.springs,
+      springs: reel('slider', { press: false }).seed.springs,
       // Track = the top-left recess; thumb face = the Switch knob at 135deg;
       // thumb lift = the Button key, softened to keyPressed while dragged.
       scoped: perMode((m) => {
         const k = m === MATERIAL.light ? KNOB.light : KNOB.dark;
         return {
-          '--sc-shadow-progress-slider-track': m.recess,
-          '--sc-color-progress-slider-thumb-rim-top': k.rimTop,
-          '--sc-color-progress-slider-thumb-rim-bottom': k.rimBottom,
-          '--sc-color-progress-slider-thumb-face-top': k.faceTop,
-          '--sc-color-progress-slider-thumb-face-bottom': k.faceBottom,
-          '--sc-shadow-progress-slider-thumb': m.key,
-          '--sc-shadow-progress-slider-thumb-pressed': m.keyPressed,
+          '--sc-shadow-slider-track': m.recess,
+          '--sc-color-slider-thumb-rim-top': k.rimTop,
+          '--sc-color-slider-thumb-rim-bottom': k.rimBottom,
+          '--sc-color-slider-thumb-face-top': k.faceTop,
+          '--sc-color-slider-thumb-face-bottom': k.faceBottom,
+          '--sc-shadow-slider-thumb': m.key,
+          '--sc-shadow-slider-thumb-pressed': m.keyPressed,
         };
       }),
     },
@@ -393,9 +391,7 @@ export const REGISTRY = {
         onKeyDownCapture={() => { keyStep = true; }}
         onKeyUpCapture={() => { keyStep = false; }}
       >
-        <ProgressIndicator
-          variant="bar"
-          interactive
+        <Slider
           value={p.value}
           disabled={p.disabled}
           label={p.label}

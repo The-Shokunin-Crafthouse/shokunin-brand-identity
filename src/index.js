@@ -30,6 +30,7 @@ export { Input } from './components/Input/Input.jsx';
 export { NavBar } from './components/NavBar/NavBar.jsx';
 export { ProgressIndicator } from './components/ProgressIndicator/ProgressIndicator.jsx';
 export { SegmentedControl } from './components/SegmentedControl/SegmentedControl.jsx';
+export { Slider } from './components/Slider/Slider.jsx';
 export { Stepper } from './components/Stepper/Stepper.jsx';
 export { Switch } from './components/Switch/Switch.jsx';
 export { Tooltip } from './components/Tooltip/Tooltip.jsx';

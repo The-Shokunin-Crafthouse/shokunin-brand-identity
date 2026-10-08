@@ -5,7 +5,7 @@
 # Design Token Map — The Shokunin Crafthouse · Brand Identity
 
 **Generated** from `tokens/primitives.json` + `tokens/semantic.json`.
-**Source fingerprint:** `57c1d3a24468` · **186 primitives · 237 semantic tokens.**
+**Source fingerprint:** `63846350a05a` · **186 primitives · 239 semantic tokens.**
 
 > **This file is a mirror, not the source.** `tokens/*.json` is upstream; this document and the Figma
 > library are generated from / synced to it. It previously claimed the opposite — that both were
@@ -593,19 +593,19 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | `color/stepper/keyPressedInk` | `--sc-color-stepper-key-pressed-ink` | `color/text/onAccent` | `⚠ unresolved` | `color/text/onAccent` | `⚠ unresolved` | 2026-10-07 · Stepper material (physical-controls Tier 1), Levi's direction in the lab: hover is his Button primary hover, pressed one accent step darker. ± glyph while pressed = text.onAccent (white), as the Button primary's pressed label. |
 | `color/stepper/keyShade` | `--sc-color-stepper-key-shade` | `color/control/keyShade` | `⚠ unresolved` | `color/control/keyShade` | `⚠ unresolved` | 2026-10-07 · Stepper material (physical-controls Tier 1: ± as small Drams 036 keys on a recessed pill; the numeral sits flat, no window, Levi 2026-10-07), tuned in sc-tune. |
 
-#### `color/progressSlider`
+#### `color/slider`
 
 | Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
 |---|---|---|---|---|---|---|
-| `color/progressSlider/track` | `--sc-color-progress-slider-track` | `color/warmGray/300` | `#B0A69C` | `color/dark/raised2` | `#3B4249` | 2026-10-07 · ProgressIndicator interactive bar material (physical-controls Tier 1: a recessed track and a physical thumb, lit from the top left; the thumb carries the non-text contrast cue the fill misses), tuned in sc-tune. |
-| `color/progressSlider/trackDisabled` | `--sc-color-progress-slider-track-disabled` | `color/warmGray/200` | `#D8D1CC` | `color/dark/well` | `#1F252C` | 2026-10-07 · ProgressIndicator interactive bar material (physical-controls Tier 1: a recessed track and a physical thumb, lit from the top left; the thumb carries the non-text contrast cue the fill misses), tuned in sc-tune. |
-| `color/progressSlider/fill` | `--sc-color-progress-slider-fill` | `color/teal/500` | `#038E93` | `color/teal/500` | `#038E93` | 2026-10-07 · ProgressIndicator interactive bar material (physical-controls Tier 1: a recessed track and a physical thumb, lit from the top left; the thumb carries the non-text contrast cue the fill misses), tuned in sc-tune. |
-| `color/progressSlider/fillHover` | `--sc-color-progress-slider-fill-hover` | `color/teal/600` | `#04797D` | `color/teal/300` | `#52B8BC` | 2026-10-07 · ProgressIndicator interactive bar material (physical-controls Tier 1: a recessed track and a physical thumb, lit from the top left; the thumb carries the non-text contrast cue the fill misses), tuned in sc-tune. |
-| `color/progressSlider/fillDisabled` | `--sc-color-progress-slider-fill-disabled` | `color/warmGray/400` | `#847C71` | `color/dark/textDisabled` | `#7C7A76` | 2026-10-07 · ProgressIndicator interactive bar material (physical-controls Tier 1: a recessed track and a physical thumb, lit from the top left; the thumb carries the non-text contrast cue the fill misses), tuned in sc-tune. |
-| `color/progressSlider/thumbRimTop` | `--sc-color-progress-slider-thumb-rim-top` | _literal_ | `rgb(var(--sc-p-color-ink-rgb) / 0)` | _literal_ | `rgb(var(--sc-p-color-ink-rgb) / 0)` | 2026-10-07 · ProgressIndicator interactive bar material (physical-controls Tier 1: a recessed track and a physical thumb, lit from the top left; the thumb carries the non-text contrast cue the fill misses), tuned in sc-tune. |
-| `color/progressSlider/thumbRimBottom` | `--sc-color-progress-slider-thumb-rim-bottom` | _literal_ | `rgb(var(--sc-p-color-ink-rgb) / 0)` | _literal_ | `rgb(var(--sc-p-color-ink-rgb) / 0)` | 2026-10-07 · ProgressIndicator interactive bar material (physical-controls Tier 1: a recessed track and a physical thumb, lit from the top left; the thumb carries the non-text contrast cue the fill misses), tuned in sc-tune. |
-| `color/progressSlider/thumbFaceTop` | `--sc-color-progress-slider-thumb-face-top` | _literal_ | `rgb(var(--sc-p-color-ink-rgb) / 0)` | _literal_ | `rgb(var(--sc-p-color-ink-rgb) / 0)` | 2026-10-07 · ProgressIndicator interactive bar material (physical-controls Tier 1: a recessed track and a physical thumb, lit from the top left; the thumb carries the non-text contrast cue the fill misses), tuned in sc-tune. |
-| `color/progressSlider/thumbFaceBottom` | `--sc-color-progress-slider-thumb-face-bottom` | _literal_ | `rgb(var(--sc-p-color-ink-rgb) / 0)` | _literal_ | `rgb(var(--sc-p-color-ink-rgb) / 0)` | 2026-10-07 · ProgressIndicator interactive bar material (physical-controls Tier 1: a recessed track and a physical thumb, lit from the top left; the thumb carries the non-text contrast cue the fill misses), tuned in sc-tune. |
+| `color/slider/track` | `--sc-color-slider-track` | `color/warmGray/300` | `#B0A69C` | `color/dark/raised2` | `#3B4249` | 2026-10-07 · Slider material (physical-controls Tier 1; split from ProgressIndicator's interactive bar, Levi 2026-10-07: a progress indicator is read, a slider is moved. |
+| `color/slider/trackDisabled` | `--sc-color-slider-track-disabled` | `color/warmGray/200` | `#D8D1CC` | `color/dark/well` | `#1F252C` | 2026-10-07 · Slider material (physical-controls Tier 1; split from ProgressIndicator's interactive bar, Levi 2026-10-07: a progress indicator is read, a slider is moved. |
+| `color/slider/fill` | `--sc-color-slider-fill` | `color/teal/500` | `#038E93` | `color/teal/500` | `#038E93` | 2026-10-07 · Slider material (physical-controls Tier 1; split from ProgressIndicator's interactive bar, Levi 2026-10-07: a progress indicator is read, a slider is moved. |
+| `color/slider/fillHover` | `--sc-color-slider-fill-hover` | `color/teal/600` | `#04797D` | `color/teal/300` | `#52B8BC` | 2026-10-07 · Slider material (physical-controls Tier 1; split from ProgressIndicator's interactive bar, Levi 2026-10-07: a progress indicator is read, a slider is moved. |
+| `color/slider/fillDisabled` | `--sc-color-slider-fill-disabled` | `color/warmGray/400` | `#847C71` | `color/dark/textDisabled` | `#7C7A76` | 2026-10-07 · Slider material (physical-controls Tier 1; split from ProgressIndicator's interactive bar, Levi 2026-10-07: a progress indicator is read, a slider is moved. |
+| `color/slider/thumbRimTop` | `--sc-color-slider-thumb-rim-top` | _literal_ | `rgb(var(--sc-p-color-ink-rgb) / 0)` | _literal_ | `rgb(var(--sc-p-color-ink-rgb) / 0)` | 2026-10-07 · Slider material (physical-controls Tier 1; split from ProgressIndicator's interactive bar, Levi 2026-10-07: a progress indicator is read, a slider is moved. |
+| `color/slider/thumbRimBottom` | `--sc-color-slider-thumb-rim-bottom` | _literal_ | `rgb(var(--sc-p-color-ink-rgb) / 0)` | _literal_ | `rgb(var(--sc-p-color-ink-rgb) / 0)` | 2026-10-07 · Slider material (physical-controls Tier 1; split from ProgressIndicator's interactive bar, Levi 2026-10-07: a progress indicator is read, a slider is moved. |
+| `color/slider/thumbFaceTop` | `--sc-color-slider-thumb-face-top` | _literal_ | `rgb(var(--sc-p-color-ink-rgb) / 0)` | _literal_ | `rgb(var(--sc-p-color-ink-rgb) / 0)` | 2026-10-07 · Slider material (physical-controls Tier 1; split from ProgressIndicator's interactive bar, Levi 2026-10-07: a progress indicator is read, a slider is moved. |
+| `color/slider/thumbFaceBottom` | `--sc-color-slider-thumb-face-bottom` | _literal_ | `rgb(var(--sc-p-color-ink-rgb) / 0)` | _literal_ | `rgb(var(--sc-p-color-ink-rgb) / 0)` | 2026-10-07 · Slider material (physical-controls Tier 1; split from ProgressIndicator's interactive bar, Levi 2026-10-07: a progress indicator is read, a slider is moved. |
 
 ### Typography · Semantic
 
@@ -816,17 +816,17 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | `motion/stepper/stretch` | `--sc-motion-stepper-stretch` | _literal_ | `0.45` | _literal_ | `0.45` | 2026-10-07 · Stepper readout roll (physical-controls Tier 1), engine src/motion/elastic.js via Stepper.jsx, tuned in sc-tune. |
 | `motion/stepper/squash` | `--sc-motion-stepper-squash` | _literal_ | `0` | _literal_ | `0` | 2026-10-07 · Stepper readout roll (physical-controls Tier 1), engine src/motion/elastic.js via Stepper.jsx, tuned in sc-tune. |
 
-#### `motion/progressSlider`
+#### `motion/slider`
 
 | Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
 |---|---|---|---|---|---|---|
-| `motion/progressSlider/travel/duration` | `--sc-motion-progress-slider-travel-duration` | `motion/duration/micro` | `200ms` | `motion/duration/micro` | `200ms` | 2026-10-07 · ProgressIndicator interactive bar motion (physical-controls Tier 1), engine src/motion/elastic.js via ProgressIndicator.jsx, tuned in sc-tune. |
-| `motion/progressSlider/travel/easing` | `--sc-motion-progress-slider-travel-easing` | `motion/easing/out` | `cubic-bezier(0.22, 1, 0.36, 1)` | `motion/easing/out` | `cubic-bezier(0.22, 1, 0.36, 1)` | 2026-10-07 · ProgressIndicator interactive bar motion (physical-controls Tier 1), engine src/motion/elastic.js via ProgressIndicator.jsx, tuned in sc-tune. |
-| `motion/progressSlider/drag/duration` | `--sc-motion-progress-slider-drag-duration` | `motion/duration/micro` | `200ms` | `motion/duration/micro` | `200ms` | 2026-10-07 · ProgressIndicator interactive bar motion (physical-controls Tier 1), engine src/motion/elastic.js via ProgressIndicator.jsx, tuned in sc-tune. |
-| `motion/progressSlider/drag/easing` | `--sc-motion-progress-slider-drag-easing` | `motion/easing/out` | `cubic-bezier(0.22, 1, 0.36, 1)` | `motion/easing/out` | `cubic-bezier(0.22, 1, 0.36, 1)` | 2026-10-07 · ProgressIndicator interactive bar motion (physical-controls Tier 1), engine src/motion/elastic.js via ProgressIndicator.jsx, tuned in sc-tune. |
-| `motion/progressSlider/stretch` | `--sc-motion-progress-slider-stretch` | _literal_ | `0` | _literal_ | `0` | 2026-10-07 · ProgressIndicator interactive bar motion (physical-controls Tier 1), engine src/motion/elastic.js via ProgressIndicator.jsx, tuned in sc-tune. |
-| `motion/progressSlider/squash` | `--sc-motion-progress-slider-squash` | _literal_ | `0` | _literal_ | `0` | 2026-10-07 · ProgressIndicator interactive bar motion (physical-controls Tier 1), engine src/motion/elastic.js via ProgressIndicator.jsx, tuned in sc-tune. |
-| `motion/progressSlider/thumbPressScale` | `--sc-motion-progress-slider-thumb-press-scale` | _literal_ | `1` | _literal_ | `1` | 2026-10-07 · ProgressIndicator interactive bar motion (physical-controls Tier 1), engine src/motion/elastic.js via ProgressIndicator.jsx, tuned in sc-tune. |
+| `motion/slider/travel/duration` | `--sc-motion-slider-travel-duration` | `motion/duration/micro` | `200ms` | `motion/duration/micro` | `200ms` | 2026-10-07 · Slider motion (physical-controls Tier 1; split from ProgressIndicator's interactive bar, Levi 2026-10-07), engine src/motion/elastic.js via Slider.jsx, tuned in sc-tune. |
+| `motion/slider/travel/easing` | `--sc-motion-slider-travel-easing` | `motion/easing/out` | `cubic-bezier(0.22, 1, 0.36, 1)` | `motion/easing/out` | `cubic-bezier(0.22, 1, 0.36, 1)` | 2026-10-07 · Slider motion (physical-controls Tier 1; split from ProgressIndicator's interactive bar, Levi 2026-10-07), engine src/motion/elastic.js via Slider.jsx, tuned in sc-tune. |
+| `motion/slider/drag/duration` | `--sc-motion-slider-drag-duration` | `motion/duration/micro` | `200ms` | `motion/duration/micro` | `200ms` | 2026-10-07 · Slider motion (physical-controls Tier 1; split from ProgressIndicator's interactive bar, Levi 2026-10-07), engine src/motion/elastic.js via Slider.jsx, tuned in sc-tune. |
+| `motion/slider/drag/easing` | `--sc-motion-slider-drag-easing` | `motion/easing/out` | `cubic-bezier(0.22, 1, 0.36, 1)` | `motion/easing/out` | `cubic-bezier(0.22, 1, 0.36, 1)` | 2026-10-07 · Slider motion (physical-controls Tier 1; split from ProgressIndicator's interactive bar, Levi 2026-10-07), engine src/motion/elastic.js via Slider.jsx, tuned in sc-tune. |
+| `motion/slider/stretch` | `--sc-motion-slider-stretch` | _literal_ | `0` | _literal_ | `0` | 2026-10-07 · Slider motion (physical-controls Tier 1; split from ProgressIndicator's interactive bar, Levi 2026-10-07), engine src/motion/elastic.js via Slider.jsx, tuned in sc-tune. |
+| `motion/slider/squash` | `--sc-motion-slider-squash` | _literal_ | `0` | _literal_ | `0` | 2026-10-07 · Slider motion (physical-controls Tier 1; split from ProgressIndicator's interactive bar, Levi 2026-10-07), engine src/motion/elastic.js via Slider.jsx, tuned in sc-tune. |
+| `motion/slider/thumbPressScale` | `--sc-motion-slider-thumb-press-scale` | _literal_ | `1` | _literal_ | `1` | 2026-10-07 · Slider motion (physical-controls Tier 1; split from ProgressIndicator's interactive bar, Levi 2026-10-07), engine src/motion/elastic.js via Slider.jsx, tuned in sc-tune. |
 
 ### Shadow · Semantic
 
@@ -863,13 +863,13 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | `shadow/stepper/keyHover` | `--sc-shadow-stepper-key-hover` | `shadow/control/keyHover` | `⚠ unresolved` | `shadow/control/keyHover` | `⚠ unresolved` | 2026-10-07 · Stepper material (physical-controls Tier 1). |
 | `shadow/stepper/keyPressed` | `--sc-shadow-stepper-key-pressed` | `shadow/control/keyPressed` | `⚠ unresolved` | `shadow/control/keyPressed` | `⚠ unresolved` | 2026-10-07 · Stepper material (physical-controls Tier 1). |
 
-#### `shadow/progressSlider`
+#### `shadow/slider`
 
 | Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
 |---|---|---|---|---|---|---|
-| `shadow/progressSlider/track` | `--sc-shadow-progress-slider-track` | _literal_ | `inset 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)` | _literal_ | `inset 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)` | 2026-10-07 · ProgressIndicator interactive bar material (physical-controls Tier 1: a recessed track and a physical thumb, lit from the top left; the thumb carries the non-text contrast cue the fill misses), tuned in sc-tune. |
-| `shadow/progressSlider/thumb` | `--sc-shadow-progress-slider-thumb` | _literal_ | `0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)` | _literal_ | `0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)` | 2026-10-07 · ProgressIndicator interactive bar material (physical-controls Tier 1: a recessed track and a physical thumb, lit from the top left; the thumb carries the non-text contrast cue the fill misses), tuned in sc-tune. |
-| `shadow/progressSlider/thumbPressed` | `--sc-shadow-progress-slider-thumb-pressed` | _literal_ | `0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)` | _literal_ | `0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)` | 2026-10-07 · ProgressIndicator interactive bar material (physical-controls Tier 1: a recessed track and a physical thumb, lit from the top left; the thumb carries the non-text contrast cue the fill misses), tuned in sc-tune. |
+| `shadow/slider/track` | `--sc-shadow-slider-track` | _literal_ | `inset 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)` | _literal_ | `inset 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)` | 2026-10-07 · Slider material (physical-controls Tier 1; split from ProgressIndicator's interactive bar, Levi 2026-10-07: a progress indicator is read, a slider is moved. |
+| `shadow/slider/thumb` | `--sc-shadow-slider-thumb` | _literal_ | `0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)` | _literal_ | `0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)` | 2026-10-07 · Slider material (physical-controls Tier 1; split from ProgressIndicator's interactive bar, Levi 2026-10-07: a progress indicator is read, a slider is moved. |
+| `shadow/slider/thumbPressed` | `--sc-shadow-slider-thumb-pressed` | _literal_ | `0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)` | _literal_ | `0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)` | 2026-10-07 · Slider material (physical-controls Tier 1; split from ProgressIndicator's interactive bar, Levi 2026-10-07: a progress indicator is read, a slider is moved. |
 
 ### Size · Semantic
 
@@ -911,12 +911,14 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | `size/progress/bar-height-active` | `--sc-size-progress-bar-height-active` | `space/micro/6` | `6px` | `space/micro/6` | `6px` | Sprint 5 addition · Drams #4/#5 (Volume Visible Track / Standard Volume) · interactive bar variant, active/dragging track thickness (6px). |
 | `size/progress/hit-slop` | `--sc-size-progress-hit-slop` | `space/micro/22` | `22px` | `space/micro/22` | `22px` | Sprint 5 addition · Drams #5 (Standard Volume) · interactive bar variant, invisible hit-area padding above/below the visual track (block padding on the interactive wrapper, not the track itself). |
 
-#### `size/progressSlider`
+#### `size/slider`
 
 | Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
 |---|---|---|---|---|---|---|
-| `size/progressSlider/track` | `--sc-size-progress-slider-track` | `space/4` | `4px` | `space/4` | `4px` | 2026-10-07 · ProgressIndicator interactive bar material (physical-controls Tier 1: a recessed track and a physical thumb, lit from the top left; the thumb carries the non-text contrast cue the fill misses), tuned in sc-tune. |
-| `size/progressSlider/thumb` | `--sc-size-progress-slider-thumb` | _literal_ | `0px` | _literal_ | `0px` | 2026-10-07 · ProgressIndicator interactive bar material (physical-controls Tier 1: a recessed track and a physical thumb, lit from the top left; the thumb carries the non-text contrast cue the fill misses), tuned in sc-tune. |
+| `size/slider/track` | `--sc-size-slider-track` | `space/4` | `4px` | `space/4` | `4px` | 2026-10-07 · Slider material (physical-controls Tier 1; split from ProgressIndicator's interactive bar, Levi 2026-10-07: a progress indicator is read, a slider is moved. |
+| `size/slider/trackActive` | `--sc-size-slider-track-active` | `space/micro/6` | `6px` | `space/micro/6` | `6px` | 2026-10-07 · Slider (physical-controls Tier 1; split from ProgressIndicator's interactive bar, Levi 2026-10-07). |
+| `size/slider/hitSlop` | `--sc-size-slider-hit-slop` | `space/micro/22` | `22px` | `space/micro/22` | `22px` | 2026-10-07 · Slider (physical-controls Tier 1; split from ProgressIndicator's interactive bar, Levi 2026-10-07). |
+| `size/slider/thumb` | `--sc-size-slider-thumb` | _literal_ | `0px` | _literal_ | `0px` | 2026-10-07 · Slider material (physical-controls Tier 1; split from ProgressIndicator's interactive bar, Levi 2026-10-07: a progress indicator is read, a slider is moved. |
 
 #### `size/button`
 

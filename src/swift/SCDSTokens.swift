@@ -171,8 +171,8 @@ public enum SCDS {
     public static let semanticVersion = "0.1.0"
     public static let sourceGenerated = "2026-05-26"
     public static let primitivesHash = "f96efa487bcac29d"
-    public static let semanticHash = "8d84d1dd1c5e6f0e"
-    public static let tokenCount = 237
+    public static let semanticHash = "7033e74bf9119295"
+    public static let tokenCount = 239
   }
 
   // MARK: - Color
@@ -593,56 +593,56 @@ public enum SCDS {
         dark:  (0.101961, 0.094118, 0.082353, 0.25)
     )
 
-    /// `color.progressSlider.track`
-    public static let progressSliderTrack = SwiftUI.Color.scdsDynamic(
+    /// `color.slider.track`
+    public static let sliderTrack = SwiftUI.Color.scdsDynamic(
         light: (0.690196, 0.65098, 0.611765, 1),
         dark:  (0.231373, 0.258824, 0.286275, 1)
     )
 
-    /// `color.progressSlider.trackDisabled`
-    public static let progressSliderTrackDisabled = SwiftUI.Color.scdsDynamic(
+    /// `color.slider.trackDisabled`
+    public static let sliderTrackDisabled = SwiftUI.Color.scdsDynamic(
         light: (0.847059, 0.819608, 0.8, 1),
         dark:  (0.121569, 0.145098, 0.172549, 1)
     )
 
-    /// `color.progressSlider.fill`
-    public static let progressSliderFill = SwiftUI.Color.scdsDynamic(
+    /// `color.slider.fill`
+    public static let sliderFill = SwiftUI.Color.scdsDynamic(
         light: (0.011765, 0.556863, 0.576471, 1),
         dark:  (0.011765, 0.556863, 0.576471, 1)
     )
 
-    /// `color.progressSlider.fillHover`
-    public static let progressSliderFillHover = SwiftUI.Color.scdsDynamic(
+    /// `color.slider.fillHover`
+    public static let sliderFillHover = SwiftUI.Color.scdsDynamic(
         light: (0.015686, 0.47451, 0.490196, 1),
         dark:  (0.321569, 0.721569, 0.737255, 1)
     )
 
-    /// `color.progressSlider.fillDisabled`
-    public static let progressSliderFillDisabled = SwiftUI.Color.scdsDynamic(
+    /// `color.slider.fillDisabled`
+    public static let sliderFillDisabled = SwiftUI.Color.scdsDynamic(
         light: (0.517647, 0.486275, 0.443137, 1),
         dark:  (0.486275, 0.478431, 0.462745, 1)
     )
 
-    /// `color.progressSlider.thumbRimTop`
-    public static let progressSliderThumbRimTop = SwiftUI.Color.scdsDynamic(
+    /// `color.slider.thumbRimTop`
+    public static let sliderThumbRimTop = SwiftUI.Color.scdsDynamic(
         light: (0.101961, 0.094118, 0.082353, 0),
         dark:  (0.101961, 0.094118, 0.082353, 0)
     )
 
-    /// `color.progressSlider.thumbRimBottom`
-    public static let progressSliderThumbRimBottom = SwiftUI.Color.scdsDynamic(
+    /// `color.slider.thumbRimBottom`
+    public static let sliderThumbRimBottom = SwiftUI.Color.scdsDynamic(
         light: (0.101961, 0.094118, 0.082353, 0),
         dark:  (0.101961, 0.094118, 0.082353, 0)
     )
 
-    /// `color.progressSlider.thumbFaceTop`
-    public static let progressSliderThumbFaceTop = SwiftUI.Color.scdsDynamic(
+    /// `color.slider.thumbFaceTop`
+    public static let sliderThumbFaceTop = SwiftUI.Color.scdsDynamic(
         light: (0.101961, 0.094118, 0.082353, 0),
         dark:  (0.101961, 0.094118, 0.082353, 0)
     )
 
-    /// `color.progressSlider.thumbFaceBottom`
-    public static let progressSliderThumbFaceBottom = SwiftUI.Color.scdsDynamic(
+    /// `color.slider.thumbFaceBottom`
+    public static let sliderThumbFaceBottom = SwiftUI.Color.scdsDynamic(
         light: (0.101961, 0.094118, 0.082353, 0),
         dark:  (0.101961, 0.094118, 0.082353, 0)
     )
@@ -1117,11 +1117,17 @@ public enum SCDS {
     /// `size.progress.hit-slop`
     public static let progressHitSlop: CGFloat = 22
 
-    /// `size.progressSlider.track`
-    public static let progressSliderTrack: CGFloat = 4
+    /// `size.slider.track`
+    public static let sliderTrack: CGFloat = 4
 
-    /// `size.progressSlider.thumb`
-    public static let progressSliderThumb: CGFloat = 0
+    /// `size.slider.trackActive`
+    public static let sliderTrackActive: CGFloat = 6
+
+    /// `size.slider.hitSlop`
+    public static let sliderHitSlop: CGFloat = 22
+
+    /// `size.slider.thumb`
+    public static let sliderThumb: CGFloat = 0
 
     /// `size.button.icon.lg`
     public static let buttonIconLg: CGFloat = 14
@@ -1293,26 +1299,26 @@ public enum SCDS {
     /// `motion.stepper.squash`
     public static let stepperSquash: CGFloat = 0
 
-    /// `motion.progressSlider.travel.duration` · 200ms
-    public static let progressSliderTravelDuration: TimeInterval = 0.2
+    /// `motion.slider.travel.duration` · 200ms
+    public static let sliderTravelDuration: TimeInterval = 0.2
 
-    /// `motion.progressSlider.travel.easing`
-    public static let progressSliderTravelEasing = SCDSEasing(0.22, 1, 0.36, 1)
+    /// `motion.slider.travel.easing`
+    public static let sliderTravelEasing = SCDSEasing(0.22, 1, 0.36, 1)
 
-    /// `motion.progressSlider.drag.duration` · 200ms
-    public static let progressSliderDragDuration: TimeInterval = 0.2
+    /// `motion.slider.drag.duration` · 200ms
+    public static let sliderDragDuration: TimeInterval = 0.2
 
-    /// `motion.progressSlider.drag.easing`
-    public static let progressSliderDragEasing = SCDSEasing(0.22, 1, 0.36, 1)
+    /// `motion.slider.drag.easing`
+    public static let sliderDragEasing = SCDSEasing(0.22, 1, 0.36, 1)
 
-    /// `motion.progressSlider.stretch`
-    public static let progressSliderStretch: CGFloat = 0
+    /// `motion.slider.stretch`
+    public static let sliderStretch: CGFloat = 0
 
-    /// `motion.progressSlider.squash`
-    public static let progressSliderSquash: CGFloat = 0
+    /// `motion.slider.squash`
+    public static let sliderSquash: CGFloat = 0
 
-    /// `motion.progressSlider.thumbPressScale`
-    public static let progressSliderThumbPressScale: CGFloat = 1
+    /// `motion.slider.thumbPressScale`
+    public static let sliderThumbPressScale: CGFloat = 1
   }
 
   // MARK: - Shadow
@@ -1485,8 +1491,8 @@ public enum SCDS {
         ]
     )
 
-    /// `shadow.progressSlider.track` · 1 layers
-    public static let progressSliderTrack = SCDSShadow(
+    /// `shadow.slider.track` · 1 layers
+    public static let sliderTrack = SCDSShadow(
         light: [
             SCDSShadowLayer(inset: true, x: 0, y: 0, blur: 0, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0),
         ],
@@ -1495,8 +1501,8 @@ public enum SCDS {
         ]
     )
 
-    /// `shadow.progressSlider.thumb` · 1 layers
-    public static let progressSliderThumb = SCDSShadow(
+    /// `shadow.slider.thumb` · 1 layers
+    public static let sliderThumb = SCDSShadow(
         light: [
             SCDSShadowLayer(inset: false, x: 0, y: 0, blur: 0, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0),
         ],
@@ -1505,8 +1511,8 @@ public enum SCDS {
         ]
     )
 
-    /// `shadow.progressSlider.thumbPressed` · 1 layers
-    public static let progressSliderThumbPressed = SCDSShadow(
+    /// `shadow.slider.thumbPressed` · 1 layers
+    public static let sliderThumbPressed = SCDSShadow(
         light: [
             SCDSShadowLayer(inset: false, x: 0, y: 0, blur: 0, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0),
         ],
