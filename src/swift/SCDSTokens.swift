@@ -171,8 +171,8 @@ public enum SCDS {
     public static let semanticVersion = "0.1.0"
     public static let sourceGenerated = "2026-05-26"
     public static let primitivesHash = "f96efa487bcac29d"
-    public static let semanticHash = "f7a25616ca3a44b5"
-    public static let tokenCount = 239
+    public static let semanticHash = "794bdb3c049a2aee"
+    public static let tokenCount = 251
   }
 
   // MARK: - Color
@@ -646,6 +646,54 @@ public enum SCDS {
         light: (0.890196, 0.87451, 0.847059, 1),
         dark:  (0.701961, 0.694118, 0.678431, 1)
     )
+
+    /// `color.input.well`
+    public static let inputWell = SwiftUI.Color.scdsDynamic(
+        light: (0.847059, 0.819608, 0.8, 1),
+        dark:  (0.121569, 0.145098, 0.172549, 1)
+    )
+
+    /// `color.input.wellHover`
+    public static let inputWellHover = SwiftUI.Color.scdsDynamic(
+        light: (0.847059, 0.819608, 0.8, 1),
+        dark:  (0.121569, 0.145098, 0.172549, 1)
+    )
+
+    /// `color.input.wellFocus`
+    public static let inputWellFocus = SwiftUI.Color.scdsDynamic(
+        light: (0.890196, 0.87451, 0.847059, 1),
+        dark:  (0.172549, 0.196078, 0.223529, 1)
+    )
+
+    /// `color.input.wellDisabled`
+    public static let inputWellDisabled = SwiftUI.Color.scdsDynamic(
+        light: (0.847059, 0.819608, 0.8, 1),
+        dark:  (0.121569, 0.145098, 0.172549, 1)
+    )
+
+    /// `color.input.rule`
+    public static let inputRule = SwiftUI.Color.scdsDynamic(
+        light: (0.603922, 0.568627, 0.52549, 1),
+        dark:  (0.301961, 0.32549, 0.356863, 1)
+    )
+
+    /// `color.input.ruleHover`
+    public static let inputRuleHover = SwiftUI.Color.scdsDynamic(
+        light: (0.603922, 0.568627, 0.52549, 1),
+        dark:  (0.301961, 0.32549, 0.356863, 1)
+    )
+
+    /// `color.input.ruleFilled`
+    public static let inputRuleFilled = SwiftUI.Color.scdsDynamic(
+        light: (0.101961, 0.094118, 0.082353, 1),
+        dark:  (0.945098, 0.937255, 0.921569, 1)
+    )
+
+    /// `color.input.ruleFocus`
+    public static let inputRuleFocus = SwiftUI.Color.scdsDynamic(
+        light: (0.121569, 0.12549, 0.141176, 1),
+        dark:  (0.913725, 0.921569, 0.933333, 1)
+    )
   }
 
   // MARK: - Typography
@@ -997,6 +1045,9 @@ public enum SCDS {
     /// `space.component.padding-inline.button-sm`
     public static let componentPaddingInlineButtonSm: CGFloat = 16
 
+    /// `space.component.padding-inline.input`
+    public static let componentPaddingInlineInput: CGFloat = 12
+
     /// `space.component.padding-block.sm`
     public static let componentPaddingBlockSm: CGFloat = 2
 
@@ -1009,6 +1060,9 @@ public enum SCDS {
     /// `space.component.padding-block.button-sm`
     public static let componentPaddingBlockButtonSm: CGFloat = 4
 
+    /// `space.component.padding-block.input`
+    public static let componentPaddingBlockInput: CGFloat = 8
+
     /// `space.component.gap.sm`
     public static let componentGapSm: CGFloat = 4
 
@@ -1020,6 +1074,9 @@ public enum SCDS {
 
     /// `space.component.gap.stepper`
     public static let componentGapStepper: CGFloat = 8
+
+    /// `space.component.gap.input`
+    public static let componentGapInput: CGFloat = 4
   }
 
   // MARK: - Radius
@@ -1524,6 +1581,16 @@ public enum SCDS {
             SCDSShadowLayer(inset: false, x: 3, y: 3, blur: 7, spread: 0, rgb: (0, 0, 0), alpha: 0.38),
             SCDSShadowLayer(inset: false, x: -1, y: -1, blur: 1, spread: 1, rgb: (0.858824, 0.921569, 1), alpha: 0.14),
             SCDSShadowLayer(inset: true, x: 1, y: 1, blur: 8, spread: 0, rgb: (1, 1, 1), alpha: 0.06),
+        ]
+    )
+
+    /// `shadow.input.well` · 1 layers
+    public static let inputWell = SCDSShadow(
+        light: [
+            SCDSShadowLayer(inset: true, x: 0, y: 0, blur: 0, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0),
+        ],
+        dark: [
+            SCDSShadowLayer(inset: true, x: 0, y: 0, blur: 0, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0),
         ]
     )
   }

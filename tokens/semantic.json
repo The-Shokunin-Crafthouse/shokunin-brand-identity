@@ -676,6 +676,16 @@
       "thumbRimBottom": { "$type": "color", "$value": "{color.warmGray.200}", "$description": "2026-10-07 \u00b7 Slider material (physical-controls Tier 1; split from ProgressIndicator's interactive bar, Levi 2026-10-07: a progress indicator is read, a slider is moved. A recessed track and a physical thumb, lit from the top left; the thumb carries the non-text contrast cue the fill misses), tuned in sc-tune. Thumb rim gradient, bottom-right stop (135deg). Shipped transparent. Record Slider 2026-10-07-2207, concept A (Levi), applied 2026-10-07: warmGray.200; dark warmGray.350 (the Switch knob values); was transparent.", "$extensions": {"modes": {"light": "{color.warmGray.200}", "dark": "{color.warmGray.350}"}} },
       "thumbFaceTop": { "$type": "color", "$value": "{color.warmGray.50}", "$description": "2026-10-07 \u00b7 Slider material (physical-controls Tier 1; split from ProgressIndicator's interactive bar, Levi 2026-10-07: a progress indicator is read, a slider is moved. A recessed track and a physical thumb, lit from the top left; the thumb carries the non-text contrast cue the fill misses), tuned in sc-tune. Thumb face gradient, top-left stop (135deg). Shipped transparent. Record Slider 2026-10-07-2207, concept A (Levi), applied 2026-10-07: warmGray.50; dark warmGray.200 (the Switch knob values); was transparent.", "$extensions": {"modes": {"light": "{color.warmGray.50}", "dark": "{color.warmGray.200}"}} },
       "thumbFaceBottom": { "$type": "color", "$value": "{color.warmGray.100}", "$description": "2026-10-07 \u00b7 Slider material (physical-controls Tier 1; split from ProgressIndicator's interactive bar, Levi 2026-10-07: a progress indicator is read, a slider is moved. A recessed track and a physical thumb, lit from the top left; the thumb carries the non-text contrast cue the fill misses), tuned in sc-tune. Thumb face gradient, bottom-right stop (135deg). Shipped transparent. Record Slider 2026-10-07-2207, concept A (Levi), applied 2026-10-07: warmGray.100; dark dark.textTertiary (the Switch knob values); was transparent.", "$extensions": {"modes": {"light": "{color.warmGray.100}", "dark": "{color.dark.textTertiary}"}} }
+    },
+    "input": {
+      "well": { "$type": "color", "$value": "{color.warmGray.200}", "$description": "2026-10-07 \u00b7 Input material (physical-controls Tier 1: a true recessed well, the focus underline stays, a hover state), tuned in sc-tune. Field fill at rest (the well). Shipped = surface.sunk (today); its own role so the well tunes without moving cards, the Stepper and other sunk surfaces.", "$extensions": { "modes": { "light": "{color.warmGray.200}", "dark": "{color.dark.well}" } } },
+      "wellHover": { "$type": "color", "$value": "{color.warmGray.200}", "$description": "2026-10-07 \u00b7 Input material (physical-controls Tier 1: a true recessed well, the focus underline stays, a hover state), tuned in sc-tune. Field fill on hover (new state). Shipped = well (hover derived from rest, no visible change until a record).", "$extensions": { "modes": { "light": "{color.warmGray.200}", "dark": "{color.dark.well}" } } },
+      "wellFocus": { "$type": "color", "$value": "{color.warmGray.100}", "$description": "2026-10-07 \u00b7 Input material (physical-controls Tier 1: a true recessed well, the focus underline stays, a hover state), tuned in sc-tune. Field fill on focus. Shipped = surface.page (today's fill-shift).", "$extensions": { "modes": { "light": "{color.warmGray.100}", "dark": "{color.dark.surfacePage}" } } },
+      "wellDisabled": { "$type": "color", "$value": "{color.warmGray.200}", "$description": "2026-10-07 \u00b7 Input material (physical-controls Tier 1: a true recessed well, the focus underline stays, a hover state), tuned in sc-tune. Field fill when disabled. Shipped = surface.sunk (today).", "$extensions": { "modes": { "light": "{color.warmGray.200}", "dark": "{color.dark.well}" } } },
+      "rule": { "$type": "color", "$value": "{color.warmGray.350}", "$description": "2026-10-07 \u00b7 Input material (physical-controls Tier 1: a true recessed well, the focus underline stays, a hover state), tuned in sc-tune. Bottom rule at rest. Shipped = border.default (today).", "$extensions": { "modes": { "light": "{color.warmGray.350}", "dark": "{color.dark.border}" } } },
+      "ruleHover": { "$type": "color", "$value": "{color.warmGray.350}", "$description": "2026-10-07 \u00b7 Input material (physical-controls Tier 1: a true recessed well, the focus underline stays, a hover state), tuned in sc-tune. Bottom rule on hover (new state). Shipped = rule (no visible change until a record).", "$extensions": { "modes": { "light": "{color.warmGray.350}", "dark": "{color.dark.border}" } } },
+      "ruleFilled": { "$type": "color", "$value": "{color.warmGray.800}", "$description": "2026-10-07 \u00b7 Input material (physical-controls Tier 1: a true recessed well, the focus underline stays, a hover state), tuned in sc-tune. Bottom rule when the field holds a value. Shipped = border.strong (today).", "$extensions": { "modes": { "light": "{color.warmGray.800}", "dark": "{color.warmGray.50}" } } },
+      "ruleFocus": { "$type": "color", "$value": "{color.focusRing.light}", "$description": "2026-10-07 \u00b7 Input material (physical-controls Tier 1: a true recessed well, the focus underline stays, a hover state), tuned in sc-tune. Bottom rule on focus, doubled to 2px by an inset line. Shipped = border.focus (today).", "$extensions": { "modes": { "light": "{color.focusRing.light}", "dark": "{color.focusRing.dark}" } } }
     }
   },
   "border": {
@@ -822,6 +832,9 @@
       "track": { "$type": "shadow", "$value": "inset 0.71px 0.71px 2px 0 rgb(var(--sc-p-color-ink-rgb) / 0.25)", "$description": "2026-10-07 \u00b7 Slider material (physical-controls Tier 1; split from ProgressIndicator's interactive bar, Levi 2026-10-07: a progress indicator is read, a slider is moved. A recessed track and a physical thumb, lit from the top left; the thumb carries the non-text contrast cue the fill misses), tuned in sc-tune. Recess of the track. Shipped with zero alpha (flat); the lab starts from the top-left recess (SegmentedControl 1645 track). Record Slider 2026-10-07-2207, concept A (Levi), applied 2026-10-07: the top-left recess, ink .25; dark black .45; was flat.", "$extensions": {"modes": {"light": "inset 0.71px 0.71px 2px 0 rgb(var(--sc-p-color-ink-rgb) / 0.25)", "dark": "inset 0.71px 0.71px 2px 0 rgb(0 0 0 / 0.45)"}} },
       "thumb": { "$type": "shadow", "$value": "{shadow.control.key}", "$description": "2026-10-07 \u00b7 Slider material (physical-controls Tier 1; split from ProgressIndicator's interactive bar, Levi 2026-10-07: a progress indicator is read, a slider is moved. A recessed track and a physical thumb, lit from the top left; the thumb carries the non-text contrast cue the fill misses), tuned in sc-tune. Thumb lift. Shipped with zero alpha (no thumb today); the lab starts from the Switch knob's six-layer lift turned to the top left. Record Slider 2026-10-07-2207, concept A (Levi), applied 2026-10-07: the Button key lift, aliased to shadow.control.key so the thumb follows a Button retune (cascade, Claude; values equal the record); was zero alpha.", "$extensions": {"modes": {"light": "{shadow.control.key}", "dark": "{shadow.control.key}"}} },
       "thumbPressed": { "$type": "shadow", "$value": "{shadow.control.keyPressed}", "$description": "2026-10-07 \u00b7 Slider material (physical-controls Tier 1; split from ProgressIndicator's interactive bar, Levi 2026-10-07: a progress indicator is read, a slider is moved. A recessed track and a physical thumb, lit from the top left; the thumb carries the non-text contrast cue the fill misses), tuned in sc-tune. Thumb lift while dragged. Shipped with zero alpha; the lab starts it equal to rest (pressed derived from rest, the Button rule). Record Slider 2026-10-07-2207, concept A (Levi), applied 2026-10-07: the Button key pressed lift, aliased to shadow.control.keyPressed (cascade, Claude; values equal the record); was zero alpha.", "$extensions": {"modes": {"light": "{shadow.control.keyPressed}", "dark": "{shadow.control.keyPressed}"}} }
+    },
+    "input": {
+      "well": { "$type": "shadow", "$value": "inset 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)", "$description": "2026-10-07 \u00b7 Input material (physical-controls Tier 1: a true recessed well, the focus underline stays, a hover state), tuned in sc-tune. Recess of the well. Shipped with zero alpha (flat); the lab starts from the top-left recess plus the Drams 036 container's white bottom-right bounce.", "$extensions": { "modes": { "light": "inset 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)", "dark": "inset 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)" } } }
     }
   },
   "motion": {
@@ -1430,6 +1443,12 @@
           "$value": "{space.16}",
           "$description": "Small Button inline padding (16px). Its own role, apart from the shared padding-inline scale. sc-tune record Button 2026-10-07-1418.",
           "$extensions": { "modes": { "light": "{space.16}", "dark": "{space.16}" } }
+        },
+        "input": {
+          "$type": "dimension",
+          "$value": "{space.12}",
+          "$description": "2026-10-07 \u00b7 Input material (physical-controls Tier 1: a true recessed well, the focus underline stays, a hover state), tuned in sc-tune. Inline padding inside the field. Shipped = padding-inline.md (12px, today); its own role so a tune never moves SegmentedControl, NavBar, Tooltip or Badge (CONTEXT finding 5).",
+          "$extensions": { "modes": { "light": "{space.12}", "dark": "{space.12}" } }
         }
       },
       "padding-block": {
@@ -1456,6 +1475,12 @@
           "$value": "{space.4}",
           "$description": "Small Button block padding (4px, the dense 4pt step). 2026-10-05 (ADR scds-button-size-small).",
           "$extensions": { "modes": { "light": "{space.4}", "dark": "{space.4}" } }
+        },
+        "input": {
+          "$type": "dimension",
+          "$value": "{space.8}",
+          "$description": "2026-10-07 \u00b7 Input material (physical-controls Tier 1: a true recessed well, the focus underline stays, a hover state), tuned in sc-tune. Block padding inside the field. Shipped = padding-block.md (8px, today); its own role (CONTEXT finding 5).",
+          "$extensions": { "modes": { "light": "{space.8}", "dark": "{space.8}" } }
         }
       },
       "gap": {
@@ -1482,6 +1507,12 @@
           "$value": "{space.8}",
           "$description": "2026-10-07 \u00b7 Stepper role gap: between the pill's keys and the readout, and the readout's inline padding (8px). Record Stepper 2026-10-07-1847, concept A (Levi), applied 2026-10-07: Levi tuned the shared gap-sm 4 \u2192 8px in the lab; the Stepper gets its own role so gap-sm (SegmentedControl, Input, Tooltip, Alert and more) stays 4px.",
           "$extensions": { "modes": { "light": "{space.8}", "dark": "{space.8}" } }
+        },
+        "input": {
+          "$type": "dimension",
+          "$value": "{space.4}",
+          "$description": "2026-10-07 \u00b7 Input material (physical-controls Tier 1: a true recessed well, the focus underline stays, a hover state), tuned in sc-tune. Label, field and helper rhythm. Shipped = gap.sm (4px, today); its own role (CONTEXT finding 5).",
+          "$extensions": { "modes": { "light": "{space.4}", "dark": "{space.4}" } }
         }
       }
     },

@@ -39,3 +39,17 @@ scds-v2 Phase 2: filled field — no box frame; a single bottom rule + fill-shif
 ## Fill-shift + bottom-border model
 
 scds-v2 Phase 2 removed the box frame. The input is an inset fill (`surface-sunk`) with a single bottom rule. Focus is the loudest state: the fill lifts to `surface-page` and the bottom rule goes to the high-contrast focus colour, doubled to an effective 2px with an inset shadow so it reads at AA without shifting layout. Content (filled) darkens the rule to `border-strong`; error recolours it. Depth and state are carried by fill and one rule — never a stroke around the field.
+
+## Physical well (physical-controls Tier 1, 2026-10-07)
+
+The Input reads its own role tokens, so a tune in sc-tune never moves cards, the Stepper or the components that share `padding-*-md` and `gap-sm` (CONTEXT finding 5). Every value shipped equal to the flat field; the material reaches SCDS only through an sc-tune record.
+
+| Token | Shipped | Use |
+|---|---|---|
+| `--sc-color-input-well` / `-well-hover` / `-well-focus` / `-well-disabled` | = surface.sunk / sunk / page / sunk | field fill; hover is new (equal to rest) |
+| `--sc-shadow-input-well` | zero alpha | recess of the well (focus and error add their underline on top) |
+| `--sc-color-input-rule` / `-rule-hover` / `-rule-filled` / `-rule-focus` | = border.default / default / strong / focus | bottom rule; the hover rule moves only on an empty, valid field |
+| `--sc-space-component-padding-inline-input` / `-padding-block-input` | 12 / 8 | field padding |
+| `--sc-space-component-gap-input` | 4 | label, field and helper rhythm |
+
+Disabled is flat: no recess. Forced colors: the field keeps a full `CanvasText` edge, focus is a `Highlight` outline, disabled is `GrayText`.

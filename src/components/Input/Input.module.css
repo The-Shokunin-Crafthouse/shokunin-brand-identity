@@ -1,17 +1,15 @@
 /* tokens:
- *   --sc-space-component-padding-inline-md  · 12 inline
- *   --sc-space-component-padding-block-md   · 8 block
- *   --sc-space-component-gap-sm             · label ↔ input gap (4)
+ *   --sc-space-component-padding-inline-input · 12 inline (role token, = padding-inline-md)
+ *   --sc-space-component-padding-block-input  · 8 block (role token, = padding-block-md)
+ *   --sc-space-component-gap-input            · label ↔ input gap (role token, = gap-sm 4)
  *   --sc-radius-control                     · 3 corner — inscribed register
  *   --sc-border-width-default               · 1 bottom rule
  *   --sc-font-text-body-default-*           · 16 input value
  *   --sc-font-text-label-ui-*               · 12 label
  *   --sc-font-text-caption-*                · 13 helper/error
- *   --sc-color-surface-sunk                 · resting fill (inset well)
- *   --sc-color-surface-page                 · focus fill-shift (lifts)
- *   --sc-color-border-default               · resting bottom rule
- *   --sc-color-border-strong                · filled bottom rule
- *   --sc-color-border-focus                 · focus bottom rule
+ *   --sc-color-input-well / -well-hover / -well-focus / -well-disabled · field fill (role tokens; = surface.sunk, sunk, page, sunk)
+ *   --sc-shadow-input-well                  · recess of the well (shipped zero alpha)
+ *   --sc-color-input-rule / -rule-hover / -rule-filled / -rule-focus · bottom rule (role tokens; = border.default, default, strong, focus)
  *   --sc-color-text-primary                 · value ink
  *   --sc-color-text-secondary               · label + helper
  *   --sc-color-text-disabled                · disabled value
@@ -21,12 +19,16 @@
  * (surface-sunk) with a single bottom rule. Focus lifts the fill to
  * surface-page and doubles the bottom rule to the focus colour (2px via an
  * inset shadow, no reflow). "fill-shift + bottom-border" carries every state.
+ *
+ * physical-controls Tier 1: the field is a well, recessed into the surface
+ * (`shadow.input.well`, lit from the top left), with a hover state. All on
+ * the Input's own role tokens, shipped equal to the flat field.
  */
 
 .field {
   display: flex;
   flex-direction: column;
-  gap: var(--sc-space-component-gap-sm);
+  gap: var(--sc-space-component-gap-input);
   width: 100%;
 }
 
@@ -40,12 +42,13 @@
 }
 
 .input {
-  padding-inline: var(--sc-space-component-padding-inline-md);
-  padding-block: var(--sc-space-component-padding-block-md);
+  padding-inline: var(--sc-space-component-padding-inline-input);
+  padding-block: var(--sc-space-component-padding-block-input);
   border: none;
   border-radius: var(--sc-radius-control);
-  border-bottom: var(--sc-border-width-default) solid var(--sc-color-border-default);
-  background-color: var(--sc-color-surface-sunk);
+  border-bottom: var(--sc-border-width-default) solid var(--sc-color-input-rule);
+  background-color: var(--sc-color-input-well);
+  box-shadow: var(--sc-shadow-input-well);
   color: var(--sc-color-text-primary);
   font-family: var(--sc-font-text-body-default-family);
   font-size: var(--sc-font-text-body-default-size);
@@ -64,18 +67,27 @@
   color: var(--sc-color-text-disabled);
 }
 
+/* Hover — the well and its rule shift (shipped equal to rest). The rule
+   moves only on an empty, valid field: filled and error keep theirs. */
+.input:hover:not(:disabled):not(:focus) {
+  background-color: var(--sc-color-input-well-hover);
+}
+.input:placeholder-shown:hover:not(:disabled):not(:focus):not([aria-invalid]) {
+  border-bottom-color: var(--sc-color-input-rule-hover);
+}
+
 /* Filled — content present: bottom rule darkens to strong. */
 .input:not(:placeholder-shown):not(:disabled) {
-  border-bottom-color: var(--sc-color-border-strong);
+  border-bottom-color: var(--sc-color-input-rule-filled);
 }
 
 /* Focus — fill lifts to page, bottom rule goes focus colour, doubled to 2px
    via an inset shadow so the underline reads at AA without reflowing. */
 .input:focus {
   outline: none;
-  background-color: var(--sc-color-surface-page);
-  border-bottom-color: var(--sc-color-border-focus);
-  box-shadow: inset 0 -1px 0 0 var(--sc-color-border-focus);
+  background-color: var(--sc-color-input-well-focus);
+  border-bottom-color: var(--sc-color-input-rule-focus);
+  box-shadow: var(--sc-shadow-input-well), inset 0 -1px 0 0 var(--sc-color-input-rule-focus);
 }
 
 .helper {
@@ -99,20 +111,38 @@
 
 .errored .input:focus {
   border-bottom-color: var(--sc-color-status-error);
-  box-shadow: inset 0 -1px 0 0 var(--sc-color-status-error);
+  box-shadow: var(--sc-shadow-input-well), inset 0 -1px 0 0 var(--sc-color-status-error);
 }
 
-/* --- Disabled state ----------------------------------------------- */
+/* --- Disabled state -----------------------------------------------
+   Disabled is flat (directive 5): no recess. */
 
 .disabled .label {
   color: var(--sc-color-text-disabled);
 }
 
 .input:disabled {
-  background-color: var(--sc-color-surface-sunk);
+  background-color: var(--sc-color-input-well-disabled);
+  box-shadow: none;
   border-bottom-color: transparent;
   color: var(--sc-color-text-disabled);
   cursor: not-allowed;
+}
+
+/* Forced colors (Windows high contrast): the fill and the recess drop and
+   the focus underline's inset line with them. The field keeps a full edge;
+   focus is a Highlight outline; disabled is GrayText. */
+@media (forced-colors: active) {
+  .input {
+    border: var(--sc-border-width-default) solid CanvasText;
+  }
+  .input:focus {
+    outline: var(--sc-border-width-focus) solid Highlight;
+    outline-offset: calc(-1 * var(--sc-border-width-default));
+  }
+  .input:disabled {
+    border-color: GrayText;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

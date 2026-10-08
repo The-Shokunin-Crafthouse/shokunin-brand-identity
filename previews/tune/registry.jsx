@@ -27,6 +27,7 @@ import { Tooltip } from '../../src/components/Tooltip/Tooltip.jsx';
 import { NavBar } from '../../src/components/NavBar/NavBar.jsx';
 import { PlusUnderline } from '../../src/components/PlusUnderline/PlusUnderline.jsx';
 import { Slider } from '../../src/components/Slider/Slider.jsx';
+import { Input } from '../../src/components/Input/Input.jsx';
 import switchCss from '../../src/components/Switch/Switch.module.css?raw';
 import stepperCss from '../../src/components/Stepper/Stepper.module.css?raw';
 import iconCss from '../../src/components/Icon/Icon.module.css?raw';
@@ -36,6 +37,7 @@ import tooltipCss from '../../src/components/Tooltip/Tooltip.module.css?raw';
 import navBarCss from '../../src/components/NavBar/NavBar.module.css?raw';
 import underlineCss from '../../src/components/PlusUnderline/PlusUnderline.module.css?raw';
 import sliderCss from '../../src/components/Slider/Slider.module.css?raw';
+import inputCss from '../../src/components/Input/Input.module.css?raw';
 import s from './Tune.module.css';
 
 const SEGMENTS = ['day', 'week', 'month'];
@@ -401,6 +403,50 @@ export const REGISTRY = {
             if (keyStep && next !== p.value) sound();
             set('value', next);
           }}
+        />
+      </div>
+    ),
+  },
+  Input: {
+    css: [inputCss],
+    seed: {
+      // The well: the top-left recess plus a white bounce on the bottom-right
+      // inner wall (the Drams 036 container's white inset -2px -2px 2px; alphas
+      // from shadow.control.bevel's highlight, light .70, dark .06). Hover
+      // well = surface.hover values (the Switch track hover precedent). Claude's
+      // start; Levi sets every value.
+      scoped: {
+        light: {
+          '--sc-shadow-input-well': `${MATERIAL.light.recess}, inset -2px -2px 2px 0 rgb(255 255 255 / 0.70)`,
+          '--sc-color-input-well-hover': '#C4BCB4',
+        },
+        dark: {
+          '--sc-shadow-input-well': `${MATERIAL.dark.recess}, inset -2px -2px 2px 0 rgb(255 255 255 / 0.06)`,
+          '--sc-color-input-well-hover': '#343A41',
+        },
+      },
+    },
+    shippedSound: null,
+    trigger: 'ships silent',
+    props: [
+      { name: 'label', type: 'text', default: 'Email' },
+      { name: 'placeholder', type: 'text', default: 'you@studio.com' },
+      { name: 'value', type: 'text', default: '' },
+      { name: 'helper', type: 'text', default: '' },
+      { name: 'error', type: 'text', default: '' },
+      { name: 'disabled', type: 'boolean', default: false },
+    ],
+    play: null,
+    render: (p, set) => (
+      <div style={{ width: 'calc(var(--sc-space-layout-stack-xl) * 3)' }}>
+        <Input
+          label={p.label}
+          placeholder={p.placeholder}
+          value={p.value}
+          helper={p.helper || undefined}
+          error={p.error || undefined}
+          disabled={p.disabled}
+          onChange={(e) => set('value', e.target.value)}
         />
       </div>
     ),
