@@ -147,5 +147,6 @@ test('a channel-triplet primitive is code-only, never parsed as a colour', () =>
   assert.ok(!ops.some((o) => o.collection === 'Primitives' && /blackRgb/.test(o.name)), 'no Primitives op for the triplet');
   const tint = ops.find((o) => o.name === 'color/card/glass/clear/dark');
   assert.equal(tint.values.Dark.color.a, 0.2);
-  assert.ok(!/Primitives:color\/blackRgb/.test(code), 'the triplet is not in the library check');
+  const manifest = JSON.parse(code.match(/^const MANIFEST = (.*);$/m)[1]);
+  assert.ok(!manifest.variables.includes('Primitives:color/blackRgb'), 'the triplet is not in the library check');
 });

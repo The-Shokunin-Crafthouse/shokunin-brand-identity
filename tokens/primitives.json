@@ -339,6 +339,11 @@
       "$value": "26 24 21",
       "$description": "Channel triplet (sRGB) of warmGray.800 ink (#1A1815) for rgb()/rgba() composition. Consumed by the light divider scale: rgb(var(--sc-p-color-ink-rgb) / <alpha>)."
     },
+    "blackRgb": {
+      "$type": "color",
+      "$value": "0 0 0",
+      "$description": "Channel triplet (sRGB) of utility.black (#000000) for rgb()/rgba() composition. Added 2026-10-08 for the dark-tone Card glass tints in dark mode: rgb(var(--sc-p-color-black-rgb) / <alpha>)."
+    },
     "focusRing": {
       "$description": "Dedicated focus-ring color · OFF the brand (teal) band and off every status hue — focus-ring-token. Cool-neutral, AA+++ on every ground its mode touches. Replaces routing :focus through the old vermilion accent.",
       "light": {

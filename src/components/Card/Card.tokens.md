@@ -11,21 +11,25 @@ Spec ref: §2 Tier 3 · 3.3. Two styles (Levi, 2026-10-08): `flat` and `glass` (
 
 ## Glass
 
-Regular is Levi's Figma Glass effect: light -45deg 30%, refraction 65, depth 68, dispersion 0, frost 9, splay 57. Subtle and heavy, and the tints, are Claude's start for the lab.
+`level` names the surface: `clear` (thin frost, light bend), `frosted` (Levi's Figma Glass: light -45deg 30%, refraction 65, depth 68, dispersion 0, frost 9, splay 57), `thick` (heavy frost, strongest bend and tint). `tone`: `light` lightens what is behind it, `dark` darkens it. 7 cards, each in light and dark mode: 14. Values from record `output/tuning/Card/2026-10-08-0921/` (A = light tone, B = dark tone).
 
-| Token (per level) | subtle | regular | heavy | Use |
+| Token | clear | frosted | thick | Use |
 |---|---|---|---|---|
-| `--sc-color-card-glass-{level}` | white 12% / 4% | white 20% / 6% | white 30% / 10% | tint, light / dark |
-| `--sc-shadow-card-glass-{level}` | rim 20% | rim 30% | rim 45% | 1px lit edge top left, half on the far wall |
+| `--sc-color-card-glass-{level}-light` | white 16% / 5% | white 24% / 8% | white 36% / 12% | light tone tint, light / dark mode |
+| `--sc-color-card-glass-{level}-dark` | ink 6% / black 20% | ink 10% / black 32% | ink 16% / black 45% | dark tone tint, light / dark mode |
+| `--sc-shadow-card-glass-{level}` | rim 20%, float 4/16 | rim 30%, float 6/24 | rim 45%, float 10/32 | 1px lit edge top left (half on the far wall) + floating shade on the 135deg diagonal |
 | `--sc-size-card-glass-{level}-frost` | 4px | 9px | 16px | backdrop blur radius; CSS blur() takes half |
+| `--sc-size-card-glass-{level}-saturation` | 140 | 160 | 180 | backdrop saturation, percent |
 | `--sc-size-card-glass-{level}-refraction` | 40 | 65 | 85 | edge shift = refraction/100 x band/2 |
 | `--sc-size-card-glass-{level}-depth` | 40 | 68 | 85 | band = depth/100 of the half short side |
 | `--sc-size-card-glass-{level}-splay` | 57 | 57 | 57 | falloff (1 - t)^p, p = 1 + 3 x (1 - splay/100) |
-| `--sc-color-card-glass-hover` | | | | interactive hover veil (white 8% / 5%) |
-| `--sc-size-card-glass-{level}-saturation` | 100 | 100 | 100 | backdrop saturation in percent (100 = none) |
-| `--sc-shadow-card-glass-text` | | | | text halo on glass (zero offset; shipped zero alpha) |
 
-The refraction numbers are read by `glass.js`, which builds a displacement map for each card's size and corner and applies it as `backdrop-filter: url(#…)` (Chromium only). Safari and Firefox keep frost, tint and rim.
+| Token | light tone | dark tone | Use |
+|---|---|---|---|
+| `--sc-shadow-card-glass-text-{tone}` | white 60% / black 60% | white 50% / black 70% | text halo, light / dark mode |
+| `--sc-color-card-glass-hover-{tone}` | white 8% / 5% | ink 6% / black 12% | interactive hover veil |
+
+The refraction numbers are read by `glass.js`, which builds a displacement map for each card's size and corner and applies it as `backdrop-filter: url(#…)` (Chromium only). Safari and Firefox keep frost, saturation, tint, rim and halo.
 
 ## Shared
 

@@ -143,11 +143,11 @@ function GlassStage({ children }) {
 export function CardPage() {
   return (
     <ComponentPage
-      id="card" label="Card" tokensN={22}
+      id="card" label="Card" tokensN={36}
       eyebrow={<>Card<Slash />flat or glass</>}
       title={<>Two styles. <Em>A flat surface, or glass.</Em></>}
-      lead={<>A flat card is the floating surface with no border and no shadow. A glass card is liquid glass over whatever sits behind it, in three levels: subtle, regular and heavy. Regular is the studio's Figma Glass setting. Frost, tint and a rim lit from the top left are CSS; the refraction that bends the backdrop at the edge is an SVG filter the card builds for its own size.</>}
-      statesTitle="One flat card, three glass levels."
+      lead={<>A flat card is the floating surface with no border and no shadow. A glass card is liquid glass over whatever sits behind it, in three levels named for the surface: clear, frosted (the studio's Figma Glass setting) and thick. Each comes in a light tone, which lightens what is behind it, and a dark tone, which darkens it. A soft shade cast down and to the right makes it float. Frost, tint and a rim lit from the top left are CSS; the refraction that bends the backdrop at the edge is an SVG filter the card builds for its own size.</>}
+      statesTitle="Flat, and three glass levels in two tones."
       callouts={[
         { title: 'Flat is the default', body: 'Most cards hold reading content on the page ground. The floating surface separates them without a frame or a shadow.' },
         { title: 'Glass needs something behind it', body: 'Over a plain ground glass is only a tint and a rim. Use it where it sits over imagery, colour or content that scrolls beneath it.' },
@@ -155,9 +155,12 @@ export function CardPage() {
       ]}
       states={[
         { name: 'Flat', token: '--sc-color-card-flat', render: <Card><CardBody>The floating surface. No border, no shadow.</CardBody></Card> },
-        { name: 'Glass · subtle', token: '--sc-size-card-glass-subtle-refraction', render: <GlassStage><Card variant="glass" level="subtle"><CardBody>Subtle glass.</CardBody></Card></GlassStage> },
-        { name: 'Glass · regular', token: '--sc-size-card-glass-regular-refraction', render: <GlassStage><Card variant="glass" level="regular"><CardBody>Regular glass, the Figma setting.</CardBody></Card></GlassStage> },
-        { name: 'Glass · heavy', token: '--sc-size-card-glass-heavy-refraction', render: <GlassStage><Card variant="glass" level="heavy"><CardBody>Heavy glass.</CardBody></Card></GlassStage> },
+        { name: 'Clear · light', token: '--sc-color-card-glass-clear-light', render: <GlassStage><Card variant="glass" level="clear"><CardBody>Thin frost, a light bend.</CardBody></Card></GlassStage> },
+        { name: 'Frosted · light', token: '--sc-color-card-glass-frosted-light', render: <GlassStage><Card variant="glass" level="frosted"><CardBody>The Figma Glass setting.</CardBody></Card></GlassStage> },
+        { name: 'Thick · light', token: '--sc-color-card-glass-thick-light', render: <GlassStage><Card variant="glass" level="thick"><CardBody>Heavy frost, the strongest bend.</CardBody></Card></GlassStage> },
+        { name: 'Clear · dark', token: '--sc-color-card-glass-clear-dark', render: <GlassStage><Card variant="glass" level="clear" tone="dark"><CardBody>Clear glass that darkens.</CardBody></Card></GlassStage> },
+        { name: 'Frosted · dark', token: '--sc-color-card-glass-frosted-dark', render: <GlassStage><Card variant="glass" level="frosted" tone="dark"><CardBody>Frosted glass that darkens.</CardBody></Card></GlassStage> },
+        { name: 'Thick · dark', token: '--sc-color-card-glass-thick-dark', render: <GlassStage><Card variant="glass" level="thick" tone="dark"><CardBody>Thick glass that darkens.</CardBody></Card></GlassStage> },
         { name: 'Interactive · hover', token: '--sc-color-card-flat-hover', render: <Card interactive onClick={noop}><CardBody>Hover or focus me.</CardBody></Card> },
       ]}
       tokenRows={[
@@ -166,13 +169,16 @@ export function CardPage() {
         { prop: 'Text', token: '--sc-color-text-primary' },
         { prop: 'Flat ground', token: '--sc-color-card-flat' },
         { prop: 'Flat hover ground', token: '--sc-color-card-flat-hover' },
-        { prop: 'Glass tint (regular)', token: '--sc-color-card-glass-regular' },
-        { prop: 'Glass rim (regular)', token: '--sc-shadow-card-glass-regular' },
-        { prop: 'Glass frost (regular)', token: '--sc-size-card-glass-regular-frost', light: '9px' },
-        { prop: 'Glass refraction (regular)', token: '--sc-size-card-glass-regular-refraction', light: '65' },
-        { prop: 'Glass depth (regular)', token: '--sc-size-card-glass-regular-depth', light: '68' },
-        { prop: 'Glass splay (regular)', token: '--sc-size-card-glass-regular-splay', light: '57' },
-        { prop: 'Glass hover veil', token: '--sc-color-card-glass-hover' },
+        { prop: 'Glass tint (frosted, light tone)', token: '--sc-color-card-glass-frosted-light' },
+        { prop: 'Glass tint (frosted, dark tone)', token: '--sc-color-card-glass-frosted-dark' },
+        { prop: 'Glass rim and float (frosted)', token: '--sc-shadow-card-glass-frosted' },
+        { prop: 'Glass frost (frosted)', token: '--sc-size-card-glass-frosted-frost', light: '9px' },
+        { prop: 'Glass saturation (frosted)', token: '--sc-size-card-glass-frosted-saturation', light: '160' },
+        { prop: 'Glass refraction (frosted)', token: '--sc-size-card-glass-frosted-refraction', light: '65' },
+        { prop: 'Glass depth (frosted)', token: '--sc-size-card-glass-frosted-depth', light: '68' },
+        { prop: 'Glass splay (frosted)', token: '--sc-size-card-glass-frosted-splay', light: '57' },
+        { prop: 'Glass text halo (light tone)', token: '--sc-shadow-card-glass-text-light' },
+        { prop: 'Glass hover veil (light tone)', token: '--sc-color-card-glass-hover-light' },
         { prop: 'Press scale', token: '--sc-motion-card-press-scale', light: '1' },
       ]}
       rulesTitle="Five rules for flat and glass."

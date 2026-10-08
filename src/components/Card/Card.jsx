@@ -2,8 +2,10 @@
  * Card — 3.3 · two styles (Levi, 2026-10-08).
  *
  * flat:  surface.floating, no border, no shadow.
- * glass: liquid glass over whatever sits behind it, in three levels
- *        (subtle, regular, heavy). Regular is Levi's Figma Glass effect.
+ * glass: liquid glass over whatever sits behind it. `level` names the
+ *        surface: clear (thin frost, light bend), frosted (Levi's Figma
+ *        Glass setting), thick (heavy frost, strongest bend). `tone`: light
+ *        glass lightens what is behind it, dark glass darkens it.
  *        Frost, tint and a lit rim are CSS; the refraction is an SVG
  *        displacement filter on the backdrop (glass.js, Chromium only).
  *
@@ -17,11 +19,13 @@ import { useGlassRefraction } from './glass.js';
 import styles from './Card.module.css';
 
 const LEGACY = { default: 'flat', elevated: 'flat', interactive: 'flat' };
-const LEVELS = ['subtle', 'regular', 'heavy'];
+const LEVELS = ['clear', 'frosted', 'thick'];
+const TONES = { light: 'toneLight', dark: 'toneDark' };
 
 export function Card({
   variant = 'flat',
-  level = 'regular',
+  level = 'frosted',
+  tone = 'light',
   interactive = variant === 'interactive',
   as: As = 'div',
   onClick,
@@ -31,12 +35,13 @@ export function Card({
   ...rest
 }) {
   const v = variant === 'glass' ? 'glass' : (LEGACY[variant] ?? 'flat');
-  const lv = LEVELS.includes(level) ? level : 'regular';
+  const lv = LEVELS.includes(level) ? level : 'frosted';
+  const tn = TONES[tone] ?? TONES.light;
   const glass = v === 'glass';
   const ref = useRef(null);
   const { id, filter } = useGlassRefraction(ref, glass, lv);
   const Tag = interactive ? 'button' : As;
-  const classes = [styles.card, styles[v], glass ? styles[lv] : '', interactive ? styles.interactive : '', className].filter(Boolean).join(' ');
+  const classes = [styles.card, styles[v], glass ? `${styles[lv]} ${styles[tn]}` : '', interactive ? styles.interactive : '', className].filter(Boolean).join(' ');
   return (
     <Tag
       ref={ref}

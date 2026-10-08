@@ -169,8 +169,12 @@ const manifest = { variables: [], effects: [], texts: [] };
 const byLibraryName = {};
 // Primitives and Semantic share names (color/signal/live is in both), so a
 // variable is checked in its own collection: primitives as "Primitives:<name>".
+// A channel triplet ("26 24 21", composed as rgb(var(--sc-p-…-rgb) / A)) is
+// not a colour a Figma variable can hold: code-only. Its compositions sync
+// as resolved colours.
+const isTriplet = (t) => t.$type === 'color' && /^\d{1,3} \d{1,3} \d{1,3}$/.test(String(t.$value).trim());
 for (const [path, t] of Object.entries(primNew)) {
-  if (!VARIABLE_TYPES.includes(t.$type)) continue;
+  if (!VARIABLE_TYPES.includes(t.$type) || isTriplet(t)) continue;
   const n = `Primitives:${varName(path)}`;
   manifest.variables.push(n); byLibraryName[n] = path;
 }
@@ -215,6 +219,7 @@ function semanticOps(path, t) {
 function primitiveOps(path, t) {
   if (t.$type === 'typography') return; // compositions live on text styles
   if (!VARIABLE_TYPES.includes(t.$type)) { codeOnly.push([path, t.$type]); return; }
+  if (isTriplet(t)) { codeOnly.push([path, 'channel triplet']); return; }
   const value = literal(t.$type, t.$value);
   if (value.number !== undefined && Number.isNaN(value.number)) { codeOnly.push([path, `${t.$type} (unparsed value)`]); return; }
   ops.push({ kind: 'variable', collection: 'Primitives', name: varName(path), type: t.$type === 'color' ? 'COLOR' : 'FLOAT', values: { Value: value }, scopes: scopesFor(path, t.$type), desc: t.$description });

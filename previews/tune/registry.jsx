@@ -115,9 +115,12 @@ const INPUT_TRAILING = { none: undefined, eye: Eye, copy: Copy, calendar: Calend
 /* Card styles (Levi, 2026-10-08) and what sits behind them: glass needs a backdrop to bend. */
 const CARD_STYLES = {
   flat: { variant: 'flat' },
-  'glass subtle': { variant: 'glass', level: 'subtle' },
-  'glass regular': { variant: 'glass', level: 'regular' },
-  'glass heavy': { variant: 'glass', level: 'heavy' },
+  'clear · light': { variant: 'glass', level: 'clear', tone: 'light' },
+  'frosted · light': { variant: 'glass', level: 'frosted', tone: 'light' },
+  'thick · light': { variant: 'glass', level: 'thick', tone: 'light' },
+  'clear · dark': { variant: 'glass', level: 'clear', tone: 'dark' },
+  'frosted · dark': { variant: 'glass', level: 'frosted', tone: 'dark' },
+  'thick · dark': { variant: 'glass', level: 'thick', tone: 'dark' },
 };
 const BACKDROP = { position: 'absolute', inset: 0, overflow: 'hidden', borderRadius: 'var(--sc-radius-card)' };
 const CARD_BACKDROPS = {
@@ -487,10 +490,11 @@ export const REGISTRY = {
   },
   Card: {
     css: [cardCss],
-    // Two styles (Levi, 2026-10-08): flat, and liquid glass in three levels.
-    // Regular glass is his Figma Glass effect; subtle and heavy are Claude's
-    // start. The refraction numbers are read by src/components/Card/glass.js.
-    jsTokens: ['subtle', 'regular', 'heavy'].flatMap((l) => ['refraction', 'depth', 'splay'].map((k) => `--sc-size-card-glass-${l}-${k}`)),
+    // Two styles (Levi, 2026-10-08): flat, and liquid glass in three levels
+    // named for the surface (clear, frosted = his Figma Glass, thick) and two
+    // tones (light lightens, dark darkens): 7 cards, 14 with the theme.
+    // The refraction numbers are read by src/components/Card/glass.js.
+    jsTokens: ['clear', 'frosted', 'thick'].flatMap((l) => ['refraction', 'depth', 'splay'].map((k) => `--sc-size-card-glass-${l}-${k}`)),
     shippedSound: null,
     trigger: 'ships silent',
     props: [
@@ -507,14 +511,16 @@ export const REGISTRY = {
       return (
         <div style={{ position: 'relative', padding: 'var(--sc-space-layout-stack-sm)' }}>
           {CARD_BACKDROPS[p.backdrop]}
-          <div style={{ position: 'relative', display: 'grid', gridTemplateColumns: `repeat(${Math.min(shown.length, 2)}, calc(var(--sc-space-layout-stack-xl) * 2.5))`, gap: 'var(--sc-space-layout-stack-sm)' }}>
-            {shown.map((name) => (
+          <div style={{ position: 'relative', display: 'grid', gridTemplateColumns: `repeat(${Math.min(shown.length, 4)}, calc(var(--sc-space-layout-stack-xl) * 2.5))`, gap: 'var(--sc-space-layout-stack-sm)' }}>
+            {shown.map((name) => [
+              // Light tones on the first row beside flat, dark tones under them.
+              p.show === 'all' && name === 'clear · dark' ? <span key="gap" /> : null,
               <Card key={name} {...CARD_STYLES[name]} interactive={p.interactive} disabled={p.interactive ? p.disabled : undefined} onClick={() => {}}>
                 <span style={{ display: 'block', font: 'var(--sc-font-text-label-ui)', color: 'var(--sc-color-text-secondary)' }}>{name}</span>
                 <span style={{ display: 'block', font: 'var(--sc-font-text-body-default)' }}>{p.title}</span>
                 <span style={{ display: 'block', font: 'var(--sc-font-text-body-dense)', color: 'var(--sc-color-text-secondary)' }}>{p.body}</span>
-              </Card>
-            ))}
+              </Card>,
+            ])}
           </div>
         </div>
       );

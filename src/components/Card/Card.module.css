@@ -2,12 +2,12 @@
  *   --sc-space-component-padding-card        · inner padding (role token, = padding.lg 24)
  *   --sc-radius-card                         · corner (role token, = radius.surface 8)
  *   --sc-color-card-flat / -flat-hover       · flat ground (surface.floating) / interactive hover
- *   --sc-color-card-glass-{subtle,regular,heavy} · glass tint over the refracted backdrop
- *   --sc-color-card-glass-hover              · interactive glass hover veil
- *   --sc-shadow-card-glass-{level}           · glass rim, lit from the top left (Figma light -45deg)
+ *   --sc-color-card-glass-{clear,frosted,thick}-{light,dark} · glass tint per level and tone
+ *   --sc-color-card-glass-hover-{light,dark} · interactive glass hover veil per tone
+ *   --sc-shadow-card-glass-{level}           · rim (Figma light -45deg) + a subtle floating shade
+ *   --sc-shadow-card-glass-text-{light,dark} · text halo per tone (zero offset)
  *   --sc-size-card-glass-{level}-frost       · backdrop blur radius (Figma frost; CSS takes half)
- *   --sc-size-card-glass-{level}-saturation  · backdrop saturation in percent (100 = none)
- *   --sc-shadow-card-glass-text              · text halo on glass (zero offset)
+ *   --sc-size-card-glass-{level}-saturation  · backdrop saturation in percent
  *   --sc-size-card-glass-{level}-refraction / -depth / -splay · read by glass.js (Figma units)
  *   --sc-motion-card-press-scale             · press scale (shipped 1: no press)
  *   --sc-motion-press-duration / -easing     · press timing (shared press pair)
@@ -16,7 +16,8 @@
  *   --sc-motion-hover-duration / -easing     · ground transition
  *
  * Two styles (Levi, 2026-10-08). Flat: a floating surface with no border and
- * no shadow. Glass: frost, tint and a lit rim here; the refraction filter is
+ * no shadow. Glass, in three levels named for the surface (clear, frosted,
+ * thick) and two tones (light lightens, dark darkens): frost, tint and a lit rim here; the refraction filter is
  * built per card by glass.js and arrives as --glass-refract (Chromium only).
  * Shadow and filter changes snap: cards repeat in grids.
  */
@@ -47,44 +48,58 @@
 .flat.interactive:hover:not(:disabled) { background-color: var(--sc-color-card-flat-hover); }
 
 /* ── glass ── */
-.subtle {
-  --glass-tint: var(--sc-color-card-glass-subtle);
-  --glass-rim: var(--sc-shadow-card-glass-subtle);
-  --glass-frost: var(--sc-size-card-glass-subtle-frost);
-  --glass-refraction: var(--sc-size-card-glass-subtle-refraction);
-  --glass-depth: var(--sc-size-card-glass-subtle-depth);
-  --glass-splay: var(--sc-size-card-glass-subtle-splay);
-  --glass-saturation: var(--sc-size-card-glass-subtle-saturation);
+.clear {
+  --glass-tint-l: var(--sc-color-card-glass-clear-light);
+  --glass-tint-d: var(--sc-color-card-glass-clear-dark);
+  --glass-rim: var(--sc-shadow-card-glass-clear);
+  --glass-frost: var(--sc-size-card-glass-clear-frost);
+  --glass-refraction: var(--sc-size-card-glass-clear-refraction);
+  --glass-depth: var(--sc-size-card-glass-clear-depth);
+  --glass-splay: var(--sc-size-card-glass-clear-splay);
+  --glass-saturation: var(--sc-size-card-glass-clear-saturation);
 }
-.regular {
-  --glass-tint: var(--sc-color-card-glass-regular);
-  --glass-rim: var(--sc-shadow-card-glass-regular);
-  --glass-frost: var(--sc-size-card-glass-regular-frost);
-  --glass-refraction: var(--sc-size-card-glass-regular-refraction);
-  --glass-depth: var(--sc-size-card-glass-regular-depth);
-  --glass-splay: var(--sc-size-card-glass-regular-splay);
-  --glass-saturation: var(--sc-size-card-glass-regular-saturation);
+.frosted {
+  --glass-tint-l: var(--sc-color-card-glass-frosted-light);
+  --glass-tint-d: var(--sc-color-card-glass-frosted-dark);
+  --glass-rim: var(--sc-shadow-card-glass-frosted);
+  --glass-frost: var(--sc-size-card-glass-frosted-frost);
+  --glass-refraction: var(--sc-size-card-glass-frosted-refraction);
+  --glass-depth: var(--sc-size-card-glass-frosted-depth);
+  --glass-splay: var(--sc-size-card-glass-frosted-splay);
+  --glass-saturation: var(--sc-size-card-glass-frosted-saturation);
 }
-.heavy {
-  --glass-tint: var(--sc-color-card-glass-heavy);
-  --glass-rim: var(--sc-shadow-card-glass-heavy);
-  --glass-frost: var(--sc-size-card-glass-heavy-frost);
-  --glass-refraction: var(--sc-size-card-glass-heavy-refraction);
-  --glass-depth: var(--sc-size-card-glass-heavy-depth);
-  --glass-splay: var(--sc-size-card-glass-heavy-splay);
-  --glass-saturation: var(--sc-size-card-glass-heavy-saturation);
+.thick {
+  --glass-tint-l: var(--sc-color-card-glass-thick-light);
+  --glass-tint-d: var(--sc-color-card-glass-thick-dark);
+  --glass-rim: var(--sc-shadow-card-glass-thick);
+  --glass-frost: var(--sc-size-card-glass-thick-frost);
+  --glass-refraction: var(--sc-size-card-glass-thick-refraction);
+  --glass-depth: var(--sc-size-card-glass-thick-depth);
+  --glass-splay: var(--sc-size-card-glass-thick-splay);
+  --glass-saturation: var(--sc-size-card-glass-thick-saturation);
+}
+/* Tone: light glass lightens what is behind it, dark glass darkens it. */
+.toneLight {
+  --glass-tint: var(--glass-tint-l);
+  --glass-halo: var(--sc-shadow-card-glass-text-light);
+  --glass-veil: var(--sc-color-card-glass-hover-light);
+}
+.toneDark {
+  --glass-tint: var(--glass-tint-d);
+  --glass-halo: var(--sc-shadow-card-glass-text-dark);
+  --glass-veil: var(--sc-color-card-glass-hover-dark);
 }
 .glass {
   background-color: var(--glass-tint);
   box-shadow: var(--glass-rim);
-  text-shadow: var(--sc-shadow-card-glass-text);
+  text-shadow: var(--glass-halo);
   /* Figma frost is a blur radius; CSS blur() takes the standard deviation, half of it.
    * Saturation is in percent (100 = none). */
   -webkit-backdrop-filter: blur(calc(var(--glass-frost) / 2)) saturate(calc(var(--glass-saturation) / 100));
   backdrop-filter: var(--glass-refract, ) blur(calc(var(--glass-frost) / 2)) saturate(calc(var(--glass-saturation) / 100));
 }
 .glass.interactive:hover:not(:disabled) {
-  background-image: linear-gradient(135deg, var(--sc-color-card-glass-hover), var(--sc-color-card-glass-hover));
+  background-image: linear-gradient(135deg, var(--glass-veil), var(--glass-veil));
 }
 
 /* ── interactive ── */
