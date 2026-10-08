@@ -183,7 +183,6 @@ export const REGISTRY = {
         '--sc-color-stepper-key': m.keyFill,
         '--sc-color-stepper-key-shade': m.keyShade,
         '--sc-shadow-stepper-key': m.key,
-        '--sc-shadow-stepper-key-pressed': m.keyPressed,
       })),
     },
     shippedSound: 'drams-037-01.wav',

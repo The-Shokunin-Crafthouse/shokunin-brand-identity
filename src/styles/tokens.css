@@ -467,7 +467,8 @@
   --sc-shadow-segmented-control-indicator: 2px 2px 6px 0 rgb(100 91 79 / 0.50), -1px -1px 1px 1px rgb(253 250 246 / 1);
   --sc-shadow-stepper-track: inset 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0);
   --sc-shadow-stepper-key: 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0);
-  --sc-shadow-stepper-key-pressed: 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0);
+  --sc-shadow-stepper-key-hover: var(--sc-shadow-control-key-hover);
+  --sc-shadow-stepper-key-pressed: var(--sc-shadow-control-key-pressed);
   --sc-motion-hover-duration: var(--sc-p-motion-duration-micro);
   --sc-motion-hover-easing: var(--sc-p-motion-easing-out);
   --sc-motion-press-duration: var(--sc-p-motion-duration-press);
@@ -829,7 +830,8 @@
   --sc-shadow-segmented-control-indicator: 3px 3px 7px 0 rgb(0 0 0 / 0.50), -1px -1px 1px 1px rgb(219 235 255 / 0.17);
   --sc-shadow-stepper-track: inset 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0);
   --sc-shadow-stepper-key: 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0);
-  --sc-shadow-stepper-key-pressed: 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0);
+  --sc-shadow-stepper-key-hover: var(--sc-shadow-control-key-hover);
+  --sc-shadow-stepper-key-pressed: var(--sc-shadow-control-key-pressed);
   --sc-motion-hover-duration: var(--sc-p-motion-duration-micro);
   --sc-motion-hover-easing: var(--sc-p-motion-easing-out);
   --sc-motion-press-duration: var(--sc-p-motion-duration-press);

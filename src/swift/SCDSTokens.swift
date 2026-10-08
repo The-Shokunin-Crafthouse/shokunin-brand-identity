@@ -171,8 +171,8 @@ public enum SCDS {
     public static let semanticVersion = "0.1.0"
     public static let sourceGenerated = "2026-05-26"
     public static let primitivesHash = "f96efa487bcac29d"
-    public static let semanticHash = "16837f2d27a144e3"
-    public static let tokenCount = 213
+    public static let semanticHash = "d4bb9f49eba786e3"
+    public static let tokenCount = 214
   }
 
   // MARK: - Color
@@ -1370,13 +1370,29 @@ public enum SCDS {
         ]
     )
 
-    /// `shadow.stepper.keyPressed` · 1 layers
-    public static let stepperKeyPressed = SCDSShadow(
+    /// `shadow.stepper.keyHover` · 2 layers
+    public static let stepperKeyHover = SCDSShadow(
         light: [
-            SCDSShadowLayer(inset: false, x: 0, y: 0, blur: 0, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0),
+            SCDSShadowLayer(inset: false, x: 2, y: 2, blur: 6, spread: 0, rgb: (0.392157, 0.356863, 0.309804), alpha: 0.5),
+            SCDSShadowLayer(inset: false, x: -1, y: -1, blur: 1, spread: 1, rgb: (0.992157, 0.980392, 0.964706), alpha: 1),
         ],
         dark: [
-            SCDSShadowLayer(inset: false, x: 0, y: 0, blur: 0, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0),
+            SCDSShadowLayer(inset: false, x: 3, y: 3, blur: 7, spread: 0, rgb: (0, 0, 0), alpha: 0.5),
+            SCDSShadowLayer(inset: false, x: -1, y: -1, blur: 1, spread: 1, rgb: (0.858824, 0.921569, 1), alpha: 0.17),
+        ]
+    )
+
+    /// `shadow.stepper.keyPressed` · 3 layers
+    public static let stepperKeyPressed = SCDSShadow(
+        light: [
+            SCDSShadowLayer(inset: false, x: 2, y: 2, blur: 6, spread: 0, rgb: (0.392157, 0.356863, 0.309804), alpha: 0.37),
+            SCDSShadowLayer(inset: false, x: -1, y: -1, blur: 1, spread: 1, rgb: (0.992157, 0.980392, 0.964706), alpha: 0.9),
+            SCDSShadowLayer(inset: true, x: 1, y: 1, blur: 8, spread: 0, rgb: (1, 1, 1), alpha: 0.3),
+        ],
+        dark: [
+            SCDSShadowLayer(inset: false, x: 3, y: 3, blur: 7, spread: 0, rgb: (0, 0, 0), alpha: 0.38),
+            SCDSShadowLayer(inset: false, x: -1, y: -1, blur: 1, spread: 1, rgb: (0.858824, 0.921569, 1), alpha: 0.14),
+            SCDSShadowLayer(inset: true, x: 1, y: 1, blur: 8, spread: 0, rgb: (1, 1, 1), alpha: 0.06),
         ]
     )
   }

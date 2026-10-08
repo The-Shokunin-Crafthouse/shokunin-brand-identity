@@ -5,7 +5,8 @@
  *   --sc-color-stepper-key-pressed / -key-pressed-ink · pressed face and glyph (= brand.accentDeep teal.700, white)
  *   --sc-color-stepper-key-shade    · 135deg face shade on each key (Button key face; shipped transparent)
  *   --sc-shadow-stepper-track       · recess of the pill (shipped zero alpha)
- *   --sc-shadow-stepper-key / -key-pressed · key lift at rest, softened while pressed (shipped zero alpha)
+ *   --sc-shadow-stepper-key         · key lift at rest (shipped zero alpha)
+ *   --sc-shadow-stepper-key-hover / -key-pressed · hover lift and press (= Button primary: control.keyHover / keyPressed)
  *   --sc-motion-stepper-travel-duration / -easing · readout roll (Stepper.jsx; inert while roll, stretch and squash are 0)
  *   --sc-motion-stepper-roll / -stretch / -squash  · roll distance and numeral stretch/squash (Stepper.jsx; 0 = off)
  *   --sc-color-text-primary         · button ink + readout numeral
@@ -61,6 +62,7 @@
 .button:hover:not(:disabled) {
   background-color: var(--sc-color-stepper-key-hover);
   color: var(--sc-color-stepper-key-hover-ink);
+  box-shadow: var(--sc-shadow-stepper-key-hover);
 }
 
 /* Pressed: one accent step darker. */
@@ -117,8 +119,8 @@
   outline-offset: var(--sc-border-focus-offset);
 }
 
-/* The 0.6 dim is today's disabled signal, kept until a record decides it;
-   the material goes flat underneath it. */
+/* Disabled: the whole control dims to 0.6 (Levi, 2026-10-07) and the
+   material goes flat underneath it. */
 .disabled {
   opacity: 0.6;
 }
