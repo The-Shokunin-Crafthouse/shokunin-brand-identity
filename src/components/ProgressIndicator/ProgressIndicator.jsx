@@ -21,7 +21,10 @@
  * why this reuses the track-height token instead of a dedicated one).
  */
 
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import {
+  readElastic, isActive, prefersReducedMotion, travelFrames, run, cssRect, poseOf,
+} from '../../motion/elastic.js';
 import styles from './ProgressIndicator.module.css';
 
 export function ProgressIndicator({
@@ -81,35 +84,95 @@ function BarProgress({ value, label, className, tone = 'accent', track = 'deepSu
 
 /**
  * InteractiveBar — Drams #4/#5 (Standard Volume / Volume Visible Track).
- * Thumbless scrubbable bar: pointer-drag + click-to-seek via Pointer
- * Events (setPointerCapture keeps the drag live outside the track), plus
- * a keyboard slider (arrow ± step, Shift ± bigStep, Home/End).
+ * Scrubbable bar: pointer-drag + click-to-seek via Pointer Events
+ * (setPointerCapture keeps the drag live outside the track), plus a
+ * keyboard slider (arrow ± step, Shift ± bigStep, Home/End).
+ *
+ * Physical thumb (physical-controls Tier 1, tokens --sc-*-progress-slider-*):
+ * a knob that rides inside the recessed track, its centre running from
+ * thumb/2 to width − thumb/2 over min..max, with the fill ending under it.
+ * A seek (click, key) travels along the travel curve and, through
+ * src/motion/elastic.js, stretches the thumb with speed; a drag trails the
+ * pointer by the drag curve. Shipped, the thumb is 0px and flat, stretch and
+ * squash are 0, and travel = drag = motion.reveal: the bar renders and moves
+ * exactly as the thumbless bar did.
  */
 function InteractiveBar({ value, label, className, onChange, min, max, step, bigStep, disabled }) {
   const trackRef = useRef(null);
+  const thumbRef = useRef(null);
   const [dragging, setDragging] = useState(false);
+  const [moving, setMoving] = useState(false);
+  const seekFrom = useRef(null);
   const clamp = useCallback((v) => Math.max(min, Math.min(max, v)), [min, max]);
-  const pct = ((clamp(value) - min) / (max - min || 1)) * 100;
+  const ratio = (clamp(value) - min) / (max - min || 1);
+  const pct = ratio * 100;
+
+  // The thumb's diameter in CSS px (0 while the bar ships thumbless).
+  const thumbSize = () => parseFloat(getComputedStyle(trackRef.current).getPropertyValue('--sc-size-progress-slider-thumb')) || 0;
 
   const valueFromClientX = useCallback((clientX) => {
     const track = trackRef.current;
     if (!track) return value;
-    const rect = track.getBoundingClientRect();
-    const ratio = rect.width === 0 ? 0 : (clientX - rect.left) / rect.width;
-    return clamp(min + ratio * (max - min));
+    const rect = cssRect(track);
+    const cap = thumbSize();
+    const span = rect.width - cap;
+    const x = clientX / (track.currentCSSZoom || 1);
+    const r = span <= 0 ? 0 : (x - rect.left - cap / 2) / span;
+    return clamp(min + r * (max - min));
   }, [clamp, min, max, value]);
+
+  // A seek remembers where the thumb is (in flight included), so the travel
+  // starts from what is on screen.
+  const markSeek = () => {
+    const track = trackRef.current;
+    const thumb = thumbRef.current;
+    if (track && thumb) seekFrom.current = poseOf(thumb, cssRect(track));
+  };
+
+  const stopEngine = () => {
+    thumbRef.current?.getAnimations().forEach((a) => a.cancel());
+    trackRef.current?.removeAttribute('data-driven');
+  };
+
+  useLayoutEffect(() => {
+    const from = seekFrom.current;
+    seekFrom.current = null;
+    const track = trackRef.current;
+    const thumb = thumbRef.current;
+    if (!from || !track || !thumb || prefersReducedMotion()) return;
+    const m = readElastic(thumb, 'progress-slider');
+    if (!isActive(m)) return;
+    const cap = thumbSize();
+    const to = ((cssRect(track).width - cap) * ratio);
+    if (Math.abs(from.l - to) < 0.5) return;
+    // The thumb already sits at its new rest (CSS left); frames are offsets from it.
+    track.setAttribute('data-driven', '');
+    const frames = travelFrames(m, { l: from.l - to, r: from.r - to }, { l: 0, r: cap }, cap);
+    run(thumb, frames, m.travelDur, 'linear', { onDone: () => track.removeAttribute('data-driven') });
+  }, [ratio]);
+
+  useEffect(() => stopEngine, []);
 
   const handlePointerDown = (e) => {
     if (disabled) return;
     e.currentTarget.setPointerCapture(e.pointerId);
     setDragging(true);
-    onChange?.(valueFromClientX(e.clientX));
+    const next = valueFromClientX(e.clientX);
+    if (next !== clamp(value)) markSeek();
+    onChange?.(next);
   };
   const handlePointerMove = (e) => {
     if (disabled || !dragging) return;
+    if (!moving) {
+      stopEngine();
+      setMoving(true);
+    }
     onChange?.(valueFromClientX(e.clientX));
   };
-  const endDrag = () => setDragging(false);
+  const endDrag = () => {
+    setDragging(false);
+    setMoving(false);
+  };
 
   const handleKeyDown = (e) => {
     if (disabled) return;
@@ -133,6 +196,7 @@ function InteractiveBar({ value, label, className, onChange, min, max, step, big
         return;
     }
     e.preventDefault();
+    if (clamp(next) !== clamp(value)) markSeek();
     onChange?.(clamp(next));
   };
 
@@ -154,13 +218,12 @@ function InteractiveBar({ value, label, className, onChange, min, max, step, big
     >
       <span
         ref={trackRef}
-        className={`${styles.barInteractiveTrack} ${dragging ? styles.dragging : ''}`}
+        className={`${styles.barInteractiveTrack} ${dragging ? styles.dragging : ''} ${moving ? styles.moving : ''}`}
+        style={{ '--value': ratio }}
         aria-hidden="true"
       >
-        <span
-          className={styles.barInteractiveFill}
-          style={{ width: `max(${pct}%, var(--sc-size-progress-bar-height))` }}
-        />
+        <span className={styles.barInteractiveFill} />
+        <span ref={thumbRef} className={styles.barInteractiveThumb} />
       </span>
     </div>
   );
