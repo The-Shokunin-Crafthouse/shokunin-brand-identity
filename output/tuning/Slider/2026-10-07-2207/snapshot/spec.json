@@ -1,0 +1,302 @@
+{
+  "tool": "sc-tune",
+  "version": 3,
+  "component": "Slider",
+  "kind": "component",
+  "recorded": "2026-10-08T04:07:49.423Z",
+  "theme": "dark",
+  "notes": "",
+  "pick": null,
+  "concepts": [
+    {
+      "id": "A",
+      "notes": "",
+      "props": {
+        "value": 0.67,
+        "disabled": false,
+        "label": "Volume"
+      },
+      "sound": {
+        "file": "drams-009-01.wav",
+        "volume": 0.7,
+        "rate": 1,
+        "shipped": null,
+        "trigger": "a keyboard step that changes the value (ships silent)"
+      },
+      "tokens": [
+        {
+          "name": "--sc-motion-slider-stretch",
+          "mode": "all",
+          "category": "motion",
+          "kind": "number",
+          "shipped": "0",
+          "tuned": "0.45",
+          "override": "0.45"
+        },
+        {
+          "name": "--sc-motion-slider-squash",
+          "mode": "all",
+          "category": "motion",
+          "kind": "number",
+          "shipped": "0",
+          "tuned": "0",
+          "override": "0"
+        },
+        {
+          "name": "--sc-size-slider-thumb",
+          "mode": "all",
+          "category": "size",
+          "kind": "length",
+          "shipped": "0px",
+          "tuned": "15px",
+          "override": "15px"
+        },
+        {
+          "name": "--sc-motion-slider-thumb-press-scale",
+          "mode": "all",
+          "category": "motion",
+          "kind": "number",
+          "shipped": "1",
+          "tuned": "0.985",
+          "override": "0.985"
+        },
+        {
+          "name": "--sc-motion-slider-travel-easing",
+          "mode": "all",
+          "category": "motion",
+          "kind": "easing",
+          "shipped": "cubic-bezier(0.22, 1, 0.36, 1)",
+          "tuned": "linear(0, 0.0218, 0.0735, 0.1426, 0.2201, 0.3001, 0.3786, 0.4531, 0.5222, 0.5851, 0.6416, 0.6918, 0.736, 0.7746, 0.8082, 0.8372, 0.8622, 0.8836, 0.9018, 0.9174, 0.9306, 0.9417, 0.9512, 0.9591, 0.9658, 0.9715, 0.9762, 0.9802, 0.9835, 0.9862, 0.9886, 0.9905, 0.9921, 0.9934, 0.9946, 0.9955, 0.9963, 0.9969, 0.9974, 0.9979, 0.9982, 0.9985, 0.9988, 0.999, 0.9992, 0.9993, 0.9994, 0.9995, 0.9996, 0.9997, 0.9997, 0.9998, 0.9998, 0.9999, 0.9999, 0.9999, 0.9999, 0.9999, 0.9999, 1)",
+          "override": "linear(0, 0.0218, 0.0735, 0.1426, 0.2201, 0.3001, 0.3786, 0.4531, 0.5222, 0.5851, 0.6416, 0.6918, 0.736, 0.7746, 0.8082, 0.8372, 0.8622, 0.8836, 0.9018, 0.9174, 0.9306, 0.9417, 0.9512, 0.9591, 0.9658, 0.9715, 0.9762, 0.9802, 0.9835, 0.9862, 0.9886, 0.9905, 0.9921, 0.9934, 0.9946, 0.9955, 0.9963, 0.9969, 0.9974, 0.9979, 0.9982, 0.9985, 0.9988, 0.999, 0.9992, 0.9993, 0.9994, 0.9995, 0.9996, 0.9997, 0.9997, 0.9998, 0.9998, 0.9999, 0.9999, 0.9999, 0.9999, 0.9999, 0.9999, 1)",
+          "spring": {
+            "stiffness": 146,
+            "damping": 24.17,
+            "mass": 1,
+            "settleMs": 1062,
+            "overshoot": 0,
+            "framerMotion": {
+              "type": "spring",
+              "stiffness": 146,
+              "damping": 24.17,
+              "mass": 1
+            }
+          }
+        },
+        {
+          "name": "--sc-motion-slider-travel-duration",
+          "mode": "all",
+          "category": "motion",
+          "kind": "time",
+          "shipped": "200ms",
+          "tuned": "1062ms",
+          "override": "1062ms"
+        },
+        {
+          "name": "--sc-shadow-slider-track",
+          "mode": "light",
+          "category": "shadow",
+          "kind": "shadow",
+          "shipped": null,
+          "tuned": "inset 0.71px 0.71px 2px 0 rgb(26 24 21 / 0.25)",
+          "override": "inset 0.71px 0.71px 2px 0 rgb(26 24 21 / 0.25)"
+        },
+        {
+          "name": "--sc-color-slider-thumb-rim-top",
+          "mode": "light",
+          "category": "color",
+          "kind": "color",
+          "shipped": null,
+          "tuned": "#FFFFFF",
+          "override": "#FFFFFF"
+        },
+        {
+          "name": "--sc-color-slider-thumb-rim-bottom",
+          "mode": "light",
+          "category": "color",
+          "kind": "color",
+          "shipped": null,
+          "tuned": "#D8D1CC",
+          "override": "#D8D1CC"
+        },
+        {
+          "name": "--sc-color-slider-thumb-face-top",
+          "mode": "light",
+          "category": "color",
+          "kind": "color",
+          "shipped": null,
+          "tuned": "#F1EFEB",
+          "override": "#F1EFEB"
+        },
+        {
+          "name": "--sc-color-slider-thumb-face-bottom",
+          "mode": "light",
+          "category": "color",
+          "kind": "color",
+          "shipped": null,
+          "tuned": "#E3DFD8",
+          "override": "#E3DFD8"
+        },
+        {
+          "name": "--sc-shadow-slider-thumb",
+          "mode": "light",
+          "category": "shadow",
+          "kind": "shadow",
+          "shipped": null,
+          "tuned": "2px 2px 6px 0 rgb(100 91 79 / 0.50), -1px -1px 1px 1px rgb(253 250 246 / 1)",
+          "override": "2px 2px 6px 0 rgb(100 91 79 / 0.50), -1px -1px 1px 1px rgb(253 250 246 / 1)"
+        },
+        {
+          "name": "--sc-shadow-slider-thumb-pressed",
+          "mode": "light",
+          "category": "shadow",
+          "kind": "shadow",
+          "shipped": null,
+          "tuned": "2px 2px 6px 0 rgb(100 91 79 / 0.37), -1px -1px 1px 1px rgb(253 250 246 / 0.90), inset 1px 1px 8px 0 rgb(255 255 255 / 0.30)",
+          "override": "2px 2px 6px 0 rgb(100 91 79 / 0.37), -1px -1px 1px 1px rgb(253 250 246 / 0.90), inset 1px 1px 8px 0 rgb(255 255 255 / 0.30)"
+        },
+        {
+          "name": "--sc-shadow-slider-track",
+          "mode": "dark",
+          "category": "shadow",
+          "kind": "shadow",
+          "shipped": "inset 0 0 0 0 rgb(26 24 21 / 0)",
+          "tuned": "inset 0.71px 0.71px 2px 0 rgb(0 0 0 / 0.45)",
+          "override": "inset 0.71px 0.71px 2px 0 rgb(0 0 0 / 0.45)"
+        },
+        {
+          "name": "--sc-color-slider-thumb-rim-top",
+          "mode": "dark",
+          "category": "color",
+          "kind": "color",
+          "shipped": "rgb(26 24 21 / 0)",
+          "tuned": "#EAE8E3",
+          "override": "#EAE8E3"
+        },
+        {
+          "name": "--sc-color-slider-thumb-rim-bottom",
+          "mode": "dark",
+          "category": "color",
+          "kind": "color",
+          "shipped": "rgb(26 24 21 / 0)",
+          "tuned": "#9A9186",
+          "override": "#9A9186"
+        },
+        {
+          "name": "--sc-color-slider-thumb-face-top",
+          "mode": "dark",
+          "category": "color",
+          "kind": "color",
+          "shipped": "rgb(26 24 21 / 0)",
+          "tuned": "#D8D1CC",
+          "override": "#D8D1CC"
+        },
+        {
+          "name": "--sc-color-slider-thumb-face-bottom",
+          "mode": "dark",
+          "category": "color",
+          "kind": "color",
+          "shipped": "rgb(26 24 21 / 0)",
+          "tuned": "#B3B1AD",
+          "override": "#B3B1AD"
+        },
+        {
+          "name": "--sc-shadow-slider-thumb",
+          "mode": "dark",
+          "category": "shadow",
+          "kind": "shadow",
+          "shipped": "0 0 0 0 rgb(26 24 21 / 0)",
+          "tuned": "3px 3px 7px 0 rgb(0 0 0 / 0.50), -1px -1px 1px 1px rgb(219 235 255 / 0.17)",
+          "override": "3px 3px 7px 0 rgb(0 0 0 / 0.50), -1px -1px 1px 1px rgb(219 235 255 / 0.17)"
+        },
+        {
+          "name": "--sc-shadow-slider-thumb-pressed",
+          "mode": "dark",
+          "category": "shadow",
+          "kind": "shadow",
+          "shipped": "0 0 0 0 rgb(26 24 21 / 0)",
+          "tuned": "3px 3px 7px 0 rgb(0 0 0 / 0.38), -1px -1px 1px 1px rgb(219 235 255 / 0.14), inset 1px 1px 8px 0 rgb(255 255 255 / 0.06)",
+          "override": "3px 3px 7px 0 rgb(0 0 0 / 0.38), -1px -1px 1px 1px rgb(219 235 255 / 0.14), inset 1px 1px 8px 0 rgb(255 255 255 / 0.06)"
+        }
+      ],
+      "pins": {}
+    }
+  ],
+  "derived": {},
+  "tokenCount": 34,
+  "state": {
+    "component": "Slider",
+    "notes": "",
+    "active": "A",
+    "concepts": [
+      {
+        "id": "A",
+        "overrides": {
+          "all": {
+            "--sc-motion-slider-stretch": "0.45",
+            "--sc-motion-slider-squash": "0",
+            "--sc-size-slider-thumb": "15px",
+            "--sc-motion-slider-thumb-press-scale": "0.985",
+            "--sc-motion-slider-travel-easing": "linear(0, 0.0218, 0.0735, 0.1426, 0.2201, 0.3001, 0.3786, 0.4531, 0.5222, 0.5851, 0.6416, 0.6918, 0.736, 0.7746, 0.8082, 0.8372, 0.8622, 0.8836, 0.9018, 0.9174, 0.9306, 0.9417, 0.9512, 0.9591, 0.9658, 0.9715, 0.9762, 0.9802, 0.9835, 0.9862, 0.9886, 0.9905, 0.9921, 0.9934, 0.9946, 0.9955, 0.9963, 0.9969, 0.9974, 0.9979, 0.9982, 0.9985, 0.9988, 0.999, 0.9992, 0.9993, 0.9994, 0.9995, 0.9996, 0.9997, 0.9997, 0.9998, 0.9998, 0.9999, 0.9999, 0.9999, 0.9999, 0.9999, 0.9999, 1)",
+            "--sc-motion-slider-travel-duration": "1062ms"
+          },
+          "light": {
+            "--sc-shadow-slider-track": "inset 0.71px 0.71px 2px 0 rgb(26 24 21 / 0.25)",
+            "--sc-color-slider-thumb-rim-top": "#FFFFFF",
+            "--sc-color-slider-thumb-rim-bottom": "#D8D1CC",
+            "--sc-color-slider-thumb-face-top": "#F1EFEB",
+            "--sc-color-slider-thumb-face-bottom": "#E3DFD8",
+            "--sc-shadow-slider-thumb": "2px 2px 6px 0 rgb(100 91 79 / 0.50), -1px -1px 1px 1px rgb(253 250 246 / 1)",
+            "--sc-shadow-slider-thumb-pressed": "2px 2px 6px 0 rgb(100 91 79 / 0.37), -1px -1px 1px 1px rgb(253 250 246 / 0.90), inset 1px 1px 8px 0 rgb(255 255 255 / 0.30)"
+          },
+          "dark": {
+            "--sc-shadow-slider-track": "inset 0.71px 0.71px 2px 0 rgb(0 0 0 / 0.45)",
+            "--sc-color-slider-thumb-rim-top": "#EAE8E3",
+            "--sc-color-slider-thumb-rim-bottom": "#9A9186",
+            "--sc-color-slider-thumb-face-top": "#D8D1CC",
+            "--sc-color-slider-thumb-face-bottom": "#B3B1AD",
+            "--sc-shadow-slider-thumb": "3px 3px 7px 0 rgb(0 0 0 / 0.50), -1px -1px 1px 1px rgb(219 235 255 / 0.17)",
+            "--sc-shadow-slider-thumb-pressed": "3px 3px 7px 0 rgb(0 0 0 / 0.38), -1px -1px 1px 1px rgb(219 235 255 / 0.14), inset 1px 1px 8px 0 rgb(255 255 255 / 0.06)"
+          }
+        },
+        "shadowAdj": {
+          "all": {},
+          "light": {},
+          "dark": {}
+        },
+        "springs": {
+          "--sc-motion-slider-travel-easing": {
+            "stiffness": 146,
+            "damping": 24.17,
+            "mass": 1
+          }
+        },
+        "pins": {},
+        "notes": "",
+        "props": {
+          "value": 0.67,
+          "disabled": false,
+          "label": "Volume"
+        },
+        "sound": {
+          "file": "drams-009-01.wav",
+          "volume": 0.7,
+          "rate": 1
+        }
+      }
+    ],
+    "pick": {
+      "id": null,
+      "reason": ""
+    },
+    "view": {
+      "theme": "dark",
+      "zoom": 1,
+      "ground": "--sc-color-surface-page",
+      "compare": false,
+      "blind": false,
+      "order": null,
+      "slow": 1
+    },
+    "updated": "2026-10-08T04:05:46.801Z"
+  }
+}
