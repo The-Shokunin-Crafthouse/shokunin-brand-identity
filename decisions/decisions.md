@@ -2398,3 +2398,18 @@ Levi: the trailing arrow uses Phosphor's bold weight, not regular. Code: `ArrowR
 - **Shared tokens kept shared:** `radius.control`, the type styles, the text colours, `status.error` (a signal colour never aliases into a role, learning #39), `motion.hover`.
 - **Lab fix:** the lab's own field styles were scoped to `.app` and restyled the staged Input (warmGray.50 ground, 2/6 padding). They are now scoped to the header and the panel; the staged Input renders its own CSS.
 - **Checks:** every role token equals its source token in both modes; the Shipped stage reads the sunk well, 8/12 padding and the default rule with a zero-alpha recess. `tokens:verify`, `tokens:map:check`, `tokens:swift:check`, `test:scripts` (17), `npm run build`, `build:lib` and `swiftc -typecheck` exit 0.
+
+### 2026-10-07: Input follows Levi's filled-field reference; the title stays above with optional subcopy (amends the Input tokens entry above)
+
+**Status:** Accepted. Levi, with a reference sheet (a filled-field set in light and dark): "use these for input with 1 change, keep the form title above and left justified", "also add subcopy helper text as an option to have under the form title above the input field", "use phosphor for the icons in the bold weight". Ships now (Levi's direction, the Stepper hover precedent); the lab tunes from here.
+
+- **Measured off the reference** (2000 × 1500, 1x): field 520 × 70, about 6px corner, no rule, no shadow; fill white at about 15% over the dark ground and ink at about 7% over the light one; value 20px (cap 15px), label 15px, icons 24px, clear mark 15px, icon-to-text 21px.
+- **Mapped x0.8** to the 16px body (the type system holds): padding 16/12 (48px tall with the label outside), icons 20px, clear 16px in a 32px button, slot gap 16px, corner 3px (`radius.input`; 4.8 has no step, Levi's call), fill `rgb(ink / 0.07)` light and `rgb(white / 0.15)` dark.
+- **The one change:** the label stays above the field, left-aligned, not inside it. New `description` prop: subcopy under the title, above the field, in `text.caption`, wired into `aria-describedby`. `helper` and `error` stay under the field.
+- **Slots:** `icon`, `prefix` (a segment set off by a rule), `suffix`, `trailing`, `clearable` + `onClear`. Phosphor components render bold. Not built here: the reference's select, chips, card-number group, date and time pickers; each is its own component.
+- **States:** hover and focus keep the fill (the reference shows neither); focus is the system ring on the box, since there is no rule to recolour; error is a hairline `status.error` edge (2px when focused). Disabled is flat. Forced colors: a full edge, a `Highlight` ring, `GrayText` when disabled (headless Chromium).
+- **Tokens:** `color.input.rule*` removed (no rule; made earlier today on this branch, never on main or in Figma). New `color.input.adornment`, `.divider`, `size.input.{icon,clear,clearTarget}`, `space.component.gap.input-inline`, `radius.field`. `shadow.input.well` stays at zero alpha.
+- **Lab:** Claude's two Input seeds (recess with a white bounce, darker hover well) left the registry, and were removed from the saved concept A where they still equalled the seed (four values; nothing else was in it). The entry gains the slot props.
+- **Non-text contrast (1.4.11):** the tinted box is under 3:1 against the page in both modes, as the sunk field was (1.14:1). The title, the value and the placeholder carry the field; logged as a gap.
+- **Figma:** the Input masters follow at the record's apply, with the variables.
+- `tokens:verify`, `tokens:map:check`, `tokens:swift:check`, `test:scripts` (17), `npm run build`, `build:lib` and `swiftc -typecheck` exit 0.

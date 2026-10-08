@@ -40,16 +40,23 @@ scds-v2 Phase 2: filled field — no box frame; a single bottom rule + fill-shif
 
 scds-v2 Phase 2 removed the box frame. The input is an inset fill (`surface-sunk`) with a single bottom rule. Focus is the loudest state: the fill lifts to `surface-page` and the bottom rule goes to the high-contrast focus colour, doubled to an effective 2px with an inset shadow so it reads at AA without shifting layout. Content (filled) darkens the rule to `border-strong`; error recolours it. Depth and state are carried by fill and one rule — never a stroke around the field.
 
-## Physical well (physical-controls Tier 1, 2026-10-07)
+## Filled field (Levi's reference, 2026-10-07)
 
-The Input reads its own role tokens, so a tune in sc-tune never moves cards, the Stepper or the components that share `padding-*-md` and `gap-sm` (CONTEXT finding 5). Every value shipped equal to the flat field; the material reaches SCDS only through an sc-tune record.
+Superseded the bottom-rule field above. Levi's reference is a filled-field set; one change: the label (form title) stays above the field, left-aligned, with optional subcopy (`description`) between the title and the field. Icons are Phosphor, bold. Values are the reference scaled x0.8 from its 20px value to the 16px body.
 
-| Token | Shipped | Use |
+| Token | Value | Use |
 |---|---|---|
-| `--sc-color-input-well` / `-well-hover` / `-well-focus` / `-well-disabled` | = surface.sunk / sunk / page / sunk | field fill; hover is new (equal to rest) |
-| `--sc-shadow-input-well` | zero alpha | recess of the well (focus and error add their underline on top) |
-| `--sc-color-input-rule` / `-rule-hover` / `-rule-filled` / `-rule-focus` | = border.default / default / strong / focus | bottom rule; the hover rule moves only on an empty, valid field |
-| `--sc-space-component-padding-inline-input` / `-padding-block-input` | 12 / 8 | field padding |
-| `--sc-space-component-gap-input` | 4 | label, field and helper rhythm |
+| `--sc-color-input-well` (`-hover`, `-focus`, `-disabled` = well) | ink 7% / white 15% | field fill, measured off the reference |
+| `--sc-shadow-input-well` | zero alpha | recess (the reference is flat) |
+| `--sc-radius-field` | 3px (= radius.input; the reference's 6px scales to 4.8) | field corner |
+| `--sc-space-component-padding-inline-input` / `-padding-block-input` | 16 / 12 | box padding; the field is 48px tall |
+| `--sc-space-component-gap-input-inline` | 16 | between prefix, icon, value, suffix, clear, trailing |
+| `--sc-space-component-gap-input` | 4 | title, subcopy, field, helper |
+| `--sc-size-input-icon` | 20 | leading and trailing icons (Phosphor bold) |
+| `--sc-size-input-clear` / `-clear-target` | 16 / 32 | clear mark and its button |
+| `--sc-color-input-adornment` | = text.secondary | icons, suffix, clear |
+| `--sc-color-input-divider` | warmGray.300 / dark.raised2 | rule after a prefix segment |
 
-Disabled is flat: no recess. Forced colors: the field keeps a full `CanvasText` edge, focus is a `Highlight` outline, disabled is `GrayText`.
+**Slots:** `icon`, `prefix`, `suffix`, `trailing` (a Phosphor component renders bold; a node renders as given), `clearable` + `onClear` (the button shows while the field holds a value and is named "Clear <label>").
+
+**States:** hover and focus keep the fill (the reference shows neither); focus is the system ring on the box; error is a hairline `status.error` edge, a 2px ring when focused, and the error text under the field. Disabled is flat with disabled ink. Forced colors: a full `CanvasText` edge, a `Highlight` focus ring, `GrayText` when disabled.
