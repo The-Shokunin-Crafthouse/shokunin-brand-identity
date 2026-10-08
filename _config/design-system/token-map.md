@@ -5,7 +5,7 @@
 # Design Token Map — The Shokunin Crafthouse · Brand Identity
 
 **Generated** from `tokens/primitives.json` + `tokens/semantic.json`.
-**Source fingerprint:** `95fa47462e08` · **187 primitives · 287 semantic tokens.**
+**Source fingerprint:** `e1d84ccf077e` · **187 primitives · 290 semantic tokens.**
 
 > **This file is a mirror, not the source.** `tokens/*.json` is upstream; this document and the Figma
 > library are generated from / synced to it. It previously claimed the opposite — that both were
@@ -943,16 +943,19 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | `size/card/glass/clear/depth` | `--sc-size-card-glass-clear-depth` | _literal_ | `40` | _literal_ | `40` | 2026-10-08 · Card (physical-controls Tier 2), Levi: a liquid-glass card in three levels. |
 | `size/card/glass/clear/splay` | `--sc-size-card-glass-clear-splay` | _literal_ | `57` | _literal_ | `57` | 2026-10-08 · Card (physical-controls Tier 2), Levi: a liquid-glass card in three levels. |
 | `size/card/glass/clear/saturation` | `--sc-size-card-glass-clear-saturation` | _literal_ | `140` | _literal_ | `140` | 2026-10-08 · Card glass (physical-controls Tier 2), from Levi's liquid-glass best practices (legibility and vibrancy). |
+| `size/card/glass/clear/light` | `--sc-size-card-glass-clear-light` | _literal_ | `20` | _literal_ | `20` | 2026-10-08 · Card glass (physical-controls Tier 2). |
 | `size/card/glass/frosted/frost` | `--sc-size-card-glass-frosted-frost` | _literal_ | `9px` | _literal_ | `9px` | 2026-10-08 · Card (physical-controls Tier 2), Levi: a liquid-glass card in three levels. |
 | `size/card/glass/frosted/refraction` | `--sc-size-card-glass-frosted-refraction` | _literal_ | `65` | _literal_ | `65` | 2026-10-08 · Card (physical-controls Tier 2), Levi: a liquid-glass card in three levels. |
 | `size/card/glass/frosted/depth` | `--sc-size-card-glass-frosted-depth` | _literal_ | `68` | _literal_ | `68` | 2026-10-08 · Card (physical-controls Tier 2), Levi: a liquid-glass card in three levels. |
 | `size/card/glass/frosted/splay` | `--sc-size-card-glass-frosted-splay` | _literal_ | `57` | _literal_ | `57` | 2026-10-08 · Card (physical-controls Tier 2), Levi: a liquid-glass card in three levels. |
 | `size/card/glass/frosted/saturation` | `--sc-size-card-glass-frosted-saturation` | _literal_ | `160` | _literal_ | `160` | 2026-10-08 · Card glass (physical-controls Tier 2), from Levi's liquid-glass best practices (legibility and vibrancy). |
+| `size/card/glass/frosted/light` | `--sc-size-card-glass-frosted-light` | _literal_ | `30` | _literal_ | `30` | 2026-10-08 · Card glass (physical-controls Tier 2). |
 | `size/card/glass/thick/frost` | `--sc-size-card-glass-thick-frost` | `space/16` | `16px` | `space/16` | `16px` | 2026-10-08 · Card (physical-controls Tier 2), Levi: a liquid-glass card in three levels. |
 | `size/card/glass/thick/refraction` | `--sc-size-card-glass-thick-refraction` | _literal_ | `85` | _literal_ | `85` | 2026-10-08 · Card (physical-controls Tier 2), Levi: a liquid-glass card in three levels. |
 | `size/card/glass/thick/depth` | `--sc-size-card-glass-thick-depth` | _literal_ | `85` | _literal_ | `85` | 2026-10-08 · Card (physical-controls Tier 2), Levi: a liquid-glass card in three levels. |
 | `size/card/glass/thick/splay` | `--sc-size-card-glass-thick-splay` | _literal_ | `57` | _literal_ | `57` | 2026-10-08 · Card (physical-controls Tier 2), Levi: a liquid-glass card in three levels. |
 | `size/card/glass/thick/saturation` | `--sc-size-card-glass-thick-saturation` | _literal_ | `180` | _literal_ | `180` | 2026-10-08 · Card glass (physical-controls Tier 2), from Levi's liquid-glass best practices (legibility and vibrancy). |
+| `size/card/glass/thick/light` | `--sc-size-card-glass-thick-light` | _literal_ | `45` | _literal_ | `45` | 2026-10-08 · Card glass (physical-controls Tier 2). |
 
 #### `size/icon`
 

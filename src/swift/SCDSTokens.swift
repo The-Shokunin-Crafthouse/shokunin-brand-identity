@@ -171,8 +171,8 @@ public enum SCDS {
     public static let semanticVersion = "0.1.0"
     public static let sourceGenerated = "2026-05-26"
     public static let primitivesHash = "41d576559668277a"
-    public static let semanticHash = "58a11e7eab6a2aef"
-    public static let tokenCount = 287
+    public static let semanticHash = "f7ff4f62caa437ec"
+    public static let tokenCount = 290
   }
 
   // MARK: - Color
@@ -1195,6 +1195,9 @@ public enum SCDS {
     /// `size.card.glass.clear.saturation`
     public static let cardGlassClearSaturation: CGFloat = 140
 
+    /// `size.card.glass.clear.light`
+    public static let cardGlassClearLight: CGFloat = 20
+
     /// `size.card.glass.frosted.frost`
     public static let cardGlassFrostedFrost: CGFloat = 9
 
@@ -1210,6 +1213,9 @@ public enum SCDS {
     /// `size.card.glass.frosted.saturation`
     public static let cardGlassFrostedSaturation: CGFloat = 160
 
+    /// `size.card.glass.frosted.light`
+    public static let cardGlassFrostedLight: CGFloat = 30
+
     /// `size.card.glass.thick.frost`
     public static let cardGlassThickFrost: CGFloat = 16
 
@@ -1224,6 +1230,9 @@ public enum SCDS {
 
     /// `size.card.glass.thick.saturation`
     public static let cardGlassThickSaturation: CGFloat = 180
+
+    /// `size.card.glass.thick.light`
+    public static let cardGlassThickLight: CGFloat = 45
 
     /// `size.icon.xs`
     public static let iconXs: CGFloat = 12
