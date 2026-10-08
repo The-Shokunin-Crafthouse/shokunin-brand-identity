@@ -465,11 +465,13 @@ export const REGISTRY = {
       { name: 'helper', type: 'text', default: '' },
       { name: 'error', type: 'text', default: '' },
       { name: 'disabled', type: 'boolean', default: false },
+      { name: 'surface', type: 'enum', options: ['page', 'raised'], default: 'page' },
     ],
     play: null,
     render: (p, set) => (
-      <div style={{ width: 'calc(var(--sc-space-layout-stack-xl) * 4)' }}>
+      <div style={{ width: 'calc(var(--sc-space-layout-stack-xl) * 4)', ...(p.surface === 'raised' ? { background: 'var(--sc-color-surface-raised)', padding: 'var(--sc-space-component-padding-md)' } : {}) }}>
         <Input
+          surface={p.surface}
           label={p.label}
           description={p.description || undefined}
           placeholder={p.placeholder}

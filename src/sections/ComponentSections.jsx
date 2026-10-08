@@ -205,7 +205,7 @@ function InputDemo({ initial = '', ...props }) {
 export function InputPage() {
   return (
     <ComponentPage
-      id="input" label="Input" tokensN={24}
+      id="input" label="Input" tokensN={25}
       eyebrow={<>Input<Slash />a filled field, titled above</>}
       title={<>The title sits above. <Accent>The field</Accent> is a quiet <Em>tinted box.</Em></>}
       lead={<>A filled field: a tinted box with no rule and no frame, holding the value with a leading icon, a prefix or suffix, a clear button and a trailing control where the field needs them. The title stays above it, left-aligned, with optional subcopy between the title and the field. Icons are Phosphor, bold.</>}
@@ -220,6 +220,7 @@ export function InputPage() {
         { name: 'Subcopy', token: '--sc-font-text-caption', render: <InputDemo label="Email address" description="We only use it for receipts." icon={EnvelopeSimple} placeholder="you@studio.com" /> },
         { name: 'Filled, clearable', token: '--sc-color-input-adornment', render: <InputDemo label="Search" icon={MagnifyingGlass} clearable initial="apple macbook pro 14" /> },
         { name: 'Prefix and suffix', token: '--sc-color-input-divider', render: <InputDemo label="Display" prefix="Size" suffix="inches" initial="14" /> },
+        { name: 'On a raised surface', token: '--sc-color-input-well-raised', render: <div style={{ background: 'var(--sc-color-surface-raised)', padding: 'var(--sc-space-component-padding-md)', borderRadius: 'var(--sc-radius-card)' }}><InputDemo label="Name on card" surface="raised" placeholder="As it appears" /></div> },
         { name: 'Trailing icon', token: '--sc-size-input-icon', render: <InputDemo label="Date" trailing={CalendarBlank} initial="9 February, 2022" /> },
         { name: 'Focus (tab in)', token: '--sc-color-border-focus', render: <InputDemo label="Street" icon={MapPin} placeholder="4220 Joy Lane" /> },
         { name: 'Error', token: '--sc-color-status-error', render: <InputDemo label="Email address" icon={EnvelopeSimple} error="That isn’t an email yet." clearable initial="levi@" /> },

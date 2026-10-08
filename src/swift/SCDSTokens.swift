@@ -171,8 +171,8 @@ public enum SCDS {
     public static let semanticVersion = "0.1.0"
     public static let sourceGenerated = "2026-05-26"
     public static let primitivesHash = "41d576559668277a"
-    public static let semanticHash = "665e575732edfff1"
-    public static let tokenCount = 293
+    public static let semanticHash = "201923f743ca42f7"
+    public static let tokenCount = 294
   }
 
   // MARK: - Color
@@ -668,6 +668,12 @@ public enum SCDS {
     /// `color.input.wellDisabled`
     public static let inputWellDisabled = SwiftUI.Color.scdsDynamic(
         light: (1, 1, 1, 0.46),
+        dark:  (1, 1, 1, 0.15)
+    )
+
+    /// `color.input.wellRaised`
+    public static let inputWellRaised = SwiftUI.Color.scdsDynamic(
+        light: (0.101961, 0.094118, 0.082353, 0.07),
         dark:  (1, 1, 1, 0.15)
     )
 
