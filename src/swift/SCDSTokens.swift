@@ -171,7 +171,7 @@ public enum SCDS {
     public static let semanticVersion = "0.1.0"
     public static let sourceGenerated = "2026-05-26"
     public static let primitivesHash = "41d576559668277a"
-    public static let semanticHash = "922398d3a36bad13"
+    public static let semanticHash = "d400489ad18a842c"
     public static let tokenCount = 288
   }
 
@@ -691,8 +691,8 @@ public enum SCDS {
 
     /// `color.card.flatHover`
     public static let cardFlatHover = SwiftUI.Color.scdsDynamic(
-        light: (0.945098, 0.937255, 0.921569, 1),
-        dark:  (0.203922, 0.227451, 0.254902, 1)
+        light: (1, 1, 1, 1),
+        dark:  (0.262745, 0.290196, 0.317647, 1)
     )
 
     /// `color.card.glass.clear.light`
@@ -1495,7 +1495,7 @@ public enum SCDS {
     public static let sliderThumbPressScale: CGFloat = 0.985
 
     /// `motion.card.pressScale`
-    public static let cardPressScale: CGFloat = 1
+    public static let cardPressScale: CGFloat = 0.985
   }
 
   // MARK: - Shadow

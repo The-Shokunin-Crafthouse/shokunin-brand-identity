@@ -5,7 +5,7 @@
 # Design Token Map — The Shokunin Crafthouse · Brand Identity
 
 **Generated** from `tokens/primitives.json` + `tokens/semantic.json`.
-**Source fingerprint:** `ae84c0ac76d5` · **187 primitives · 288 semantic tokens.**
+**Source fingerprint:** `e51272fe4bfb` · **187 primitives · 288 semantic tokens.**
 
 > **This file is a mirror, not the source.** `tokens/*.json` is upstream; this document and the Figma
 > library are generated from / synced to it. It previously claimed the opposite — that both were
@@ -629,7 +629,7 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
 |---|---|---|---|---|---|---|
 | `color/card/flat` | `--sc-color-card-flat` | `color/surface/floating` | `⚠ unresolved` | `color/surface/floating` | `⚠ unresolved` | 2026-10-08 · Card (physical-controls Tier 2), Levi: two card styles, a flat floating surface with no border and a liquid-glass card in three levels (clear, frosted, thick; renamed from subtle, regular, heavy), each in a light and a dark tone. |
-| `color/card/flatHover` | `--sc-color-card-flat-hover` | `color/surface/raised` | `⚠ unresolved` | `color/surface/raised` | `⚠ unresolved` | 2026-10-08 · Card (physical-controls Tier 2), Levi: two card styles, a flat floating surface with no border and a liquid-glass card in three levels (clear, frosted, thick; renamed from subtle, regular, heavy), each in a light and a dark tone. |
+| `color/card/flatHover` | `--sc-color-card-flat-hover` | `color/utility/white` | `#FFFFFF` | `color/dark/raised3` | `#434A51` | 2026-10-08 · Card (physical-controls Tier 2), Levi: two card styles, a flat floating surface with no border and a liquid-glass card in three levels (clear, frosted, thick; renamed from subtle, regular, heavy), each in a light and a dark tone. |
 | `color/card/glass/clear/light` | `--sc-color-card-glass-clear-light` | _literal_ | `rgb(var(--sc-p-color-white-rgb) / 0.16)` | _literal_ | `rgb(var(--sc-p-color-white-rgb) / 0.05)` | 2026-10-08 · Card glass (physical-controls Tier 2). |
 | `color/card/glass/clear/dark` | `--sc-color-card-glass-clear-dark` | _literal_ | `rgb(var(--sc-p-color-ink-rgb) / 0.06)` | _literal_ | `rgb(var(--sc-p-color-black-rgb) / 0.20)` | 2026-10-08 · Card glass (physical-controls Tier 2). |
 | `color/card/glass/frosted/light` | `--sc-color-card-glass-frosted-light` | _literal_ | `rgb(var(--sc-p-color-white-rgb) / 0.24)` | _literal_ | `rgb(var(--sc-p-color-white-rgb) / 0.08)` | 2026-10-08 · Card glass (physical-controls Tier 2). |
@@ -871,7 +871,7 @@ channel-triplet primitives) rather than an alias to a single primitive.
 
 | Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
 |---|---|---|---|---|---|---|
-| `motion/card/pressScale` | `--sc-motion-card-press-scale` | _literal_ | `1` | _literal_ | `1` | 2026-10-07 · Card (physical-controls Tier 2: flat, or liquid glass in three levels and two tones, Levi 2026-10-08). |
+| `motion/card/pressScale` | `--sc-motion-card-press-scale` | `motion/press/scale` | `⚠ unresolved` | `motion/press/scale` | `⚠ unresolved` | 2026-10-07 · Card (physical-controls Tier 2). |
 
 ### Shadow · Semantic
 
