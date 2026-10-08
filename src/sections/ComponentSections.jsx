@@ -131,45 +131,56 @@ export function BadgePage() {
 }
 
 /* ── 3.3 Card ────────────────────────────────────────────── */
+/* Glass bends what sits behind it, so its demo carries a backdrop. */
+function GlassStage({ children }) {
+  return (
+    <div style={{ position: 'relative', padding: 'var(--sc-space-component-padding-md)', borderRadius: 'var(--sc-radius-card)', overflow: 'hidden', background: 'repeating-linear-gradient(135deg, var(--sc-color-atmosphere-celadon) 0 16px, var(--sc-color-atmosphere-river) 16px 32px)' }}>
+      {children}
+    </div>
+  );
+}
+
 export function CardPage() {
   return (
     <ComponentPage
-      id="card" label="Card" tokensN={13}
-      eyebrow={<>Card<Slash />depth by fill</>}
-      title={<>Three surfaces. <Em>No resting stroke.</Em></>}
-      lead={<>Cards separate by fill alone. Default sinks into the page; elevated lifts to the ground above it — the step in surface weight is the lift a shadow would otherwise fake. Nothing carries a resting frame. Interactivity is the only thing that draws a mark: an inset shadow on hover and focus, never an outline.</>}
-      statesTitle="Three variants, one fill logic."
+      id="card" label="Card" tokensN={22}
+      eyebrow={<>Card<Slash />flat or glass</>}
+      title={<>Two styles. <Em>A flat surface, or glass.</Em></>}
+      lead={<>A flat card is the floating surface with no border and no shadow. A glass card is liquid glass over whatever sits behind it, in three levels: subtle, regular and heavy. Regular is the studio's Figma Glass setting. Frost, tint and a rim lit from the top left are CSS; the refraction that bends the backdrop at the edge is an SVG filter the card builds for its own size.</>}
+      statesTitle="One flat card, three glass levels."
       callouts={[
-        { title: 'Fill-only elevation', body: 'The Rams-lineage register builds depth from surface weight and spacing, not a stroke around every tile. scds-v2 Phase 2 removed the resting hairline frames; contrast does the separating.' },
-        { title: 'How elevated reads lifted', body: 'It sits on the page ground while its siblings sit sunk. The step up in fill weight does the lifting a shadow would fake — no frame required.' },
-        { title: 'Interactive is a real button', body: 'The interactive variant renders as <button>, not a div with a click handler — so it is keyboard-activatable and focus-ringed for free, and an inset shadow narrates hover and focus without a border.' },
+        { title: 'Flat is the default', body: 'Most cards hold reading content on the page ground. The floating surface separates them without a frame or a shadow.' },
+        { title: 'Glass needs something behind it', body: 'Over a plain ground glass is only a tint and a rim. Use it where it sits over imagery, colour or content that scrolls beneath it.' },
+        { title: 'Refraction is Chromium only', body: 'Only Chromium applies an SVG filter to the backdrop. Safari and Firefox keep the frost, tint and rim. Reduced transparency turns glass into the flat card; forced colours draw an edge.' },
       ]}
       states={[
-        { name: 'Default', token: '--sc-color-card-well', render: <Card><CardBody>A set-in tile against the page.</CardBody></Card> },
-        { name: 'Interactive · hover', token: '--sc-shadow-card-interactive-hover', render: <Card variant="interactive" onClick={noop}><CardBody>Hover or focus me.</CardBody></Card> },
-        { name: 'Elevated', token: '--sc-color-card-plate', render: <Card variant="elevated"><CardBody>Page ground, lifted by fill.</CardBody></Card> },
+        { name: 'Flat', token: '--sc-color-card-flat', render: <Card><CardBody>The floating surface. No border, no shadow.</CardBody></Card> },
+        { name: 'Glass · subtle', token: '--sc-size-card-glass-subtle-refraction', render: <GlassStage><Card variant="glass" level="subtle"><CardBody>Subtle glass.</CardBody></Card></GlassStage> },
+        { name: 'Glass · regular', token: '--sc-size-card-glass-regular-refraction', render: <GlassStage><Card variant="glass" level="regular"><CardBody>Regular glass, the Figma setting.</CardBody></Card></GlassStage> },
+        { name: 'Glass · heavy', token: '--sc-size-card-glass-heavy-refraction', render: <GlassStage><Card variant="glass" level="heavy"><CardBody>Heavy glass.</CardBody></Card></GlassStage> },
+        { name: 'Interactive · hover', token: '--sc-color-card-flat-hover', render: <Card interactive onClick={noop}><CardBody>Hover or focus me.</CardBody></Card> },
       ]}
       tokenRows={[
         { prop: 'Padding', token: '--sc-space-component-padding-card' },
         { prop: 'Radius', token: '--sc-radius-card' },
         { prop: 'Text', token: '--sc-color-text-primary' },
-        { prop: 'Default ground (well)', token: '--sc-color-card-well' },
-        { prop: 'Well recess', token: '--sc-shadow-card-well' },
-        { prop: 'Elevated ground (plate)', token: '--sc-color-card-plate' },
-        { prop: 'Plate lift', token: '--sc-shadow-card-plate' },
-        { prop: 'Interactive ground', token: '--sc-color-card-interactive' },
-        { prop: 'Interactive hover ground', token: '--sc-color-card-interactive-hover' },
-        { prop: 'Interactive lift', token: '--sc-shadow-card-interactive' },
-        { prop: 'Hover and focus lift', token: '--sc-shadow-card-interactive-hover' },
-        { prop: 'Pressed lift', token: '--sc-shadow-card-interactive-pressed' },
+        { prop: 'Flat ground', token: '--sc-color-card-flat' },
+        { prop: 'Flat hover ground', token: '--sc-color-card-flat-hover' },
+        { prop: 'Glass tint (regular)', token: '--sc-color-card-glass-regular' },
+        { prop: 'Glass rim (regular)', token: '--sc-shadow-card-glass-regular' },
+        { prop: 'Glass frost (regular)', token: '--sc-size-card-glass-regular-frost', light: '9px' },
+        { prop: 'Glass refraction (regular)', token: '--sc-size-card-glass-regular-refraction', light: '65' },
+        { prop: 'Glass depth (regular)', token: '--sc-size-card-glass-regular-depth', light: '68' },
+        { prop: 'Glass splay (regular)', token: '--sc-size-card-glass-regular-splay', light: '57' },
+        { prop: 'Glass hover veil', token: '--sc-color-card-glass-hover' },
         { prop: 'Press scale', token: '--sc-motion-card-press-scale', light: '1' },
       ]}
-      rulesTitle="Four rules for depth by contrast."
+      rulesTitle="Four rules for flat and glass."
       rules={[
-        { name: 'Never add a shadow', text: 'No box-shadow, no glow. If a card needs to lift, raise it with the elevated variant’s ground-and-frame contrast, not an effect the system does not own.' },
-        { name: 'Elevated against sunk, not alone', text: 'Elevated reads as lifted only next to sunk siblings. On its own it is just a bordered page-ground rectangle.' },
-        { name: 'Interactive gets a handler or it is not interactive', text: 'The variant renders a button. Use it only when there is a real action; a decorative interactive card is a focus trap with nothing to do.' },
-        { name: 'One padding step', text: 'Card interiors pad with component-padding-lg. Tightening to md makes the card read as chrome; loosening past lg wastes the frame.' },
+        { name: 'Glass over something', text: 'Glass on a plain ground reads as a tinted box. Put it over imagery, colour or scrolling content, or use the flat card.' },
+        { name: 'Check the text over the real backdrop', text: 'Glass contrast depends on what sits behind it. Measure the text over the brightest and darkest backdrop it will meet; reach for a heavier level, or the flat card, when it falls short.' },
+        { name: 'Interactive gets a handler or it is not interactive', text: 'An interactive card renders a button. Use it only when there is a real action; a decorative interactive card is a focus trap with nothing to do.' },
+        { name: 'One padding step', text: 'Card interiors pad with the card padding role. Tightening makes the card read as chrome; loosening wastes the surface.' },
       ]}
     />
   );

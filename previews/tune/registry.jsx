@@ -112,8 +112,26 @@ const KNOB = {
 const INPUT_ICONS = { none: undefined, search: MagnifyingGlass, mail: EnvelopeSimple, location: MapPin };
 const INPUT_TRAILING = { none: undefined, eye: Eye, copy: Copy, calendar: CalendarBlank, clock: Clock, caret: CaretDown };
 
-/* Card variants by material: the well (default), the plate (elevated), the interactive plate. */
-const CARD_VARIANTS = { well: 'default', plate: 'elevated', 'interactive plate': 'interactive' };
+/* Card styles (Levi, 2026-10-08) and what sits behind them: glass needs a backdrop to bend. */
+const CARD_STYLES = {
+  flat: { variant: 'flat' },
+  'glass subtle': { variant: 'glass', level: 'subtle' },
+  'glass regular': { variant: 'glass', level: 'regular' },
+  'glass heavy': { variant: 'glass', level: 'heavy' },
+};
+const BACKDROP = { position: 'absolute', inset: 0, overflow: 'hidden', borderRadius: 'var(--sc-radius-card)' };
+const CARD_BACKDROPS = {
+  'type and colour': (
+    <div aria-hidden="true" style={BACKDROP}>
+      <div style={{ position: 'absolute', inset: 0, background: 'repeating-linear-gradient(135deg, var(--sc-color-atmosphere-celadon) 0 24px, var(--sc-color-atmosphere-river) 24px 48px, var(--sc-color-atmosphere-lapis) 48px 72px)' }} />
+      <div style={{ position: 'absolute', inset: 0, display: 'flex', flexWrap: 'wrap', alignContent: 'center', font: 'var(--sc-font-text-display-xs)', color: 'var(--sc-color-text-primary)', lineHeight: 1, wordBreak: 'break-all' }}>SHOKUNIN CRAFTHOUSE SHOKUNIN CRAFTHOUSE</div>
+    </div>
+  ),
+  type: (
+    <div aria-hidden="true" style={{ ...BACKDROP, display: 'flex', flexWrap: 'wrap', alignContent: 'center', font: 'var(--sc-font-text-title-card)', color: 'var(--sc-color-text-primary)', wordBreak: 'break-all' }}>SHOKUNIN CRAFTHOUSE SHOKUNIN CRAFTHOUSE SHOKUNIN CRAFTHOUSE</div>
+  ),
+  none: null,
+};
 
 /* Set on a keyboard step so the lab's tick plays on keys only, never on a drag. */
 let keyStep = false;
@@ -461,47 +479,35 @@ export const REGISTRY = {
   },
   Card: {
     css: [cardCss],
-    // Material starts (physical-controls Tier 2), lit from the top left:
-    // plate and interactive plate = the Button key lift on surface.raised
-    // (hover derived from rest, pressed = keyPressed); well = the top-left
-    // recess on today's sunk ground. Press scale = motion.press.card.scale.
-    // Claude's start only; every value is Levi's. They ship flat.
-    seed: {
-      overrides: { '--sc-motion-card-press-scale': '0.995' },
-      scoped: perMode((m) => ({
-        '--sc-shadow-card-well': m.recess,
-        '--sc-color-card-plate': m.keyFill,
-        '--sc-shadow-card-plate': m.key,
-        '--sc-color-card-interactive': m.keyFill,
-        '--sc-color-card-interactive-hover': m.keyFill,
-        '--sc-shadow-card-interactive': m.key,
-        '--sc-shadow-card-interactive-hover': m.key,
-        '--sc-shadow-card-interactive-pressed': m.keyPressed,
-      })),
-    },
+    // Two styles (Levi, 2026-10-08): flat, and liquid glass in three levels.
+    // Regular glass is his Figma Glass effect; subtle and heavy are Claude's
+    // start. The refraction numbers are read by src/components/Card/glass.js.
+    jsTokens: ['subtle', 'regular', 'heavy'].flatMap((l) => ['refraction', 'depth', 'splay'].map((k) => `--sc-size-card-glass-${l}-${k}`)),
     shippedSound: null,
     trigger: 'ships silent',
     props: [
-      { name: 'show', type: 'enum', options: ['all', ...Object.keys(CARD_VARIANTS)], default: 'all' },
+      { name: 'show', type: 'enum', options: ['all', ...Object.keys(CARD_STYLES)], default: 'all' },
+      { name: 'backdrop', type: 'enum', options: Object.keys(CARD_BACKDROPS), default: 'type and colour' },
+      { name: 'interactive', type: 'boolean', default: false },
       { name: 'disabled', type: 'boolean', default: false },
       { name: 'title', type: 'text', default: 'Studio journal' },
       { name: 'body', type: 'text', default: 'Notes from the bench.' },
     ],
     play: null,
     render: (p) => {
-      const shown = p.show === 'all' ? Object.keys(CARD_VARIANTS) : [p.show];
+      const shown = p.show === 'all' ? Object.keys(CARD_STYLES) : [p.show];
       return (
-        <div style={{ display: 'grid', gridTemplateColumns: `repeat(${shown.length}, calc(var(--sc-space-layout-stack-xl) * 2))`, gap: 'var(--sc-space-layout-stack-sm)' }}>
-          {shown.map((m) => {
-            const variant = CARD_VARIANTS[m];
-            return (
-              <Card key={m} variant={variant} {...(variant === 'interactive' ? { onClick: () => {}, disabled: p.disabled } : {})}>
-                <span style={{ display: 'block', font: 'var(--sc-font-text-label-ui)', color: 'var(--sc-color-text-secondary)' }}>{m}</span>
+        <div style={{ position: 'relative', padding: 'var(--sc-space-layout-stack-sm)' }}>
+          {CARD_BACKDROPS[p.backdrop]}
+          <div style={{ position: 'relative', display: 'grid', gridTemplateColumns: `repeat(${Math.min(shown.length, 2)}, calc(var(--sc-space-layout-stack-xl) * 2.5))`, gap: 'var(--sc-space-layout-stack-sm)' }}>
+            {shown.map((name) => (
+              <Card key={name} {...CARD_STYLES[name]} interactive={p.interactive} disabled={p.interactive ? p.disabled : undefined} onClick={() => {}}>
+                <span style={{ display: 'block', font: 'var(--sc-font-text-label-ui)', color: 'var(--sc-color-text-secondary)' }}>{name}</span>
                 <span style={{ display: 'block', font: 'var(--sc-font-text-body-default)' }}>{p.title}</span>
                 <span style={{ display: 'block', font: 'var(--sc-font-text-body-dense)', color: 'var(--sc-color-text-secondary)' }}>{p.body}</span>
               </Card>
-            );
-          })}
+            ))}
+          </div>
         </div>
       );
     },

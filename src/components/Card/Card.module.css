@@ -1,71 +1,104 @@
 /* tokens:
  *   --sc-space-component-padding-card        · inner padding (role token, = padding.lg 24)
  *   --sc-radius-card                         · corner (role token, = radius.surface 8)
- *   --sc-color-card-well / --sc-shadow-card-well · default: the well, a recessed ground
- *   --sc-color-card-plate / --sc-shadow-card-plate · elevated: the plate, a raised ground
- *   --sc-color-card-interactive / -interactive-hover · interactive plate ground, rest / hover
- *   --sc-shadow-card-interactive / -interactive-hover / -interactive-pressed · its lift per state
+ *   --sc-color-card-flat / -flat-hover       · flat ground (surface.floating) / interactive hover
+ *   --sc-color-card-glass-{subtle,regular,heavy} · glass tint over the refracted backdrop
+ *   --sc-color-card-glass-hover              · interactive glass hover veil
+ *   --sc-shadow-card-glass-{level}           · glass rim, lit from the top left (Figma light -45deg)
+ *   --sc-size-card-glass-{level}-frost       · backdrop blur radius (Figma frost; CSS takes half)
+ *   --sc-size-card-glass-{level}-refraction / -depth / -splay · read by glass.js (Figma units)
  *   --sc-motion-card-press-scale             · press scale (shipped 1: no press)
  *   --sc-motion-press-duration / -easing     · press timing (shared press pair)
- *   --sc-color-text-primary                  · text inherits via reset
+ *   --sc-color-text-primary                  · text
  *   --sc-color-border-focus / -width-focus / -focus-offset · focus ring
  *   --sc-motion-hover-duration / -easing     · ground transition
  *
- * physical-controls Tier 2: two materials under the system light (top left).
- * The well is set into the page; the plate is lifted off it, and an
- * interactive plate presses on click. Every material value is a Card role
- * token, shipped equal to the fill-only card (scds-v2 Phase 2) until Levi's
- * sc-tune record applies. Disabled is flat. Shadow changes snap: cards repeat
- * in grids, so only the ground and the press scale transition.
+ * Two styles (Levi, 2026-10-08). Flat: a floating surface with no border and
+ * no shadow. Glass: frost, tint and a lit rim here; the refraction filter is
+ * built per card by glass.js and arrives as --glass-refract (Chromium only).
+ * Shadow and filter changes snap: cards repeat in grids.
  */
 
 .card {
+  position: relative;
   display: block;
   width: 100%;
   text-align: left;
   padding: var(--sc-space-component-padding-card);
   border-radius: var(--sc-radius-card);
+  color: var(--sc-color-text-primary);
   transition:
     background-color var(--sc-motion-hover-duration) var(--sc-motion-hover-easing),
     transform var(--sc-motion-press-duration) var(--sc-motion-press-easing);
 }
 
-.default {
-  background-color: var(--sc-color-card-well);
-  box-shadow: var(--sc-shadow-card-well);
-  color: var(--sc-color-text-primary);
+.defs {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  pointer-events: none;
 }
 
-.elevated {
-  background-color: var(--sc-color-card-plate);
-  box-shadow: var(--sc-shadow-card-plate);
-  color: var(--sc-color-text-primary);
+/* ── flat ── */
+.flat { background-color: var(--sc-color-card-flat); }
+.flat.interactive:hover:not(:disabled) { background-color: var(--sc-color-card-flat-hover); }
+
+/* ── glass ── */
+.subtle {
+  --glass-tint: var(--sc-color-card-glass-subtle);
+  --glass-rim: var(--sc-shadow-card-glass-subtle);
+  --glass-frost: var(--sc-size-card-glass-subtle-frost);
+  --glass-refraction: var(--sc-size-card-glass-subtle-refraction);
+  --glass-depth: var(--sc-size-card-glass-subtle-depth);
+  --glass-splay: var(--sc-size-card-glass-subtle-splay);
+}
+.regular {
+  --glass-tint: var(--sc-color-card-glass-regular);
+  --glass-rim: var(--sc-shadow-card-glass-regular);
+  --glass-frost: var(--sc-size-card-glass-regular-frost);
+  --glass-refraction: var(--sc-size-card-glass-regular-refraction);
+  --glass-depth: var(--sc-size-card-glass-regular-depth);
+  --glass-splay: var(--sc-size-card-glass-regular-splay);
+}
+.heavy {
+  --glass-tint: var(--sc-color-card-glass-heavy);
+  --glass-rim: var(--sc-shadow-card-glass-heavy);
+  --glass-frost: var(--sc-size-card-glass-heavy-frost);
+  --glass-refraction: var(--sc-size-card-glass-heavy-refraction);
+  --glass-depth: var(--sc-size-card-glass-heavy-depth);
+  --glass-splay: var(--sc-size-card-glass-heavy-splay);
+}
+.glass {
+  background-color: var(--glass-tint);
+  box-shadow: var(--glass-rim);
+  /* Figma frost is a blur radius; CSS blur() takes the standard deviation, half of it. */
+  -webkit-backdrop-filter: blur(calc(var(--glass-frost) / 2));
+  backdrop-filter: var(--glass-refract, ) blur(calc(var(--glass-frost) / 2));
+}
+.glass.interactive:hover:not(:disabled) {
+  background-image: linear-gradient(135deg, var(--sc-color-card-glass-hover), var(--sc-color-card-glass-hover));
 }
 
+/* ── interactive ── */
 .interactive {
-  background-color: var(--sc-color-card-interactive);
-  box-shadow: var(--sc-shadow-card-interactive);
-  color: var(--sc-color-text-primary);
   cursor: pointer;
   font: inherit;
-}
-.interactive:hover:not(:disabled) {
-  background-color: var(--sc-color-card-interactive-hover);
-  box-shadow: var(--sc-shadow-card-interactive-hover);
 }
 .interactive:focus-visible {
   outline: var(--sc-border-width-focus) solid var(--sc-color-border-focus);
   outline-offset: var(--sc-border-focus-offset);
-  box-shadow: var(--sc-shadow-card-interactive-hover);
 }
 .interactive:active:not(:disabled) {
-  box-shadow: var(--sc-shadow-card-interactive-pressed);
   transform: scale(var(--sc-motion-card-press-scale));
 }
-/* Disabled is flat (directive 5): losing the material is the signal. */
+/* Disabled is flat (directive 5): the glass loses its rim and refraction, keeps the frost. */
 .interactive:disabled {
-  box-shadow: none;
   cursor: not-allowed;
+}
+.glass.interactive:disabled {
+  box-shadow: none;
+  backdrop-filter: blur(calc(var(--glass-frost) / 2));
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -73,11 +106,23 @@
   .interactive:active:not(:disabled) { transform: none; }
 }
 
-/* Forced colors drop every ground and shadow: an inset edge keeps each card. */
+/* Reduced transparency: glass becomes the flat card. */
+@media (prefers-reduced-transparency: reduce) {
+  .glass {
+    background-color: var(--sc-color-card-flat);
+    box-shadow: none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}
+
+/* Forced colors drop every ground, rim and filter: an inset edge keeps each card. */
 @media (forced-colors: active) {
   .card {
     outline: var(--sc-border-width-default) solid CanvasText;
     outline-offset: calc(-1 * var(--sc-border-width-default));
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
   }
   .interactive { outline-color: ButtonBorder; }
   .interactive:disabled { outline-color: GrayText; }

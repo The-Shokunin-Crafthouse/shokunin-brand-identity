@@ -40,7 +40,7 @@ import { fileURLToPath } from 'node:url';
 export const EXEMPT = [
   { path: 'shadow.switch', why: 'the Switch stays the Drams repaint, lit from the top (decisions 2026-10-07, "the Switch re-light is reverted")' },
   { path: 'shadow.control.raised', why: 'superseded, held for Studio PM RunButton.swift (decisions 2026-10-07, "shadow.control.bevel retired")' },
-  { path: 'shadow.control.inset', why: 'the Card hover inset, lit from the top; Card moves to its own plate and well tokens in Tier 2' },
+  { path: 'shadow.control.inset', why: 'no SCDS consumer since Card went flat and glass (decisions 2026-10-08); held, lit from the top, for Money Bags, whose vendored Swift test reads SCDS.Shadow.controlInset; remove once that test moves' },
 ];
 const EXEMPT_CSS = [
   { file: 'src/components/Switch/Switch.module.css', why: 'the Switch knob gradients run top to bottom (same decision as shadow.switch)' },
