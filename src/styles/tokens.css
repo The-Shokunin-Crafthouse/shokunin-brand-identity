@@ -480,6 +480,8 @@
   --sc-color-card-glass-hover-auto: var(--sc-color-card-glass-hover-light);
   --sc-color-tooltip-surface: var(--sc-p-color-warm-gray-800);
   --sc-color-tooltip-text: var(--sc-p-color-warm-gray-50);
+  --sc-color-tooltip-glass-tint: rgb(var(--sc-p-color-white-rgb) / 0.24);
+  --sc-color-tooltip-glass-text: var(--sc-p-color-warm-gray-800);
   --sc-border-width-default: var(--sc-p-border-width-hairline);
   --sc-border-width-focus: var(--sc-p-border-width-focus);
   --sc-border-width-accent: var(--sc-p-border-width-accent);
@@ -516,6 +518,8 @@
   --sc-shadow-card-glass-text-dark: 0 0 2px rgb(var(--sc-p-color-white-rgb) / 0.50);
   --sc-shadow-card-glass-text-auto: var(--sc-shadow-card-glass-text-light);
   --sc-shadow-tooltip-plate: inset 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0);
+  --sc-shadow-tooltip-glass-rim: inset 1px 1px 0 0 rgb(var(--sc-p-color-white-rgb) / 0.30), inset -1px -1px 0 0 rgb(var(--sc-p-color-white-rgb) / 0.15), 6px 6px 24px 0 rgb(100 91 79 / 0.14);
+  --sc-shadow-tooltip-glass-text: 0 0 2px rgb(var(--sc-p-color-white-rgb) / 0.60);
   --sc-motion-hover-duration: var(--sc-p-motion-duration-micro);
   --sc-motion-hover-easing: var(--sc-p-motion-easing-out);
   --sc-motion-press-duration: var(--sc-p-motion-duration-press);
@@ -752,6 +756,12 @@
   --sc-font-text-nav-node: var(--sc-p-font-text-text-tight-13);
   --sc-size-tooltip-arrow: var(--sc-p-space-4);
   --sc-size-tooltip-lift: var(--sc-p-space-4);
+  --sc-size-tooltip-glass-frosted-frost: 9px;
+  --sc-size-tooltip-glass-frosted-refraction: 65;
+  --sc-size-tooltip-glass-frosted-depth: 68;
+  --sc-size-tooltip-glass-frosted-splay: 57;
+  --sc-size-tooltip-glass-frosted-saturation: 160;
+  --sc-size-tooltip-glass-frosted-light: 30;
   --sc-size-card-glass-clear-frost: var(--sc-p-space-4);
   --sc-size-card-glass-clear-refraction: 40;
   --sc-size-card-glass-clear-depth: 40;
@@ -932,6 +942,8 @@
   --sc-color-card-glass-hover-auto: var(--sc-color-card-glass-hover-dark);
   --sc-color-tooltip-surface: var(--sc-p-color-warm-gray-50);
   --sc-color-tooltip-text: var(--sc-p-color-warm-gray-800);
+  --sc-color-tooltip-glass-tint: rgb(var(--sc-p-color-black-rgb) / 0.32);
+  --sc-color-tooltip-glass-text: var(--sc-p-color-dark-text-primary);
   --sc-border-width-default: var(--sc-p-border-width-hairline);
   --sc-border-width-focus: var(--sc-p-border-width-focus);
   --sc-border-width-accent: var(--sc-p-border-width-accent);
@@ -968,6 +980,8 @@
   --sc-shadow-card-glass-text-dark: 0 0 2px rgb(0 0 0 / 0.70);
   --sc-shadow-card-glass-text-auto: var(--sc-shadow-card-glass-text-dark);
   --sc-shadow-tooltip-plate: inset 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0);
+  --sc-shadow-tooltip-glass-rim: inset 1px 1px 0 0 rgb(var(--sc-p-color-white-rgb) / 0.30), inset -1px -1px 0 0 rgb(var(--sc-p-color-white-rgb) / 0.15), 6px 6px 24px 0 rgb(0 0 0 / 0.30);
+  --sc-shadow-tooltip-glass-text: 0 0 2px rgb(0 0 0 / 0.70);
   --sc-motion-hover-duration: var(--sc-p-motion-duration-micro);
   --sc-motion-hover-easing: var(--sc-p-motion-easing-out);
   --sc-motion-press-duration: var(--sc-p-motion-duration-press);
@@ -1204,6 +1218,12 @@
   --sc-font-text-nav-node: var(--sc-p-font-text-text-tight-13);
   --sc-size-tooltip-arrow: var(--sc-p-space-4);
   --sc-size-tooltip-lift: var(--sc-p-space-4);
+  --sc-size-tooltip-glass-frosted-frost: 9px;
+  --sc-size-tooltip-glass-frosted-refraction: 65;
+  --sc-size-tooltip-glass-frosted-depth: 68;
+  --sc-size-tooltip-glass-frosted-splay: 57;
+  --sc-size-tooltip-glass-frosted-saturation: 160;
+  --sc-size-tooltip-glass-frosted-light: 30;
   --sc-size-card-glass-clear-frost: var(--sc-p-space-4);
   --sc-size-card-glass-clear-refraction: 40;
   --sc-size-card-glass-clear-depth: 40;

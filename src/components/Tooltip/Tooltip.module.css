@@ -13,6 +13,12 @@
  *   --sc-motion-tooltip-stretch / -squash · elastic scale on open (Tooltip.jsx; 0 = off)
  *   --sc-border-width-default                · forced-colors edge
  *
+ * Glass (variant="glass", concept B in sc-tune; the shipped tooltip is solid):
+ *   --sc-color-tooltip-glass-tint / -text    · tint and ink
+ *   --sc-shadow-tooltip-glass-rim / -text    · lit rim + floating shade, text halo
+ *   --sc-size-tooltip-glass-frosted-frost / -saturation · backdrop blur radius (CSS takes half), saturation %
+ *   --sc-size-tooltip-glass-frosted-refraction / -depth / -splay · read by Card/glass.js (Figma units)
+ *
  * The plate's shadow snaps: only opacity and transform transition.
  */
 
@@ -26,7 +32,8 @@
   bottom: calc(100% + var(--sc-space-component-gap-tooltip));
   left: 50%;
   transform: translate(-50%, calc(var(--sc-size-tooltip-lift) * -1));
-  background-color: var(--sc-color-tooltip-surface);
+  --tip-ground: var(--sc-color-tooltip-surface);
+  background-color: var(--tip-ground);
   color: var(--sc-color-tooltip-text);
   box-shadow: var(--sc-shadow-tooltip-plate);
   padding-inline: var(--sc-space-component-padding-inline-tooltip);
@@ -62,7 +69,7 @@
   transform: translateX(-50%);
   border-width: var(--sc-size-tooltip-arrow);
   border-style: solid;
-  border-color: var(--sc-color-tooltip-surface) transparent transparent transparent;
+  border-color: var(--tip-ground) transparent transparent transparent;
 }
 
 .open {
@@ -83,8 +90,51 @@
   max-width: calc(var(--sc-space-layout-stack-xl) * 3);
 }
 
+/* ── glass ── the refraction filter is built per bubble by Card/glass.js and
+ * arrives as --glass-refract (Chromium only). The arrow takes the tint. */
+.glass {
+  --tip-ground: var(--sc-color-tooltip-glass-tint);
+  --glass-refraction: var(--sc-size-tooltip-glass-frosted-refraction);
+  --glass-depth: var(--sc-size-tooltip-glass-frosted-depth);
+  --glass-splay: var(--sc-size-tooltip-glass-frosted-splay);
+  color: var(--sc-color-tooltip-glass-text);
+  box-shadow: var(--sc-shadow-tooltip-glass-rim);
+  text-shadow: var(--sc-shadow-tooltip-glass-text);
+  -webkit-backdrop-filter: blur(calc(var(--sc-size-tooltip-glass-frosted-frost) / 2)) saturate(calc(var(--sc-size-tooltip-glass-frosted-saturation) / 100));
+  backdrop-filter: var(--glass-refract, ) blur(calc(var(--sc-size-tooltip-glass-frosted-frost) / 2)) saturate(calc(var(--sc-size-tooltip-glass-frosted-saturation) / 100));
+}
+
+.defs {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .tooltip { transition: none; }
+}
+
+/* Opaque fallbacks: glass becomes the solid tooltip when transparency is
+ * turned off, when more contrast is asked for, and with no backdrop-filter. */
+@media (prefers-reduced-transparency: reduce), (prefers-contrast: more) {
+  .glass {
+    --tip-ground: var(--sc-color-tooltip-surface);
+    color: var(--sc-color-tooltip-text);
+    box-shadow: var(--sc-shadow-tooltip-plate);
+    text-shadow: none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .glass {
+    --tip-ground: var(--sc-color-tooltip-surface);
+    color: var(--sc-color-tooltip-text);
+    box-shadow: var(--sc-shadow-tooltip-plate);
+    text-shadow: none;
+  }
 }
 
 /* Forced colors drop the ground and the shadow: an inset edge keeps the
@@ -93,6 +143,8 @@
   .tooltip {
     outline: var(--sc-border-width-default) solid CanvasText;
     outline-offset: calc(-1 * var(--sc-border-width-default));
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
   }
   .tooltip::after {
     forced-color-adjust: none;

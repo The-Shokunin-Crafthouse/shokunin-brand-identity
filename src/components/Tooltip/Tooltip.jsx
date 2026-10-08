@@ -12,19 +12,26 @@
  * stretches up and squeezes in from its arrow. It scales rather than
  * growing as two ends and a bar, because it carries text. Shipped, stretch
  * and squash are 0 and the CSS transition lifts it as before.
+ *
+ * variant: `solid` (default, the shipped tooltip) or `glass` (concept B in
+ * sc-tune: liquid glass over whatever sits behind it, the Card's refraction
+ * from Card/glass.js, Chromium only; an opaque solid fallback elsewhere).
  */
 
 import { useId, useLayoutEffect, useRef, useState } from 'react';
+import { useGlassRefraction } from '../Card/glass.js';
 import { readElastic, isActive, prefersReducedMotion, sampleEasing, speeds } from '../../motion/elastic.js';
 import styles from './Tooltip.module.css';
 
-export function Tooltip({ content, multiline = false, open: forced, children }) {
+export function Tooltip({ content, multiline = false, open: forced, variant = 'solid', children }) {
+  const glass = variant === 'glass';
   const id = useId();
   const [hovered, setOpen] = useState(false);
   // `open` forces it (docs, the tuning lab); left undefined, hover and focus decide.
   const open = forced ?? hovered;
   const wrapRef = useRef(null);
   const tipRef = useRef(null);
+  const { id: filterId, filter } = useGlassRefraction(tipRef, glass, 'frosted');
 
   useLayoutEffect(() => {
     const wrap = wrapRef.current;
@@ -62,8 +69,17 @@ export function Tooltip({ content, multiline = false, open: forced, children }) 
         ref={tipRef}
         role="tooltip"
         id={id}
-        className={`${styles.tooltip} ${open ? styles.open : ''} ${multiline ? styles.multiline : styles.singleline}`}
+        className={`${styles.tooltip} ${glass ? styles.glass : ''} ${open ? styles.open : ''} ${multiline ? styles.multiline : styles.singleline}`}
+        style={filter ? { '--glass-refract': `url(#${filterId})` } : undefined}
       >
+        {filter && (
+          <svg className={styles.defs} aria-hidden="true" focusable="false" width="0" height="0">
+            <filter id={filterId} x="0" y="0" width={filter.w} height={filter.h} filterUnits="userSpaceOnUse" primitiveUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
+              <feImage href={filter.href} x="0" y="0" width={filter.w} height={filter.h} preserveAspectRatio="none" result="map" />
+              <feDisplacementMap in="SourceGraphic" in2="map" scale={filter.scale} xChannelSelector="R" yChannelSelector="G" />
+            </filter>
+          </svg>
+        )}
         {content}
       </span>
     </span>

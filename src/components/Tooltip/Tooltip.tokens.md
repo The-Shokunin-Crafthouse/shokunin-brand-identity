@@ -37,6 +37,10 @@ Spec ref: §2 Tier 3 · 3.8 · States: single-line, multi-line.
 
 Physical-controls Tier 2 (CONTEXT finding 5): the tooltip reads its own role tokens instead of the shared padding, gap, radius and inverse tokens, so a tune in sc-tune never moves a sibling. Each shipped equal to today (2026-10-08).
 
+## Glass variant (concept B in sc-tune)
+
+`variant="glass"` makes the bubble liquid glass, because a tooltip is a floating layer. The shipped tooltip stays `solid`; the glass ships only if Levi picks it. Claude's start is the Card's frosted glass in its auto tone, copied by value into the tooltip's own tokens: `--sc-color-tooltip-glass-tint` / `-text`, `--sc-shadow-tooltip-glass-rim` / `-text`, `--sc-size-tooltip-glass-frosted-{frost,refraction,depth,splay,saturation,light}`. The refraction is `Card/glass.js` (Chromium only). The arrow takes the tint. Glass becomes the solid tooltip under `prefers-reduced-transparency`, `prefers-contrast: more` and on an engine with no `backdrop-filter`; forced colors drop the filter.
+
 ## Forced colors
 
 The ground and the shadow drop; an inset `CanvasText` outline keeps the bubble's edge and the arrow is drawn in `CanvasText`.

@@ -171,8 +171,8 @@ public enum SCDS {
     public static let semanticVersion = "0.1.0"
     public static let sourceGenerated = "2026-05-26"
     public static let primitivesHash = "41d576559668277a"
-    public static let semanticHash = "c39736ceccb0c918"
-    public static let tokenCount = 303
+    public static let semanticHash = "93b715d2b0f0770d"
+    public static let tokenCount = 313
   }
 
   // MARK: - Color
@@ -784,6 +784,18 @@ public enum SCDS {
         light: (0.945098, 0.937255, 0.921569, 1),
         dark:  (0.101961, 0.094118, 0.082353, 1)
     )
+
+    /// `color.tooltip.glass.tint`
+    public static let tooltipGlassTint = SwiftUI.Color.scdsDynamic(
+        light: (1, 1, 1, 0.24),
+        dark:  (0, 0, 0, 0.32)
+    )
+
+    /// `color.tooltip.glass.text`
+    public static let tooltipGlassText = SwiftUI.Color.scdsDynamic(
+        light: (0.101961, 0.094118, 0.082353, 1),
+        dark:  (0.917647, 0.909804, 0.890196, 1)
+    )
   }
 
   // MARK: - Typography
@@ -1239,6 +1251,24 @@ public enum SCDS {
 
     /// `size.tooltip.lift`
     public static let tooltipLift: CGFloat = 4
+
+    /// `size.tooltip.glass.frosted.frost`
+    public static let tooltipGlassFrostedFrost: CGFloat = 9
+
+    /// `size.tooltip.glass.frosted.refraction`
+    public static let tooltipGlassFrostedRefraction: CGFloat = 65
+
+    /// `size.tooltip.glass.frosted.depth`
+    public static let tooltipGlassFrostedDepth: CGFloat = 68
+
+    /// `size.tooltip.glass.frosted.splay`
+    public static let tooltipGlassFrostedSplay: CGFloat = 57
+
+    /// `size.tooltip.glass.frosted.saturation`
+    public static let tooltipGlassFrostedSaturation: CGFloat = 160
+
+    /// `size.tooltip.glass.frosted.light`
+    public static let tooltipGlassFrostedLight: CGFloat = 30
 
     /// `size.card.glass.clear.frost`
     public static let cardGlassClearFrost: CGFloat = 4
@@ -1853,6 +1883,30 @@ public enum SCDS {
         ],
         dark: [
             SCDSShadowLayer(inset: true, x: 0, y: 0, blur: 0, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0),
+        ]
+    )
+
+    /// `shadow.tooltip.glass.rim` · 3 layers
+    public static let tooltipGlassRim = SCDSShadow(
+        light: [
+            SCDSShadowLayer(inset: true, x: 1, y: 1, blur: 0, spread: 0, rgb: (1, 1, 1), alpha: 0.3),
+            SCDSShadowLayer(inset: true, x: -1, y: -1, blur: 0, spread: 0, rgb: (1, 1, 1), alpha: 0.15),
+            SCDSShadowLayer(inset: false, x: 6, y: 6, blur: 24, spread: 0, rgb: (0.392157, 0.356863, 0.309804), alpha: 0.14),
+        ],
+        dark: [
+            SCDSShadowLayer(inset: true, x: 1, y: 1, blur: 0, spread: 0, rgb: (1, 1, 1), alpha: 0.3),
+            SCDSShadowLayer(inset: true, x: -1, y: -1, blur: 0, spread: 0, rgb: (1, 1, 1), alpha: 0.15),
+            SCDSShadowLayer(inset: false, x: 6, y: 6, blur: 24, spread: 0, rgb: (0, 0, 0), alpha: 0.3),
+        ]
+    )
+
+    /// `shadow.tooltip.glass.text` · 1 layers
+    public static let tooltipGlassText = SCDSShadow(
+        light: [
+            SCDSShadowLayer(inset: false, x: 0, y: 0, blur: 2, spread: 0, rgb: (1, 1, 1), alpha: 0.6),
+        ],
+        dark: [
+            SCDSShadowLayer(inset: false, x: 0, y: 0, blur: 2, spread: 0, rgb: (0, 0, 0), alpha: 0.7),
         ]
     )
   }
