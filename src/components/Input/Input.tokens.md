@@ -47,6 +47,7 @@ Superseded the bottom-rule field above. Levi's reference is a filled-field set; 
 | Token | Value | Use |
 |---|---|---|
 | `--sc-color-input-well` (`-hover`, `-focus`, `-disabled` = well) | white 46% / white 15% | field fill; light is lighter than the page at the reference's contrast (Levi) |
+| `--sc-color-input-well-raised` | ink 7% / white 15% | field fill with `surface="raised"` (on surface.raised, surface.floating or a flat Card), every state; keeps the page field's contrast (Levi 2026-10-08) |
 | `--sc-shadow-input-well` | zero alpha | recess (the reference is flat) |
 | `--sc-radius-field` | 8px (= radius.default, Levi) | field corner |
 | `--sc-space-component-padding-inline-input` / `-padding-block-input` | 16 / 12 | box padding; the field is 48px tall |

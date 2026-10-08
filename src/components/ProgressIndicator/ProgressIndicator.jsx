@@ -2,9 +2,9 @@
  * ProgressIndicator — 3.10 · bar, circular, step.
  *
  * `bar`     — linear track with fill (value 0..1), role="progressbar".
- *              Deprecated: `interactive` renders a Slider (a value the
- *              user sets is a slider, not a progress indicator; split
- *              2026-10-07). Use Slider directly; the prop goes next release.
+ *              A value the user sets is a Slider, not a progress indicator
+ *              (split 2026-10-07; the deprecated `interactive` prop was
+ *              removed 2026-10-08, Levi).
  * `circular` — SVG ring with stroke-dasharray fill (value 0..1)
  * `step`    — discrete numbered dots with connector lines
  *              (steps: total count · current: index, 0-based)
@@ -24,7 +24,6 @@
  * why this reuses the track-height token instead of a dedicated one).
  */
 
-import { Slider } from '../Slider/Slider.jsx';
 import styles from './ProgressIndicator.module.css';
 
 export function ProgressIndicator({
@@ -34,33 +33,11 @@ export function ProgressIndicator({
   current = 1,
   label,
   className = '',
-  interactive = false,
-  onChange,
-  min = 0,
-  max = 1,
-  step = 0.01,
-  bigStep = 0.05,
-  disabled = false,
   tone = 'accent',
   track = 'deepSunk',
 }) {
   if (variant === 'circular') return <CircularProgress value={value} label={label} className={className} />;
   if (variant === 'step') return <StepProgress steps={steps} current={current} className={className} />;
-  if (interactive) {
-    return (
-      <Slider
-        value={value}
-        label={label}
-        className={className}
-        onChange={onChange}
-        min={min}
-        max={max}
-        step={step}
-        bigStep={bigStep}
-        disabled={disabled}
-      />
-    );
-  }
   return <BarProgress value={value} label={label} className={className} tone={tone} track={track} />;
 }
 

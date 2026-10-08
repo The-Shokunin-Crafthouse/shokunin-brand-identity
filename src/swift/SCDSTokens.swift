@@ -171,8 +171,8 @@ public enum SCDS {
     public static let semanticVersion = "0.1.0"
     public static let sourceGenerated = "2026-05-26"
     public static let primitivesHash = "41d576559668277a"
-    public static let semanticHash = "f7ff4f62caa437ec"
-    public static let tokenCount = 290
+    public static let semanticHash = "201923f743ca42f7"
+    public static let tokenCount = 294
   }
 
   // MARK: - Color
@@ -671,6 +671,12 @@ public enum SCDS {
         dark:  (1, 1, 1, 0.15)
     )
 
+    /// `color.input.wellRaised`
+    public static let inputWellRaised = SwiftUI.Color.scdsDynamic(
+        light: (0.101961, 0.094118, 0.082353, 0.07),
+        dark:  (1, 1, 1, 0.15)
+    )
+
     /// `color.input.adornment`
     public static let inputAdornment = SwiftUI.Color.scdsDynamic(
         light: (0.352941, 0.341176, 0.313725, 1),
@@ -691,8 +697,8 @@ public enum SCDS {
 
     /// `color.card.flatHover`
     public static let cardFlatHover = SwiftUI.Color.scdsDynamic(
-        light: (0.945098, 0.937255, 0.921569, 1),
-        dark:  (0.203922, 0.227451, 0.254902, 1)
+        light: (1, 1, 1, 1),
+        dark:  (0.262745, 0.290196, 0.317647, 1)
     )
 
     /// `color.card.glass.clear.light`
@@ -704,6 +710,12 @@ public enum SCDS {
     /// `color.card.glass.clear.dark`
     public static let cardGlassClearDark = SwiftUI.Color.scdsDynamic(
         light: (0.101961, 0.094118, 0.082353, 0.06),
+        dark:  (0, 0, 0, 0.2)
+    )
+
+    /// `color.card.glass.clear.auto`
+    public static let cardGlassClearAuto = SwiftUI.Color.scdsDynamic(
+        light: (1, 1, 1, 0.16),
         dark:  (0, 0, 0, 0.2)
     )
 
@@ -719,6 +731,12 @@ public enum SCDS {
         dark:  (0, 0, 0, 0.32)
     )
 
+    /// `color.card.glass.frosted.auto`
+    public static let cardGlassFrostedAuto = SwiftUI.Color.scdsDynamic(
+        light: (1, 1, 1, 0.24),
+        dark:  (0, 0, 0, 0.32)
+    )
+
     /// `color.card.glass.thick.light`
     public static let cardGlassThickLight = SwiftUI.Color.scdsDynamic(
         light: (1, 1, 1, 0.36),
@@ -731,6 +749,12 @@ public enum SCDS {
         dark:  (0, 0, 0, 0.45)
     )
 
+    /// `color.card.glass.thick.auto`
+    public static let cardGlassThickAuto = SwiftUI.Color.scdsDynamic(
+        light: (1, 1, 1, 0.36),
+        dark:  (0, 0, 0, 0.45)
+    )
+
     /// `color.card.glass.hover.light`
     public static let cardGlassHoverLight = SwiftUI.Color.scdsDynamic(
         light: (1, 1, 1, 0.08),
@@ -740,6 +764,12 @@ public enum SCDS {
     /// `color.card.glass.hover.dark`
     public static let cardGlassHoverDark = SwiftUI.Color.scdsDynamic(
         light: (0.101961, 0.094118, 0.082353, 0.06),
+        dark:  (0, 0, 0, 0.12)
+    )
+
+    /// `color.card.glass.hover.auto`
+    public static let cardGlassHoverAuto = SwiftUI.Color.scdsDynamic(
+        light: (1, 1, 1, 0.08),
         dark:  (0, 0, 0, 0.12)
     )
   }
@@ -1282,12 +1312,6 @@ public enum SCDS {
     /// `size.progress.circular-stroke`
     public static let progressCircularStroke: CGFloat = 4
 
-    /// `size.progress.bar-height-active`
-    public static let progressBarHeightActive: CGFloat = 6
-
-    /// `size.progress.hit-slop`
-    public static let progressHitSlop: CGFloat = 22
-
     /// `size.input.icon`
     public static let inputIcon: CGFloat = 20
 
@@ -1307,7 +1331,7 @@ public enum SCDS {
     public static let sliderHitSlop: CGFloat = 22
 
     /// `size.slider.thumb`
-    public static let sliderThumb: CGFloat = 15
+    public static let sliderThumb: CGFloat = 16
 
     /// `size.button.icon.lg`
     public static let buttonIconLg: CGFloat = 14
@@ -1479,8 +1503,8 @@ public enum SCDS {
     /// `motion.stepper.squash`
     public static let stepperSquash: CGFloat = 0
 
-    /// `motion.slider.travel.duration` · 1062ms
-    public static let sliderTravelDuration: TimeInterval = 1.062
+    /// `motion.slider.travel.duration` · 720ms
+    public static let sliderTravelDuration: TimeInterval = 0.72
 
     /// `motion.slider.travel.easing` · spring k146 c24.17 m1, settles in 1062ms, overshoot 0%
     public static let sliderTravelEasing = SCDSSpring(stiffness: 146, damping: 24.17, mass: 1, settle: 1.062)
@@ -1501,7 +1525,7 @@ public enum SCDS {
     public static let sliderThumbPressScale: CGFloat = 0.985
 
     /// `motion.card.pressScale`
-    public static let cardPressScale: CGFloat = 1
+    public static let cardPressScale: CGFloat = 0.985
   }
 
   // MARK: - Shadow
@@ -1776,6 +1800,16 @@ public enum SCDS {
     public static let cardGlassTextDark = SCDSShadow(
         light: [
             SCDSShadowLayer(inset: false, x: 0, y: 0, blur: 2, spread: 0, rgb: (1, 1, 1), alpha: 0.5),
+        ],
+        dark: [
+            SCDSShadowLayer(inset: false, x: 0, y: 0, blur: 2, spread: 0, rgb: (0, 0, 0), alpha: 0.7),
+        ]
+    )
+
+    /// `shadow.card.glass.text.auto` · 1 layers
+    public static let cardGlassTextAuto = SCDSShadow(
+        light: [
+            SCDSShadowLayer(inset: false, x: 0, y: 0, blur: 2, spread: 0, rgb: (1, 1, 1), alpha: 0.6),
         ],
         dark: [
             SCDSShadowLayer(inset: false, x: 0, y: 0, blur: 2, spread: 0, rgb: (0, 0, 0), alpha: 0.7),

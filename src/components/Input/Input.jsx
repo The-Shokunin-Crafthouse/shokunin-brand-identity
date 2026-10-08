@@ -25,6 +25,10 @@
  *              through its own change event
  *
  * Icons are Phosphor in the bold weight (Levi, 2026-10-07).
+ *
+ * `surface="raised"` for a field on surface.raised, surface.floating or a
+ * flat Card: a darker transparent fill that keeps the page field's contrast
+ * (Levi, 2026-10-08).
  */
 
 import { isValidElement, useId, useRef } from 'react';
@@ -51,6 +55,7 @@ export function Input({
   suffix,
   trailing,
   clearable = false,
+  surface = 'page',
   onClear,
   className = '',
   ...rest
@@ -75,7 +80,7 @@ export function Input({
   };
 
   return (
-    <div className={`${styles.field} ${disabled ? styles.disabled : ''} ${hasError ? styles.errored : ''} ${className}`}>
+    <div className={`${styles.field} ${surface === 'raised' ? styles.raised : ''} ${disabled ? styles.disabled : ''} ${hasError ? styles.errored : ''} ${className}`}>
       {label && (
         <label htmlFor={id} className={styles.label}>{label}</label>
       )}

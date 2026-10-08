@@ -1,6 +1,6 @@
 # Card · token consumption
 
-Spec ref: §2 Tier 3 · 3.3. Two styles (Levi, 2026-10-08): `flat` and `glass` (`level`: subtle, regular, heavy). `interactive` renders a button: hover, focus, press, disabled. The old variants map to `flat` for one release (`default`, `elevated`, `interactive`).
+Spec ref: §2 Tier 3 · 3.3. Two styles (Levi, 2026-10-08): `flat` and `glass` (`level`: clear, frosted, thick; `tone`: auto, light, dark). `interactive` renders a button: hover, focus, press, disabled. The old variants (`default`, `elevated`, `interactive`) were removed 2026-10-08.
 
 ## Flat
 
@@ -27,6 +27,7 @@ Spec ref: §2 Tier 3 · 3.3. Two styles (Levi, 2026-10-08): `flat` and `glass` (
 
 | Token | light tone | dark tone | Use |
 |---|---|---|---|
+| `--sc-color-card-glass-{level}-auto`, `--sc-color-card-glass-hover-auto`, `--sc-shadow-card-glass-text-auto` | light tone in light mode | dark tone in dark mode | `tone="auto"`, the default |
 | `--sc-shadow-card-glass-text-{tone}` | white 60% / black 60% | white 50% / black 70% | text halo, light / dark mode |
 | `--sc-color-card-glass-hover-{tone}` | white 8% / 5% | ink 6% / black 12% | interactive hover veil |
 
@@ -53,3 +54,7 @@ The refraction numbers are read by `glass.js`, which builds a displacement map f
 ## Figma
 
 Page `Card` (`535:2`), set `Card` (`535:43`): `Surface` (Flat, Clear light, Frosted light, Thick light, Clear dark, Frosted dark, Thick dark) x `Theme` (Light, Dark), 14 variants. Each glass variant's `Glass` layer reads an effect style, `glass/card/clear`, `glass/card/frosted` or `glass/card/thick` (Figma's native Glass with the record's values). `tune-figma-sync` writes those styles from `size.card.glass.<level>.{frost, refraction, depth, splay, light}`, splay included; saturation is code-only. Text property `Content`.
+
+## Tone rule
+
+`tone="auto"` (the default) follows the theme: light glass behind dark text, dark glass behind light text. Break it with `tone="light"` or `tone="dark"` only where the backdrop already gives the text its contrast (dark glass over a pale backdrop in light mode, light glass over a deep one in dark mode).

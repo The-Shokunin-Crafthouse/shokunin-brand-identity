@@ -5,7 +5,7 @@
 # Design Token Map — The Shokunin Crafthouse · Brand Identity
 
 **Generated** from `tokens/primitives.json` + `tokens/semantic.json`.
-**Source fingerprint:** `e1d84ccf077e` · **187 primitives · 290 semantic tokens.**
+**Source fingerprint:** `8d182ffe101d` · **187 primitives · 294 semantic tokens.**
 
 > **This file is a mirror, not the source.** `tokens/*.json` is upstream; this document and the Figma
 > library are generated from / synced to it. It previously claimed the opposite — that both were
@@ -621,6 +621,7 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | `color/input/wellHover` | `--sc-color-input-well-hover` | _literal_ | `rgb(var(--sc-p-color-white-rgb) / 0.46)` | _literal_ | `rgb(var(--sc-p-color-white-rgb) / 0.15)` | 2026-10-07 · Input material (physical-controls Tier 1), tuned in sc-tune. |
 | `color/input/wellFocus` | `--sc-color-input-well-focus` | _literal_ | `rgb(var(--sc-p-color-white-rgb) / 0.46)` | _literal_ | `rgb(var(--sc-p-color-white-rgb) / 0.15)` | 2026-10-07 · Input material (physical-controls Tier 1), tuned in sc-tune. |
 | `color/input/wellDisabled` | `--sc-color-input-well-disabled` | _literal_ | `rgb(var(--sc-p-color-white-rgb) / 0.46)` | _literal_ | `rgb(var(--sc-p-color-white-rgb) / 0.15)` | 2026-10-07 · Input material (physical-controls Tier 1), tuned in sc-tune. |
+| `color/input/wellRaised` | `--sc-color-input-well-raised` | _literal_ | `rgb(var(--sc-p-color-ink-rgb) / 0.07)` | _literal_ | `rgb(var(--sc-p-color-white-rgb) / 0.15)` | 2026-10-08 · Input (physical-controls Tier 1). |
 | `color/input/adornment` | `--sc-color-input-adornment` | `color/warmGray/500` | `#5A5750` | `color/dark/textSecondary` | `#C9C7C3` | 2026-10-07 · Input material (physical-controls Tier 1), tuned in sc-tune. |
 | `color/input/divider` | `--sc-color-input-divider` | `color/warmGray/300` | `#B0A69C` | `color/dark/raised2` | `#3B4249` | 2026-10-07 · Input material (physical-controls Tier 1), tuned in sc-tune. |
 
@@ -629,15 +630,19 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
 |---|---|---|---|---|---|---|
 | `color/card/flat` | `--sc-color-card-flat` | `color/surface/floating` | `⚠ unresolved` | `color/surface/floating` | `⚠ unresolved` | 2026-10-08 · Card (physical-controls Tier 2), Levi: two card styles, a flat floating surface with no border and a liquid-glass card in three levels (clear, frosted, thick; renamed from subtle, regular, heavy), each in a light and a dark tone. |
-| `color/card/flatHover` | `--sc-color-card-flat-hover` | `color/surface/raised` | `⚠ unresolved` | `color/surface/raised` | `⚠ unresolved` | 2026-10-08 · Card (physical-controls Tier 2), Levi: two card styles, a flat floating surface with no border and a liquid-glass card in three levels (clear, frosted, thick; renamed from subtle, regular, heavy), each in a light and a dark tone. |
+| `color/card/flatHover` | `--sc-color-card-flat-hover` | `color/utility/white` | `#FFFFFF` | `color/dark/raised3` | `#434A51` | 2026-10-08 · Card (physical-controls Tier 2), Levi: two card styles, a flat floating surface with no border and a liquid-glass card in three levels (clear, frosted, thick; renamed from subtle, regular, heavy), each in a light and a dark tone. |
 | `color/card/glass/clear/light` | `--sc-color-card-glass-clear-light` | _literal_ | `rgb(var(--sc-p-color-white-rgb) / 0.16)` | _literal_ | `rgb(var(--sc-p-color-white-rgb) / 0.05)` | 2026-10-08 · Card glass (physical-controls Tier 2). |
 | `color/card/glass/clear/dark` | `--sc-color-card-glass-clear-dark` | _literal_ | `rgb(var(--sc-p-color-ink-rgb) / 0.06)` | _literal_ | `rgb(var(--sc-p-color-black-rgb) / 0.20)` | 2026-10-08 · Card glass (physical-controls Tier 2). |
+| `color/card/glass/clear/auto` | `--sc-color-card-glass-clear-auto` | `color/card/glass/clear/light` | `⚠ unresolved` | `color/card/glass/clear/dark` | `⚠ unresolved` | 2026-10-08 · Card glass (physical-controls Tier 2). |
 | `color/card/glass/frosted/light` | `--sc-color-card-glass-frosted-light` | _literal_ | `rgb(var(--sc-p-color-white-rgb) / 0.24)` | _literal_ | `rgb(var(--sc-p-color-white-rgb) / 0.08)` | 2026-10-08 · Card glass (physical-controls Tier 2). |
 | `color/card/glass/frosted/dark` | `--sc-color-card-glass-frosted-dark` | _literal_ | `rgb(var(--sc-p-color-ink-rgb) / 0.10)` | _literal_ | `rgb(var(--sc-p-color-black-rgb) / 0.32)` | 2026-10-08 · Card glass (physical-controls Tier 2). |
+| `color/card/glass/frosted/auto` | `--sc-color-card-glass-frosted-auto` | `color/card/glass/frosted/light` | `⚠ unresolved` | `color/card/glass/frosted/dark` | `⚠ unresolved` | 2026-10-08 · Card glass (physical-controls Tier 2). |
 | `color/card/glass/thick/light` | `--sc-color-card-glass-thick-light` | _literal_ | `rgb(var(--sc-p-color-white-rgb) / 0.36)` | _literal_ | `rgb(var(--sc-p-color-white-rgb) / 0.12)` | 2026-10-08 · Card glass (physical-controls Tier 2). |
 | `color/card/glass/thick/dark` | `--sc-color-card-glass-thick-dark` | _literal_ | `rgb(var(--sc-p-color-ink-rgb) / 0.16)` | _literal_ | `rgb(var(--sc-p-color-black-rgb) / 0.45)` | 2026-10-08 · Card glass (physical-controls Tier 2). |
+| `color/card/glass/thick/auto` | `--sc-color-card-glass-thick-auto` | `color/card/glass/thick/light` | `⚠ unresolved` | `color/card/glass/thick/dark` | `⚠ unresolved` | 2026-10-08 · Card glass (physical-controls Tier 2). |
 | `color/card/glass/hover/light` | `--sc-color-card-glass-hover-light` | _literal_ | `rgb(var(--sc-p-color-white-rgb) / 0.08)` | _literal_ | `rgb(var(--sc-p-color-white-rgb) / 0.05)` | 2026-10-08 · Card glass (physical-controls Tier 2). |
 | `color/card/glass/hover/dark` | `--sc-color-card-glass-hover-dark` | _literal_ | `rgb(var(--sc-p-color-ink-rgb) / 0.06)` | _literal_ | `rgb(var(--sc-p-color-black-rgb) / 0.12)` | 2026-10-08 · Card glass (physical-controls Tier 2). |
+| `color/card/glass/hover/auto` | `--sc-color-card-glass-hover-auto` | `color/card/glass/hover/light` | `⚠ unresolved` | `color/card/glass/hover/dark` | `⚠ unresolved` | 2026-10-08 · Card glass (physical-controls Tier 2). |
 
 ### Typography · Semantic
 
@@ -859,7 +864,7 @@ channel-triplet primitives) rather than an alias to a single primitive.
 
 | Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
 |---|---|---|---|---|---|---|
-| `motion/slider/travel/duration` | `--sc-motion-slider-travel-duration` | _literal_ | `1062ms` | _literal_ | `1062ms` | 2026-10-07 · Slider motion (physical-controls Tier 1; split from ProgressIndicator's interactive bar, Levi 2026-10-07), engine src/motion/elastic.js via Slider.jsx, tuned in sc-tune. |
+| `motion/slider/travel/duration` | `--sc-motion-slider-travel-duration` | `motion/duration/orchestrated` | `720ms` | `motion/duration/orchestrated` | `720ms` | 2026-10-07 · Slider motion (physical-controls Tier 1; split from ProgressIndicator's interactive bar, Levi 2026-10-07), engine src/motion/elastic.js via Slider.jsx, tuned in sc-tune. |
 | `motion/slider/travel/easing` | `--sc-motion-slider-travel-easing` | _literal_ | `spring k146 c24.17 m1` | _literal_ | `spring k146 c24.17 m1` | 2026-10-07 · Slider motion (physical-controls Tier 1; split from ProgressIndicator's interactive bar, Levi 2026-10-07), engine src/motion/elastic.js via Slider.jsx, tuned in sc-tune. |
 | `motion/slider/drag/duration` | `--sc-motion-slider-drag-duration` | `motion/duration/micro` | `200ms` | `motion/duration/micro` | `200ms` | 2026-10-07 · Slider motion (physical-controls Tier 1; split from ProgressIndicator's interactive bar, Levi 2026-10-07), engine src/motion/elastic.js via Slider.jsx, tuned in sc-tune. |
 | `motion/slider/drag/easing` | `--sc-motion-slider-drag-easing` | `motion/easing/out` | `cubic-bezier(0.22, 1, 0.36, 1)` | `motion/easing/out` | `cubic-bezier(0.22, 1, 0.36, 1)` | 2026-10-07 · Slider motion (physical-controls Tier 1; split from ProgressIndicator's interactive bar, Levi 2026-10-07), engine src/motion/elastic.js via Slider.jsx, tuned in sc-tune. |
@@ -871,7 +876,7 @@ channel-triplet primitives) rather than an alias to a single primitive.
 
 | Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
 |---|---|---|---|---|---|---|
-| `motion/card/pressScale` | `--sc-motion-card-press-scale` | _literal_ | `1` | _literal_ | `1` | 2026-10-07 · Card (physical-controls Tier 2: flat, or liquid glass in three levels and two tones, Levi 2026-10-08). |
+| `motion/card/pressScale` | `--sc-motion-card-press-scale` | `motion/press/scale` | `⚠ unresolved` | `motion/press/scale` | `⚠ unresolved` | 2026-10-07 · Card (physical-controls Tier 2). |
 
 ### Shadow · Semantic
 
@@ -931,6 +936,7 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | `shadow/card/glass/thick` | `--sc-shadow-card-glass-thick` | _literal_ | `inset 1px 1px 0 0 rgb(var(--sc-p-color-white-rgb) / 0.45), inset -1px -1px 0 0 rgb(var(--sc-p-color-white-rgb) / 0.225), 10px 10px 32px 0 rgb(100 91 79 / 0.18)` | _literal_ | `inset 1px 1px 0 0 rgb(var(--sc-p-color-white-rgb) / 0.45), inset -1px -1px 0 0 rgb(var(--sc-p-color-white-rgb) / 0.225), 10px 10px 32px 0 rgb(0 0 0 / 0.38)` | 2026-10-08 · Card glass (physical-controls Tier 2). |
 | `shadow/card/glass/text/light` | `--sc-shadow-card-glass-text-light` | _literal_ | `0 0 2px rgb(var(--sc-p-color-white-rgb) / 0.60)` | _literal_ | `0 0 2px rgb(0 0 0 / 0.60)` | 2026-10-08 · Card glass (physical-controls Tier 2). |
 | `shadow/card/glass/text/dark` | `--sc-shadow-card-glass-text-dark` | _literal_ | `0 0 2px rgb(var(--sc-p-color-white-rgb) / 0.50)` | _literal_ | `0 0 2px rgb(0 0 0 / 0.70)` | 2026-10-08 · Card glass (physical-controls Tier 2). |
+| `shadow/card/glass/text/auto` | `--sc-shadow-card-glass-text-auto` | `shadow/card/glass/text/light` | `⚠ unresolved` | `shadow/card/glass/text/dark` | `⚠ unresolved` | 2026-10-08 · Card glass (physical-controls Tier 2). |
 
 ### Size · Semantic
 
@@ -992,8 +998,6 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | `size/progress/bar-height` | `--sc-size-progress-bar-height` | `space/4` | `4px` | `space/4` | `4px` | Sprint 4 addition · bar progress indicator height (4px). |
 | `size/progress/circular` | `--sc-size-progress-circular` | `space/48` | `48px` | `space/48` | `48px` | Sprint 4 addition · circular progress indicator diameter (48px). |
 | `size/progress/circular-stroke` | `--sc-size-progress-circular-stroke` | `space/4` | `4px` | `space/4` | `4px` | Sprint 4 addition · circular stroke width (4px). |
-| `size/progress/bar-height-active` | `--sc-size-progress-bar-height-active` | `space/micro/6` | `6px` | `space/micro/6` | `6px` | Sprint 5 addition · Drams #4/#5 (Volume Visible Track / Standard Volume) · interactive bar variant, active/dragging track thickness (6px). |
-| `size/progress/hit-slop` | `--sc-size-progress-hit-slop` | `space/micro/22` | `22px` | `space/micro/22` | `22px` | Sprint 5 addition · Drams #5 (Standard Volume) · interactive bar variant, invisible hit-area padding above/below the visual track (block padding on the interactive wrapper, not the track itself). |
 
 #### `size/input`
 
@@ -1010,7 +1014,7 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | `size/slider/track` | `--sc-size-slider-track` | `space/4` | `4px` | `space/4` | `4px` | 2026-10-07 · Slider material (physical-controls Tier 1; split from ProgressIndicator's interactive bar, Levi 2026-10-07: a progress indicator is read, a slider is moved. |
 | `size/slider/trackActive` | `--sc-size-slider-track-active` | `space/micro/6` | `6px` | `space/micro/6` | `6px` | 2026-10-07 · Slider (physical-controls Tier 1; split from ProgressIndicator's interactive bar, Levi 2026-10-07). |
 | `size/slider/hitSlop` | `--sc-size-slider-hit-slop` | `space/micro/22` | `22px` | `space/micro/22` | `22px` | 2026-10-07 · Slider (physical-controls Tier 1; split from ProgressIndicator's interactive bar, Levi 2026-10-07). |
-| `size/slider/thumb` | `--sc-size-slider-thumb` | _literal_ | `15px` | _literal_ | `15px` | 2026-10-07 · Slider material (physical-controls Tier 1; split from ProgressIndicator's interactive bar, Levi 2026-10-07: a progress indicator is read, a slider is moved. |
+| `size/slider/thumb` | `--sc-size-slider-thumb` | `space/16` | `16px` | `space/16` | `16px` | 2026-10-07 · Slider material (physical-controls Tier 1; split from ProgressIndicator's interactive bar, Levi 2026-10-07: a progress indicator is read, a slider is moved. |
 
 #### `size/button`
 

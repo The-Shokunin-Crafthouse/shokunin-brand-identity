@@ -2,10 +2,10 @@
  *   --sc-space-component-padding-card        · inner padding (role token, = padding.lg 24)
  *   --sc-radius-card                         · corner (role token, = radius.surface 8)
  *   --sc-color-card-flat / -flat-hover       · flat ground (surface.floating) / interactive hover
- *   --sc-color-card-glass-{clear,frosted,thick}-{light,dark} · glass tint per level and tone
- *   --sc-color-card-glass-hover-{light,dark} · interactive glass hover veil per tone
+ *   --sc-color-card-glass-{clear,frosted,thick}-{light,dark,auto} · glass tint per level and tone
+ *   --sc-color-card-glass-hover-{light,dark,auto} · interactive glass hover veil per tone
  *   --sc-shadow-card-glass-{level}           · rim (Figma light -45deg) + a subtle floating shade
- *   --sc-shadow-card-glass-text-{light,dark} · text halo per tone (zero offset)
+ *   --sc-shadow-card-glass-text-{light,dark,auto} · text halo per tone (zero offset)
  *   --sc-size-card-glass-{level}-frost       · backdrop blur radius (Figma frost; CSS takes half)
  *   --sc-size-card-glass-{level}-saturation  · backdrop saturation in percent
  *   --sc-size-card-glass-{level}-refraction / -depth / -splay · read by glass.js (Figma units)
@@ -51,6 +51,7 @@
 .clear {
   --glass-tint-l: var(--sc-color-card-glass-clear-light);
   --glass-tint-d: var(--sc-color-card-glass-clear-dark);
+  --glass-tint-a: var(--sc-color-card-glass-clear-auto);
   --glass-rim: var(--sc-shadow-card-glass-clear);
   --glass-frost: var(--sc-size-card-glass-clear-frost);
   --glass-refraction: var(--sc-size-card-glass-clear-refraction);
@@ -61,6 +62,7 @@
 .frosted {
   --glass-tint-l: var(--sc-color-card-glass-frosted-light);
   --glass-tint-d: var(--sc-color-card-glass-frosted-dark);
+  --glass-tint-a: var(--sc-color-card-glass-frosted-auto);
   --glass-rim: var(--sc-shadow-card-glass-frosted);
   --glass-frost: var(--sc-size-card-glass-frosted-frost);
   --glass-refraction: var(--sc-size-card-glass-frosted-refraction);
@@ -71,6 +73,7 @@
 .thick {
   --glass-tint-l: var(--sc-color-card-glass-thick-light);
   --glass-tint-d: var(--sc-color-card-glass-thick-dark);
+  --glass-tint-a: var(--sc-color-card-glass-thick-auto);
   --glass-rim: var(--sc-shadow-card-glass-thick);
   --glass-frost: var(--sc-size-card-glass-thick-frost);
   --glass-refraction: var(--sc-size-card-glass-thick-refraction);
@@ -78,7 +81,15 @@
   --glass-splay: var(--sc-size-card-glass-thick-splay);
   --glass-saturation: var(--sc-size-card-glass-thick-saturation);
 }
-/* Tone: light glass lightens what is behind it, dark glass darkens it. */
+/* Tone: light glass lightens what is behind it, dark glass darkens it. Auto
+ * (the default) follows the theme: light glass behind dark text, dark glass
+ * behind light text. Break it only where the backdrop already gives the
+ * text its contrast. */
+.toneAuto {
+  --glass-tint: var(--glass-tint-a);
+  --glass-halo: var(--sc-shadow-card-glass-text-auto);
+  --glass-veil: var(--sc-color-card-glass-hover-auto);
+}
 .toneLight {
   --glass-tint: var(--glass-tint-l);
   --glass-halo: var(--sc-shadow-card-glass-text-light);
