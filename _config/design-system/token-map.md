@@ -5,7 +5,7 @@
 # Design Token Map — The Shokunin Crafthouse · Brand Identity
 
 **Generated** from `tokens/primitives.json` + `tokens/semantic.json`.
-**Source fingerprint:** `d8d991fd321b` · **186 primitives · 254 semantic tokens.**
+**Source fingerprint:** `39ef004a8299` · **186 primitives · 254 semantic tokens.**
 
 > **This file is a mirror, not the source.** `tokens/*.json` is upstream; this document and the Figma
 > library are generated from / synced to it. It previously claimed the opposite — that both were
@@ -611,10 +611,10 @@ channel-triplet primitives) rather than an alias to a single primitive.
 
 | Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
 |---|---|---|---|---|---|---|
-| `color/input/well` | `--sc-color-input-well` | _literal_ | `rgb(var(--sc-p-color-ink-rgb) / 0.07)` | _literal_ | `rgb(var(--sc-p-color-white-rgb) / 0.15)` | 2026-10-07 · Input material (physical-controls Tier 1), tuned in sc-tune. |
-| `color/input/wellHover` | `--sc-color-input-well-hover` | _literal_ | `rgb(var(--sc-p-color-ink-rgb) / 0.07)` | _literal_ | `rgb(var(--sc-p-color-white-rgb) / 0.15)` | 2026-10-07 · Input material (physical-controls Tier 1), tuned in sc-tune. |
-| `color/input/wellFocus` | `--sc-color-input-well-focus` | _literal_ | `rgb(var(--sc-p-color-ink-rgb) / 0.07)` | _literal_ | `rgb(var(--sc-p-color-white-rgb) / 0.15)` | 2026-10-07 · Input material (physical-controls Tier 1), tuned in sc-tune. |
-| `color/input/wellDisabled` | `--sc-color-input-well-disabled` | _literal_ | `rgb(var(--sc-p-color-ink-rgb) / 0.07)` | _literal_ | `rgb(var(--sc-p-color-white-rgb) / 0.15)` | 2026-10-07 · Input material (physical-controls Tier 1), tuned in sc-tune. |
+| `color/input/well` | `--sc-color-input-well` | _literal_ | `rgb(var(--sc-p-color-white-rgb) / 0.46)` | _literal_ | `rgb(var(--sc-p-color-white-rgb) / 0.15)` | 2026-10-07 · Input material (physical-controls Tier 1), tuned in sc-tune. |
+| `color/input/wellHover` | `--sc-color-input-well-hover` | _literal_ | `rgb(var(--sc-p-color-white-rgb) / 0.46)` | _literal_ | `rgb(var(--sc-p-color-white-rgb) / 0.15)` | 2026-10-07 · Input material (physical-controls Tier 1), tuned in sc-tune. |
+| `color/input/wellFocus` | `--sc-color-input-well-focus` | _literal_ | `rgb(var(--sc-p-color-white-rgb) / 0.46)` | _literal_ | `rgb(var(--sc-p-color-white-rgb) / 0.15)` | 2026-10-07 · Input material (physical-controls Tier 1), tuned in sc-tune. |
+| `color/input/wellDisabled` | `--sc-color-input-well-disabled` | _literal_ | `rgb(var(--sc-p-color-white-rgb) / 0.46)` | _literal_ | `rgb(var(--sc-p-color-white-rgb) / 0.15)` | 2026-10-07 · Input material (physical-controls Tier 1), tuned in sc-tune. |
 | `color/input/adornment` | `--sc-color-input-adornment` | `color/warmGray/500` | `#5A5750` | `color/dark/textSecondary` | `#C9C7C3` | 2026-10-07 · Input material (physical-controls Tier 1), tuned in sc-tune. |
 | `color/input/divider` | `--sc-color-input-divider` | `color/warmGray/300` | `#B0A69C` | `color/dark/raised2` | `#3B4249` | 2026-10-07 · Input material (physical-controls Tier 1), tuned in sc-tune. |
 

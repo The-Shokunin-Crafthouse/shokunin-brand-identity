@@ -204,7 +204,7 @@ export function InputPage() {
         { name: 'Disabled', token: '--sc-color-text-disabled', render: <InputDemo label="Disabled" icon={EnvelopeSimple} disabled placeholder="Unavailable" /> },
       ]}
       tokenRows={[
-        { prop: 'Field fill', token: '--sc-color-input-well', light: 'ink 7%', dark: 'white 15%' },
+        { prop: 'Field fill', token: '--sc-color-input-well', light: 'white 46%', dark: 'white 15%' },
         { prop: 'Field corner', token: '--sc-radius-field', light: '8px' },
         { prop: 'Inline padding', token: '--sc-space-component-padding-inline-input', light: '16px' },
         { prop: 'Block padding', token: '--sc-space-component-padding-block-input', light: '12px' },

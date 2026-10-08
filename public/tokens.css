@@ -456,10 +456,10 @@
   --sc-color-slider-thumb-rim-bottom: var(--sc-p-color-warm-gray-200);
   --sc-color-slider-thumb-face-top: var(--sc-p-color-warm-gray-50);
   --sc-color-slider-thumb-face-bottom: var(--sc-p-color-warm-gray-100);
-  --sc-color-input-well: rgb(var(--sc-p-color-ink-rgb) / 0.07);
-  --sc-color-input-well-hover: rgb(var(--sc-p-color-ink-rgb) / 0.07);
-  --sc-color-input-well-focus: rgb(var(--sc-p-color-ink-rgb) / 0.07);
-  --sc-color-input-well-disabled: rgb(var(--sc-p-color-ink-rgb) / 0.07);
+  --sc-color-input-well: rgb(var(--sc-p-color-white-rgb) / 0.46);
+  --sc-color-input-well-hover: rgb(var(--sc-p-color-white-rgb) / 0.46);
+  --sc-color-input-well-focus: rgb(var(--sc-p-color-white-rgb) / 0.46);
+  --sc-color-input-well-disabled: rgb(var(--sc-p-color-white-rgb) / 0.46);
   --sc-color-input-adornment: var(--sc-p-color-warm-gray-500);
   --sc-color-input-divider: var(--sc-p-color-warm-gray-300);
   --sc-border-width-default: var(--sc-p-border-width-hairline);

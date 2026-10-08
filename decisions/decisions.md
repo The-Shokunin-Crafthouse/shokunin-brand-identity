@@ -2422,3 +2422,12 @@ Levi: the trailing arrow uses Phosphor's bold weight, not regular. Code: `ArrowR
 - **Scope:** the reference's select, chips, card-number group and date and time pickers are not built.
 - **Non-text contrast:** the tinted box stays under 3:1 against the page in both modes. Accepted by Levi; the title, value and placeholder carry the field.
 - `tokens:verify`, `tokens:map:check`, `tokens:swift:check`, `test:scripts` (17), `npm run build`, `build:lib` and `swiftc -typecheck` exit 0.
+
+### 2026-10-07: the light Input field goes lighter than the page, at the same contrast
+
+**Status:** Accepted. Levi: "make the light mode the same contrast but lighter instead of darker".
+
+- `color.input.well`, `.wellHover`, `.wellFocus`, `.wellDisabled` light: `rgb(white / 0.46)`; was `rgb(ink / 0.07)`. Dark unchanged (white 15%).
+- **Matched contrast:** against `surface.page` (#E3DFD8), ink at 7% composites to rgb(213 209 202), 1.146:1; white at 46% composites to rgb(240 238 234), 1.146:1. White at 45% gives 1.139:1, so 46% is the nearest whole step.
+- **On a raised surface** (`surface.raised`, #F1EFEB, the docs cards) the same fill composites to rgb(247 246 244), about 1.05:1, so the field nearly disappears there. The Levi-accepted contrast gap covers it; a card-specific fill is a later call if it matters.
+- `tokens:verify`, `tokens:map:check`, `tokens:swift:check`, `npm run build`, `build:lib` and `swiftc -typecheck` exit 0; headless Chromium reads `rgba(255, 255, 255, 0.46)` on the light field, and the lab's dark stages still read white 15%.

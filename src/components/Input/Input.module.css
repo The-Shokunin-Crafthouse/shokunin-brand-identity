@@ -6,7 +6,7 @@
  *   --sc-radius-field                         · 8 field corner (role token, = radius.default; Levi)
  *   --sc-size-input-icon                      · 20 leading / trailing icon (Phosphor, bold)
  *   --sc-size-input-clear / -clear-target     · 16 clear mark (Phosphor X, bold) in a 32 button
- *   --sc-color-input-well / -well-hover / -well-focus / -well-disabled · field fill (ink 7% light, white 15% dark)
+ *   --sc-color-input-well / -well-hover / -well-focus / -well-disabled · field fill (white 46% light, white 15% dark)
  *   --sc-shadow-input-well                    · recess of the field (shipped zero alpha: the reference is flat)
  *   --sc-color-input-adornment                · icons, suffix, clear (= text.secondary)
  *   --sc-color-input-divider                  · rule after a prefix segment
