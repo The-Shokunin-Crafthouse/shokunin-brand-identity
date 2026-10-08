@@ -23,6 +23,7 @@ Spec ref: §2 Tier 3 · 3.3. Two styles (Levi, 2026-10-08): `flat` and `glass` (
 | `--sc-size-card-glass-{level}-refraction` | 40 | 65 | 85 | edge shift = refraction/100 x band/2 |
 | `--sc-size-card-glass-{level}-depth` | 40 | 68 | 85 | band = depth/100 of the half short side |
 | `--sc-size-card-glass-{level}-splay` | 57 | 57 | 57 | falloff (1 - t)^p, p = 1 + 3 x (1 - splay/100) |
+| `--sc-size-card-glass-{level}-light` | 20 | 30 | 45 | Figma Glass light intensity; equals the rim's top-left alpha x 100 |
 
 | Token | light tone | dark tone | Use |
 |---|---|---|---|
@@ -51,4 +52,4 @@ The refraction numbers are read by `glass.js`, which builds a displacement map f
 
 ## Figma
 
-Page `Card` (`535:2`), set `Card` (`535:43`): `Surface` (Flat, Clear light, Frosted light, Thick light, Clear dark, Frosted dark, Thick dark) x `Theme` (Light, Dark), 14 variants. Each glass variant's `Glass` layer reads an effect style, `glass/card/clear`, `glass/card/frosted` or `glass/card/thick` (Figma's native Glass with the record's values). Splay is set in those styles by hand (no Plugin API field); saturation is code-only. Text property `Content`.
+Page `Card` (`535:2`), set `Card` (`535:43`): `Surface` (Flat, Clear light, Frosted light, Thick light, Clear dark, Frosted dark, Thick dark) x `Theme` (Light, Dark), 14 variants. Each glass variant's `Glass` layer reads an effect style, `glass/card/clear`, `glass/card/frosted` or `glass/card/thick` (Figma's native Glass with the record's values). `tune-figma-sync` writes those styles from `size.card.glass.<level>.{frost, refraction, depth, splay, light}`, splay included; saturation is code-only. Text property `Content`.

@@ -2526,3 +2526,14 @@ Levi: the trailing arrow uses Phosphor's bold weight, not regular. Code: `ArrowR
 - New effect styles `glass/card/clear`, `glass/card/frosted`, `glass/card/thick`, each one Figma Glass effect with the `size.card.glass.<level>.*` values (light -45deg at 20 / 30 / 45%, refraction 0.40 / 0.65 / 0.85, depth 40 / 68 / 85, dispersion 0, frost 4 / 9 / 16). Bound on the `Glass` layer of all 12 glass variants of the Card set `535:43` (readback: each layer reads its style and the style's values). Glass is the same in both themes, so there is no `dark/` pair.
 - Splay (57) has no Plugin API field: set it once per style in the Glass panel and every variant follows.
 - `tune-figma-sync` does not generate these styles yet; a change to a `size.card.glass.*` token leaves them stale until they are edited by hand (open question: teach the sync to write them).
+
+### 2026-10-08: tune-figma-sync writes the glass effect styles (closes the open question above)
+
+**Status:** Accepted. Levi: "yes, teach the sync to write them, ive set them to 57 splay in figma".
+
+- **Source:** `size.<component>.glass.<level>.{frost, refraction, depth, splay, light}` become one Figma Glass effect style, `glass/<component>/<level>`, in Figma's units (refraction, splay and light / 100; depth and frost as they are; an aliased frost resolves to pixels). Light angle -45deg (the system light, Gate 1 pick 1); dispersion 0 (not built in code). A style is written when one of its level tokens changes or it is named; every glass style joins the library check. A level token that differs between modes stops the run (effect styles carry no modes).
+- **Splay:** the Plugin API does read and write a `splay` field on a Glass effect (0.57 after Levi's edit; it is missing from the typings). The sync writes `splay / 100`, so Levi's 57 is now the token's 57.
+- **New tokens** `size.card.glass.{clear,frosted,thick}.light` = 20 / 30 / 45: the light intensity had lived only as the rim's alpha. A `test:scripts` data check holds `light / 100` equal to the rim's top-left highlight alpha in both modes.
+- **Tests** committed red (`c45723d`, 4 red); planted bug (splay dropped from the op) turned 2 red. `sc-tune` procedure D notes the glass styles.
+- **Library:** the run (`--since 7a58285`) created `size/card/glass/{clear,frosted,thick}/light` and rewrote the three glass styles in place (bindings on the 12 variants unchanged). Readback: clear L0.20 R0.40 D40 F4 S0.57, frosted L0.30 R0.65 D68 F9 S0.57, thick L0.45 R0.85 D85 F16 S0.57, angle -45, dispersion 0. All 434 library names: `absent: []`, `missing: []`.
+- `tokens:verify`, `tokens:map:check`, `tokens:swift:check`, `test:scripts` (26), `npm run build`, `build:lib` and `swiftc -typecheck` exit 0.
