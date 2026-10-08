@@ -2377,3 +2377,24 @@ Levi: the trailing arrow uses Phosphor's bold weight, not regular. Code: `ArrowR
 - **Figma library:** the generated call created `color/slider/thumb{RimTop,RimBottom,FaceTop,FaceBottom}` (`522:2`–`522:5`), `motion/slider/travel/duration` (`522:12`), `/stretch` (`522:13`), `/thumbPressScale` (`522:14`), `size/slider/thumb` (`522:15`) and effect styles `shadow/slider/{track,thumb,thumbPressed}` + `dark/*`. `absent` named the 10 slider tokens made earlier and never synced; the `--tokens` call created `color/slider/{track,trackDisabled,fill,fillHover,fillDisabled}` (`523:2`–`523:6`), `motion/slider/drag/duration` (`523:7`), `/squash` (`523:8`), `size/slider/{track,trackActive,hitSlop}` (`523:9`–`523:11`). The read-only re-check over all 376 library names returned `absent: []`, `missing: []`.
 - **Masters:** new component set `Slider` (`524:21`) on the Progress page beside the Progress set, variants `State=Default` (`524:2`), `Hover` (`524:7`), `Pressed` (`524:12`), `Disabled` (`524:17`), each 320 × 48 (the hit box) at value 0.5, geometry from the lab measurement: track at y 22, 4px (`size/slider/track`; Pressed y 21, 6px on `trackActive`), fill 160 wide, thumb 15 × 15 at (152.5, 16.5) bound to `size/slider/thumb`, rim and face gradients at the 135deg transform with every stop bound, `shadow/slider/track` / `thumb` / `thumbPressed`. Disabled is flat: `trackDisabled`, a solid `fillDisabled` thumb, no face, no effects. Every bound paint was written with its variable's resolved colour (no placeholder). Readback matches the code; the press scale (0.985) is motion and is not drawn. The Progress set's old `Variant=BarActive` (`140:23`) is left in place for consumers (retire question). Publishing is Levi's step.
 - `tokens:verify`, `tokens:map:check`, `tokens:swift:check`, `test:scripts` (17), `npm run build`, `build:lib` and `swiftc -typecheck` exit 0.
+
+### 2026-10-07: Input material tokens for its sc-tune session (shipped flat)
+
+**Status:** Accepted. Levi: "open Input in the lab". The last Tier 1 component. Audit row: a true recessed well, the focus underline stays, a hover state.
+
+| Token | Shipped (= today) | Lab start (concept seed) |
+| --- | --- | --- |
+| `color.input.well` / `.wellFocus` / `.wellDisabled` | surface.sunk / surface.page / surface.sunk values | unchanged |
+| `color.input.wellHover` (new state) | = well | surface.hover values (#C4BCB4; dark #343A41), the Switch track hover precedent |
+| `shadow.input.well` | zero alpha | the top-left recess + `inset -2px -2px 2px` white (.70 light, .06 dark) |
+| `color.input.rule` / `.ruleFilled` / `.ruleFocus` | border.default / strong / focus values | unchanged |
+| `color.input.ruleHover` (new state) | = rule | unchanged |
+| `space.component.padding-inline.input` / `padding-block.input` / `gap.input` | 12 / 8 / 4px | unchanged |
+
+- **Seed sources:** the recess is the system's top-left recess (SegmentedControl 1645). The white bounce is the Drams 036 container's `inset -2px -2px 2px` white, lighting the bottom-right inner wall (the same light); its alphas come from `shadow.control.bevel`'s highlight (light .70, dark .06), because the Drams figure carries none. Both are Claude's start; Levi sets every value.
+- **Hover:** new, shipped equal to rest. The well shifts on any enabled, unfocused hover; the rule moves only on an empty, valid field, so a filled field keeps `ruleFilled` and an error keeps the status colour. Checked in headless Chromium: hover on a filled field reads the strong rule.
+- **Focus and error** draw their 2px underline on top of the well's recess (`box-shadow: well, inset 0 -1px 0 0 …`). Disabled is flat: no recess.
+- **Forced colors:** a full `CanvasText` edge, a `Highlight` focus outline, `GrayText` when disabled. Verified in headless Chromium.
+- **Shared tokens kept shared:** `radius.control`, the type styles, the text colours, `status.error` (a signal colour never aliases into a role, learning #39), `motion.hover`.
+- **Lab fix:** the lab's own field styles were scoped to `.app` and restyled the staged Input (warmGray.50 ground, 2/6 padding). They are now scoped to the header and the panel; the staged Input renders its own CSS.
+- **Checks:** every role token equals its source token in both modes; the Shipped stage reads the sunk well, 8/12 padding and the default rule with a zero-alpha recess. `tokens:verify`, `tokens:map:check`, `tokens:swift:check`, `test:scripts` (17), `npm run build`, `build:lib` and `swiftc -typecheck` exit 0.
