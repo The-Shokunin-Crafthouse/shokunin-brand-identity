@@ -55,8 +55,9 @@
   width: 100%;
   transition:
     background-color var(--sc-motion-hover-duration) var(--sc-motion-hover-easing),
-    border-bottom-color var(--sc-motion-hover-duration) var(--sc-motion-hover-easing),
-    box-shadow var(--sc-motion-hover-duration) var(--sc-motion-hover-easing);
+    border-bottom-color var(--sc-motion-hover-duration) var(--sc-motion-hover-easing);
+  /* The focus underline's second pixel (an inset shadow) snaps: forms
+     repeat inputs (physical-controls Phase 0). */
 }
 
 .input::placeholder {

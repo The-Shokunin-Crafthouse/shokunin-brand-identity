@@ -1,6 +1,15 @@
 /* tokens:
- *   --sc-color-surface-sunk         · control ground
- *   --sc-color-surface-deep-sunk    · button hover/active ground
+ *   --sc-color-stepper-track        · recessed pill ground (role token, = surface.sunk)
+ *   --sc-color-stepper-key          · ± key face at rest (= surface.raised, the Button key fill)
+ *   --sc-color-stepper-key-hover / -key-hover-ink · hover face and glyph (= Button primary hover: teal.600, white)
+ *   --sc-color-stepper-key-pressed / -key-pressed-ink · pressed face and glyph (= brand.accentDeep teal.700, white)
+ *   --sc-color-stepper-key-shade    · 135deg face shade on each key (= control.keyShade, the Button key face)
+ *   --sc-shadow-stepper-track       · recess of the pill, top left (record Stepper 2026-10-07-1847 A)
+ *   --sc-shadow-stepper-key         · key lift at rest (= shadow.control.key, the Button key)
+ *   --sc-shadow-stepper-key-hover / -key-pressed · hover lift and press (= Button primary: control.keyHover / keyPressed)
+ *   --sc-motion-stepper-travel-duration / -easing · readout roll: 1062ms spring (Stepper.jsx)
+ *   --sc-motion-stepper-roll / -stretch / -squash  · roll 1 height, stretch 0.45, squash 0 (Stepper.jsx; 0 = off)
+ *   --sc-motion-stepper-glyph-press-scale · ± glyph's own press scale, 0.85, on top of the key's 0.985
  *   --sc-color-text-primary         · button ink + readout numeral
  *   --sc-color-text-disabled        · disabled button + readout
  *   --sc-color-border-focus         · focus ring
@@ -9,20 +18,21 @@
  *   --sc-radius-pill                · control + button radius
  *   --sc-radius-control             · readout focus-ring radius
  *   --sc-size-icon-md               · glyph box (buttons sized off this via calc, no new size token)
- *   --sc-space-component-gap-sm     · control → readout gaps
+ *   --sc-space-component-gap-stepper · key → readout gaps and readout inline padding (role token, 8)
  *   --sc-space-component-padding-sm · control inset + button hit-area padding
  *   --sc-font-text-mono-body-*      · numeral readout (mono)
- *   --sc-motion-hover-duration / -easing  · button bg/color transition
+ *   --sc-motion-hover-duration / -easing  · key bg/color transition (shadow changes snap)
  *   --sc-motion-press-duration / -easing / -scale  · button press feedback (reuses Button's press pair)
  */
 
 .stepper {
   display: inline-flex;
   align-items: center;
-  gap: var(--sc-space-component-gap-sm);
+  gap: var(--sc-space-component-gap-stepper);
   padding: var(--sc-space-component-padding-sm);
   border-radius: var(--sc-radius-pill);
-  background-color: var(--sc-color-surface-sunk);
+  background-color: var(--sc-color-stepper-track);
+  box-shadow: var(--sc-shadow-stepper-track);
 }
 
 .button {
@@ -35,7 +45,11 @@
   height: calc(var(--sc-size-icon-md) + 2 * var(--sc-space-component-padding-sm));
   border: none;
   border-radius: var(--sc-radius-pill);
-  background-color: transparent;
+  /* A small Drams 036 key: the Button key's fill, 135deg face shade and
+     top-left lift (record Stepper 2026-10-07-1847 A). */
+  background-color: var(--sc-color-stepper-key);
+  background-image: linear-gradient(135deg, transparent, var(--sc-color-stepper-key-shade));
+  box-shadow: var(--sc-shadow-stepper-key);
   color: var(--sc-color-text-primary);
   cursor: pointer;
   transition:
@@ -44,13 +58,29 @@
     transform var(--sc-motion-press-duration) var(--sc-motion-press-easing);
 }
 
+/* Hover is the Button primary's hover (Levi, 2026-10-07): the accent face,
+   and the glyph fades to white on the colour transition above. */
 .button:hover:not(:disabled) {
-  background-color: var(--sc-color-surface-deep-sunk);
+  background-color: var(--sc-color-stepper-key-hover);
+  color: var(--sc-color-stepper-key-hover-ink);
+  box-shadow: var(--sc-shadow-stepper-key-hover);
 }
 
+/* Pressed: one accent step darker. */
 .button:active:not(:disabled) {
-  background-color: var(--sc-color-surface-deep-sunk);
+  background-color: var(--sc-color-stepper-key-pressed);
+  color: var(--sc-color-stepper-key-pressed-ink);
+  box-shadow: var(--sc-shadow-stepper-key-pressed);
   transform: scale(var(--sc-motion-press-scale));
+}
+
+/* The ± glyph presses on its own scale too, on top of the key's (Levi:
+   the key's 0.985 alone is too small to see on a 16px glyph). */
+.glyph {
+  transition: scale var(--sc-motion-press-duration) var(--sc-motion-press-easing);
+}
+.button:active:not(:disabled) .glyph {
+  scale: var(--sc-motion-stepper-glyph-press-scale);
 }
 
 .button:focus-visible {
@@ -58,38 +88,78 @@
   outline-offset: var(--sc-border-focus-offset);
 }
 
+/* Disabled (and a key at its bound) is flat: losing the material is the
+   unavailable signal (directive 5). */
 .button:disabled {
   color: var(--sc-color-text-disabled);
+  background-color: transparent;
+  background-image: none;
+  box-shadow: none;
   cursor: not-allowed;
 }
 
 .readout {
-  min-width: 2ch;
+  /* Fixed to two digits, so 9 → 10 never moves the keys (Levi,
+     2026-10-07). border-box: the padding and the tracking after each digit
+     sit inside the width. A third character (−10, 100) still grows it. */
+  min-width: calc(2ch + 2 * var(--sc-font-text-mono-body-letter-spacing) + 2 * var(--sc-space-component-gap-stepper));
   text-align: center;
+  font-variant-numeric: tabular-nums;
   font-family: var(--sc-font-text-mono-body-family);
   font-size: var(--sc-font-text-mono-body-size);
   font-weight: var(--sc-font-text-mono-body-weight);
   line-height: var(--sc-font-text-mono-body-line-height);
   letter-spacing: var(--sc-font-text-mono-body-letter-spacing);
   color: var(--sc-color-text-primary);
-  padding-inline: var(--sc-space-component-gap-sm);
+  padding-inline: var(--sc-space-component-gap-stepper);
   user-select: none;
+  /* No window, no inset (Levi, 2026-10-07): the numeral sits flat on the
+     pill. Its box still clips the roll. */
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--sc-radius-control);
+}
+
+.digits {
+  display: inline-block;
 }
 
 .readout:focus-visible {
   outline: var(--sc-border-width-focus) solid var(--sc-color-border-focus);
   outline-offset: var(--sc-border-focus-offset);
-  border-radius: var(--sc-radius-control);
 }
 
+/* Disabled: the whole control dims to 0.6 (Levi, 2026-10-07) and the
+   material goes flat underneath it. */
 .disabled {
   opacity: 0.6;
+}
+.disabled.stepper {
+  box-shadow: none;
 }
 .disabled .readout {
   color: var(--sc-color-text-disabled);
 }
 
+/* Forced colors (Windows high contrast): recesses, lifts and the key face
+   drop. The pill keeps an edge; keys keep the system
+   button border. */
+@media (forced-colors: active) {
+  .stepper {
+    outline: var(--sc-border-width-default) solid CanvasText;
+    outline-offset: calc(-1 * var(--sc-border-width-default));
+  }
+  .button {
+    outline: var(--sc-border-width-default) solid ButtonBorder;
+    outline-offset: calc(-1 * var(--sc-border-width-default));
+  }
+  .button:disabled,
+  .disabled.stepper { outline-color: GrayText; }
+  .readout:focus-visible { outline: var(--sc-border-width-focus) solid Highlight; }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .button { transition: none; }
+  .button, .glyph { transition: none; }
   .button:active:not(:disabled) { transform: none; }
+  .button:active:not(:disabled) .glyph { scale: none; }
 }

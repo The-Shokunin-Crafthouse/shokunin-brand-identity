@@ -83,7 +83,12 @@ function refHex(ref) {
 function semanticHex(path, mode) {
   const node = walk(semantic, path);
   if (!node) throw new Error(`no semantic token at ${path}`);
-  return refHex(node.$extensions?.modes?.[mode] ?? node.$value);
+  const v = node.$extensions?.modes?.[mode] ?? node.$value;
+  // A semantic token may alias another semantic token (the Stepper keys alias
+  // the Button's), resolved in the same mode.
+  const target = typeof v === 'string' && v.match(/^\{(.+)\}$/)?.[1];
+  if (target && walk(semantic, target)?.$value !== undefined) return semanticHex(target, mode);
+  return refHex(v);
 }
 
 /** Resolve either a semantic path (mode-aware) or a bare primitive path. */
@@ -146,6 +151,8 @@ function checkAA() {
 // clear AA in every mode, so a per-mode tune of either side is caught here.
 const FILL_PAIRS = [
   ['color.control.keyHoverInk', 'color.control.keyHoverFill'],
+  ['color.stepper.keyHoverInk', 'color.stepper.keyHover'],
+  ['color.stepper.keyPressedInk', 'color.stepper.keyPressed'],
 ];
 function checkFillPairs() {
   const failures = [];

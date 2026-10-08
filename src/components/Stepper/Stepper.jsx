@@ -13,12 +13,22 @@
  *
  * API: value, onChange, min, max, step (default 1), label, disabled,
  * sound (default true; SoundProvider can silence it app-wide).
+ *
+ * Readout roll (src/motion/elastic.js, tokens --sc-motion-stepper-*): on a
+ * committed step the new numeral rolls into the readout from below
+ * (increase) or above (decrease), clipped by its box, along the travel
+ * curve, lengthening and narrowing with speed (record Stepper
+ * 2026-10-07-1847 A: roll 1, stretch 0.45, 1062ms spring). Roll, stretch
+ * and squash at 0 turn it off; reduced motion skips it.
  */
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useLayoutEffect, useRef } from 'react';
 import { Minus, Plus } from '@phosphor-icons/react';
 import { Icon } from '../Icon/Icon.jsx';
 import { useUISound } from '../../sound/SoundProvider.jsx';
+import {
+  readElastic, isActive, prefersReducedMotion, sampleEasing, speeds, run, cssRect,
+} from '../../motion/elastic.js';
 import styles from './Stepper.module.css';
 
 const HOLD_DELAY = 400;
@@ -61,6 +71,28 @@ export function Stepper({
 
   useEffect(() => stopHold, []);
 
+  const readoutRef = useRef(null);
+  const digitsRef = useRef(null);
+  const shownRef = useRef(value);
+  useLayoutEffect(() => {
+    const prev = shownRef.current;
+    shownRef.current = value;
+    const box = readoutRef.current;
+    const el = digitsRef.current;
+    if (prev === value || disabled || !box || !el || prefersReducedMotion()) return;
+    const m = readElastic(box, 'stepper');
+    const roll = parseFloat(getComputedStyle(box).getPropertyValue('--sc-motion-stepper-roll')) || 0;
+    if (!(roll > 0 || isActive(m))) return;
+    const d = (value > prev ? 1 : -1) * roll * cssRect(box).height;
+    const p = sampleEasing(m.travelEasing);
+    const v = speeds(p);
+    // Text scales rather than stretches as a pill: 1 = 20% at peak speed (the Tooltip rule).
+    const frames = p.map((y, i) => ({
+      transform: `translateY(${d * (1 - y)}px) scale(${1 - 0.2 * m.squash * v[i]}, ${1 + 0.2 * m.stretch * v[i]})`,
+    }));
+    run(el, frames, m.travelDur, 'linear');
+  }, [value, disabled]);
+
   const startHold = (delta) => {
     if (disabled) return;
     stepBy(delta);
@@ -102,10 +134,11 @@ export function Stepper({
         onPointerLeave={stopHold}
         onPointerCancel={stopHold}
       >
-        <Icon glyph={Minus} weight="bold" size="sm" />
+        <Icon glyph={Minus} weight="bold" size="sm" className={styles.glyph} />
       </button>
 
       <span
+        ref={readoutRef}
         className={styles.readout}
         role="spinbutton"
         tabIndex={disabled ? -1 : 0}
@@ -116,7 +149,7 @@ export function Stepper({
         aria-disabled={disabled || undefined}
         onKeyDown={handleReadoutKeyDown}
       >
-        {value}
+        <span ref={digitsRef} className={styles.digits}>{value}</span>
       </span>
 
       <button
@@ -129,7 +162,7 @@ export function Stepper({
         onPointerLeave={stopHold}
         onPointerCancel={stopHold}
       >
-        <Icon glyph={Plus} weight="bold" size="sm" />
+        <Icon glyph={Plus} weight="bold" size="sm" className={styles.glyph} />
       </button>
     </div>
   );

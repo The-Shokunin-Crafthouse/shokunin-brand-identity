@@ -124,3 +124,12 @@ test('an alias names the collection of its target, since names repeat across col
   const prim = figma.vars.find((v) => v.name === 'color/signal/live' && v.variableCollectionId === 'c1');
   assert.equal(sem.valuesByMode.m1.id, prim.id);
 });
+
+test('a shadow that aliases another shadow syncs its target\'s layers per mode', () => {
+  const { code } = run('--tokens', 'shadow.stepper.keyHover,shadow.control.keyHover');
+  const ops = opsOf(code);
+  const byName = (n) => ops.find((o) => o.name === n)?.effects;
+  assert.ok(byName('shadow/stepper/keyHover')?.length, 'the aliasing shadow becomes an effect style with layers');
+  assert.deepEqual(byName('shadow/stepper/keyHover'), byName('shadow/control/keyHover'), 'light layers equal the target');
+  assert.deepEqual(byName('shadow/stepper/dark/keyHover'), byName('shadow/control/dark/keyHover'), 'dark layers equal the target');
+});

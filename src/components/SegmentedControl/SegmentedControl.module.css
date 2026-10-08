@@ -135,6 +135,22 @@
   background-image: none;
 }
 
+/* Forced colors (Windows high contrast): the recess, the key lift and the
+   face drop, and the indicator's fill is forced to the track's. The track
+   keeps an edge; the selected segment keeps a Highlight frame inside it. */
+@media (forced-colors: active) {
+  .track {
+    outline: var(--sc-border-width-default) solid CanvasText;
+    outline-offset: calc(-1 * var(--sc-border-width-default));
+  }
+  .indicator {
+    outline: var(--sc-border-width-focus) solid Highlight;
+    outline-offset: calc(-1 * var(--sc-border-width-focus));
+  }
+  .disabled.track { outline-color: GrayText; }
+  .disabled .indicator { outline-color: GrayText; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .indicator { transition: none; }
   .segment { transition: none; }

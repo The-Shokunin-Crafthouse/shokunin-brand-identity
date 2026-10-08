@@ -63,6 +63,32 @@ const reel = (prefix, { press = true } = {}) => {
   };
 };
 
+/*
+ * Material starts, lit from the top left (Gate 1 pick 1), per mode: the
+ * Button key (record Button 2026-10-07-1418: surface.raised fill,
+ * shadow.control.key / keyPressed, color.control.keyShade) and the top-left
+ * recess (record SegmentedControl 2026-10-07-1645, its track). A component's
+ * material tokens ship flat, so these reach SCDS only through a record.
+ */
+const MATERIAL = {
+  light: {
+    keyFill: '#F1EFEB',
+    key: '2px 2px 6px 0 rgb(100 91 79 / 0.50), -1px -1px 1px 1px rgb(253 250 246 / 1)',
+    keyPressed: '2px 2px 6px 0 rgb(100 91 79 / 0.37), -1px -1px 1px 1px rgb(253 250 246 / 0.90), inset 1px 1px 8px 0 rgb(255 255 255 / 0.30)',
+    keyShade: 'rgb(26 24 21 / 0.05)',
+    recess: 'inset 0.71px 0.71px 2px 0 rgb(26 24 21 / 0.25)',
+  },
+  dark: {
+    keyFill: '#343A41',
+    key: '3px 3px 7px 0 rgb(0 0 0 / 0.50), -1px -1px 1px 1px rgb(219 235 255 / 0.17)',
+    keyPressed: '3px 3px 7px 0 rgb(0 0 0 / 0.38), -1px -1px 1px 1px rgb(219 235 255 / 0.14), inset 1px 1px 8px 0 rgb(255 255 255 / 0.06)',
+    keyShade: 'rgb(26 24 21 / 0.25)',
+    recess: 'inset 0.71px 0.71px 2px 0 rgb(0 0 0 / 0.45)',
+  },
+};
+/* One seed per mode from MATERIAL: map(m) → { token: value }. */
+const perMode = (map) => ({ light: map(MATERIAL.light), dark: map(MATERIAL.dark) });
+
 /* ---------- motion sandbox ---------- */
 
 function MotionStage({ p, ctx }) {
@@ -143,6 +169,23 @@ export const REGISTRY = {
   },
   Stepper: {
     css: [stepperCss, iconCss],
+    // Readout roll, read by Stepper.jsx. The reel has no roll: 1 (a full
+    // window height, an odometer) is Claude's start, not the reel's.
+    jsTokens: [...reel('stepper', { press: false }).jsTokens, '--sc-motion-stepper-roll'],
+    seed: {
+      // Glyph press scale 0.85: Claude's start so the press reads; Levi tunes it.
+      overrides: { ...reel('stepper', { press: false }).seed.overrides, '--sc-motion-stepper-roll': '1', '--sc-motion-stepper-glyph-press-scale': '0.85' },
+      springs: reel('stepper', { press: false }).seed.springs,
+      // ± keys = the Button key at rest (hover and press follow the Button
+      // primary's accent tokens, Levi 2026-10-07); pill = the top-left
+      // recess. The numeral sits flat (no window).
+      scoped: perMode((m) => ({
+        '--sc-shadow-stepper-track': m.recess,
+        '--sc-color-stepper-key': m.keyFill,
+        '--sc-color-stepper-key-shade': m.keyShade,
+        '--sc-shadow-stepper-key': m.key,
+      })),
+    },
     shippedSound: 'drams-037-01.wav',
     trigger: 'every committed step; silent at a bound',
     props: [

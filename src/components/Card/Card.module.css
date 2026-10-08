@@ -21,9 +21,8 @@
   text-align: left;
   padding: var(--sc-space-component-padding-lg);
   border-radius: var(--sc-radius-surface);
-  transition:
-    background-color var(--sc-motion-hover-duration) var(--sc-motion-hover-easing),
-    box-shadow var(--sc-motion-hover-duration) var(--sc-motion-hover-easing);
+  /* Shadow changes snap: cards repeat in grids (physical-controls Phase 0). */
+  transition: background-color var(--sc-motion-hover-duration) var(--sc-motion-hover-easing);
 }
 
 .default {

@@ -2212,3 +2212,103 @@ Levi: the trailing arrow uses Phosphor's bold weight, not regular. Code: `ArrowR
 - **Pill radius:** 8px (`radius.surface`), up from `radius.control` (3px), on the hover pill. Levi, same day.
 - **Active, revised (Levi, same day):** the solid accent pill is out. Six concepts were boarded (`previews/nav-active/`, dev-only): solid pill, raised key, recessed well, plus-block tail, plus underline, hanging plus; Levi picked the plus-block tail with the label in his accent. The current page now has no container: label Bold in `brand.accentInk` (teal-500 as 13px text is below AA on the card in both modes), and an accent `PlusBullet` (the brand's current-item mark, `size.icon.sm`) at the row end. Hovering the current page shows the normal hover pill. The nav count (`num`, only ever `12` on Button) is removed from code and the library NavLink (Count / Show Count properties).
 - Verified in both modes: hover pill lighter than the card, active label AA, hover roll AA; `tokens:verify` passes.
+
+### 2026-10-07: physical-controls Phase 0 (material layer), graded by tokens:verify
+
+**Status:** Accepted. Levi: continue the sprint with Phase 0, then the rest of Tier 1 and Tier 2 (branch `feat/physical-controls-2`).
+
+- **One light, now a check:** `scripts/verify-light.mjs` runs inside `npm run tokens:verify`. Every shadow token in both modes: offsets on the 135/315 diagonal (x = y), a cast shade toward 135deg, a cast highlight toward 315deg; inset layers on the diagonal (a recess darkens its top-left wall, a convex face may light it, both the same light). Every face gradient in a component stylesheet runs at `135deg`. Zero-alpha layers are inert role tokens and are not graded. Exemptions cite their decision and fail once the token is gone: `shadow.switch.*` and the Switch knob gradients (the Drams repaint, lit from the top), `shadow.control.raised` (held for Studio PM), `shadow.control.inset` (Card's hover inset; Card moves to its own tokens in Tier 2). Tests committed red first (`32f8d2e`); planted bug (shade sign flipped) turned 3 red.
+- **No box-shadow transition:** Button, Card and Input dropped `box-shadow` from their transitions; shadow changes snap, press stays on `transform`. Rule 6 of the same check fails any component that transitions `box-shadow` or `all` (red first, `d9116bc^`; planted bug: 1 red).
+- **Forced colors:** Button key border takes `ButtonBorder`; SegmentedControl track gets a `CanvasText` edge and the indicator a `Highlight` frame; Switch gets a track edge, a solid knob and a `Highlight` on-track. All inside `@media (forced-colors: active)`; normal rendering is unchanged, so the Switch stays final. Verified in headless Chromium with `forcedColors: 'active'`: every control keeps its edge.
+- **Not built:** a shared light-offset token (unchanged reason: each shadow is one composite string that `tokens-to-swift` and the Figma sync do not parse with `calc()`). The check replaces it.
+
+### 2026-10-07: Stepper material and roll tokens for its sc-tune session (shipped flat)
+
+**Status:** Accepted. Tier 1 next after Phase 0. Every value ships equal to today; nothing moves until Levi records and applies a concept.
+
+| Token | Shipped (= today) | Lab start (concept seed) |
+| --- | --- | --- |
+| `color.stepper.track` | surface.sunk | unchanged |
+| `shadow.stepper.track`, `.window` | zero alpha | the top-left recess (SegmentedControl 1645 track) |
+| `color.stepper.key` | transparent | the Button key fill (surface.raised values) |
+| `color.stepper.keyHover` | surface.deepSunk | = key (hover derived from rest, the Button rule) |
+| `color.stepper.keyShade` | transparent | control.keyShade values |
+| `shadow.stepper.key` / `.keyPressed` | zero alpha | shadow.control.key / keyPressed values |
+| `color.stepper.window` | transparent | unchanged |
+| `motion.stepper.travel` | motion.reveal | reel spring (520ms, bounce 0) |
+| `motion.stepper.roll` / `stretch` / `squash` | 0 / 0 / 0 | 1 / 0.45 / 0 |
+
+- **Readout roll** (Claude's structure, Levi's values): on a committed step the new numeral rolls into the readout window from below (increase) or above (decrease) along the travel curve, clipped by the window, scaling with speed (1 = 20%, the Tooltip rule for text). `roll` 1 = one window height, an odometer; the reel has no roll, so that start is Claude's. Verified in the lab: concept A rolls 24.8px over the 1062ms spring; Shipped runs nothing.
+- **Disabled is flat:** a disabled control and a key at its bound lose shadow and face. Today's 0.6 dim on the whole control stays until a record decides it (open question).
+- `tokens:verify`, `tokens:map:check`, `tokens:swift:check`, `test:scripts`, `npm run build` and `build:lib` exit 0.
+
+### 2026-10-07: Stepper numeral sits flat; readout fixed to two digits (amends the Stepper tokens entry above)
+
+**Status:** Accepted. Levi, in the lab: "dont inset the number and make the width fixed to accomodate double digits so it doesnt move."
+
+- **No window:** `color.stepper.window` and `shadow.stepper.window` are removed (both shipped transparent and zero alpha, so nothing visible changes), with their CSS, forced-colors edge and lab seed. The numeral sits flat on the pill; the readout box still clips the roll.
+- **Fixed width:** the readout was `min-width: 2ch` inside border-box padding, so two digits overflowed it and the control grew at 10. Now `min-width: calc(2ch + 2 × mono letter-spacing + 2 × gap-sm)` with tabular numerals. Measured in the lab, both stages: 130.75px wide and the + key at 82.75px for 4, 9, 10 and 99; a third character (−10, 100) still grows it (140.13px). This ships now: it is a layout fix, not a tuned value.
+- **Lab state:** concept A's saved session still carries the old `--sc-shadow-stepper-window` seed. Nothing reads it; procedure D drops it at apply.
+- `tokens:verify`, `tokens:map:check`, `tokens:swift:check`, `test:scripts`, `npm run build` and `build:lib` exit 0.
+
+### 2026-10-07: Stepper key hover is the Button primary hover; pressed one accent step darker
+
+**Status:** Accepted. Levi, in the lab: "hover should be the same as my button, my accent color and pressed should be a shade darker accent token, the plus and minus should fade to white when the button is on hover."
+
+| Token | Was | Now |
+| --- | --- | --- |
+| `color.stepper.keyHover` | surface.deepSunk | `{color.control.keyHoverFill}` (teal.600, the Button primary hover) |
+| `color.stepper.keyHoverInk` | (new) | `{color.control.keyHoverInk}` (white) |
+| `color.stepper.keyPressed` | (new; press read keyHover) | `{color.brand.accentDeep}` (teal.700, the Button primary press fill) |
+| `color.stepper.keyPressedInk` | (new) | `{color.text.onAccent}` (white) |
+
+- **Aliases, not copies:** each points at the Button's semantic token, so a later Button retune carries to the Stepper. `verify-contrast.mjs` now follows a semantic-to-semantic alias in the same mode (it threw on one before); `tokens-to-css`, `tokens-to-swift` and the token map already did.
+- **Fade:** the glyph is `currentColor` and the key already transitions `color` on `motion.hover` (200ms), so the ± fades to white on hover with no new motion token.
+- **AA guard:** the label-on-fill check gains both Stepper pairs (6 pairs pass in both modes).
+- **Shipped now:** this is Levi's direction, so it ships without a record; hover and press turn teal on the shipped Stepper today. Key rest, shade, lift and the roll stay flat until his record.
+- **Hover shadow:** stays the Stepper's rest key shadow (hover derived from rest), not `control.keyHover`, so a flat shipped key does not grow a lift on hover.
+- **Lab:** the registry no longer seeds `keyHover` (= rest). The four seed values Claude had placed in concept A's saved session (`keyHover` and the removed `window`, light and dark) were deleted only where they still equalled the seed; nothing Levi set was touched. Computed style in both stages and modes: hover rgb(4 121 125) / white, pressed rgb(5 98 104) / white.
+- `tokens:verify`, `tokens:map:check`, `tokens:swift:check`, `test:scripts`, `npm run build` and `build:lib` exit 0.
+
+### 2026-10-07: Stepper hover and press shadows are the Button primary's; the disabled dim stays
+
+**Status:** Accepted. Levi, answering the two open questions: hover shadow "same as my button component"; "dim is good".
+
+- **Hover:** new `shadow.stepper.keyHover` = `{shadow.control.keyHover}`, read by `.button:hover`. Shipped, a flat key now lifts on hover, as the Button does.
+- **Press (cascade, Claude):** `shadow.stepper.keyPressed` = `{shadow.control.keyPressed}` (was zero alpha), so hover and press both match the Button and a press does not drop the lift to nothing. The lab no longer seeds `keyPressed`; Claude's two seed values in concept A (light, dark) were removed where they still equalled the seed.
+- **Disabled:** the whole control keeps its 0.6 dim, with the material flat underneath (Levi).
+- **Figma sync:** `tune-figma-sync.mjs` crashed on a shadow aliasing another shadow (`parseColor` on `undefined`; 3 `test:scripts` red). It now syncs the target's layers per mode, since effect styles carry no aliases. Test committed red first (`4b411af`); planted bug (alias branch removed) turned 4 red.
+- **Checks:** computed style in both lab stages and both modes: Stepper hover and press shadows equal `control.keyHover` / `keyPressed`. `tokens:verify` (light rule included), `tokens:map:check`, `tokens:swift:check`, `test:scripts` (17), `npm run build` and `build:lib` exit 0.
+
+### 2026-10-07: the Stepper ± gets its own press scale (shipped at 1)
+
+**Status:** Accepted. Levi: "is the plus and minus signs also scaling on press? i cant tell, if not add it."
+
+- **Measured:** it did scale, but only with the whole key at `motion.press.scale` 0.985: the 16px glyph went to 15.76px, a quarter pixel.
+- **Added:** `motion.stepper.glyphPressScale` (number, shipped 1 = with the key only), read by `.button:active .glyph` as `scale`, on the press pair (`motion.press.duration` / `easing`), compounding with the key's scale. Reduced motion removes it. Icon instances carry `styles.glyph`.
+- **Lab start:** 0.85, Claude's start so the press reads; Levi sets the value. Measured in the lab with the forced active state: concept A 16 → 13.4px, Shipped 16 → 15.76px (unchanged).
+- `tokens:verify`, `tokens:map:check`, `tokens:swift:check`, `test:scripts`, `npm run build` and `build:lib` exit 0.
+
+### 2026-10-07: Stepper record 2026-10-07-1847 concept A applied (procedure D)
+
+**Status:** Accepted. Levi: "apply it." Record `output/tuning/Stepper/2026-10-07-1847/`; sync base `68cbdfb`. One concept, no notes.
+
+| Token | Was | Now |
+| --- | --- | --- |
+| `space.component.gap.stepper` (new role) | (gap-sm, 4px) | `{space.8}`: Levi's lab edit of the shared gap-sm 4 → 8px |
+| `shadow.stepper.track` | zero alpha | `inset 0.71px 0.71px 2px 0` ink .25; dark black .45 |
+| `color.stepper.key` | transparent | `{color.surface.raised}` (#F1EFEB / #343A41) |
+| `color.stepper.keyShade` | transparent | `{color.control.keyShade}` (ink .05 / .25) |
+| `shadow.stepper.key` | zero alpha | `{shadow.control.key}` |
+| `motion.stepper.travel.duration` / `.easing` | = motion.reveal (200ms quint-out) | 1062ms literal / `spring` { 146, 24.17, 1 } (no overshoot) |
+| `motion.stepper.roll` / `stretch` / `squash` | 0 / 0 / 0 | 1 / 0.45 / 0 |
+| `motion.stepper.glyphPressScale` | 1 | 0.85 |
+
+- **Shared token kept:** `gap-sm` also feeds SegmentedControl, Input, Tooltip, Alert, Divider and the type specimen, so it stays 4px. The Stepper's three uses (pill gap, readout inline padding, readout min-width) read the new role token. The control grows 130.75 → 146.75px wide and stays fixed from 0 to 99.
+- **Cascade (Claude):** the key's rest fill, face and lift alias the Button key tokens rather than copying their values, the same as hover and press (Levi: "same as my button component"), so one Button retune moves every Stepper key state together. Values equal the record.
+- **Off the ladder, kept exact:** 1062ms (the spring's settle time), as the Switch and SegmentedControl durations.
+- **Lab check (D step 6):** Shipped and concept A compared by computed style in light and dark (17 properties each: width, gap, track ground and recess, key fill, face, lift, hover and pressed fill and shadow, readout padding and min-width, roll duration and curve, roll, stretch, squash, glyph scale): no differences. The generated `linear()` is byte-identical to the record's. `swiftc -typecheck` passes.
+- **Figma library:** generated call (11 ops): created `color/stepper/key` (`517:2`), `/keyShade` (`517:3`), `motion/stepper/travel/duration` (`517:8`), `/glyphPressScale` (`517:9`), `/roll` (`517:10`), `/stretch` (`517:11`), `space/component/gap/stepper` (`517:12`), and effect styles `shadow/stepper/{track,key}` + `dark/*`. `absent` named the 10 Stepper tokens made earlier today and never synced; the `--tokens` call created `color/stepper/track` (`518:2`), `/keyHover` (`518:3`), `/keyHoverInk` (`518:4`), `/keyPressed` (`518:5`), `/keyPressedInk` (`518:6`), `motion/stepper/squash` (`518:7`), and `shadow/stepper/{keyHover,keyPressed}` + `dark/*`. The read-only re-check over all 352 library names returned `absent: []`, `missing: []`.
+- **Masters re-seated to code:** the Stepper set `139:51` predated the code geometry (keys 32 square, gap 0, pill padding bound to `space/4` while code reads `padding-sm` 8px). All variants now read 146.75 × 56: padding `space/component/padding/sm`, gap and readout inline padding `space/component/gap/stepper`, keys 40 × 40 on `radius/pill` at x 8 and 98.75, readout 34.75 wide at x 56 with `text/mono/body`, numeral centred. Track: `color/stepper/track` + `shadow/stepper/track`. Keys: `color/stepper/key` + the 135deg face (stop bound to `keyShade`) + `shadow/stepper/key`; keys at a bound and the Disabled variant are flat; Disabled is at 0.6 with no recess. New variants `State=Hover` (`519:2`) and `State=Pressed` (`519:12`) show the + key in that state (`keyHover` / `keyPressed` fill, ink and style). Readback matches code except the readout box height, 25 in Figma vs 24.8 in code (Figma rounds the 1.55 line height). The clones first held the bind placeholder colour (black); every bound paint was rewritten with its variable's resolved value. Motion (roll, glyph scale) has no Figma analogue on the masters. Publishing the library is Levi's step.
+- **Docs:** Stepper page lead, states and token rows (`src/sections/ComponentSections.jsx`), `Stepper.tokens.md`.
+- `tokens:verify`, `tokens:map:check`, `tokens:swift:check`, `test:scripts`, `npm run build` and `build:lib` exit 0.

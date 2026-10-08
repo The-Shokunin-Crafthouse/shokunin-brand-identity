@@ -1,0 +1,259 @@
+{
+  "tool": "sc-tune",
+  "version": 3,
+  "component": "Stepper",
+  "kind": "component",
+  "recorded": "2026-10-08T00:47:51.090Z",
+  "theme": "light",
+  "notes": "",
+  "pick": null,
+  "concepts": [
+    {
+      "id": "A",
+      "notes": "",
+      "props": {
+        "value": 11,
+        "min": 0,
+        "max": 12,
+        "step": 1,
+        "disabled": false,
+        "label": "Quantity"
+      },
+      "sound": {
+        "file": "drams-037-01.wav",
+        "volume": 0.7,
+        "rate": 1,
+        "shipped": "drams-037-01.wav",
+        "trigger": "every committed step; silent at a bound"
+      },
+      "tokens": [
+        {
+          "name": "--sc-motion-stepper-stretch",
+          "mode": "all",
+          "category": "motion",
+          "kind": "number",
+          "shipped": "0",
+          "tuned": "0.45",
+          "override": "0.45"
+        },
+        {
+          "name": "--sc-motion-stepper-squash",
+          "mode": "all",
+          "category": "motion",
+          "kind": "number",
+          "shipped": "0",
+          "tuned": "0",
+          "override": "0"
+        },
+        {
+          "name": "--sc-motion-stepper-roll",
+          "mode": "all",
+          "category": "motion",
+          "kind": "number",
+          "shipped": "0",
+          "tuned": "1",
+          "override": "1"
+        },
+        {
+          "name": "--sc-motion-stepper-travel-easing",
+          "mode": "all",
+          "category": "motion",
+          "kind": "text",
+          "shipped": null,
+          "tuned": "linear(0, 0.0218, 0.0735, 0.1426, 0.2201, 0.3001, 0.3786, 0.4531, 0.5222, 0.5851, 0.6416, 0.6918, 0.736, 0.7746, 0.8082, 0.8372, 0.8622, 0.8836, 0.9018, 0.9174, 0.9306, 0.9417, 0.9512, 0.9591, 0.9658, 0.9715, 0.9762, 0.9802, 0.9835, 0.9862, 0.9886, 0.9905, 0.9921, 0.9934, 0.9946, 0.9955, 0.9963, 0.9969, 0.9974, 0.9979, 0.9982, 0.9985, 0.9988, 0.999, 0.9992, 0.9993, 0.9994, 0.9995, 0.9996, 0.9997, 0.9997, 0.9998, 0.9998, 0.9999, 0.9999, 0.9999, 0.9999, 0.9999, 0.9999, 1)",
+          "override": "linear(0, 0.0218, 0.0735, 0.1426, 0.2201, 0.3001, 0.3786, 0.4531, 0.5222, 0.5851, 0.6416, 0.6918, 0.736, 0.7746, 0.8082, 0.8372, 0.8622, 0.8836, 0.9018, 0.9174, 0.9306, 0.9417, 0.9512, 0.9591, 0.9658, 0.9715, 0.9762, 0.9802, 0.9835, 0.9862, 0.9886, 0.9905, 0.9921, 0.9934, 0.9946, 0.9955, 0.9963, 0.9969, 0.9974, 0.9979, 0.9982, 0.9985, 0.9988, 0.999, 0.9992, 0.9993, 0.9994, 0.9995, 0.9996, 0.9997, 0.9997, 0.9998, 0.9998, 0.9999, 0.9999, 0.9999, 0.9999, 0.9999, 0.9999, 1)",
+          "spring": {
+            "stiffness": 146,
+            "damping": 24.17,
+            "mass": 1,
+            "settleMs": 1062,
+            "overshoot": 0,
+            "framerMotion": {
+              "type": "spring",
+              "stiffness": 146,
+              "damping": 24.17,
+              "mass": 1
+            }
+          }
+        },
+        {
+          "name": "--sc-motion-stepper-travel-duration",
+          "mode": "all",
+          "category": "motion",
+          "kind": "text",
+          "shipped": null,
+          "tuned": "1062ms",
+          "override": "1062ms"
+        },
+        {
+          "name": "--sc-space-component-gap-sm",
+          "mode": "all",
+          "category": "space",
+          "kind": "length",
+          "shipped": "4px",
+          "tuned": "8px",
+          "override": "var(--sc-p-space-8)"
+        },
+        {
+          "name": "--sc-motion-stepper-glyph-press-scale",
+          "mode": "all",
+          "category": "motion",
+          "kind": "number",
+          "shipped": "1",
+          "tuned": "0.85",
+          "override": "0.85"
+        },
+        {
+          "name": "--sc-shadow-stepper-track",
+          "mode": "light",
+          "category": "shadow",
+          "kind": "shadow",
+          "shipped": "inset 0 0 0 0 rgb(26 24 21 / 0)",
+          "tuned": "inset 0.71px 0.71px 2px 0 rgb(26 24 21 / 0.25)",
+          "override": "inset 0.71px 0.71px 2px 0 rgb(26 24 21 / 0.25)"
+        },
+        {
+          "name": "--sc-color-stepper-key",
+          "mode": "light",
+          "category": "color",
+          "kind": "color",
+          "shipped": "rgb(26 24 21 / 0)",
+          "tuned": "#F1EFEB",
+          "override": "#F1EFEB"
+        },
+        {
+          "name": "--sc-color-stepper-key-shade",
+          "mode": "light",
+          "category": "color",
+          "kind": "color",
+          "shipped": "rgb(26 24 21 / 0)",
+          "tuned": "rgb(26 24 21 / 0.05)",
+          "override": "rgb(26 24 21 / 0.05)"
+        },
+        {
+          "name": "--sc-shadow-stepper-key",
+          "mode": "light",
+          "category": "shadow",
+          "kind": "shadow",
+          "shipped": "0 0 0 0 rgb(26 24 21 / 0)",
+          "tuned": "2px 2px 6px 0 rgb(100 91 79 / 0.50), -1px -1px 1px 1px rgb(253 250 246 / 1)",
+          "override": "2px 2px 6px 0 rgb(100 91 79 / 0.50), -1px -1px 1px 1px rgb(253 250 246 / 1)"
+        },
+        {
+          "name": "--sc-shadow-stepper-track",
+          "mode": "dark",
+          "category": "shadow",
+          "kind": "shadow",
+          "shipped": null,
+          "tuned": "inset 0.71px 0.71px 2px 0 rgb(0 0 0 / 0.45)",
+          "override": "inset 0.71px 0.71px 2px 0 rgb(0 0 0 / 0.45)"
+        },
+        {
+          "name": "--sc-color-stepper-key",
+          "mode": "dark",
+          "category": "color",
+          "kind": "color",
+          "shipped": null,
+          "tuned": "#343A41",
+          "override": "#343A41"
+        },
+        {
+          "name": "--sc-color-stepper-key-shade",
+          "mode": "dark",
+          "category": "color",
+          "kind": "color",
+          "shipped": null,
+          "tuned": "rgb(26 24 21 / 0.25)",
+          "override": "rgb(26 24 21 / 0.25)"
+        },
+        {
+          "name": "--sc-shadow-stepper-key",
+          "mode": "dark",
+          "category": "shadow",
+          "kind": "shadow",
+          "shipped": null,
+          "tuned": "3px 3px 7px 0 rgb(0 0 0 / 0.50), -1px -1px 1px 1px rgb(219 235 255 / 0.17)",
+          "override": "3px 3px 7px 0 rgb(0 0 0 / 0.50), -1px -1px 1px 1px rgb(219 235 255 / 0.17)"
+        }
+      ],
+      "pins": {}
+    }
+  ],
+  "derived": {},
+  "tokenCount": 36,
+  "state": {
+    "component": "Stepper",
+    "notes": "",
+    "active": "A",
+    "concepts": [
+      {
+        "id": "A",
+        "overrides": {
+          "all": {
+            "--sc-motion-stepper-stretch": "0.45",
+            "--sc-motion-stepper-squash": "0",
+            "--sc-motion-stepper-roll": "1",
+            "--sc-motion-stepper-travel-easing": "linear(0, 0.0218, 0.0735, 0.1426, 0.2201, 0.3001, 0.3786, 0.4531, 0.5222, 0.5851, 0.6416, 0.6918, 0.736, 0.7746, 0.8082, 0.8372, 0.8622, 0.8836, 0.9018, 0.9174, 0.9306, 0.9417, 0.9512, 0.9591, 0.9658, 0.9715, 0.9762, 0.9802, 0.9835, 0.9862, 0.9886, 0.9905, 0.9921, 0.9934, 0.9946, 0.9955, 0.9963, 0.9969, 0.9974, 0.9979, 0.9982, 0.9985, 0.9988, 0.999, 0.9992, 0.9993, 0.9994, 0.9995, 0.9996, 0.9997, 0.9997, 0.9998, 0.9998, 0.9999, 0.9999, 0.9999, 0.9999, 0.9999, 0.9999, 1)",
+            "--sc-motion-stepper-travel-duration": "1062ms",
+            "--sc-space-component-gap-sm": "var(--sc-p-space-8)",
+            "--sc-motion-stepper-glyph-press-scale": "0.85"
+          },
+          "light": {
+            "--sc-shadow-stepper-track": "inset 0.71px 0.71px 2px 0 rgb(26 24 21 / 0.25)",
+            "--sc-color-stepper-key": "#F1EFEB",
+            "--sc-color-stepper-key-shade": "rgb(26 24 21 / 0.05)",
+            "--sc-shadow-stepper-key": "2px 2px 6px 0 rgb(100 91 79 / 0.50), -1px -1px 1px 1px rgb(253 250 246 / 1)"
+          },
+          "dark": {
+            "--sc-shadow-stepper-track": "inset 0.71px 0.71px 2px 0 rgb(0 0 0 / 0.45)",
+            "--sc-color-stepper-key": "#343A41",
+            "--sc-color-stepper-key-shade": "rgb(26 24 21 / 0.25)",
+            "--sc-shadow-stepper-key": "3px 3px 7px 0 rgb(0 0 0 / 0.50), -1px -1px 1px 1px rgb(219 235 255 / 0.17)"
+          }
+        },
+        "shadowAdj": {
+          "all": {},
+          "light": {},
+          "dark": {}
+        },
+        "springs": {
+          "--sc-motion-stepper-travel-easing": {
+            "stiffness": 146,
+            "damping": 24.17,
+            "mass": 1
+          }
+        },
+        "pins": {},
+        "notes": "",
+        "props": {
+          "value": 11,
+          "min": 0,
+          "max": 12,
+          "step": 1,
+          "disabled": false,
+          "label": "Quantity"
+        },
+        "sound": {
+          "file": "drams-037-01.wav",
+          "volume": 0.7,
+          "rate": 1
+        }
+      }
+    ],
+    "pick": {
+      "id": null,
+      "reason": ""
+    },
+    "view": {
+      "theme": "light",
+      "zoom": 1,
+      "ground": "--sc-color-surface-page",
+      "compare": false,
+      "blind": false,
+      "order": null,
+      "slow": 1,
+      "force": "rest"
+    },
+    "updated": "2026-10-08T00:23:36.015Z"
+  }
+}

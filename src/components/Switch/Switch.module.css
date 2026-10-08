@@ -201,6 +201,33 @@
   color: var(--sc-color-text-disabled);
 }
 
+/* Forced colors (Windows high contrast) only; normal rendering is untouched
+   (the Switch is final). The recess, the knob lift and both gradients drop,
+   so the track gets an edge, the knob becomes a solid system-ink disc, and
+   the on track takes Highlight. Knob position still carries state. */
+@media (forced-colors: active) {
+  .track {
+    outline: var(--sc-border-width-default) solid CanvasText;
+    outline-offset: calc(-1 * var(--sc-border-width-default));
+  }
+  .input:checked ~ .track {
+    forced-color-adjust: none;
+    background-color: Highlight;
+    outline-color: Highlight;
+  }
+  .thumb,
+  .thumb::after {
+    forced-color-adjust: none;
+    background-image: none;
+    background-color: CanvasText;
+  }
+  .input:checked ~ .track .thumb,
+  .input:checked ~ .track .thumb::after { background-color: HighlightText; }
+  .input:disabled ~ .track { outline-color: GrayText; }
+  .input:disabled ~ .track .thumb,
+  .input:disabled ~ .track .thumb::after { background-color: GrayText; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .track, .thumb, .glyphs > span { transition: none; }
   .field:active .input:not(:disabled) ~ .track .thumb { scale: none; }
