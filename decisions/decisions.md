@@ -2353,3 +2353,27 @@ Levi: the trailing arrow uses Phosphor's bold weight, not regular. Code: `ArrowR
 - **Record:** `output/tuning/Slider/2026-10-07-2207/` (Levi: "for the slider, you can record A"). One concept, so the lab shows no pick control and the spec says none was picked; Levi's word is the pick. A = the seeds untouched plus the keyboard-step sound `drams-009-01.wav`. Off the ladder: 15px thumb, 1062ms. Not applied.
 - `tokens:verify`, `tokens:map:check`, `tokens:swift:check`, `test:scripts` (17), `npm run build`, `build:lib` and `swiftc -typecheck` exit 0.
 - **Open:** retire `size.progress.bar-height-active` and `size.progress.hit-slop` (also in the Figma library) once consumers are checked; the Figma Progress page (`139:52`) interactive masters move to a Slider set at apply.
+
+### 2026-10-07: Slider record 2026-10-07-2207 concept A applied (procedure D)
+
+**Status:** Accepted. Levi: "apply it". Record `output/tuning/Slider/2026-10-07-2207/`; sync base `8ff271d`. One concept, no notes.
+
+| Token | Was | Now |
+| --- | --- | --- |
+| `shadow.slider.track` | zero alpha | `inset 0.71px 0.71px 2px 0` ink .25; dark black .45 |
+| `shadow.slider.thumb` / `.thumbPressed` | zero alpha | `{shadow.control.key}` / `{shadow.control.keyPressed}` |
+| `color.slider.thumbRimTop` / `RimBottom` | transparent | white / warmGray.200; dark dark.textPrimary / warmGray.350 |
+| `color.slider.thumbFaceTop` / `FaceBottom` | transparent | warmGray.50 / warmGray.100; dark warmGray.200 / dark.textTertiary |
+| `size.slider.thumb` | 0px | 15px literal |
+| `motion.slider.travel.duration` / `.easing` | = motion.reveal (200ms quint-out) | 1062ms literal / `spring` { 146, 24.17, 1 } (no overshoot) |
+| `motion.slider.stretch` | 0 | 0.45 |
+| `motion.slider.thumbPressScale` | 1 | 0.985 |
+| sound | none | new role `slide` = Drams 009 (`src/sound/assets/slide.wav`, 48 kHz mono 16-bit), on a keyboard step that changes the value; a drag is silent. `Slider` takes `sound` (default true) |
+
+- **Cascade (Claude):** the thumb lift and its pressed lift alias the Button key shadows instead of copying their values (as the Stepper keys), so a Button retune moves the thumb too. The rim and face alias the primitives the Switch knob uses, never the Switch tokens. Values equal the record.
+- **Unchanged:** track, fill and disabled colours, track heights, hit slop, the drag curve (still 200ms), squash 0.
+- **Off the ladder, kept exact:** 15px (off the 4pt grid, learning #144), 1062ms (the spring's settle time).
+- **Lab check (D step 6):** Shipped and concept A compared by computed style in dark and light (track height, ground and recess; fill width, colour and curve; thumb size, position, rim, face, lift and curve; stretch, squash, press scale, travel duration): no differences. The generated `linear()` is byte-identical to the record's.
+- **Figma library:** the generated call created `color/slider/thumb{RimTop,RimBottom,FaceTop,FaceBottom}` (`522:2`–`522:5`), `motion/slider/travel/duration` (`522:12`), `/stretch` (`522:13`), `/thumbPressScale` (`522:14`), `size/slider/thumb` (`522:15`) and effect styles `shadow/slider/{track,thumb,thumbPressed}` + `dark/*`. `absent` named the 10 slider tokens made earlier and never synced; the `--tokens` call created `color/slider/{track,trackDisabled,fill,fillHover,fillDisabled}` (`523:2`–`523:6`), `motion/slider/drag/duration` (`523:7`), `/squash` (`523:8`), `size/slider/{track,trackActive,hitSlop}` (`523:9`–`523:11`). The read-only re-check over all 376 library names returned `absent: []`, `missing: []`.
+- **Masters:** new component set `Slider` (`524:21`) on the Progress page beside the Progress set, variants `State=Default` (`524:2`), `Hover` (`524:7`), `Pressed` (`524:12`), `Disabled` (`524:17`), each 320 × 48 (the hit box) at value 0.5, geometry from the lab measurement: track at y 22, 4px (`size/slider/track`; Pressed y 21, 6px on `trackActive`), fill 160 wide, thumb 15 × 15 at (152.5, 16.5) bound to `size/slider/thumb`, rim and face gradients at the 135deg transform with every stop bound, `shadow/slider/track` / `thumb` / `thumbPressed`. Disabled is flat: `trackDisabled`, a solid `fillDisabled` thumb, no face, no effects. Every bound paint was written with its variable's resolved colour (no placeholder). Readback matches the code; the press scale (0.985) is motion and is not drawn. The Progress set's old `Variant=BarActive` (`140:23`) is left in place for consumers (retire question). Publishing is Levi's step.
+- `tokens:verify`, `tokens:map:check`, `tokens:swift:check`, `test:scripts` (17), `npm run build`, `build:lib` and `swiftc -typecheck` exit 0.
