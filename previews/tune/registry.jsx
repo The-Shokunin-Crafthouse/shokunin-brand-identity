@@ -121,6 +121,14 @@ const CARD_STYLES = {
 };
 const BACKDROP = { position: 'absolute', inset: 0, overflow: 'hidden', borderRadius: 'var(--sc-radius-card)' };
 const CARD_BACKDROPS = {
+  // Follows the theme: page ground, primary-ink type, sunk and floating blocks.
+  'page (follows theme)': (
+    <div aria-hidden="true" style={{ ...BACKDROP, background: 'var(--sc-color-surface-page)' }}>
+      <div style={{ position: 'absolute', inset: '0 50% 0 0', background: 'var(--sc-color-surface-sunk)' }} />
+      <div style={{ position: 'absolute', inset: '30% 0 30% 25%', background: 'var(--sc-color-surface-floating)' }} />
+      <div style={{ position: 'absolute', inset: 0, display: 'flex', flexWrap: 'wrap', alignContent: 'center', font: 'var(--sc-font-text-display-xs)', color: 'var(--sc-color-text-primary)', lineHeight: 1, wordBreak: 'break-all' }}>SHOKUNIN CRAFTHOUSE SHOKUNIN CRAFTHOUSE</div>
+    </div>
+  ),
   'type and colour': (
     <div aria-hidden="true" style={BACKDROP}>
       <div style={{ position: 'absolute', inset: 0, background: 'repeating-linear-gradient(135deg, var(--sc-color-atmosphere-celadon) 0 24px, var(--sc-color-atmosphere-river) 24px 48px, var(--sc-color-atmosphere-lapis) 48px 72px)' }} />
@@ -487,7 +495,7 @@ export const REGISTRY = {
     trigger: 'ships silent',
     props: [
       { name: 'show', type: 'enum', options: ['all', ...Object.keys(CARD_STYLES)], default: 'all' },
-      { name: 'backdrop', type: 'enum', options: Object.keys(CARD_BACKDROPS), default: 'type and colour' },
+      { name: 'backdrop', type: 'enum', options: Object.keys(CARD_BACKDROPS), default: 'page (follows theme)' },
       { name: 'interactive', type: 'boolean', default: false },
       { name: 'disabled', type: 'boolean', default: false },
       { name: 'title', type: 'text', default: 'Studio journal' },
