@@ -322,21 +322,39 @@ export const REGISTRY = {
   },
   Tooltip: {
     css: [tooltipCss],
-    ...reel('tooltip', { press: false }),
+    // Physical-controls Tier 2: a raised plate with a short lift (concept A),
+    // or liquid glass, since a tooltip is a floating layer (concept B, the
+    // glass variant). The refraction numbers are read by Card/glass.js.
+    jsTokens: [...reel('tooltip', { press: false }).jsTokens, ...['refraction', 'depth', 'splay'].map((k) => `--sc-size-tooltip-glass-frosted-${k}`)],
+    // Plate start: the Button key (record Button 2026-10-07-1418) lift on the
+    // surface.raised fill with text.primary ink, lit from the top left. The
+    // role tokens ship equal to today (inverse ground, no shadow).
+    seed: {
+      ...reel('tooltip', { press: false }).seed,
+      scoped: {
+        light: { '--sc-color-tooltip-surface': MATERIAL.light.keyFill, '--sc-color-tooltip-text': '#1A1815', '--sc-shadow-tooltip-plate': MATERIAL.light.key },
+        dark: { '--sc-color-tooltip-surface': MATERIAL.dark.keyFill, '--sc-color-tooltip-text': '#EAE8E3', '--sc-shadow-tooltip-plate': MATERIAL.dark.key },
+      },
+    },
     shippedSound: null,
     trigger: 'ships silent',
     props: [
       { name: 'open', type: 'boolean', default: true },
+      { name: 'variant', type: 'enum', options: ['solid', 'glass'], default: 'solid' },
+      { name: 'backdrop', type: 'enum', options: Object.keys(CARD_BACKDROPS), default: 'page (follows theme)' },
       { name: 'multiline', type: 'boolean', default: false },
       { name: 'content', type: 'text', default: 'Copied to clipboard' },
     ],
     play: (p, set) => set('open', !p.open),
     render: (p) => (
-      <span style={{ display: 'inline-block', paddingTop: 'var(--sc-space-layout-stack-md)' }}>
-        <Tooltip content={p.content} multiline={p.multiline} open={p.open}>
-          <span style={{ font: 'inherit' }}>Hover or press Play</span>
-        </Tooltip>
-      </span>
+      <div style={{ position: 'relative', padding: 'var(--sc-space-layout-stack-md) var(--sc-space-layout-stack-sm) var(--sc-space-layout-stack-sm)' }}>
+        {CARD_BACKDROPS[p.backdrop]}
+        <span style={{ position: 'relative', display: 'inline-block', paddingTop: 'var(--sc-space-layout-stack-md)' }}>
+          <Tooltip content={p.content} multiline={p.multiline} open={p.open} variant={p.variant}>
+            <span style={{ font: 'inherit' }}>Hover or press Play</span>
+          </Tooltip>
+        </span>
+      </div>
     ),
   },
   NavBar: {
