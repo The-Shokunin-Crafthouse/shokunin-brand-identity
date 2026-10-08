@@ -5,7 +5,7 @@
 # Design Token Map — The Shokunin Crafthouse · Brand Identity
 
 **Generated** from `tokens/primitives.json` + `tokens/semantic.json`.
-**Source fingerprint:** `b95722b95bba` · **187 primitives · 287 semantic tokens.**
+**Source fingerprint:** `95fa47462e08` · **187 primitives · 287 semantic tokens.**
 
 > **This file is a mirror, not the source.** `tokens/*.json` is upstream; this document and the Figma
 > library are generated from / synced to it. It previously claimed the opposite — that both were
@@ -628,8 +628,8 @@ channel-triplet primitives) rather than an alias to a single primitive.
 
 | Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
 |---|---|---|---|---|---|---|
-| `color/card/flat` | `--sc-color-card-flat` | `color/surface/floating` | `⚠ unresolved` | `color/surface/floating` | `⚠ unresolved` | 2026-10-08 · Card (physical-controls Tier 2), Levi: two card styles, a flat floating surface with no border and a liquid-glass card in three levels (subtle, regular, heavy). |
-| `color/card/flatHover` | `--sc-color-card-flat-hover` | `color/surface/raised` | `⚠ unresolved` | `color/surface/raised` | `⚠ unresolved` | 2026-10-08 · Card (physical-controls Tier 2), Levi: two card styles, a flat floating surface with no border and a liquid-glass card in three levels (subtle, regular, heavy). |
+| `color/card/flat` | `--sc-color-card-flat` | `color/surface/floating` | `⚠ unresolved` | `color/surface/floating` | `⚠ unresolved` | 2026-10-08 · Card (physical-controls Tier 2), Levi: two card styles, a flat floating surface with no border and a liquid-glass card in three levels (clear, frosted, thick; renamed from subtle, regular, heavy), each in a light and a dark tone. |
+| `color/card/flatHover` | `--sc-color-card-flat-hover` | `color/surface/raised` | `⚠ unresolved` | `color/surface/raised` | `⚠ unresolved` | 2026-10-08 · Card (physical-controls Tier 2), Levi: two card styles, a flat floating surface with no border and a liquid-glass card in three levels (clear, frosted, thick; renamed from subtle, regular, heavy), each in a light and a dark tone. |
 | `color/card/glass/clear/light` | `--sc-color-card-glass-clear-light` | _literal_ | `rgb(var(--sc-p-color-white-rgb) / 0.16)` | _literal_ | `rgb(var(--sc-p-color-white-rgb) / 0.05)` | 2026-10-08 · Card glass (physical-controls Tier 2). |
 | `color/card/glass/clear/dark` | `--sc-color-card-glass-clear-dark` | _literal_ | `rgb(var(--sc-p-color-ink-rgb) / 0.06)` | _literal_ | `rgb(var(--sc-p-color-black-rgb) / 0.20)` | 2026-10-08 · Card glass (physical-controls Tier 2). |
 | `color/card/glass/frosted/light` | `--sc-color-card-glass-frosted-light` | _literal_ | `rgb(var(--sc-p-color-white-rgb) / 0.24)` | _literal_ | `rgb(var(--sc-p-color-white-rgb) / 0.08)` | 2026-10-08 · Card glass (physical-controls Tier 2). |
@@ -684,7 +684,7 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | `space/component/padding/sm` | `--sc-space-component-padding-sm` | `space/8` | `8px` | `space/8` | `8px` | Small component padding · 8px. |
 | `space/component/padding/md` | `--sc-space-component-padding-md` | `space/16` | `16px` | `space/16` | `16px` | Medium component padding · 16px. |
 | `space/component/padding/lg` | `--sc-space-component-padding-lg` | `space/24` | `24px` | `space/24` | `24px` | Large component padding · 24px. |
-| `space/component/padding/card` | `--sc-space-component-padding-card` | `space/24` | `24px` | `space/24` | `24px` | 2026-10-07 · Card material (physical-controls Tier 2: two materials, a raised plate lit from the top left and a recessed well; an interactive plate presses on click), tuned in sc-tune. |
+| `space/component/padding/card` | `--sc-space-component-padding-card` | `space/24` | `24px` | `space/24` | `24px` | 2026-10-07 · Card (physical-controls Tier 2: flat, or liquid glass in three levels and two tones, Levi 2026-10-08). |
 | `space/component/padding-inline/sm` | `--sc-space-component-padding-inline-sm` | `space/micro/6` | `6px` | `space/micro/6` | `6px` | Sprint 4 addition · tight inline padding (6px). |
 | `space/component/padding-inline/md` | `--sc-space-component-padding-inline-md` | `space/12` | `12px` | `space/12` | `12px` | Sprint 4 addition · default inline padding (12px). |
 | `space/component/padding-inline/lg` | `--sc-space-component-padding-inline-lg` | `space/16` | `16px` | `space/16` | `16px` | Sprint 4 addition · generous inline padding (16px). |
@@ -720,7 +720,7 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
 |---|---|---|---|---|---|---|
 | `radius/field` | `--sc-radius-field` | `radius/default` | `8px` | `radius/default` | `8px` | 2026-10-07 · Input material (physical-controls Tier 1), tuned in sc-tune. |
-| `radius/card` | `--sc-radius-card` | `radius/surface` | `⚠ unresolved` | `radius/surface` | `⚠ unresolved` | 2026-10-07 · Card material (physical-controls Tier 2: two materials, a raised plate lit from the top left and a recessed well; an interactive plate presses on click), tuned in sc-tune. |
+| `radius/card` | `--sc-radius-card` | `radius/surface` | `⚠ unresolved` | `radius/surface` | `⚠ unresolved` | 2026-10-07 · Card (physical-controls Tier 2: flat, or liquid glass in three levels and two tones, Levi 2026-10-08). |
 | `radius/control` | `--sc-radius-control` | `radius/input` | `3px` | `radius/input` | `3px` | Sprint 4 addition · controls that read as inscribed rather than lifted (3px). |
 | `radius/surface` | `--sc-radius-surface` | `radius/default` | `8px` | `radius/default` | `8px` | Sprint 4 addition · raised surfaces (8px). |
 | `radius/surfaceLarge` | `--sc-radius-surface-large` | `radius/large` | `16px` | `radius/large` | `16px` | 2026-08-16 Figma variable sync · large raised surfaces (16px). |
@@ -871,7 +871,7 @@ channel-triplet primitives) rather than an alias to a single primitive.
 
 | Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
 |---|---|---|---|---|---|---|
-| `motion/card/pressScale` | `--sc-motion-card-press-scale` | _literal_ | `1` | _literal_ | `1` | 2026-10-07 · Card material (physical-controls Tier 2: two materials, a raised plate lit from the top left and a recessed well; an interactive plate presses on click), tuned in sc-tune. |
+| `motion/card/pressScale` | `--sc-motion-card-press-scale` | _literal_ | `1` | _literal_ | `1` | 2026-10-07 · Card (physical-controls Tier 2: flat, or liquid glass in three levels and two tones, Levi 2026-10-08). |
 
 ### Shadow · Semantic
 
