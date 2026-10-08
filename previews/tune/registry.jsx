@@ -350,8 +350,9 @@ export const REGISTRY = {
     ),
   },
   ProgressIndicator: {
-    css: [progressCss],
-    // The interactive bar only; static meters stay flat (Levi, 2026-10-07).
+    // The interactive bar only: its CSS block, so the panel lists what the
+    // stage renders. Static meters stay flat (Levi, 2026-10-07).
+    css: [progressCss.slice(progressCss.indexOf('/* --- Bar · interactive'), progressCss.indexOf('/* --- Circular'))],
     // Thumb stretch and squash are read by ProgressIndicator.jsx.
     jsTokens: reel('progress-slider', { press: false }).jsTokens,
     seed: {
@@ -388,7 +389,7 @@ export const REGISTRY = {
     play: (p, set) => set('value', p.value >= 0.75 ? 0.25 : 0.75),
     render: (p, set, sound) => (
       <div
-        style={{ width: 'calc(var(--sc-space-layout-stack-xl) * 3)' }}
+        style={{ width: 'calc(var(--sc-space-layout-stack-xl) * 2)' }}
         onKeyDownCapture={() => { keyStep = true; }}
         onKeyUpCapture={() => { keyStep = false; }}
       >
