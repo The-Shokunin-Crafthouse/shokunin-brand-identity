@@ -5,7 +5,7 @@
 # Design Token Map — The Shokunin Crafthouse · Brand Identity
 
 **Generated** from `tokens/primitives.json` + `tokens/semantic.json`.
-**Source fingerprint:** `e51272fe4bfb` · **187 primitives · 288 semantic tokens.**
+**Source fingerprint:** `3d8f7f0b9caf` · **187 primitives · 293 semantic tokens.**
 
 > **This file is a mirror, not the source.** `tokens/*.json` is upstream; this document and the Figma
 > library are generated from / synced to it. It previously claimed the opposite — that both were
@@ -632,12 +632,16 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | `color/card/flatHover` | `--sc-color-card-flat-hover` | `color/utility/white` | `#FFFFFF` | `color/dark/raised3` | `#434A51` | 2026-10-08 · Card (physical-controls Tier 2), Levi: two card styles, a flat floating surface with no border and a liquid-glass card in three levels (clear, frosted, thick; renamed from subtle, regular, heavy), each in a light and a dark tone. |
 | `color/card/glass/clear/light` | `--sc-color-card-glass-clear-light` | _literal_ | `rgb(var(--sc-p-color-white-rgb) / 0.16)` | _literal_ | `rgb(var(--sc-p-color-white-rgb) / 0.05)` | 2026-10-08 · Card glass (physical-controls Tier 2). |
 | `color/card/glass/clear/dark` | `--sc-color-card-glass-clear-dark` | _literal_ | `rgb(var(--sc-p-color-ink-rgb) / 0.06)` | _literal_ | `rgb(var(--sc-p-color-black-rgb) / 0.20)` | 2026-10-08 · Card glass (physical-controls Tier 2). |
+| `color/card/glass/clear/auto` | `--sc-color-card-glass-clear-auto` | `color/card/glass/clear/light` | `⚠ unresolved` | `color/card/glass/clear/dark` | `⚠ unresolved` | 2026-10-08 · Card glass (physical-controls Tier 2). |
 | `color/card/glass/frosted/light` | `--sc-color-card-glass-frosted-light` | _literal_ | `rgb(var(--sc-p-color-white-rgb) / 0.24)` | _literal_ | `rgb(var(--sc-p-color-white-rgb) / 0.08)` | 2026-10-08 · Card glass (physical-controls Tier 2). |
 | `color/card/glass/frosted/dark` | `--sc-color-card-glass-frosted-dark` | _literal_ | `rgb(var(--sc-p-color-ink-rgb) / 0.10)` | _literal_ | `rgb(var(--sc-p-color-black-rgb) / 0.32)` | 2026-10-08 · Card glass (physical-controls Tier 2). |
+| `color/card/glass/frosted/auto` | `--sc-color-card-glass-frosted-auto` | `color/card/glass/frosted/light` | `⚠ unresolved` | `color/card/glass/frosted/dark` | `⚠ unresolved` | 2026-10-08 · Card glass (physical-controls Tier 2). |
 | `color/card/glass/thick/light` | `--sc-color-card-glass-thick-light` | _literal_ | `rgb(var(--sc-p-color-white-rgb) / 0.36)` | _literal_ | `rgb(var(--sc-p-color-white-rgb) / 0.12)` | 2026-10-08 · Card glass (physical-controls Tier 2). |
 | `color/card/glass/thick/dark` | `--sc-color-card-glass-thick-dark` | _literal_ | `rgb(var(--sc-p-color-ink-rgb) / 0.16)` | _literal_ | `rgb(var(--sc-p-color-black-rgb) / 0.45)` | 2026-10-08 · Card glass (physical-controls Tier 2). |
+| `color/card/glass/thick/auto` | `--sc-color-card-glass-thick-auto` | `color/card/glass/thick/light` | `⚠ unresolved` | `color/card/glass/thick/dark` | `⚠ unresolved` | 2026-10-08 · Card glass (physical-controls Tier 2). |
 | `color/card/glass/hover/light` | `--sc-color-card-glass-hover-light` | _literal_ | `rgb(var(--sc-p-color-white-rgb) / 0.08)` | _literal_ | `rgb(var(--sc-p-color-white-rgb) / 0.05)` | 2026-10-08 · Card glass (physical-controls Tier 2). |
 | `color/card/glass/hover/dark` | `--sc-color-card-glass-hover-dark` | _literal_ | `rgb(var(--sc-p-color-ink-rgb) / 0.06)` | _literal_ | `rgb(var(--sc-p-color-black-rgb) / 0.12)` | 2026-10-08 · Card glass (physical-controls Tier 2). |
+| `color/card/glass/hover/auto` | `--sc-color-card-glass-hover-auto` | `color/card/glass/hover/light` | `⚠ unresolved` | `color/card/glass/hover/dark` | `⚠ unresolved` | 2026-10-08 · Card glass (physical-controls Tier 2). |
 
 ### Typography · Semantic
 
@@ -931,6 +935,7 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | `shadow/card/glass/thick` | `--sc-shadow-card-glass-thick` | _literal_ | `inset 1px 1px 0 0 rgb(var(--sc-p-color-white-rgb) / 0.45), inset -1px -1px 0 0 rgb(var(--sc-p-color-white-rgb) / 0.225), 10px 10px 32px 0 rgb(100 91 79 / 0.18)` | _literal_ | `inset 1px 1px 0 0 rgb(var(--sc-p-color-white-rgb) / 0.45), inset -1px -1px 0 0 rgb(var(--sc-p-color-white-rgb) / 0.225), 10px 10px 32px 0 rgb(0 0 0 / 0.38)` | 2026-10-08 · Card glass (physical-controls Tier 2). |
 | `shadow/card/glass/text/light` | `--sc-shadow-card-glass-text-light` | _literal_ | `0 0 2px rgb(var(--sc-p-color-white-rgb) / 0.60)` | _literal_ | `0 0 2px rgb(0 0 0 / 0.60)` | 2026-10-08 · Card glass (physical-controls Tier 2). |
 | `shadow/card/glass/text/dark` | `--sc-shadow-card-glass-text-dark` | _literal_ | `0 0 2px rgb(var(--sc-p-color-white-rgb) / 0.50)` | _literal_ | `0 0 2px rgb(0 0 0 / 0.70)` | 2026-10-08 · Card glass (physical-controls Tier 2). |
+| `shadow/card/glass/text/auto` | `--sc-shadow-card-glass-text-auto` | `shadow/card/glass/text/light` | `⚠ unresolved` | `shadow/card/glass/text/dark` | `⚠ unresolved` | 2026-10-08 · Card glass (physical-controls Tier 2). |
 
 ### Size · Semantic
 

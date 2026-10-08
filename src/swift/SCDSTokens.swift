@@ -171,8 +171,8 @@ public enum SCDS {
     public static let semanticVersion = "0.1.0"
     public static let sourceGenerated = "2026-05-26"
     public static let primitivesHash = "41d576559668277a"
-    public static let semanticHash = "d400489ad18a842c"
-    public static let tokenCount = 288
+    public static let semanticHash = "665e575732edfff1"
+    public static let tokenCount = 293
   }
 
   // MARK: - Color
@@ -707,6 +707,12 @@ public enum SCDS {
         dark:  (0, 0, 0, 0.2)
     )
 
+    /// `color.card.glass.clear.auto`
+    public static let cardGlassClearAuto = SwiftUI.Color.scdsDynamic(
+        light: (1, 1, 1, 0.16),
+        dark:  (0, 0, 0, 0.2)
+    )
+
     /// `color.card.glass.frosted.light`
     public static let cardGlassFrostedLight = SwiftUI.Color.scdsDynamic(
         light: (1, 1, 1, 0.24),
@@ -716,6 +722,12 @@ public enum SCDS {
     /// `color.card.glass.frosted.dark`
     public static let cardGlassFrostedDark = SwiftUI.Color.scdsDynamic(
         light: (0.101961, 0.094118, 0.082353, 0.1),
+        dark:  (0, 0, 0, 0.32)
+    )
+
+    /// `color.card.glass.frosted.auto`
+    public static let cardGlassFrostedAuto = SwiftUI.Color.scdsDynamic(
+        light: (1, 1, 1, 0.24),
         dark:  (0, 0, 0, 0.32)
     )
 
@@ -731,6 +743,12 @@ public enum SCDS {
         dark:  (0, 0, 0, 0.45)
     )
 
+    /// `color.card.glass.thick.auto`
+    public static let cardGlassThickAuto = SwiftUI.Color.scdsDynamic(
+        light: (1, 1, 1, 0.36),
+        dark:  (0, 0, 0, 0.45)
+    )
+
     /// `color.card.glass.hover.light`
     public static let cardGlassHoverLight = SwiftUI.Color.scdsDynamic(
         light: (1, 1, 1, 0.08),
@@ -740,6 +758,12 @@ public enum SCDS {
     /// `color.card.glass.hover.dark`
     public static let cardGlassHoverDark = SwiftUI.Color.scdsDynamic(
         light: (0.101961, 0.094118, 0.082353, 0.06),
+        dark:  (0, 0, 0, 0.12)
+    )
+
+    /// `color.card.glass.hover.auto`
+    public static let cardGlassHoverAuto = SwiftUI.Color.scdsDynamic(
+        light: (1, 1, 1, 0.08),
         dark:  (0, 0, 0, 0.12)
     )
   }
@@ -1770,6 +1794,16 @@ public enum SCDS {
     public static let cardGlassTextDark = SCDSShadow(
         light: [
             SCDSShadowLayer(inset: false, x: 0, y: 0, blur: 2, spread: 0, rgb: (1, 1, 1), alpha: 0.5),
+        ],
+        dark: [
+            SCDSShadowLayer(inset: false, x: 0, y: 0, blur: 2, spread: 0, rgb: (0, 0, 0), alpha: 0.7),
+        ]
+    )
+
+    /// `shadow.card.glass.text.auto` · 1 layers
+    public static let cardGlassTextAuto = SCDSShadow(
+        light: [
+            SCDSShadowLayer(inset: false, x: 0, y: 0, blur: 2, spread: 0, rgb: (1, 1, 1), alpha: 0.6),
         ],
         dark: [
             SCDSShadowLayer(inset: false, x: 0, y: 0, blur: 2, spread: 0, rgb: (0, 0, 0), alpha: 0.7),

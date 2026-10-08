@@ -146,7 +146,7 @@ export function CardPage() {
       id="card" label="Card" tokensN={36}
       eyebrow={<>Card<Slash />flat or glass</>}
       title={<>Two styles. <Em>A flat surface, or glass.</Em></>}
-      lead={<>A flat card is the floating surface with no border and no shadow. A glass card is liquid glass over whatever sits behind it, in three levels named for the surface: clear, frosted (the studio's Figma Glass setting) and thick. Each comes in a light tone, which lightens what is behind it, and a dark tone, which darkens it. A soft shade cast down and to the right makes it float. Frost, tint and a rim lit from the top left are CSS; the refraction that bends the backdrop at the edge is an SVG filter the card builds for its own size.</>}
+      lead={<>A flat card is the floating surface with no border and no shadow. A glass card is liquid glass over whatever sits behind it, in three levels named for the surface: clear, frosted (the studio's Figma Glass setting) and thick. Each comes in a light tone, which lightens what is behind it, and a dark tone, which darkens it; by default the tone follows the theme. A soft shade cast down and to the right makes it float. Frost, tint and a rim lit from the top left are CSS; the refraction that bends the backdrop at the edge is an SVG filter the card builds for its own size.</>}
       statesTitle="Flat, and three glass levels in two tones."
       callouts={[
         { title: 'Flat is the default', body: 'Most cards hold reading content on the page ground. The floating surface separates them without a frame or a shadow.' },
@@ -155,9 +155,9 @@ export function CardPage() {
       ]}
       states={[
         { name: 'Flat', token: '--sc-color-card-flat', render: <Card><CardBody>The floating surface. No border, no shadow.</CardBody></Card> },
-        { name: 'Clear · light', token: '--sc-color-card-glass-clear-light', render: <GlassStage><Card variant="glass" level="clear"><CardBody>Thin frost, a light bend.</CardBody></Card></GlassStage> },
-        { name: 'Frosted · light', token: '--sc-color-card-glass-frosted-light', render: <GlassStage><Card variant="glass" level="frosted"><CardBody>The Figma Glass setting.</CardBody></Card></GlassStage> },
-        { name: 'Thick · light', token: '--sc-color-card-glass-thick-light', render: <GlassStage><Card variant="glass" level="thick"><CardBody>Heavy frost, the strongest bend.</CardBody></Card></GlassStage> },
+        { name: 'Clear · light', token: '--sc-color-card-glass-clear-light', render: <GlassStage><Card variant="glass" level="clear" tone="light"><CardBody>Thin frost, a light bend.</CardBody></Card></GlassStage> },
+        { name: 'Frosted · light', token: '--sc-color-card-glass-frosted-light', render: <GlassStage><Card variant="glass" level="frosted" tone="light"><CardBody>The Figma Glass setting.</CardBody></Card></GlassStage> },
+        { name: 'Thick · light', token: '--sc-color-card-glass-thick-light', render: <GlassStage><Card variant="glass" level="thick" tone="light"><CardBody>Heavy frost, the strongest bend.</CardBody></Card></GlassStage> },
         { name: 'Clear · dark', token: '--sc-color-card-glass-clear-dark', render: <GlassStage><Card variant="glass" level="clear" tone="dark"><CardBody>Clear glass that darkens.</CardBody></Card></GlassStage> },
         { name: 'Frosted · dark', token: '--sc-color-card-glass-frosted-dark', render: <GlassStage><Card variant="glass" level="frosted" tone="dark"><CardBody>Frosted glass that darkens.</CardBody></Card></GlassStage> },
         { name: 'Thick · dark', token: '--sc-color-card-glass-thick-dark', render: <GlassStage><Card variant="glass" level="thick" tone="dark"><CardBody>Thick glass that darkens.</CardBody></Card></GlassStage> },
@@ -185,7 +185,7 @@ export function CardPage() {
       rules={[
         { name: 'Glass over something', text: 'Glass is for a layer that floats over content: imagery, colour or content that scrolls beneath it. Never the content layer itself; on a plain ground it reads as a tinted box, so use the flat card.' },
         { name: 'One glass layer', text: 'Never nest glass in glass or stack glass cards: each backdrop filter is a GPU pass, and stacked ones stutter on scroll. Group related controls inside one glass card.' },
-        { name: 'Check the text over the real backdrop', text: 'Glass contrast depends on what sits behind it. Measure the text over the brightest and darkest backdrop it will meet; reach for a heavier level, or the flat card, when it falls short.' },
+        { name: 'The tone follows the theme, unless the backdrop says otherwise', text: 'By default (tone auto) light glass sits behind dark text and dark glass behind light text, so the glass pushes whatever is behind it away from the ink. Break the rule only where the backdrop already gives the text its contrast: dark glass over a pale backdrop in light mode, light glass over a deep one in dark mode. Measure the text over the brightest and darkest backdrop it will meet; reach for a heavier level, or the flat card, when it falls short.' },
         { name: 'Interactive gets a handler or it is not interactive', text: 'An interactive card renders a button. Use it only when there is a real action; a decorative interactive card is a focus trap with nothing to do.' },
         { name: 'One padding step', text: 'Card interiors pad with the card padding role. Tightening makes the card read as chrome; loosening wastes the surface.' },
       ]}
