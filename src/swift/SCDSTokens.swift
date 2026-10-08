@@ -171,8 +171,8 @@ public enum SCDS {
     public static let semanticVersion = "0.1.0"
     public static let sourceGenerated = "2026-05-26"
     public static let primitivesHash = "f96efa487bcac29d"
-    public static let semanticHash = "00e26ebefed7eede"
-    public static let tokenCount = 210
+    public static let semanticHash = "16837f2d27a144e3"
+    public static let tokenCount = 213
   }
 
   // MARK: - Color
@@ -565,8 +565,26 @@ public enum SCDS {
 
     /// `color.stepper.keyHover`
     public static let stepperKeyHover = SwiftUI.Color.scdsDynamic(
-        light: (0.690196, 0.65098, 0.611765, 1),
-        dark:  (0.231373, 0.258824, 0.286275, 1)
+        light: (0.015686, 0.47451, 0.490196, 1),
+        dark:  (0.015686, 0.47451, 0.490196, 1)
+    )
+
+    /// `color.stepper.keyHoverInk`
+    public static let stepperKeyHoverInk = SwiftUI.Color.scdsDynamic(
+        light: (1, 1, 1, 1),
+        dark:  (1, 1, 1, 1)
+    )
+
+    /// `color.stepper.keyPressed`
+    public static let stepperKeyPressed = SwiftUI.Color.scdsDynamic(
+        light: (0.019608, 0.384314, 0.407843, 1),
+        dark:  (0.019608, 0.384314, 0.407843, 1)
+    )
+
+    /// `color.stepper.keyPressedInk`
+    public static let stepperKeyPressedInk = SwiftUI.Color.scdsDynamic(
+        light: (1, 1, 1, 1),
+        dark:  (1, 1, 1, 1)
     )
 
     /// `color.stepper.keyShade`

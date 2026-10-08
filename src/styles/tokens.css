@@ -442,7 +442,10 @@
   --sc-color-segmented-control-indicator-shade: rgb(var(--sc-p-color-ink-rgb) / 0.05);
   --sc-color-stepper-track: var(--sc-p-color-warm-gray-200);
   --sc-color-stepper-key: rgb(var(--sc-p-color-ink-rgb) / 0);
-  --sc-color-stepper-key-hover: var(--sc-p-color-warm-gray-300);
+  --sc-color-stepper-key-hover: var(--sc-color-control-key-hover-fill);
+  --sc-color-stepper-key-hover-ink: var(--sc-color-control-key-hover-ink);
+  --sc-color-stepper-key-pressed: var(--sc-color-brand-accent-deep);
+  --sc-color-stepper-key-pressed-ink: var(--sc-color-text-on-accent);
   --sc-color-stepper-key-shade: rgb(var(--sc-p-color-ink-rgb) / 0);
   --sc-border-width-default: var(--sc-p-border-width-hairline);
   --sc-border-width-focus: var(--sc-p-border-width-focus);
@@ -801,7 +804,10 @@
   --sc-color-segmented-control-indicator-shade: rgb(var(--sc-p-color-ink-rgb) / 0.25);
   --sc-color-stepper-track: var(--sc-p-color-dark-well);
   --sc-color-stepper-key: rgb(var(--sc-p-color-ink-rgb) / 0);
-  --sc-color-stepper-key-hover: var(--sc-p-color-dark-raised2);
+  --sc-color-stepper-key-hover: var(--sc-color-control-key-hover-fill);
+  --sc-color-stepper-key-hover-ink: var(--sc-color-control-key-hover-ink);
+  --sc-color-stepper-key-pressed: var(--sc-color-brand-accent-deep);
+  --sc-color-stepper-key-pressed-ink: var(--sc-color-text-on-accent);
   --sc-color-stepper-key-shade: rgb(var(--sc-p-color-ink-rgb) / 0);
   --sc-border-width-default: var(--sc-p-border-width-hairline);
   --sc-border-width-focus: var(--sc-p-border-width-focus);

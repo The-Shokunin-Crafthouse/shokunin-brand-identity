@@ -1,6 +1,8 @@
 /* tokens:
  *   --sc-color-stepper-track        · recessed pill ground (role token, = surface.sunk)
- *   --sc-color-stepper-key / -key-hover · ± key face at rest / hover + press (role tokens; shipped transparent / = surface.deepSunk)
+ *   --sc-color-stepper-key          · ± key face at rest (role token; shipped transparent)
+ *   --sc-color-stepper-key-hover / -key-hover-ink · hover face and glyph (= Button primary hover: teal.600, white)
+ *   --sc-color-stepper-key-pressed / -key-pressed-ink · pressed face and glyph (= brand.accentDeep teal.700, white)
  *   --sc-color-stepper-key-shade    · 135deg face shade on each key (Button key face; shipped transparent)
  *   --sc-shadow-stepper-track       · recess of the pill (shipped zero alpha)
  *   --sc-shadow-stepper-key / -key-pressed · key lift at rest, softened while pressed (shipped zero alpha)
@@ -54,12 +56,17 @@
     transform var(--sc-motion-press-duration) var(--sc-motion-press-easing);
 }
 
+/* Hover is the Button primary's hover (Levi, 2026-10-07): the accent face,
+   and the glyph fades to white on the colour transition above. */
 .button:hover:not(:disabled) {
   background-color: var(--sc-color-stepper-key-hover);
+  color: var(--sc-color-stepper-key-hover-ink);
 }
 
+/* Pressed: one accent step darker. */
 .button:active:not(:disabled) {
-  background-color: var(--sc-color-stepper-key-hover);
+  background-color: var(--sc-color-stepper-key-pressed);
+  color: var(--sc-color-stepper-key-pressed-ink);
   box-shadow: var(--sc-shadow-stepper-key-pressed);
   transform: scale(var(--sc-motion-press-scale));
 }

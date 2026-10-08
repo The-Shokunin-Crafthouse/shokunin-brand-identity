@@ -2250,3 +2250,22 @@ Levi: the trailing arrow uses Phosphor's bold weight, not regular. Code: `ArrowR
 - **Fixed width:** the readout was `min-width: 2ch` inside border-box padding, so two digits overflowed it and the control grew at 10. Now `min-width: calc(2ch + 2 × mono letter-spacing + 2 × gap-sm)` with tabular numerals. Measured in the lab, both stages: 130.75px wide and the + key at 82.75px for 4, 9, 10 and 99; a third character (−10, 100) still grows it (140.13px). This ships now: it is a layout fix, not a tuned value.
 - **Lab state:** concept A's saved session still carries the old `--sc-shadow-stepper-window` seed. Nothing reads it; procedure D drops it at apply.
 - `tokens:verify`, `tokens:map:check`, `tokens:swift:check`, `test:scripts`, `npm run build` and `build:lib` exit 0.
+
+### 2026-10-07: Stepper key hover is the Button primary hover; pressed one accent step darker
+
+**Status:** Accepted. Levi, in the lab: "hover should be the same as my button, my accent color and pressed should be a shade darker accent token, the plus and minus should fade to white when the button is on hover."
+
+| Token | Was | Now |
+| --- | --- | --- |
+| `color.stepper.keyHover` | surface.deepSunk | `{color.control.keyHoverFill}` (teal.600, the Button primary hover) |
+| `color.stepper.keyHoverInk` | (new) | `{color.control.keyHoverInk}` (white) |
+| `color.stepper.keyPressed` | (new; press read keyHover) | `{color.brand.accentDeep}` (teal.700, the Button primary press fill) |
+| `color.stepper.keyPressedInk` | (new) | `{color.text.onAccent}` (white) |
+
+- **Aliases, not copies:** each points at the Button's semantic token, so a later Button retune carries to the Stepper. `verify-contrast.mjs` now follows a semantic-to-semantic alias in the same mode (it threw on one before); `tokens-to-css`, `tokens-to-swift` and the token map already did.
+- **Fade:** the glyph is `currentColor` and the key already transitions `color` on `motion.hover` (200ms), so the ± fades to white on hover with no new motion token.
+- **AA guard:** the label-on-fill check gains both Stepper pairs (6 pairs pass in both modes).
+- **Shipped now:** this is Levi's direction, so it ships without a record; hover and press turn teal on the shipped Stepper today. Key rest, shade, lift and the roll stay flat until his record.
+- **Hover shadow:** stays the Stepper's rest key shadow (hover derived from rest), not `control.keyHover`, so a flat shipped key does not grow a lift on hover.
+- **Lab:** the registry no longer seeds `keyHover` (= rest). The four seed values Claude had placed in concept A's saved session (`keyHover` and the removed `window`, light and dark) were deleted only where they still equalled the seed; nothing Levi set was touched. Computed style in both stages and modes: hover rgb(4 121 125) / white, pressed rgb(5 98 104) / white.
+- `tokens:verify`, `tokens:map:check`, `tokens:swift:check`, `test:scripts`, `npm run build` and `build:lib` exit 0.

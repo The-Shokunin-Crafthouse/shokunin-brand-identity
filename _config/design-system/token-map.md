@@ -5,7 +5,7 @@
 # Design Token Map — The Shokunin Crafthouse · Brand Identity
 
 **Generated** from `tokens/primitives.json` + `tokens/semantic.json`.
-**Source fingerprint:** `ea2bc2bbea5b` · **186 primitives · 210 semantic tokens.**
+**Source fingerprint:** `cb6cd3fc5af4` · **186 primitives · 213 semantic tokens.**
 
 > **This file is a mirror, not the source.** `tokens/*.json` is upstream; this document and the Figma
 > library are generated from / synced to it. It previously claimed the opposite — that both were
@@ -587,7 +587,10 @@ channel-triplet primitives) rather than an alias to a single primitive.
 |---|---|---|---|---|---|---|
 | `color/stepper/track` | `--sc-color-stepper-track` | `color/warmGray/200` | `#D8D1CC` | `color/dark/well` | `#1F252C` | 2026-10-07 · Stepper material (physical-controls Tier 1: ± as small Drams 036 keys on a recessed pill; the numeral sits flat, no window, Levi 2026-10-07), tuned in sc-tune. |
 | `color/stepper/key` | `--sc-color-stepper-key` | _literal_ | `rgb(var(--sc-p-color-ink-rgb) / 0)` | _literal_ | `rgb(var(--sc-p-color-ink-rgb) / 0)` | 2026-10-07 · Stepper material (physical-controls Tier 1: ± as small Drams 036 keys on a recessed pill; the numeral sits flat, no window, Levi 2026-10-07), tuned in sc-tune. |
-| `color/stepper/keyHover` | `--sc-color-stepper-key-hover` | `color/warmGray/300` | `#B0A69C` | `color/dark/raised2` | `#3B4249` | 2026-10-07 · Stepper material (physical-controls Tier 1: ± as small Drams 036 keys on a recessed pill; the numeral sits flat, no window, Levi 2026-10-07), tuned in sc-tune. |
+| `color/stepper/keyHover` | `--sc-color-stepper-key-hover` | `color/control/keyHoverFill` | `⚠ unresolved` | `color/control/keyHoverFill` | `⚠ unresolved` | 2026-10-07 · Stepper material (physical-controls Tier 1), Levi's direction in the lab: hover is his Button primary hover, pressed one accent step darker. |
+| `color/stepper/keyHoverInk` | `--sc-color-stepper-key-hover-ink` | `color/control/keyHoverInk` | `⚠ unresolved` | `color/control/keyHoverInk` | `⚠ unresolved` | 2026-10-07 · Stepper material (physical-controls Tier 1), Levi's direction in the lab: hover is his Button primary hover, pressed one accent step darker. ± glyph on hover = control.keyHoverInk (white), fading in on the hover transition. |
+| `color/stepper/keyPressed` | `--sc-color-stepper-key-pressed` | `color/brand/accentDeep` | `⚠ unresolved` | `color/brand/accentDeep` | `⚠ unresolved` | 2026-10-07 · Stepper material (physical-controls Tier 1), Levi's direction in the lab: hover is his Button primary hover, pressed one accent step darker. |
+| `color/stepper/keyPressedInk` | `--sc-color-stepper-key-pressed-ink` | `color/text/onAccent` | `⚠ unresolved` | `color/text/onAccent` | `⚠ unresolved` | 2026-10-07 · Stepper material (physical-controls Tier 1), Levi's direction in the lab: hover is his Button primary hover, pressed one accent step darker. ± glyph while pressed = text.onAccent (white), as the Button primary's pressed label. |
 | `color/stepper/keyShade` | `--sc-color-stepper-key-shade` | _literal_ | `rgb(var(--sc-p-color-ink-rgb) / 0)` | _literal_ | `rgb(var(--sc-p-color-ink-rgb) / 0)` | 2026-10-07 · Stepper material (physical-controls Tier 1: ± as small Drams 036 keys on a recessed pill; the numeral sits flat, no window, Levi 2026-10-07), tuned in sc-tune. |
 
 ### Typography · Semantic
