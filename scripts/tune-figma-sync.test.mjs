@@ -133,3 +133,19 @@ test('a shadow that aliases another shadow syncs its target\'s layers per mode',
   assert.deepEqual(byName('shadow/stepper/keyHover'), byName('shadow/control/keyHover'), 'light layers equal the target');
   assert.deepEqual(byName('shadow/stepper/dark/keyHover'), byName('shadow/control/dark/keyHover'), 'dark layers equal the target');
 });
+
+/*
+ * A channel triplet ("0 0 0", composed as rgb(var(--sc-p-color-black-rgb) / A))
+ * is not a colour a Figma variable can hold. The generator threw on the first
+ * new one (color.blackRgb, 2026-10-08); it is code-only, and the semantic
+ * colours composed from it sync as resolved colours.
+ */
+test('a channel-triplet primitive is code-only, never parsed as a colour', () => {
+  const { code, md } = run('--tokens', 'Primitives:color/blackRgb,color.card.glass.clear.dark');
+  assert.match(md, /color\.blackRgb/, 'the triplet is named in the report');
+  const ops = opsOf(code);
+  assert.ok(!ops.some((o) => o.collection === 'Primitives' && /blackRgb/.test(o.name)), 'no Primitives op for the triplet');
+  const tint = ops.find((o) => o.name === 'color/card/glass/clear/dark');
+  assert.equal(tint.values.Dark.color.a, 0.2);
+  assert.ok(!/Primitives:color\/blackRgb/.test(code), 'the triplet is not in the library check');
+});
