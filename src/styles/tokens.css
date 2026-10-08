@@ -774,8 +774,6 @@
   --sc-size-progress-bar-height: var(--sc-p-space-4);
   --sc-size-progress-circular: var(--sc-p-space-48);
   --sc-size-progress-circular-stroke: var(--sc-p-space-4);
-  --sc-size-progress-bar-height-active: var(--sc-p-space-micro-6);
-  --sc-size-progress-hit-slop: var(--sc-p-space-micro-22);
   --sc-size-input-icon: var(--sc-p-space-20);
   --sc-size-input-clear: var(--sc-p-space-16);
   --sc-size-input-clear-target: var(--sc-p-space-32);
@@ -1213,8 +1211,6 @@
   --sc-size-progress-bar-height: var(--sc-p-space-4);
   --sc-size-progress-circular: var(--sc-p-space-48);
   --sc-size-progress-circular-stroke: var(--sc-p-space-4);
-  --sc-size-progress-bar-height-active: var(--sc-p-space-micro-6);
-  --sc-size-progress-hit-slop: var(--sc-p-space-micro-22);
   --sc-size-input-icon: var(--sc-p-space-20);
   --sc-size-input-clear: var(--sc-p-space-16);
   --sc-size-input-clear-target: var(--sc-p-space-32);

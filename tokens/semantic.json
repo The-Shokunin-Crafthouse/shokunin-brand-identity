@@ -1397,18 +1397,6 @@
         "$value": "{space.4}",
         "$description": "Sprint 4 addition · circular stroke width (4px).",
         "$extensions": { "modes": { "light": "{space.4}", "dark": "{space.4}" } }
-      },
-      "bar-height-active": {
-        "$type": "dimension",
-        "$value": "{space.micro.6}",
-        "$description": "Sprint 5 addition · Drams #4/#5 (Volume Visible Track / Standard Volume) · interactive bar variant, active/dragging track thickness (6px). Thumbless — the track itself thickens one micro-step beyond bar-height (4px) instead of surfacing a drag handle.",
-        "$extensions": { "modes": { "light": "{space.micro.6}", "dark": "{space.micro.6}" } }
-      },
-      "hit-slop": {
-        "$type": "dimension",
-        "$value": "{space.micro.22}",
-        "$description": "Sprint 5 addition · Drams #5 (Standard Volume) · interactive bar variant, invisible hit-area padding above/below the visual track (block padding on the interactive wrapper, not the track itself). Judgment call: the brief asked for a ~44px hit target; 44 has no home on the layout or micro ladder, so this uses micro.22 (22px) top + bottom around the 4px track = 48px total — meets/exceeds the touch-target guideline while staying token-derived. Logged in ProgressIndicator.tokens.md.",
-        "$extensions": { "modes": { "light": "{space.micro.22}", "dark": "{space.micro.22}" } }
       }
     },
     "input": {

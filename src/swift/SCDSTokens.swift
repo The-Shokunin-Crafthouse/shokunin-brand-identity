@@ -171,8 +171,8 @@ public enum SCDS {
     public static let semanticVersion = "0.1.0"
     public static let sourceGenerated = "2026-05-26"
     public static let primitivesHash = "41d576559668277a"
-    public static let semanticHash = "f7ff4f62caa437ec"
-    public static let tokenCount = 290
+    public static let semanticHash = "7307f349489d8ed4"
+    public static let tokenCount = 288
   }
 
   // MARK: - Color
@@ -1281,12 +1281,6 @@ public enum SCDS {
 
     /// `size.progress.circular-stroke`
     public static let progressCircularStroke: CGFloat = 4
-
-    /// `size.progress.bar-height-active`
-    public static let progressBarHeightActive: CGFloat = 6
-
-    /// `size.progress.hit-slop`
-    public static let progressHitSlop: CGFloat = 22
 
     /// `size.input.icon`
     public static let inputIcon: CGFloat = 20

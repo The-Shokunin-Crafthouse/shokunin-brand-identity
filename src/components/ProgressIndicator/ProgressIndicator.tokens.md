@@ -42,10 +42,10 @@ All progress transitions suppressed.
 
 ## Interactive bar → Slider (2026-10-07)
 
-The interactive bar moved to its own component, `Slider` (`src/components/Slider/`), with its own `--sc-*-slider-*` tokens. A progress indicator is read; a slider is moved (Levi, 2026-10-07). Every ProgressIndicator variant is a flat meter. `<ProgressIndicator variant="bar" interactive>` still renders a `Slider` for one release; use `Slider` directly.
+The interactive bar moved to its own component, `Slider` (`src/components/Slider/`), with its own `--sc-*-slider-*` tokens. A progress indicator is read; a slider is moved (Levi, 2026-10-07). Every ProgressIndicator variant is a flat meter. The deprecated `interactive` prop was removed 2026-10-08 (Levi); use `Slider`.
 
 **Min-fill (bar)**
 
 Fill width is `max(pct%, var(--sc-size-progress-bar-height))` instead of a bare `pct%`. At `value = 0` the fill still renders at the track's own height (4px, a small circle rather than nothing). **Judgment call:** reuses `--sc-size-progress-bar-height` as the floor rather than a dedicated min-fill token; the track's own thickness is the smallest a fill can read as a fill, and it stays correct if bar-height moves.
 
-`--sc-size-progress-bar-height-active` and `--sc-size-progress-hit-slop` stay published, with no SCDS consumer since the split (the Slider reads `--sc-size-slider-track-active` and `--sc-size-slider-hit-slop`, same values).
+`size.progress.bar-height-active` and `size.progress.hit-slop` were retired 2026-10-08 (Levi; no consumer in any studio repo). The Slider reads `--sc-size-slider-track-active` and `--sc-size-slider-hit-slop`.

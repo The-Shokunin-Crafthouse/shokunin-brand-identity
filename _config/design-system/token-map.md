@@ -5,7 +5,7 @@
 # Design Token Map — The Shokunin Crafthouse · Brand Identity
 
 **Generated** from `tokens/primitives.json` + `tokens/semantic.json`.
-**Source fingerprint:** `e1d84ccf077e` · **187 primitives · 290 semantic tokens.**
+**Source fingerprint:** `b505af8bad7d` · **187 primitives · 288 semantic tokens.**
 
 > **This file is a mirror, not the source.** `tokens/*.json` is upstream; this document and the Figma
 > library are generated from / synced to it. It previously claimed the opposite — that both were
@@ -992,8 +992,6 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | `size/progress/bar-height` | `--sc-size-progress-bar-height` | `space/4` | `4px` | `space/4` | `4px` | Sprint 4 addition · bar progress indicator height (4px). |
 | `size/progress/circular` | `--sc-size-progress-circular` | `space/48` | `48px` | `space/48` | `48px` | Sprint 4 addition · circular progress indicator diameter (48px). |
 | `size/progress/circular-stroke` | `--sc-size-progress-circular-stroke` | `space/4` | `4px` | `space/4` | `4px` | Sprint 4 addition · circular stroke width (4px). |
-| `size/progress/bar-height-active` | `--sc-size-progress-bar-height-active` | `space/micro/6` | `6px` | `space/micro/6` | `6px` | Sprint 5 addition · Drams #4/#5 (Volume Visible Track / Standard Volume) · interactive bar variant, active/dragging track thickness (6px). |
-| `size/progress/hit-slop` | `--sc-size-progress-hit-slop` | `space/micro/22` | `22px` | `space/micro/22` | `22px` | Sprint 5 addition · Drams #5 (Standard Volume) · interactive bar variant, invisible hit-area padding above/below the visual track (block padding on the interactive wrapper, not the track itself). |
 
 #### `size/input`
 
