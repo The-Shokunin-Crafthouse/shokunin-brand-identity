@@ -5,7 +5,7 @@
 # Design Token Map — The Shokunin Crafthouse · Brand Identity
 
 **Generated** from `tokens/primitives.json` + `tokens/semantic.json`.
-**Source fingerprint:** `58044eda254a` · **186 primitives · 254 semantic tokens.**
+**Source fingerprint:** `c1189888bf00` · **186 primitives · 266 semantic tokens.**
 
 > **This file is a mirror, not the source.** `tokens/*.json` is upstream; this document and the Figma
 > library are generated from / synced to it. It previously claimed the opposite — that both were
@@ -618,6 +618,15 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | `color/input/adornment` | `--sc-color-input-adornment` | `color/warmGray/500` | `#5A5750` | `color/dark/textSecondary` | `#C9C7C3` | 2026-10-07 · Input material (physical-controls Tier 1), tuned in sc-tune. |
 | `color/input/divider` | `--sc-color-input-divider` | `color/warmGray/300` | `#B0A69C` | `color/dark/raised2` | `#3B4249` | 2026-10-07 · Input material (physical-controls Tier 1), tuned in sc-tune. |
 
+#### `color/card`
+
+| Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
+|---|---|---|---|---|---|---|
+| `color/card/well` | `--sc-color-card-well` | `color/surface/sunk` | `⚠ unresolved` | `color/surface/sunk` | `⚠ unresolved` | 2026-10-07 · Card material (physical-controls Tier 2: two materials, a raised plate lit from the top left and a recessed well; an interactive plate presses on click), tuned in sc-tune. |
+| `color/card/plate` | `--sc-color-card-plate` | `color/surface/page` | `⚠ unresolved` | `color/surface/page` | `⚠ unresolved` | 2026-10-07 · Card material (physical-controls Tier 2: two materials, a raised plate lit from the top left and a recessed well; an interactive plate presses on click), tuned in sc-tune. |
+| `color/card/interactive` | `--sc-color-card-interactive` | `color/surface/sunk` | `⚠ unresolved` | `color/surface/sunk` | `⚠ unresolved` | 2026-10-07 · Card material (physical-controls Tier 2: two materials, a raised plate lit from the top left and a recessed well; an interactive plate presses on click), tuned in sc-tune. |
+| `color/card/interactiveHover` | `--sc-color-card-interactive-hover` | `color/surface/deepSunk` | `⚠ unresolved` | `color/surface/deepSunk` | `⚠ unresolved` | 2026-10-07 · Card material (physical-controls Tier 2: two materials, a raised plate lit from the top left and a recessed well; an interactive plate presses on click), tuned in sc-tune. |
+
 ### Typography · Semantic
 
 #### `font/text`
@@ -663,6 +672,7 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | `space/component/padding/sm` | `--sc-space-component-padding-sm` | `space/8` | `8px` | `space/8` | `8px` | Small component padding · 8px. |
 | `space/component/padding/md` | `--sc-space-component-padding-md` | `space/16` | `16px` | `space/16` | `16px` | Medium component padding · 16px. |
 | `space/component/padding/lg` | `--sc-space-component-padding-lg` | `space/24` | `24px` | `space/24` | `24px` | Large component padding · 24px. |
+| `space/component/padding/card` | `--sc-space-component-padding-card` | `space/24` | `24px` | `space/24` | `24px` | 2026-10-07 · Card material (physical-controls Tier 2: two materials, a raised plate lit from the top left and a recessed well; an interactive plate presses on click), tuned in sc-tune. |
 | `space/component/padding-inline/sm` | `--sc-space-component-padding-inline-sm` | `space/micro/6` | `6px` | `space/micro/6` | `6px` | Sprint 4 addition · tight inline padding (6px). |
 | `space/component/padding-inline/md` | `--sc-space-component-padding-inline-md` | `space/12` | `12px` | `space/12` | `12px` | Sprint 4 addition · default inline padding (12px). |
 | `space/component/padding-inline/lg` | `--sc-space-component-padding-inline-lg` | `space/16` | `16px` | `space/16` | `16px` | Sprint 4 addition · generous inline padding (16px). |
@@ -698,6 +708,7 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
 |---|---|---|---|---|---|---|
 | `radius/field` | `--sc-radius-field` | `radius/default` | `8px` | `radius/default` | `8px` | 2026-10-07 · Input material (physical-controls Tier 1), tuned in sc-tune. |
+| `radius/card` | `--sc-radius-card` | `radius/surface` | `⚠ unresolved` | `radius/surface` | `⚠ unresolved` | 2026-10-07 · Card material (physical-controls Tier 2: two materials, a raised plate lit from the top left and a recessed well; an interactive plate presses on click), tuned in sc-tune. |
 | `radius/control` | `--sc-radius-control` | `radius/input` | `3px` | `radius/input` | `3px` | Sprint 4 addition · controls that read as inscribed rather than lifted (3px). |
 | `radius/surface` | `--sc-radius-surface` | `radius/default` | `8px` | `radius/default` | `8px` | Sprint 4 addition · raised surfaces (8px). |
 | `radius/surfaceLarge` | `--sc-radius-surface-large` | `radius/large` | `16px` | `radius/large` | `16px` | 2026-08-16 Figma variable sync · large raised surfaces (16px). |
@@ -844,6 +855,12 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | `motion/slider/squash` | `--sc-motion-slider-squash` | _literal_ | `0` | _literal_ | `0` | 2026-10-07 · Slider motion (physical-controls Tier 1; split from ProgressIndicator's interactive bar, Levi 2026-10-07), engine src/motion/elastic.js via Slider.jsx, tuned in sc-tune. |
 | `motion/slider/thumbPressScale` | `--sc-motion-slider-thumb-press-scale` | _literal_ | `0.985` | _literal_ | `0.985` | 2026-10-07 · Slider motion (physical-controls Tier 1; split from ProgressIndicator's interactive bar, Levi 2026-10-07), engine src/motion/elastic.js via Slider.jsx, tuned in sc-tune. |
 
+#### `motion/card`
+
+| Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
+|---|---|---|---|---|---|---|
+| `motion/card/pressScale` | `--sc-motion-card-press-scale` | _literal_ | `1` | _literal_ | `1` | 2026-10-07 · Card material (physical-controls Tier 2: two materials, a raised plate lit from the top left and a recessed well; an interactive plate presses on click), tuned in sc-tune. |
+
 ### Shadow · Semantic
 
 #### `shadow/control`
@@ -892,6 +909,16 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
 |---|---|---|---|---|---|---|
 | `shadow/input/well` | `--sc-shadow-input-well` | _literal_ | `inset 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)` | _literal_ | `inset 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)` | 2026-10-07 · Input material (physical-controls Tier 1: a true recessed well, the focus underline stays, a hover state), tuned in sc-tune. |
+
+#### `shadow/card`
+
+| Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
+|---|---|---|---|---|---|---|
+| `shadow/card/well` | `--sc-shadow-card-well` | _literal_ | `inset 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)` | _literal_ | `inset 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)` | 2026-10-07 · Card material (physical-controls Tier 2: two materials, a raised plate lit from the top left and a recessed well; an interactive plate presses on click), tuned in sc-tune. |
+| `shadow/card/plate` | `--sc-shadow-card-plate` | _literal_ | `inset 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)` | _literal_ | `inset 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)` | 2026-10-07 · Card material (physical-controls Tier 2: two materials, a raised plate lit from the top left and a recessed well; an interactive plate presses on click), tuned in sc-tune. |
+| `shadow/card/interactive` | `--sc-shadow-card-interactive` | _literal_ | `inset 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)` | _literal_ | `inset 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)` | 2026-10-07 · Card material (physical-controls Tier 2: two materials, a raised plate lit from the top left and a recessed well; an interactive plate presses on click), tuned in sc-tune. |
+| `shadow/card/interactiveHover` | `--sc-shadow-card-interactive-hover` | `shadow/control/inset` | `⚠ unresolved` | `shadow/control/inset` | `⚠ unresolved` | 2026-10-07 · Card material (physical-controls Tier 2: two materials, a raised plate lit from the top left and a recessed well; an interactive plate presses on click), tuned in sc-tune. |
+| `shadow/card/interactivePressed` | `--sc-shadow-card-interactive-pressed` | `shadow/control/inset` | `⚠ unresolved` | `shadow/control/inset` | `⚠ unresolved` | 2026-10-07 · Card material (physical-controls Tier 2: two materials, a raised plate lit from the top left and a recessed well; an interactive plate presses on click), tuned in sc-tune. |
 
 ### Size · Semantic
 

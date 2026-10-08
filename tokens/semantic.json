@@ -684,6 +684,12 @@
       "wellDisabled": { "$type": "color", "$value": "rgb(var(--sc-p-color-white-rgb) / 0.46)", "$description": "2026-10-07 \u00b7 Input material (physical-controls Tier 1), tuned in sc-tune. Field fill when disabled. Shipped = well; the disabled ink carries it. Light = well (white 46%, Levi 2026-10-07).", "$extensions": {"modes": {"light": "rgb(var(--sc-p-color-white-rgb) / 0.46)", "dark": "rgb(var(--sc-p-color-white-rgb) / 0.15)"}} },
       "adornment": { "$type": "color", "$value": "{color.warmGray.500}", "$description": "2026-10-07 \u00b7 Input material (physical-controls Tier 1), tuned in sc-tune. Leading icon, suffix text, clear and trailing icons. = text.secondary values.", "$extensions": { "modes": { "light": "{color.warmGray.500}", "dark": "{color.dark.textSecondary}" } } },
       "divider": { "$type": "color", "$value": "{color.warmGray.300}", "$description": "2026-10-07 \u00b7 Input material (physical-controls Tier 1), tuned in sc-tune. The rule between a prefix segment (currency, country code) and the value, as in the reference. Light warmGray.300; dark dark.raised2.", "$extensions": { "modes": { "light": "{color.warmGray.300}", "dark": "{color.dark.raised2}" } } }
+    },
+    "card": {
+      "well": { "$type": "color", "$value": "{color.surface.sunk}", "$description": "2026-10-07 \u00b7 Card material (physical-controls Tier 2: two materials, a raised plate lit from the top left and a recessed well; an interactive plate presses on click), tuned in sc-tune. Well ground (the default variant). Shipped = surface.sunk (today); its own role so the card tunes without moving other sunk surfaces.", "$extensions": { "modes": { "light": "{color.surface.sunk}", "dark": "{color.surface.sunk}" } } },
+      "plate": { "$type": "color", "$value": "{color.surface.page}", "$description": "2026-10-07 \u00b7 Card material (physical-controls Tier 2: two materials, a raised plate lit from the top left and a recessed well; an interactive plate presses on click), tuned in sc-tune. Plate ground (the elevated variant). Shipped = surface.page (today); the lab starts from the Button key fill (surface.raised values).", "$extensions": { "modes": { "light": "{color.surface.page}", "dark": "{color.surface.page}" } } },
+      "interactive": { "$type": "color", "$value": "{color.surface.sunk}", "$description": "2026-10-07 \u00b7 Card material (physical-controls Tier 2: two materials, a raised plate lit from the top left and a recessed well; an interactive plate presses on click), tuned in sc-tune. Interactive plate ground at rest. Shipped = surface.sunk (today); the lab starts from the plate start (surface.raised values).", "$extensions": { "modes": { "light": "{color.surface.sunk}", "dark": "{color.surface.sunk}" } } },
+      "interactiveHover": { "$type": "color", "$value": "{color.surface.deepSunk}", "$description": "2026-10-07 \u00b7 Card material (physical-controls Tier 2: two materials, a raised plate lit from the top left and a recessed well; an interactive plate presses on click), tuned in sc-tune. Interactive plate ground on hover. Shipped = surface.deepSunk (today); the lab starts it equal to rest (hover derived from rest, the Button rule).", "$extensions": { "modes": { "light": "{color.surface.deepSunk}", "dark": "{color.surface.deepSunk}" } } }
     }
   },
   "border": {
@@ -718,6 +724,7 @@
   },
   "radius": {
     "field": { "$type": "dimension", "$value": "{radius.default}", "$description": "2026-10-07 \u00b7 Input material (physical-controls Tier 1), tuned in sc-tune. Levi's reference (2026-10-07), scaled x0.8 to the 16px body: the 6px corner scales to 4.8px; the nearest radius step is 3px (radius.input). Its own role so the field tunes without moving other controls. Levi, 2026-10-07: 8px (radius.default); was 3px (radius.input).", "$extensions": {"modes": {"light": "{radius.default}", "dark": "{radius.default}"}} },
+    "card": { "$type": "dimension", "$value": "{radius.surface}", "$description": "2026-10-07 \u00b7 Card material (physical-controls Tier 2: two materials, a raised plate lit from the top left and a recessed well; an interactive plate presses on click), tuned in sc-tune. Corner. Shipped = radius.surface (8px, today); its own role so the card tunes without moving the Button and Alert, which share radius.surface.", "$extensions": { "modes": { "light": "{radius.surface}", "dark": "{radius.surface}" } } },
     "control": {
       "$type": "dimension",
       "$value": "{radius.input}",
@@ -834,6 +841,13 @@
     },
     "input": {
       "well": { "$type": "shadow", "$value": "inset 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)", "$description": "2026-10-07 \u00b7 Input material (physical-controls Tier 1: a true recessed well, the focus underline stays, a hover state), tuned in sc-tune. Recess of the well. Shipped with zero alpha (flat): Levi's filled-field reference (2026-10-07) has no shadow; record Input 2026-10-07-2237 keeps it flat.", "$extensions": { "modes": { "light": "inset 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)", "dark": "inset 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)" } } }
+    },
+    "card": {
+      "well": { "$type": "shadow", "$value": "inset 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)", "$description": "2026-10-07 \u00b7 Card material (physical-controls Tier 2: two materials, a raised plate lit from the top left and a recessed well; an interactive plate presses on click), tuned in sc-tune. Recess of the well. Shipped with zero alpha (flat, today); the lab starts from the top-left recess (SegmentedControl 1645 track).", "$extensions": { "modes": { "light": "inset 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)", "dark": "inset 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)" } } },
+      "plate": { "$type": "shadow", "$value": "inset 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)", "$description": "2026-10-07 \u00b7 Card material (physical-controls Tier 2: two materials, a raised plate lit from the top left and a recessed well; an interactive plate presses on click), tuned in sc-tune. Lift of the plate. Shipped with zero alpha (flat, today); the lab starts from shadow.control.key, the Button key, lit from the top left.", "$extensions": { "modes": { "light": "inset 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)", "dark": "inset 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)" } } },
+      "interactive": { "$type": "shadow", "$value": "inset 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)", "$description": "2026-10-07 \u00b7 Card material (physical-controls Tier 2: two materials, a raised plate lit from the top left and a recessed well; an interactive plate presses on click), tuned in sc-tune. Lift of the interactive plate at rest. Shipped with zero alpha (flat, today); the lab starts from shadow.control.key.", "$extensions": { "modes": { "light": "inset 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)", "dark": "inset 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)" } } },
+      "interactiveHover": { "$type": "shadow", "$value": "{shadow.control.inset}", "$description": "2026-10-07 \u00b7 Card material (physical-controls Tier 2: two materials, a raised plate lit from the top left and a recessed well; an interactive plate presses on click), tuned in sc-tune. Interactive plate on hover and keyboard focus. Shipped = shadow.control.inset (today, lit from the top, exempt from the light rule until applied); the lab starts it equal to rest (hover derived from rest).", "$extensions": { "modes": { "light": "{shadow.control.inset}", "dark": "{shadow.control.inset}" } } },
+      "interactivePressed": { "$type": "shadow", "$value": "{shadow.control.inset}", "$description": "2026-10-07 \u00b7 Card material (physical-controls Tier 2: two materials, a raised plate lit from the top left and a recessed well; an interactive plate presses on click), tuned in sc-tune. Interactive plate while pressed. Shipped = shadow.control.inset (today a press shows the hover inset); the lab starts from shadow.control.keyPressed.", "$extensions": { "modes": { "light": "{shadow.control.inset}", "dark": "{shadow.control.inset}" } } }
     }
   },
   "motion": {
@@ -1041,6 +1055,9 @@
       "stretch": { "$type": "number", "$value": 0.45, "$description": "2026-10-07 \u00b7 Slider motion (physical-controls Tier 1; split from ProgressIndicator's interactive bar, Levi 2026-10-07), engine src/motion/elastic.js via Slider.jsx, tuned in sc-tune. Thumb length at peak travel speed, x its height (two ends and a bar). 0 = none (shipped). Record Slider 2026-10-07-2207, concept A (Levi), applied 2026-10-07: 0.45 (the reel's Balanced preset); was 0.", "$extensions": {"modes": {"light": 0.45, "dark": 0.45}} },
       "squash": { "$type": "number", "$value": 0, "$description": "2026-10-07 \u00b7 Slider motion (physical-controls Tier 1; split from ProgressIndicator's interactive bar, Levi 2026-10-07), engine src/motion/elastic.js via Slider.jsx, tuned in sc-tune. Thumb flattening at peak travel speed, x its height. 0 = none (shipped).", "$extensions": { "modes": { "light": 0, "dark": 0 } } },
       "thumbPressScale": { "$type": "number", "$value": 0.985, "$description": "2026-10-07 \u00b7 Slider motion (physical-controls Tier 1; split from ProgressIndicator's interactive bar, Levi 2026-10-07), engine src/motion/elastic.js via Slider.jsx, tuned in sc-tune. Thumb scale while dragged (press is felt three ways, directive 4). 1 = none (shipped). Record Slider 2026-10-07-2207, concept A (Levi), applied 2026-10-07: 0.985, the Switch knob press (= motion.scale.pressButton); was 1.", "$extensions": {"modes": {"light": 0.985, "dark": 0.985}} }
+    },
+    "card": {
+      "pressScale": { "$type": "number", "$value": 1, "$description": "2026-10-07 \u00b7 Card material (physical-controls Tier 2: two materials, a raised plate lit from the top left and a recessed well; an interactive plate presses on click), tuned in sc-tune. Interactive plate press scale. 1 = no press (shipped, today); the lab starts from motion.press.card.scale (0.995: a whole card is a large target and moves less than a key). Runs on the press pair (motion.press.duration / easing); reduced motion removes it.", "$extensions": { "modes": { "light": 1, "dark": 1 } } }
     }
   },
   "font": {
@@ -1415,7 +1432,8 @@
               "dark":  "{space.24}"
             }
           }
-        }
+        },
+        "card": { "$type": "dimension", "$value": "{space.24}", "$description": "2026-10-07 \u00b7 Card material (physical-controls Tier 2: two materials, a raised plate lit from the top left and a recessed well; an interactive plate presses on click), tuned in sc-tune. Inner padding. Shipped = padding.lg (24px, today); its own role so the card tunes without moving the sections and frames that share padding.lg.", "$extensions": { "modes": { "light": "{space.24}", "dark": "{space.24}" } } }
       },
       "padding-inline": {
         "sm": {
