@@ -48,7 +48,7 @@ Superseded the bottom-rule field above. Levi's reference is a filled-field set; 
 |---|---|---|
 | `--sc-color-input-well` (`-hover`, `-focus`, `-disabled` = well) | ink 7% / white 15% | field fill, measured off the reference |
 | `--sc-shadow-input-well` | zero alpha | recess (the reference is flat) |
-| `--sc-radius-field` | 3px (= radius.input; the reference's 6px scales to 4.8) | field corner |
+| `--sc-radius-field` | 8px (= radius.default, Levi) | field corner |
 | `--sc-space-component-padding-inline-input` / `-padding-block-input` | 16 / 12 | box padding; the field is 48px tall |
 | `--sc-space-component-gap-input-inline` | 16 | between prefix, icon, value, suffix, clear, trailing |
 | `--sc-space-component-gap-input` | 4 | title, subcopy, field, helper |

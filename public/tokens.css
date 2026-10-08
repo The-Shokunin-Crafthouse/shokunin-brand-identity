@@ -466,7 +466,7 @@
   --sc-border-width-focus: var(--sc-p-border-width-focus);
   --sc-border-width-accent: var(--sc-p-border-width-accent);
   --sc-border-focus-offset: var(--sc-p-space-micro-2);
-  --sc-radius-field: var(--sc-p-radius-input);
+  --sc-radius-field: var(--sc-p-radius-default);
   --sc-radius-control: var(--sc-p-radius-input);
   --sc-radius-surface: var(--sc-p-radius-default);
   --sc-radius-surface-large: var(--sc-p-radius-large);
@@ -869,7 +869,7 @@
   --sc-border-width-focus: var(--sc-p-border-width-focus);
   --sc-border-width-accent: var(--sc-p-border-width-accent);
   --sc-border-focus-offset: var(--sc-p-space-micro-2);
-  --sc-radius-field: var(--sc-p-radius-input);
+  --sc-radius-field: var(--sc-p-radius-default);
   --sc-radius-control: var(--sc-p-radius-input);
   --sc-radius-surface: var(--sc-p-radius-default);
   --sc-radius-surface-large: var(--sc-p-radius-large);

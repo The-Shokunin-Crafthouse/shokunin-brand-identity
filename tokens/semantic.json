@@ -717,7 +717,7 @@
     }
   },
   "radius": {
-    "field": { "$type": "dimension", "$value": "{radius.input}", "$description": "2026-10-07 \u00b7 Input material (physical-controls Tier 1), tuned in sc-tune. Levi's reference (2026-10-07), scaled x0.8 to the 16px body: the 6px corner scales to 4.8px; the nearest radius step is 3px (radius.input). Its own role so the field tunes without moving other controls.", "$extensions": { "modes": { "light": "{radius.input}", "dark": "{radius.input}" } } },
+    "field": { "$type": "dimension", "$value": "{radius.default}", "$description": "2026-10-07 \u00b7 Input material (physical-controls Tier 1), tuned in sc-tune. Levi's reference (2026-10-07), scaled x0.8 to the 16px body: the 6px corner scales to 4.8px; the nearest radius step is 3px (radius.input). Its own role so the field tunes without moving other controls. Levi, 2026-10-07: 8px (radius.default); was 3px (radius.input).", "$extensions": {"modes": {"light": "{radius.default}", "dark": "{radius.default}"}} },
     "control": {
       "$type": "dimension",
       "$value": "{radius.input}",

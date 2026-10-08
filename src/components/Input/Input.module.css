@@ -3,7 +3,7 @@
  *   --sc-space-component-padding-inline-input · 16 inline, inside the field box
  *   --sc-space-component-padding-block-input  · 12 block, inside the field box
  *   --sc-space-component-gap-input-inline     · 16 between prefix, icon, value, suffix, clear, trailing
- *   --sc-radius-field                         · 3 field corner (role token, = radius.input)
+ *   --sc-radius-field                         · 8 field corner (role token, = radius.default; Levi)
  *   --sc-size-input-icon                      · 20 leading / trailing icon (Phosphor, bold)
  *   --sc-size-input-clear / -clear-target     · 16 clear mark (Phosphor X, bold) in a 32 button
  *   --sc-color-input-well / -well-hover / -well-focus / -well-disabled · field fill (ink 7% light, white 15% dark)

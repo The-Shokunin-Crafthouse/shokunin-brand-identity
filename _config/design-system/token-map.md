@@ -5,7 +5,7 @@
 # Design Token Map — The Shokunin Crafthouse · Brand Identity
 
 **Generated** from `tokens/primitives.json` + `tokens/semantic.json`.
-**Source fingerprint:** `75714425f033` · **186 primitives · 254 semantic tokens.**
+**Source fingerprint:** `d8d991fd321b` · **186 primitives · 254 semantic tokens.**
 
 > **This file is a mirror, not the source.** `tokens/*.json` is upstream; this document and the Figma
 > library are generated from / synced to it. It previously claimed the opposite — that both were
@@ -697,7 +697,7 @@ channel-triplet primitives) rather than an alias to a single primitive.
 
 | Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
 |---|---|---|---|---|---|---|
-| `radius/field` | `--sc-radius-field` | `radius/input` | `3px` | `radius/input` | `3px` | 2026-10-07 · Input material (physical-controls Tier 1), tuned in sc-tune. |
+| `radius/field` | `--sc-radius-field` | `radius/default` | `8px` | `radius/default` | `8px` | 2026-10-07 · Input material (physical-controls Tier 1), tuned in sc-tune. |
 | `radius/control` | `--sc-radius-control` | `radius/input` | `3px` | `radius/input` | `3px` | Sprint 4 addition · controls that read as inscribed rather than lifted (3px). |
 | `radius/surface` | `--sc-radius-surface` | `radius/default` | `8px` | `radius/default` | `8px` | Sprint 4 addition · raised surfaces (8px). |
 | `radius/surfaceLarge` | `--sc-radius-surface-large` | `radius/large` | `16px` | `radius/large` | `16px` | 2026-08-16 Figma variable sync · large raised surfaces (16px). |

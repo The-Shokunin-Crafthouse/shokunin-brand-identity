@@ -171,7 +171,7 @@ public enum SCDS {
     public static let semanticVersion = "0.1.0"
     public static let sourceGenerated = "2026-05-26"
     public static let primitivesHash = "f96efa487bcac29d"
-    public static let semanticHash = "a1ab239e9a187b41"
+    public static let semanticHash = "55ed0cc479be7bed"
     public static let tokenCount = 254
   }
 
@@ -1075,7 +1075,7 @@ public enum SCDS {
   /// Corner radii, as authored.
   public enum Radius {
     /// `radius.field`
-    public static let field: CGFloat = 3
+    public static let field: CGFloat = 8
 
     /// `radius.control`
     public static let control: CGFloat = 3

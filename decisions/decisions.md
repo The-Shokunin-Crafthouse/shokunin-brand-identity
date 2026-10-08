@@ -2413,3 +2413,12 @@ Levi: the trailing arrow uses Phosphor's bold weight, not regular. Code: `ArrowR
 - **Non-text contrast (1.4.11):** the tinted box is under 3:1 against the page in both modes, as the sunk field was (1.14:1). The title, the value and the placeholder carry the field; logged as a gap.
 - **Figma:** the Input masters follow at the record's apply, with the variables.
 - `tokens:verify`, `tokens:map:check`, `tokens:swift:check`, `test:scripts` (17), `npm run build`, `build:lib` and `swiftc -typecheck` exit 0.
+
+### 2026-10-07: Input corner 8px; the reference's other parts stay out; the field contrast gap is accepted
+
+**Status:** Accepted. Levi, answering the three open questions: "1. 8", "2. no", "3. accept".
+
+- **Corner:** `radius.field` = `{radius.default}` (8px); was 3px (`radius.input`). Ships now; both lab stages read 8px.
+- **Scope:** the reference's select, chips, card-number group and date and time pickers are not built.
+- **Non-text contrast:** the tinted box stays under 3:1 against the page in both modes. Accepted by Levi; the title, value and placeholder carry the field.
+- `tokens:verify`, `tokens:map:check`, `tokens:swift:check`, `test:scripts` (17), `npm run build`, `build:lib` and `swiftc -typecheck` exit 0.

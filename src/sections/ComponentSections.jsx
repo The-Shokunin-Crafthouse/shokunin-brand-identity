@@ -205,7 +205,7 @@ export function InputPage() {
       ]}
       tokenRows={[
         { prop: 'Field fill', token: '--sc-color-input-well', light: 'ink 7%', dark: 'white 15%' },
-        { prop: 'Field corner', token: '--sc-radius-field', light: '3px' },
+        { prop: 'Field corner', token: '--sc-radius-field', light: '8px' },
         { prop: 'Inline padding', token: '--sc-space-component-padding-inline-input', light: '16px' },
         { prop: 'Block padding', token: '--sc-space-component-padding-block-input', light: '12px' },
         { prop: 'Slot gap', token: '--sc-space-component-gap-input-inline', light: '16px' },
