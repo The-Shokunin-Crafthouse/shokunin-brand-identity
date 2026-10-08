@@ -51,4 +51,4 @@ The refraction numbers are read by `glass.js`, which builds a displacement map f
 
 ## Figma
 
-Page `Card` (`535:2`), set `Card` (`535:43`): `Surface` (Flat, Clear light, Frosted light, Thick light, Clear dark, Frosted dark, Thick dark) x `Theme` (Light, Dark), 14 variants. Glass variants carry Figma's native Glass effect with the record's values; splay and saturation are code-only. Text property `Content`.
+Page `Card` (`535:2`), set `Card` (`535:43`): `Surface` (Flat, Clear light, Frosted light, Thick light, Clear dark, Frosted dark, Thick dark) x `Theme` (Light, Dark), 14 variants. Each glass variant's `Glass` layer reads an effect style, `glass/card/clear`, `glass/card/frosted` or `glass/card/thick` (Figma's native Glass with the record's values). Splay is set in those styles by hand (no Plugin API field); saturation is code-only. Text property `Content`.
