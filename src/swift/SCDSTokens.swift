@@ -171,8 +171,8 @@ public enum SCDS {
     public static let semanticVersion = "0.1.0"
     public static let sourceGenerated = "2026-05-26"
     public static let primitivesHash = "f96efa487bcac29d"
-    public static let semanticHash = "d4bb9f49eba786e3"
-    public static let tokenCount = 214
+    public static let semanticHash = "9ced6241f364b637"
+    public static let tokenCount = 215
   }
 
   // MARK: - Color
@@ -1217,6 +1217,9 @@ public enum SCDS {
 
     /// `motion.stepper.travel.easing`
     public static let stepperTravelEasing = SCDSEasing(0.22, 1, 0.36, 1)
+
+    /// `motion.stepper.glyphPressScale`
+    public static let stepperGlyphPressScale: CGFloat = 1
 
     /// `motion.stepper.roll`
     public static let stepperRoll: CGFloat = 0

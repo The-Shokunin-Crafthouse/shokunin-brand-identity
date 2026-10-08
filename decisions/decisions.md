@@ -2279,3 +2279,12 @@ Levi: the trailing arrow uses Phosphor's bold weight, not regular. Code: `ArrowR
 - **Disabled:** the whole control keeps its 0.6 dim, with the material flat underneath (Levi).
 - **Figma sync:** `tune-figma-sync.mjs` crashed on a shadow aliasing another shadow (`parseColor` on `undefined`; 3 `test:scripts` red). It now syncs the target's layers per mode, since effect styles carry no aliases. Test committed red first (`4b411af`); planted bug (alias branch removed) turned 4 red.
 - **Checks:** computed style in both lab stages and both modes: Stepper hover and press shadows equal `control.keyHover` / `keyPressed`. `tokens:verify` (light rule included), `tokens:map:check`, `tokens:swift:check`, `test:scripts` (17), `npm run build` and `build:lib` exit 0.
+
+### 2026-10-07: the Stepper ± gets its own press scale (shipped at 1)
+
+**Status:** Accepted. Levi: "is the plus and minus signs also scaling on press? i cant tell, if not add it."
+
+- **Measured:** it did scale, but only with the whole key at `motion.press.scale` 0.985: the 16px glyph went to 15.76px, a quarter pixel.
+- **Added:** `motion.stepper.glyphPressScale` (number, shipped 1 = with the key only), read by `.button:active .glyph` as `scale`, on the press pair (`motion.press.duration` / `easing`), compounding with the key's scale. Reduced motion removes it. Icon instances carry `styles.glyph`.
+- **Lab start:** 0.85, Claude's start so the press reads; Levi sets the value. Measured in the lab with the forced active state: concept A 16 → 13.4px, Shipped 16 → 15.76px (unchanged).
+- `tokens:verify`, `tokens:map:check`, `tokens:swift:check`, `test:scripts`, `npm run build` and `build:lib` exit 0.

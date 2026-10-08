@@ -173,7 +173,8 @@ export const REGISTRY = {
     // window height, an odometer) is Claude's start, not the reel's.
     jsTokens: [...reel('stepper', { press: false }).jsTokens, '--sc-motion-stepper-roll'],
     seed: {
-      overrides: { ...reel('stepper', { press: false }).seed.overrides, '--sc-motion-stepper-roll': '1' },
+      // Glyph press scale 0.85: Claude's start so the press reads; Levi tunes it.
+      overrides: { ...reel('stepper', { press: false }).seed.overrides, '--sc-motion-stepper-roll': '1', '--sc-motion-stepper-glyph-press-scale': '0.85' },
       springs: reel('stepper', { press: false }).seed.springs,
       // ± keys = the Button key at rest (hover and press follow the Button
       // primary's accent tokens, Levi 2026-10-07); pill = the top-left

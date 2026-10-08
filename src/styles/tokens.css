@@ -517,6 +517,7 @@
   --sc-motion-tooltip-squash: 0;
   --sc-motion-stepper-travel-duration: var(--sc-p-motion-duration-micro);
   --sc-motion-stepper-travel-easing: var(--sc-p-motion-easing-out);
+  --sc-motion-stepper-glyph-press-scale: 1;
   --sc-motion-stepper-roll: 0;
   --sc-motion-stepper-stretch: 0;
   --sc-motion-stepper-squash: 0;
@@ -880,6 +881,7 @@
   --sc-motion-tooltip-squash: 0;
   --sc-motion-stepper-travel-duration: var(--sc-p-motion-duration-micro);
   --sc-motion-stepper-travel-easing: var(--sc-p-motion-easing-out);
+  --sc-motion-stepper-glyph-press-scale: 1;
   --sc-motion-stepper-roll: 0;
   --sc-motion-stepper-stretch: 0;
   --sc-motion-stepper-squash: 0;

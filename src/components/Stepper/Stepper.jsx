@@ -133,7 +133,7 @@ export function Stepper({
         onPointerLeave={stopHold}
         onPointerCancel={stopHold}
       >
-        <Icon glyph={Minus} weight="bold" size="sm" />
+        <Icon glyph={Minus} weight="bold" size="sm" className={styles.glyph} />
       </button>
 
       <span
@@ -161,7 +161,7 @@ export function Stepper({
         onPointerLeave={stopHold}
         onPointerCancel={stopHold}
       >
-        <Icon glyph={Plus} weight="bold" size="sm" />
+        <Icon glyph={Plus} weight="bold" size="sm" className={styles.glyph} />
       </button>
     </div>
   );

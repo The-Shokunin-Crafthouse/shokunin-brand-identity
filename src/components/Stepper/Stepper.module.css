@@ -9,6 +9,7 @@
  *   --sc-shadow-stepper-key-hover / -key-pressed · hover lift and press (= Button primary: control.keyHover / keyPressed)
  *   --sc-motion-stepper-travel-duration / -easing · readout roll (Stepper.jsx; inert while roll, stretch and squash are 0)
  *   --sc-motion-stepper-roll / -stretch / -squash  · roll distance and numeral stretch/squash (Stepper.jsx; 0 = off)
+ *   --sc-motion-stepper-glyph-press-scale · ± glyph's own press scale, on top of the key's (1 = with the key only)
  *   --sc-color-text-primary         · button ink + readout numeral
  *   --sc-color-text-disabled        · disabled button + readout
  *   --sc-color-border-focus         · focus ring
@@ -71,6 +72,15 @@
   color: var(--sc-color-stepper-key-pressed-ink);
   box-shadow: var(--sc-shadow-stepper-key-pressed);
   transform: scale(var(--sc-motion-press-scale));
+}
+
+/* The ± glyph presses on its own scale too, on top of the key's (Levi:
+   the key's 0.985 alone is too small to see on a 16px glyph). */
+.glyph {
+  transition: scale var(--sc-motion-press-duration) var(--sc-motion-press-easing);
+}
+.button:active:not(:disabled) .glyph {
+  scale: var(--sc-motion-stepper-glyph-press-scale);
 }
 
 .button:focus-visible {
@@ -149,6 +159,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .button { transition: none; }
+  .button, .glyph { transition: none; }
   .button:active:not(:disabled) { transform: none; }
+  .button:active:not(:disabled) .glyph { scale: none; }
 }

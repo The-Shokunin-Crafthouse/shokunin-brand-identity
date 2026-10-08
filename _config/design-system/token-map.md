@@ -5,7 +5,7 @@
 # Design Token Map — The Shokunin Crafthouse · Brand Identity
 
 **Generated** from `tokens/primitives.json` + `tokens/semantic.json`.
-**Source fingerprint:** `cbb4965c2a74` · **186 primitives · 214 semantic tokens.**
+**Source fingerprint:** `66f055f500e8` · **186 primitives · 215 semantic tokens.**
 
 > **This file is a mirror, not the source.** `tokens/*.json` is upstream; this document and the Figma
 > library are generated from / synced to it. It previously claimed the opposite — that both were
@@ -796,6 +796,7 @@ channel-triplet primitives) rather than an alias to a single primitive.
 |---|---|---|---|---|---|---|
 | `motion/stepper/travel/duration` | `--sc-motion-stepper-travel-duration` | `motion/duration/micro` | `200ms` | `motion/duration/micro` | `200ms` | 2026-10-07 · Stepper readout roll (physical-controls Tier 1), engine src/motion/elastic.js via Stepper.jsx, tuned in sc-tune. |
 | `motion/stepper/travel/easing` | `--sc-motion-stepper-travel-easing` | `motion/easing/out` | `cubic-bezier(0.22, 1, 0.36, 1)` | `motion/easing/out` | `cubic-bezier(0.22, 1, 0.36, 1)` | 2026-10-07 · Stepper readout roll (physical-controls Tier 1), engine src/motion/elastic.js via Stepper.jsx, tuned in sc-tune. |
+| `motion/stepper/glyphPressScale` | `--sc-motion-stepper-glyph-press-scale` | _literal_ | `1` | _literal_ | `1` | 2026-10-07 · Stepper (physical-controls Tier 1), Levi: the ± should visibly scale on press. |
 | `motion/stepper/roll` | `--sc-motion-stepper-roll` | _literal_ | `0` | _literal_ | `0` | 2026-10-07 · Stepper readout roll (physical-controls Tier 1), engine src/motion/elastic.js via Stepper.jsx, tuned in sc-tune. |
 | `motion/stepper/stretch` | `--sc-motion-stepper-stretch` | _literal_ | `0` | _literal_ | `0` | 2026-10-07 · Stepper readout roll (physical-controls Tier 1), engine src/motion/elastic.js via Stepper.jsx, tuned in sc-tune. |
 | `motion/stepper/squash` | `--sc-motion-stepper-squash` | _literal_ | `0` | _literal_ | `0` | 2026-10-07 · Stepper readout roll (physical-controls Tier 1), engine src/motion/elastic.js via Stepper.jsx, tuned in sc-tune. |
