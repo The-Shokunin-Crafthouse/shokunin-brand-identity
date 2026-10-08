@@ -2269,3 +2269,13 @@ Levi: the trailing arrow uses Phosphor's bold weight, not regular. Code: `ArrowR
 - **Hover shadow:** stays the Stepper's rest key shadow (hover derived from rest), not `control.keyHover`, so a flat shipped key does not grow a lift on hover.
 - **Lab:** the registry no longer seeds `keyHover` (= rest). The four seed values Claude had placed in concept A's saved session (`keyHover` and the removed `window`, light and dark) were deleted only where they still equalled the seed; nothing Levi set was touched. Computed style in both stages and modes: hover rgb(4 121 125) / white, pressed rgb(5 98 104) / white.
 - `tokens:verify`, `tokens:map:check`, `tokens:swift:check`, `test:scripts`, `npm run build` and `build:lib` exit 0.
+
+### 2026-10-07: Stepper hover and press shadows are the Button primary's; the disabled dim stays
+
+**Status:** Accepted. Levi, answering the two open questions: hover shadow "same as my button component"; "dim is good".
+
+- **Hover:** new `shadow.stepper.keyHover` = `{shadow.control.keyHover}`, read by `.button:hover`. Shipped, a flat key now lifts on hover, as the Button does.
+- **Press (cascade, Claude):** `shadow.stepper.keyPressed` = `{shadow.control.keyPressed}` (was zero alpha), so hover and press both match the Button and a press does not drop the lift to nothing. The lab no longer seeds `keyPressed`; Claude's two seed values in concept A (light, dark) were removed where they still equalled the seed.
+- **Disabled:** the whole control keeps its 0.6 dim, with the material flat underneath (Levi).
+- **Figma sync:** `tune-figma-sync.mjs` crashed on a shadow aliasing another shadow (`parseColor` on `undefined`; 3 `test:scripts` red). It now syncs the target's layers per mode, since effect styles carry no aliases. Test committed red first (`4b411af`); planted bug (alias branch removed) turned 4 red.
+- **Checks:** computed style in both lab stages and both modes: Stepper hover and press shadows equal `control.keyHover` / `keyPressed`. `tokens:verify` (light rule included), `tokens:map:check`, `tokens:swift:check`, `test:scripts` (17), `npm run build` and `build:lib` exit 0.
