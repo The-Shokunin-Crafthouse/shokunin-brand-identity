@@ -171,8 +171,8 @@ public enum SCDS {
     public static let semanticVersion = "0.1.0"
     public static let sourceGenerated = "2026-05-26"
     public static let primitivesHash = "f96efa487bcac29d"
-    public static let semanticHash = "6f523ae38b16717d"
-    public static let tokenCount = 278
+    public static let semanticHash = "ba9c8cb68a9375ea"
+    public static let tokenCount = 282
   }
 
   // MARK: - Color
@@ -1168,6 +1168,9 @@ public enum SCDS {
     /// `size.card.glass.subtle.splay`
     public static let cardGlassSubtleSplay: CGFloat = 57
 
+    /// `size.card.glass.subtle.saturation`
+    public static let cardGlassSubtleSaturation: CGFloat = 100
+
     /// `size.card.glass.regular.frost`
     public static let cardGlassRegularFrost: CGFloat = 9
 
@@ -1180,6 +1183,9 @@ public enum SCDS {
     /// `size.card.glass.regular.splay`
     public static let cardGlassRegularSplay: CGFloat = 57
 
+    /// `size.card.glass.regular.saturation`
+    public static let cardGlassRegularSaturation: CGFloat = 100
+
     /// `size.card.glass.heavy.frost`
     public static let cardGlassHeavyFrost: CGFloat = 16
 
@@ -1191,6 +1197,9 @@ public enum SCDS {
 
     /// `size.card.glass.heavy.splay`
     public static let cardGlassHeavySplay: CGFloat = 57
+
+    /// `size.card.glass.heavy.saturation`
+    public static let cardGlassHeavySaturation: CGFloat = 100
 
     /// `size.icon.xs`
     public static let iconXs: CGFloat = 12
@@ -1711,6 +1720,16 @@ public enum SCDS {
         dark: [
             SCDSShadowLayer(inset: true, x: 1, y: 1, blur: 0, spread: 0, rgb: (1, 1, 1), alpha: 0.45),
             SCDSShadowLayer(inset: true, x: -1, y: -1, blur: 0, spread: 0, rgb: (1, 1, 1), alpha: 0.225),
+        ]
+    )
+
+    /// `shadow.card.glass.text` · 1 layers
+    public static let cardGlassText = SCDSShadow(
+        light: [
+            SCDSShadowLayer(inset: false, x: 0, y: 0, blur: 0, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0),
+        ],
+        dark: [
+            SCDSShadowLayer(inset: false, x: 0, y: 0, blur: 0, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0),
         ]
     )
   }

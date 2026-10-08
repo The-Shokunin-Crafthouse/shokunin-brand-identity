@@ -22,6 +22,8 @@ Regular is Levi's Figma Glass effect: light -45deg 30%, refraction 65, depth 68,
 | `--sc-size-card-glass-{level}-depth` | 40 | 68 | 85 | band = depth/100 of the half short side |
 | `--sc-size-card-glass-{level}-splay` | 57 | 57 | 57 | falloff (1 - t)^p, p = 1 + 3 x (1 - splay/100) |
 | `--sc-color-card-glass-hover` | | | | interactive hover veil (white 8% / 5%) |
+| `--sc-size-card-glass-{level}-saturation` | 100 | 100 | 100 | backdrop saturation in percent (100 = none) |
+| `--sc-shadow-card-glass-text` | | | | text halo on glass (zero offset; shipped zero alpha) |
 
 The refraction numbers are read by `glass.js`, which builds a displacement map for each card's size and corner and applies it as `backdrop-filter: url(#…)` (Chromium only). Safari and Firefox keep frost, tint and rim.
 
@@ -39,5 +41,6 @@ The refraction numbers are read by `glass.js`, which builds a displacement map f
 
 - Shadow and filter changes snap; only the ground and the press scale transition.
 - Disabled glass loses its rim and refraction and keeps its frost.
-- Reduced transparency: glass becomes the flat card. Forced colors: an inset edge, no filter.
+- Glass becomes the opaque flat card under reduced transparency, more contrast, and on an engine with no backdrop-filter. Forced colors: an inset edge, no filter.
+- One glass layer: never nest glass or stack glass cards.
 - Glass text contrast depends on the backdrop; measure over the real one.

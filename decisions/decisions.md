@@ -2485,3 +2485,23 @@ Levi: the trailing arrow uses Phosphor's bold weight, not regular. Code: `ArrowR
 - **Removed:** `color.card.{well,plate,interactive,interactiveHover}` and `shadow.card.{well,plate,interactive,interactiveHover,interactivePressed}` (made on this branch, never on main or in Figma). Kept: `padding.card`, `radius.card`, `motion.card.pressScale` (1).
 - **`shadow.control.inset`:** Card no longer reads it; no SCDS consumer remains. Money Bags' vendored Swift test reads `SCDS.Shadow.controlInset`, so it is held (the `control.raised` precedent) and the verify-light exemption now names that consumer.
 - **Lab:** `?c=Card` shows flat and the three glass levels over a backdrop (`backdrop`: type and colour, type, none), with `interactive` and `disabled`. Claude's 17 plate and well seeds were removed from the saved concept A (all equal to the seed; nothing of Levi's was in it). The lab now fires `sc-tokens-change` when a concept or theme changes, so the glass map rebuilds.
+
+### 2026-10-08: Card glass concepts A (lightens) and B (darkens) from Levi's liquid-glass best practices; a floating shadow
+
+**Status:** Proposed in the lab; Levi picks. Levi: "give me an option B that makes glass darken instead of lighten", "take the below best practices into consideration and update concept A and B" (a pasted set: layering, legibility and contrast, performance, accessibility fallbacks, and a sample CSS), then "the glass cards dont have to be flat, you can add a subtle shadow so it looks like its floating".
+
+| Setting | A (lightens) | B (darkens) |
+| --- | --- | --- |
+| Tint, light (subtle / regular / heavy) | white 16 / 24 / 36% | ink 6 / 10 / 16% |
+| Tint, dark | white 5 / 8 / 12% | black 20 / 32 / 45% |
+| Saturation (both modes) | 140 / 160 / 180% | 140 / 160 / 180% |
+| Rim | the shipped rim (Figma light 20 / 30 / 45%) | same |
+| Floating shade (added to the rim) | 4 / 6 / 10px offset on the 135deg diagonal, 16 / 24 / 32px blur; warm gray 12 / 14 / 18% light, black 24 / 30 / 38% dark | same |
+| Text halo | `0 0 2px` white 60% light, black 60% dark | white 50% light, black 70% dark |
+| Hover veil | lightens (white 8% / 5%) | darkens (ink 6% light, black 12% dark) |
+
+- **Taken from the best practices:** vibrancy (a saturation boost, new `size.card.glass.{level}.saturation`, shipped 100 = none); legibility (a text halo, new `shadow.card.glass.text`, zero offset, shipped zero alpha); opaque fallbacks (glass becomes the flat card under `prefers-reduced-transparency`, `prefers-contrast: more`, and on an engine with no `backdrop-filter`; forced colors already drew an edge); a depth shadow so the glass floats (Levi); docs rules for layering (glass is a floating layer, never the content layer) and performance (one glass layer, no nesting; group controls into one card).
+- **Not taken from the sample CSS:** its straight-down shadow and top-edge glow (the system light is top left; the floating shade falls on the 135deg diagonal, graded by verify-light at apply); its `box-shadow` transition and `will-change` (rule 6: shadow changes snap, cards repeat); its hover lift (press stays on scale); its 1px border (the Figma rim carries the edge); its fixed dark fallback colours (the fallback is the flat card's token).
+- **Shipped look unchanged:** saturation 100 and a zero-alpha halo render as today. Every concept value is Claude's proposal; the record carries Levi's pick and any edits.
+- **Lab state:** concepts A and B written on a non-saving page (`?c=Nonexistent`); concept A had no values of Levi's. The view zoom is set to 1 so the four cards fit.
+- `tokens:verify`, `tokens:map:check`, `tokens:swift:check`, `test:scripts` (20), `npm run build`, `build:lib` and `swiftc -typecheck` exit 0.

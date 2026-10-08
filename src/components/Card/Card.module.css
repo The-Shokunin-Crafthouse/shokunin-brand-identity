@@ -6,6 +6,8 @@
  *   --sc-color-card-glass-hover              · interactive glass hover veil
  *   --sc-shadow-card-glass-{level}           · glass rim, lit from the top left (Figma light -45deg)
  *   --sc-size-card-glass-{level}-frost       · backdrop blur radius (Figma frost; CSS takes half)
+ *   --sc-size-card-glass-{level}-saturation  · backdrop saturation in percent (100 = none)
+ *   --sc-shadow-card-glass-text              · text halo on glass (zero offset)
  *   --sc-size-card-glass-{level}-refraction / -depth / -splay · read by glass.js (Figma units)
  *   --sc-motion-card-press-scale             · press scale (shipped 1: no press)
  *   --sc-motion-press-duration / -easing     · press timing (shared press pair)
@@ -52,6 +54,7 @@
   --glass-refraction: var(--sc-size-card-glass-subtle-refraction);
   --glass-depth: var(--sc-size-card-glass-subtle-depth);
   --glass-splay: var(--sc-size-card-glass-subtle-splay);
+  --glass-saturation: var(--sc-size-card-glass-subtle-saturation);
 }
 .regular {
   --glass-tint: var(--sc-color-card-glass-regular);
@@ -60,6 +63,7 @@
   --glass-refraction: var(--sc-size-card-glass-regular-refraction);
   --glass-depth: var(--sc-size-card-glass-regular-depth);
   --glass-splay: var(--sc-size-card-glass-regular-splay);
+  --glass-saturation: var(--sc-size-card-glass-regular-saturation);
 }
 .heavy {
   --glass-tint: var(--sc-color-card-glass-heavy);
@@ -68,13 +72,16 @@
   --glass-refraction: var(--sc-size-card-glass-heavy-refraction);
   --glass-depth: var(--sc-size-card-glass-heavy-depth);
   --glass-splay: var(--sc-size-card-glass-heavy-splay);
+  --glass-saturation: var(--sc-size-card-glass-heavy-saturation);
 }
 .glass {
   background-color: var(--glass-tint);
   box-shadow: var(--glass-rim);
-  /* Figma frost is a blur radius; CSS blur() takes the standard deviation, half of it. */
-  -webkit-backdrop-filter: blur(calc(var(--glass-frost) / 2));
-  backdrop-filter: var(--glass-refract, ) blur(calc(var(--glass-frost) / 2));
+  text-shadow: var(--sc-shadow-card-glass-text);
+  /* Figma frost is a blur radius; CSS blur() takes the standard deviation, half of it.
+   * Saturation is in percent (100 = none). */
+  -webkit-backdrop-filter: blur(calc(var(--glass-frost) / 2)) saturate(calc(var(--glass-saturation) / 100));
+  backdrop-filter: var(--glass-refract, ) blur(calc(var(--glass-frost) / 2)) saturate(calc(var(--glass-saturation) / 100));
 }
 .glass.interactive:hover:not(:disabled) {
   background-image: linear-gradient(135deg, var(--sc-color-card-glass-hover), var(--sc-color-card-glass-hover));
@@ -98,7 +105,7 @@
 }
 .glass.interactive:disabled {
   box-shadow: none;
-  backdrop-filter: blur(calc(var(--glass-frost) / 2));
+  backdrop-filter: blur(calc(var(--glass-frost) / 2)) saturate(calc(var(--glass-saturation) / 100));
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -106,13 +113,24 @@
   .interactive:active:not(:disabled) { transform: none; }
 }
 
-/* Reduced transparency: glass becomes the flat card. */
-@media (prefers-reduced-transparency: reduce) {
+/* Opaque fallbacks: glass becomes the flat card when transparency is turned
+ * off, when more contrast is asked for, and on an engine with no backdrop-filter
+ * (a bare tint over unknown content is not readable). */
+@media (prefers-reduced-transparency: reduce), (prefers-contrast: more) {
+  .glass {
+    background-color: var(--sc-color-card-flat);
+    background-image: none;
+    box-shadow: none;
+    text-shadow: none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
   .glass {
     background-color: var(--sc-color-card-flat);
     box-shadow: none;
-    -webkit-backdrop-filter: none;
-    backdrop-filter: none;
+    text-shadow: none;
   }
 }
 

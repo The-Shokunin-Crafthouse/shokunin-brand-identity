@@ -151,7 +151,7 @@ export function CardPage() {
       callouts={[
         { title: 'Flat is the default', body: 'Most cards hold reading content on the page ground. The floating surface separates them without a frame or a shadow.' },
         { title: 'Glass needs something behind it', body: 'Over a plain ground glass is only a tint and a rim. Use it where it sits over imagery, colour or content that scrolls beneath it.' },
-        { title: 'Refraction is Chromium only', body: 'Only Chromium applies an SVG filter to the backdrop. Safari and Firefox keep the frost, tint and rim. Reduced transparency turns glass into the flat card; forced colours draw an edge.' },
+        { title: 'Refraction is Chromium only', body: 'Only Chromium applies an SVG filter to the backdrop. Safari and Firefox keep the frost, tint and rim. Reduced transparency, more contrast and an engine with no backdrop filter all turn glass into the opaque flat card; forced colours draw an edge.' },
       ]}
       states={[
         { name: 'Flat', token: '--sc-color-card-flat', render: <Card><CardBody>The floating surface. No border, no shadow.</CardBody></Card> },
@@ -175,9 +175,10 @@ export function CardPage() {
         { prop: 'Glass hover veil', token: '--sc-color-card-glass-hover' },
         { prop: 'Press scale', token: '--sc-motion-card-press-scale', light: '1' },
       ]}
-      rulesTitle="Four rules for flat and glass."
+      rulesTitle="Five rules for flat and glass."
       rules={[
-        { name: 'Glass over something', text: 'Glass on a plain ground reads as a tinted box. Put it over imagery, colour or scrolling content, or use the flat card.' },
+        { name: 'Glass over something', text: 'Glass is for a layer that floats over content: imagery, colour or content that scrolls beneath it. Never the content layer itself; on a plain ground it reads as a tinted box, so use the flat card.' },
+        { name: 'One glass layer', text: 'Never nest glass in glass or stack glass cards: each backdrop filter is a GPU pass, and stacked ones stutter on scroll. Group related controls inside one glass card.' },
         { name: 'Check the text over the real backdrop', text: 'Glass contrast depends on what sits behind it. Measure the text over the brightest and darkest backdrop it will meet; reach for a heavier level, or the flat card, when it falls short.' },
         { name: 'Interactive gets a handler or it is not interactive', text: 'An interactive card renders a button. Use it only when there is a real action; a decorative interactive card is a focus trap with nothing to do.' },
         { name: 'One padding step', text: 'Card interiors pad with the card padding role. Tightening makes the card read as chrome; loosening wastes the surface.' },
