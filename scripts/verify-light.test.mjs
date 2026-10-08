@@ -71,3 +71,30 @@ test('a component that transitions box-shadow fails', () => {
   assert.equal(f.length, 1);
   assert.match(f[0], /Card\.module\.css.*box-shadow/);
 });
+
+/*
+ * A role token that aliases an exempt token inherits the exemption: the
+ * light is graded once, at the target. Card's role tokens ship equal to
+ * today by aliasing shadow.control.inset (decisions 2026-10-07, Card tokens);
+ * once a record replaces the alias with values, those values are graded.
+ */
+const TOP = `inset 0 1px 3px ${INK}`;
+const withInset = (tokens) => ({ shadow: { control: { inset: shadow(TOP) }, card: tokens } });
+const EX = [{ path: 'shadow.control.inset', why: 'test' }];
+
+test('a role token aliasing an exempt token inherits its exemption', () => {
+  const f = checkLight({ semantic: withInset({ hover: shadow('{shadow.control.inset}') }), css: [], exempt: EX });
+  assert.deepEqual(f, []);
+});
+
+test('a role token copying an exempt token by value is graded', () => {
+  const f = checkLight({ semantic: withInset({ hover: shadow(TOP) }), css: [], exempt: EX });
+  assert.equal(f.length, 2); // light and dark mode
+  assert.match(f[0], /shadow\.card\.hover.*diagonal/);
+});
+
+test('only the mode that aliases the exempt token is excused', () => {
+  const f = checkLight({ semantic: withInset({ hover: shadow('{shadow.control.inset}', TOP) }), css: [], exempt: EX });
+  assert.equal(f.length, 1);
+  assert.match(f[0], /shadow\.card\.hover \(dark\).*diagonal/);
+});
