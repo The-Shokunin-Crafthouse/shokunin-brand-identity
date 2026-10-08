@@ -1,0 +1,97 @@
+{
+  "tool": "sc-tune",
+  "version": 3,
+  "component": "Input",
+  "kind": "component",
+  "recorded": "2026-10-08T04:37:33.321Z",
+  "theme": "light",
+  "notes": "",
+  "pick": null,
+  "concepts": [
+    {
+      "id": "A",
+      "notes": "",
+      "props": {
+        "label": "Email",
+        "description": "",
+        "placeholder": "you@studio.com",
+        "value": "",
+        "icon": "none",
+        "prefix": "",
+        "suffix": "",
+        "trailing": "none",
+        "clearable": true,
+        "helper": "",
+        "error": "",
+        "disabled": false
+      },
+      "sound": {
+        "file": null,
+        "volume": 0.7,
+        "rate": 1,
+        "shipped": null,
+        "trigger": "ships silent"
+      },
+      "tokens": [],
+      "pins": {}
+    }
+  ],
+  "derived": {},
+  "tokenCount": 43,
+  "state": {
+    "component": "Input",
+    "notes": "",
+    "active": "A",
+    "concepts": [
+      {
+        "id": "A",
+        "overrides": {
+          "all": {},
+          "light": {},
+          "dark": {}
+        },
+        "shadowAdj": {
+          "all": {},
+          "light": {},
+          "dark": {}
+        },
+        "springs": {},
+        "pins": {},
+        "notes": "",
+        "props": {
+          "label": "Email",
+          "description": "",
+          "placeholder": "you@studio.com",
+          "value": "",
+          "icon": "none",
+          "prefix": "",
+          "suffix": "",
+          "trailing": "none",
+          "clearable": true,
+          "helper": "",
+          "error": "",
+          "disabled": false
+        },
+        "sound": {
+          "file": null,
+          "volume": 0.7,
+          "rate": 1
+        }
+      }
+    ],
+    "pick": {
+      "id": null,
+      "reason": ""
+    },
+    "view": {
+      "theme": "light",
+      "zoom": 1,
+      "ground": "--sc-color-surface-page",
+      "compare": false,
+      "blind": false,
+      "order": null,
+      "slow": 1
+    },
+    "updated": "2026-10-08T04:36:39.859Z"
+  }
+}
