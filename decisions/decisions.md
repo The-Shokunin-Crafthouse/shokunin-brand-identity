@@ -2442,3 +2442,29 @@ Levi: the trailing arrow uses Phosphor's bold weight, not regular. Code: `ArrowR
 - **Masters re-seated to code:** the `TextField` set (`9:487`) predated the code (a pill box, a 1px stroke, the sunk fill, the title in primary ink). All variants now read the code: title `text/label/ui` in `text/secondary` (disabled `text/disabled`); box fill `color/input/well` (`wellDisabled` on Disabled) written with its resolved colour, no stroke, corners on `radius/field`, padding on `padding-inline/input` / `padding-block/input`, slot gap on `gap/input-inline`, `shadow/input/well`; value in `text/body/default/regular`, placeholder ink on Default, Hover, Focus and Disabled, primary on Active and Error. New boolean properties `Leading icon` (envelope, bold, 20px on `size/input/icon`, `color/input/adornment`), `Clear` (x, bold, 16px on `size/input/clear`) and `Subcopy` (a `text/caption` line under the title), all off by default as in code; the `Value` text property defaults to the placeholder. The focus ring keeps its 2px stroke at the 2px offset, corner 12 (8 + offset + width). New variant `State=Error` (`528:95`): a 1px inside edge on `color/status/error` (weight on `border/width/default`) and the error text in `text/caption`. Readback with every slot on matches the code measurement: title 18, gap 4, subcopy 20 (code 20.14), box at y 46 and 48 tall, icon 20 at (16, 14), value from 52 to W − 48, clear 16 at (W − 32, 16). Publishing the library is Levi's step.
 - **Docs:** `Input.tokens.md` (Figma ids).
 - `tokens:verify`, `tokens:map:check`, `tokens:swift:check`, `npm run build`, `build:lib` and `swiftc -typecheck` exit 0.
+
+### 2026-10-07: Card material tokens for its sc-tune session (shipped equal to today)
+
+**Status:** Accepted. Tier 2, the first component (branch `feat/physical-controls-4`). Audit row: two materials, a raised `plate` lit from the top left and a recessed `well`; an interactive plate presses on click; no `box-shadow` transition.
+
+| Token | Shipped (= today) | Lab start (concept seed) |
+| --- | --- | --- |
+| `color.card.well` (default) | surface.sunk | unchanged |
+| `shadow.card.well` | zero alpha | the top-left recess (SegmentedControl 1645 track) |
+| `color.card.plate` (elevated) | surface.page | the Button key fill (surface.raised values) |
+| `shadow.card.plate` | zero alpha | shadow.control.key values |
+| `color.card.interactive` / `.interactiveHover` | surface.sunk / surface.deepSunk | surface.raised values / = rest |
+| `shadow.card.interactive` / `.interactiveHover` / `.interactivePressed` | zero alpha / control.inset / control.inset (aliases) | control.key / = rest / control.keyPressed values |
+| `motion.card.pressScale` | 1 | 0.995 (motion.press.card.scale) |
+| `space.component.padding.card` | padding.lg (24px) | unchanged |
+| `radius.card` | radius.surface (8px) | unchanged |
+
+- **Variants map to materials:** `default` is the well, `elevated` the plate, `interactive` the plate that presses. The API is unchanged; whether `interactive` reads the plate tokens directly is a call for the apply step, once Levi's values say whether they differ.
+- **Role tokens for shared values (finding 5):** `padding.lg` (sections, frames) and `radius.surface` (Button, Alert) stay shared; the card reads `padding.card` and `radius.card`. The brief named `gap-lg` too: the Card stylesheet only listed it in a comment and never read it, so there is no gap token and the stale comment is gone.
+- **Hover and focus** both read `interactiveHover` (today's card treats them the same); press reads `interactivePressed` and scales on the shared press pair (`motion.press.duration` / `easing`). Reduced motion removes the scale.
+- **Disabled is flat (directive 5):** no lift, no hover ground, `not-allowed` cursor. Today a disabled interactive card still took the hover ground; that was the only behaviour change, a five-state fix.
+- **Forced colors:** an inset `CanvasText` outline on every card (`ButtonBorder` interactive, `GrayText` disabled) and a `Highlight` focus ring; outline, so no size change. Verified in headless Chromium with `forcedColors: 'active'`.
+- **No box-shadow transition:** the card transitions its ground and `transform` only.
+- **verify-light:** the two role tokens that alias `shadow.control.inset` were graded again through the alias and failed. A mode that aliases an exempt token now inherits the exemption (the light is graded once, at the target); a copy by value is still graded. Tests committed red first (`7ebb335`); planted bug (inherit line disabled) turned 3 red. `shadow.control.inset` stays exempt until the Card record replaces the aliases; then it has no SCDS consumer and the retire check runs.
+- **Checks:** main and this branch compared on the Card docs page by computed style, every state (rest, hover, pressed, keyboard focus), both modes: 168 values, 8 differ, all inert (a zero-alpha shadow for `none`, an identity matrix for `none`); the 6 card screenshots are byte-identical. `tokens:verify`, `tokens:map:check`, `tokens:swift:check`, `test:scripts` (20), `npm run build`, `build:lib` and `swiftc -typecheck` exit 0.
+- **Lab:** `?c=Card`, 21 tokens, no console errors. Shown on one stage: well, plate and interactive plate side by side (`show` picks one). Served from this session's worktree on port 5174, because the main checkout's 5173 server serves `main`.

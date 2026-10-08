@@ -28,6 +28,7 @@ import { NavBar } from '../../src/components/NavBar/NavBar.jsx';
 import { PlusUnderline } from '../../src/components/PlusUnderline/PlusUnderline.jsx';
 import { Slider } from '../../src/components/Slider/Slider.jsx';
 import { Input } from '../../src/components/Input/Input.jsx';
+import { Card } from '../../src/components/Card/Card.jsx';
 import { MagnifyingGlass, EnvelopeSimple, MapPin, Eye, Copy, CalendarBlank, Clock, CaretDown } from '@phosphor-icons/react';
 import switchCss from '../../src/components/Switch/Switch.module.css?raw';
 import stepperCss from '../../src/components/Stepper/Stepper.module.css?raw';
@@ -39,6 +40,7 @@ import navBarCss from '../../src/components/NavBar/NavBar.module.css?raw';
 import underlineCss from '../../src/components/PlusUnderline/PlusUnderline.module.css?raw';
 import sliderCss from '../../src/components/Slider/Slider.module.css?raw';
 import inputCss from '../../src/components/Input/Input.module.css?raw';
+import cardCss from '../../src/components/Card/Card.module.css?raw';
 import s from './Tune.module.css';
 
 const SEGMENTS = ['day', 'week', 'month'];
@@ -109,6 +111,9 @@ const KNOB = {
 /* Input slot options: Phosphor glyphs, rendered bold by the Input. */
 const INPUT_ICONS = { none: undefined, search: MagnifyingGlass, mail: EnvelopeSimple, location: MapPin };
 const INPUT_TRAILING = { none: undefined, eye: Eye, copy: Copy, calendar: CalendarBlank, clock: Clock, caret: CaretDown };
+
+/* Card variants by material: the well (default), the plate (elevated), the interactive plate. */
+const CARD_VARIANTS = { well: 'default', plate: 'elevated', 'interactive plate': 'interactive' };
 
 /* Set on a keyboard step so the lab's tick plays on keys only, never on a drag. */
 let keyStep = false;
@@ -453,6 +458,53 @@ export const REGISTRY = {
         />
       </div>
     ),
+  },
+  Card: {
+    css: [cardCss],
+    // Material starts (physical-controls Tier 2), lit from the top left:
+    // plate and interactive plate = the Button key lift on surface.raised
+    // (hover derived from rest, pressed = keyPressed); well = the top-left
+    // recess on today's sunk ground. Press scale = motion.press.card.scale.
+    // Claude's start only; every value is Levi's. They ship flat.
+    seed: {
+      overrides: { '--sc-motion-card-press-scale': '0.995' },
+      scoped: perMode((m) => ({
+        '--sc-shadow-card-well': m.recess,
+        '--sc-color-card-plate': m.keyFill,
+        '--sc-shadow-card-plate': m.key,
+        '--sc-color-card-interactive': m.keyFill,
+        '--sc-color-card-interactive-hover': m.keyFill,
+        '--sc-shadow-card-interactive': m.key,
+        '--sc-shadow-card-interactive-hover': m.key,
+        '--sc-shadow-card-interactive-pressed': m.keyPressed,
+      })),
+    },
+    shippedSound: null,
+    trigger: 'ships silent',
+    props: [
+      { name: 'show', type: 'enum', options: ['all', ...Object.keys(CARD_VARIANTS)], default: 'all' },
+      { name: 'disabled', type: 'boolean', default: false },
+      { name: 'title', type: 'text', default: 'Studio journal' },
+      { name: 'body', type: 'text', default: 'Notes from the bench.' },
+    ],
+    play: null,
+    render: (p) => {
+      const shown = p.show === 'all' ? Object.keys(CARD_VARIANTS) : [p.show];
+      return (
+        <div style={{ display: 'grid', gridTemplateColumns: `repeat(${shown.length}, calc(var(--sc-space-layout-stack-xl) * 2))`, gap: 'var(--sc-space-layout-stack-sm)' }}>
+          {shown.map((m) => {
+            const variant = CARD_VARIANTS[m];
+            return (
+              <Card key={m} variant={variant} {...(variant === 'interactive' ? { onClick: () => {}, disabled: p.disabled } : {})}>
+                <span style={{ display: 'block', font: 'var(--sc-font-text-label-ui)', color: 'var(--sc-color-text-secondary)' }}>{m}</span>
+                <span style={{ display: 'block', font: 'var(--sc-font-text-body-default)' }}>{p.title}</span>
+                <span style={{ display: 'block', font: 'var(--sc-font-text-body-dense)', color: 'var(--sc-color-text-secondary)' }}>{p.body}</span>
+              </Card>
+            );
+          })}
+        </div>
+      );
+    },
   },
   Button: {
     css: [buttonCss],

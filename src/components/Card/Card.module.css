@@ -1,56 +1,88 @@
 /* tokens:
- *   --sc-space-component-padding-lg          · generous internal padding
- *   --sc-space-component-gap-lg              · stack rhythm inside card body
- *   --sc-radius-surface                      · corner
- *   --sc-color-surface-sunk                  · default + interactive resting bg
- *   --sc-color-surface-deep-sunk             · interactive hover bg
- *   --sc-color-surface-page                  · elevated bg (lifted against sunk)
+ *   --sc-space-component-padding-card        · inner padding (role token, = padding.lg 24)
+ *   --sc-radius-card                         · corner (role token, = radius.surface 8)
+ *   --sc-color-card-well / --sc-shadow-card-well · default: the well, a recessed ground
+ *   --sc-color-card-plate / --sc-shadow-card-plate · elevated: the plate, a raised ground
+ *   --sc-color-card-interactive / -interactive-hover · interactive plate ground, rest / hover
+ *   --sc-shadow-card-interactive / -interactive-hover / -interactive-pressed · its lift per state
+ *   --sc-motion-card-press-scale             · press scale (shipped 1: no press)
+ *   --sc-motion-press-duration / -easing     · press timing (shared press pair)
  *   --sc-color-text-primary                  · text inherits via reset
- *   --sc-shadow-control-inset                · hover/focus feedback (fill-only, no resting frame)
  *   --sc-color-border-focus / -width-focus / -focus-offset · focus ring
- *   --sc-motion-hover-duration / -easing
+ *   --sc-motion-hover-duration / -easing     · ground transition
  *
- * scds-v2 Phase 2 — fill-only elevation. The resting stroke frame is gone;
- * surface fill alone separates default (sunk) / elevated (page). Interactivity
- * is narrated by an inset shadow on hover/focus, never a resting outline.
+ * physical-controls Tier 2: two materials under the system light (top left).
+ * The well is set into the page; the plate is lifted off it, and an
+ * interactive plate presses on click. Every material value is a Card role
+ * token, shipped equal to the fill-only card (scds-v2 Phase 2) until Levi's
+ * sc-tune record applies. Disabled is flat. Shadow changes snap: cards repeat
+ * in grids, so only the ground and the press scale transition.
  */
 
 .card {
   display: block;
   width: 100%;
   text-align: left;
-  padding: var(--sc-space-component-padding-lg);
-  border-radius: var(--sc-radius-surface);
-  /* Shadow changes snap: cards repeat in grids (physical-controls Phase 0). */
-  transition: background-color var(--sc-motion-hover-duration) var(--sc-motion-hover-easing);
+  padding: var(--sc-space-component-padding-card);
+  border-radius: var(--sc-radius-card);
+  transition:
+    background-color var(--sc-motion-hover-duration) var(--sc-motion-hover-easing),
+    transform var(--sc-motion-press-duration) var(--sc-motion-press-easing);
 }
 
 .default {
-  background-color: var(--sc-color-surface-sunk);
+  background-color: var(--sc-color-card-well);
+  box-shadow: var(--sc-shadow-card-well);
+  color: var(--sc-color-text-primary);
+}
+
+.elevated {
+  background-color: var(--sc-color-card-plate);
+  box-shadow: var(--sc-shadow-card-plate);
   color: var(--sc-color-text-primary);
 }
 
 .interactive {
-  background-color: var(--sc-color-surface-sunk);
+  background-color: var(--sc-color-card-interactive);
+  box-shadow: var(--sc-shadow-card-interactive);
   color: var(--sc-color-text-primary);
   cursor: pointer;
   font: inherit;
 }
-.interactive:hover {
-  background-color: var(--sc-color-surface-deep-sunk);
-  box-shadow: var(--sc-shadow-control-inset);
+.interactive:hover:not(:disabled) {
+  background-color: var(--sc-color-card-interactive-hover);
+  box-shadow: var(--sc-shadow-card-interactive-hover);
 }
 .interactive:focus-visible {
   outline: var(--sc-border-width-focus) solid var(--sc-color-border-focus);
   outline-offset: var(--sc-border-focus-offset);
-  box-shadow: var(--sc-shadow-control-inset);
+  box-shadow: var(--sc-shadow-card-interactive-hover);
 }
-
-.elevated {
-  background-color: var(--sc-color-surface-page);
-  color: var(--sc-color-text-primary);
+.interactive:active:not(:disabled) {
+  box-shadow: var(--sc-shadow-card-interactive-pressed);
+  transform: scale(var(--sc-motion-card-press-scale));
+}
+/* Disabled is flat (directive 5): losing the material is the signal. */
+.interactive:disabled {
+  box-shadow: none;
+  cursor: not-allowed;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .card { transition: none; }
+  .interactive:active:not(:disabled) { transform: none; }
+}
+
+/* Forced colors drop every ground and shadow: an inset edge keeps each card. */
+@media (forced-colors: active) {
+  .card {
+    outline: var(--sc-border-width-default) solid CanvasText;
+    outline-offset: calc(-1 * var(--sc-border-width-default));
+  }
+  .interactive { outline-color: ButtonBorder; }
+  .interactive:disabled { outline-color: GrayText; }
+  .interactive:focus-visible {
+    outline: var(--sc-border-width-focus) solid Highlight;
+    outline-offset: var(--sc-border-focus-offset);
+  }
 }

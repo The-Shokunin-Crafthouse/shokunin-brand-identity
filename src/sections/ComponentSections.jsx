@@ -134,7 +134,7 @@ export function BadgePage() {
 export function CardPage() {
   return (
     <ComponentPage
-      id="card" label="Card" tokensN={9}
+      id="card" label="Card" tokensN={13}
       eyebrow={<>Card<Slash />depth by fill</>}
       title={<>Three surfaces. <Em>No resting stroke.</Em></>}
       lead={<>Cards separate by fill alone. Default sinks into the page; elevated lifts to the ground above it — the step in surface weight is the lift a shadow would otherwise fake. Nothing carries a resting frame. Interactivity is the only thing that draws a mark: an inset shadow on hover and focus, never an outline.</>}
@@ -145,20 +145,24 @@ export function CardPage() {
         { title: 'Interactive is a real button', body: 'The interactive variant renders as <button>, not a div with a click handler — so it is keyboard-activatable and focus-ringed for free, and an inset shadow narrates hover and focus without a border.' },
       ]}
       states={[
-        { name: 'Default', token: '--sc-color-surface-sunk', render: <Card><CardBody>A set-in tile against the page.</CardBody></Card> },
-        { name: 'Interactive · hover', token: '--sc-shadow-control-inset', render: <Card variant="interactive" onClick={noop}><CardBody>Hover or focus me.</CardBody></Card> },
-        { name: 'Elevated', token: '--sc-color-surface-page', render: <Card variant="elevated"><CardBody>Page ground, lifted by fill.</CardBody></Card> },
+        { name: 'Default', token: '--sc-color-card-well', render: <Card><CardBody>A set-in tile against the page.</CardBody></Card> },
+        { name: 'Interactive · hover', token: '--sc-shadow-card-interactive-hover', render: <Card variant="interactive" onClick={noop}><CardBody>Hover or focus me.</CardBody></Card> },
+        { name: 'Elevated', token: '--sc-color-card-plate', render: <Card variant="elevated"><CardBody>Page ground, lifted by fill.</CardBody></Card> },
       ]}
       tokenRows={[
-        { prop: 'Padding', token: '--sc-space-component-padding-lg' },
-        { prop: 'Radius', token: '--sc-radius-surface' },
-        { prop: 'Frame', token: '--sc-border-width-default' },
+        { prop: 'Padding', token: '--sc-space-component-padding-card' },
+        { prop: 'Radius', token: '--sc-radius-card' },
         { prop: 'Text', token: '--sc-color-text-primary' },
-        { prop: 'Default ground', token: '--sc-color-surface-sunk' },
-        { prop: 'Hover ground', token: '--sc-color-surface-deep-sunk' },
-        { prop: 'Elevated ground', token: '--sc-color-surface-page' },
-        { prop: 'Elevated frame', token: '--sc-color-border-strong' },
-        { prop: 'Hover motion', token: '--sc-motion-hover-duration', light: '200ms' },
+        { prop: 'Default ground (well)', token: '--sc-color-card-well' },
+        { prop: 'Well recess', token: '--sc-shadow-card-well' },
+        { prop: 'Elevated ground (plate)', token: '--sc-color-card-plate' },
+        { prop: 'Plate lift', token: '--sc-shadow-card-plate' },
+        { prop: 'Interactive ground', token: '--sc-color-card-interactive' },
+        { prop: 'Interactive hover ground', token: '--sc-color-card-interactive-hover' },
+        { prop: 'Interactive lift', token: '--sc-shadow-card-interactive' },
+        { prop: 'Hover and focus lift', token: '--sc-shadow-card-interactive-hover' },
+        { prop: 'Pressed lift', token: '--sc-shadow-card-interactive-pressed' },
+        { prop: 'Press scale', token: '--sc-motion-card-press-scale', light: '1' },
       ]}
       rulesTitle="Four rules for depth by contrast."
       rules={[
