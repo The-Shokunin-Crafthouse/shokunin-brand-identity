@@ -6,15 +6,18 @@ Spec ref: §2 Tier 3 · 3.8 · States: single-line, multi-line.
 
 | Token | Use |
 |---|---|
-| `--sc-color-surface-inverse` | tooltip ground (ink in light / near-white in dark) |
-| `--sc-color-text-on-inverse` | tooltip text (mode-inverted vs page) |
-| `--sc-space-component-padding-inline-md` | inline padding |
-| `--sc-space-component-padding-block-md` | block padding |
-| `--sc-space-component-gap-md` | arrow offset below trigger |
-| `--sc-space-component-gap-sm` | arrow leg length |
-| `--sc-radius-control` | corner |
+| `--sc-color-tooltip-surface` | tooltip ground (role token; shipped = `surface.inverse`: ink in light / near-white in dark) |
+| `--sc-color-tooltip-text` | tooltip text (role token; shipped = `text-on-inverse`) |
+| `--sc-shadow-tooltip-plate` | lift of the plate (role token; shipped zero alpha, flat). Snaps, never transitions |
+| `--sc-space-component-padding-inline-tooltip` | inline padding (role token, 12) |
+| `--sc-space-component-padding-block-tooltip` | block padding (role token, 8) |
+| `--sc-space-component-gap-tooltip` | offset between the trigger and the arrow tip (role token, 8) |
+| `--sc-size-tooltip-arrow` | arrow leg (role token, 4; 0 drops the arrow) |
+| `--sc-size-tooltip-lift` | travel of the open: starts this far above rest (role token, 4) |
+| `--sc-radius-tooltip` | corner (role token, 3) |
 | `--sc-font-text-caption-*` | body type |
-| `--sc-motion-reveal-duration` + `-easing` | fade + slide-in |
+| `--sc-motion-tooltip-travel-duration` + `-easing` | fade + slide-in (role tokens, = `motion.reveal`) |
+| `--sc-border-width-default` | forced-colors edge |
 | `--sc-space-layout-stack-xl` | multi-line max-width derivation (`calc(* 3)`) |
 
 ## States × tokens
@@ -29,6 +32,14 @@ Spec ref: §2 Tier 3 · 3.8 · States: single-line, multi-line.
 ## Mode behavior
 
 `surface-inverse` and `text-on-inverse` are the two new color semantic tokens added in Sprint 4. They swap mode roles — in light mode tooltip is dark, in dark mode tooltip is light. Always reads as inverted from the surrounding surface.
+
+## Role tokens
+
+Physical-controls Tier 2 (CONTEXT finding 5): the tooltip reads its own role tokens instead of the shared padding, gap, radius and inverse tokens, so a tune in sc-tune never moves a sibling. Each shipped equal to today (2026-10-08).
+
+## Forced colors
+
+The ground and the shadow drop; an inset `CanvasText` outline keeps the bubble's edge and the arrow is drawn in `CanvasText`.
 
 ## Reduced-motion
 

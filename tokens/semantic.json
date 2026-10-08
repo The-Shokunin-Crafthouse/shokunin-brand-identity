@@ -1288,7 +1288,7 @@
   "size": {
     "tooltip": {
       "arrow": { "$type": "dimension", "$value": "{space.4}", "$description": "2026-10-08 \u00b7 Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. Arrow leg: the triangle under the bubble is this tall and twice this wide. Shipped = gap.sm (4px, today); its own role. 0 drops the arrow.", "$extensions": { "modes": { "light": "{space.4}", "dark": "{space.4}" } } },
-      "lift": { "$type": "dimension", "$value": "{space.4}", "$description": "2026-10-08 \u00b7 Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. How far the bubble rises as it opens (it starts this far below its rest). Shipped = gap.sm (4px, today); its own role, apart from the arrow.", "$extensions": { "modes": { "light": "{space.4}", "dark": "{space.4}" } } }
+      "lift": { "$type": "dimension", "$value": "{space.4}", "$description": "2026-10-08 \u00b7 Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. Travel of the open: the bubble starts this far above its rest and settles toward the trigger as it fades in. Shipped = gap.sm (4px, today); its own role, apart from the arrow.", "$extensions": { "modes": { "light": "{space.4}", "dark": "{space.4}" } } }
     },
     "card": {
       "glass": {

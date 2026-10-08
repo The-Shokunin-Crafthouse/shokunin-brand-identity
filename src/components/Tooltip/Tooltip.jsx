@@ -32,7 +32,7 @@ export function Tooltip({ content, multiline = false, open: forced, children }) 
     if (!open || !wrap || !tip || prefersReducedMotion()) return;
     const m = readElastic(tip, 'tooltip');
     if (!isActive(m)) return;
-    const lift = parseFloat(getComputedStyle(tip).getPropertyValue('--sc-space-component-gap-sm')) || 0;
+    const lift = parseFloat(getComputedStyle(tip).getPropertyValue('--sc-size-tooltip-lift')) || 0;
     const p = sampleEasing(m.travelEasing);
     const v = speeds(p);
     // 1 = 20% taller (stretch) or narrower (squash) at peak speed.

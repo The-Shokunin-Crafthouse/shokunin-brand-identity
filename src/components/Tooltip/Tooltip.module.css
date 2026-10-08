@@ -1,14 +1,19 @@
-/* tokens:
- *   --sc-color-surface-inverse              · inverted ground (ink in light / near-white in dark)
- *   --sc-color-text-on-inverse              · inverted ink
- *   --sc-space-component-padding-inline-md  · 12 inline
- *   --sc-space-component-padding-block-md   · 8 block
- *   --sc-space-component-gap-md             · arrow offset (8) below trigger
- *   --sc-radius-control                     · 3 corner
- *   --sc-font-text-caption-*                · 13 / regular / relaxed
+/* tokens (role tokens, physical-controls Tier 2; shipped equal to today):
+ *   --sc-color-tooltip-surface               · ground (= surface.inverse: ink in light / near-white in dark)
+ *   --sc-color-tooltip-text                  · ink (= text-on-inverse)
+ *   --sc-shadow-tooltip-plate                · lift of the plate (shipped zero alpha: flat)
+ *   --sc-space-component-padding-inline-tooltip · 12 inline
+ *   --sc-space-component-padding-block-tooltip  · 8 block
+ *   --sc-space-component-gap-tooltip         · offset (8) between the trigger and the arrow tip
+ *   --sc-size-tooltip-arrow                  · arrow leg (4; 0 drops the arrow)
+ *   --sc-size-tooltip-lift                   · travel of the open (4)
+ *   --sc-radius-tooltip                      · 3 corner
+ *   --sc-font-text-caption-*                 · 13 / regular / relaxed
  *   --sc-motion-tooltip-travel-duration / -easing · enter lift (role tokens, = motion.reveal)
  *   --sc-motion-tooltip-stretch / -squash · elastic scale on open (Tooltip.jsx; 0 = off)
- *   --sc-border-width-default               · arrow stroke (reused as triangle leg)
+ *   --sc-border-width-default                · forced-colors edge
+ *
+ * The plate's shadow snaps: only opacity and transform transition.
  */
 
 .wrapper {
@@ -18,14 +23,15 @@
 
 .tooltip {
   position: absolute;
-  bottom: calc(100% + var(--sc-space-component-gap-md));
+  bottom: calc(100% + var(--sc-space-component-gap-tooltip));
   left: 50%;
-  transform: translate(-50%, calc(var(--sc-space-component-gap-sm) * -1));
-  background-color: var(--sc-color-surface-inverse);
-  color: var(--sc-color-text-on-inverse);
-  padding-inline: var(--sc-space-component-padding-inline-md);
-  padding-block: var(--sc-space-component-padding-block-md);
-  border-radius: var(--sc-radius-control);
+  transform: translate(-50%, calc(var(--sc-size-tooltip-lift) * -1));
+  background-color: var(--sc-color-tooltip-surface);
+  color: var(--sc-color-tooltip-text);
+  box-shadow: var(--sc-shadow-tooltip-plate);
+  padding-inline: var(--sc-space-component-padding-inline-tooltip);
+  padding-block: var(--sc-space-component-padding-block-tooltip);
+  border-radius: var(--sc-radius-tooltip);
   font-family: var(--sc-font-text-caption-family);
   font-size: var(--sc-font-text-caption-size);
   font-weight: var(--sc-font-text-caption-weight);
@@ -48,15 +54,15 @@
 }
 
 .tooltip::after {
-  /* Arrow · inherits surface-inverse via border-color */
+  /* Arrow · the plate's ground via border-color */
   content: '';
   position: absolute;
   top: 100%;
   left: 50%;
   transform: translateX(-50%);
-  border-width: var(--sc-space-component-gap-sm);
+  border-width: var(--sc-size-tooltip-arrow);
   border-style: solid;
-  border-color: var(--sc-color-surface-inverse) transparent transparent transparent;
+  border-color: var(--sc-color-tooltip-surface) transparent transparent transparent;
 }
 
 .open {
@@ -79,4 +85,17 @@
 
 @media (prefers-reduced-motion: reduce) {
   .tooltip { transition: none; }
+}
+
+/* Forced colors drop the ground and the shadow: an inset edge keeps the
+ * bubble apart from the page, and the arrow is drawn in the same ink. */
+@media (forced-colors: active) {
+  .tooltip {
+    outline: var(--sc-border-width-default) solid CanvasText;
+    outline-offset: calc(-1 * var(--sc-border-width-default));
+  }
+  .tooltip::after {
+    forced-color-adjust: none;
+    border-color: CanvasText transparent transparent transparent;
+  }
 }
