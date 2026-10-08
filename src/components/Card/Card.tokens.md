@@ -48,3 +48,7 @@ The refraction numbers are read by `glass.js`, which builds a displacement map f
 - Glass becomes the opaque flat card under reduced transparency, more contrast, and on an engine with no backdrop-filter. Forced colors: an inset edge, no filter.
 - One glass layer: never nest glass or stack glass cards.
 - Glass text contrast depends on the backdrop; measure over the real one.
+
+## Figma
+
+Page `Card` (`535:2`), set `Card` (`535:43`): `Surface` (Flat, Clear light, Frosted light, Thick light, Clear dark, Frosted dark, Thick dark) x `Theme` (Light, Dark), 14 variants. Glass variants carry Figma's native Glass effect with the record's values; splay and saturation are code-only. Text property `Content`.
