@@ -175,11 +175,10 @@ export const REGISTRY = {
     seed: {
       overrides: { ...reel('stepper', { press: false }).seed.overrides, '--sc-motion-stepper-roll': '1' },
       springs: reel('stepper', { press: false }).seed.springs,
-      // ± keys = the Button key (hover = rest, the Button rule); pill and
-      // readout window = the top-left recess.
+      // ± keys = the Button key (hover = rest, the Button rule); pill = the
+      // top-left recess. The numeral sits flat (no window; Levi, 2026-10-07).
       scoped: perMode((m) => ({
         '--sc-shadow-stepper-track': m.recess,
-        '--sc-shadow-stepper-window': m.recess,
         '--sc-color-stepper-key': m.keyFill,
         '--sc-color-stepper-key-hover': m.keyFill,
         '--sc-color-stepper-key-shade': m.keyShade,

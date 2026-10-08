@@ -2241,3 +2241,12 @@ Levi: the trailing arrow uses Phosphor's bold weight, not regular. Code: `ArrowR
 - **Readout roll** (Claude's structure, Levi's values): on a committed step the new numeral rolls into the readout window from below (increase) or above (decrease) along the travel curve, clipped by the window, scaling with speed (1 = 20%, the Tooltip rule for text). `roll` 1 = one window height, an odometer; the reel has no roll, so that start is Claude's. Verified in the lab: concept A rolls 24.8px over the 1062ms spring; Shipped runs nothing.
 - **Disabled is flat:** a disabled control and a key at its bound lose shadow and face. Today's 0.6 dim on the whole control stays until a record decides it (open question).
 - `tokens:verify`, `tokens:map:check`, `tokens:swift:check`, `test:scripts`, `npm run build` and `build:lib` exit 0.
+
+### 2026-10-07: Stepper numeral sits flat; readout fixed to two digits (amends the Stepper tokens entry above)
+
+**Status:** Accepted. Levi, in the lab: "dont inset the number and make the width fixed to accomodate double digits so it doesnt move."
+
+- **No window:** `color.stepper.window` and `shadow.stepper.window` are removed (both shipped transparent and zero alpha, so nothing visible changes), with their CSS, forced-colors edge and lab seed. The numeral sits flat on the pill; the readout box still clips the roll.
+- **Fixed width:** the readout was `min-width: 2ch` inside border-box padding, so two digits overflowed it and the control grew at 10. Now `min-width: calc(2ch + 2 × mono letter-spacing + 2 × gap-sm)` with tabular numerals. Measured in the lab, both stages: 130.75px wide and the + key at 82.75px for 4, 9, 10 and 99; a third character (−10, 100) still grows it (140.13px). This ships now: it is a layout fix, not a tuned value.
+- **Lab state:** concept A's saved session still carries the old `--sc-shadow-stepper-window` seed. Nothing reads it; procedure D drops it at apply.
+- `tokens:verify`, `tokens:map:check`, `tokens:swift:check`, `test:scripts`, `npm run build` and `build:lib` exit 0.

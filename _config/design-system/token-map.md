@@ -5,7 +5,7 @@
 # Design Token Map — The Shokunin Crafthouse · Brand Identity
 
 **Generated** from `tokens/primitives.json` + `tokens/semantic.json`.
-**Source fingerprint:** `d5dc42b775aa` · **186 primitives · 212 semantic tokens.**
+**Source fingerprint:** `ea2bc2bbea5b` · **186 primitives · 210 semantic tokens.**
 
 > **This file is a mirror, not the source.** `tokens/*.json` is upstream; this document and the Figma
 > library are generated from / synced to it. It previously claimed the opposite — that both were
@@ -585,11 +585,10 @@ channel-triplet primitives) rather than an alias to a single primitive.
 
 | Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
 |---|---|---|---|---|---|---|
-| `color/stepper/track` | `--sc-color-stepper-track` | `color/warmGray/200` | `#D8D1CC` | `color/dark/well` | `#1F252C` | 2026-10-07 · Stepper material (physical-controls Tier 1: ± as small Drams 036 keys on a recessed pill, readout in a recessed window), tuned in sc-tune. |
-| `color/stepper/key` | `--sc-color-stepper-key` | _literal_ | `rgb(var(--sc-p-color-ink-rgb) / 0)` | _literal_ | `rgb(var(--sc-p-color-ink-rgb) / 0)` | 2026-10-07 · Stepper material (physical-controls Tier 1: ± as small Drams 036 keys on a recessed pill, readout in a recessed window), tuned in sc-tune. |
-| `color/stepper/keyHover` | `--sc-color-stepper-key-hover` | `color/warmGray/300` | `#B0A69C` | `color/dark/raised2` | `#3B4249` | 2026-10-07 · Stepper material (physical-controls Tier 1: ± as small Drams 036 keys on a recessed pill, readout in a recessed window), tuned in sc-tune. |
-| `color/stepper/keyShade` | `--sc-color-stepper-key-shade` | _literal_ | `rgb(var(--sc-p-color-ink-rgb) / 0)` | _literal_ | `rgb(var(--sc-p-color-ink-rgb) / 0)` | 2026-10-07 · Stepper material (physical-controls Tier 1: ± as small Drams 036 keys on a recessed pill, readout in a recessed window), tuned in sc-tune. |
-| `color/stepper/window` | `--sc-color-stepper-window` | _literal_ | `rgb(var(--sc-p-color-ink-rgb) / 0)` | _literal_ | `rgb(var(--sc-p-color-ink-rgb) / 0)` | 2026-10-07 · Stepper material (physical-controls Tier 1: ± as small Drams 036 keys on a recessed pill, readout in a recessed window), tuned in sc-tune. |
+| `color/stepper/track` | `--sc-color-stepper-track` | `color/warmGray/200` | `#D8D1CC` | `color/dark/well` | `#1F252C` | 2026-10-07 · Stepper material (physical-controls Tier 1: ± as small Drams 036 keys on a recessed pill; the numeral sits flat, no window, Levi 2026-10-07), tuned in sc-tune. |
+| `color/stepper/key` | `--sc-color-stepper-key` | _literal_ | `rgb(var(--sc-p-color-ink-rgb) / 0)` | _literal_ | `rgb(var(--sc-p-color-ink-rgb) / 0)` | 2026-10-07 · Stepper material (physical-controls Tier 1: ± as small Drams 036 keys on a recessed pill; the numeral sits flat, no window, Levi 2026-10-07), tuned in sc-tune. |
+| `color/stepper/keyHover` | `--sc-color-stepper-key-hover` | `color/warmGray/300` | `#B0A69C` | `color/dark/raised2` | `#3B4249` | 2026-10-07 · Stepper material (physical-controls Tier 1: ± as small Drams 036 keys on a recessed pill; the numeral sits flat, no window, Levi 2026-10-07), tuned in sc-tune. |
+| `color/stepper/keyShade` | `--sc-color-stepper-key-shade` | _literal_ | `rgb(var(--sc-p-color-ink-rgb) / 0)` | _literal_ | `rgb(var(--sc-p-color-ink-rgb) / 0)` | 2026-10-07 · Stepper material (physical-controls Tier 1: ± as small Drams 036 keys on a recessed pill; the numeral sits flat, no window, Levi 2026-10-07), tuned in sc-tune. |
 
 ### Typography · Semantic
 
@@ -800,8 +799,6 @@ channel-triplet primitives) rather than an alias to a single primitive.
 
 ### Shadow · Semantic
 
-#### `shadow/control`
-
 | Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
 |---|---|---|---|---|---|---|
 | `shadow/control/raised` | `--sc-shadow-control-raised` | _literal_ | `-4px 4px 8px rgb(var(--sc-p-color-ink-rgb) / 0.10), -2px 2px 4px rgb(var(--sc-p-color-ink-rgb) / 0.08), 4px -4px 8px rgb(var(--sc-p-color-white-rgb) / 0.90), 2px -2px 4px rgb(var(--sc-p-color-white-rgb) / 0.70)` | _literal_ | `-4px 4px 8px rgb(0 0 0 / 0.24), -2px 2px 4px rgb(0 0 0 / 0.16), 4px -4px 8px rgb(var(--sc-p-color-white-rgb) / 0.06), 2px -2px 4px rgb(var(--sc-p-color-white-rgb) / 0.04)` | SUPERSEDED 2026-10-07 by control.key (Drams OP-1 Keys); no SCDS web consumer. |
@@ -809,29 +806,13 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | `shadow/control/key` | `--sc-shadow-control-key` | _literal_ | `2px 2px 6px 0 rgb(100 91 79 / 0.50), -1px -1px 1px 1px rgb(253 250 246 / 1)` | _literal_ | `3px 3px 7px 0 rgb(0 0 0 / 0.50), -1px -1px 1px 1px rgb(219 235 255 / 0.17)` | 2026-10-07 · Button primary = Drams OP-1 Keys (drams/036), horizontal, on the page surface (Levi). |
 | `shadow/control/keyHover` | `--sc-shadow-control-key-hover` | _literal_ | `2px 2px 6px 0 rgb(100 91 79 / 0.50), -1px -1px 1px 1px rgb(253 250 246 / 1)` | _literal_ | `3px 3px 7px 0 rgb(0 0 0 / 0.50), -1px -1px 1px 1px rgb(219 235 255 / 0.17)` | 2026-10-07 · Button primary key on hover. |
 | `shadow/control/keyPressed` | `--sc-shadow-control-key-pressed` | _literal_ | `2px 2px 6px 0 rgb(100 91 79 / 0.37), -1px -1px 1px 1px rgb(253 250 246 / 0.90), inset 1px 1px 8px 0 rgb(var(--sc-p-color-white-rgb) / 0.30)` | _literal_ | `3px 3px 7px 0 rgb(0 0 0 / 0.38), -1px -1px 1px 1px rgb(219 235 255 / 0.14), inset 1px 1px 8px 0 rgb(var(--sc-p-color-white-rgb) / 0.06)` | 2026-10-07 · Button primary = Drams OP-1 Keys (drams/036), horizontal, on the page surface (Levi). |
-
-#### `shadow/switch`
-
-| Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
-|---|---|---|---|---|---|---|
 | `shadow/switch/track` | `--sc-shadow-switch-track` | _literal_ | `inset 0 0.45px 0.9px rgb(var(--sc-p-color-ink-rgb) / 0.25)` | _literal_ | `inset 0 0.45px 0.9px rgb(0 0 0 / 0.45)` | 2026-10-07 · Switch restyled to the Drams Standard Switch (drams/001) at SCDS size. |
 | `shadow/switch/thumb` | `--sc-shadow-switch-thumb` | _literal_ | `0 0.37px 0.52px -0.28px rgb(var(--sc-p-color-ink-rgb) / 0.26), 0 0.95px 1.33px -0.56px rgb(var(--sc-p-color-ink-rgb) / 0.25), 0 1.9px 2.66px -0.84px rgb(var(--sc-p-color-ink-rgb) / 0.24), 0 3.6px 5.05px -1.13px rgb(var(--sc-p-color-ink-rgb) / 0.22), 0 7.16px 10.03px -1.41px rgb(var(--sc-p-color-ink-rgb) / 0.18), 0 15.75px 22.05px 0 rgb(var(--sc-p-color-ink-rgb) / 0.09)` | _literal_ | `0 0.37px 0.52px -0.28px rgb(0 0 0 / 0.42), 0 0.95px 1.33px -0.56px rgb(0 0 0 / 0.40), 0 1.9px 2.66px -0.84px rgb(0 0 0 / 0.38), 0 3.6px 5.05px -1.13px rgb(0 0 0 / 0.35), 0 7.16px 10.03px -1.41px rgb(0 0 0 / 0.29), 0 15.75px 22.05px 0 rgb(0 0 0 / 0.14)` | 2026-10-07 · Switch restyled to the Drams Standard Switch (drams/001) at SCDS size. |
-
-#### `shadow/segmentedControl`
-
-| Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
-|---|---|---|---|---|---|---|
 | `shadow/segmentedControl/track` | `--sc-shadow-segmented-control-track` | _literal_ | `inset 0.71px 0.71px 2px 0 rgb(var(--sc-p-color-ink-rgb) / 0.25)` | _literal_ | `inset 0.71px 0.71px 2px 0 rgb(0 0 0 / 0.45)` | 2026-10-07 · SegmentedControl material (physical-controls Tier 1), lit from the top left (Gate 1 pick 1). |
 | `shadow/segmentedControl/indicator` | `--sc-shadow-segmented-control-indicator` | _literal_ | `2px 2px 6px 0 rgb(100 91 79 / 0.50), -1px -1px 1px 1px rgb(253 250 246 / 1)` | _literal_ | `3px 3px 7px 0 rgb(0 0 0 / 0.50), -1px -1px 1px 1px rgb(219 235 255 / 0.17)` | 2026-10-07 · SegmentedControl material (physical-controls Tier 1), lit from the top left (Gate 1 pick 1). |
-
-#### `shadow/stepper`
-
-| Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
-|---|---|---|---|---|---|---|
-| `shadow/stepper/track` | `--sc-shadow-stepper-track` | _literal_ | `inset 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)` | _literal_ | `inset 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)` | 2026-10-07 · Stepper material (physical-controls Tier 1: ± as small Drams 036 keys on a recessed pill, readout in a recessed window), tuned in sc-tune. |
-| `shadow/stepper/key` | `--sc-shadow-stepper-key` | _literal_ | `0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)` | _literal_ | `0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)` | 2026-10-07 · Stepper material (physical-controls Tier 1: ± as small Drams 036 keys on a recessed pill, readout in a recessed window), tuned in sc-tune. |
-| `shadow/stepper/keyPressed` | `--sc-shadow-stepper-key-pressed` | _literal_ | `0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)` | _literal_ | `0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)` | 2026-10-07 · Stepper material (physical-controls Tier 1: ± as small Drams 036 keys on a recessed pill, readout in a recessed window), tuned in sc-tune. |
-| `shadow/stepper/window` | `--sc-shadow-stepper-window` | _literal_ | `inset 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)` | _literal_ | `inset 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)` | 2026-10-07 · Stepper material (physical-controls Tier 1: ± as small Drams 036 keys on a recessed pill, readout in a recessed window), tuned in sc-tune. |
+| `shadow/stepper/track` | `--sc-shadow-stepper-track` | _literal_ | `inset 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)` | _literal_ | `inset 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)` | 2026-10-07 · Stepper material (physical-controls Tier 1: ± as small Drams 036 keys on a recessed pill; the numeral sits flat, no window, Levi 2026-10-07), tuned in sc-tune. |
+| `shadow/stepper/key` | `--sc-shadow-stepper-key` | _literal_ | `0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)` | _literal_ | `0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)` | 2026-10-07 · Stepper material (physical-controls Tier 1: ± as small Drams 036 keys on a recessed pill; the numeral sits flat, no window, Levi 2026-10-07), tuned in sc-tune. |
+| `shadow/stepper/keyPressed` | `--sc-shadow-stepper-key-pressed` | _literal_ | `0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)` | _literal_ | `0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)` | 2026-10-07 · Stepper material (physical-controls Tier 1: ± as small Drams 036 keys on a recessed pill; the numeral sits flat, no window, Levi 2026-10-07), tuned in sc-tune. |
 
 ### Size · Semantic
 

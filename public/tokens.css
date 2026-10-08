@@ -444,7 +444,6 @@
   --sc-color-stepper-key: rgb(var(--sc-p-color-ink-rgb) / 0);
   --sc-color-stepper-key-hover: var(--sc-p-color-warm-gray-300);
   --sc-color-stepper-key-shade: rgb(var(--sc-p-color-ink-rgb) / 0);
-  --sc-color-stepper-window: rgb(var(--sc-p-color-ink-rgb) / 0);
   --sc-border-width-default: var(--sc-p-border-width-hairline);
   --sc-border-width-focus: var(--sc-p-border-width-focus);
   --sc-border-width-accent: var(--sc-p-border-width-accent);
@@ -466,7 +465,6 @@
   --sc-shadow-stepper-track: inset 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0);
   --sc-shadow-stepper-key: 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0);
   --sc-shadow-stepper-key-pressed: 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0);
-  --sc-shadow-stepper-window: inset 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0);
   --sc-motion-hover-duration: var(--sc-p-motion-duration-micro);
   --sc-motion-hover-easing: var(--sc-p-motion-easing-out);
   --sc-motion-press-duration: var(--sc-p-motion-duration-press);
@@ -805,7 +803,6 @@
   --sc-color-stepper-key: rgb(var(--sc-p-color-ink-rgb) / 0);
   --sc-color-stepper-key-hover: var(--sc-p-color-dark-raised2);
   --sc-color-stepper-key-shade: rgb(var(--sc-p-color-ink-rgb) / 0);
-  --sc-color-stepper-window: rgb(var(--sc-p-color-ink-rgb) / 0);
   --sc-border-width-default: var(--sc-p-border-width-hairline);
   --sc-border-width-focus: var(--sc-p-border-width-focus);
   --sc-border-width-accent: var(--sc-p-border-width-accent);
@@ -827,7 +824,6 @@
   --sc-shadow-stepper-track: inset 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0);
   --sc-shadow-stepper-key: 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0);
   --sc-shadow-stepper-key-pressed: 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0);
-  --sc-shadow-stepper-window: inset 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0);
   --sc-motion-hover-duration: var(--sc-p-motion-duration-micro);
   --sc-motion-hover-easing: var(--sc-p-motion-easing-out);
   --sc-motion-press-duration: var(--sc-p-motion-duration-press);

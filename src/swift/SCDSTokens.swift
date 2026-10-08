@@ -171,8 +171,8 @@ public enum SCDS {
     public static let semanticVersion = "0.1.0"
     public static let sourceGenerated = "2026-05-26"
     public static let primitivesHash = "f96efa487bcac29d"
-    public static let semanticHash = "7425f974c0f1e102"
-    public static let tokenCount = 212
+    public static let semanticHash = "00e26ebefed7eede"
+    public static let tokenCount = 210
   }
 
   // MARK: - Color
@@ -571,12 +571,6 @@ public enum SCDS {
 
     /// `color.stepper.keyShade`
     public static let stepperKeyShade = SwiftUI.Color.scdsDynamic(
-        light: (0.101961, 0.094118, 0.082353, 0),
-        dark:  (0.101961, 0.094118, 0.082353, 0)
-    )
-
-    /// `color.stepper.window`
-    public static let stepperWindow = SwiftUI.Color.scdsDynamic(
         light: (0.101961, 0.094118, 0.082353, 0),
         dark:  (0.101961, 0.094118, 0.082353, 0)
     )
@@ -1365,16 +1359,6 @@ public enum SCDS {
         ],
         dark: [
             SCDSShadowLayer(inset: false, x: 0, y: 0, blur: 0, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0),
-        ]
-    )
-
-    /// `shadow.stepper.window` · 1 layers
-    public static let stepperWindow = SCDSShadow(
-        light: [
-            SCDSShadowLayer(inset: true, x: 0, y: 0, blur: 0, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0),
-        ],
-        dark: [
-            SCDSShadowLayer(inset: true, x: 0, y: 0, blur: 0, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0),
         ]
     )
   }

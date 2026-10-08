@@ -15,9 +15,9 @@
  * sound (default true; SoundProvider can silence it app-wide).
  *
  * Readout roll (src/motion/elastic.js, tokens --sc-motion-stepper-*): on a
- * committed step the new numeral rolls into the readout window from below
- * (increase) or above (decrease), along the travel curve, lengthening and
- * narrowing with speed. Shipped, roll, stretch and squash are 0 and the
+ * committed step the new numeral rolls into the readout from below
+ * (increase) or above (decrease), clipped by its box, along the travel
+ * curve, lengthening and narrowing with speed. Shipped, roll, stretch and squash are 0 and the
  * numeral changes in place as before.
  */
 

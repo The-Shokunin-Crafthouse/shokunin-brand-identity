@@ -2,8 +2,7 @@
  *   --sc-color-stepper-track        · recessed pill ground (role token, = surface.sunk)
  *   --sc-color-stepper-key / -key-hover · ± key face at rest / hover + press (role tokens; shipped transparent / = surface.deepSunk)
  *   --sc-color-stepper-key-shade    · 135deg face shade on each key (Button key face; shipped transparent)
- *   --sc-color-stepper-window       · readout window ground (shipped transparent)
- *   --sc-shadow-stepper-track / -window · recess of the pill and of the readout window (shipped zero alpha)
+ *   --sc-shadow-stepper-track       · recess of the pill (shipped zero alpha)
  *   --sc-shadow-stepper-key / -key-pressed · key lift at rest, softened while pressed (shipped zero alpha)
  *   --sc-motion-stepper-travel-duration / -easing · readout roll (Stepper.jsx; inert while roll, stretch and squash are 0)
  *   --sc-motion-stepper-roll / -stretch / -squash  · roll distance and numeral stretch/squash (Stepper.jsx; 0 = off)
@@ -81,8 +80,12 @@
 }
 
 .readout {
-  min-width: 2ch;
+  /* Fixed to two digits, so 9 → 10 never moves the keys (Levi,
+     2026-10-07). border-box: the padding and the tracking after each digit
+     sit inside the width. A third character (−10, 100) still grows it. */
+  min-width: calc(2ch + 2 * var(--sc-font-text-mono-body-letter-spacing) + 2 * var(--sc-space-component-gap-sm));
   text-align: center;
+  font-variant-numeric: tabular-nums;
   font-family: var(--sc-font-text-mono-body-family);
   font-size: var(--sc-font-text-mono-body-size);
   font-weight: var(--sc-font-text-mono-body-weight);
@@ -91,13 +94,11 @@
   color: var(--sc-color-text-primary);
   padding-inline: var(--sc-space-component-gap-sm);
   user-select: none;
-  /* The readout window: a recess the numeral rolls through, clipped at its
-     edge. Shipped transparent and flat. */
+  /* No window, no inset (Levi, 2026-10-07): the numeral sits flat on the
+     pill. Its box still clips the roll. */
   position: relative;
   overflow: hidden;
   border-radius: var(--sc-radius-control);
-  background-color: var(--sc-color-stepper-window);
-  box-shadow: var(--sc-shadow-stepper-window);
 }
 
 .digits {
@@ -114,8 +115,7 @@
 .disabled {
   opacity: 0.6;
 }
-.disabled.stepper,
-.disabled .readout {
+.disabled.stepper {
   box-shadow: none;
 }
 .disabled .readout {
@@ -123,11 +123,10 @@
 }
 
 /* Forced colors (Windows high contrast): recesses, lifts and the key face
-   drop. The pill and the readout window keep an edge; keys keep the system
+   drop. The pill keeps an edge; keys keep the system
    button border. */
 @media (forced-colors: active) {
-  .stepper,
-  .readout {
+  .stepper {
     outline: var(--sc-border-width-default) solid CanvasText;
     outline-offset: calc(-1 * var(--sc-border-width-default));
   }
@@ -136,8 +135,7 @@
     outline-offset: calc(-1 * var(--sc-border-width-default));
   }
   .button:disabled,
-  .disabled.stepper,
-  .disabled .readout { outline-color: GrayText; }
+  .disabled.stepper { outline-color: GrayText; }
   .readout:focus-visible { outline: var(--sc-border-width-focus) solid Highlight; }
 }
 
