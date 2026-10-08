@@ -187,8 +187,14 @@ function semanticOps(path, t) {
   const type = t.$type;
   if (type === 'shadow') {
     const [light, dark] = effectNames(path);
-    ops.push({ kind: 'effect', name: light, effects: parseShadow(m.light), desc: t.$description });
-    ops.push({ kind: 'effect', name: dark, effects: parseShadow(m.dark), desc: `Dark-mode value of ${light} (styles carry no modes).` });
+    // A shadow may alias another semantic shadow (the Stepper keys alias the
+    // Button's); effect styles carry no aliases, so sync the target's layers.
+    const layersOf = (v, mode) => {
+      const target = refPath(v) && semNew[refPath(v)];
+      return target ? layersOf(modesOf(target)[mode], mode) : parseShadow(v);
+    };
+    ops.push({ kind: 'effect', name: light, effects: layersOf(m.light, 'light'), desc: t.$description });
+    ops.push({ kind: 'effect', name: dark, effects: layersOf(m.dark, 'dark'), desc: `Dark-mode value of ${light} (styles carry no modes).` });
     rows.push([path, 'effect styles', `${light}, ${dark}`]);
   } else if (type === 'typography') {
     const name = textName(path);
