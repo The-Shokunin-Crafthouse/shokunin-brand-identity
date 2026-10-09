@@ -5,7 +5,9 @@
  * are named constants below — they derive from the 1440 Sandbox
  * frame, not the spacing token scale, so they live here as named
  * --shell-* customs (studio-memory §6: layout values are named, not
- * magic). All spacing/colour/type reference --sc-* tokens.
+ * magic). The main gutter (80) and content measure (1082) are Levi's
+ * 2026-10-08 numbers and resolve from DTCG tokens. All spacing/colour/
+ * type reference --sc-* tokens.
  *
  * Mobile-first: default is a stacked column (rail becomes a top
  * bar); the sticky two-column grid engages at the sm breakpoint.
@@ -13,9 +15,9 @@
 
 .site {
   --shell-rail-w: 256px;
-  --shell-content-max: 1080px;
+  --shell-content-max: var(--sc-p-size-measure-1082);
   --shell-col-content: 880px;
-  --shell-col-gutter: 168px;
+  --shell-gutter: var(--sc-p-space-80);
 
   display: flex;
   flex-direction: column;
@@ -27,7 +29,10 @@
 .slash { color: var(--sc-color-text-disabled); }
 
 /* ── Sidebar ─────────────────────────────────────────────
- * Inset card (Figma "sidebar nav", node 2144:25), hugging its content.
+ * Two layers. `.sidebar` is the rail: sticky, one viewport tall, and it
+ * scrolls on its own with no painted scrollbar (wheel, touch and keyboard
+ * still scroll it). `.sidebarCard` inside it is the inset card (Figma
+ * "sidebar nav", node 2144:25), hugging its content.
  * Spec values that had no token were tokenised 2026-10-07 (surface.nav,
  * space 20/28, label nav-heading / nav-current / ui-medium). Hover is a
  * pill one step LIGHTER than the card (surface-nav-hover), outset 8px past
@@ -36,6 +41,12 @@
  * PlusBullet (the brand's current-item mark) at the row end. */
 
 .sidebar {
+  scrollbar-width: none;
+  overscroll-behavior: contain;
+}
+.sidebar::-webkit-scrollbar { display: none; }
+
+.sidebarCard {
   display: flex;
   flex-direction: column;
   gap: var(--sc-p-space-32);
@@ -62,15 +73,114 @@
 
 .nav { display: flex; flex-direction: column; gap: var(--sc-p-space-32); }
 .navGroup { display: flex; flex-direction: column; }
-.navEyebrow {
+
+/* Group heading = disclosure toggle. It stays a heading (h2) and keeps the
+ * nav-heading type; the button inside carries aria-expanded and owns the
+ * five states. Hover and press match the links below (pill one step
+ * lighter, press scale); focus is the studio ring. The plus at the row end
+ * closes to a minus while the group is open, so the state reads without
+ * colour. */
+.navHeading { margin: 0; }
+.navToggle {
+  display: flex;
+  width: calc(100% + 2 * var(--sc-p-space-8));
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sc-space-component-gap-sm);
+  margin-inline: calc(-1 * var(--sc-p-space-8));
+  padding: var(--sc-p-space-4) var(--sc-p-space-8);
+  border: 0;
+  border-radius: var(--sc-radius-surface);
+  background: transparent;
   font: var(--sc-font-text-label-nav-heading);
   letter-spacing: var(--sc-font-text-label-nav-heading-letter-spacing);
   color: var(--sc-color-text-primary);
-  padding-bottom: var(--sc-space-component-gap-sm);
+  text-align: left;
+  cursor: pointer;
+  transition:
+    background-color var(--sc-motion-hover-duration) var(--sc-motion-hover-easing),
+    transform var(--sc-motion-press-duration) var(--sc-motion-press-easing);
+}
+.navToggle:hover { background: var(--sc-color-surface-nav-hover); }
+.navToggle:active { transform: scale(var(--sc-motion-press-scale)); }
+.navToggle:focus-visible {
+  outline: var(--sc-border-width-focus) solid var(--sc-color-border-focus);
+  outline-offset: var(--sc-border-focus-offset);
+}
+.navToggle:disabled { color: var(--sc-color-text-disabled); cursor: default; background: transparent; }
+
+.navToggleMark {
+  position: relative;
+  flex-shrink: 0;
+  width: var(--sc-p-space-8);
+  height: var(--sc-p-space-8);
+  color: var(--sc-color-text-secondary);
+}
+.navToggleMark::before,
+.navToggleMark::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  background: currentColor;
+}
+.navToggleMark::before { width: 100%; height: var(--sc-border-width-default); }
+.navToggleMark::after {
+  width: var(--sc-border-width-default);
+  height: 100%;
+  transition: transform var(--sc-motion-reveal-duration) var(--sc-motion-reveal-easing);
+}
+.navGroupOpen .navToggleMark::after { transform: scaleY(0); }
+
+/* The link list. Collapsed it is zero rows tall and hidden from focus and
+ * the accessibility tree (visibility); opening grows the row from 0fr to
+ * 1fr so the links below are pushed, not covered. Visibility flips at the
+ * start of an open and at the end of a close, so the links stay painted
+ * for the whole reveal. */
+.navList {
+  display: grid;
+  grid-template-rows: 0fr;
+  visibility: hidden;
+  transition:
+    grid-template-rows var(--sc-motion-reveal-duration) var(--sc-motion-reveal-easing),
+    visibility 0s linear var(--sc-motion-reveal-duration);
+}
+.navGroupOpen .navList {
+  grid-template-rows: 1fr;
+  visibility: visible;
+  transition:
+    grid-template-rows var(--sc-motion-reveal-duration) var(--sc-motion-reveal-easing),
+    visibility 0s linear 0s;
+}
+/* The inline padding gives the hover pill (8) and the focus ring (4 past
+ * the pill) room inside the clip; the negative margin keeps the labels on
+ * the heading's edge. Block spacing is drawn by pseudo-elements, not
+ * padding, because padding would hold a collapsed row open. */
+.navListInner {
+  min-height: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding-inline: var(--sc-p-space-12);
+  margin-inline: calc(-1 * var(--sc-p-space-12));
+}
+.navListInner::before,
+.navListInner::after {
+  content: '';
+  flex-shrink: 0;
+}
+.navListInner::before { height: var(--sc-space-component-gap-sm); }
+.navListInner::after { height: calc(var(--sc-border-width-focus) + var(--sc-border-focus-offset)); }
+
+@media (prefers-reduced-motion: reduce) {
+  .navList,
+  .navGroupOpen .navList,
+  .navToggleMark::after { transition: none; }
 }
 
 .navLink {
   position: relative;
+  flex-shrink: 0;
   display: flex;
   align-items: baseline;
   justify-content: space-between;
@@ -79,7 +189,7 @@
   font: var(--sc-font-text-caption);
   line-height: var(--sc-p-font-line-height-base);
   padding: var(--sc-p-space-4) var(--sc-p-space-8);
-  /* Negative inline margin keeps the label on the eyebrow's left edge
+  /* Negative inline margin keeps the label on the heading's left edge
    * while the hover pill extends 8px past it on both sides. */
   margin-inline: calc(-1 * var(--sc-p-space-8));
   border-radius: var(--sc-radius-surface);
@@ -166,6 +276,12 @@
   min-width: 0;
   padding: var(--sc-space-layout-stack-lg) var(--sc-space-layout-inset-sm) var(--sc-space-layout-stack-xl);
 }
+/* The content column: left-aligned in the main column, capped at the
+ * content measure. The sidebar sits outside the cap. */
+.content {
+  width: 100%;
+  max-width: var(--shell-content-max);
+}
 
 /* ── Metabar + stub ──────────────────────────────────────── */
 
@@ -232,29 +348,33 @@
 
 /* ── ≥ sm: sticky two-column shell (inset sidebar card) ───── */
 
+/* The rail is one viewport tall and scrolls on its own. Its inset sits on
+ * three sides only, so the rail's right edge is the card's right edge and
+ * the main gutter measures from the edge the reader sees. */
 @media (min-width: 768px) {
   .site {
     display: grid;
-    grid-template-columns: calc(var(--shell-rail-w) + 2 * var(--sc-space-layout-inset-md)) 1fr;
+    grid-template-columns: calc(var(--shell-rail-w) + var(--sc-space-layout-inset-md)) 1fr;
   }
   .sidebar {
     position: sticky;
-    top: var(--sc-space-layout-inset-md);
+    top: 0;
     align-self: start;
-    margin: var(--sc-space-layout-inset-md);
+    height: 100dvh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: var(--sc-space-layout-inset-md) 0 var(--sc-space-layout-inset-md) var(--sc-space-layout-inset-md);
   }
   .main {
-    padding: var(--sc-space-layout-stack-lg) var(--sc-space-layout-inset-md) var(--sc-space-layout-stack-xl) var(--sc-space-layout-stack-lg);
+    padding: var(--sc-space-layout-stack-lg) var(--sc-space-layout-inset-md) var(--sc-space-layout-stack-xl) var(--shell-gutter);
   }
 }
 
-/* ── ≥ md: full content inset matching the 1440 frame ────── */
+/* ── ≥ md: the right inset matches the gutter ───────────── */
 
 @media (min-width: 1280px) {
   .main {
-    padding-inline: var(--sc-p-space-96);
-    display: flex;
-    justify-content: center;
+    padding-inline-end: var(--shell-gutter);
   }
 }
 
