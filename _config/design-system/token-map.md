@@ -5,7 +5,7 @@
 # Design Token Map — The Shokunin Crafthouse · Brand Identity
 
 **Generated** from `tokens/primitives.json` + `tokens/semantic.json`.
-**Source fingerprint:** `27b74fd20274` · **187 primitives · 330 semantic tokens.**
+**Source fingerprint:** `9081c6bc8d04` · **188 primitives · 330 semantic tokens.**
 
 > **This file is a mirror, not the source.** `tokens/*.json` is upstream; this document and the Figma
 > library are generated from / synced to it. It previously claimed the opposite — that both were
@@ -445,6 +445,12 @@ primitives directly. Surfaced here for traceability.
 | Token Name | CSS var | Value | Notes |
 |---|---|---|---|
 | `motion/opacity/recedeBoard` | `--sc-p-motion-opacity-recede-board` | `0.6` | Board recede opacity · 0.6. |
+
+### Size · Primitives
+
+| Token Name | CSS var | Value | Notes |
+|---|---|---|---|
+| `size/measure/1082` | `--sc-p-size-measure-1082` | `1082px` | 1082px · content measure. |
 
 ---
 

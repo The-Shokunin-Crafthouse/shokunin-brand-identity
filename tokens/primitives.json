@@ -879,6 +879,11 @@
       "accent":   { "$type": "dimension", "$value": { "value": 3, "unit": "px" }, "$description": "3px · accent rule. Alert left-rule, ProgressIndicator bar thickness. Sprint 4 addition." }
     }
   },
+  "size": {
+    "measure": {
+      "1082": { "$type": "dimension", "$value": { "value": 1082, "unit": "px" }, "$description": "1082px · content measure. Brand-site main column cap; the sidebar sits outside it (Levi, 2026-10-08). Off the spacing ladders by design: a column width, not a gap. 2026-10-08 (WQ-100, brand-site-nav-layout)." }
+    }
+  },
   "motion": {
     "duration": {
       "micro":        { "$type": "duration", "$value": { "value": 200, "unit": "ms" }, "$description": "200ms · hover, tap, press. Default micro-interaction." },
