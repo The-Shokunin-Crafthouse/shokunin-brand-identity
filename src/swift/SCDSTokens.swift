@@ -171,8 +171,8 @@ public enum SCDS {
     public static let semanticVersion = "0.1.0"
     public static let sourceGenerated = "2026-05-26"
     public static let primitivesHash = "7b1eefffce2ddb71"
-    public static let semanticHash = "c5541c30c8000b0c"
-    public static let tokenCount = 330
+    public static let semanticHash = "9a759f4425c11551"
+    public static let tokenCount = 332
   }
 
   // MARK: - Color
@@ -856,6 +856,12 @@ public enum SCDS {
         light: (0.101961, 0.094118, 0.082353, 1),
         dark:  (0.917647, 0.909804, 0.890196, 1)
     )
+
+    /// `color.avatar.ground`
+    public static let avatarGround = SwiftUI.Color.scdsDynamic(
+        light: (0.847059, 0.819608, 0.8, 1),
+        dark:  (0.121569, 0.145098, 0.172549, 1)
+    )
   }
 
   // MARK: - Typography
@@ -1274,6 +1280,9 @@ public enum SCDS {
 
     /// `radius.card`
     public static let card: CGFloat = 8
+
+    /// `radius.avatar`
+    public static let avatar: CGFloat = 9999
 
     /// `radius.statusPill`
     public static let statusPill: CGFloat = 9999

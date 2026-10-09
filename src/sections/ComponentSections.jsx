@@ -369,7 +369,7 @@ export function SwitchPage() {
 export function AvatarPage() {
   return (
     <ComponentPage
-      id="avatar" label="Avatar" tokensN={8}
+      id="avatar" label="Avatar" tokensN={9}
       eyebrow={<>Avatar<Slash />four sizes, one fallback</>}
       title={<>Image first. <Em>Initials when it fails.</Em></>}
       lead={<>The avatar is a circle at one of four token-driven sizes. An image fills it; when there is no image, or the image fails to load, it falls back to initials on the sunk ground. The fallback is automatic — a broken image never shows.</>}
@@ -384,19 +384,19 @@ export function AvatarPage() {
         { name: 'sm · 32', token: '--sc-size-avatar-sm', render: <Avatar size="sm" name="Levi Bahn" /> },
         { name: 'md · 48', token: '--sc-size-avatar-md', render: <Avatar size="md" name="Levi Bahn" /> },
         { name: 'lg · 64', token: '--sc-size-avatar-lg', render: <Avatar size="lg" name="Levi Bahn" /> },
-        { name: 'Image', token: '--sc-radius-pill', render: <Avatar size="lg" src={avatarImg} name="SC" /> },
-        { name: 'Initials', token: '--sc-color-surface-sunk', render: <Avatar size="lg" name="Shokunin Crafthouse" /> },
+        { name: 'Image', token: '--sc-radius-avatar', render: <Avatar size="lg" src={avatarImg} name="SC" /> },
+        { name: 'Initials', token: '--sc-color-avatar-ground', render: <Avatar size="lg" name="Shokunin Crafthouse" /> },
       ]}
       tokenRows={[
         { prop: 'Size · xs', token: '--sc-size-avatar-xs' },
         { prop: 'Size · sm', token: '--sc-size-avatar-sm' },
         { prop: 'Size · md', token: '--sc-size-avatar-md' },
         { prop: 'Size · lg', token: '--sc-size-avatar-lg' },
-        { prop: 'Radius', token: '--sc-radius-pill' },
-        { prop: 'Fallback ground', token: '--sc-color-surface-sunk' },
+        { prop: 'Radius', token: '--sc-radius-avatar' },
+        { prop: 'Fallback ground', token: '--sc-color-avatar-ground' },
         { prop: 'Initials ink', token: '--sc-color-text-primary' },
         { prop: 'Initials type', token: '--sc-font-text-label-chrome', light: '11 / medium / caps' },
-        { prop: 'Edge', token: '--sc-color-border-default' },
+        { prop: 'Forced-colors edge', token: '--sc-border-width-default' },
       ]}
       rulesTitle="Four rules for a circle that never breaks."
       rules={[

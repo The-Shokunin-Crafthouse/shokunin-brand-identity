@@ -30,6 +30,7 @@ import { Slider } from '../../src/components/Slider/Slider.jsx';
 import { Input } from '../../src/components/Input/Input.jsx';
 import { Card } from '../../src/components/Card/Card.jsx';
 import { StatusPill } from '../../src/components/StatusPill/StatusPill.jsx';
+import { Avatar } from '../../src/components/Avatar/Avatar.jsx';
 import { MagnifyingGlass, EnvelopeSimple, MapPin, Eye, Copy, CalendarBlank, Clock, CaretDown, Check, Pause, Archive, Warning } from '@phosphor-icons/react';
 import switchCss from '../../src/components/Switch/Switch.module.css?raw';
 import stepperCss from '../../src/components/Stepper/Stepper.module.css?raw';
@@ -43,6 +44,8 @@ import sliderCss from '../../src/components/Slider/Slider.module.css?raw';
 import inputCss from '../../src/components/Input/Input.module.css?raw';
 import cardCss from '../../src/components/Card/Card.module.css?raw';
 import statusPillCss from '../../src/components/StatusPill/StatusPill.module.css?raw';
+import avatarCss from '../../src/components/Avatar/Avatar.module.css?raw';
+import avatarMark from '../../assets/logo/mark-icon-dark.png';
 import s from './Tune.module.css';
 
 const SEGMENTS = ['day', 'week', 'month'];
@@ -149,6 +152,15 @@ const CARD_BACKDROPS = {
 /* StatusPill tones with the docs page's labels (src/sections/ComponentSections.jsx). */
 const PILLS = { progress: 'In progress', live: 'Live', success: 'Complete', warning: 'Pending', error: 'Failed', info: 'Info', neutral: 'Planned' };
 const PILL_ICONS = { none: undefined, check: Check, pause: Pause, archive: Archive, warning: Warning };
+
+/*
+ * Avatar images: the docs page's mark (src/sections/ComponentSections.jsx),
+ * and a stand-in portrait (a light backdrop and a head-and-shoulders shape;
+ * the repo holds no photo), so the ring is judged on a light and a dark image.
+ */
+const AVATAR_PORTRAIT = `data:image/svg+xml,${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" fill="#D9CFC2"/><circle cx="32" cy="26" r="12" fill="#6B5A4A"/><path d="M8 64c0-14 11-22 24-22s24 8 24 22z" fill="#3E4A55"/></svg>')}`;
+const AVATAR_IMAGES = { mark: avatarMark, portrait: AVATAR_PORTRAIT };
+const AVATAR_SIZES = ['xs', 'sm', 'md', 'lg'];
 
 /* Set on a keyboard step so the lab's tick plays on keys only, never on a drag. */
 let keyStep = false;
@@ -571,6 +583,31 @@ export const REGISTRY = {
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 'var(--sc-space-layout-stack-sm)' }}>
           {shown.map((t) => (
             <StatusPill key={t} tone={t} emphasis={p.emphasis} glow={glow} icon={PILL_ICONS[p.icon]}>{p.show === 'all' ? PILLS[t] : p.content}</StatusPill>
+          ))}
+        </div>
+      );
+    },
+  },
+  Avatar: {
+    css: [avatarCss],
+    // Physical-controls Tier 2: Avatar stays flat (Levi, 2026-10-08). The
+    // ground behind it is the View panel's ground (page, raised, sunk,
+    // floating), shared by every stage.
+    shippedSound: null,
+    trigger: 'ships silent',
+    props: [
+      { name: 'show', type: 'enum', options: ['all', ...AVATAR_SIZES], default: 'all' },
+      { name: 'content', type: 'enum', options: ['image', 'initials'], default: 'image' },
+      { name: 'image', type: 'enum', options: Object.keys(AVATAR_IMAGES), default: 'portrait' },
+      { name: 'name', type: 'text', default: 'Levi Bahn' },
+    ],
+    play: (p, set) => set('content', p.content === 'image' ? 'initials' : 'image'),
+    render: (p) => {
+      const shown = p.show === 'all' ? AVATAR_SIZES : [p.show];
+      return (
+        <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 'var(--sc-space-component-gap-md)', padding: 'var(--sc-space-layout-stack-sm)' }}>
+          {shown.map((size) => (
+            <Avatar key={size} size={size} name={p.name} src={p.content === 'image' ? AVATAR_IMAGES[p.image] : undefined} />
           ))}
         </div>
       );

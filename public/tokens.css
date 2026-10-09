@@ -362,6 +362,7 @@
   --sc-p-border-width-hairline: 1px;
   --sc-p-border-width-focus: 2px;
   --sc-p-border-width-accent: 3px;
+  --sc-p-size-measure-1082: 1082px;
   --sc-p-motion-duration-micro: 200ms;
   --sc-p-motion-duration-press: 160ms;
   --sc-p-motion-duration-press-release: 220ms;
@@ -492,12 +493,14 @@
   --sc-color-status-pill-live-ink: var(--sc-color-text-on-inverse);
   --sc-color-tooltip-surface: var(--sc-p-color-utility-white);
   --sc-color-tooltip-text: var(--sc-p-color-warm-gray-800);
+  --sc-color-avatar-ground: var(--sc-p-color-warm-gray-200);
   --sc-border-width-default: var(--sc-p-border-width-hairline);
   --sc-border-width-focus: var(--sc-p-border-width-focus);
   --sc-border-width-accent: var(--sc-p-border-width-accent);
   --sc-border-focus-offset: var(--sc-p-space-micro-2);
   --sc-radius-field: var(--sc-p-radius-default);
   --sc-radius-card: var(--sc-radius-surface);
+  --sc-radius-avatar: var(--sc-radius-pill);
   --sc-radius-status-pill: var(--sc-radius-pill);
   --sc-radius-tooltip: var(--sc-p-space-4);
   --sc-radius-control: var(--sc-p-radius-input);
@@ -971,12 +974,14 @@
   --sc-color-status-pill-live-ink: var(--sc-color-text-on-inverse);
   --sc-color-tooltip-surface: var(--sc-p-color-dark-raised1);
   --sc-color-tooltip-text: var(--sc-p-color-dark-text-primary);
+  --sc-color-avatar-ground: var(--sc-p-color-dark-well);
   --sc-border-width-default: var(--sc-p-border-width-hairline);
   --sc-border-width-focus: var(--sc-p-border-width-focus);
   --sc-border-width-accent: var(--sc-p-border-width-accent);
   --sc-border-focus-offset: var(--sc-p-space-micro-2);
   --sc-radius-field: var(--sc-p-radius-default);
   --sc-radius-card: var(--sc-radius-surface);
+  --sc-radius-avatar: var(--sc-radius-pill);
   --sc-radius-status-pill: var(--sc-radius-pill);
   --sc-radius-tooltip: var(--sc-p-space-4);
   --sc-radius-control: var(--sc-p-radius-input);

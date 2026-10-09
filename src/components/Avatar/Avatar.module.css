@@ -1,12 +1,14 @@
 /* tokens:
- *   --sc-size-avatar-xs / sm / md / lg     · 24 / 32 / 48 / 
- *   --sc-radius-pill                       · · full circle
- *   --sc-color-surface-sunk                · initials fallback ground
+ *   --sc-size-avatar-xs / sm / md / lg     · 24 / 32 / 48 / 64
+ *   --sc-radius-avatar                     · full circle (role; = radius.pill)
+ *   --sc-color-avatar-ground               · initials ground, image ground while it loads (role; = surface.sunk)
  *   --sc-color-text-primary                · initials ink
  *   --sc-font-text-label-chrome-*          · initials font composition
+ *   --sc-border-width-default              · forced-colors edge
  *
- * scds-v2 Phase 2 — fill-only, no resting outline. The sunk fill alone seats
- * the avatar against the page; the image or initials carry the shape.
+ * physical-controls Tier 2: Avatar stays flat (Levi, 2026-10-08). An
+ * avatar is read, not touched (directive 1); the ground and the corner are
+ * its own roles (finding 5) and forced colors draw an edge.
  */
 
 .avatar {
@@ -14,8 +16,8 @@
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  border-radius: var(--sc-radius-pill);
-  background-color: var(--sc-color-surface-sunk);
+  border-radius: var(--sc-radius-avatar);
+  background-color: var(--sc-color-avatar-ground);
   flex-shrink: 0;
 }
 
@@ -46,3 +48,11 @@
 .sm .initials { font-size: calc(var(--sc-size-avatar-sm) * 0.4); }
 .md .initials { font-size: calc(var(--sc-size-avatar-md) * 0.4); }
 .lg .initials { font-size: calc(var(--sc-size-avatar-lg) * 0.4); }
+
+/* High contrast replaces the ground with Canvas, so the circle needs an edge. */
+@media (forced-colors: active) {
+  .avatar {
+    outline: var(--sc-border-width-default) solid CanvasText;
+    outline-offset: calc(-1 * var(--sc-border-width-default));
+  }
+}
