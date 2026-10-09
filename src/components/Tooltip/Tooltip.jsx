@@ -12,7 +12,8 @@
  * the arrow tip (the trigger point), lifts along its travel curve and, while
  * it moves fast, stretches up and squeezes in. A spring with bounce
  * overshoots the full size and settles. On close it shrinks back into the
- * trigger point along the same curve. It scales rather than
+ * trigger point along the same curve. A run cut short hands its pose to the
+ * next: leave mid-grow and it shrinks from the size it reached. It scales rather than
  * growing as two ends and a bar, because it carries text. Shipped, stretch
  * and squash are 0 and the CSS transition lifts it as before.
  *
@@ -38,6 +39,9 @@ export function Tooltip({ content, multiline = false, open: forced, variant = 's
 
   const wasOpen = useRef(open);
   const runId = useRef(0);
+  // The run in flight: its animation and the progress (0 = gone, 1 = full
+  // size) at each frame, so an interrupted run hands its pose to the next.
+  const run = useRef(null);
 
   useLayoutEffect(() => {
     const wrap = wrapRef.current;
@@ -51,20 +55,30 @@ export function Tooltip({ content, multiline = false, open: forced, variant = 's
     const grow = Number.isFinite(g) ? Math.min(1, Math.max(0, g)) : 1;
     if (!isActive(m) && grow === 1) return;
     const lift = parseFloat(cs.getPropertyValue('--sc-size-tooltip-lift')) || 0;
+    // Where the bubble is now: mid-run, the progress at the run's current
+    // frame; otherwise fully shut (opening) or fully open (closing).
+    let from = closing ? 1 : 0;
+    const prev = run.current;
+    if (prev && prev.anim.playState === 'running') {
+      const f = Math.min(1, Math.max(0, (prev.anim.currentTime || 0) / prev.duration));
+      from = prev.ys[Math.round(f * (prev.ys.length - 1))];
+    }
+    const to = closing ? 0 : 1;
     let p = sampleEasing(m.travelEasing);
     let duration = m.travelDur;
     if (closing) {
-      // Close runs the same curve the other way: full size back to grow at
-      // the trigger point. It ends where the curve first reaches 1 (the
-      // bubble is gone there), so an overshoot never flashes it back.
+      // Close runs the same curve back toward grow at the trigger point. It
+      // ends where the curve first reaches 1 (the bubble is gone there), so
+      // an overshoot never flashes it back.
       const end = p.findIndex((y) => y >= 1);
       if (end > 0) { duration = Math.round((duration * end) / (p.length - 1)); p = p.slice(0, end + 1).map((y) => Math.min(1, y)); }
     }
-    const v = speeds(p);
-    // Size runs grow → 1 on the curve (past 1 on an overshoot); stretch and
-    // squash ride on it: 1 = 20% taller or narrower at peak speed.
-    const frames = p.map((c, i) => {
-      const y = closing ? 1 - c : c;
+    const span = Math.abs(to - from);
+    const v = speeds(p).map((x) => x * span);
+    const ys = p.map((c) => from + (to - from) * c);
+    // Size runs grow → 1 with the progress (past 1 on an overshoot); stretch
+    // and squash ride on it: 1 = 20% taller or narrower at peak speed.
+    const frames = ys.map((y, i) => {
       const s = Math.max(0, grow + (1 - grow) * y);
       return {
         transform: `translate(-50%, ${-lift * (1 - y)}px) scale(${s * (1 - 0.2 * m.squash * v[i])}, ${s * (1 + 0.2 * m.stretch * v[i])})`,
@@ -75,9 +89,10 @@ export function Tooltip({ content, multiline = false, open: forced, variant = 's
     const id = ++runId.current;
     const done = () => { if (runId.current === id) wrap.removeAttribute('data-driven'); };
     wrap.setAttribute('data-driven', '');
-    const a = tip.animate(frames, { duration, easing: 'linear' });
-    a.onfinish = done;
-    a.oncancel = done;
+    const anim = tip.animate(frames, { duration, easing: 'linear' });
+    anim.onfinish = done;
+    anim.oncancel = done;
+    run.current = { anim, ys, duration };
   }, [open]);
 
   const handleOpen = () => setOpen(true);
