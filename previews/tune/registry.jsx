@@ -552,25 +552,25 @@ export const REGISTRY = {
   StatusPill: {
     css: [statusPillCss],
     // Levi 2026-10-08: Badge and Pill fold into StatusPill (tone, emphasis,
-    // the product's own label). Live and in-progress pills light an LED whose
-    // glow breathes. No seeds: a concept starts from shipped.
+    // the product's own label). Live and in-progress pills glow, the whole
+    // pill, and the glow breathes. No seeds: a concept starts from shipped.
     shippedSound: null,
     trigger: 'ships silent',
     props: [
       { name: 'show', type: 'enum', options: ['all', ...Object.keys(PILLS)], default: 'all' },
       { name: 'emphasis', type: 'enum', options: ['filled', 'outline'], default: 'filled' },
-      { name: 'live', type: 'enum', options: ['by tone', 'on', 'off'], default: 'by tone' },
+      { name: 'glow', type: 'enum', options: ['by tone', 'on', 'off'], default: 'by tone' },
       { name: 'icon', type: 'enum', options: Object.keys(PILL_ICONS), default: 'none' },
       { name: 'content', type: 'text', default: 'In progress' },
     ],
-    play: (p, set) => set('live', p.live === 'off' ? 'on' : 'off'),
+    play: (p, set) => set('glow', p.glow === 'off' ? 'on' : 'off'),
     render: (p) => {
       const shown = p.show === 'all' ? Object.keys(PILLS) : [p.show];
-      const live = p.live === 'by tone' ? undefined : p.live === 'on';
+      const glow = p.glow === 'by tone' ? undefined : p.glow === 'on';
       return (
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 'var(--sc-space-layout-stack-sm)' }}>
           {shown.map((t) => (
-            <StatusPill key={t} tone={t} emphasis={p.emphasis} live={live} icon={PILL_ICONS[p.icon]}>{p.show === 'all' ? PILLS[t] : p.content}</StatusPill>
+            <StatusPill key={t} tone={t} emphasis={p.emphasis} glow={glow} icon={PILL_ICONS[p.icon]}>{p.show === 'all' ? PILLS[t] : p.content}</StatusPill>
           ))}
         </div>
       );

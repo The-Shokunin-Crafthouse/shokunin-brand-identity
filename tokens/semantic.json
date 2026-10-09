@@ -715,31 +715,27 @@
     "statusPill": {
       "progress": {
         "fill": { "$type": "color", "$value": "{color.signal.progress}", "$description": "2026-10-08 \u00b7 StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis, the label written by the consumer; physical-controls Tier 2). Filled progress pill ground. In progress and active (library Active, Open; Pill progress).", "$extensions": { "modes": { "light": "{color.signal.progress}", "dark": "{color.signal.progress}" } } },
-        "ink": { "$type": "color", "$value": "{color.signal.onProgress}", "$description": "2026-10-08 \u00b7 StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis, the label written by the consumer; physical-controls Tier 2). Label and LED on the filled progress pill; AA on its fill in every mode (verify-contrast FILL_PAIRS).", "$extensions": { "modes": { "light": "{color.signal.onProgress}", "dark": "{color.signal.onProgress}" } } }
+        "ink": { "$type": "color", "$value": "{color.signal.onProgress}", "$description": "2026-10-08 \u00b7 StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis, the label written by the consumer; physical-controls Tier 2). Label and glyph on the filled progress pill; AA on its fill in every mode (verify-contrast FILL_PAIRS).", "$extensions": { "modes": { "light": "{color.signal.onProgress}", "dark": "{color.signal.onProgress}" } } }
       },
       "success": {
         "fill": { "$type": "color", "$value": "{color.status.success-ink}", "$description": "2026-10-08 \u00b7 StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis, the label written by the consumer; physical-controls Tier 2). Filled success pill ground. Complete, accepted, published, delivered. The fill takes status.success-ink: the library fill status.success under text-on-inverse misses AA in light mode.", "$extensions": { "modes": { "light": "{color.status.success-ink}", "dark": "{color.status.success-ink}" } } },
-        "ink": { "$type": "color", "$value": "{color.text-on-inverse}", "$description": "2026-10-08 \u00b7 StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis, the label written by the consumer; physical-controls Tier 2). Label and LED on the filled success pill; AA on its fill in every mode (verify-contrast FILL_PAIRS).", "$extensions": { "modes": { "light": "{color.text-on-inverse}", "dark": "{color.text-on-inverse}" } } }
+        "ink": { "$type": "color", "$value": "{color.text-on-inverse}", "$description": "2026-10-08 \u00b7 StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis, the label written by the consumer; physical-controls Tier 2). Label and glyph on the filled success pill; AA on its fill in every mode (verify-contrast FILL_PAIRS).", "$extensions": { "modes": { "light": "{color.text-on-inverse}", "dark": "{color.text-on-inverse}" } } }
       },
       "warning": {
         "fill": { "$type": "color", "$value": "{color.status.warning}", "$description": "2026-10-08 \u00b7 StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis, the label written by the consumer; physical-controls Tier 2). Filled warning pill ground. Pending, at risk.", "$extensions": { "modes": { "light": "{color.status.warning}", "dark": "{color.status.warning}" } } },
-        "ink": { "$type": "color", "$value": "{color.text-on-inverse}", "$description": "2026-10-08 \u00b7 StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis, the label written by the consumer; physical-controls Tier 2). Label and LED on the filled warning pill; AA on its fill in every mode (verify-contrast FILL_PAIRS).", "$extensions": { "modes": { "light": "{color.text-on-inverse}", "dark": "{color.text-on-inverse}" } } }
+        "ink": { "$type": "color", "$value": "{color.text-on-inverse}", "$description": "2026-10-08 \u00b7 StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis, the label written by the consumer; physical-controls Tier 2). Label and glyph on the filled warning pill; AA on its fill in every mode (verify-contrast FILL_PAIRS).", "$extensions": { "modes": { "light": "{color.text-on-inverse}", "dark": "{color.text-on-inverse}" } } }
       },
       "error": {
         "fill": { "$type": "color", "$value": "{color.status.error}", "$description": "2026-10-08 \u00b7 StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis, the label written by the consumer; physical-controls Tier 2). Filled error pill ground. Failed, rejected (was Badge error).", "$extensions": { "modes": { "light": "{color.status.error}", "dark": "{color.status.error}" } } },
-        "ink": { "$type": "color", "$value": "{color.text-on-inverse}", "$description": "2026-10-08 \u00b7 StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis, the label written by the consumer; physical-controls Tier 2). Label and LED on the filled error pill; AA on its fill in every mode (verify-contrast FILL_PAIRS).", "$extensions": { "modes": { "light": "{color.text-on-inverse}", "dark": "{color.text-on-inverse}" } } }
+        "ink": { "$type": "color", "$value": "{color.text-on-inverse}", "$description": "2026-10-08 \u00b7 StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis, the label written by the consumer; physical-controls Tier 2). Label and glyph on the filled error pill; AA on its fill in every mode (verify-contrast FILL_PAIRS).", "$extensions": { "modes": { "light": "{color.text-on-inverse}", "dark": "{color.text-on-inverse}" } } }
       },
       "info": {
         "fill": { "$type": "color", "$value": "{color.status.info}", "$description": "2026-10-08 \u00b7 StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis, the label written by the consumer; physical-controls Tier 2). Filled info pill ground. Information (Pill info). The label takes text-on-inverse: the library text.onAccent white misses AA on the dark-mode info fill.", "$extensions": { "modes": { "light": "{color.status.info}", "dark": "{color.status.info}" } } },
-        "ink": { "$type": "color", "$value": "{color.text-on-inverse}", "$description": "2026-10-08 \u00b7 StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis, the label written by the consumer; physical-controls Tier 2). Label and LED on the filled info pill; AA on its fill in every mode (verify-contrast FILL_PAIRS).", "$extensions": { "modes": { "light": "{color.text-on-inverse}", "dark": "{color.text-on-inverse}" } } }
-      },
-      "neutral": {
-        "fill": { "$type": "color", "$value": "{color.surface.sunk}", "$description": "2026-10-08 \u00b7 StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis, the label written by the consumer; physical-controls Tier 2). Filled neutral pill ground. Planned, archived, draft (Pill planned).", "$extensions": { "modes": { "light": "{color.surface.sunk}", "dark": "{color.surface.sunk}" } } },
-        "ink": { "$type": "color", "$value": "{color.text.secondary}", "$description": "2026-10-08 \u00b7 StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis, the label written by the consumer; physical-controls Tier 2). Label and LED on the filled neutral pill; AA on its fill in every mode (verify-contrast FILL_PAIRS).", "$extensions": { "modes": { "light": "{color.text.secondary}", "dark": "{color.text.secondary}" } } }
+        "ink": { "$type": "color", "$value": "{color.text-on-inverse}", "$description": "2026-10-08 \u00b7 StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis, the label written by the consumer; physical-controls Tier 2). Label and glyph on the filled info pill; AA on its fill in every mode (verify-contrast FILL_PAIRS).", "$extensions": { "modes": { "light": "{color.text-on-inverse}", "dark": "{color.text-on-inverse}" } } }
       },
       "live": {
         "fill": { "$type": "color", "$value": "{color.signal.live}", "$description": "2026-10-08 \u00b7 StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis, the label written by the consumer; physical-controls Tier 2). Filled live pill ground. Live (Pill live). The label takes text-on-inverse: signal.onLive misses AA on the live fill in both modes.", "$extensions": { "modes": { "light": "{color.signal.live}", "dark": "{color.signal.live}" } } },
-        "ink": { "$type": "color", "$value": "{color.text-on-inverse}", "$description": "2026-10-08 \u00b7 StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis, the label written by the consumer; physical-controls Tier 2). Label and LED on the filled live pill; AA on its fill in every mode (verify-contrast FILL_PAIRS).", "$extensions": { "modes": { "light": "{color.text-on-inverse}", "dark": "{color.text-on-inverse}" } } }
+        "ink": { "$type": "color", "$value": "{color.text-on-inverse}", "$description": "2026-10-08 \u00b7 StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis, the label written by the consumer; physical-controls Tier 2). Label and glyph on the filled live pill; AA on its fill in every mode (verify-contrast FILL_PAIRS).", "$extensions": { "modes": { "light": "{color.text-on-inverse}", "dark": "{color.text-on-inverse}" } } }
       }
     },
     "tooltip": {
@@ -1092,8 +1088,8 @@
     },
     "statusPill": {
       "pulse": {
-        "duration": { "$type": "duration", "$value": "{motion.duration.orchestrated}", "$description": "2026-10-08 \u00b7 StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis, the label written by the consumer; physical-controls Tier 2). One half of the live LED glow pulse (it alternates, so a full breath is twice this). Levi: an oscillating glow on live and in-progress pills, not a static state. A start value from Claude, on the ladder.", "$extensions": { "modes": { "light": "{motion.duration.orchestrated}", "dark": "{motion.duration.orchestrated}" } } },
-        "easing": { "$type": "cubicBezier", "$value": "{motion.easing.inOut}", "$description": "2026-10-08 \u00b7 StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis, the label written by the consumer; physical-controls Tier 2). Curve of the live LED glow pulse (symmetric, so the glow breathes).", "$extensions": { "modes": { "light": "{motion.easing.inOut}", "dark": "{motion.easing.inOut}" } } },
+        "duration": { "$type": "duration", "$value": "{motion.duration.orchestrated}", "$description": "2026-10-08 \u00b7 StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis, the label written by the consumer; physical-controls Tier 2). One half of the glow pulse on a glowing pill (it alternates, so a full breath is twice this). Levi: an oscillating glow on live and in-progress pills, not a static state. A start value from Claude, on the ladder.", "$extensions": { "modes": { "light": "{motion.duration.orchestrated}", "dark": "{motion.duration.orchestrated}" } } },
+        "easing": { "$type": "cubicBezier", "$value": "{motion.easing.inOut}", "$description": "2026-10-08 \u00b7 StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis, the label written by the consumer; physical-controls Tier 2). Curve of the glow pulse (symmetric, so the glow breathes).", "$extensions": { "modes": { "light": "{motion.easing.inOut}", "dark": "{motion.easing.inOut}" } } },
         "from": { "$type": "number", "$value": 0.25, "$description": "2026-10-08 \u00b7 StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis, the label written by the consumer; physical-controls Tier 2). Glow opacity at the low point of the pulse (it rises to 1). Reduced motion holds the glow still at 1. A start value from Claude.", "$extensions": { "modes": { "light": 0.25, "dark": 0.25 } } }
       }
     },
@@ -1326,8 +1322,10 @@
   },
   "size": {
     "statusPill": {
-      "led": { "$type": "dimension", "$value": "{space.4}", "$description": "2026-10-08 \u00b7 StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis, the label written by the consumer; physical-controls Tier 2). Live LED diameter, from the library dot (4px).", "$extensions": { "modes": { "light": "{space.4}", "dark": "{space.4}" } } },
-      "ledGlow": { "$type": "dimension", "$value": "{space.4}", "$description": "2026-10-08 \u00b7 StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis, the label written by the consumer; physical-controls Tier 2). Blur of the LED glow halo that pulses on a live pill. A start value from Claude, tuned in sc-tune.", "$extensions": { "modes": { "light": "{space.4}", "dark": "{space.4}" } } },
+      "dash": { "$type": "dimension", "$value": "{border.width.accent}", "$description": "2026-10-08 \u00b7 StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis, the label written by the consumer; physical-controls Tier 2). Neutral (planned) pill: dash length of its dashed edge (Levi 2026-10-08: a dotted border only, 3px dash, 3px gap, 2px thick, the text colour, no fill).", "$extensions": { "modes": { "light": "{border.width.accent}", "dark": "{border.width.accent}" } } },
+      "dashGap": { "$type": "dimension", "$value": "{border.width.accent}", "$description": "2026-10-08 \u00b7 StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis, the label written by the consumer; physical-controls Tier 2). Neutral (planned) pill: gap between dashes (3px).", "$extensions": { "modes": { "light": "{border.width.accent}", "dark": "{border.width.accent}" } } },
+      "dashWidth": { "$type": "dimension", "$value": "{border.width.focus}", "$description": "2026-10-08 \u00b7 StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis, the label written by the consumer; physical-controls Tier 2). Neutral (planned) pill: stroke width of the dashed edge (2px), drawn inside the pill.", "$extensions": { "modes": { "light": "{border.width.focus}", "dark": "{border.width.focus}" } } },
+      "glow": { "$type": "dimension", "$value": "{space.8}", "$description": "2026-10-08 \u00b7 StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis, the label written by the consumer; physical-controls Tier 2). Blur of the glow around a glowing pill (Levi 2026-10-08: no LED, the entire pill glows; on for live and in-progress pills, glow=false turns it off). The glow takes the pill hue and pulses. A start value from Claude, tuned in sc-tune.", "$extensions": { "modes": { "light": "{space.8}", "dark": "{space.8}" } } },
       "icon": { "$type": "dimension", "$value": "{space.12}", "$description": "2026-10-08 \u00b7 StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis, the label written by the consumer; physical-controls Tier 2). Leading glyph size. The library glyphs ran 8, 12 and 14px; one size, the 12px pause and archive glyphs.", "$extensions": { "modes": { "light": "{space.12}", "dark": "{space.12}" } } }
     },
     "tooltip": {
@@ -1580,21 +1578,9 @@
         },
         "status-pill": {
           "$type": "dimension",
-          "$value": "{space.16}",
-          "$description": "2026-10-08 \u00b7 StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis, the label written by the consumer; physical-controls Tier 2). Inline padding of a label-only pill, from the library (16px).",
-          "$extensions": { "modes": { "light": "{space.16}", "dark": "{space.16}" } }
-        },
-        "status-pill-lead": {
-          "$type": "dimension",
           "$value": "{space.8}",
-          "$description": "2026-10-08 \u00b7 StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis, the label written by the consumer; physical-controls Tier 2). Inline padding before a leading LED or glyph, from the library (8px).",
+          "$description": "2026-10-08 \u00b7 StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis, the label written by the consumer; physical-controls Tier 2). Inline padding, both sides, every pill (Levi 2026-10-08: 8px each side; the library had 16px).",
           "$extensions": { "modes": { "light": "{space.8}", "dark": "{space.8}" } }
-        },
-        "status-pill-trail": {
-          "$type": "dimension",
-          "$value": "{space.12}",
-          "$description": "2026-10-08 \u00b7 StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis, the label written by the consumer; physical-controls Tier 2). Inline padding after the label when a LED or glyph leads, from the library (12px).",
-          "$extensions": { "modes": { "light": "{space.12}", "dark": "{space.12}" } }
         }
       },
       "padding-block": {
@@ -1687,7 +1673,7 @@
         "status-pill": {
           "$type": "dimension",
           "$value": "{space.micro.6}",
-          "$description": "2026-10-08 \u00b7 StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis, the label written by the consumer; physical-controls Tier 2). Gap between the LED or glyph and the label, from the library (6px).",
+          "$description": "2026-10-08 \u00b7 StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis, the label written by the consumer; physical-controls Tier 2). Gap between a leading glyph and the label, from the library (6px).",
           "$extensions": { "modes": { "light": "{space.micro.6}", "dark": "{space.micro.6}" } }
         }
       }

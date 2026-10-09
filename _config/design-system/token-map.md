@@ -5,7 +5,7 @@
 # Design Token Map — The Shokunin Crafthouse · Brand Identity
 
 **Generated** from `tokens/primitives.json` + `tokens/semantic.json`.
-**Source fingerprint:** `c665b06566a2` · **187 primitives · 332 semantic tokens.**
+**Source fingerprint:** `9fbf56d99d7b` · **187 primitives · 330 semantic tokens.**
 
 > **This file is a mirror, not the source.** `tokens/*.json` is upstream; this document and the Figma
 > library are generated from / synced to it. It previously claimed the opposite — that both were
@@ -658,8 +658,6 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | `color/statusPill/error/ink` | `--sc-color-status-pill-error-ink` | `color/text-on-inverse` | `⚠ unresolved` | `color/text-on-inverse` | `⚠ unresolved` | 2026-10-08 · StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis, the label written by the consumer; physical-controls Tier 2). |
 | `color/statusPill/info/fill` | `--sc-color-status-pill-info-fill` | `color/status/info` | `⚠ unresolved` | `color/status/info` | `⚠ unresolved` | 2026-10-08 · StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis, the label written by the consumer; physical-controls Tier 2). |
 | `color/statusPill/info/ink` | `--sc-color-status-pill-info-ink` | `color/text-on-inverse` | `⚠ unresolved` | `color/text-on-inverse` | `⚠ unresolved` | 2026-10-08 · StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis, the label written by the consumer; physical-controls Tier 2). |
-| `color/statusPill/neutral/fill` | `--sc-color-status-pill-neutral-fill` | `color/surface/sunk` | `⚠ unresolved` | `color/surface/sunk` | `⚠ unresolved` | 2026-10-08 · StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis, the label written by the consumer; physical-controls Tier 2). |
-| `color/statusPill/neutral/ink` | `--sc-color-status-pill-neutral-ink` | `color/text/secondary` | `⚠ unresolved` | `color/text/secondary` | `⚠ unresolved` | 2026-10-08 · StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis, the label written by the consumer; physical-controls Tier 2). |
 | `color/statusPill/live/fill` | `--sc-color-status-pill-live-fill` | `color/signal/live` | `#C8281C` | `color/signal/live` | `#C8281C` | 2026-10-08 · StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis, the label written by the consumer; physical-controls Tier 2). |
 | `color/statusPill/live/ink` | `--sc-color-status-pill-live-ink` | `color/text-on-inverse` | `⚠ unresolved` | `color/text-on-inverse` | `⚠ unresolved` | 2026-10-08 · StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis, the label written by the consumer; physical-controls Tier 2). |
 
@@ -723,9 +721,7 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | `space/component/padding-inline/button-sm` | `--sc-space-component-padding-inline-button-sm` | `space/16` | `16px` | `space/16` | `16px` | Small Button inline padding (16px). |
 | `space/component/padding-inline/input` | `--sc-space-component-padding-inline-input` | `space/16` | `16px` | `space/16` | `16px` | 2026-10-07 · Input material (physical-controls Tier 1: a true recessed well, the focus underline stays, a hover state), tuned in sc-tune. |
 | `space/component/padding-inline/tooltip` | `--sc-space-component-padding-inline-tooltip` | `space/12` | `12px` | `space/12` | `12px` | 2026-10-08 · Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. |
-| `space/component/padding-inline/status-pill` | `--sc-space-component-padding-inline-status-pill` | `space/16` | `16px` | `space/16` | `16px` | 2026-10-08 · StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis, the label written by the consumer; physical-controls Tier 2). |
-| `space/component/padding-inline/status-pill-lead` | `--sc-space-component-padding-inline-status-pill-lead` | `space/8` | `8px` | `space/8` | `8px` | 2026-10-08 · StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis, the label written by the consumer; physical-controls Tier 2). |
-| `space/component/padding-inline/status-pill-trail` | `--sc-space-component-padding-inline-status-pill-trail` | `space/12` | `12px` | `space/12` | `12px` | 2026-10-08 · StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis, the label written by the consumer; physical-controls Tier 2). |
+| `space/component/padding-inline/status-pill` | `--sc-space-component-padding-inline-status-pill` | `space/8` | `8px` | `space/8` | `8px` | 2026-10-08 · StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis, the label written by the consumer; physical-controls Tier 2). |
 | `space/component/padding-block/sm` | `--sc-space-component-padding-block-sm` | `space/micro/2` | `2px` | `space/micro/2` | `2px` | Sprint 4 addition · ultra-thin block padding (2px). |
 | `space/component/padding-block/md` | `--sc-space-component-padding-block-md` | `space/8` | `8px` | `space/8` | `8px` | Sprint 4 addition · default block padding (8px). |
 | `space/component/padding-block/lg` | `--sc-space-component-padding-block-lg` | `space/12` | `12px` | `space/12` | `12px` | Sprint 4 addition · generous block padding (12px). |
@@ -995,8 +991,10 @@ channel-triplet primitives) rather than an alias to a single primitive.
 
 | Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
 |---|---|---|---|---|---|---|
-| `size/statusPill/led` | `--sc-size-status-pill-led` | `space/4` | `4px` | `space/4` | `4px` | 2026-10-08 · StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis, the label written by the consumer; physical-controls Tier 2). |
-| `size/statusPill/ledGlow` | `--sc-size-status-pill-led-glow` | `space/4` | `4px` | `space/4` | `4px` | 2026-10-08 · StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis, the label written by the consumer; physical-controls Tier 2). |
+| `size/statusPill/dash` | `--sc-size-status-pill-dash` | `border/width/accent` | `3px` | `border/width/accent` | `3px` | 2026-10-08 · StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis, the label written by the consumer; physical-controls Tier 2). |
+| `size/statusPill/dashGap` | `--sc-size-status-pill-dash-gap` | `border/width/accent` | `3px` | `border/width/accent` | `3px` | 2026-10-08 · StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis, the label written by the consumer; physical-controls Tier 2). |
+| `size/statusPill/dashWidth` | `--sc-size-status-pill-dash-width` | `border/width/focus` | `2px` | `border/width/focus` | `2px` | 2026-10-08 · StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis, the label written by the consumer; physical-controls Tier 2). |
+| `size/statusPill/glow` | `--sc-size-status-pill-glow` | `space/8` | `8px` | `space/8` | `8px` | 2026-10-08 · StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis, the label written by the consumer; physical-controls Tier 2). |
 | `size/statusPill/icon` | `--sc-size-status-pill-icon` | `space/12` | `12px` | `space/12` | `12px` | 2026-10-08 · StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis, the label written by the consumer; physical-controls Tier 2). |
 
 #### `size/tooltip`

@@ -171,8 +171,8 @@ public enum SCDS {
     public static let semanticVersion = "0.1.0"
     public static let sourceGenerated = "2026-05-26"
     public static let primitivesHash = "41d576559668277a"
-    public static let semanticHash = "af384e96fedd955c"
-    public static let tokenCount = 332
+    public static let semanticHash = "d4058a91e7127a4a"
+    public static let tokenCount = 330
   }
 
   // MARK: - Color
@@ -833,18 +833,6 @@ public enum SCDS {
         dark:  (0.101961, 0.094118, 0.082353, 1)
     )
 
-    /// `color.statusPill.neutral.fill`
-    public static let statusPillNeutralFill = SwiftUI.Color.scdsDynamic(
-        light: (0.847059, 0.819608, 0.8, 1),
-        dark:  (0.121569, 0.145098, 0.172549, 1)
-    )
-
-    /// `color.statusPill.neutral.ink`
-    public static let statusPillNeutralInk = SwiftUI.Color.scdsDynamic(
-        light: (0.352941, 0.341176, 0.313725, 1),
-        dark:  (0.788235, 0.780392, 0.764706, 1)
-    )
-
     /// `color.statusPill.live.fill`
     public static let statusPillLiveFill = SwiftUI.Color.scdsDynamic(
         light: (0.784314, 0.156863, 0.109804, 1),
@@ -1229,13 +1217,7 @@ public enum SCDS {
     public static let componentPaddingInlineTooltip: CGFloat = 12
 
     /// `space.component.padding-inline.status-pill`
-    public static let componentPaddingInlineStatusPill: CGFloat = 16
-
-    /// `space.component.padding-inline.status-pill-lead`
-    public static let componentPaddingInlineStatusPillLead: CGFloat = 8
-
-    /// `space.component.padding-inline.status-pill-trail`
-    public static let componentPaddingInlineStatusPillTrail: CGFloat = 12
+    public static let componentPaddingInlineStatusPill: CGFloat = 8
 
     /// `space.component.padding-block.sm`
     public static let componentPaddingBlockSm: CGFloat = 2
@@ -1336,11 +1318,17 @@ public enum SCDS {
 
   /// Named element sizes, including the touch-target floor.
   public enum Size {
-    /// `size.statusPill.led`
-    public static let statusPillLed: CGFloat = 4
+    /// `size.statusPill.dash`
+    public static let statusPillDash: CGFloat = 3
 
-    /// `size.statusPill.ledGlow`
-    public static let statusPillLedGlow: CGFloat = 4
+    /// `size.statusPill.dashGap`
+    public static let statusPillDashGap: CGFloat = 3
+
+    /// `size.statusPill.dashWidth`
+    public static let statusPillDashWidth: CGFloat = 2
+
+    /// `size.statusPill.glow`
+    public static let statusPillGlow: CGFloat = 8
 
     /// `size.statusPill.icon`
     public static let statusPillIcon: CGFloat = 12

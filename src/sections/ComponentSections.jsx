@@ -92,11 +92,11 @@ export function StatusPillPage() {
       id="status-pill" label="StatusPill" tokensN={14}
       eyebrow={<>StatusPill<Slash />the state of a thing</>}
       title={<>One pill for every status. <Em>The tone says how; the label says what.</Em></>}
-      lead={<>A status pill names the state of a project, a milestone, a session or a deploy. It fills with its tone, or outlines where the page must stay quiet. The label is always the product&rsquo;s own word. A live or in-progress pill carries an LED whose glow breathes, so a glance tells you the thing is still running.</>}
+      lead={<>A status pill names the state of a project, a milestone, a session or a deploy. It fills with its tone, or outlines where the page must stay quiet. The label is always the product&rsquo;s own word. A live or in-progress pill glows in its own hue and the glow breathes, so a glance tells you the thing is still running.</>}
       statesTitle="Seven tones, two weights."
       callouts={[
         { title: 'Tone and label, never a baked word', body: 'Each product names its own states. The pill brings the colour and the weight; the label comes from the product, so the portal, Studio PM and the brand site each read in their own words.' },
-        { title: 'Live things breathe', body: 'Progress and live pills light an LED that pulses on the motion ladder. Reduced motion holds it lit and still, and the label still names the state.' },
+        { title: 'Live things breathe', body: 'Progress and live pills glow, the whole pill, and the glow pulses on the motion ladder. Reduced motion holds it lit and still, and the label still names the state. Only LIVE sets its label in capitals.' },
         { title: 'Filled or outline', body: 'Filled for the state that matters on a row. Outline where several pills sit together, or for a verdict on a check: the old Badge pass and fail are outline success and error.' },
       ]}
       states={[
@@ -106,16 +106,13 @@ export function StatusPillPage() {
         { name: 'Warning', token: '--sc-color-status-pill-warning-fill', render: <StatusPill tone="warning">Pending</StatusPill> },
         { name: 'Error', token: '--sc-color-status-pill-error-fill', render: <StatusPill tone="error">Failed</StatusPill> },
         { name: 'Info', token: '--sc-color-status-pill-info-fill', render: <StatusPill tone="info">Info</StatusPill> },
-        { name: 'Neutral', token: '--sc-color-status-pill-neutral-fill', render: <StatusPill tone="neutral">Planned</StatusPill> },
+        { name: 'Neutral', token: '--sc-color-text-secondary', render: <StatusPill tone="neutral">Planned</StatusPill> },
         { name: 'Outline success', token: '--sc-color-status-success-ink', render: <StatusPill tone="success" emphasis="outline">Pass</StatusPill> },
         { name: 'Outline error', token: '--sc-color-status-error', render: <StatusPill tone="error" emphasis="outline">Fail</StatusPill> },
         { name: 'Outline warning', token: '--sc-color-status-warning-ink', render: <StatusPill tone="warning" emphasis="outline" icon={Pause}>Paused</StatusPill> },
-        { name: 'Outline neutral', token: '--sc-color-text-secondary', render: <StatusPill tone="neutral" emphasis="outline">Draft</StatusPill> },
       ]}
       tokenRows={[
         { prop: 'Inline padding', token: '--sc-space-component-padding-inline-status-pill' },
-        { prop: 'Inline padding, leading', token: '--sc-space-component-padding-inline-status-pill-lead' },
-        { prop: 'Inline padding, trailing', token: '--sc-space-component-padding-inline-status-pill-trail' },
         { prop: 'Block padding', token: '--sc-space-component-padding-block-status-pill' },
         { prop: 'Gap', token: '--sc-space-component-gap-status-pill' },
         { prop: 'Radius', token: '--sc-radius-status-pill' },
@@ -123,15 +120,15 @@ export function StatusPillPage() {
         { prop: 'Label type', token: '--sc-font-text-label-chrome', light: 'label 11' },
         { prop: 'Tone fill', token: '--sc-color-status-pill-success-fill', light: 'one per tone' },
         { prop: 'Tone label', token: '--sc-color-status-pill-success-ink', light: 'one per tone, AA' },
-        { prop: 'LED', token: '--sc-size-status-pill-led' },
-        { prop: 'LED glow', token: '--sc-size-status-pill-led-glow' },
+        { prop: 'Glow', token: '--sc-size-status-pill-glow' },
+        { prop: 'Planned dash', token: '--sc-size-status-pill-dash' },
         { prop: 'Pulse', token: '--sc-motion-status-pill-pulse-duration' },
         { prop: 'Glyph', token: '--sc-size-status-pill-icon' },
       ]}
       rulesTitle="Four rules for a pill that names a state."
       rules={[
         { name: 'Bring your own word', text: 'Pick the tone for how the state feels and write the label the product already uses. Never reach for a tone for its colour alone.' },
-        { name: 'Live means still running', text: 'The LED says work is happening now. A progress state that is only a plan turns it off with live={false}.' },
+        { name: 'Glow means still running', text: 'The glow says work is happening now. A progress state that is only waiting turns it off with glow={false}. A plan is the neutral pill: no fill, a dashed edge.' },
         { name: 'One filled pill per row', text: 'A row of filled pills is a row of shouting. Fill the one that matters and outline the rest.' },
         { name: 'Short labels', text: 'One or two words. The tone categorises; the label only names the category.' },
       ]}
