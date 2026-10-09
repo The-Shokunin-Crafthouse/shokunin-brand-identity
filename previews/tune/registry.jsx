@@ -339,19 +339,20 @@ export const REGISTRY = {
     shippedSound: null,
     trigger: 'ships silent',
     props: [
-      { name: 'open', type: 'boolean', default: true },
+      // hover: the trigger opens it (the motion plays on every hover); open / closed force it.
+      { name: 'show', type: 'enum', options: ['hover', 'open', 'closed'], default: 'hover' },
       { name: 'variant', type: 'enum', options: ['solid', 'glass'], default: 'solid' },
       { name: 'backdrop', type: 'enum', options: Object.keys(CARD_BACKDROPS), default: 'page (follows theme)' },
       { name: 'multiline', type: 'boolean', default: false },
       { name: 'content', type: 'text', default: 'Copied to clipboard' },
     ],
-    play: (p, set) => set('open', !p.open),
+    play: (p, set) => set('show', p.show === 'open' ? 'closed' : 'open'),
     render: (p) => (
       <div style={{ position: 'relative', padding: 'var(--sc-space-layout-stack-md) var(--sc-space-layout-stack-sm) var(--sc-space-layout-stack-sm)' }}>
         {CARD_BACKDROPS[p.backdrop]}
         <span style={{ position: 'relative', display: 'inline-block', paddingTop: 'var(--sc-space-layout-stack-md)' }}>
-          <Tooltip content={p.content} multiline={p.multiline} open={p.open} variant={p.variant}>
-            <span style={{ font: 'inherit' }}>Hover or press Play</span>
+          <Tooltip content={p.content} multiline={p.multiline} open={p.show === 'hover' ? undefined : p.show === 'open'} variant={p.variant}>
+            <Button variant="primary" size="sm" arrow={false} sound={false}>Copy</Button>
           </Tooltip>
         </span>
       </div>
