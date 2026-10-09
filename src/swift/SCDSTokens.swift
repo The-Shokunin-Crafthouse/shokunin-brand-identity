@@ -171,8 +171,8 @@ public enum SCDS {
     public static let semanticVersion = "0.1.0"
     public static let sourceGenerated = "2026-05-26"
     public static let primitivesHash = "41d576559668277a"
-    public static let semanticHash = "34cd224fdcd6add5"
-    public static let tokenCount = 321
+    public static let semanticHash = "325ab0ca61a32c56"
+    public static let tokenCount = 332
   }
 
   // MARK: - Color
@@ -773,40 +773,88 @@ public enum SCDS {
         dark:  (0, 0, 0, 0.12)
     )
 
-    /// `color.badge.led.off`
-    public static let badgeLedOff = SwiftUI.Color.scdsDynamic(
-        light: (0.101961, 0.094118, 0.082353, 0),
-        dark:  (0.101961, 0.094118, 0.082353, 0)
+    /// `color.statusPill.progress.fill`
+    public static let statusPillProgressFill = SwiftUI.Color.scdsDynamic(
+        light: (0.984314, 1, 0, 1),
+        dark:  (0.984314, 1, 0, 1)
     )
 
-    /// `color.badge.led.default`
-    public static let badgeLedDefault = SwiftUI.Color.scdsDynamic(
-        light: (0.101961, 0.094118, 0.082353, 0),
-        dark:  (0.101961, 0.094118, 0.082353, 0)
+    /// `color.statusPill.progress.ink`
+    public static let statusPillProgressInk = SwiftUI.Color.scdsDynamic(
+        light: (0.05098, 0.047059, 0.043137, 1),
+        dark:  (0.05098, 0.047059, 0.043137, 1)
     )
 
-    /// `color.badge.led.success`
-    public static let badgeLedSuccess = SwiftUI.Color.scdsDynamic(
-        light: (0.101961, 0.094118, 0.082353, 0),
-        dark:  (0.101961, 0.094118, 0.082353, 0)
+    /// `color.statusPill.success.fill`
+    public static let statusPillSuccessFill = SwiftUI.Color.scdsDynamic(
+        light: (0.141176, 0.431373, 0.290196, 1),
+        dark:  (0.415686, 0.752941, 0.564706, 1)
     )
 
-    /// `color.badge.led.warning`
-    public static let badgeLedWarning = SwiftUI.Color.scdsDynamic(
-        light: (0.101961, 0.094118, 0.082353, 0),
-        dark:  (0.101961, 0.094118, 0.082353, 0)
+    /// `color.statusPill.success.ink`
+    public static let statusPillSuccessInk = SwiftUI.Color.scdsDynamic(
+        light: (0.945098, 0.937255, 0.921569, 1),
+        dark:  (0.101961, 0.094118, 0.082353, 1)
     )
 
-    /// `color.badge.led.error`
-    public static let badgeLedError = SwiftUI.Color.scdsDynamic(
-        light: (0.101961, 0.094118, 0.082353, 0),
-        dark:  (0.101961, 0.094118, 0.082353, 0)
+    /// `color.statusPill.warning.fill`
+    public static let statusPillWarningFill = SwiftUI.Color.scdsDynamic(
+        light: (0.760784, 0.254902, 0.047059, 1),
+        dark:  (0.964706, 0.466667, 0.317647, 1)
     )
 
-    /// `color.badge.led.neutral`
-    public static let badgeLedNeutral = SwiftUI.Color.scdsDynamic(
-        light: (0.101961, 0.094118, 0.082353, 0),
-        dark:  (0.101961, 0.094118, 0.082353, 0)
+    /// `color.statusPill.warning.ink`
+    public static let statusPillWarningInk = SwiftUI.Color.scdsDynamic(
+        light: (0.945098, 0.937255, 0.921569, 1),
+        dark:  (0.101961, 0.094118, 0.082353, 1)
+    )
+
+    /// `color.statusPill.error.fill`
+    public static let statusPillErrorFill = SwiftUI.Color.scdsDynamic(
+        light: (0.498039, 0.113725, 0.113725, 1),
+        dark:  (0.996078, 0.419608, 0.403922, 1)
+    )
+
+    /// `color.statusPill.error.ink`
+    public static let statusPillErrorInk = SwiftUI.Color.scdsDynamic(
+        light: (0.945098, 0.937255, 0.921569, 1),
+        dark:  (0.101961, 0.094118, 0.082353, 1)
+    )
+
+    /// `color.statusPill.info.fill`
+    public static let statusPillInfoFill = SwiftUI.Color.scdsDynamic(
+        light: (0.176471, 0.352941, 0.847059, 1),
+        dark:  (0.439216, 0.603922, 0.992157, 1)
+    )
+
+    /// `color.statusPill.info.ink`
+    public static let statusPillInfoInk = SwiftUI.Color.scdsDynamic(
+        light: (0.945098, 0.937255, 0.921569, 1),
+        dark:  (0.101961, 0.094118, 0.082353, 1)
+    )
+
+    /// `color.statusPill.neutral.fill`
+    public static let statusPillNeutralFill = SwiftUI.Color.scdsDynamic(
+        light: (0.847059, 0.819608, 0.8, 1),
+        dark:  (0.121569, 0.145098, 0.172549, 1)
+    )
+
+    /// `color.statusPill.neutral.ink`
+    public static let statusPillNeutralInk = SwiftUI.Color.scdsDynamic(
+        light: (0.352941, 0.341176, 0.313725, 1),
+        dark:  (0.788235, 0.780392, 0.764706, 1)
+    )
+
+    /// `color.statusPill.live.fill`
+    public static let statusPillLiveFill = SwiftUI.Color.scdsDynamic(
+        light: (0.784314, 0.156863, 0.109804, 1),
+        dark:  (0.784314, 0.156863, 0.109804, 1)
+    )
+
+    /// `color.statusPill.live.ink`
+    public static let statusPillLiveInk = SwiftUI.Color.scdsDynamic(
+        light: (0.945098, 0.937255, 0.921569, 1),
+        dark:  (0.101961, 0.094118, 0.082353, 1)
     )
 
     /// `color.tooltip.surface`
@@ -1180,8 +1228,14 @@ public enum SCDS {
     /// `space.component.padding-inline.tooltip`
     public static let componentPaddingInlineTooltip: CGFloat = 12
 
-    /// `space.component.padding-inline.badge`
-    public static let componentPaddingInlineBadge: CGFloat = 6
+    /// `space.component.padding-inline.status-pill`
+    public static let componentPaddingInlineStatusPill: CGFloat = 16
+
+    /// `space.component.padding-inline.status-pill-lead`
+    public static let componentPaddingInlineStatusPillLead: CGFloat = 8
+
+    /// `space.component.padding-inline.status-pill-trail`
+    public static let componentPaddingInlineStatusPillTrail: CGFloat = 12
 
     /// `space.component.padding-block.sm`
     public static let componentPaddingBlockSm: CGFloat = 2
@@ -1201,8 +1255,8 @@ public enum SCDS {
     /// `space.component.padding-block.tooltip`
     public static let componentPaddingBlockTooltip: CGFloat = 8
 
-    /// `space.component.padding-block.badge`
-    public static let componentPaddingBlockBadge: CGFloat = 2
+    /// `space.component.padding-block.status-pill`
+    public static let componentPaddingBlockStatusPill: CGFloat = 2
 
     /// `space.component.gap.sm`
     public static let componentGapSm: CGFloat = 4
@@ -1225,8 +1279,8 @@ public enum SCDS {
     /// `space.component.gap.tooltip`
     public static let componentGapTooltip: CGFloat = 24
 
-    /// `space.component.gap.badge`
-    public static let componentGapBadge: CGFloat = 0
+    /// `space.component.gap.status-pill`
+    public static let componentGapStatusPill: CGFloat = 6
   }
 
   // MARK: - Radius
@@ -1238,6 +1292,9 @@ public enum SCDS {
 
     /// `radius.card`
     public static let card: CGFloat = 8
+
+    /// `radius.statusPill`
+    public static let statusPill: CGFloat = 9999
 
     /// `radius.tooltip`
     public static let tooltip: CGFloat = 4
@@ -1279,8 +1336,14 @@ public enum SCDS {
 
   /// Named element sizes, including the touch-target floor.
   public enum Size {
-    /// `size.badge.led`
-    public static let badgeLed: CGFloat = 0
+    /// `size.statusPill.led`
+    public static let statusPillLed: CGFloat = 4
+
+    /// `size.statusPill.ledGlow`
+    public static let statusPillLedGlow: CGFloat = 4
+
+    /// `size.statusPill.icon`
+    public static let statusPillIcon: CGFloat = 12
 
     /// `size.tooltip.arrow`
     public static let tooltipArrow: CGFloat = 8
@@ -1556,6 +1619,15 @@ public enum SCDS {
 
     /// `motion.navBar.press.leanDuration` · 160ms
     public static let navBarPressLeanDuration: TimeInterval = 0.16
+
+    /// `motion.statusPill.pulse.duration` · 720ms
+    public static let statusPillPulseDuration: TimeInterval = 0.72
+
+    /// `motion.statusPill.pulse.easing`
+    public static let statusPillPulseEasing = SCDSEasing(0.65, 0, 0.35, 1)
+
+    /// `motion.statusPill.pulse.from`
+    public static let statusPillPulseFrom: CGFloat = 0.25
 
     /// `motion.tooltip.travel.duration` · 720ms
     public static let tooltipTravelDuration: TimeInterval = 0.72
@@ -1900,56 +1972,6 @@ public enum SCDS {
         ],
         dark: [
             SCDSShadowLayer(inset: false, x: 0, y: 0, blur: 2, spread: 0, rgb: (0, 0, 0), alpha: 0.7),
-        ]
-    )
-
-    /// `shadow.badge.led.default` · 1 layers
-    public static let badgeLedDefault = SCDSShadow(
-        light: [
-            SCDSShadowLayer(inset: false, x: 0, y: 0, blur: 0, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0),
-        ],
-        dark: [
-            SCDSShadowLayer(inset: false, x: 0, y: 0, blur: 0, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0),
-        ]
-    )
-
-    /// `shadow.badge.led.success` · 1 layers
-    public static let badgeLedSuccess = SCDSShadow(
-        light: [
-            SCDSShadowLayer(inset: false, x: 0, y: 0, blur: 0, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0),
-        ],
-        dark: [
-            SCDSShadowLayer(inset: false, x: 0, y: 0, blur: 0, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0),
-        ]
-    )
-
-    /// `shadow.badge.led.warning` · 1 layers
-    public static let badgeLedWarning = SCDSShadow(
-        light: [
-            SCDSShadowLayer(inset: false, x: 0, y: 0, blur: 0, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0),
-        ],
-        dark: [
-            SCDSShadowLayer(inset: false, x: 0, y: 0, blur: 0, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0),
-        ]
-    )
-
-    /// `shadow.badge.led.error` · 1 layers
-    public static let badgeLedError = SCDSShadow(
-        light: [
-            SCDSShadowLayer(inset: false, x: 0, y: 0, blur: 0, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0),
-        ],
-        dark: [
-            SCDSShadowLayer(inset: false, x: 0, y: 0, blur: 0, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0),
-        ]
-    )
-
-    /// `shadow.badge.led.neutral` · 1 layers
-    public static let badgeLedNeutral = SCDSShadow(
-        light: [
-            SCDSShadowLayer(inset: false, x: 0, y: 0, blur: 0, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0),
-        ],
-        dark: [
-            SCDSShadowLayer(inset: false, x: 0, y: 0, blur: 0, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0),
         ]
     )
 

@@ -712,14 +712,34 @@
         }
       }
     },
-    "badge": {
-      "led": {
-        "off": { "$type": "color", "$value": "rgb(var(--sc-p-color-ink-rgb) / 0)", "$description": "2026-10-08 \u00b7 Badge (physical-controls Tier 2: an LED dot that glows for live states, Drams LED Switch, mapping #9), tuned in sc-tune. LED fill while the badge is not live: unlit and flat, no glow. Shipped transparent (no LED, today); the LED shows only when a badge sets live, so no current badge changes.", "$extensions": { "modes": { "light": "rgb(var(--sc-p-color-ink-rgb) / 0)", "dark": "rgb(var(--sc-p-color-ink-rgb) / 0)" } } },
-        "default": { "$type": "color", "$value": "rgb(var(--sc-p-color-ink-rgb) / 0)", "$description": "2026-10-08 \u00b7 Badge (physical-controls Tier 2: an LED dot that glows for live states, Drams LED Switch, mapping #9), tuned in sc-tune. LED fill on a default badge while live (lit). Shipped transparent (no LED, today); the LED shows only when a badge sets live, so no current badge changes.", "$extensions": { "modes": { "light": "rgb(var(--sc-p-color-ink-rgb) / 0)", "dark": "rgb(var(--sc-p-color-ink-rgb) / 0)" } } },
-        "success": { "$type": "color", "$value": "rgb(var(--sc-p-color-ink-rgb) / 0)", "$description": "2026-10-08 \u00b7 Badge (physical-controls Tier 2: an LED dot that glows for live states, Drams LED Switch, mapping #9), tuned in sc-tune. LED fill on a success badge while live (lit). Shipped transparent (no LED, today); the LED shows only when a badge sets live, so no current badge changes.", "$extensions": { "modes": { "light": "rgb(var(--sc-p-color-ink-rgb) / 0)", "dark": "rgb(var(--sc-p-color-ink-rgb) / 0)" } } },
-        "warning": { "$type": "color", "$value": "rgb(var(--sc-p-color-ink-rgb) / 0)", "$description": "2026-10-08 \u00b7 Badge (physical-controls Tier 2: an LED dot that glows for live states, Drams LED Switch, mapping #9), tuned in sc-tune. LED fill on a warning badge while live (lit). Shipped transparent (no LED, today); the LED shows only when a badge sets live, so no current badge changes.", "$extensions": { "modes": { "light": "rgb(var(--sc-p-color-ink-rgb) / 0)", "dark": "rgb(var(--sc-p-color-ink-rgb) / 0)" } } },
-        "error": { "$type": "color", "$value": "rgb(var(--sc-p-color-ink-rgb) / 0)", "$description": "2026-10-08 \u00b7 Badge (physical-controls Tier 2: an LED dot that glows for live states, Drams LED Switch, mapping #9), tuned in sc-tune. LED fill on a error badge while live (lit). Shipped transparent (no LED, today); the LED shows only when a badge sets live, so no current badge changes.", "$extensions": { "modes": { "light": "rgb(var(--sc-p-color-ink-rgb) / 0)", "dark": "rgb(var(--sc-p-color-ink-rgb) / 0)" } } },
-        "neutral": { "$type": "color", "$value": "rgb(var(--sc-p-color-ink-rgb) / 0)", "$description": "2026-10-08 \u00b7 Badge (physical-controls Tier 2: an LED dot that glows for live states, Drams LED Switch, mapping #9), tuned in sc-tune. LED fill on a neutral badge while live (lit). Shipped transparent (no LED, today); the LED shows only when a badge sets live, so no current badge changes.", "$extensions": { "modes": { "light": "rgb(var(--sc-p-color-ink-rgb) / 0)", "dark": "rgb(var(--sc-p-color-ink-rgb) / 0)" } } }
+    "statusPill": {
+      "progress": {
+        "fill": { "$type": "color", "$value": "{color.signal.progress}", "$description": "2026-10-08 \u00b7 StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis with the consumer's own label; physical-controls Tier 2). Filled progress pill ground. In progress and active (library Active, Open; Pill progress).", "$extensions": { "modes": { "light": "{color.signal.progress}", "dark": "{color.signal.progress}" } } },
+        "ink": { "$type": "color", "$value": "{color.signal.onProgress}", "$description": "2026-10-08 \u00b7 StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis with the consumer's own label; physical-controls Tier 2). Label and LED on the filled progress pill; AA on its fill in every mode (verify-contrast FILL_PAIRS).", "$extensions": { "modes": { "light": "{color.signal.onProgress}", "dark": "{color.signal.onProgress}" } } }
+      },
+      "success": {
+        "fill": { "$type": "color", "$value": "{color.status.success-ink}", "$description": "2026-10-08 \u00b7 StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis with the consumer's own label; physical-controls Tier 2). Filled success pill ground. Complete, accepted, published, delivered. The fill takes status.success-ink: the library fill status.success under text-on-inverse misses AA in light mode.", "$extensions": { "modes": { "light": "{color.status.success-ink}", "dark": "{color.status.success-ink}" } } },
+        "ink": { "$type": "color", "$value": "{color.text-on-inverse}", "$description": "2026-10-08 \u00b7 StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis with the consumer's own label; physical-controls Tier 2). Label and LED on the filled success pill; AA on its fill in every mode (verify-contrast FILL_PAIRS).", "$extensions": { "modes": { "light": "{color.text-on-inverse}", "dark": "{color.text-on-inverse}" } } }
+      },
+      "warning": {
+        "fill": { "$type": "color", "$value": "{color.status.warning}", "$description": "2026-10-08 \u00b7 StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis with the consumer's own label; physical-controls Tier 2). Filled warning pill ground. Pending, at risk.", "$extensions": { "modes": { "light": "{color.status.warning}", "dark": "{color.status.warning}" } } },
+        "ink": { "$type": "color", "$value": "{color.text-on-inverse}", "$description": "2026-10-08 \u00b7 StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis with the consumer's own label; physical-controls Tier 2). Label and LED on the filled warning pill; AA on its fill in every mode (verify-contrast FILL_PAIRS).", "$extensions": { "modes": { "light": "{color.text-on-inverse}", "dark": "{color.text-on-inverse}" } } }
+      },
+      "error": {
+        "fill": { "$type": "color", "$value": "{color.status.error}", "$description": "2026-10-08 \u00b7 StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis with the consumer's own label; physical-controls Tier 2). Filled error pill ground. Failed, rejected (was Badge error).", "$extensions": { "modes": { "light": "{color.status.error}", "dark": "{color.status.error}" } } },
+        "ink": { "$type": "color", "$value": "{color.text-on-inverse}", "$description": "2026-10-08 \u00b7 StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis with the consumer's own label; physical-controls Tier 2). Label and LED on the filled error pill; AA on its fill in every mode (verify-contrast FILL_PAIRS).", "$extensions": { "modes": { "light": "{color.text-on-inverse}", "dark": "{color.text-on-inverse}" } } }
+      },
+      "info": {
+        "fill": { "$type": "color", "$value": "{color.status.info}", "$description": "2026-10-08 \u00b7 StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis with the consumer's own label; physical-controls Tier 2). Filled info pill ground. Information (Pill info). The label takes text-on-inverse: the library text.onAccent white misses AA on the dark-mode info fill.", "$extensions": { "modes": { "light": "{color.status.info}", "dark": "{color.status.info}" } } },
+        "ink": { "$type": "color", "$value": "{color.text-on-inverse}", "$description": "2026-10-08 \u00b7 StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis with the consumer's own label; physical-controls Tier 2). Label and LED on the filled info pill; AA on its fill in every mode (verify-contrast FILL_PAIRS).", "$extensions": { "modes": { "light": "{color.text-on-inverse}", "dark": "{color.text-on-inverse}" } } }
+      },
+      "neutral": {
+        "fill": { "$type": "color", "$value": "{color.surface.sunk}", "$description": "2026-10-08 \u00b7 StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis with the consumer's own label; physical-controls Tier 2). Filled neutral pill ground. Planned, archived, draft (Pill planned).", "$extensions": { "modes": { "light": "{color.surface.sunk}", "dark": "{color.surface.sunk}" } } },
+        "ink": { "$type": "color", "$value": "{color.text.secondary}", "$description": "2026-10-08 \u00b7 StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis with the consumer's own label; physical-controls Tier 2). Label and LED on the filled neutral pill; AA on its fill in every mode (verify-contrast FILL_PAIRS).", "$extensions": { "modes": { "light": "{color.text.secondary}", "dark": "{color.text.secondary}" } } }
+      },
+      "live": {
+        "fill": { "$type": "color", "$value": "{color.signal.live}", "$description": "2026-10-08 \u00b7 StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis with the consumer's own label; physical-controls Tier 2). Filled live pill ground. Live (Pill live). The label takes text-on-inverse: signal.onLive misses AA on the live fill in both modes.", "$extensions": { "modes": { "light": "{color.signal.live}", "dark": "{color.signal.live}" } } },
+        "ink": { "$type": "color", "$value": "{color.text-on-inverse}", "$description": "2026-10-08 \u00b7 StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis with the consumer's own label; physical-controls Tier 2). Label and LED on the filled live pill; AA on its fill in every mode (verify-contrast FILL_PAIRS).", "$extensions": { "modes": { "light": "{color.text-on-inverse}", "dark": "{color.text-on-inverse}" } } }
       }
     },
     "tooltip": {
@@ -760,6 +780,7 @@
   "radius": {
     "field": { "$type": "dimension", "$value": "{radius.default}", "$description": "2026-10-07 \u00b7 Input material (physical-controls Tier 1), tuned in sc-tune. Levi's reference (2026-10-07), scaled x0.8 to the 16px body: the 6px corner scales to 4.8px; the nearest radius step is 3px (radius.input). Its own role so the field tunes without moving other controls. Levi, 2026-10-07: 8px (radius.default); was 3px (radius.input).", "$extensions": {"modes": {"light": "{radius.default}", "dark": "{radius.default}"}} },
     "card": { "$type": "dimension", "$value": "{radius.surface}", "$description": "2026-10-07 \u00b7 Card (physical-controls Tier 2: flat, or liquid glass in three levels and two tones, Levi 2026-10-08). Corner. Shipped = radius.surface (8px, today); its own role so the card tunes without moving the Button and Alert, which share radius.surface.", "$extensions": { "modes": { "light": "{radius.surface}", "dark": "{radius.surface}" } } },
+    "statusPill": { "$type": "dimension", "$value": "{radius.pill}", "$description": "2026-10-08 \u00b7 StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis with the consumer's own label; physical-controls Tier 2). Corner: a full capsule, from the library StatusPill set (radius/pill). Its own role so a tune never moves the other pill shapes.", "$extensions": { "modes": { "light": "{radius.pill}", "dark": "{radius.pill}" } } },
     "tooltip": { "$type": "dimension", "$value": "{space.4}", "$description": "2026-10-08 \u00b7 Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. Corner. Shipped = radius.control (radius.input, 3px, today); its own role so the tooltip tunes without moving the controls that share radius.control. Record Tooltip 2026-10-08-2007, concept A (Levi), applied 2026-10-08: 4px (space.4; no radius primitive sits at 4px); was radius.input (3px).", "$extensions": {"modes": {"light": "{space.4}", "dark": "{space.4}"}}},
     "control": {
       "$type": "dimension",
@@ -888,15 +909,6 @@
           "dark": { "$type": "shadow", "$value": "0 0 2px rgb(var(--sc-p-color-white-rgb) / 0.50)", "$description": "2026-10-08 \u00b7 Card glass (physical-controls Tier 2). Text halo, dark tone: white 50% in light mode, black 70% in dark. Record Card 2026-10-08-0921 (Levi: both concepts; A = the light tone, B = the dark tone), applied 2026-10-08.", "$extensions": { "modes": { "light": "0 0 2px rgb(var(--sc-p-color-white-rgb) / 0.50)", "dark": "0 0 2px rgb(0 0 0 / 0.70)" } } },
           "auto": { "$type": "shadow", "$value": "{shadow.card.glass.text.light}", "$description": "2026-10-08 \u00b7 Card glass (physical-controls Tier 2). Auto tone, the default (Levi: a rule that can be broken based on what the card sits on): the light tone in light mode, the dark tone in dark mode, so the glass pushes the backdrop away from the text ink. A card breaks it with tone=light or tone=dark when the backdrop already gives the text its contrast. Text halo.", "$extensions": { "modes": { "light": "{shadow.card.glass.text.light}", "dark": "{shadow.card.glass.text.dark}" } } }
         }
-      }
-    },
-    "badge": {
-      "led": {
-        "default": { "$type": "shadow", "$value": "0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)", "$description": "2026-10-08 \u00b7 Badge (physical-controls Tier 2: an LED dot that glows for live states, Drams LED Switch, mapping #9), tuned in sc-tune. Glow of the lit LED on a default badge, centred on the dot (zero offset: emitted light, not a cast shade). Shipped with zero alpha (flat, today). Snaps, never transitions (tokens:verify rule 6).", "$extensions": { "modes": { "light": "0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)", "dark": "0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)" } } },
-        "success": { "$type": "shadow", "$value": "0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)", "$description": "2026-10-08 \u00b7 Badge (physical-controls Tier 2: an LED dot that glows for live states, Drams LED Switch, mapping #9), tuned in sc-tune. Glow of the lit LED on a success badge, centred on the dot (zero offset: emitted light, not a cast shade). Shipped with zero alpha (flat, today). Snaps, never transitions (tokens:verify rule 6).", "$extensions": { "modes": { "light": "0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)", "dark": "0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)" } } },
-        "warning": { "$type": "shadow", "$value": "0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)", "$description": "2026-10-08 \u00b7 Badge (physical-controls Tier 2: an LED dot that glows for live states, Drams LED Switch, mapping #9), tuned in sc-tune. Glow of the lit LED on a warning badge, centred on the dot (zero offset: emitted light, not a cast shade). Shipped with zero alpha (flat, today). Snaps, never transitions (tokens:verify rule 6).", "$extensions": { "modes": { "light": "0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)", "dark": "0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)" } } },
-        "error": { "$type": "shadow", "$value": "0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)", "$description": "2026-10-08 \u00b7 Badge (physical-controls Tier 2: an LED dot that glows for live states, Drams LED Switch, mapping #9), tuned in sc-tune. Glow of the lit LED on a error badge, centred on the dot (zero offset: emitted light, not a cast shade). Shipped with zero alpha (flat, today). Snaps, never transitions (tokens:verify rule 6).", "$extensions": { "modes": { "light": "0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)", "dark": "0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)" } } },
-        "neutral": { "$type": "shadow", "$value": "0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)", "$description": "2026-10-08 \u00b7 Badge (physical-controls Tier 2: an LED dot that glows for live states, Drams LED Switch, mapping #9), tuned in sc-tune. Glow of the lit LED on a neutral badge, centred on the dot (zero offset: emitted light, not a cast shade). Shipped with zero alpha (flat, today). Snaps, never transitions (tokens:verify rule 6).", "$extensions": { "modes": { "light": "0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)", "dark": "0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)" } } }
       }
     },
     "tooltip": {
@@ -1076,6 +1088,13 @@
       "press": {
         "lean": { "$type": "number", "$value": 0, "$description": "2026-10-07 \u00b7 Elastic motion from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), engine src/motion/elastic.js, tuned in sc-tune. On pointer down the underline leans toward the item pressed and holds; release travels from that pose, dragging off springs back. 1 = the leading edge advances a quarter of the way. 0 = off (shipped).", "$extensions": { "modes": { "light": 0, "dark": 0 } } },
         "leanDuration": { "$type": "duration", "$value": "{motion.duration.press}", "$description": "2026-10-07 \u00b7 Elastic motion from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), engine src/motion/elastic.js, tuned in sc-tune. Time to lean on pointer down (the reel uses 150ms). Inert while press.lean is 0.", "$extensions": { "modes": { "light": "{motion.duration.press}", "dark": "{motion.duration.press}" } } }
+      }
+    },
+    "statusPill": {
+      "pulse": {
+        "duration": { "$type": "duration", "$value": "{motion.duration.orchestrated}", "$description": "2026-10-08 \u00b7 StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis with the consumer's own label; physical-controls Tier 2). One half of the live LED glow pulse (it alternates, so a full breath is twice this). Levi: an oscillating glow on live and in-progress pills, not a static state. Claude's start, on the ladder.", "$extensions": { "modes": { "light": "{motion.duration.orchestrated}", "dark": "{motion.duration.orchestrated}" } } },
+        "easing": { "$type": "cubicBezier", "$value": "{motion.easing.inOut}", "$description": "2026-10-08 \u00b7 StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis with the consumer's own label; physical-controls Tier 2). Curve of the live LED glow pulse (symmetric, so the glow breathes).", "$extensions": { "modes": { "light": "{motion.easing.inOut}", "dark": "{motion.easing.inOut}" } } },
+        "from": { "$type": "number", "$value": 0.25, "$description": "2026-10-08 \u00b7 StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis with the consumer's own label; physical-controls Tier 2). Glow opacity at the low point of the pulse (it rises to 1). Reduced motion holds the glow still at 1. Claude's start.", "$extensions": { "modes": { "light": 0.25, "dark": 0.25 } } }
       }
     },
     "tooltip": {
@@ -1306,8 +1325,10 @@
     }
   },
   "size": {
-    "badge": {
-      "led": { "$type": "dimension", "$value": { "value": 0, "unit": "px" }, "$description": "2026-10-08 \u00b7 Badge (physical-controls Tier 2: an LED dot that glows for live states, Drams LED Switch, mapping #9), tuned in sc-tune. LED dot diameter (a circle). Shipped 0 (no LED, today); the LED shows only when a badge sets live.", "$extensions": { "modes": { "light": { "value": 0, "unit": "px" }, "dark": { "value": 0, "unit": "px" } } } }
+    "statusPill": {
+      "led": { "$type": "dimension", "$value": "{space.4}", "$description": "2026-10-08 \u00b7 StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis with the consumer's own label; physical-controls Tier 2). Live LED diameter, from the library dot (4px).", "$extensions": { "modes": { "light": "{space.4}", "dark": "{space.4}" } } },
+      "ledGlow": { "$type": "dimension", "$value": "{space.4}", "$description": "2026-10-08 \u00b7 StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis with the consumer's own label; physical-controls Tier 2). Blur of the LED glow halo that pulses on a live pill. Claude's start; tuned in sc-tune.", "$extensions": { "modes": { "light": "{space.4}", "dark": "{space.4}" } } },
+      "icon": { "$type": "dimension", "$value": "{space.12}", "$description": "2026-10-08 \u00b7 StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis with the consumer's own label; physical-controls Tier 2). Leading glyph size. The library glyphs ran 8, 12 and 14px; one size, the 12px pause and archive glyphs.", "$extensions": { "modes": { "light": "{space.12}", "dark": "{space.12}" } } }
     },
     "tooltip": {
       "arrow": { "$type": "dimension", "$value": "{space.8}", "$description": "2026-10-08 \u00b7 Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. Arrow leg: the triangle under the bubble is this tall and twice this wide. Shipped = gap.sm (4px, today); its own role. 0 drops the arrow. Record Tooltip 2026-10-08-2007, concept A (Levi), applied 2026-10-08: 8px (space.8); was gap.sm 4px.", "$extensions": {"modes": {"light": "{space.8}", "dark": "{space.8}"}}},
@@ -1557,11 +1578,23 @@
           "$description": "2026-10-08 \u00b7 Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. Inline padding. Shipped = padding-inline.md (12px, today); its own role (CONTEXT finding 5) so the tooltip tunes without moving NavBar, SegmentedControl and Badge.",
           "$extensions": { "modes": { "light": "{space.12}", "dark": "{space.12}" } }
         },
-        "badge": {
+        "status-pill": {
           "$type": "dimension",
-          "$value": "{space.micro.6}",
-          "$description": "2026-10-08 \u00b7 Badge (physical-controls Tier 2: an LED dot that glows for live states, Drams LED Switch, mapping #9), tuned in sc-tune. Inline padding. Shipped = padding-inline.sm (6px, today); its own role (CONTEXT finding 5) so the badge tunes without moving SegmentedControl and the docs chrome that share padding-inline.sm.",
-          "$extensions": { "modes": { "light": "{space.micro.6}", "dark": "{space.micro.6}" } }
+          "$value": "{space.16}",
+          "$description": "2026-10-08 \u00b7 StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis with the consumer's own label; physical-controls Tier 2). Inline padding of a label-only pill, from the library (16px).",
+          "$extensions": { "modes": { "light": "{space.16}", "dark": "{space.16}" } }
+        },
+        "status-pill-lead": {
+          "$type": "dimension",
+          "$value": "{space.8}",
+          "$description": "2026-10-08 \u00b7 StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis with the consumer's own label; physical-controls Tier 2). Inline padding before a leading LED or glyph, from the library (8px).",
+          "$extensions": { "modes": { "light": "{space.8}", "dark": "{space.8}" } }
+        },
+        "status-pill-trail": {
+          "$type": "dimension",
+          "$value": "{space.12}",
+          "$description": "2026-10-08 \u00b7 StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis with the consumer's own label; physical-controls Tier 2). Inline padding after the label when a LED or glyph leads, from the library (12px).",
+          "$extensions": { "modes": { "light": "{space.12}", "dark": "{space.12}" } }
         }
       },
       "padding-block": {
@@ -1601,10 +1634,10 @@
           "$description": "2026-10-08 \u00b7 Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. Block padding. Shipped = padding-block.md (8px, today); its own role (CONTEXT finding 5).",
           "$extensions": { "modes": { "light": "{space.8}", "dark": "{space.8}" } }
         },
-        "badge": {
+        "status-pill": {
           "$type": "dimension",
           "$value": "{space.micro.2}",
-          "$description": "2026-10-08 \u00b7 Badge (physical-controls Tier 2: an LED dot that glows for live states, Drams LED Switch, mapping #9), tuned in sc-tune. Block padding. Shipped = padding-block.sm (2px, today); its own role (CONTEXT finding 5) so the badge tunes without moving SegmentedControl and the docs chrome that share padding-block.sm.",
+          "$description": "2026-10-08 \u00b7 StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis with the consumer's own label; physical-controls Tier 2). Block padding, from the library (2px): a 21px pill with the 11px chrome label.",
           "$extensions": { "modes": { "light": "{space.micro.2}", "dark": "{space.micro.2}" } }
         }
       },
@@ -1651,11 +1684,11 @@
           "$description": "2026-10-08 \u00b7 Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. Offset between the trigger and the arrow tip. Shipped = gap.md (8px, today); its own role (CONTEXT finding 5). Record Tooltip 2026-10-08-2007, concept A (Levi), applied 2026-10-08: 24px (space.24; Levi: offset another 16px so it sits higher); was gap.md 8px.",
           "$extensions": { "modes": { "light": "{space.24}", "dark": "{space.24}" } }
         },
-        "badge": {
+        "status-pill": {
           "$type": "dimension",
-          "$value": { "value": 0, "unit": "px" },
-          "$description": "2026-10-08 \u00b7 Badge (physical-controls Tier 2: an LED dot that glows for live states, Drams LED Switch, mapping #9), tuned in sc-tune. Gap between the LED and the label. Shipped 0 (no LED, today).",
-          "$extensions": { "modes": { "light": { "value": 0, "unit": "px" }, "dark": { "value": 0, "unit": "px" } } }
+          "$value": "{space.micro.6}",
+          "$description": "2026-10-08 \u00b7 StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis with the consumer's own label; physical-controls Tier 2). Gap between the LED or glyph and the label, from the library (6px).",
+          "$extensions": { "modes": { "light": "{space.micro.6}", "dark": "{space.micro.6}" } }
         }
       }
     },

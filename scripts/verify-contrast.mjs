@@ -153,6 +153,13 @@ const FILL_PAIRS = [
   ['color.control.keyHoverInk', 'color.control.keyHoverFill'],
   ['color.stepper.keyHoverInk', 'color.stepper.keyHover'],
   ['color.stepper.keyPressedInk', 'color.stepper.keyPressed'],
+  ['color.statusPill.progress.ink', 'color.statusPill.progress.fill'],
+  ['color.statusPill.success.ink', 'color.statusPill.success.fill'],
+  ['color.statusPill.warning.ink', 'color.statusPill.warning.fill'],
+  ['color.statusPill.error.ink', 'color.statusPill.error.fill'],
+  ['color.statusPill.info.ink', 'color.statusPill.info.fill'],
+  ['color.statusPill.neutral.ink', 'color.statusPill.neutral.fill'],
+  ['color.statusPill.live.ink', 'color.statusPill.live.fill'],
 ];
 function checkFillPairs() {
   const failures = [];
