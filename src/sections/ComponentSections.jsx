@@ -107,8 +107,8 @@ export function BadgePage() {
         { name: 'Neutral', token: '--sc-color-text-secondary', render: <Badge variant="neutral">Draft</Badge> },
       ]}
       tokenRows={[
-        { prop: 'Inline padding', token: '--sc-space-component-padding-inline-sm' },
-        { prop: 'Block padding', token: '--sc-space-component-padding-block-sm' },
+        { prop: 'Inline padding', token: '--sc-space-component-padding-inline-badge' },
+        { prop: 'Block padding', token: '--sc-space-component-padding-block-badge' },
         { prop: 'Radius', token: '--sc-radius-control' },
         { prop: 'Outline', token: '--sc-border-width-default' },
         { prop: 'Label type', token: '--sc-font-text-mono-chrome', light: 'mono 11 / caps' },

@@ -6,8 +6,9 @@ Spec ref: §2 Tier 3 · 3.2 · States: default, success, warning, error, neutral
 
 | Token | Use |
 |---|---|
-| `--sc-space-component-padding-inline-sm` | inline padding · tight chrome |
-| `--sc-space-component-padding-block-sm` | block padding · ultra-thin |
+| `--sc-space-component-padding-inline-badge` | inline padding · tight chrome (role; = padding-inline.sm, 6px) |
+| `--sc-space-component-padding-block-badge` | block padding · ultra-thin (role; = padding-block.sm, 2px) |
+| `--sc-space-component-gap-badge` | LED to label (shipped 0) |
 | `--sc-radius-control` | radius · inscribed register |
 | `--sc-border-width-default` | outline |
 | `--sc-font-text-mono-chrome-*` (5 axes) | Cascadia caps · widest tracking |
@@ -21,6 +22,19 @@ Spec ref: §2 Tier 3 · 3.2 · States: default, success, warning, error, neutral
 | `warning` | `--sc-color-status-warning-ink` | `--sc-color-status-warning-ink` |
 | `error` | `--sc-color-status-error` | `--sc-color-status-error` |
 | `neutral` | `--sc-color-text-secondary` | `--sc-color-border-default` |
+
+## LED (live state)
+
+`live` adds an LED (Drams LED Switch, mapping #9): `true` lit, `false` unlit, left out = no LED (every badge today). A lit LED announces `liveLabel` (default `live`) to screen readers, so the state is never carried by light alone.
+
+| Token | Use |
+|---|---|
+| `--sc-size-badge-led` | dot diameter (shipped 0) |
+| `--sc-color-badge-led-off` | unlit fill (shipped transparent) |
+| `--sc-color-badge-led-{default,success,warning,error,neutral}` | lit fill per variant (shipped transparent) |
+| `--sc-shadow-badge-led-{default,success,warning,error,neutral}` | lit glow per variant, zero offset (shipped zero alpha; snaps) |
+
+Forced colors: the fill and glow drop; an unlit LED keeps a `CanvasText` ring, a lit one fills `CanvasText`.
 
 ## Design notes
 
