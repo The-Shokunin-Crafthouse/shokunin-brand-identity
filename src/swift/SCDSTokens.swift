@@ -171,8 +171,8 @@ public enum SCDS {
     public static let semanticVersion = "0.1.0"
     public static let sourceGenerated = "2026-05-26"
     public static let primitivesHash = "41d576559668277a"
-    public static let semanticHash = "df93fc8278248197"
-    public static let tokenCount = 306
+    public static let semanticHash = "c5541c30c8000b0c"
+    public static let tokenCount = 330
   }
 
   // MARK: - Color
@@ -773,6 +773,78 @@ public enum SCDS {
         dark:  (0, 0, 0, 0.12)
     )
 
+    /// `color.statusPill.progress.fill`
+    public static let statusPillProgressFill = SwiftUI.Color.scdsDynamic(
+        light: (0.984314, 1, 0, 1),
+        dark:  (0.984314, 1, 0, 1)
+    )
+
+    /// `color.statusPill.progress.ink`
+    public static let statusPillProgressInk = SwiftUI.Color.scdsDynamic(
+        light: (0.05098, 0.047059, 0.043137, 1),
+        dark:  (0.05098, 0.047059, 0.043137, 1)
+    )
+
+    /// `color.statusPill.success.fill`
+    public static let statusPillSuccessFill = SwiftUI.Color.scdsDynamic(
+        light: (0.141176, 0.431373, 0.290196, 1),
+        dark:  (0.415686, 0.752941, 0.564706, 1)
+    )
+
+    /// `color.statusPill.success.ink`
+    public static let statusPillSuccessInk = SwiftUI.Color.scdsDynamic(
+        light: (0.945098, 0.937255, 0.921569, 1),
+        dark:  (0.101961, 0.094118, 0.082353, 1)
+    )
+
+    /// `color.statusPill.warning.fill`
+    public static let statusPillWarningFill = SwiftUI.Color.scdsDynamic(
+        light: (0.760784, 0.254902, 0.047059, 1),
+        dark:  (0.964706, 0.466667, 0.317647, 1)
+    )
+
+    /// `color.statusPill.warning.ink`
+    public static let statusPillWarningInk = SwiftUI.Color.scdsDynamic(
+        light: (0.945098, 0.937255, 0.921569, 1),
+        dark:  (0.101961, 0.094118, 0.082353, 1)
+    )
+
+    /// `color.statusPill.error.fill`
+    public static let statusPillErrorFill = SwiftUI.Color.scdsDynamic(
+        light: (0.498039, 0.113725, 0.113725, 1),
+        dark:  (0.996078, 0.419608, 0.403922, 1)
+    )
+
+    /// `color.statusPill.error.ink`
+    public static let statusPillErrorInk = SwiftUI.Color.scdsDynamic(
+        light: (0.945098, 0.937255, 0.921569, 1),
+        dark:  (0.101961, 0.094118, 0.082353, 1)
+    )
+
+    /// `color.statusPill.info.fill`
+    public static let statusPillInfoFill = SwiftUI.Color.scdsDynamic(
+        light: (0.176471, 0.352941, 0.847059, 1),
+        dark:  (0.439216, 0.603922, 0.992157, 1)
+    )
+
+    /// `color.statusPill.info.ink`
+    public static let statusPillInfoInk = SwiftUI.Color.scdsDynamic(
+        light: (0.945098, 0.937255, 0.921569, 1),
+        dark:  (0.101961, 0.094118, 0.082353, 1)
+    )
+
+    /// `color.statusPill.live.fill`
+    public static let statusPillLiveFill = SwiftUI.Color.scdsDynamic(
+        light: (0.784314, 0.156863, 0.109804, 1),
+        dark:  (0.784314, 0.156863, 0.109804, 1)
+    )
+
+    /// `color.statusPill.live.ink`
+    public static let statusPillLiveInk = SwiftUI.Color.scdsDynamic(
+        light: (0.945098, 0.937255, 0.921569, 1),
+        dark:  (0.101961, 0.094118, 0.082353, 1)
+    )
+
     /// `color.tooltip.surface`
     public static let tooltipSurface = SwiftUI.Color.scdsDynamic(
         light: (1, 1, 1, 1),
@@ -1144,6 +1216,9 @@ public enum SCDS {
     /// `space.component.padding-inline.tooltip`
     public static let componentPaddingInlineTooltip: CGFloat = 12
 
+    /// `space.component.padding-inline.status-pill`
+    public static let componentPaddingInlineStatusPill: CGFloat = 12
+
     /// `space.component.padding-block.sm`
     public static let componentPaddingBlockSm: CGFloat = 2
 
@@ -1161,6 +1236,9 @@ public enum SCDS {
 
     /// `space.component.padding-block.tooltip`
     public static let componentPaddingBlockTooltip: CGFloat = 8
+
+    /// `space.component.padding-block.status-pill`
+    public static let componentPaddingBlockStatusPill: CGFloat = 4
 
     /// `space.component.gap.sm`
     public static let componentGapSm: CGFloat = 4
@@ -1182,6 +1260,9 @@ public enum SCDS {
 
     /// `space.component.gap.tooltip`
     public static let componentGapTooltip: CGFloat = 24
+
+    /// `space.component.gap.status-pill`
+    public static let componentGapStatusPill: CGFloat = 6
   }
 
   // MARK: - Radius
@@ -1193,6 +1274,9 @@ public enum SCDS {
 
     /// `radius.card`
     public static let card: CGFloat = 8
+
+    /// `radius.statusPill`
+    public static let statusPill: CGFloat = 9999
 
     /// `radius.tooltip`
     public static let tooltip: CGFloat = 4
@@ -1234,6 +1318,21 @@ public enum SCDS {
 
   /// Named element sizes, including the touch-target floor.
   public enum Size {
+    /// `size.statusPill.dash`
+    public static let statusPillDash: CGFloat = 3
+
+    /// `size.statusPill.dashGap`
+    public static let statusPillDashGap: CGFloat = 3
+
+    /// `size.statusPill.dashWidth`
+    public static let statusPillDashWidth: CGFloat = 2
+
+    /// `size.statusPill.glow`
+    public static let statusPillGlow: CGFloat = 8
+
+    /// `size.statusPill.icon`
+    public static let statusPillIcon: CGFloat = 12
+
     /// `size.tooltip.arrow`
     public static let tooltipArrow: CGFloat = 8
 
@@ -1508,6 +1607,15 @@ public enum SCDS {
 
     /// `motion.navBar.press.leanDuration` · 160ms
     public static let navBarPressLeanDuration: TimeInterval = 0.16
+
+    /// `motion.statusPill.pulse.duration` · 720ms
+    public static let statusPillPulseDuration: TimeInterval = 0.72
+
+    /// `motion.statusPill.pulse.easing`
+    public static let statusPillPulseEasing = SCDSEasing(0.65, 0, 0.35, 1)
+
+    /// `motion.statusPill.pulse.from`
+    public static let statusPillPulseFrom: CGFloat = 0.25
 
     /// `motion.tooltip.travel.duration` · 720ms
     public static let tooltipTravelDuration: TimeInterval = 0.72

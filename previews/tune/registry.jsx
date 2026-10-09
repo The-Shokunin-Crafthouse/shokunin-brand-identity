@@ -29,7 +29,8 @@ import { PlusUnderline } from '../../src/components/PlusUnderline/PlusUnderline.
 import { Slider } from '../../src/components/Slider/Slider.jsx';
 import { Input } from '../../src/components/Input/Input.jsx';
 import { Card } from '../../src/components/Card/Card.jsx';
-import { MagnifyingGlass, EnvelopeSimple, MapPin, Eye, Copy, CalendarBlank, Clock, CaretDown } from '@phosphor-icons/react';
+import { StatusPill } from '../../src/components/StatusPill/StatusPill.jsx';
+import { MagnifyingGlass, EnvelopeSimple, MapPin, Eye, Copy, CalendarBlank, Clock, CaretDown, Check, Pause, Archive, Warning } from '@phosphor-icons/react';
 import switchCss from '../../src/components/Switch/Switch.module.css?raw';
 import stepperCss from '../../src/components/Stepper/Stepper.module.css?raw';
 import iconCss from '../../src/components/Icon/Icon.module.css?raw';
@@ -41,6 +42,7 @@ import underlineCss from '../../src/components/PlusUnderline/PlusUnderline.modul
 import sliderCss from '../../src/components/Slider/Slider.module.css?raw';
 import inputCss from '../../src/components/Input/Input.module.css?raw';
 import cardCss from '../../src/components/Card/Card.module.css?raw';
+import statusPillCss from '../../src/components/StatusPill/StatusPill.module.css?raw';
 import s from './Tune.module.css';
 
 const SEGMENTS = ['day', 'week', 'month'];
@@ -143,6 +145,10 @@ const CARD_BACKDROPS = {
   ),
   none: null,
 };
+
+/* StatusPill tones with the docs page's labels (src/sections/ComponentSections.jsx). */
+const PILLS = { progress: 'In progress', live: 'Live', success: 'Complete', warning: 'Pending', error: 'Failed', info: 'Info', neutral: 'Planned' };
+const PILL_ICONS = { none: undefined, check: Check, pause: Pause, archive: Archive, warning: Warning };
 
 /* Set on a keyboard step so the lab's tick plays on keys only, never on a drag. */
 let keyStep = false;
@@ -539,6 +545,33 @@ export const REGISTRY = {
               </Card>,
             ])}
           </div>
+        </div>
+      );
+    },
+  },
+  StatusPill: {
+    css: [statusPillCss],
+    // Levi 2026-10-08: Badge and Pill fold into StatusPill (tone, emphasis,
+    // the product's own label). Live and in-progress pills glow, the whole
+    // pill, and the glow breathes. No seeds: a concept starts from shipped.
+    shippedSound: null,
+    trigger: 'ships silent',
+    props: [
+      { name: 'show', type: 'enum', options: ['all', ...Object.keys(PILLS)], default: 'all' },
+      { name: 'emphasis', type: 'enum', options: ['filled', 'outline'], default: 'filled' },
+      { name: 'glow', type: 'enum', options: ['by tone', 'on', 'off'], default: 'by tone' },
+      { name: 'icon', type: 'enum', options: Object.keys(PILL_ICONS), default: 'none' },
+      { name: 'content', type: 'text', default: 'In progress' },
+    ],
+    play: (p, set) => set('glow', p.glow === 'off' ? 'on' : 'off'),
+    render: (p) => {
+      const shown = p.show === 'all' ? Object.keys(PILLS) : [p.show];
+      const glow = p.glow === 'by tone' ? undefined : p.glow === 'on';
+      return (
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 'var(--sc-space-layout-stack-sm)' }}>
+          {shown.map((t) => (
+            <StatusPill key={t} tone={t} emphasis={p.emphasis} glow={glow} icon={PILL_ICONS[p.icon]}>{p.show === 'all' ? PILLS[t] : p.content}</StatusPill>
+          ))}
         </div>
       );
     },

@@ -1,0 +1,121 @@
+/* tokens:
+ *   --sc-space-component-padding-inline-status-pill        · inline padding, both sides (8)
+ *   --sc-space-component-padding-block-status-pill         · block padding (2)
+ *   --sc-space-component-gap-status-pill                   · glyph to label (6)
+ *   --sc-radius-status-pill                                · capsule
+ *   --sc-border-width-default                              · outline edge (drawn inside, no size change)
+ *   --sc-font-text-label-chrome-*                          · label
+ *   --sc-color-status-pill-<tone>-fill / -ink              · filled ground and label (AA, FILL_PAIRS)
+ *   --sc-color-text-primary, status-*-ink, status-error    · outline labels (AA on surfaces)
+ *   --sc-color-text-secondary                              · neutral label and dashed edge (AA on surfaces)
+ *   --sc-color-border-strong, signal-live                  · outline edges without an ink
+ *   --sc-size-status-pill-glow / -icon                     · the glow blur, the glyph
+ *   --sc-size-status-pill-dash / -dash-gap / -dash-width   · the neutral pill dashed edge (3 / 3 / 2)
+ *   --sc-motion-status-pill-pulse-*                        · the glow breathing (duration, easing, low opacity)
+ */
+
+.pill {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sc-space-component-gap-status-pill);
+  padding-inline: var(--sc-space-component-padding-inline-status-pill);
+  padding-block: var(--sc-space-component-padding-block-status-pill);
+  border-radius: var(--sc-radius-status-pill);
+  outline: var(--sc-border-width-default) solid var(--pill-edge, transparent);
+  outline-offset: calc(-1 * var(--sc-border-width-default));
+  background-color: var(--pill-fill, transparent);
+  color: var(--pill-ink);
+  font-family: var(--sc-font-text-label-chrome-family);
+  font-size: var(--sc-font-text-label-chrome-size);
+  font-weight: var(--sc-font-text-label-chrome-weight);
+  line-height: var(--sc-font-text-label-chrome-line-height);
+  letter-spacing: var(--sc-font-text-label-chrome-letter-spacing);
+  white-space: nowrap;
+}
+
+/* Filled: the tone's own ground and label. */
+.filled.progress { --pill-fill: var(--sc-color-status-pill-progress-fill); --pill-ink: var(--sc-color-status-pill-progress-ink); }
+.filled.success { --pill-fill: var(--sc-color-status-pill-success-fill); --pill-ink: var(--sc-color-status-pill-success-ink); }
+.filled.warning { --pill-fill: var(--sc-color-status-pill-warning-fill); --pill-ink: var(--sc-color-status-pill-warning-ink); }
+.filled.error { --pill-fill: var(--sc-color-status-pill-error-fill); --pill-ink: var(--sc-color-status-pill-error-ink); }
+.filled.info { --pill-fill: var(--sc-color-status-pill-info-fill); --pill-ink: var(--sc-color-status-pill-info-ink); }
+.filled.live { --pill-fill: var(--sc-color-status-pill-live-fill); --pill-ink: var(--sc-color-status-pill-live-ink); }
+
+/* Outline: the hue on the edge, the label on the hue's AA ink (text.primary where the hue has none). */
+.outline.progress { --pill-ink: var(--sc-color-text-primary); --pill-edge: var(--sc-color-border-strong); --pill-hue: var(--sc-color-signal-progress); }
+.outline.success { --pill-ink: var(--sc-color-status-success-ink); --pill-edge: var(--sc-color-status-success-ink); }
+.outline.warning { --pill-ink: var(--sc-color-status-warning-ink); --pill-edge: var(--sc-color-status-warning-ink); }
+.outline.error { --pill-ink: var(--sc-color-status-error); --pill-edge: var(--sc-color-status-error); }
+.outline.info { --pill-ink: var(--sc-color-status-info-ink); --pill-edge: var(--sc-color-status-info-ink); }
+.outline.live { --pill-ink: var(--sc-color-text-primary); --pill-edge: var(--sc-color-signal-live); }
+
+.icon {
+  flex: none;
+  inline-size: var(--sc-size-status-pill-icon);
+  block-size: var(--sc-size-status-pill-icon);
+}
+
+/* Neutral (planned): no fill, a dashed edge in the text colour, either emphasis. */
+.neutral {
+  --pill-ink: var(--sc-color-text-secondary);
+  --pill-hue: var(--sc-color-text-secondary);
+}
+
+.dash {
+  position: absolute;
+  inset: 0;
+  overflow: visible;
+  pointer-events: none;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: var(--sc-size-status-pill-dash-width);
+  stroke-dasharray: var(--sc-size-status-pill-dash) var(--sc-size-status-pill-dash-gap);
+}
+
+/* Live caps: only the live tone sets its label in capitals (LIVE). */
+.live {
+  text-transform: uppercase;
+}
+
+/* The glow: the whole pill glows in its hue (the fill, or the edge on an
+ * outline pill) and breathes. The halo is an outer shadow on a pseudo-element,
+ * so it paints once and only its opacity animates. */
+.glow::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: 0 0 var(--sc-size-status-pill-glow) var(--pill-hue, var(--pill-fill, var(--pill-edge)));
+  pointer-events: none;
+  animation: pulse var(--sc-motion-status-pill-pulse-duration) var(--sc-motion-status-pill-pulse-easing) infinite alternate;
+}
+
+@keyframes pulse {
+  from { opacity: var(--sc-motion-status-pill-pulse-from); }
+  to { opacity: 1; }
+}
+
+/* Reduced motion: the glow holds still, lit. */
+@media (prefers-reduced-motion: reduce) {
+  .glow::after {
+    animation: none;
+    opacity: 1;
+  }
+}
+
+/* Forced colors drop fills: every pill draws its edge; the glow goes, and a
+ * glowing pill doubles its edge so the state still reads. */
+@media (forced-colors: active) {
+  .pill {
+    outline-color: CanvasText;
+  }
+  .glow {
+    outline-width: calc(2 * var(--sc-border-width-default));
+    outline-offset: calc(-2 * var(--sc-border-width-default));
+  }
+  .glow::after,
+  .dash {
+    display: none;
+  }
+}

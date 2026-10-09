@@ -10,10 +10,10 @@ import { useState } from 'react';
 import { ComponentPage } from './_kit/ComponentPage.jsx';
 import { Slash, Accent, Em } from './_kit/Editorial.jsx';
 import { Button } from '../components/Button/Button.jsx';
-import { Badge } from '../components/Badge/Badge.jsx';
+import { StatusPill } from '../components/StatusPill/StatusPill.jsx';
 import { Card } from '../components/Card/Card.jsx';
 import { Input } from '../components/Input/Input.jsx';
-import { EnvelopeSimple, MagnifyingGlass, MapPin, CalendarBlank } from '@phosphor-icons/react';
+import { EnvelopeSimple, MagnifyingGlass, MapPin, CalendarBlank, Check, Pause } from '@phosphor-icons/react';
 import { Alert } from '../components/Alert/Alert.jsx';
 import { Switch } from '../components/Switch/Switch.jsx';
 import { Avatar } from '../components/Avatar/Avatar.jsx';
@@ -85,46 +85,52 @@ export function ButtonPage() {
   );
 }
 
-/* ── 3.2 Badge ───────────────────────────────────────────── */
-export function BadgePage() {
+/* ── 3.2 StatusPill ──────────────────────────────────────── */
+export function StatusPillPage() {
   return (
     <ComponentPage
-      id="badge" label="Badge" tokensN={9}
-      eyebrow={<>Badge<Slash />the label, not the button</>}
-      title={<>Outlined, never filled. <Em>Colour is the whole message.</Em></>}
-      lead={<>A badge is a categorical chrome label. It outlines rather than fills so it never competes with a card or a button at the same scale. The colour carries the meaning: accent for brand, status hues for state, muted for neutral.</>}
-      statesTitle="Five variants, five meanings."
+      id="status-pill" label="StatusPill" tokensN={14}
+      eyebrow={<>StatusPill<Slash />the state of a thing</>}
+      title={<>One pill for every status. <Em>The tone says how; the label says what.</Em></>}
+      lead={<>A status pill names the state of a project, a milestone, a session or a deploy. It fills with its tone, or outlines where the page must stay quiet. The label is always the product&rsquo;s own word. A live or in-progress pill glows in its own hue and the glow breathes, so a glance tells you the thing is still running.</>}
+      statesTitle="Seven tones, two weights."
       callouts={[
-        { title: 'Why outlined, not filled', body: 'A fill at this scale reads as a button — something to press. The outline reads as a label — something to read. The distinction is load-bearing in dense chrome.' },
-        { title: 'Brand and danger never share a hue', body: 'Default is teal (a brand-signal chip); error is oxblood. A badge marking studio content and a badge marking a failure can never be mistaken for each other.' },
-        { title: 'Neutral decouples colour from border', body: 'Its text reads quieter than its border on purpose — “categorical, not stateful.” The one variant where colour and outline deliberately disagree.' },
+        { title: 'Tone and label, never a baked word', body: 'Each product names its own states. The pill brings the colour and the weight; the label comes from the product, so the portal, Studio PM and the brand site each read in their own words.' },
+        { title: 'Live things breathe', body: 'Progress and live pills glow, the whole pill, and the glow pulses on the motion ladder. Reduced motion holds it lit and still, and the label still names the state. Only LIVE sets its label in capitals.' },
+        { title: 'Filled or outline', body: 'Filled for the state that matters on a row. Outline where several pills sit together, or for a verdict on a check: the old Badge pass and fail are outline success and error.' },
       ]}
       states={[
-        { name: 'Default', token: '--sc-color-brand-accent-ink', render: <Badge>Studio</Badge> },
-        { name: 'Success', token: '--sc-color-status-success-ink', render: <Badge variant="success">Shipped</Badge> },
-        { name: 'Warning', token: '--sc-color-status-warning-ink', render: <Badge variant="warning">In review</Badge> },
-        { name: 'Error', token: '--sc-color-status-error', render: <Badge variant="error">Failed</Badge> },
-        { name: 'Neutral', token: '--sc-color-text-secondary', render: <Badge variant="neutral">Draft</Badge> },
+        { name: 'Progress', token: '--sc-color-status-pill-progress-fill', render: <StatusPill tone="progress">In progress</StatusPill> },
+        { name: 'Live', token: '--sc-color-status-pill-live-fill', render: <StatusPill tone="live">Live</StatusPill> },
+        { name: 'Success', token: '--sc-color-status-pill-success-fill', render: <StatusPill tone="success" icon={Check}>Complete</StatusPill> },
+        { name: 'Warning', token: '--sc-color-status-pill-warning-fill', render: <StatusPill tone="warning">Pending</StatusPill> },
+        { name: 'Error', token: '--sc-color-status-pill-error-fill', render: <StatusPill tone="error">Failed</StatusPill> },
+        { name: 'Info', token: '--sc-color-status-pill-info-fill', render: <StatusPill tone="info">Info</StatusPill> },
+        { name: 'Neutral', token: '--sc-color-text-secondary', render: <StatusPill tone="neutral">Planned</StatusPill> },
+        { name: 'Outline success', token: '--sc-color-status-success-ink', render: <StatusPill tone="success" emphasis="outline">Pass</StatusPill> },
+        { name: 'Outline error', token: '--sc-color-status-error', render: <StatusPill tone="error" emphasis="outline">Fail</StatusPill> },
+        { name: 'Outline warning', token: '--sc-color-status-warning-ink', render: <StatusPill tone="warning" emphasis="outline" icon={Pause}>Paused</StatusPill> },
       ]}
       tokenRows={[
-        { prop: 'Inline padding', token: '--sc-space-component-padding-inline-sm' },
-        { prop: 'Block padding', token: '--sc-space-component-padding-block-sm' },
-        { prop: 'Radius', token: '--sc-radius-control' },
-        { prop: 'Outline', token: '--sc-border-width-default' },
-        { prop: 'Label type', token: '--sc-font-text-mono-chrome', light: 'mono 11 / caps' },
-        { prop: 'Default colour', token: '--sc-color-brand-accent-ink' },
-        { prop: 'Success colour', token: '--sc-color-status-success-ink' },
-        { prop: 'Warning colour', token: '--sc-color-status-warning-ink' },
-        { prop: 'Error colour', token: '--sc-color-status-error' },
-        { prop: 'Neutral text', token: '--sc-color-text-secondary' },
-        { prop: 'Neutral border', token: '--sc-color-border-default' },
+        { prop: 'Inline padding', token: '--sc-space-component-padding-inline-status-pill' },
+        { prop: 'Block padding', token: '--sc-space-component-padding-block-status-pill' },
+        { prop: 'Gap', token: '--sc-space-component-gap-status-pill' },
+        { prop: 'Radius', token: '--sc-radius-status-pill' },
+        { prop: 'Outline edge', token: '--sc-border-width-default' },
+        { prop: 'Label type', token: '--sc-font-text-label-chrome', light: 'label 11' },
+        { prop: 'Tone fill', token: '--sc-color-status-pill-success-fill', light: 'one per tone' },
+        { prop: 'Tone label', token: '--sc-color-status-pill-success-ink', light: 'one per tone, AA' },
+        { prop: 'Glow', token: '--sc-size-status-pill-glow' },
+        { prop: 'Planned dash', token: '--sc-size-status-pill-dash' },
+        { prop: 'Pulse', token: '--sc-motion-status-pill-pulse-duration' },
+        { prop: 'Glyph', token: '--sc-size-status-pill-icon' },
       ]}
-      rulesTitle="Four rules for a chip that reads as a label."
+      rulesTitle="Four rules for a pill that names a state."
       rules={[
-        { name: 'Never fill a badge', text: 'The outline is the form. A filled badge reads as a tiny button and invites a press that does nothing.' },
-        { name: 'Default marks brand, not status', text: 'The teal default is for studio-specific content — a brand-signal chip. For state, reach for success / warning / error / neutral.' },
-        { name: 'Mono caps, always', text: 'Badges sit in the chrome register with eyebrows and timestamps. Setting one in the sans body face breaks the apparatus voice.' },
-        { name: 'Colour is the message; copy stays short', text: 'One or two words. The hue does the categorising; the text only names the category.' },
+        { name: 'Bring your own word', text: 'Pick the tone for how the state feels and write the label the product already uses. Never reach for a tone for its colour alone.' },
+        { name: 'Glow means still running', text: 'The glow says work is happening now. A progress state that is only waiting turns it off with glow={false}. A plan is the neutral pill: no fill, a dashed edge.' },
+        { name: 'One filled pill per row', text: 'A row of filled pills is a row of shouting. Fill the one that matters and outline the rest.' },
+        { name: 'Short labels', text: 'One or two words. The tone categorises; the label only names the category.' },
       ]}
     />
   );

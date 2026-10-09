@@ -42,7 +42,7 @@ Type is one composite token per role, set with the `font` shorthand: `font: var(
 ## Example
 
 ```jsx
-const { Card, Input, Button, Badge, Divider } = window.SCDS;
+const { Card, Input, Button, StatusPill, Divider } = window.SCDS;
 
 function InviteCard() {
   return (
@@ -51,7 +51,7 @@ function InviteCard() {
         <div style={{ display: 'grid', gap: 'var(--sc-space-layout-stack-sm)' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--sc-space-component-gap-md)' }}>
             <p style={{ font: 'var(--sc-font-text-title-card)' }}>Invite a collaborator</p>
-            <Badge variant="neutral">Draft</Badge>
+            <StatusPill tone="neutral" emphasis="outline">Draft</StatusPill>
           </div>
           <p style={{ font: 'var(--sc-font-text-body-dense)', color: 'var(--sc-color-text-secondary)' }}>
             They get read access to the project binder.

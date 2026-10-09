@@ -21,7 +21,6 @@
 
 export { Alert } from './components/Alert/Alert.jsx';
 export { Avatar } from './components/Avatar/Avatar.jsx';
-export { Badge } from './components/Badge/Badge.jsx';
 export { Button } from './components/Button/Button.jsx';
 export { Card } from './components/Card/Card.jsx';
 export { Divider } from './components/Divider/Divider.jsx';
@@ -31,6 +30,7 @@ export { NavBar } from './components/NavBar/NavBar.jsx';
 export { ProgressIndicator } from './components/ProgressIndicator/ProgressIndicator.jsx';
 export { SegmentedControl } from './components/SegmentedControl/SegmentedControl.jsx';
 export { Slider } from './components/Slider/Slider.jsx';
+export { StatusPill } from './components/StatusPill/StatusPill.jsx';
 export { Stepper } from './components/Stepper/Stepper.jsx';
 export { Switch } from './components/Switch/Switch.jsx';
 export { Tooltip } from './components/Tooltip/Tooltip.jsx';

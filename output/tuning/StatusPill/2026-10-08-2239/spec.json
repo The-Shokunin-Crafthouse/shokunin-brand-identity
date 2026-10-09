@@ -1,0 +1,90 @@
+{
+  "tool": "sc-tune",
+  "version": 3,
+  "component": "StatusPill",
+  "kind": "component",
+  "recorded": "2026-10-09T04:39:58.160Z",
+  "theme": "dark",
+  "notes": "",
+  "pick": null,
+  "concepts": [
+    {
+      "id": "A",
+      "notes": "",
+      "props": {
+        "show": "all",
+        "emphasis": "filled",
+        "glow": "by tone",
+        "icon": "none",
+        "content": "In progress",
+        "live": "by tone"
+      },
+      "sound": {
+        "file": null,
+        "volume": 0.7,
+        "rate": 1,
+        "shipped": null,
+        "trigger": "ships silent"
+      },
+      "tokens": [],
+      "pins": {}
+    }
+  ],
+  "derived": {
+    "--pill-fill": "0px",
+    "--pill-ink": "0px",
+    "--pill-edge": "0px",
+    "--pill-hue": "0px"
+  },
+  "tokenCount": 39,
+  "state": {
+    "component": "StatusPill",
+    "notes": "",
+    "active": "A",
+    "concepts": [
+      {
+        "id": "A",
+        "overrides": {
+          "all": {},
+          "light": {},
+          "dark": {}
+        },
+        "shadowAdj": {
+          "all": {},
+          "light": {},
+          "dark": {}
+        },
+        "springs": {},
+        "pins": {},
+        "notes": "",
+        "props": {
+          "show": "all",
+          "emphasis": "filled",
+          "glow": "by tone",
+          "icon": "none",
+          "content": "In progress",
+          "live": "by tone"
+        },
+        "sound": {
+          "file": null,
+          "volume": 0.7,
+          "rate": 1
+        }
+      }
+    ],
+    "pick": {
+      "id": null,
+      "reason": ""
+    },
+    "view": {
+      "theme": "dark",
+      "zoom": 1,
+      "ground": "--sc-color-surface-page",
+      "compare": false,
+      "blind": false,
+      "order": null,
+      "slow": 1
+    },
+    "updated": "2026-10-09T04:36:24.134Z"
+  }
+}
