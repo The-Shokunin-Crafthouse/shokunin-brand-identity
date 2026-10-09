@@ -24,6 +24,7 @@
 
 import { useId, useLayoutEffect, useRef, useState } from 'react';
 import { useGlassRefraction } from '../Card/glass.js';
+import { arrowPath, dropShadowFilter } from './shape.js';
 import { readElastic, isActive, prefersReducedMotion, sampleEasing, speeds } from '../../motion/elastic.js';
 import styles from './Tooltip.module.css';
 
@@ -36,6 +37,7 @@ export function Tooltip({ content, multiline = false, open: forced, variant = 's
   const wrapRef = useRef(null);
   const tipRef = useRef(null);
   const { id: filterId, filter } = useGlassRefraction(tipRef, glass, 'frosted');
+  const shape = useTipShape(tipRef, open, glass);
 
   const wasOpen = useRef(open);
   const runId = useRef(0);
@@ -111,7 +113,7 @@ export function Tooltip({ content, multiline = false, open: forced, variant = 's
         role="tooltip"
         id={id}
         className={`${styles.tooltip} ${glass ? styles.glass : ''} ${open ? styles.open : ''} ${multiline ? styles.multiline : styles.singleline}`}
-        style={filter ? { '--glass-refract': `url(#${filterId})` } : undefined}
+        style={{ ...(filter ? { '--glass-refract': `url(#${filterId})` } : {}), ...(shape.drop !== 'none' ? { '--tip-drop': shape.drop } : {}) }}
       >
         {filter && (
           <svg className={styles.defs} aria-hidden="true" focusable="false" width="0" height="0">
@@ -122,7 +124,42 @@ export function Tooltip({ content, multiline = false, open: forced, variant = 's
           </svg>
         )}
         {content}
+        {shape.d && (
+          <svg className={styles.arrow} aria-hidden="true" focusable="false" width={shape.width} height={shape.height}
+            viewBox={`0 ${-shape.overlap} ${shape.width} ${shape.height}`} style={{ top: `calc(100% - ${shape.overlap}px)` }}>
+            <path d={shape.d} />
+          </svg>
+        )}
       </span>
     </span>
   );
+}
+
+/*
+ * The arrow and the plate's shadow, read from the role tokens: the arrow
+ * leg, tip radius and fillet radius build the SVG path; the plate shadow's
+ * outer layers become a drop-shadow filter on the whole tooltip, so the
+ * shadow follows the bubble and the arrow as one shape. Rebuilt on open and
+ * when the tuning lab changes a token.
+ */
+function useTipShape(ref, open, glass) {
+  const [shape, setShape] = useState({ d: '', width: 0, height: 0, overlap: 0, drop: 'none' });
+  useLayoutEffect(() => {
+    const el = ref.current;
+    if (!el) return undefined;
+    const build = () => {
+      const cs = getComputedStyle(el);
+      const px = (n) => parseFloat(cs.getPropertyValue(n)) || 0;
+      // Solid: the arrow runs 1px up into the bubble to hide the seam. Glass:
+      // no overlap, or the tint would double along the join.
+      const overlap = glass ? 0 : 1;
+      const a = arrowPath(px('--sc-size-tooltip-arrow'), px('--sc-size-tooltip-arrow-tip'), px('--sc-size-tooltip-arrow-fillet'), overlap);
+      const drop = glass ? 'none' : dropShadowFilter(cs.getPropertyValue('--sc-shadow-tooltip-plate'));
+      setShape((s) => (s.d === a.d && s.drop === drop && s.overlap === overlap ? s : { ...a, overlap, drop }));
+    };
+    build();
+    window.addEventListener('sc-tokens-change', build);
+    return () => window.removeEventListener('sc-tokens-change', build);
+  }, [ref, open, glass]);
+  return shape;
 }

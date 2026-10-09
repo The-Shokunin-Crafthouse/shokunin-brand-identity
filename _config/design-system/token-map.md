@@ -5,7 +5,7 @@
 # Design Token Map — The Shokunin Crafthouse · Brand Identity
 
 **Generated** from `tokens/primitives.json` + `tokens/semantic.json`.
-**Source fingerprint:** `6982f8875a32` · **187 primitives · 314 semantic tokens.**
+**Source fingerprint:** `d42384dedfcd` · **187 primitives · 316 semantic tokens.**
 
 > **This file is a mirror, not the source.** `tokens/*.json` is upstream; this document and the Figma
 > library are generated from / synced to it. It previously claimed the opposite — that both were
@@ -967,6 +967,8 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
 |---|---|---|---|---|---|---|
 | `size/tooltip/arrow` | `--sc-size-tooltip-arrow` | `space/4` | `4px` | `space/4` | `4px` | 2026-10-08 · Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. |
+| `size/tooltip/arrowTip` | `--sc-size-tooltip-arrow-tip` | _literal_ | `0px` | _literal_ | `0px` | 2026-10-08 · Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. |
+| `size/tooltip/arrowFillet` | `--sc-size-tooltip-arrow-fillet` | _literal_ | `0px` | _literal_ | `0px` | 2026-10-08 · Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. |
 | `size/tooltip/lift` | `--sc-size-tooltip-lift` | `space/4` | `4px` | `space/4` | `4px` | 2026-10-08 · Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. |
 | `size/tooltip/glass/frosted/frost` | `--sc-size-tooltip-glass-frosted-frost` | _literal_ | `9px` | _literal_ | `9px` | 2026-10-08 · Tooltip glass (physical-controls Tier 2: concept B beside the raised plate; a tooltip is a floating layer), tuned in sc-tune. |
 | `size/tooltip/glass/frosted/refraction` | `--sc-size-tooltip-glass-frosted-refraction` | _literal_ | `65` | _literal_ | `65` | 2026-10-08 · Tooltip glass (physical-controls Tier 2: concept B beside the raised plate; a tooltip is a floating layer), tuned in sc-tune. |

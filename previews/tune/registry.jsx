@@ -325,7 +325,7 @@ export const REGISTRY = {
     // Physical-controls Tier 2: a raised plate with a short lift (concept A),
     // or liquid glass, since a tooltip is a floating layer (concept B, the
     // glass variant). The refraction numbers are read by Card/glass.js.
-    jsTokens: [...reel('tooltip', { press: false }).jsTokens, '--sc-motion-tooltip-grow-from', ...['refraction', 'depth', 'splay'].map((k) => `--sc-size-tooltip-glass-frosted-${k}`)],
+    jsTokens: [...reel('tooltip', { press: false }).jsTokens, '--sc-motion-tooltip-grow-from', '--sc-shadow-tooltip-plate', '--sc-size-tooltip-arrow-tip', '--sc-size-tooltip-arrow-fillet', ...['refraction', 'depth', 'splay'].map((k) => `--sc-size-tooltip-glass-frosted-${k}`)],
     // Plate start: the Button key (record Button 2026-10-07-1418) lift on the
     // surface.raised fill with text.primary ink, lit from the top left. The
     // role tokens ship equal to today (inverse ground, no shadow).

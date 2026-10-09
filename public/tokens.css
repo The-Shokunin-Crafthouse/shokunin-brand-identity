@@ -756,6 +756,8 @@
   --sc-font-text-nav-node-letter-spacing: var(--sc-p-font-text-text-tight-13-letter-spacing);
   --sc-font-text-nav-node: var(--sc-p-font-text-text-tight-13);
   --sc-size-tooltip-arrow: var(--sc-p-space-4);
+  --sc-size-tooltip-arrow-tip: 0px;
+  --sc-size-tooltip-arrow-fillet: 0px;
   --sc-size-tooltip-lift: var(--sc-p-space-4);
   --sc-size-tooltip-glass-frosted-frost: 9px;
   --sc-size-tooltip-glass-frosted-refraction: 65;
@@ -1219,6 +1221,8 @@
   --sc-font-text-nav-node-letter-spacing: var(--sc-p-font-text-text-tight-13-letter-spacing);
   --sc-font-text-nav-node: var(--sc-p-font-text-text-tight-13);
   --sc-size-tooltip-arrow: var(--sc-p-space-4);
+  --sc-size-tooltip-arrow-tip: 0px;
+  --sc-size-tooltip-arrow-fillet: 0px;
   --sc-size-tooltip-lift: var(--sc-p-space-4);
   --sc-size-tooltip-glass-frosted-frost: 9px;
   --sc-size-tooltip-glass-frosted-refraction: 65;

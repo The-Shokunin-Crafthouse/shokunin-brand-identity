@@ -171,8 +171,8 @@ public enum SCDS {
     public static let semanticVersion = "0.1.0"
     public static let sourceGenerated = "2026-05-26"
     public static let primitivesHash = "41d576559668277a"
-    public static let semanticHash = "0430785e15699825"
-    public static let tokenCount = 314
+    public static let semanticHash = "54ddfef9305af4c1"
+    public static let tokenCount = 316
   }
 
   // MARK: - Color
@@ -1248,6 +1248,12 @@ public enum SCDS {
   public enum Size {
     /// `size.tooltip.arrow`
     public static let tooltipArrow: CGFloat = 4
+
+    /// `size.tooltip.arrowTip`
+    public static let tooltipArrowTip: CGFloat = 0
+
+    /// `size.tooltip.arrowFillet`
+    public static let tooltipArrowFillet: CGFloat = 0
 
     /// `size.tooltip.lift`
     public static let tooltipLift: CGFloat = 4

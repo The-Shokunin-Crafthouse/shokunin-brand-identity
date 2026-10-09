@@ -1,11 +1,12 @@
 /* tokens (role tokens, physical-controls Tier 2; shipped equal to today):
  *   --sc-color-tooltip-surface               · ground (= surface.inverse: ink in light / near-white in dark)
  *   --sc-color-tooltip-text                  · ink (= text-on-inverse)
- *   --sc-shadow-tooltip-plate                · lift of the plate (shipped zero alpha: flat)
+ *   --sc-shadow-tooltip-plate                · plate shadow, outer layers as a drop-shadow filter (Tooltip.jsx; shipped zero alpha: none)
  *   --sc-space-component-padding-inline-tooltip · 12 inline
  *   --sc-space-component-padding-block-tooltip  · 8 block
  *   --sc-space-component-gap-tooltip         · offset (8) between the trigger and the arrow tip
  *   --sc-size-tooltip-arrow                  · arrow leg (4; 0 drops the arrow)
+ *   --sc-size-tooltip-arrow-tip / -fillet    · arrow tip radius, fillet radius where it meets the bubble (Tooltip.jsx; 0 = sharp)
  *   --sc-size-tooltip-lift                   · travel of the open (4)
  *   --sc-radius-tooltip                      · 3 corner
  *   --sc-font-text-caption-*                 · 13 / regular / relaxed
@@ -36,7 +37,9 @@
   --tip-ground: var(--sc-color-tooltip-surface);
   background-color: var(--tip-ground);
   color: var(--sc-color-tooltip-text);
-  box-shadow: var(--sc-shadow-tooltip-plate);
+  /* The plate shadow arrives as a drop-shadow chain (Tooltip.jsx, from
+     --sc-shadow-tooltip-plate) so it falls under the arrow too. */
+  filter: var(--tip-drop, none);
   padding-inline: var(--sc-space-component-padding-inline-tooltip);
   padding-block: var(--sc-space-component-padding-block-tooltip);
   border-radius: var(--sc-radius-tooltip);
@@ -62,16 +65,15 @@
   transition: none;
 }
 
-.tooltip::after {
-  /* Arrow · the plate's ground via border-color */
-  content: '';
+.arrow {
+  /* The arrow: an SVG path (Tooltip.jsx) with a rounded tip and concave
+     fillets; top is set inline so it overlaps the bubble by the seam. */
   position: absolute;
-  top: 100%;
   left: 50%;
+  display: block;
+  overflow: visible;
   transform: translateX(-50%);
-  border-width: var(--sc-size-tooltip-arrow);
-  border-style: solid;
-  border-color: var(--tip-ground) transparent transparent transparent;
+  fill: var(--tip-ground);
 }
 
 .open {
@@ -100,6 +102,7 @@
   --glass-depth: var(--sc-size-tooltip-glass-frosted-depth);
   --glass-splay: var(--sc-size-tooltip-glass-frosted-splay);
   color: var(--sc-color-tooltip-glass-text);
+  filter: none;
   box-shadow: var(--sc-shadow-tooltip-glass-rim);
   text-shadow: var(--sc-shadow-tooltip-glass-text);
   -webkit-backdrop-filter: blur(calc(var(--sc-size-tooltip-glass-frosted-frost) / 2)) saturate(calc(var(--sc-size-tooltip-glass-frosted-saturation) / 100));
@@ -124,7 +127,7 @@
   .glass {
     --tip-ground: var(--sc-color-tooltip-surface);
     color: var(--sc-color-tooltip-text);
-    box-shadow: var(--sc-shadow-tooltip-plate);
+    box-shadow: none;
     text-shadow: none;
     -webkit-backdrop-filter: none;
     backdrop-filter: none;
@@ -134,7 +137,7 @@
   .glass {
     --tip-ground: var(--sc-color-tooltip-surface);
     color: var(--sc-color-tooltip-text);
-    box-shadow: var(--sc-shadow-tooltip-plate);
+    box-shadow: none;
     text-shadow: none;
   }
 }
@@ -148,8 +151,9 @@
     -webkit-backdrop-filter: none;
     backdrop-filter: none;
   }
-  .tooltip::after {
+  .tooltip { filter: none; }
+  .arrow {
     forced-color-adjust: none;
-    border-color: CanvasText transparent transparent transparent;
+    fill: CanvasText;
   }
 }

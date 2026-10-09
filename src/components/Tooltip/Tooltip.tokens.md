@@ -8,11 +8,12 @@ Spec ref: §2 Tier 3 · 3.8 · States: single-line, multi-line.
 |---|---|
 | `--sc-color-tooltip-surface` | tooltip ground (role token; shipped = `surface.inverse`: ink in light / near-white in dark) |
 | `--sc-color-tooltip-text` | tooltip text (role token; shipped = `text-on-inverse`) |
-| `--sc-shadow-tooltip-plate` | lift of the plate (role token; shipped zero alpha, flat). Snaps, never transitions |
+| `--sc-shadow-tooltip-plate` | plate shadow (role token; shipped zero alpha, none). Tooltip.jsx turns its outer layers into a `drop-shadow()` filter so it falls under the arrow too; spread and inset layers do not render. Snaps, never transitions |
 | `--sc-space-component-padding-inline-tooltip` | inline padding (role token, 12) |
 | `--sc-space-component-padding-block-tooltip` | block padding (role token, 8) |
 | `--sc-space-component-gap-tooltip` | offset between the trigger and the arrow tip (role token, 8) |
 | `--sc-size-tooltip-arrow` | arrow leg (role token, 4; 0 drops the arrow) |
+| `--sc-size-tooltip-arrow-tip` / `-fillet` | arrow tip radius and the concave fillet where the arrow meets the bubble (role tokens, 0 = sharp, today). The arrow is an SVG path built in `shape.js` |
 | `--sc-size-tooltip-lift` | travel of the open: starts this far above rest (role token, 4) |
 | `--sc-radius-tooltip` | corner (role token, 3) |
 | `--sc-font-text-caption-*` | body type |
@@ -43,7 +44,7 @@ Physical-controls Tier 2 (CONTEXT finding 5): the tooltip reads its own role tok
 
 ## Forced colors
 
-The ground and the shadow drop; an inset `CanvasText` outline keeps the bubble's edge and the arrow is drawn in `CanvasText`.
+The ground and the shadow filter drop; an inset `CanvasText` outline keeps the bubble's edge and the arrow path fills `CanvasText`.
 
 ## Reduced-motion
 
