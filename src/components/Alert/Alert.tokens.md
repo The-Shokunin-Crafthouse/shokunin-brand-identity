@@ -2,25 +2,22 @@
 
 Spec ref: §2 Tier 3 · 3.11 · States: info, warning, error, success.
 
-## Role tokens (physical-controls Tier 2: a plate with a status LED)
+## Role tokens (physical-controls Tier 2: a plate; no LED, Levi 2026-10-08)
 
 Each shipped equal to today (CONTEXT finding 5), so a tune never moves the siblings that share the old values.
 
 | Token | Use | Shipped |
 |---|---|---|
 | `--sc-space-component-padding-alert` | internal padding | = `padding.lg` (24px) |
-| `--sc-space-component-gap-alert` | LED to text | 0 (the row held one child, so `gap.md` was inert) |
 | `--sc-space-component-gap-alert-body` | title to message | = `gap.sm` (4px) |
 | `--sc-radius-alert` | corner | = `radius.surface` (8px) |
 | `--sc-size-alert-rule` | left-rule width (carries the status signal) | = `border-width.accent` (3px) |
-| `--sc-size-alert-led` | LED diameter | 0 (no LED) |
 | `--sc-color-alert-ground` | plate ground | = `surface.sunk` |
 | `--sc-color-alert-frame` | frame colour (top, right, bottom) | = `border.default` |
 | `--sc-shadow-alert-plate` | plate lift | zero alpha (flat) |
 | `--sc-color-alert-rule-{info,warning,error,success}` | left rule per variant | = `status.*` |
-| `--sc-color-alert-led-{variant}` / `--sc-shadow-alert-led-{variant}` | lit LED and its glow | transparent / zero alpha |
 
-The LED is centred on the first line (the title, or the message when there is no title) and hidden from assistive tech: the role and the text carry the status. Nothing transitions (tokens:verify rule 6).
+The row gap (`gap.md`) was dropped: the row holds one child, so it was inert. Nothing transitions (tokens:verify rule 6).
 
 ## Shared
 
@@ -38,7 +35,7 @@ Full tinted alerts read as decoration in this system's register (Rams austerity 
 
 ## Forced colors
 
-The frame and the rule survive as borders; the plate shadow and the glow drop; a lit LED fills `CanvasText`.
+The frame and the rule survive as borders; the plate shadow drops.
 
 ## ARIA
 

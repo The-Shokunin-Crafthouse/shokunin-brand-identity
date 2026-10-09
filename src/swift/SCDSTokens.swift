@@ -171,8 +171,8 @@ public enum SCDS {
     public static let semanticVersion = "0.1.0"
     public static let sourceGenerated = "2026-05-26"
     public static let primitivesHash = "41d576559668277a"
-    public static let semanticHash = "cfbf26dbb074409c"
-    public static let tokenCount = 353
+    public static let semanticHash = "71af087b76d46a21"
+    public static let tokenCount = 343
   }
 
   // MARK: - Color
@@ -898,30 +898,6 @@ public enum SCDS {
         light: (0.184314, 0.521569, 0.352941, 1),
         dark:  (0.341176, 0.678431, 0.498039, 1)
     )
-
-    /// `color.alert.led.info`
-    public static let alertLedInfo = SwiftUI.Color.scdsDynamic(
-        light: (0.101961, 0.094118, 0.082353, 0),
-        dark:  (0.101961, 0.094118, 0.082353, 0)
-    )
-
-    /// `color.alert.led.warning`
-    public static let alertLedWarning = SwiftUI.Color.scdsDynamic(
-        light: (0.101961, 0.094118, 0.082353, 0),
-        dark:  (0.101961, 0.094118, 0.082353, 0)
-    )
-
-    /// `color.alert.led.error`
-    public static let alertLedError = SwiftUI.Color.scdsDynamic(
-        light: (0.101961, 0.094118, 0.082353, 0),
-        dark:  (0.101961, 0.094118, 0.082353, 0)
-    )
-
-    /// `color.alert.led.success`
-    public static let alertLedSuccess = SwiftUI.Color.scdsDynamic(
-        light: (0.101961, 0.094118, 0.082353, 0),
-        dark:  (0.101961, 0.094118, 0.082353, 0)
-    )
   }
 
   // MARK: - Typography
@@ -1333,9 +1309,6 @@ public enum SCDS {
     /// `space.component.gap.status-pill`
     public static let componentGapStatusPill: CGFloat = 6
 
-    /// `space.component.gap.alert`
-    public static let componentGapAlert: CGFloat = 0
-
     /// `space.component.gap.alert-body`
     public static let componentGapAlertBody: CGFloat = 4
   }
@@ -1401,9 +1374,6 @@ public enum SCDS {
   public enum Size {
     /// `size.alert.rule`
     public static let alertRule: CGFloat = 3
-
-    /// `size.alert.led`
-    public static let alertLed: CGFloat = 0
 
     /// `size.statusPill.dash`
     public static let statusPillDash: CGFloat = 3
@@ -2067,46 +2037,6 @@ public enum SCDS {
         ],
         dark: [
             SCDSShadowLayer(inset: true, x: 0, y: 0, blur: 0, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0),
-        ]
-    )
-
-    /// `shadow.alert.led.info` · 1 layers
-    public static let alertLedInfo = SCDSShadow(
-        light: [
-            SCDSShadowLayer(inset: false, x: 0, y: 0, blur: 0, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0),
-        ],
-        dark: [
-            SCDSShadowLayer(inset: false, x: 0, y: 0, blur: 0, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0),
-        ]
-    )
-
-    /// `shadow.alert.led.warning` · 1 layers
-    public static let alertLedWarning = SCDSShadow(
-        light: [
-            SCDSShadowLayer(inset: false, x: 0, y: 0, blur: 0, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0),
-        ],
-        dark: [
-            SCDSShadowLayer(inset: false, x: 0, y: 0, blur: 0, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0),
-        ]
-    )
-
-    /// `shadow.alert.led.error` · 1 layers
-    public static let alertLedError = SCDSShadow(
-        light: [
-            SCDSShadowLayer(inset: false, x: 0, y: 0, blur: 0, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0),
-        ],
-        dark: [
-            SCDSShadowLayer(inset: false, x: 0, y: 0, blur: 0, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0),
-        ]
-    )
-
-    /// `shadow.alert.led.success` · 1 layers
-    public static let alertLedSuccess = SCDSShadow(
-        light: [
-            SCDSShadowLayer(inset: false, x: 0, y: 0, blur: 0, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0),
-        ],
-        dark: [
-            SCDSShadowLayer(inset: false, x: 0, y: 0, blur: 0, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0),
         ]
     )
   }

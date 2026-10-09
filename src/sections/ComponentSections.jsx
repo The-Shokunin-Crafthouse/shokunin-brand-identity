@@ -265,7 +265,7 @@ export function InputPage() {
 export function AlertPage() {
   return (
     <ComponentPage
-      id="alert" label="Alert" tokensN={16} statesVariant="stack"
+      id="alert" label="Alert" tokensN={14} statesVariant="stack"
       eyebrow={<>Alert<Slash />signal on a left rule</>}
       title={<>A three-pixel rule carries the state. <Em>The banner stays calm.</Em></>}
       lead={<>Alerts mark status with a single coloured left rule, not a full tint. The banner ground stays sunk and predictable; the rule does the category-marking at the same visual weight as every other rule in the system. The colour informs, it does not shout.</>}
@@ -284,14 +284,12 @@ export function AlertPage() {
       tokenRows={[
         { prop: 'Padding', token: '--sc-space-component-padding-alert' },
         { prop: 'Title → body gap', token: '--sc-space-component-gap-alert-body' },
-        { prop: 'LED → text gap', token: '--sc-space-component-gap-alert' },
         { prop: 'Radius', token: '--sc-radius-alert' },
         { prop: 'Frame', token: '--sc-border-width-default' },
         { prop: 'Left rule', token: '--sc-size-alert-rule' },
         { prop: 'Ground', token: '--sc-color-alert-ground' },
         { prop: 'Frame colour', token: '--sc-color-alert-frame' },
         { prop: 'Plate', token: '--sc-shadow-alert-plate' },
-        { prop: 'LED', token: '--sc-size-alert-led' },
         { prop: 'Title', token: '--sc-color-text-primary' },
         { prop: 'Body', token: '--sc-color-text-secondary' },
         { prop: 'Info rule', token: '--sc-color-alert-rule-info' },

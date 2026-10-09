@@ -1,25 +1,22 @@
 /* tokens:
  *   --sc-space-component-padding-alert       · 24 internal padding (role; = padding.lg)
- *   --sc-space-component-gap-alert           · LED to text (role; shipped 0, no LED)
  *   --sc-space-component-gap-alert-body      · title to message (role; = gap.sm)
  *   --sc-radius-alert                        · 8 corner (role; = radius.surface)
  *   --sc-border-width-default                · hairline frame
  *   --sc-size-alert-rule                     · 3 left rule (role; = border-width.accent)
- *   --sc-size-alert-led                      · LED diameter (role; shipped 0)
  *   --sc-color-alert-ground                  · plate ground (role; = surface.sunk)
  *   --sc-color-alert-frame                   · plate frame (role; = border.default)
  *   --sc-shadow-alert-plate                  · plate lift (role; zero alpha = flat)
  *   --sc-color-alert-rule-info / warning / error / success · left rule per variant (role; = status.*)
- *   --sc-color-alert-led-* / --sc-shadow-alert-led-*        · lit LED and its glow per variant (role; transparent)
  *   --sc-color-text-primary                  · title ink
  *   --sc-color-text-secondary                · body ink
  *   --sc-font-text-title-card-*              · title type
  *   --sc-font-text-body-dense-*              · body type
  *
- * physical-controls Tier 2: a plate with a status LED. The plate and the LED
- * ship flat (zero alpha, 0 size) until Levi tunes them. The LED is centred
- * on the first line of text (the title, or the message when there is no
- * title). Nothing transitions: the plate shadow and the glow snap (rule 6).
+ * physical-controls Tier 2: a plate; no LED (Levi, 2026-10-08). The plate
+ * ships flat (zero alpha) until Levi tunes it. Nothing transitions: the
+ * plate shadow snaps (rule 6). High contrast keeps the frame and the rule
+ * (borders survive) and drops the shadow, so no forced-colors rule is needed.
  */
 
 .alert {
@@ -33,23 +30,6 @@
   border-left-width: var(--sc-size-alert-rule);
   box-shadow: var(--sc-shadow-alert-plate);
   padding: var(--sc-space-component-padding-alert);
-  gap: var(--sc-space-component-gap-alert);
-}
-
-/* The LED takes the first line's type so 1lh is that line's height. */
-.led {
-  flex-shrink: 0;
-  width: var(--sc-size-alert-led);
-  height: var(--sc-size-alert-led);
-  border-radius: 50%;
-  font-size: var(--sc-font-text-title-card-size);
-  line-height: var(--sc-font-text-title-card-line-height);
-  margin-block-start: calc((1lh - var(--sc-size-alert-led)) / 2);
-}
-
-.untitled .led {
-  font-size: var(--sc-font-text-body-dense-size);
-  line-height: var(--sc-font-text-body-dense-line-height);
 }
 
 .body {
@@ -77,24 +57,9 @@
   color: var(--sc-color-text-secondary);
 }
 
-/* --- Variants — the left rule carries the status signal; the LED repeats it */
+/* --- Variants: the left-rule colour carries the status signal ------- */
 
 .info       { border-left-color: var(--sc-color-alert-rule-info); }
 .warning    { border-left-color: var(--sc-color-alert-rule-warning); }
 .error      { border-left-color: var(--sc-color-alert-rule-error); }
 .success    { border-left-color: var(--sc-color-alert-rule-success); }
-
-.info .led    { background-color: var(--sc-color-alert-led-info);    box-shadow: var(--sc-shadow-alert-led-info); }
-.warning .led { background-color: var(--sc-color-alert-led-warning); box-shadow: var(--sc-shadow-alert-led-warning); }
-.error .led   { background-color: var(--sc-color-alert-led-error);   box-shadow: var(--sc-shadow-alert-led-error); }
-.success .led { background-color: var(--sc-color-alert-led-success); box-shadow: var(--sc-shadow-alert-led-success); }
-
-/* High contrast keeps the frame (borders survive) and drops the shadows;
-   a lit LED fills CanvasText so it still reads. */
-@media (forced-colors: active) {
-  .alert .led {
-    forced-color-adjust: none;
-    background-color: CanvasText;
-    box-shadow: none;
-  }
-}

@@ -171,22 +171,6 @@ const ALERTS = {
   warning: ['In review', 'Two approval gates remain before this can merge.'],
   error: ['Build failed', 'Token build exited non-zero. The previous deploy is still live.'],
 };
-/*
- * Alert LED starts, per mode (Claude's start, not a pick): each variant's
- * status hue, lit; light-mode error takes signal.live (#C8281C) because
- * status.error is oxblood there and does not read lit. The glow is the same
- * hue at zero offset (emitted light): 4px blur, 1px spread at 55% light,
- * 6px at 65% dark. From the Badge LED seeds (decisions 2026-10-08).
- */
-const ALERT_LED = {
-  light: { info: '45 90 216', warning: '194 65 12', error: '200 40 28', success: '47 133 90' },
-  dark: { info: '112 154 253', warning: '246 119 81', error: '254 107 103', success: '87 173 127' },
-};
-const alertLed = (mode, blur, alpha) => Object.fromEntries(Object.entries(ALERT_LED[mode]).flatMap(([v, rgb]) => [
-  [`--sc-color-alert-led-${v}`, `rgb(${rgb})`],
-  [`--sc-shadow-alert-led-${v}`, `0 0 ${blur}px 1px rgb(${rgb} / ${alpha})`],
-]));
-
 /* Set on a keyboard step so the lab's tick plays on keys only, never on a drag. */
 let keyStep = false;
 
@@ -640,15 +624,13 @@ export const REGISTRY = {
   },
   Alert: {
     css: [alertCss],
-    // Physical-controls Tier 2: a plate with a status LED. Not interactive,
-    // so silent (an unprompted sound is intrusive). Seeds are Claude's start:
-    // the plate is the Button key (fill and lift, lit from the top left), the
-    // LED a 6px dot 8px from the text in the status hue, per mode.
+    // Physical-controls Tier 2: a plate (no LED, Levi). Not interactive, so
+    // silent (an unprompted sound is intrusive). Seed is Claude's start: the
+    // plate is the Button key (fill and lift, lit from the top left), per mode.
     seed: {
-      overrides: { '--sc-size-alert-led': '6px', '--sc-space-component-gap-alert': '8px' },
       scoped: {
-        light: { '--sc-color-alert-ground': MATERIAL.light.keyFill, '--sc-shadow-alert-plate': MATERIAL.light.key, ...alertLed('light', 4, 0.55) },
-        dark: { '--sc-color-alert-ground': MATERIAL.dark.keyFill, '--sc-shadow-alert-plate': MATERIAL.dark.key, ...alertLed('dark', 6, 0.65) },
+        light: { '--sc-color-alert-ground': MATERIAL.light.keyFill, '--sc-shadow-alert-plate': MATERIAL.light.key },
+        dark: { '--sc-color-alert-ground': MATERIAL.dark.keyFill, '--sc-shadow-alert-plate': MATERIAL.dark.key },
       },
     },
     shippedSound: null,

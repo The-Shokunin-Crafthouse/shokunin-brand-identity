@@ -499,10 +499,6 @@
   --sc-color-alert-rule-warning: var(--sc-p-color-status-warning-light);
   --sc-color-alert-rule-error: var(--sc-p-color-status-error-light);
   --sc-color-alert-rule-success: var(--sc-p-color-status-success-light);
-  --sc-color-alert-led-info: rgb(var(--sc-p-color-ink-rgb) / 0);
-  --sc-color-alert-led-warning: rgb(var(--sc-p-color-ink-rgb) / 0);
-  --sc-color-alert-led-error: rgb(var(--sc-p-color-ink-rgb) / 0);
-  --sc-color-alert-led-success: rgb(var(--sc-p-color-ink-rgb) / 0);
   --sc-border-width-default: var(--sc-p-border-width-hairline);
   --sc-border-width-focus: var(--sc-p-border-width-focus);
   --sc-border-width-accent: var(--sc-p-border-width-accent);
@@ -543,10 +539,6 @@
   --sc-shadow-card-glass-text-auto: var(--sc-shadow-card-glass-text-light);
   --sc-shadow-tooltip-plate: 2px 2px 6px 0 rgb(100 91 79 / 0.50);
   --sc-shadow-alert-plate: inset 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0);
-  --sc-shadow-alert-led-info: 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0);
-  --sc-shadow-alert-led-warning: 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0);
-  --sc-shadow-alert-led-error: 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0);
-  --sc-shadow-alert-led-success: 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0);
   --sc-motion-hover-duration: var(--sc-p-motion-duration-micro);
   --sc-motion-hover-easing: var(--sc-p-motion-easing-out);
   --sc-motion-press-duration: var(--sc-p-motion-duration-press);
@@ -786,7 +778,6 @@
   --sc-font-text-nav-node-letter-spacing: var(--sc-p-font-text-text-tight-13-letter-spacing);
   --sc-font-text-nav-node: var(--sc-p-font-text-text-tight-13);
   --sc-size-alert-rule: var(--sc-p-border-width-accent);
-  --sc-size-alert-led: 0px;
   --sc-size-status-pill-dash: var(--sc-p-border-width-accent);
   --sc-size-status-pill-dash-gap: var(--sc-p-border-width-accent);
   --sc-size-status-pill-dash-width: var(--sc-p-border-width-focus);
@@ -868,7 +859,6 @@
   --sc-space-component-gap-input-inline: var(--sc-p-space-16);
   --sc-space-component-gap-tooltip: var(--sc-p-space-24);
   --sc-space-component-gap-status-pill: var(--sc-p-space-micro-6);
-  --sc-space-component-gap-alert: 0px;
   --sc-space-component-gap-alert-body: var(--sc-p-space-4);
   --sc-space-layout-stack-sm: var(--sc-p-space-16);
   --sc-space-layout-stack-md: var(--sc-p-space-24);
@@ -1001,10 +991,6 @@
   --sc-color-alert-rule-warning: var(--sc-p-color-status-warning-dark);
   --sc-color-alert-rule-error: var(--sc-p-color-status-error-dark);
   --sc-color-alert-rule-success: var(--sc-p-color-status-success-dark);
-  --sc-color-alert-led-info: rgb(var(--sc-p-color-ink-rgb) / 0);
-  --sc-color-alert-led-warning: rgb(var(--sc-p-color-ink-rgb) / 0);
-  --sc-color-alert-led-error: rgb(var(--sc-p-color-ink-rgb) / 0);
-  --sc-color-alert-led-success: rgb(var(--sc-p-color-ink-rgb) / 0);
   --sc-border-width-default: var(--sc-p-border-width-hairline);
   --sc-border-width-focus: var(--sc-p-border-width-focus);
   --sc-border-width-accent: var(--sc-p-border-width-accent);
@@ -1045,10 +1031,6 @@
   --sc-shadow-card-glass-text-auto: var(--sc-shadow-card-glass-text-dark);
   --sc-shadow-tooltip-plate: 3px 3px 7px 0 rgb(0 0 0 / 0.50);
   --sc-shadow-alert-plate: inset 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0);
-  --sc-shadow-alert-led-info: 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0);
-  --sc-shadow-alert-led-warning: 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0);
-  --sc-shadow-alert-led-error: 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0);
-  --sc-shadow-alert-led-success: 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0);
   --sc-motion-hover-duration: var(--sc-p-motion-duration-micro);
   --sc-motion-hover-easing: var(--sc-p-motion-easing-out);
   --sc-motion-press-duration: var(--sc-p-motion-duration-press);
@@ -1288,7 +1270,6 @@
   --sc-font-text-nav-node-letter-spacing: var(--sc-p-font-text-text-tight-13-letter-spacing);
   --sc-font-text-nav-node: var(--sc-p-font-text-text-tight-13);
   --sc-size-alert-rule: var(--sc-p-border-width-accent);
-  --sc-size-alert-led: 0px;
   --sc-size-status-pill-dash: var(--sc-p-border-width-accent);
   --sc-size-status-pill-dash-gap: var(--sc-p-border-width-accent);
   --sc-size-status-pill-dash-width: var(--sc-p-border-width-focus);
@@ -1370,7 +1351,6 @@
   --sc-space-component-gap-input-inline: var(--sc-p-space-16);
   --sc-space-component-gap-tooltip: var(--sc-p-space-24);
   --sc-space-component-gap-status-pill: var(--sc-p-space-micro-6);
-  --sc-space-component-gap-alert: 0px;
   --sc-space-component-gap-alert-body: var(--sc-p-space-4);
   --sc-space-layout-stack-sm: var(--sc-p-space-16);
   --sc-space-layout-stack-md: var(--sc-p-space-24);
