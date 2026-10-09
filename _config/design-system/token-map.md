@@ -5,7 +5,7 @@
 # Design Token Map — The Shokunin Crafthouse · Brand Identity
 
 **Generated** from `tokens/primitives.json` + `tokens/semantic.json`.
-**Source fingerprint:** `2282476a34a0` · **187 primitives · 332 semantic tokens.**
+**Source fingerprint:** `724a566a1ce9` · **187 primitives · 353 semantic tokens.**
 
 > **This file is a mirror, not the source.** `tokens/*.json` is upstream; this document and the Figma
 > library are generated from / synced to it. It previously claimed the opposite — that both were
@@ -674,6 +674,21 @@ channel-triplet primitives) rather than an alias to a single primitive.
 |---|---|---|---|---|---|---|
 | `color/avatar/ground` | `--sc-color-avatar-ground` | `color/warmGray/200` | `#D8D1CC` | `color/dark/well` | `#1F252C` | 2026-10-08 · Avatar (physical-controls Tier 2). |
 
+#### `color/alert`
+
+| Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
+|---|---|---|---|---|---|---|
+| `color/alert/ground` | `--sc-color-alert-ground` | `color/warmGray/200` | `#D8D1CC` | `color/dark/well` | `#1F252C` | 2026-10-08 · Alert (physical-controls Tier 2: a plate with a status LED; not interactive, so silent), tuned in sc-tune. |
+| `color/alert/frame` | `--sc-color-alert-frame` | `color/warmGray/350` | `#9A9186` | `color/dark/border` | `#4D535B` | 2026-10-08 · Alert (physical-controls Tier 2: a plate with a status LED; not interactive, so silent), tuned in sc-tune. |
+| `color/alert/rule/info` | `--sc-color-alert-rule-info` | `color/status/info/light` | `#2D5AD8` | `color/status/info/dark` | `#709AFD` | 2026-10-08 · Alert (physical-controls Tier 2: a plate with a status LED; not interactive, so silent), tuned in sc-tune. |
+| `color/alert/rule/warning` | `--sc-color-alert-rule-warning` | `color/status/warning/light` | `#C2410C` | `color/status/warning/dark` | `#F67751` | 2026-10-08 · Alert (physical-controls Tier 2: a plate with a status LED; not interactive, so silent), tuned in sc-tune. |
+| `color/alert/rule/error` | `--sc-color-alert-rule-error` | `color/status/error/light` | `#7F1D1D` | `color/status/error/dark` | `#FE6B67` | 2026-10-08 · Alert (physical-controls Tier 2: a plate with a status LED; not interactive, so silent), tuned in sc-tune. |
+| `color/alert/rule/success` | `--sc-color-alert-rule-success` | `color/status/success/light` | `#2F855A` | `color/status/success/dark` | `#57AD7F` | 2026-10-08 · Alert (physical-controls Tier 2: a plate with a status LED; not interactive, so silent), tuned in sc-tune. |
+| `color/alert/led/info` | `--sc-color-alert-led-info` | _literal_ | `rgb(var(--sc-p-color-ink-rgb) / 0)` | _literal_ | `rgb(var(--sc-p-color-ink-rgb) / 0)` | 2026-10-08 · Alert (physical-controls Tier 2: a plate with a status LED; not interactive, so silent), tuned in sc-tune. |
+| `color/alert/led/warning` | `--sc-color-alert-led-warning` | _literal_ | `rgb(var(--sc-p-color-ink-rgb) / 0)` | _literal_ | `rgb(var(--sc-p-color-ink-rgb) / 0)` | 2026-10-08 · Alert (physical-controls Tier 2: a plate with a status LED; not interactive, so silent), tuned in sc-tune. |
+| `color/alert/led/error` | `--sc-color-alert-led-error` | _literal_ | `rgb(var(--sc-p-color-ink-rgb) / 0)` | _literal_ | `rgb(var(--sc-p-color-ink-rgb) / 0)` | 2026-10-08 · Alert (physical-controls Tier 2: a plate with a status LED; not interactive, so silent), tuned in sc-tune. |
+| `color/alert/led/success` | `--sc-color-alert-led-success` | _literal_ | `rgb(var(--sc-p-color-ink-rgb) / 0)` | _literal_ | `rgb(var(--sc-p-color-ink-rgb) / 0)` | 2026-10-08 · Alert (physical-controls Tier 2: a plate with a status LED; not interactive, so silent), tuned in sc-tune. |
+
 ### Typography · Semantic
 
 #### `font/text`
@@ -720,6 +735,7 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | `space/component/padding/md` | `--sc-space-component-padding-md` | `space/16` | `16px` | `space/16` | `16px` | Medium component padding · 16px. |
 | `space/component/padding/lg` | `--sc-space-component-padding-lg` | `space/24` | `24px` | `space/24` | `24px` | Large component padding · 24px. |
 | `space/component/padding/card` | `--sc-space-component-padding-card` | `space/24` | `24px` | `space/24` | `24px` | 2026-10-07 · Card (physical-controls Tier 2: flat, or liquid glass in three levels and two tones, Levi 2026-10-08). |
+| `space/component/padding/alert` | `--sc-space-component-padding-alert` | `space/24` | `24px` | `space/24` | `24px` | 2026-10-08 · Alert (physical-controls Tier 2: a plate with a status LED; not interactive, so silent), tuned in sc-tune. |
 | `space/component/padding-inline/sm` | `--sc-space-component-padding-inline-sm` | `space/micro/6` | `6px` | `space/micro/6` | `6px` | Sprint 4 addition · tight inline padding (6px). |
 | `space/component/padding-inline/md` | `--sc-space-component-padding-inline-md` | `space/12` | `12px` | `space/12` | `12px` | Sprint 4 addition · default inline padding (12px). |
 | `space/component/padding-inline/lg` | `--sc-space-component-padding-inline-lg` | `space/16` | `16px` | `space/16` | `16px` | Sprint 4 addition · generous inline padding (16px). |
@@ -743,6 +759,8 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | `space/component/gap/input-inline` | `--sc-space-component-gap-input-inline` | `space/16` | `16px` | `space/16` | `16px` | 2026-10-07 · Input material (physical-controls Tier 1), tuned in sc-tune. |
 | `space/component/gap/tooltip` | `--sc-space-component-gap-tooltip` | `space/24` | `24px` | `space/24` | `24px` | 2026-10-08 · Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. |
 | `space/component/gap/status-pill` | `--sc-space-component-gap-status-pill` | `space/micro/6` | `6px` | `space/micro/6` | `6px` | 2026-10-08 · StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis, the label written by the consumer; physical-controls Tier 2). |
+| `space/component/gap/alert` | `--sc-space-component-gap-alert` | _literal_ | `0px` | _literal_ | `0px` | 2026-10-08 · Alert (physical-controls Tier 2: a plate with a status LED; not interactive, so silent), tuned in sc-tune. |
+| `space/component/gap/alert-body` | `--sc-space-component-gap-alert-body` | `space/4` | `4px` | `space/4` | `4px` | 2026-10-08 · Alert (physical-controls Tier 2: a plate with a status LED; not interactive, so silent), tuned in sc-tune. |
 
 #### `space/layout`
 
@@ -762,6 +780,7 @@ channel-triplet primitives) rather than an alias to a single primitive.
 |---|---|---|---|---|---|---|
 | `radius/field` | `--sc-radius-field` | `radius/default` | `8px` | `radius/default` | `8px` | 2026-10-07 · Input material (physical-controls Tier 1), tuned in sc-tune. |
 | `radius/card` | `--sc-radius-card` | `radius/surface` | `⚠ unresolved` | `radius/surface` | `⚠ unresolved` | 2026-10-07 · Card (physical-controls Tier 2: flat, or liquid glass in three levels and two tones, Levi 2026-10-08). |
+| `radius/alert` | `--sc-radius-alert` | `radius/default` | `8px` | `radius/default` | `8px` | 2026-10-08 · Alert (physical-controls Tier 2: a plate with a status LED; not interactive, so silent), tuned in sc-tune. |
 | `radius/avatar` | `--sc-radius-avatar` | `radius/pill` | `⚠ unresolved` | `radius/pill` | `⚠ unresolved` | 2026-10-08 · Avatar (physical-controls Tier 2). |
 | `radius/statusPill` | `--sc-radius-status-pill` | `radius/pill` | `⚠ unresolved` | `radius/pill` | `⚠ unresolved` | 2026-10-08 · StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis, the label written by the consumer; physical-controls Tier 2). |
 | `radius/tooltip` | `--sc-radius-tooltip` | `space/4` | `4px` | `space/4` | `4px` | 2026-10-08 · Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. |
@@ -992,7 +1011,24 @@ channel-triplet primitives) rather than an alias to a single primitive.
 |---|---|---|---|---|---|---|
 | `shadow/tooltip/plate` | `--sc-shadow-tooltip-plate` | _literal_ | `2px 2px 6px 0 rgb(100 91 79 / 0.50)` | _literal_ | `3px 3px 7px 0 rgb(0 0 0 / 0.50)` | 2026-10-08 · Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. |
 
+#### `shadow/alert`
+
+| Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
+|---|---|---|---|---|---|---|
+| `shadow/alert/plate` | `--sc-shadow-alert-plate` | _literal_ | `inset 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)` | _literal_ | `inset 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)` | 2026-10-08 · Alert (physical-controls Tier 2: a plate with a status LED; not interactive, so silent), tuned in sc-tune. |
+| `shadow/alert/led/info` | `--sc-shadow-alert-led-info` | _literal_ | `0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)` | _literal_ | `0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)` | 2026-10-08 · Alert (physical-controls Tier 2: a plate with a status LED; not interactive, so silent), tuned in sc-tune. |
+| `shadow/alert/led/warning` | `--sc-shadow-alert-led-warning` | _literal_ | `0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)` | _literal_ | `0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)` | 2026-10-08 · Alert (physical-controls Tier 2: a plate with a status LED; not interactive, so silent), tuned in sc-tune. |
+| `shadow/alert/led/error` | `--sc-shadow-alert-led-error` | _literal_ | `0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)` | _literal_ | `0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)` | 2026-10-08 · Alert (physical-controls Tier 2: a plate with a status LED; not interactive, so silent), tuned in sc-tune. |
+| `shadow/alert/led/success` | `--sc-shadow-alert-led-success` | _literal_ | `0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)` | _literal_ | `0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)` | 2026-10-08 · Alert (physical-controls Tier 2: a plate with a status LED; not interactive, so silent), tuned in sc-tune. |
+
 ### Size · Semantic
+
+#### `size/alert`
+
+| Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
+|---|---|---|---|---|---|---|
+| `size/alert/rule` | `--sc-size-alert-rule` | `border/width/accent` | `3px` | `border/width/accent` | `3px` | 2026-10-08 · Alert (physical-controls Tier 2: a plate with a status LED; not interactive, so silent), tuned in sc-tune. |
+| `size/alert/led` | `--sc-size-alert-led` | _literal_ | `0px` | _literal_ | `0px` | 2026-10-08 · Alert (physical-controls Tier 2: a plate with a status LED; not interactive, so silent), tuned in sc-tune. |
 
 #### `size/statusPill`
 

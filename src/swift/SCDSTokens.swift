@@ -171,8 +171,8 @@ public enum SCDS {
     public static let semanticVersion = "0.1.0"
     public static let sourceGenerated = "2026-05-26"
     public static let primitivesHash = "41d576559668277a"
-    public static let semanticHash = "9a759f4425c11551"
-    public static let tokenCount = 332
+    public static let semanticHash = "cfbf26dbb074409c"
+    public static let tokenCount = 353
   }
 
   // MARK: - Color
@@ -862,6 +862,66 @@ public enum SCDS {
         light: (0.847059, 0.819608, 0.8, 1),
         dark:  (0.121569, 0.145098, 0.172549, 1)
     )
+
+    /// `color.alert.ground`
+    public static let alertGround = SwiftUI.Color.scdsDynamic(
+        light: (0.847059, 0.819608, 0.8, 1),
+        dark:  (0.121569, 0.145098, 0.172549, 1)
+    )
+
+    /// `color.alert.frame`
+    public static let alertFrame = SwiftUI.Color.scdsDynamic(
+        light: (0.603922, 0.568627, 0.52549, 1),
+        dark:  (0.301961, 0.32549, 0.356863, 1)
+    )
+
+    /// `color.alert.rule.info`
+    public static let alertRuleInfo = SwiftUI.Color.scdsDynamic(
+        light: (0.176471, 0.352941, 0.847059, 1),
+        dark:  (0.439216, 0.603922, 0.992157, 1)
+    )
+
+    /// `color.alert.rule.warning`
+    public static let alertRuleWarning = SwiftUI.Color.scdsDynamic(
+        light: (0.760784, 0.254902, 0.047059, 1),
+        dark:  (0.964706, 0.466667, 0.317647, 1)
+    )
+
+    /// `color.alert.rule.error`
+    public static let alertRuleError = SwiftUI.Color.scdsDynamic(
+        light: (0.498039, 0.113725, 0.113725, 1),
+        dark:  (0.996078, 0.419608, 0.403922, 1)
+    )
+
+    /// `color.alert.rule.success`
+    public static let alertRuleSuccess = SwiftUI.Color.scdsDynamic(
+        light: (0.184314, 0.521569, 0.352941, 1),
+        dark:  (0.341176, 0.678431, 0.498039, 1)
+    )
+
+    /// `color.alert.led.info`
+    public static let alertLedInfo = SwiftUI.Color.scdsDynamic(
+        light: (0.101961, 0.094118, 0.082353, 0),
+        dark:  (0.101961, 0.094118, 0.082353, 0)
+    )
+
+    /// `color.alert.led.warning`
+    public static let alertLedWarning = SwiftUI.Color.scdsDynamic(
+        light: (0.101961, 0.094118, 0.082353, 0),
+        dark:  (0.101961, 0.094118, 0.082353, 0)
+    )
+
+    /// `color.alert.led.error`
+    public static let alertLedError = SwiftUI.Color.scdsDynamic(
+        light: (0.101961, 0.094118, 0.082353, 0),
+        dark:  (0.101961, 0.094118, 0.082353, 0)
+    )
+
+    /// `color.alert.led.success`
+    public static let alertLedSuccess = SwiftUI.Color.scdsDynamic(
+        light: (0.101961, 0.094118, 0.082353, 0),
+        dark:  (0.101961, 0.094118, 0.082353, 0)
+    )
   }
 
   // MARK: - Typography
@@ -1201,6 +1261,9 @@ public enum SCDS {
     /// `space.component.padding.card`
     public static let componentPaddingCard: CGFloat = 24
 
+    /// `space.component.padding.alert`
+    public static let componentPaddingAlert: CGFloat = 24
+
     /// `space.component.padding-inline.sm`
     public static let componentPaddingInlineSm: CGFloat = 6
 
@@ -1269,6 +1332,12 @@ public enum SCDS {
 
     /// `space.component.gap.status-pill`
     public static let componentGapStatusPill: CGFloat = 6
+
+    /// `space.component.gap.alert`
+    public static let componentGapAlert: CGFloat = 0
+
+    /// `space.component.gap.alert-body`
+    public static let componentGapAlertBody: CGFloat = 4
   }
 
   // MARK: - Radius
@@ -1280,6 +1349,9 @@ public enum SCDS {
 
     /// `radius.card`
     public static let card: CGFloat = 8
+
+    /// `radius.alert`
+    public static let alert: CGFloat = 8
 
     /// `radius.avatar`
     public static let avatar: CGFloat = 9999
@@ -1327,6 +1399,12 @@ public enum SCDS {
 
   /// Named element sizes, including the touch-target floor.
   public enum Size {
+    /// `size.alert.rule`
+    public static let alertRule: CGFloat = 3
+
+    /// `size.alert.led`
+    public static let alertLed: CGFloat = 0
+
     /// `size.statusPill.dash`
     public static let statusPillDash: CGFloat = 3
 
@@ -1979,6 +2057,56 @@ public enum SCDS {
         ],
         dark: [
             SCDSShadowLayer(inset: false, x: 3, y: 3, blur: 7, spread: 0, rgb: (0, 0, 0), alpha: 0.5),
+        ]
+    )
+
+    /// `shadow.alert.plate` · 1 layers
+    public static let alertPlate = SCDSShadow(
+        light: [
+            SCDSShadowLayer(inset: true, x: 0, y: 0, blur: 0, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0),
+        ],
+        dark: [
+            SCDSShadowLayer(inset: true, x: 0, y: 0, blur: 0, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0),
+        ]
+    )
+
+    /// `shadow.alert.led.info` · 1 layers
+    public static let alertLedInfo = SCDSShadow(
+        light: [
+            SCDSShadowLayer(inset: false, x: 0, y: 0, blur: 0, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0),
+        ],
+        dark: [
+            SCDSShadowLayer(inset: false, x: 0, y: 0, blur: 0, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0),
+        ]
+    )
+
+    /// `shadow.alert.led.warning` · 1 layers
+    public static let alertLedWarning = SCDSShadow(
+        light: [
+            SCDSShadowLayer(inset: false, x: 0, y: 0, blur: 0, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0),
+        ],
+        dark: [
+            SCDSShadowLayer(inset: false, x: 0, y: 0, blur: 0, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0),
+        ]
+    )
+
+    /// `shadow.alert.led.error` · 1 layers
+    public static let alertLedError = SCDSShadow(
+        light: [
+            SCDSShadowLayer(inset: false, x: 0, y: 0, blur: 0, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0),
+        ],
+        dark: [
+            SCDSShadowLayer(inset: false, x: 0, y: 0, blur: 0, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0),
+        ]
+    )
+
+    /// `shadow.alert.led.success` · 1 layers
+    public static let alertLedSuccess = SCDSShadow(
+        light: [
+            SCDSShadowLayer(inset: false, x: 0, y: 0, blur: 0, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0),
+        ],
+        dark: [
+            SCDSShadowLayer(inset: false, x: 0, y: 0, blur: 0, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0),
         ]
     )
   }
