@@ -2,15 +2,17 @@
  * App.jsx — Living brand reference site · shell.
  *
  * Layout mirrors the Sandbox "Color — DL" design: a sticky left rail
- * (brand lockup, four nav groups, mode toggle, colophon foot) and a
- * hash-routed main column. The Color section is fully built; every
- * other section renders a stub (heading + placeholder, never blank).
+ * that scrolls on its own (brand lockup, four collapsible nav groups,
+ * mode toggle, colophon foot) and a hash-routed main column, left-aligned
+ * one gutter right of the rail and capped at the content measure. The
+ * Color section is fully built; every other section renders a stub
+ * (heading + placeholder, never blank).
  *
  * Theme is owned by ThemeProvider — the mode toggle flips data-theme
  * on <html>; every surface re-resolves from --sc-* without remount.
  */
 
-import { useEffect, useState } from 'react';
+import { useEffect, useId, useState } from 'react';
 import { useTheme } from './theme/ThemeProvider.jsx';
 import { Switch } from './components/Switch/Switch.jsx';
 import { ColorSection } from './sections/ColorSection.jsx';
@@ -235,48 +237,102 @@ function BrandMark() {
   );
 }
 
+// Nav groups are disclosures. Only the first group starts open, plus the
+// group that holds the routed page so the current link is never hidden.
+// State lives for this page load only (no localStorage).
+function groupOrdFor(id) {
+  return NAV.find((group) => group.items.some((item) => item.id === id))?.ord;
+}
+
+function useOpenGroups(active) {
+  const [open, setOpen] = useState(() => new Set([NAV[0].ord, groupOrdFor(active)]));
+  // A route into a collapsed group (a link in the page body, the mobile
+  // menu) opens that group too; nothing the reader opened is closed.
+  useEffect(() => {
+    const ord = groupOrdFor(active);
+    setOpen((prev) => (prev.has(ord) ? prev : new Set(prev).add(ord)));
+  }, [active]);
+  const toggle = (ord) => setOpen((prev) => {
+    const next = new Set(prev);
+    if (next.has(ord)) next.delete(ord); else next.add(ord);
+    return next;
+  });
+  return [open, toggle];
+}
+
+function NavGroup({ group, active, isOpen, onToggle }) {
+  const listId = `${useId()}-links`;
+  return (
+    <div className={`${styles.navGroup} ${isOpen ? styles.navGroupOpen : ''}`}>
+      <h2 className={styles.navHeading}>
+        <button
+          type="button"
+          className={styles.navToggle}
+          aria-expanded={isOpen}
+          aria-controls={listId}
+          onClick={onToggle}
+        >
+          {group.label}
+          <span className={styles.navToggleMark} aria-hidden="true" />
+        </button>
+      </h2>
+      <div id={listId} className={styles.navList}>
+        <div className={styles.navListInner}>
+          {group.items.map((item) => {
+            const isActive = item.id === active;
+            return (
+              <a
+                key={item.id}
+                className={`${styles.navLink} ${isActive ? styles.navLinkActive : ''}`}
+                href={`#${item.id}`}
+                aria-current={isActive ? 'page' : undefined}
+              >
+                <span className={styles.navLabel}><NavChars label={item.label} /></span>
+                {isActive && <PlusBullet accent className={styles.navTail} />}
+              </a>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function Sidebar({ active }) {
   const { theme, toggle } = useTheme();
   const isDark = theme === 'dark';
+  const [openGroups, toggleGroup] = useOpenGroups(active);
   return (
     <aside className={styles.sidebar} aria-label="Documentation navigation">
-      <a className={styles.brand} href="#color" aria-label="Shokunin Crafthouse — home">
-        <BrandMark />
-        <span className={styles.brandName}>Shokunin Crafthouse</span>
-      </a>
+      <div className={styles.sidebarCard}>
+        <a className={styles.brand} href="#color" aria-label="Shokunin Crafthouse — home">
+          <BrandMark />
+          <span className={styles.brandName}>Shokunin Crafthouse</span>
+        </a>
 
-      <nav className={styles.nav} aria-label="Sections">
-        {NAV.map((group) => (
-          <div key={group.ord} className={styles.navGroup}>
-            <div className={styles.navEyebrow}>{group.label}</div>
-            {group.items.map((item) => {
-              const isActive = item.id === active;
-              return (
-                <a
-                  key={item.id}
-                  className={`${styles.navLink} ${isActive ? styles.navLinkActive : ''}`}
-                  href={`#${item.id}`}
-                  aria-current={isActive ? 'page' : undefined}
-                >
-                  <span className={styles.navLabel}><NavChars label={item.label} /></span>
-                  {isActive && <PlusBullet accent className={styles.navTail} />}
-                </a>
-              );
-            })}
-          </div>
-        ))}
-      </nav>
+        <nav className={styles.nav} aria-label="Sections">
+          {NAV.map((group) => (
+            <NavGroup
+              key={group.ord}
+              group={group}
+              active={active}
+              isOpen={openGroups.has(group.ord)}
+              onToggle={() => toggleGroup(group.ord)}
+            />
+          ))}
+        </nav>
 
-      <div className={styles.modeRow}>
-        <span className={styles.modeLabel}>
-          Mode <span className={styles.modeState}>{isDark ? 'Dark' : 'Light'}</span>
-        </span>
-        <Switch checked={isDark} onChange={toggle} label="" className={styles.modeSwitch} />
-      </div>
+        <div className={styles.modeRow}>
+          <span className={styles.modeLabel}>
+            Mode <span className={styles.modeState}>{isDark ? 'Dark' : 'Light'}</span>
+          </span>
+          <Switch checked={isDark} onChange={toggle} label="" className={styles.modeSwitch} />
+        </div>
 
-      <div className={styles.sidebarFoot}>
-        <span>© 2026</span>
-        <span>SCDS-v.01</span>
+        <div className={styles.sidebarFoot}>
+          <span>© 2026</span>
+          <span>SCDS-v.01</span>
+        </div>
       </div>
     </aside>
   );
@@ -401,10 +457,12 @@ export default function App() {
       <Sidebar active={active} />
       <MobileHeader active={active} isDark={isDark} />
       <main className={`${styles.main} ${isMobileOpen ? styles.mainBlurred : ''}`}>
-        {(() => {
-          const Active = SECTIONS[active] || SECTIONS[DEFAULT_SECTION];
-          return <Active />;
-        })()}
+        <div className={styles.content}>
+          {(() => {
+            const Active = SECTIONS[active] || SECTIONS[DEFAULT_SECTION];
+            return <Active />;
+          })()}
+        </div>
       </main>
       <MobileMenu
         active={active}
