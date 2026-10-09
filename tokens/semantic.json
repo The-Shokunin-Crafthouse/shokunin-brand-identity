@@ -711,6 +711,10 @@
           "auto": { "$type": "color", "$value": "{color.card.glass.hover.light}", "$description": "2026-10-08 \u00b7 Card glass (physical-controls Tier 2). Auto tone, the default (Levi: a rule that can be broken based on what the card sits on): the light tone in light mode, the dark tone in dark mode, so the glass pushes the backdrop away from the text ink. A card breaks it with tone=light or tone=dark when the backdrop already gives the text its contrast. Interactive hover veil.", "$extensions": { "modes": { "light": "{color.card.glass.hover.light}", "dark": "{color.card.glass.hover.dark}" } } }
         }
       }
+    },
+    "tooltip": {
+      "surface": { "$type": "color", "$value": "{color.utility.white}", "$description": "2026-10-08 \u00b7 Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. Bubble ground. Shipped = surface.inverse (today: ink in light, near-white in dark); its own role so the tooltip tunes without moving PlusField and the other inverse grounds. The lab starts concept A from the Button key fill (surface.raised values). Record Tooltip 2026-10-08-2007, concept A (Levi), applied 2026-10-08: white (utility.white) in light, the dark key (dark.raised1) in dark, a raised plate; was surface-inverse (warmGray.800 / warmGray.50).", "$extensions": {"modes": {"light": "{color.utility.white}", "dark": "{color.dark.raised1}"}}},
+      "text": { "$type": "color", "$value": "{color.warmGray.800}", "$description": "2026-10-08 \u00b7 Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. Bubble text. Shipped = text-on-inverse (today); its own role, paired with color.tooltip.surface. The lab starts concept A from text.primary values. Record Tooltip 2026-10-08-2007, concept A (Levi), applied 2026-10-08: text.primary values (warmGray.800 / dark.textPrimary); was text-on-inverse (warmGray.50 / warmGray.800).", "$extensions": {"modes": {"light": "{color.warmGray.800}", "dark": "{color.dark.textPrimary}"}}}
     }
   },
   "border": {
@@ -746,6 +750,7 @@
   "radius": {
     "field": { "$type": "dimension", "$value": "{radius.default}", "$description": "2026-10-07 \u00b7 Input material (physical-controls Tier 1), tuned in sc-tune. Levi's reference (2026-10-07), scaled x0.8 to the 16px body: the 6px corner scales to 4.8px; the nearest radius step is 3px (radius.input). Its own role so the field tunes without moving other controls. Levi, 2026-10-07: 8px (radius.default); was 3px (radius.input).", "$extensions": {"modes": {"light": "{radius.default}", "dark": "{radius.default}"}} },
     "card": { "$type": "dimension", "$value": "{radius.surface}", "$description": "2026-10-07 \u00b7 Card (physical-controls Tier 2: flat, or liquid glass in three levels and two tones, Levi 2026-10-08). Corner. Shipped = radius.surface (8px, today); its own role so the card tunes without moving the Button and Alert, which share radius.surface.", "$extensions": { "modes": { "light": "{radius.surface}", "dark": "{radius.surface}" } } },
+    "tooltip": { "$type": "dimension", "$value": "{space.4}", "$description": "2026-10-08 \u00b7 Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. Corner. Shipped = radius.control (radius.input, 3px, today); its own role so the tooltip tunes without moving the controls that share radius.control. Record Tooltip 2026-10-08-2007, concept A (Levi), applied 2026-10-08: 4px (space.4; no radius primitive sits at 4px); was radius.input (3px).", "$extensions": {"modes": {"light": "{space.4}", "dark": "{space.4}"}}},
     "control": {
       "$type": "dimension",
       "$value": "{radius.input}",
@@ -874,6 +879,9 @@
           "auto": { "$type": "shadow", "$value": "{shadow.card.glass.text.light}", "$description": "2026-10-08 \u00b7 Card glass (physical-controls Tier 2). Auto tone, the default (Levi: a rule that can be broken based on what the card sits on): the light tone in light mode, the dark tone in dark mode, so the glass pushes the backdrop away from the text ink. A card breaks it with tone=light or tone=dark when the backdrop already gives the text its contrast. Text halo.", "$extensions": { "modes": { "light": "{shadow.card.glass.text.light}", "dark": "{shadow.card.glass.text.dark}" } } }
         }
       }
+    },
+    "tooltip": {
+      "plate": { "$type": "shadow", "$value": "2px 2px 6px 0 rgb(100 91 79 / 0.50)", "$description": "2026-10-08 \u00b7 Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. Shadow of the plate. Shipped with zero alpha (flat, today); the lab starts concept A from shadow.control.key, the Button key, lit from the top left. Tooltip.jsx turns each outer layer into a drop-shadow filter, so the shadow follows the bubble and its rounded arrow as one shape; spread and inset layers do not render (Levi 2026-10-08: only a drop shadow, no highlight). Snaps, never transitions (tokens:verify rule 6). Record Tooltip 2026-10-08-2007, concept A (Levi), applied 2026-10-08: the Button key shade without its highlight (Levi: only a drop shadow, no border), light 2px 2px 6px warm gray 50%, dark 3px 3px 7px black 50%; was zero alpha (no shadow).", "$extensions": {"modes": {"light": "2px 2px 6px 0 rgb(100 91 79 / 0.50)", "dark": "3px 3px 7px 0 rgb(0 0 0 / 0.50)"}}}
     }
   },
   "motion": {
@@ -1053,11 +1061,12 @@
     },
     "tooltip": {
       "travel": {
-        "duration": { "$type": "duration", "$value": "{motion.duration.micro}", "$description": "2026-10-07 \u00b7 Elastic motion from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), engine src/motion/elastic.js, tuned in sc-tune. Travel time for the tooltip lift on open. Shipped = motion.reveal (200ms quint-out), the lift shipped today. A spring set on travel.easing writes its settle time here.", "$extensions": { "modes": { "light": "{motion.duration.micro}", "dark": "{motion.duration.micro}" } } },
-        "easing": { "$type": "cubicBezier", "$value": "{motion.easing.out}", "$description": "2026-10-07 \u00b7 Elastic motion from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), engine src/motion/elastic.js, tuned in sc-tune. Travel curve for the tooltip lift on open. Tuned in the lab by duration and bounce.", "$extensions": { "modes": { "light": "{motion.easing.out}", "dark": "{motion.easing.out}" } } }
+        "duration": { "$type": "duration", "$value": "{motion.duration.orchestrated}", "$description": "2026-10-07 \u00b7 Elastic motion from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), engine src/motion/elastic.js, tuned in sc-tune. Travel time for the tooltip lift on open. Shipped = motion.reveal (200ms quint-out), the lift shipped today. A spring set on travel.easing writes its settle time here. Record Tooltip 2026-10-08-2007, concept A (Levi), applied 2026-10-08: 720ms (motion.duration.orchestrated; the spring alone settles in 1093ms, played over 720ms); was motion.duration.micro (200ms).", "$extensions": {"modes": {"light": "{motion.duration.orchestrated}", "dark": "{motion.duration.orchestrated}"}}},
+        "easing": { "$type": "spring", "$value": {"stiffness": 146, "damping": 17.88, "mass": 1}, "$description": "2026-10-07 \u00b7 Elastic motion from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), engine src/motion/elastic.js, tuned in sc-tune. Travel curve for the tooltip lift on open. Tuned in the lab by duration and bounce. Record Tooltip 2026-10-08-2007, concept A (Levi), applied 2026-10-08: spring stiffness 146, damping 17.88, mass 1 (the Switch spring by value, 3% overshoot; Levi: grow out of the trigger point with elasticity); was motion.easing.out (quint-out).", "$extensions": {"modes": {"light": {"stiffness": 146, "damping": 17.88, "mass": 1}, "dark": {"stiffness": 146, "damping": 17.88, "mass": 1}}}}
       },
-      "stretch": { "$type": "number", "$value": 0, "$description": "2026-10-07 \u00b7 Elastic motion from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), engine src/motion/elastic.js, tuned in sc-tune. Vertical stretch of the bubble at peak speed: 1 = 20% taller, scaled from the arrow (a text box scales; the two-ends rule is for pills). 0 = none (shipped).", "$extensions": { "modes": { "light": 0, "dark": 0 } } },
-      "squash": { "$type": "number", "$value": 0, "$description": "2026-10-07 \u00b7 Elastic motion from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), engine src/motion/elastic.js, tuned in sc-tune. Horizontal squeeze of the bubble at peak speed: 1 = 20% narrower. 0 = none (shipped).", "$extensions": { "modes": { "light": 0, "dark": 0 } } }
+      "stretch": { "$type": "number", "$value": 2, "$description": "2026-10-07 \u00b7 Elastic motion from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), engine src/motion/elastic.js, tuned in sc-tune. Vertical stretch of the bubble at peak speed: 1 = 20% taller, scaled from the arrow (a text box scales; the two-ends rule is for pills). 0 = none (shipped). Record Tooltip 2026-10-08-2007, concept A (Levi), applied 2026-10-08: 2; was 0.", "$extensions": {"modes": {"light": 2, "dark": 2}}},
+      "squash": { "$type": "number", "$value": 2, "$description": "2026-10-07 \u00b7 Elastic motion from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), engine src/motion/elastic.js, tuned in sc-tune. Horizontal squeeze of the bubble at peak speed: 1 = 20% narrower. 0 = none (shipped). Record Tooltip 2026-10-08-2007, concept A (Levi), applied 2026-10-08: 2; was 0.", "$extensions": {"modes": {"light": 2, "dark": 2}}},
+      "growFrom": { "$type": "number", "$value": 0, "$description": "2026-10-08 \u00b7 Tooltip motion (physical-controls Tier 2), Levi: the bubble grows out of the trigger point with elasticity. Engine src/motion/elastic.js via Tooltip.jsx, tuned in sc-tune. Scale the bubble starts from on open, about the arrow tip; the travel curve carries it to 1, so a spring with bounce overshoots. 1 = no grow (shipped). Record Tooltip 2026-10-08-2007, concept A (Levi), applied 2026-10-08: 0, the bubble grows from a point at the arrow tip and shrinks back into it on close; was 1 (no grow).", "$extensions": {"modes": {"light": 0, "dark": 0}}}
     },
     "stepper": {
       "travel": {
@@ -1278,6 +1287,12 @@
     }
   },
   "size": {
+    "tooltip": {
+      "arrow": { "$type": "dimension", "$value": "{space.8}", "$description": "2026-10-08 \u00b7 Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. Arrow leg: the triangle under the bubble is this tall and twice this wide. Shipped = gap.sm (4px, today); its own role. 0 drops the arrow. Record Tooltip 2026-10-08-2007, concept A (Levi), applied 2026-10-08: 8px (space.8); was gap.sm 4px.", "$extensions": {"modes": {"light": "{space.8}", "dark": "{space.8}"}}},
+      "arrowTip": { "$type": "dimension", "$value": "{space.micro.2}", "$description": "2026-10-08 \u00b7 Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. Radius of the arrow tip (Levi 2026-10-08: round the arrow pointing down). The arrow is an SVG path built by Tooltip.jsx. 0 = a sharp tip (shipped, today). Record Tooltip 2026-10-08-2007, concept A (Levi), applied 2026-10-08: 2px (space.micro.2); was 0, sharp.", "$extensions": {"modes": {"light": "{space.micro.2}", "dark": "{space.micro.2}"}}},
+      "arrowFillet": { "$type": "dimension", "$value": "{space.micro.2}", "$description": "2026-10-08 \u00b7 Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. Radius of the concave corners where the arrow meets the bubble (Levi 2026-10-08: round the corners where it meets the container). 0 = sharp (shipped, today). Record Tooltip 2026-10-08-2007, concept A (Levi), applied 2026-10-08: 2px (space.micro.2); was 0, sharp.", "$extensions": {"modes": {"light": "{space.micro.2}", "dark": "{space.micro.2}"}}},
+      "lift": { "$type": "dimension", "$value": "{space.4}", "$description": "2026-10-08 \u00b7 Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. Travel of the open: the bubble starts this far above its rest and settles toward the trigger as it fades in. Shipped = gap.sm (4px, today); its own role, apart from the arrow.", "$extensions": { "modes": { "light": "{space.4}", "dark": "{space.4}" } } }
+    },
     "card": {
       "glass": {
         "clear": {
@@ -1513,6 +1528,12 @@
           "$value": "{space.16}",
           "$description": "2026-10-07 \u00b7 Input material (physical-controls Tier 1: a true recessed well, the focus underline stays, a hover state), tuned in sc-tune. Inline padding inside the field. Shipped = padding-inline.md (12px, today); its own role so a tune never moves SegmentedControl, NavBar, Tooltip or Badge (CONTEXT finding 5). Levi's reference (2026-10-07), scaled x0.8 to the 16px body: 20px inline padding becomes 16px. Was 12px.",
           "$extensions": { "modes": { "light": "{space.16}", "dark": "{space.16}" } }
+        },
+        "tooltip": {
+          "$type": "dimension",
+          "$value": "{space.12}",
+          "$description": "2026-10-08 \u00b7 Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. Inline padding. Shipped = padding-inline.md (12px, today); its own role (CONTEXT finding 5) so the tooltip tunes without moving NavBar, SegmentedControl and Badge.",
+          "$extensions": { "modes": { "light": "{space.12}", "dark": "{space.12}" } }
         }
       },
       "padding-block": {
@@ -1545,6 +1566,12 @@
           "$value": "{space.12}",
           "$description": "2026-10-07 \u00b7 Input material (physical-controls Tier 1: a true recessed well, the focus underline stays, a hover state), tuned in sc-tune. Block padding inside the field. Shipped = padding-block.md (8px, today); its own role (CONTEXT finding 5). Levi's reference (2026-10-07), scaled x0.8 to the 16px body: 12px block padding gives a 48.8px field (16px body, 1.55 line). Was 8px.",
           "$extensions": { "modes": { "light": "{space.12}", "dark": "{space.12}" } }
+        },
+        "tooltip": {
+          "$type": "dimension",
+          "$value": "{space.8}",
+          "$description": "2026-10-08 \u00b7 Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. Block padding. Shipped = padding-block.md (8px, today); its own role (CONTEXT finding 5).",
+          "$extensions": { "modes": { "light": "{space.8}", "dark": "{space.8}" } }
         }
       },
       "gap": {
@@ -1583,6 +1610,12 @@
           "$value": "{space.16}",
           "$description": "2026-10-07 \u00b7 Input material (physical-controls Tier 1), tuned in sc-tune. Levi's reference (2026-10-07), scaled x0.8 to the 16px body: the gap between the leading icon, the value, the suffix and the clear or trailing icon (21px measured, 16px here).",
           "$extensions": { "modes": { "light": "{space.16}", "dark": "{space.16}" } }
+        },
+        "tooltip": {
+          "$type": "dimension",
+          "$value": "{space.24}",
+          "$description": "2026-10-08 \u00b7 Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. Offset between the trigger and the arrow tip. Shipped = gap.md (8px, today); its own role (CONTEXT finding 5). Record Tooltip 2026-10-08-2007, concept A (Levi), applied 2026-10-08: 24px (space.24; Levi: offset another 16px so it sits higher); was gap.md 8px.",
+          "$extensions": { "modes": { "light": "{space.24}", "dark": "{space.24}" } }
         }
       }
     },

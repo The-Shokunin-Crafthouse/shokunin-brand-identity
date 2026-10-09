@@ -1,13 +1,16 @@
 /**
  * uiSound — the SCDS interaction-sound engine.
  *
- * Five role sounds, each owned by one component (decisions.md
- * 2026-10-07 · scds-ui-sounds, Button press and Slider slide added the same day):
+ * Six role sounds, each owned by one component (decisions.md
+ * 2026-10-07 · scds-ui-sounds, Button press and Slider slide added the same day,
+ * Tooltip reveal 2026-10-08):
  *   toggle  → Switch            (Drams 004 toggle switch)
  *   tick    → Stepper           (Drams 037 short tick)
  *   select  → SegmentedControl  (Drams 001 click)
  *   press   → Button            (Drams 029)
  *   slide   → Slider            (Drams 009, keyboard steps)
+ *   reveal  → Tooltip           (Drams 031, pitched to 0.65x and set to 0.2 of
+ *                                full scale under the default 0.7 master, baked in)
  * Sounds by Drams · 1042.Studio (drams.framer.website), used with credit.
  *
  * Playback is Web Audio with pre-decoded buffers: an <audio> element adds
@@ -26,6 +29,7 @@ const LOADERS = {
   select: () => import('./assets/select.wav'),
   press: () => import('./assets/press.wav'),
   slide: () => import('./assets/slide.wav'),
+  reveal: () => import('./assets/reveal.wav'),
 };
 
 export const UI_SOUNDS = Object.keys(LOADERS);

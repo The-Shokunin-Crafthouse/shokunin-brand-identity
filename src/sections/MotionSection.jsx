@@ -68,7 +68,7 @@ const ELASTIC_COMPONENTS = [
   { name: 'SegmentedControl', prefix: 'segmented-control', moves: 'The indicator', press: 'Yes', ships: 'Spring 600ms · stretch 0.45 · squash 0.2 · lean 0.15' },
   { name: 'PlusUnderline', prefix: 'plus-underline', moves: 'The active underline, from the old tab to the new one', press: 'Yes', ships: 'Inert' },
   { name: 'NavBar', prefix: 'nav-bar', moves: 'Its optional underline (underline prop)', press: 'Yes', ships: 'Inert' },
-  { name: 'Tooltip', prefix: 'tooltip', moves: 'The bubble on open, scaled from the arrow (it carries text)', press: 'No', ships: 'Inert' },
+  { name: 'Tooltip', prefix: 'tooltip', moves: 'The plate on open and close, grown from the arrow tip (it carries text)', press: 'No', ships: 'Spring 720ms · grow from 0 · stretch 2 · squash 2' },
 ];
 const reelSpring = springEasing({ duration: REEL.duration, bounce: REEL.bounce });
 const reelVars = Object.fromEntries(ELASTIC_COMPONENTS.flatMap(({ prefix }) => {
@@ -242,13 +242,13 @@ export function MotionSection() {
           </div>
 
           <div className={kit.panel}>
-            <div className={kit.panelHead}><span><b>Tooltip</b><Slash />reveal</span><span>out<Slash />200ms</span></div>
+            <div className={kit.panelHead}><span><b>Tooltip</b><Slash />reveal</span><span>spring<Slash />720ms</span></div>
             <div className={styles.pairDemo}>
-              <Tooltip content="Reveal: quint-out, 200ms.">
+              <Tooltip content="Grown from the trigger, 720ms.">
                 <span className={styles.tooltipTarget}>Hover for the reveal</span>
               </Tooltip>
             </div>
-            <p className={styles.pairNote}>Enter: <code>--sc-motion-reveal</code> fades and lifts the tip in at 200ms. The same role the Switch uses, a different surface.</p>
+            <p className={styles.pairNote}>Enter and leave: the Tooltip&rsquo;s own <code>--sc-motion-tooltip-*</code> tokens, a spring played over 720ms with a 3% overshoot. The plate grows out of the arrow tip and shrinks back into it (record 2026-10-08-2007, chapter iv).</p>
           </div>
         </div>
       </Chapter>

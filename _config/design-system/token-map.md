@@ -5,7 +5,7 @@
 # Design Token Map — The Shokunin Crafthouse · Brand Identity
 
 **Generated** from `tokens/primitives.json` + `tokens/semantic.json`.
-**Source fingerprint:** `8d182ffe101d` · **187 primitives · 294 semantic tokens.**
+**Source fingerprint:** `c10668b9af61` · **187 primitives · 306 semantic tokens.**
 
 > **This file is a mirror, not the source.** `tokens/*.json` is upstream; this document and the Figma
 > library are generated from / synced to it. It previously claimed the opposite — that both were
@@ -644,6 +644,13 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | `color/card/glass/hover/dark` | `--sc-color-card-glass-hover-dark` | _literal_ | `rgb(var(--sc-p-color-ink-rgb) / 0.06)` | _literal_ | `rgb(var(--sc-p-color-black-rgb) / 0.12)` | 2026-10-08 · Card glass (physical-controls Tier 2). |
 | `color/card/glass/hover/auto` | `--sc-color-card-glass-hover-auto` | `color/card/glass/hover/light` | `⚠ unresolved` | `color/card/glass/hover/dark` | `⚠ unresolved` | 2026-10-08 · Card glass (physical-controls Tier 2). |
 
+#### `color/tooltip`
+
+| Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
+|---|---|---|---|---|---|---|
+| `color/tooltip/surface` | `--sc-color-tooltip-surface` | `color/utility/white` | `#FFFFFF` | `color/dark/raised1` | `#343A41` | 2026-10-08 · Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. |
+| `color/tooltip/text` | `--sc-color-tooltip-text` | `color/warmGray/800` | `#1A1815` | `color/dark/textPrimary` | `#EAE8E3` | 2026-10-08 · Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. |
+
 ### Typography · Semantic
 
 #### `font/text`
@@ -696,17 +703,20 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | `space/component/padding-inline/button-lg` | `--sc-space-component-padding-inline-button-lg` | `space/24` | `24px` | `space/24` | `24px` | Large Button inline padding (24px). |
 | `space/component/padding-inline/button-sm` | `--sc-space-component-padding-inline-button-sm` | `space/16` | `16px` | `space/16` | `16px` | Small Button inline padding (16px). |
 | `space/component/padding-inline/input` | `--sc-space-component-padding-inline-input` | `space/16` | `16px` | `space/16` | `16px` | 2026-10-07 · Input material (physical-controls Tier 1: a true recessed well, the focus underline stays, a hover state), tuned in sc-tune. |
+| `space/component/padding-inline/tooltip` | `--sc-space-component-padding-inline-tooltip` | `space/12` | `12px` | `space/12` | `12px` | 2026-10-08 · Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. |
 | `space/component/padding-block/sm` | `--sc-space-component-padding-block-sm` | `space/micro/2` | `2px` | `space/micro/2` | `2px` | Sprint 4 addition · ultra-thin block padding (2px). |
 | `space/component/padding-block/md` | `--sc-space-component-padding-block-md` | `space/8` | `8px` | `space/8` | `8px` | Sprint 4 addition · default block padding (8px). |
 | `space/component/padding-block/lg` | `--sc-space-component-padding-block-lg` | `space/12` | `12px` | `space/12` | `12px` | Sprint 4 addition · generous block padding (12px). |
 | `space/component/padding-block/button-sm` | `--sc-space-component-padding-block-button-sm` | `space/4` | `4px` | `space/4` | `4px` | Small Button block padding (4px, the dense 4pt step). |
 | `space/component/padding-block/input` | `--sc-space-component-padding-block-input` | `space/12` | `12px` | `space/12` | `12px` | 2026-10-07 · Input material (physical-controls Tier 1: a true recessed well, the focus underline stays, a hover state), tuned in sc-tune. |
+| `space/component/padding-block/tooltip` | `--sc-space-component-padding-block-tooltip` | `space/8` | `8px` | `space/8` | `8px` | 2026-10-08 · Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. |
 | `space/component/gap/sm` | `--sc-space-component-gap-sm` | `space/4` | `4px` | `space/4` | `4px` | Sprint 4 addition · tightest inter-element gap (4px). |
 | `space/component/gap/md` | `--sc-space-component-gap-md` | `space/8` | `8px` | `space/8` | `8px` | Sprint 4 addition · default inter-element gap (8px). |
 | `space/component/gap/lg` | `--sc-space-component-gap-lg` | `space/12` | `12px` | `space/12` | `12px` | Sprint 4 addition · generous gap (12px). |
 | `space/component/gap/stepper` | `--sc-space-component-gap-stepper` | `space/8` | `8px` | `space/8` | `8px` | 2026-10-07 · Stepper role gap: between the pill's keys and the readout, and the readout's inline padding (8px). |
 | `space/component/gap/input` | `--sc-space-component-gap-input` | `space/4` | `4px` | `space/4` | `4px` | 2026-10-07 · Input material (physical-controls Tier 1: a true recessed well, the focus underline stays, a hover state), tuned in sc-tune. |
 | `space/component/gap/input-inline` | `--sc-space-component-gap-input-inline` | `space/16` | `16px` | `space/16` | `16px` | 2026-10-07 · Input material (physical-controls Tier 1), tuned in sc-tune. |
+| `space/component/gap/tooltip` | `--sc-space-component-gap-tooltip` | `space/24` | `24px` | `space/24` | `24px` | 2026-10-08 · Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. |
 
 #### `space/layout`
 
@@ -726,6 +736,7 @@ channel-triplet primitives) rather than an alias to a single primitive.
 |---|---|---|---|---|---|---|
 | `radius/field` | `--sc-radius-field` | `radius/default` | `8px` | `radius/default` | `8px` | 2026-10-07 · Input material (physical-controls Tier 1), tuned in sc-tune. |
 | `radius/card` | `--sc-radius-card` | `radius/surface` | `⚠ unresolved` | `radius/surface` | `⚠ unresolved` | 2026-10-07 · Card (physical-controls Tier 2: flat, or liquid glass in three levels and two tones, Levi 2026-10-08). |
+| `radius/tooltip` | `--sc-radius-tooltip` | `space/4` | `4px` | `space/4` | `4px` | 2026-10-08 · Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. |
 | `radius/control` | `--sc-radius-control` | `radius/input` | `3px` | `radius/input` | `3px` | Sprint 4 addition · controls that read as inscribed rather than lifted (3px). |
 | `radius/surface` | `--sc-radius-surface` | `radius/default` | `8px` | `radius/default` | `8px` | Sprint 4 addition · raised surfaces (8px). |
 | `radius/surfaceLarge` | `--sc-radius-surface-large` | `radius/large` | `16px` | `radius/large` | `16px` | 2026-08-16 Figma variable sync · large raised surfaces (16px). |
@@ -844,10 +855,11 @@ channel-triplet primitives) rather than an alias to a single primitive.
 
 | Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
 |---|---|---|---|---|---|---|
-| `motion/tooltip/travel/duration` | `--sc-motion-tooltip-travel-duration` | `motion/duration/micro` | `200ms` | `motion/duration/micro` | `200ms` | 2026-10-07 · Elastic motion from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), engine src/motion/elastic.js, tuned in sc-tune. |
-| `motion/tooltip/travel/easing` | `--sc-motion-tooltip-travel-easing` | `motion/easing/out` | `cubic-bezier(0.22, 1, 0.36, 1)` | `motion/easing/out` | `cubic-bezier(0.22, 1, 0.36, 1)` | 2026-10-07 · Elastic motion from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), engine src/motion/elastic.js, tuned in sc-tune. |
-| `motion/tooltip/stretch` | `--sc-motion-tooltip-stretch` | _literal_ | `0` | _literal_ | `0` | 2026-10-07 · Elastic motion from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), engine src/motion/elastic.js, tuned in sc-tune. |
-| `motion/tooltip/squash` | `--sc-motion-tooltip-squash` | _literal_ | `0` | _literal_ | `0` | 2026-10-07 · Elastic motion from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), engine src/motion/elastic.js, tuned in sc-tune. |
+| `motion/tooltip/travel/duration` | `--sc-motion-tooltip-travel-duration` | `motion/duration/orchestrated` | `720ms` | `motion/duration/orchestrated` | `720ms` | 2026-10-07 · Elastic motion from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), engine src/motion/elastic.js, tuned in sc-tune. |
+| `motion/tooltip/travel/easing` | `--sc-motion-tooltip-travel-easing` | _literal_ | `spring k146 c17.88 m1` | _literal_ | `spring k146 c17.88 m1` | 2026-10-07 · Elastic motion from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), engine src/motion/elastic.js, tuned in sc-tune. |
+| `motion/tooltip/stretch` | `--sc-motion-tooltip-stretch` | _literal_ | `2` | _literal_ | `2` | 2026-10-07 · Elastic motion from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), engine src/motion/elastic.js, tuned in sc-tune. |
+| `motion/tooltip/squash` | `--sc-motion-tooltip-squash` | _literal_ | `2` | _literal_ | `2` | 2026-10-07 · Elastic motion from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), engine src/motion/elastic.js, tuned in sc-tune. |
+| `motion/tooltip/growFrom` | `--sc-motion-tooltip-grow-from` | _literal_ | `0` | _literal_ | `0` | 2026-10-08 · Tooltip motion (physical-controls Tier 2), Levi: the bubble grows out of the trigger point with elasticity. |
 
 #### `motion/stepper`
 
@@ -938,7 +950,22 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | `shadow/card/glass/text/dark` | `--sc-shadow-card-glass-text-dark` | _literal_ | `0 0 2px rgb(var(--sc-p-color-white-rgb) / 0.50)` | _literal_ | `0 0 2px rgb(0 0 0 / 0.70)` | 2026-10-08 · Card glass (physical-controls Tier 2). |
 | `shadow/card/glass/text/auto` | `--sc-shadow-card-glass-text-auto` | `shadow/card/glass/text/light` | `⚠ unresolved` | `shadow/card/glass/text/dark` | `⚠ unresolved` | 2026-10-08 · Card glass (physical-controls Tier 2). |
 
+#### `shadow/tooltip`
+
+| Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
+|---|---|---|---|---|---|---|
+| `shadow/tooltip/plate` | `--sc-shadow-tooltip-plate` | _literal_ | `2px 2px 6px 0 rgb(100 91 79 / 0.50)` | _literal_ | `3px 3px 7px 0 rgb(0 0 0 / 0.50)` | 2026-10-08 · Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. |
+
 ### Size · Semantic
+
+#### `size/tooltip`
+
+| Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
+|---|---|---|---|---|---|---|
+| `size/tooltip/arrow` | `--sc-size-tooltip-arrow` | `space/8` | `8px` | `space/8` | `8px` | 2026-10-08 · Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. |
+| `size/tooltip/arrowTip` | `--sc-size-tooltip-arrow-tip` | `space/micro/2` | `2px` | `space/micro/2` | `2px` | 2026-10-08 · Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. |
+| `size/tooltip/arrowFillet` | `--sc-size-tooltip-arrow-fillet` | `space/micro/2` | `2px` | `space/micro/2` | `2px` | 2026-10-08 · Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. |
+| `size/tooltip/lift` | `--sc-size-tooltip-lift` | `space/4` | `4px` | `space/4` | `4px` | 2026-10-08 · Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. |
 
 #### `size/card`
 

@@ -322,21 +322,36 @@ export const REGISTRY = {
   },
   Tooltip: {
     css: [tooltipCss],
-    ...reel('tooltip', { press: false }),
-    shippedSound: null,
-    trigger: 'ships silent',
+    // Physical-controls Tier 2: a raised plate that grows out of the trigger
+    // point (record Tooltip 2026-10-08-2007 A, applied). Tooltip.jsx reads the
+    // arrow radii, the plate shadow and the grow, so they are listed here.
+    jsTokens: [...reel('tooltip', { press: false }).jsTokens, '--sc-motion-tooltip-grow-from', '--sc-shadow-tooltip-plate', '--sc-size-tooltip-arrow-tip', '--sc-size-tooltip-arrow-fillet'],
+    // No seeds: the record is applied, so a new concept starts from shipped.
+    // The reveal role sound (Drams 031). Shipped, reveal.wav bakes in the
+    // record's 0.65x pitch and 0.2 volume; the lab plays the source file.
+    shippedSound: 'drams-031-01.wav',
+    trigger: 'the tooltip opens (pointer enters or focus lands on the trigger)',
     props: [
-      { name: 'open', type: 'boolean', default: true },
+      // hover: the trigger opens it (the motion plays on every hover); open / closed force it.
+      { name: 'show', type: 'enum', options: ['hover', 'open', 'closed'], default: 'hover' },
       { name: 'multiline', type: 'boolean', default: false },
       { name: 'content', type: 'text', default: 'Copied to clipboard' },
     ],
-    play: (p, set) => set('open', !p.open),
-    render: (p) => (
-      <span style={{ display: 'inline-block', paddingTop: 'var(--sc-space-layout-stack-md)' }}>
-        <Tooltip content={p.content} multiline={p.multiline} open={p.open}>
-          <span style={{ font: 'inherit' }}>Hover or press Play</span>
-        </Tooltip>
-      </span>
+    play: (p, set) => set('show', p.show === 'open' ? 'closed' : 'open'),
+    render: (p, set, sound) => (
+      <div style={{ position: 'relative', padding: 'var(--sc-space-layout-stack-md) var(--sc-space-layout-stack-sm) var(--sc-space-layout-stack-sm)' }}>
+        <span style={{ position: 'relative', display: 'inline-block', paddingTop: 'var(--sc-space-layout-stack-md)' }}>
+          <Tooltip content={p.content} multiline={p.multiline} open={p.show === 'hover' ? undefined : p.show === 'open'} sound={false}>
+            <span
+              style={{ display: 'inline-block' }}
+              onMouseEnter={() => { if (p.show === 'hover') sound(); }}
+              onFocus={() => { if (p.show === 'hover') sound(); }}
+            >
+              <Button variant="primary" size="sm" arrow={false} sound={false}>Copy</Button>
+            </span>
+          </Tooltip>
+        </span>
+      </div>
     ),
   },
   NavBar: {

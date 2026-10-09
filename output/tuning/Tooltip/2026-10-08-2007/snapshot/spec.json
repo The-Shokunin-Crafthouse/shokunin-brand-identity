@@ -1,0 +1,316 @@
+{
+  "tool": "sc-tune",
+  "version": 3,
+  "component": "Tooltip",
+  "kind": "component",
+  "recorded": "2026-10-09T02:07:06.166Z",
+  "theme": "light",
+  "notes": "",
+  "pick": {
+    "concept": "A",
+    "reason": "Levi, 2026-10-08: keep A only."
+  },
+  "concepts": [
+    {
+      "id": "A",
+      "notes": "",
+      "props": {
+        "show": "hover",
+        "variant": "solid",
+        "backdrop": "page (follows theme)",
+        "multiline": false,
+        "content": "Copied to clipboard",
+        "open": true
+      },
+      "sound": {
+        "file": "drams-031-01.wav",
+        "volume": 0.2,
+        "rate": 0.65,
+        "shipped": null,
+        "trigger": "the tooltip opens (pointer enters or focus lands on the trigger)"
+      },
+      "tokens": [
+        {
+          "name": "--sc-motion-tooltip-grow-from",
+          "mode": "all",
+          "category": "motion",
+          "kind": "number",
+          "shipped": "1",
+          "tuned": "0",
+          "override": "0"
+        },
+        {
+          "name": "--sc-size-tooltip-lift",
+          "mode": "all",
+          "category": "size",
+          "kind": "length",
+          "shipped": "4px",
+          "tuned": "4px",
+          "override": "4px"
+        },
+        {
+          "name": "--sc-motion-tooltip-stretch",
+          "mode": "all",
+          "category": "motion",
+          "kind": "number",
+          "shipped": "0",
+          "tuned": "2",
+          "override": "2"
+        },
+        {
+          "name": "--sc-motion-tooltip-squash",
+          "mode": "all",
+          "category": "motion",
+          "kind": "number",
+          "shipped": "0",
+          "tuned": "2",
+          "override": "2"
+        },
+        {
+          "name": "--sc-motion-tooltip-travel-easing",
+          "mode": "all",
+          "category": "motion",
+          "kind": "easing",
+          "shipped": "cubic-bezier(0.22, 1, 0.36, 1)",
+          "tuned": "linear(0, 0.0249, 0.0823, 0.1659, 0.2573, 0.3589, 0.4546, 0.5507, 0.6347, 0.7141, 0.7799, 0.8393, 0.8863, 0.9268, 0.9573, 0.9822, 0.9999, 1.0133, 1.0218, 1.0273, 1.0299, 1.0305, 1.0296, 1.0277, 1.0251, 1.0223, 1.0192, 1.0163, 1.0134, 1.0109, 1.0085, 1.0065, 1.0047, 1.0033, 1.0021, 1.0012, 1.0005, 0.9999, 0.9996, 0.9993, 0.9992, 0.9991, 0.9991, 0.9991, 0.9992, 0.9992, 0.9993, 0.9994, 0.9995, 0.9996, 0.9997, 0.9997, 0.9998, 0.9999, 0.9999, 0.9999, 1, 1, 1, 1)",
+          "override": "linear(0, 0.0249, 0.0823, 0.1659, 0.2573, 0.3589, 0.4546, 0.5507, 0.6347, 0.7141, 0.7799, 0.8393, 0.8863, 0.9268, 0.9573, 0.9822, 0.9999, 1.0133, 1.0218, 1.0273, 1.0299, 1.0305, 1.0296, 1.0277, 1.0251, 1.0223, 1.0192, 1.0163, 1.0134, 1.0109, 1.0085, 1.0065, 1.0047, 1.0033, 1.0021, 1.0012, 1.0005, 0.9999, 0.9996, 0.9993, 0.9992, 0.9991, 0.9991, 0.9991, 0.9992, 0.9992, 0.9993, 0.9994, 0.9995, 0.9996, 0.9997, 0.9997, 0.9998, 0.9999, 0.9999, 0.9999, 1, 1, 1, 1)",
+          "spring": {
+            "stiffness": 146,
+            "damping": 17.88,
+            "mass": 1,
+            "settleMs": 1093,
+            "overshoot": 0.031,
+            "framerMotion": {
+              "type": "spring",
+              "stiffness": 146,
+              "damping": 17.88,
+              "mass": 1
+            }
+          }
+        },
+        {
+          "name": "--sc-motion-tooltip-travel-duration",
+          "mode": "all",
+          "category": "motion",
+          "kind": "time",
+          "shipped": "200ms",
+          "tuned": "720ms",
+          "override": "720ms"
+        },
+        {
+          "name": "--sc-radius-tooltip",
+          "mode": "all",
+          "category": "radius",
+          "kind": "length",
+          "shipped": "3px",
+          "tuned": "4px",
+          "override": "4px"
+        },
+        {
+          "name": "--sc-size-tooltip-arrow",
+          "mode": "all",
+          "category": "size",
+          "kind": "length",
+          "shipped": "4px",
+          "tuned": "8px",
+          "override": "8px"
+        },
+        {
+          "name": "--sc-size-tooltip-glass-frosted-frost",
+          "mode": "all",
+          "category": "size",
+          "kind": "length",
+          "shipped": "9px",
+          "tuned": "0px",
+          "override": "0px"
+        },
+        {
+          "name": "--sc-space-layout-stack-xl",
+          "mode": "all",
+          "category": "space",
+          "kind": "length",
+          "shipped": "80px",
+          "tuned": "80px",
+          "override": "80px"
+        },
+        {
+          "name": "--sc-space-component-gap-tooltip",
+          "mode": "all",
+          "category": "space",
+          "kind": "length",
+          "shipped": "8px",
+          "tuned": "24px",
+          "override": "24px"
+        },
+        {
+          "name": "--sc-size-tooltip-arrow-tip",
+          "mode": "all",
+          "category": "size",
+          "kind": "length",
+          "shipped": "0px",
+          "tuned": "2px",
+          "override": "2px"
+        },
+        {
+          "name": "--sc-size-tooltip-arrow-fillet",
+          "mode": "all",
+          "category": "size",
+          "kind": "length",
+          "shipped": "0px",
+          "tuned": "2px",
+          "override": "2px"
+        },
+        {
+          "name": "--sc-color-tooltip-surface",
+          "mode": "light",
+          "category": "color",
+          "kind": "color",
+          "shipped": "#1A1815",
+          "tuned": "#FFFFFF",
+          "override": "#FFFFFF"
+        },
+        {
+          "name": "--sc-color-tooltip-text",
+          "mode": "light",
+          "category": "color",
+          "kind": "color",
+          "shipped": "#F1EFEB",
+          "tuned": "#1A1815",
+          "override": "#1A1815"
+        },
+        {
+          "name": "--sc-shadow-tooltip-plate",
+          "mode": "light",
+          "category": "shadow",
+          "kind": "shadow",
+          "shipped": "inset 0 0 0 0 rgb(26 24 21 / 0)",
+          "tuned": "2px 2px 6px 0px rgb(100 91 79 / 0.50)",
+          "override": "2px 2px 6px 0px rgb(100 91 79 / 0.50)"
+        },
+        {
+          "name": "--sc-color-tooltip-glass-tint",
+          "mode": "light",
+          "category": "color",
+          "kind": "color",
+          "shipped": "rgb(255 255 255 / 0.24)",
+          "tuned": "rgb(255 255 255 / 0.24)",
+          "override": "rgb(255 255 255 / 0.24)"
+        },
+        {
+          "name": "--sc-color-tooltip-surface",
+          "mode": "dark",
+          "category": "color",
+          "kind": "color",
+          "shipped": null,
+          "tuned": "#343A41",
+          "override": "#343A41"
+        },
+        {
+          "name": "--sc-color-tooltip-text",
+          "mode": "dark",
+          "category": "color",
+          "kind": "color",
+          "shipped": null,
+          "tuned": "#EAE8E3",
+          "override": "#EAE8E3"
+        },
+        {
+          "name": "--sc-shadow-tooltip-plate",
+          "mode": "dark",
+          "category": "shadow",
+          "kind": "shadow",
+          "shipped": null,
+          "tuned": "3px 3px 7px 0px rgb(0 0 0 / 0.50)",
+          "override": "3px 3px 7px 0px rgb(0 0 0 / 0.50)"
+        }
+      ],
+      "pins": {}
+    }
+  ],
+  "derived": {
+    "--tip-ground": "0px",
+    "--glass-refraction": "0px",
+    "--glass-depth": "0px",
+    "--glass-splay": "0px"
+  },
+  "tokenCount": 32,
+  "state": {
+    "component": "Tooltip",
+    "notes": "",
+    "active": "A",
+    "concepts": [
+      {
+        "id": "A",
+        "overrides": {
+          "all": {
+            "--sc-motion-tooltip-grow-from": "0",
+            "--sc-size-tooltip-lift": "4px",
+            "--sc-motion-tooltip-stretch": "2",
+            "--sc-motion-tooltip-squash": "2",
+            "--sc-motion-tooltip-travel-easing": "linear(0, 0.0249, 0.0823, 0.1659, 0.2573, 0.3589, 0.4546, 0.5507, 0.6347, 0.7141, 0.7799, 0.8393, 0.8863, 0.9268, 0.9573, 0.9822, 0.9999, 1.0133, 1.0218, 1.0273, 1.0299, 1.0305, 1.0296, 1.0277, 1.0251, 1.0223, 1.0192, 1.0163, 1.0134, 1.0109, 1.0085, 1.0065, 1.0047, 1.0033, 1.0021, 1.0012, 1.0005, 0.9999, 0.9996, 0.9993, 0.9992, 0.9991, 0.9991, 0.9991, 0.9992, 0.9992, 0.9993, 0.9994, 0.9995, 0.9996, 0.9997, 0.9997, 0.9998, 0.9999, 0.9999, 0.9999, 1, 1, 1, 1)",
+            "--sc-motion-tooltip-travel-duration": "720ms",
+            "--sc-radius-tooltip": "4px",
+            "--sc-size-tooltip-arrow": "8px",
+            "--sc-size-tooltip-glass-frosted-frost": "0px",
+            "--sc-space-layout-stack-xl": "80px",
+            "--sc-space-component-gap-tooltip": "24px",
+            "--sc-size-tooltip-arrow-tip": "2px",
+            "--sc-size-tooltip-arrow-fillet": "2px"
+          },
+          "light": {
+            "--sc-color-tooltip-surface": "#FFFFFF",
+            "--sc-color-tooltip-text": "#1A1815",
+            "--sc-shadow-tooltip-plate": "2px 2px 6px 0px rgb(100 91 79 / 0.50)",
+            "--sc-color-tooltip-glass-tint": "rgb(255 255 255 / 0.24)"
+          },
+          "dark": {
+            "--sc-color-tooltip-surface": "#343A41",
+            "--sc-color-tooltip-text": "#EAE8E3",
+            "--sc-shadow-tooltip-plate": "3px 3px 7px 0px rgb(0 0 0 / 0.50)"
+          }
+        },
+        "shadowAdj": {
+          "all": {},
+          "light": {},
+          "dark": {}
+        },
+        "springs": {
+          "--sc-motion-tooltip-travel-easing": {
+            "stiffness": 146,
+            "damping": 17.88,
+            "mass": 1
+          }
+        },
+        "pins": {},
+        "notes": "",
+        "props": {
+          "show": "hover",
+          "variant": "solid",
+          "backdrop": "page (follows theme)",
+          "multiline": false,
+          "content": "Copied to clipboard",
+          "open": true
+        },
+        "sound": {
+          "file": "drams-031-01.wav",
+          "volume": 0.2,
+          "rate": 0.65
+        }
+      }
+    ],
+    "pick": {
+      "id": "A",
+      "reason": "Levi, 2026-10-08: keep A only."
+    },
+    "view": {
+      "theme": "light",
+      "zoom": 1,
+      "ground": "--sc-color-surface-page",
+      "compare": false,
+      "blind": false,
+      "order": null,
+      "slow": 1
+    },
+    "updated": "2026-10-09T02:06:30.199Z"
+  }
+}

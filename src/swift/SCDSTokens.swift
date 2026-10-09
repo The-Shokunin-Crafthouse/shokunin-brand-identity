@@ -171,8 +171,8 @@ public enum SCDS {
     public static let semanticVersion = "0.1.0"
     public static let sourceGenerated = "2026-05-26"
     public static let primitivesHash = "41d576559668277a"
-    public static let semanticHash = "201923f743ca42f7"
-    public static let tokenCount = 294
+    public static let semanticHash = "df93fc8278248197"
+    public static let tokenCount = 306
   }
 
   // MARK: - Color
@@ -772,6 +772,18 @@ public enum SCDS {
         light: (1, 1, 1, 0.08),
         dark:  (0, 0, 0, 0.12)
     )
+
+    /// `color.tooltip.surface`
+    public static let tooltipSurface = SwiftUI.Color.scdsDynamic(
+        light: (1, 1, 1, 1),
+        dark:  (0.203922, 0.227451, 0.254902, 1)
+    )
+
+    /// `color.tooltip.text`
+    public static let tooltipText = SwiftUI.Color.scdsDynamic(
+        light: (0.101961, 0.094118, 0.082353, 1),
+        dark:  (0.917647, 0.909804, 0.890196, 1)
+    )
   }
 
   // MARK: - Typography
@@ -1129,6 +1141,9 @@ public enum SCDS {
     /// `space.component.padding-inline.input`
     public static let componentPaddingInlineInput: CGFloat = 16
 
+    /// `space.component.padding-inline.tooltip`
+    public static let componentPaddingInlineTooltip: CGFloat = 12
+
     /// `space.component.padding-block.sm`
     public static let componentPaddingBlockSm: CGFloat = 2
 
@@ -1143,6 +1158,9 @@ public enum SCDS {
 
     /// `space.component.padding-block.input`
     public static let componentPaddingBlockInput: CGFloat = 12
+
+    /// `space.component.padding-block.tooltip`
+    public static let componentPaddingBlockTooltip: CGFloat = 8
 
     /// `space.component.gap.sm`
     public static let componentGapSm: CGFloat = 4
@@ -1161,6 +1179,9 @@ public enum SCDS {
 
     /// `space.component.gap.input-inline`
     public static let componentGapInputInline: CGFloat = 16
+
+    /// `space.component.gap.tooltip`
+    public static let componentGapTooltip: CGFloat = 24
   }
 
   // MARK: - Radius
@@ -1172,6 +1193,9 @@ public enum SCDS {
 
     /// `radius.card`
     public static let card: CGFloat = 8
+
+    /// `radius.tooltip`
+    public static let tooltip: CGFloat = 4
 
     /// `radius.control`
     public static let control: CGFloat = 3
@@ -1210,6 +1234,18 @@ public enum SCDS {
 
   /// Named element sizes, including the touch-target floor.
   public enum Size {
+    /// `size.tooltip.arrow`
+    public static let tooltipArrow: CGFloat = 8
+
+    /// `size.tooltip.arrowTip`
+    public static let tooltipArrowTip: CGFloat = 2
+
+    /// `size.tooltip.arrowFillet`
+    public static let tooltipArrowFillet: CGFloat = 2
+
+    /// `size.tooltip.lift`
+    public static let tooltipLift: CGFloat = 4
+
     /// `size.card.glass.clear.frost`
     public static let cardGlassClearFrost: CGFloat = 4
 
@@ -1473,17 +1509,20 @@ public enum SCDS {
     /// `motion.navBar.press.leanDuration` · 160ms
     public static let navBarPressLeanDuration: TimeInterval = 0.16
 
-    /// `motion.tooltip.travel.duration` · 200ms
-    public static let tooltipTravelDuration: TimeInterval = 0.2
+    /// `motion.tooltip.travel.duration` · 720ms
+    public static let tooltipTravelDuration: TimeInterval = 0.72
 
-    /// `motion.tooltip.travel.easing`
-    public static let tooltipTravelEasing = SCDSEasing(0.22, 1, 0.36, 1)
+    /// `motion.tooltip.travel.easing` · spring k146 c17.88 m1, settles in 1093ms, overshoot 3%
+    public static let tooltipTravelEasing = SCDSSpring(stiffness: 146, damping: 17.88, mass: 1, settle: 1.093)
 
     /// `motion.tooltip.stretch`
-    public static let tooltipStretch: CGFloat = 0
+    public static let tooltipStretch: CGFloat = 2
 
     /// `motion.tooltip.squash`
-    public static let tooltipSquash: CGFloat = 0
+    public static let tooltipSquash: CGFloat = 2
+
+    /// `motion.tooltip.growFrom`
+    public static let tooltipGrowFrom: CGFloat = 0
 
     /// `motion.stepper.travel.duration` · 1062ms
     public static let stepperTravelDuration: TimeInterval = 1.062
@@ -1813,6 +1852,16 @@ public enum SCDS {
         ],
         dark: [
             SCDSShadowLayer(inset: false, x: 0, y: 0, blur: 2, spread: 0, rgb: (0, 0, 0), alpha: 0.7),
+        ]
+    )
+
+    /// `shadow.tooltip.plate` · 1 layers
+    public static let tooltipPlate = SCDSShadow(
+        light: [
+            SCDSShadowLayer(inset: false, x: 2, y: 2, blur: 6, spread: 0, rgb: (0.392157, 0.356863, 0.309804), alpha: 0.5),
+        ],
+        dark: [
+            SCDSShadowLayer(inset: false, x: 3, y: 3, blur: 7, spread: 0, rgb: (0, 0, 0), alpha: 0.5),
         ]
     )
   }

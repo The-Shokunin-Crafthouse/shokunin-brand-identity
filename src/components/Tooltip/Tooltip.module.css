@@ -1,14 +1,21 @@
-/* tokens:
- *   --sc-color-surface-inverse              · inverted ground (ink in light / near-white in dark)
- *   --sc-color-text-on-inverse              · inverted ink
- *   --sc-space-component-padding-inline-md  · 12 inline
- *   --sc-space-component-padding-block-md   · 8 block
- *   --sc-space-component-gap-md             · arrow offset (8) below trigger
- *   --sc-radius-control                     · 3 corner
- *   --sc-font-text-caption-*                · 13 / regular / relaxed
- *   --sc-motion-tooltip-travel-duration / -easing · enter lift (role tokens, = motion.reveal)
- *   --sc-motion-tooltip-stretch / -squash · elastic scale on open (Tooltip.jsx; 0 = off)
- *   --sc-border-width-default               · arrow stroke (reused as triangle leg)
+/* tokens (role tokens, physical-controls Tier 2; record Tooltip 2026-10-08-2007 A):
+ *   --sc-color-tooltip-surface               · plate ground (white in light, the dark key in dark)
+ *   --sc-color-tooltip-text                  · ink (text.primary values)
+ *   --sc-shadow-tooltip-plate                · drop shadow, outer layers as a drop-shadow filter (Tooltip.jsx)
+ *   --sc-space-component-padding-inline-tooltip · 12 inline
+ *   --sc-space-component-padding-block-tooltip  · 8 block
+ *   --sc-space-component-gap-tooltip         · offset (24) between the trigger and the arrow tip
+ *   --sc-size-tooltip-arrow                  · arrow leg (8; 0 drops the arrow)
+ *   --sc-size-tooltip-arrow-tip / -fillet    · arrow tip radius, fillet radius where it meets the bubble (2 / 2; Tooltip.jsx)
+ *   --sc-size-tooltip-lift                   · travel of the open (4)
+ *   --sc-radius-tooltip                      · 4 corner
+ *   --sc-font-text-caption-*                 · 13 / regular / relaxed
+ *   --sc-motion-tooltip-travel-duration / -easing · open and close (720ms, a spring with 3% overshoot)
+ *   --sc-motion-tooltip-stretch / -squash · elastic scale at peak speed (Tooltip.jsx; 2 / 2)
+ *   --sc-motion-tooltip-grow-from            · start scale of the open, about the arrow tip (Tooltip.jsx; 0)
+ *   --sc-border-width-default                · forced-colors edge
+ *
+ * The plate's shadow snaps: only opacity and transform transition.
  */
 
 .wrapper {
@@ -18,14 +25,18 @@
 
 .tooltip {
   position: absolute;
-  bottom: calc(100% + var(--sc-space-component-gap-md));
+  bottom: calc(100% + var(--sc-space-component-gap-tooltip));
   left: 50%;
-  transform: translate(-50%, calc(var(--sc-space-component-gap-sm) * -1));
-  background-color: var(--sc-color-surface-inverse);
-  color: var(--sc-color-text-on-inverse);
-  padding-inline: var(--sc-space-component-padding-inline-md);
-  padding-block: var(--sc-space-component-padding-block-md);
-  border-radius: var(--sc-radius-control);
+  transform: translate(-50%, calc(var(--sc-size-tooltip-lift) * -1));
+  --tip-ground: var(--sc-color-tooltip-surface);
+  background-color: var(--tip-ground);
+  color: var(--sc-color-tooltip-text);
+  /* The plate shadow arrives as a drop-shadow chain (Tooltip.jsx, from
+     --sc-shadow-tooltip-plate) so it falls under the arrow too. */
+  filter: var(--tip-drop, none);
+  padding-inline: var(--sc-space-component-padding-inline-tooltip);
+  padding-block: var(--sc-space-component-padding-block-tooltip);
+  border-radius: var(--sc-radius-tooltip);
   font-family: var(--sc-font-text-caption-family);
   font-size: var(--sc-font-text-caption-size);
   font-weight: var(--sc-font-text-caption-weight);
@@ -36,8 +47,9 @@
   transition:
     opacity var(--sc-motion-tooltip-travel-duration) var(--sc-motion-tooltip-travel-easing),
     transform var(--sc-motion-tooltip-travel-duration) var(--sc-motion-tooltip-travel-easing);
-  /* Stretch and squash scale from the arrow (Tooltip.jsx; 0 = none). */
-  transform-origin: 50% 100%;
+  /* Grow, stretch and squash scale about the arrow tip, the trigger point
+     (Tooltip.jsx; shipped none, so the origin moves nothing). */
+  transform-origin: 50% calc(100% + var(--sc-size-tooltip-arrow));
   z-index: 10;
 }
 
@@ -47,16 +59,15 @@
   transition: none;
 }
 
-.tooltip::after {
-  /* Arrow · inherits surface-inverse via border-color */
-  content: '';
+.arrow {
+  /* The arrow: an SVG path (Tooltip.jsx) with a rounded tip and concave
+     fillets; top is set inline so it overlaps the bubble by the seam. */
   position: absolute;
-  top: 100%;
   left: 50%;
+  display: block;
+  overflow: visible;
   transform: translateX(-50%);
-  border-width: var(--sc-space-component-gap-sm);
-  border-style: solid;
-  border-color: var(--sc-color-surface-inverse) transparent transparent transparent;
+  fill: var(--tip-ground);
 }
 
 .open {
@@ -79,4 +90,18 @@
 
 @media (prefers-reduced-motion: reduce) {
   .tooltip { transition: none; }
+}
+
+/* Forced colors drop the ground and the shadow: an inset edge keeps the
+ * bubble apart from the page, and the arrow is drawn in the same ink. */
+@media (forced-colors: active) {
+  .tooltip {
+    outline: var(--sc-border-width-default) solid CanvasText;
+    outline-offset: calc(-1 * var(--sc-border-width-default));
+    filter: none;
+  }
+  .arrow {
+    forced-color-adjust: none;
+    fill: CanvasText;
+  }
 }
