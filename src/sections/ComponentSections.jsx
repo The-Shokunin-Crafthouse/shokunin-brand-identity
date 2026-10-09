@@ -265,7 +265,7 @@ export function InputPage() {
 export function AlertPage() {
   return (
     <ComponentPage
-      id="alert" label="Alert" tokensN={12} statesVariant="stack"
+      id="alert" label="Alert" tokensN={16} statesVariant="stack"
       eyebrow={<>Alert<Slash />signal on a left rule</>}
       title={<>A three-pixel rule carries the state. <Em>The banner stays calm.</Em></>}
       lead={<>Alerts mark status with a single coloured left rule, not a full tint. The banner ground stays sunk and predictable; the rule does the category-marking at the same visual weight as every other rule in the system. The colour informs, it does not shout.</>}
@@ -276,25 +276,28 @@ export function AlertPage() {
         { title: 'Error is oxblood, not teal', body: 'The error rule pulls from status-error, deliberately off the brand teal band, so a danger banner and a brand surface can never be confused.' },
       ]}
       states={[
-        { name: 'Info', token: '--sc-color-status-info', render: <Alert variant="info" title="Heads up">The brand site rebuilds on every push to main.</Alert> },
-        { name: 'Success', token: '--sc-color-status-success', render: <Alert variant="success" title="Shipped">Sprint 5 merged and deployed to brand.shokunincrafthouse.com.</Alert> },
-        { name: 'Warning', token: '--sc-color-status-warning', render: <Alert variant="warning" title="In review">Two approval gates remain before this can merge.</Alert> },
-        { name: 'Error', token: '--sc-color-status-error', render: <Alert variant="error" title="Build failed">Token build exited non-zero. The previous deploy is still live.</Alert> },
+        { name: 'Info', token: '--sc-color-alert-rule-info', render: <Alert variant="info" title="Heads up">The brand site rebuilds on every push to main.</Alert> },
+        { name: 'Success', token: '--sc-color-alert-rule-success', render: <Alert variant="success" title="Shipped">Sprint 5 merged and deployed to brand.shokunincrafthouse.com.</Alert> },
+        { name: 'Warning', token: '--sc-color-alert-rule-warning', render: <Alert variant="warning" title="In review">Two approval gates remain before this can merge.</Alert> },
+        { name: 'Error', token: '--sc-color-alert-rule-error', render: <Alert variant="error" title="Build failed">Token build exited non-zero. The previous deploy is still live.</Alert> },
       ]}
       tokenRows={[
-        { prop: 'Padding', token: '--sc-space-component-padding-lg' },
-        { prop: 'Title → body gap', token: '--sc-space-component-gap-md' },
-        { prop: 'Radius', token: '--sc-radius-surface' },
+        { prop: 'Padding', token: '--sc-space-component-padding-alert' },
+        { prop: 'Title → body gap', token: '--sc-space-component-gap-alert-body' },
+        { prop: 'LED → text gap', token: '--sc-space-component-gap-alert' },
+        { prop: 'Radius', token: '--sc-radius-alert' },
         { prop: 'Frame', token: '--sc-border-width-default' },
-        { prop: 'Left rule', token: '--sc-border-width-accent' },
-        { prop: 'Ground', token: '--sc-color-surface-sunk' },
-        { prop: 'Frame colour', token: '--sc-color-border-default' },
+        { prop: 'Left rule', token: '--sc-size-alert-rule' },
+        { prop: 'Ground', token: '--sc-color-alert-ground' },
+        { prop: 'Frame colour', token: '--sc-color-alert-frame' },
+        { prop: 'Plate', token: '--sc-shadow-alert-plate' },
+        { prop: 'LED', token: '--sc-size-alert-led' },
         { prop: 'Title', token: '--sc-color-text-primary' },
         { prop: 'Body', token: '--sc-color-text-secondary' },
-        { prop: 'Info rule', token: '--sc-color-status-info' },
-        { prop: 'Warning rule', token: '--sc-color-status-warning' },
-        { prop: 'Error rule', token: '--sc-color-status-error' },
-        { prop: 'Success rule', token: '--sc-color-status-success' },
+        { prop: 'Info rule', token: '--sc-color-alert-rule-info' },
+        { prop: 'Warning rule', token: '--sc-color-alert-rule-warning' },
+        { prop: 'Error rule', token: '--sc-color-alert-rule-error' },
+        { prop: 'Success rule', token: '--sc-color-alert-rule-success' },
       ]}
       rulesTitle="Four rules for a signal that stays calm."
       rules={[
