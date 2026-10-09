@@ -322,48 +322,26 @@ export const REGISTRY = {
   },
   Tooltip: {
     css: [tooltipCss],
-    // Physical-controls Tier 2: a raised plate with a short lift (concept A),
-    // or liquid glass, since a tooltip is a floating layer (concept B, the
-    // glass variant). The refraction numbers are read by Card/glass.js.
-    jsTokens: [...reel('tooltip', { press: false }).jsTokens, '--sc-motion-tooltip-grow-from', '--sc-shadow-tooltip-plate', '--sc-size-tooltip-arrow-tip', '--sc-size-tooltip-arrow-fillet', ...['refraction', 'depth', 'splay'].map((k) => `--sc-size-tooltip-glass-frosted-${k}`)],
-    // Plate start: the Button key (record Button 2026-10-07-1418) lift on the
-    // surface.raised fill with text.primary ink, lit from the top left. The
-    // role tokens ship equal to today (inverse ground, no shadow).
-    // Motion start (Levi, 2026-10-08: grow out of the trigger point with
-    // elasticity, 3% overshoot, a slight squish): the Switch's spring (record
-    // Switch 2026-10-07-1539 B: stiffness 146, damping 17.88, mass 1, 3%
-    // overshoot) and its squash (0.15), growing from 0 about the arrow tip
-    // with no lift and no stretch. Values, not the Switch's tokens.
-    seed: {
-      overrides: {
-        '--sc-motion-tooltip-grow-from': '0',
-        '--sc-motion-tooltip-stretch': '0',
-        '--sc-motion-tooltip-squash': '0.15',
-        '--sc-size-tooltip-lift': '0px',
-      },
-      springs: { '--sc-motion-tooltip-travel-easing': { stiffness: 146, damping: 17.88, mass: 1 } },
-      scoped: {
-        light: { '--sc-color-tooltip-surface': MATERIAL.light.keyFill, '--sc-color-tooltip-text': '#1A1815', '--sc-shadow-tooltip-plate': MATERIAL.light.key },
-        dark: { '--sc-color-tooltip-surface': MATERIAL.dark.keyFill, '--sc-color-tooltip-text': '#EAE8E3', '--sc-shadow-tooltip-plate': MATERIAL.dark.key },
-      },
-    },
-    shippedSound: null,
-    // Ships silent; a sound tuned here plays as the tooltip opens.
+    // Physical-controls Tier 2: a raised plate that grows out of the trigger
+    // point (record Tooltip 2026-10-08-2007 A, applied). Tooltip.jsx reads the
+    // arrow radii, the plate shadow and the grow, so they are listed here.
+    jsTokens: [...reel('tooltip', { press: false }).jsTokens, '--sc-motion-tooltip-grow-from', '--sc-shadow-tooltip-plate', '--sc-size-tooltip-arrow-tip', '--sc-size-tooltip-arrow-fillet'],
+    // No seeds: the record is applied, so a new concept starts from shipped.
+    // The reveal role sound (Drams 031). Shipped, reveal.wav bakes in the
+    // record's 0.65x pitch and 0.2 volume; the lab plays the source file.
+    shippedSound: 'drams-031-01.wav',
     trigger: 'the tooltip opens (pointer enters or focus lands on the trigger)',
     props: [
       // hover: the trigger opens it (the motion plays on every hover); open / closed force it.
       { name: 'show', type: 'enum', options: ['hover', 'open', 'closed'], default: 'hover' },
-      { name: 'variant', type: 'enum', options: ['solid', 'glass'], default: 'solid' },
-      { name: 'backdrop', type: 'enum', options: Object.keys(CARD_BACKDROPS), default: 'page (follows theme)' },
       { name: 'multiline', type: 'boolean', default: false },
       { name: 'content', type: 'text', default: 'Copied to clipboard' },
     ],
     play: (p, set) => set('show', p.show === 'open' ? 'closed' : 'open'),
     render: (p, set, sound) => (
       <div style={{ position: 'relative', padding: 'var(--sc-space-layout-stack-md) var(--sc-space-layout-stack-sm) var(--sc-space-layout-stack-sm)' }}>
-        {CARD_BACKDROPS[p.backdrop]}
         <span style={{ position: 'relative', display: 'inline-block', paddingTop: 'var(--sc-space-layout-stack-md)' }}>
-          <Tooltip content={p.content} multiline={p.multiline} open={p.show === 'hover' ? undefined : p.show === 'open'} variant={p.variant}>
+          <Tooltip content={p.content} multiline={p.multiline} open={p.show === 'hover' ? undefined : p.show === 'open'} sound={false}>
             <span
               style={{ display: 'inline-block' }}
               onMouseEnter={() => { if (p.show === 'hover') sound(); }}

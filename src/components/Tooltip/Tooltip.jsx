@@ -13,31 +13,32 @@
  * it moves fast, stretches up and squeezes in. A spring with bounce
  * overshoots the full size and settles. On close it shrinks back into the
  * trigger point along the same curve. A run cut short hands its pose to the
- * next: leave mid-grow and it shrinks from the size it reached. It scales rather than
- * growing as two ends and a bar, because it carries text. Shipped, stretch
- * and squash are 0 and the CSS transition lifts it as before.
+ * next: leave mid-grow and it shrinks from the size it reached. It scales
+ * rather than growing as two ends and a bar, because it carries text.
+ * Shipped (record Tooltip 2026-10-08-2007 A): grow from 0, stretch and
+ * squash 2, a 720ms spring with a 3% overshoot. With grow at 1 and stretch
+ * and squash at 0 the engine stays off and the CSS transition fades it.
  *
- * variant: `solid` (default, the shipped tooltip) or `glass` (concept B in
- * sc-tune: liquid glass over whatever sits behind it, the Card's refraction
- * from Card/glass.js, Chromium only; an opaque solid fallback elsewhere).
+ * Sound: the `reveal` role sound plays as hover or focus opens it (not when
+ * `open` forces it). `sound={false}` opts one instance out; SoundProvider
+ * can silence every sound.
  */
 
 import { useId, useLayoutEffect, useRef, useState } from 'react';
-import { useGlassRefraction } from '../Card/glass.js';
+import { useUISound } from '../../sound/SoundProvider.jsx';
 import { arrowPath, dropShadowFilter } from './shape.js';
 import { readElastic, isActive, prefersReducedMotion, sampleEasing, speeds } from '../../motion/elastic.js';
 import styles from './Tooltip.module.css';
 
-export function Tooltip({ content, multiline = false, open: forced, variant = 'solid', children }) {
-  const glass = variant === 'glass';
+export function Tooltip({ content, multiline = false, open: forced, sound = true, children }) {
   const id = useId();
   const [hovered, setOpen] = useState(false);
   // `open` forces it (docs, the tuning lab); left undefined, hover and focus decide.
   const open = forced ?? hovered;
   const wrapRef = useRef(null);
   const tipRef = useRef(null);
-  const { id: filterId, filter } = useGlassRefraction(tipRef, glass, 'frosted');
-  const shape = useTipShape(tipRef, open, glass);
+  const shape = useTipShape(tipRef, open);
+  const playReveal = useUISound('reveal', sound);
 
   const wasOpen = useRef(open);
   const runId = useRef(0);
@@ -97,7 +98,10 @@ export function Tooltip({ content, multiline = false, open: forced, variant = 's
     run.current = { anim, ys, duration };
   }, [open]);
 
-  const handleOpen = () => setOpen(true);
+  const handleOpen = () => {
+    if (forced === undefined && !hovered) playReveal();
+    setOpen(true);
+  };
   const handleClose = () => setOpen(false);
 
   return (
@@ -112,17 +116,9 @@ export function Tooltip({ content, multiline = false, open: forced, variant = 's
         ref={tipRef}
         role="tooltip"
         id={id}
-        className={`${styles.tooltip} ${glass ? styles.glass : ''} ${open ? styles.open : ''} ${multiline ? styles.multiline : styles.singleline}`}
-        style={{ ...(filter ? { '--glass-refract': `url(#${filterId})` } : {}), ...(shape.drop !== 'none' ? { '--tip-drop': shape.drop } : {}) }}
+        className={`${styles.tooltip} ${open ? styles.open : ''} ${multiline ? styles.multiline : styles.singleline}`}
+        style={shape.drop !== 'none' ? { '--tip-drop': shape.drop } : undefined}
       >
-        {filter && (
-          <svg className={styles.defs} aria-hidden="true" focusable="false" width="0" height="0">
-            <filter id={filterId} x="0" y="0" width={filter.w} height={filter.h} filterUnits="userSpaceOnUse" primitiveUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
-              <feImage href={filter.href} x="0" y="0" width={filter.w} height={filter.h} preserveAspectRatio="none" result="map" />
-              <feDisplacementMap in="SourceGraphic" in2="map" scale={filter.scale} xChannelSelector="R" yChannelSelector="G" />
-            </filter>
-          </svg>
-        )}
         {content}
         {shape.d && (
           <svg className={styles.arrow} aria-hidden="true" focusable="false" width={shape.width} height={shape.height}
@@ -142,7 +138,7 @@ export function Tooltip({ content, multiline = false, open: forced, variant = 's
  * shadow follows the bubble and the arrow as one shape. Rebuilt on open and
  * when the tuning lab changes a token.
  */
-function useTipShape(ref, open, glass) {
+function useTipShape(ref, open) {
   const [shape, setShape] = useState({ d: '', width: 0, height: 0, overlap: 0, drop: 'none' });
   useLayoutEffect(() => {
     const el = ref.current;
@@ -150,16 +146,15 @@ function useTipShape(ref, open, glass) {
     const build = () => {
       const cs = getComputedStyle(el);
       const px = (n) => parseFloat(cs.getPropertyValue(n)) || 0;
-      // Solid: the arrow runs 1px up into the bubble to hide the seam. Glass:
-      // no overlap, or the tint would double along the join.
-      const overlap = glass ? 0 : 1;
+      // The arrow runs 1px up into the bubble to hide the seam.
+      const overlap = 1;
       const a = arrowPath(px('--sc-size-tooltip-arrow'), px('--sc-size-tooltip-arrow-tip'), px('--sc-size-tooltip-arrow-fillet'), overlap);
-      const drop = glass ? 'none' : dropShadowFilter(cs.getPropertyValue('--sc-shadow-tooltip-plate'));
+      const drop = dropShadowFilter(cs.getPropertyValue('--sc-shadow-tooltip-plate'));
       setShape((s) => (s.d === a.d && s.drop === drop && s.overlap === overlap ? s : { ...a, overlap, drop }));
     };
     build();
     window.addEventListener('sc-tokens-change', build);
     return () => window.removeEventListener('sc-tokens-change', build);
-  }, [ref, open, glass]);
+  }, [ref, open]);
   return shape;
 }

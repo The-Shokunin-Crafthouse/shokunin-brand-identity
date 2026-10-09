@@ -171,8 +171,8 @@ public enum SCDS {
     public static let semanticVersion = "0.1.0"
     public static let sourceGenerated = "2026-05-26"
     public static let primitivesHash = "41d576559668277a"
-    public static let semanticHash = "54ddfef9305af4c1"
-    public static let tokenCount = 316
+    public static let semanticHash = "df93fc8278248197"
+    public static let tokenCount = 306
   }
 
   // MARK: - Color
@@ -775,24 +775,12 @@ public enum SCDS {
 
     /// `color.tooltip.surface`
     public static let tooltipSurface = SwiftUI.Color.scdsDynamic(
-        light: (0.101961, 0.094118, 0.082353, 1),
-        dark:  (0.945098, 0.937255, 0.921569, 1)
+        light: (1, 1, 1, 1),
+        dark:  (0.203922, 0.227451, 0.254902, 1)
     )
 
     /// `color.tooltip.text`
     public static let tooltipText = SwiftUI.Color.scdsDynamic(
-        light: (0.945098, 0.937255, 0.921569, 1),
-        dark:  (0.101961, 0.094118, 0.082353, 1)
-    )
-
-    /// `color.tooltip.glass.tint`
-    public static let tooltipGlassTint = SwiftUI.Color.scdsDynamic(
-        light: (1, 1, 1, 0.24),
-        dark:  (0, 0, 0, 0.32)
-    )
-
-    /// `color.tooltip.glass.text`
-    public static let tooltipGlassText = SwiftUI.Color.scdsDynamic(
         light: (0.101961, 0.094118, 0.082353, 1),
         dark:  (0.917647, 0.909804, 0.890196, 1)
     )
@@ -1193,7 +1181,7 @@ public enum SCDS {
     public static let componentGapInputInline: CGFloat = 16
 
     /// `space.component.gap.tooltip`
-    public static let componentGapTooltip: CGFloat = 8
+    public static let componentGapTooltip: CGFloat = 24
   }
 
   // MARK: - Radius
@@ -1207,7 +1195,7 @@ public enum SCDS {
     public static let card: CGFloat = 8
 
     /// `radius.tooltip`
-    public static let tooltip: CGFloat = 3
+    public static let tooltip: CGFloat = 4
 
     /// `radius.control`
     public static let control: CGFloat = 3
@@ -1247,34 +1235,16 @@ public enum SCDS {
   /// Named element sizes, including the touch-target floor.
   public enum Size {
     /// `size.tooltip.arrow`
-    public static let tooltipArrow: CGFloat = 4
+    public static let tooltipArrow: CGFloat = 8
 
     /// `size.tooltip.arrowTip`
-    public static let tooltipArrowTip: CGFloat = 0
+    public static let tooltipArrowTip: CGFloat = 2
 
     /// `size.tooltip.arrowFillet`
-    public static let tooltipArrowFillet: CGFloat = 0
+    public static let tooltipArrowFillet: CGFloat = 2
 
     /// `size.tooltip.lift`
     public static let tooltipLift: CGFloat = 4
-
-    /// `size.tooltip.glass.frosted.frost`
-    public static let tooltipGlassFrostedFrost: CGFloat = 9
-
-    /// `size.tooltip.glass.frosted.refraction`
-    public static let tooltipGlassFrostedRefraction: CGFloat = 65
-
-    /// `size.tooltip.glass.frosted.depth`
-    public static let tooltipGlassFrostedDepth: CGFloat = 68
-
-    /// `size.tooltip.glass.frosted.splay`
-    public static let tooltipGlassFrostedSplay: CGFloat = 57
-
-    /// `size.tooltip.glass.frosted.saturation`
-    public static let tooltipGlassFrostedSaturation: CGFloat = 160
-
-    /// `size.tooltip.glass.frosted.light`
-    public static let tooltipGlassFrostedLight: CGFloat = 30
 
     /// `size.card.glass.clear.frost`
     public static let cardGlassClearFrost: CGFloat = 4
@@ -1539,20 +1509,20 @@ public enum SCDS {
     /// `motion.navBar.press.leanDuration` · 160ms
     public static let navBarPressLeanDuration: TimeInterval = 0.16
 
-    /// `motion.tooltip.travel.duration` · 200ms
-    public static let tooltipTravelDuration: TimeInterval = 0.2
+    /// `motion.tooltip.travel.duration` · 720ms
+    public static let tooltipTravelDuration: TimeInterval = 0.72
 
-    /// `motion.tooltip.travel.easing`
-    public static let tooltipTravelEasing = SCDSEasing(0.22, 1, 0.36, 1)
+    /// `motion.tooltip.travel.easing` · spring k146 c17.88 m1, settles in 1093ms, overshoot 3%
+    public static let tooltipTravelEasing = SCDSSpring(stiffness: 146, damping: 17.88, mass: 1, settle: 1.093)
 
     /// `motion.tooltip.stretch`
-    public static let tooltipStretch: CGFloat = 0
+    public static let tooltipStretch: CGFloat = 2
 
     /// `motion.tooltip.squash`
-    public static let tooltipSquash: CGFloat = 0
+    public static let tooltipSquash: CGFloat = 2
 
     /// `motion.tooltip.growFrom`
-    public static let tooltipGrowFrom: CGFloat = 1
+    public static let tooltipGrowFrom: CGFloat = 0
 
     /// `motion.stepper.travel.duration` · 1062ms
     public static let stepperTravelDuration: TimeInterval = 1.062
@@ -1888,34 +1858,10 @@ public enum SCDS {
     /// `shadow.tooltip.plate` · 1 layers
     public static let tooltipPlate = SCDSShadow(
         light: [
-            SCDSShadowLayer(inset: true, x: 0, y: 0, blur: 0, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0),
+            SCDSShadowLayer(inset: false, x: 2, y: 2, blur: 6, spread: 0, rgb: (0.392157, 0.356863, 0.309804), alpha: 0.5),
         ],
         dark: [
-            SCDSShadowLayer(inset: true, x: 0, y: 0, blur: 0, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0),
-        ]
-    )
-
-    /// `shadow.tooltip.glass.rim` · 3 layers
-    public static let tooltipGlassRim = SCDSShadow(
-        light: [
-            SCDSShadowLayer(inset: true, x: 1, y: 1, blur: 0, spread: 0, rgb: (1, 1, 1), alpha: 0.3),
-            SCDSShadowLayer(inset: true, x: -1, y: -1, blur: 0, spread: 0, rgb: (1, 1, 1), alpha: 0.15),
-            SCDSShadowLayer(inset: false, x: 6, y: 6, blur: 24, spread: 0, rgb: (0.392157, 0.356863, 0.309804), alpha: 0.14),
-        ],
-        dark: [
-            SCDSShadowLayer(inset: true, x: 1, y: 1, blur: 0, spread: 0, rgb: (1, 1, 1), alpha: 0.3),
-            SCDSShadowLayer(inset: true, x: -1, y: -1, blur: 0, spread: 0, rgb: (1, 1, 1), alpha: 0.15),
-            SCDSShadowLayer(inset: false, x: 6, y: 6, blur: 24, spread: 0, rgb: (0, 0, 0), alpha: 0.3),
-        ]
-    )
-
-    /// `shadow.tooltip.glass.text` · 1 layers
-    public static let tooltipGlassText = SCDSShadow(
-        light: [
-            SCDSShadowLayer(inset: false, x: 0, y: 0, blur: 2, spread: 0, rgb: (1, 1, 1), alpha: 0.6),
-        ],
-        dark: [
-            SCDSShadowLayer(inset: false, x: 0, y: 0, blur: 2, spread: 0, rgb: (0, 0, 0), alpha: 0.7),
+            SCDSShadowLayer(inset: false, x: 3, y: 3, blur: 7, spread: 0, rgb: (0, 0, 0), alpha: 0.5),
         ]
     )
   }

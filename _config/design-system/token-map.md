@@ -5,7 +5,7 @@
 # Design Token Map — The Shokunin Crafthouse · Brand Identity
 
 **Generated** from `tokens/primitives.json` + `tokens/semantic.json`.
-**Source fingerprint:** `d42384dedfcd` · **187 primitives · 316 semantic tokens.**
+**Source fingerprint:** `c10668b9af61` · **187 primitives · 306 semantic tokens.**
 
 > **This file is a mirror, not the source.** `tokens/*.json` is upstream; this document and the Figma
 > library are generated from / synced to it. It previously claimed the opposite — that both were
@@ -648,10 +648,8 @@ channel-triplet primitives) rather than an alias to a single primitive.
 
 | Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
 |---|---|---|---|---|---|---|
-| `color/tooltip/surface` | `--sc-color-tooltip-surface` | `color/warmGray/800` | `#1A1815` | `color/warmGray/50` | `#F1EFEB` | 2026-10-08 · Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. |
-| `color/tooltip/text` | `--sc-color-tooltip-text` | `color/warmGray/50` | `#F1EFEB` | `color/warmGray/800` | `#1A1815` | 2026-10-08 · Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. |
-| `color/tooltip/glass/tint` | `--sc-color-tooltip-glass-tint` | _literal_ | `rgb(var(--sc-p-color-white-rgb) / 0.24)` | _literal_ | `rgb(var(--sc-p-color-black-rgb) / 0.32)` | 2026-10-08 · Tooltip glass (physical-controls Tier 2: concept B beside the raised plate; a tooltip is a floating layer), tuned in sc-tune. |
-| `color/tooltip/glass/text` | `--sc-color-tooltip-glass-text` | `color/warmGray/800` | `#1A1815` | `color/dark/textPrimary` | `#EAE8E3` | 2026-10-08 · Tooltip glass (physical-controls Tier 2: concept B beside the raised plate; a tooltip is a floating layer), tuned in sc-tune. |
+| `color/tooltip/surface` | `--sc-color-tooltip-surface` | `color/utility/white` | `#FFFFFF` | `color/dark/raised1` | `#343A41` | 2026-10-08 · Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. |
+| `color/tooltip/text` | `--sc-color-tooltip-text` | `color/warmGray/800` | `#1A1815` | `color/dark/textPrimary` | `#EAE8E3` | 2026-10-08 · Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. |
 
 ### Typography · Semantic
 
@@ -718,7 +716,7 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | `space/component/gap/stepper` | `--sc-space-component-gap-stepper` | `space/8` | `8px` | `space/8` | `8px` | 2026-10-07 · Stepper role gap: between the pill's keys and the readout, and the readout's inline padding (8px). |
 | `space/component/gap/input` | `--sc-space-component-gap-input` | `space/4` | `4px` | `space/4` | `4px` | 2026-10-07 · Input material (physical-controls Tier 1: a true recessed well, the focus underline stays, a hover state), tuned in sc-tune. |
 | `space/component/gap/input-inline` | `--sc-space-component-gap-input-inline` | `space/16` | `16px` | `space/16` | `16px` | 2026-10-07 · Input material (physical-controls Tier 1), tuned in sc-tune. |
-| `space/component/gap/tooltip` | `--sc-space-component-gap-tooltip` | `space/8` | `8px` | `space/8` | `8px` | 2026-10-08 · Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. |
+| `space/component/gap/tooltip` | `--sc-space-component-gap-tooltip` | `space/24` | `24px` | `space/24` | `24px` | 2026-10-08 · Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. |
 
 #### `space/layout`
 
@@ -738,7 +736,7 @@ channel-triplet primitives) rather than an alias to a single primitive.
 |---|---|---|---|---|---|---|
 | `radius/field` | `--sc-radius-field` | `radius/default` | `8px` | `radius/default` | `8px` | 2026-10-07 · Input material (physical-controls Tier 1), tuned in sc-tune. |
 | `radius/card` | `--sc-radius-card` | `radius/surface` | `⚠ unresolved` | `radius/surface` | `⚠ unresolved` | 2026-10-07 · Card (physical-controls Tier 2: flat, or liquid glass in three levels and two tones, Levi 2026-10-08). |
-| `radius/tooltip` | `--sc-radius-tooltip` | `radius/input` | `3px` | `radius/input` | `3px` | 2026-10-08 · Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. |
+| `radius/tooltip` | `--sc-radius-tooltip` | `space/4` | `4px` | `space/4` | `4px` | 2026-10-08 · Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. |
 | `radius/control` | `--sc-radius-control` | `radius/input` | `3px` | `radius/input` | `3px` | Sprint 4 addition · controls that read as inscribed rather than lifted (3px). |
 | `radius/surface` | `--sc-radius-surface` | `radius/default` | `8px` | `radius/default` | `8px` | Sprint 4 addition · raised surfaces (8px). |
 | `radius/surfaceLarge` | `--sc-radius-surface-large` | `radius/large` | `16px` | `radius/large` | `16px` | 2026-08-16 Figma variable sync · large raised surfaces (16px). |
@@ -857,11 +855,11 @@ channel-triplet primitives) rather than an alias to a single primitive.
 
 | Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
 |---|---|---|---|---|---|---|
-| `motion/tooltip/travel/duration` | `--sc-motion-tooltip-travel-duration` | `motion/duration/micro` | `200ms` | `motion/duration/micro` | `200ms` | 2026-10-07 · Elastic motion from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), engine src/motion/elastic.js, tuned in sc-tune. |
-| `motion/tooltip/travel/easing` | `--sc-motion-tooltip-travel-easing` | `motion/easing/out` | `cubic-bezier(0.22, 1, 0.36, 1)` | `motion/easing/out` | `cubic-bezier(0.22, 1, 0.36, 1)` | 2026-10-07 · Elastic motion from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), engine src/motion/elastic.js, tuned in sc-tune. |
-| `motion/tooltip/stretch` | `--sc-motion-tooltip-stretch` | _literal_ | `0` | _literal_ | `0` | 2026-10-07 · Elastic motion from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), engine src/motion/elastic.js, tuned in sc-tune. |
-| `motion/tooltip/squash` | `--sc-motion-tooltip-squash` | _literal_ | `0` | _literal_ | `0` | 2026-10-07 · Elastic motion from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), engine src/motion/elastic.js, tuned in sc-tune. |
-| `motion/tooltip/growFrom` | `--sc-motion-tooltip-grow-from` | _literal_ | `1` | _literal_ | `1` | 2026-10-08 · Tooltip motion (physical-controls Tier 2), Levi: the bubble grows out of the trigger point with elasticity. |
+| `motion/tooltip/travel/duration` | `--sc-motion-tooltip-travel-duration` | `motion/duration/orchestrated` | `720ms` | `motion/duration/orchestrated` | `720ms` | 2026-10-07 · Elastic motion from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), engine src/motion/elastic.js, tuned in sc-tune. |
+| `motion/tooltip/travel/easing` | `--sc-motion-tooltip-travel-easing` | _literal_ | `spring k146 c17.88 m1` | _literal_ | `spring k146 c17.88 m1` | 2026-10-07 · Elastic motion from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), engine src/motion/elastic.js, tuned in sc-tune. |
+| `motion/tooltip/stretch` | `--sc-motion-tooltip-stretch` | _literal_ | `2` | _literal_ | `2` | 2026-10-07 · Elastic motion from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), engine src/motion/elastic.js, tuned in sc-tune. |
+| `motion/tooltip/squash` | `--sc-motion-tooltip-squash` | _literal_ | `2` | _literal_ | `2` | 2026-10-07 · Elastic motion from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), engine src/motion/elastic.js, tuned in sc-tune. |
+| `motion/tooltip/growFrom` | `--sc-motion-tooltip-grow-from` | _literal_ | `0` | _literal_ | `0` | 2026-10-08 · Tooltip motion (physical-controls Tier 2), Levi: the bubble grows out of the trigger point with elasticity. |
 
 #### `motion/stepper`
 
@@ -956,9 +954,7 @@ channel-triplet primitives) rather than an alias to a single primitive.
 
 | Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
 |---|---|---|---|---|---|---|
-| `shadow/tooltip/plate` | `--sc-shadow-tooltip-plate` | _literal_ | `inset 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)` | _literal_ | `inset 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)` | 2026-10-08 · Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. |
-| `shadow/tooltip/glass/rim` | `--sc-shadow-tooltip-glass-rim` | _literal_ | `inset 1px 1px 0 0 rgb(var(--sc-p-color-white-rgb) / 0.30), inset -1px -1px 0 0 rgb(var(--sc-p-color-white-rgb) / 0.15), 6px 6px 24px 0 rgb(100 91 79 / 0.14)` | _literal_ | `inset 1px 1px 0 0 rgb(var(--sc-p-color-white-rgb) / 0.30), inset -1px -1px 0 0 rgb(var(--sc-p-color-white-rgb) / 0.15), 6px 6px 24px 0 rgb(0 0 0 / 0.30)` | 2026-10-08 · Tooltip glass (physical-controls Tier 2: concept B beside the raised plate; a tooltip is a floating layer), tuned in sc-tune. |
-| `shadow/tooltip/glass/text` | `--sc-shadow-tooltip-glass-text` | _literal_ | `0 0 2px rgb(var(--sc-p-color-white-rgb) / 0.60)` | _literal_ | `0 0 2px rgb(0 0 0 / 0.70)` | 2026-10-08 · Tooltip glass (physical-controls Tier 2: concept B beside the raised plate; a tooltip is a floating layer), tuned in sc-tune. |
+| `shadow/tooltip/plate` | `--sc-shadow-tooltip-plate` | _literal_ | `2px 2px 6px 0 rgb(100 91 79 / 0.50)` | _literal_ | `3px 3px 7px 0 rgb(0 0 0 / 0.50)` | 2026-10-08 · Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. |
 
 ### Size · Semantic
 
@@ -966,16 +962,10 @@ channel-triplet primitives) rather than an alias to a single primitive.
 
 | Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
 |---|---|---|---|---|---|---|
-| `size/tooltip/arrow` | `--sc-size-tooltip-arrow` | `space/4` | `4px` | `space/4` | `4px` | 2026-10-08 · Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. |
-| `size/tooltip/arrowTip` | `--sc-size-tooltip-arrow-tip` | _literal_ | `0px` | _literal_ | `0px` | 2026-10-08 · Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. |
-| `size/tooltip/arrowFillet` | `--sc-size-tooltip-arrow-fillet` | _literal_ | `0px` | _literal_ | `0px` | 2026-10-08 · Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. |
+| `size/tooltip/arrow` | `--sc-size-tooltip-arrow` | `space/8` | `8px` | `space/8` | `8px` | 2026-10-08 · Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. |
+| `size/tooltip/arrowTip` | `--sc-size-tooltip-arrow-tip` | `space/micro/2` | `2px` | `space/micro/2` | `2px` | 2026-10-08 · Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. |
+| `size/tooltip/arrowFillet` | `--sc-size-tooltip-arrow-fillet` | `space/micro/2` | `2px` | `space/micro/2` | `2px` | 2026-10-08 · Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. |
 | `size/tooltip/lift` | `--sc-size-tooltip-lift` | `space/4` | `4px` | `space/4` | `4px` | 2026-10-08 · Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. |
-| `size/tooltip/glass/frosted/frost` | `--sc-size-tooltip-glass-frosted-frost` | _literal_ | `9px` | _literal_ | `9px` | 2026-10-08 · Tooltip glass (physical-controls Tier 2: concept B beside the raised plate; a tooltip is a floating layer), tuned in sc-tune. |
-| `size/tooltip/glass/frosted/refraction` | `--sc-size-tooltip-glass-frosted-refraction` | _literal_ | `65` | _literal_ | `65` | 2026-10-08 · Tooltip glass (physical-controls Tier 2: concept B beside the raised plate; a tooltip is a floating layer), tuned in sc-tune. |
-| `size/tooltip/glass/frosted/depth` | `--sc-size-tooltip-glass-frosted-depth` | _literal_ | `68` | _literal_ | `68` | 2026-10-08 · Tooltip glass (physical-controls Tier 2: concept B beside the raised plate; a tooltip is a floating layer), tuned in sc-tune. |
-| `size/tooltip/glass/frosted/splay` | `--sc-size-tooltip-glass-frosted-splay` | _literal_ | `57` | _literal_ | `57` | 2026-10-08 · Tooltip glass (physical-controls Tier 2: concept B beside the raised plate; a tooltip is a floating layer), tuned in sc-tune. |
-| `size/tooltip/glass/frosted/saturation` | `--sc-size-tooltip-glass-frosted-saturation` | _literal_ | `160` | _literal_ | `160` | 2026-10-08 · Tooltip glass (physical-controls Tier 2: concept B beside the raised plate; a tooltip is a floating layer), tuned in sc-tune. |
-| `size/tooltip/glass/frosted/light` | `--sc-size-tooltip-glass-frosted-light` | _literal_ | `30` | _literal_ | `30` | 2026-10-08 · Tooltip glass (physical-controls Tier 2: concept B beside the raised plate; a tooltip is a floating layer), tuned in sc-tune. |
 
 #### `size/card`
 

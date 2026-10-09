@@ -513,35 +513,41 @@ export function SliderPage() {
 export function TooltipPage() {
   return (
     <ComponentPage
-      id="tooltip" label="Tooltip" tokensN={11} statesVariant="stack"
-      eyebrow={<>Tooltip<Slash />always the inverse</>}
-      title={<>Dark on light. <Em>Light on dark. Always the opposite.</Em></>}
-      lead={<>A tooltip is the one surface that always reads inverted from the page beneath it — ink in light mode, near-white in dark. That inversion is what makes it read as a layer above the document rather than part of it. Hover or focus the targets below to raise them.</>}
+      id="tooltip" label="Tooltip" tokensN={15} statesVariant="stack"
+      eyebrow={<>Tooltip<Slash />a raised plate</>}
+      title={<>A plate that grows <Em>out of what you point at.</Em></>}
+      lead={<>A tooltip is a small raised plate: white in light mode, the dark key in dark, with a drop shadow lit from the top left. It grows out of the trigger point with a little spring and shrinks back into it when you leave. Hover or focus the targets below to raise them.</>}
       statesTitle="Two states (hover to raise them)."
       callouts={[
-        { title: 'The two inverse tokens', body: 'surface-inverse and text-on-inverse were added in Sprint 4 specifically for this. They swap mode roles so the tip is always the visual opposite of the surface it covers.' },
-        { title: 'Hover and focus, not click', body: 'It opens on pointer-enter and on keyboard focus, so the tip is reachable without a mouse. It is a hint, never a control.' },
+        { title: 'One shape, one shadow', body: 'The arrow is part of the plate: a rounded tip, with rounded corners where it meets the bubble. The drop shadow falls under both as one shape.' },
+        { title: 'Hover and focus, not click', body: 'It opens on pointer-enter and on keyboard focus, so the tip is reachable without a mouse, and plays the reveal sound as it opens. It is a hint, never a control.' },
         { title: 'Multi-line caps its width', body: 'A wrapping tip is capped at a readable measure via calc() of a layout token, so a long note never stretches into a banner.' },
       ]}
       states={[
-        { name: 'Single-line', token: '--sc-color-surface-inverse', render: <div style={tooltipStage}><Tooltip content="Saved to the binder."><span style={tooltipTarget}>Hover me</span></Tooltip></div> },
+        { name: 'Single-line', token: '--sc-color-tooltip-surface', render: <div style={tooltipStage}><Tooltip content="Saved to the binder."><span style={tooltipTarget}>Hover me</span></Tooltip></div> },
         { name: 'Multi-line', token: '--sc-space-layout-stack-xl', render: <div style={tooltipStage}><Tooltip multiline content="A longer note that wraps to two lines at the readable-measure cap."><span style={tooltipTarget}>Hover for more</span></Tooltip></div> },
       ]}
       tokenRows={[
-        { prop: 'Ground', token: '--sc-color-surface-inverse' },
-        { prop: 'Text', token: '--sc-color-text-on-inverse' },
-        { prop: 'Inline padding', token: '--sc-space-component-padding-inline-md' },
-        { prop: 'Block padding', token: '--sc-space-component-padding-block-md' },
-        { prop: 'Arrow offset', token: '--sc-space-component-gap-md' },
-        { prop: 'Radius', token: '--sc-radius-control' },
+        { prop: 'Ground', token: '--sc-color-tooltip-surface' },
+        { prop: 'Text', token: '--sc-color-tooltip-text' },
+        { prop: 'Drop shadow', token: '--sc-shadow-tooltip-plate' },
+        { prop: 'Inline padding', token: '--sc-space-component-padding-inline-tooltip' },
+        { prop: 'Block padding', token: '--sc-space-component-padding-block-tooltip' },
+        { prop: 'Offset from trigger', token: '--sc-space-component-gap-tooltip' },
+        { prop: 'Radius', token: '--sc-radius-tooltip' },
+        { prop: 'Arrow', token: '--sc-size-tooltip-arrow' },
+        { prop: 'Arrow tip / fillet', token: '--sc-size-tooltip-arrow-tip' },
+        { prop: 'Lift', token: '--sc-size-tooltip-lift' },
         { prop: 'Body type', token: '--sc-font-text-caption', light: '13 / regular' },
         { prop: 'Multi-line cap', token: '--sc-space-layout-stack-xl' },
-        { prop: 'Reveal motion', token: '--sc-motion-reveal-duration', light: '200ms · quint-out' },
+        { prop: 'Open and close', token: '--sc-motion-tooltip-travel-duration', light: '720ms · spring, 3% overshoot' },
+        { prop: 'Grow from', token: '--sc-motion-tooltip-grow-from', light: '0, at the arrow tip' },
+        { prop: 'Stretch / squash', token: '--sc-motion-tooltip-stretch', light: '2 / 2' },
       ]}
       rulesTitle="Four rules for a layer above the page."
       rules={[
-        { name: 'Always inverted, never tinted', text: 'The tip reads as the opposite of its ground. Giving it the page surface or a status colour collapses the layer back into the document.' },
-        { name: 'A hint, not a home for actions', text: 'No buttons or links inside a tooltip — it vanishes on blur. Anything the user must click belongs in a popover, not here.' },
+        { name: 'A plate, never tinted', text: 'The tip is a raised plate on the system light. Giving it a status colour or the page surface collapses the layer back into the document.' },
+        { name: 'A hint, not a home for actions', text: 'No buttons or links inside a tooltip. It vanishes on blur. Anything the user must click belongs in a popover, not here.' },
         { name: 'Reachable by keyboard', text: 'It opens on focus as well as hover. A tip that only a mouse can summon is content half the audience cannot read.' },
         { name: 'Short by default', text: 'Single-line, no period. Reach for multi-line only when one line genuinely cannot carry the note, and let the width cap hold.' },
       ]}
@@ -549,10 +555,11 @@ export function TooltipPage() {
   );
 }
 /* The state grid clips its overflow, so the raised tip needs room inside the
-   cell: stack-xl above the trigger, and the trigger centred so the tip's
+   cell: stack-xl plus stack-md above the trigger (the 24px offset and the
+   8px arrow sit under a two-line tip), and the trigger centred so the tip's
    overhang clears both edges. The page uses the stack variant because a
    two-column cell at 768 is narrower than the 240 multi-line cap. */
-const tooltipStage = { flex: 1, display: 'flex', justifyContent: 'center', paddingTop: 'var(--sc-space-layout-stack-xl)' };
+const tooltipStage = { flex: 1, display: 'flex', justifyContent: 'center', paddingTop: 'calc(var(--sc-space-layout-stack-xl) + var(--sc-space-layout-stack-md))' };
 const tooltipTarget = { font: 'var(--sc-font-text-body-default)', color: 'var(--sc-color-text-primary)', borderBottom: 'var(--sc-border-width-default) dashed var(--sc-color-border-strong)', cursor: 'help' };
 
 /* ── 3.5 Divider ─────────────────────────────────────────── */

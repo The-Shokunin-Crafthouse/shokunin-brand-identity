@@ -2,24 +2,28 @@
 
 Spec ref: §2 Tier 3 · 3.8 · States: single-line, multi-line.
 
+Physical-controls Tier 2: a raised plate that grows out of the trigger point. Record `output/tuning/Tooltip/2026-10-08-2007/`, concept A (Levi), applied 2026-10-08.
+
 ## Tokens
 
 | Token | Use |
 |---|---|
-| `--sc-color-tooltip-surface` | tooltip ground (role token; shipped = `surface.inverse`: ink in light / near-white in dark) |
-| `--sc-color-tooltip-text` | tooltip text (role token; shipped = `text-on-inverse`) |
-| `--sc-shadow-tooltip-plate` | plate shadow (role token; shipped zero alpha, none). Tooltip.jsx turns its outer layers into a `drop-shadow()` filter so it falls under the arrow too; spread and inset layers do not render. Snaps, never transitions |
-| `--sc-space-component-padding-inline-tooltip` | inline padding (role token, 12) |
-| `--sc-space-component-padding-block-tooltip` | block padding (role token, 8) |
-| `--sc-space-component-gap-tooltip` | offset between the trigger and the arrow tip (role token, 8) |
-| `--sc-size-tooltip-arrow` | arrow leg (role token, 4; 0 drops the arrow) |
-| `--sc-size-tooltip-arrow-tip` / `-fillet` | arrow tip radius and the concave fillet where the arrow meets the bubble (role tokens, 0 = sharp, today). The arrow is an SVG path built in `shape.js` |
-| `--sc-size-tooltip-lift` | travel of the open: starts this far above rest (role token, 4) |
-| `--sc-radius-tooltip` | corner (role token, 3) |
+| `--sc-color-tooltip-surface` | plate ground: white (`utility.white`) in light, the dark key (`dark.raised1`) in dark |
+| `--sc-color-tooltip-text` | text: `text.primary` values (`warmGray.800` / `dark.textPrimary`) |
+| `--sc-shadow-tooltip-plate` | drop shadow, lit from the top left: 2px 2px 6px warm gray 50% in light, 3px 3px 7px black 50% in dark. Tooltip.jsx turns its outer layers into a `drop-shadow()` filter so it falls under the bubble and the arrow as one shape; spread and inset layers do not render. Snaps, never transitions |
+| `--sc-space-component-padding-inline-tooltip` | inline padding (12) |
+| `--sc-space-component-padding-block-tooltip` | block padding (8) |
+| `--sc-space-component-gap-tooltip` | offset between the trigger and the arrow tip (24) |
+| `--sc-size-tooltip-arrow` | arrow leg (8; 0 drops the arrow) |
+| `--sc-size-tooltip-arrow-tip` / `-fillet` | arrow tip radius and the concave fillet where the arrow meets the bubble (2 / 2). The arrow is an SVG path built in `shape.js` |
+| `--sc-size-tooltip-lift` | travel of the open: starts this far above rest (4) |
+| `--sc-radius-tooltip` | corner (4) |
 | `--sc-font-text-caption-*` | body type |
-| `--sc-motion-tooltip-travel-duration` + `-easing` | fade + slide-in (role tokens, = `motion.reveal`) |
+| `--sc-motion-tooltip-*` | open and close motion (see Elastic motion) |
 | `--sc-border-width-default` | forced-colors edge |
 | `--sc-space-layout-stack-xl` | multi-line max-width derivation (`calc(* 3)`) |
+
+Every token is the tooltip's own role token (CONTEXT finding 5), so a tune in sc-tune never moves a sibling.
 
 ## States × tokens
 
@@ -27,20 +31,16 @@ Spec ref: §2 Tier 3 · 3.8 · States: single-line, multi-line.
 |---|---|---|
 | `single-line` | `.singleline` | `white-space: nowrap` |
 | `multi-line` | `.multiline` | `white-space: normal` · `width: max-content` so the box grows to the cap (an absolute box at `left: 50%` otherwise shrinks to half the trigger) · `max-width: calc(--sc-space-layout-stack-xl * 3)` (240) for readability cap |
-| `open` | `.open` (React state) | `opacity: 1`, transform origin clears |
-| `closed` | default | `opacity: 0`, slightly translated down for slide-in feel |
+| `open` | `.open` (React state) | `opacity: 1`, at rest |
+| `closed` | default | `opacity: 0`, lifted by `--sc-size-tooltip-lift` |
 
 ## Mode behavior
 
-`surface-inverse` and `text-on-inverse` are the two new color semantic tokens added in Sprint 4. They swap mode roles — in light mode tooltip is dark, in dark mode tooltip is light. Always reads as inverted from the surrounding surface.
+Light mode: a white plate with a warm-gray drop shadow. Dark mode: the dark key with a black drop shadow (Gate 1 pick 3, dark keys). The plate is no longer the inverse of the page: it reads as a layer because it is raised, not because it is inverted.
 
-## Role tokens
+## Sound
 
-Physical-controls Tier 2 (CONTEXT finding 5): the tooltip reads its own role tokens instead of the shared padding, gap, radius and inverse tokens, so a tune in sc-tune never moves a sibling. Each shipped equal to today (2026-10-08).
-
-## Glass variant (concept B in sc-tune)
-
-`variant="glass"` makes the bubble liquid glass, because a tooltip is a floating layer. The shipped tooltip stays `solid`; the glass ships only if Levi picks it. Claude's start is the Card's frosted glass in its auto tone, copied by value into the tooltip's own tokens: `--sc-color-tooltip-glass-tint` / `-text`, `--sc-shadow-tooltip-glass-rim` / `-text`, `--sc-size-tooltip-glass-frosted-{frost,refraction,depth,splay,saturation,light}`. The refraction is `Card/glass.js` (Chromium only). The arrow takes the tint. Glass becomes the solid tooltip under `prefers-reduced-transparency`, `prefers-contrast: more` and on an engine with no `backdrop-filter`; forced colors drop the filter.
+The `reveal` role sound (`src/sound/assets/reveal.wav`, Drams 031 pitched to 0.65x at volume 0.2, baked in) plays as hover or focus opens the tooltip, not when the `open` prop forces it. `sound={false}` opts one instance out; `SoundProvider` can silence every sound.
 
 ## Forced colors
 
@@ -48,17 +48,15 @@ The ground and the shadow filter drop; an inset `CanvasText` outline keeps the b
 
 ## Reduced-motion
 
-Transition suppressed. Open/closed state still flips via opacity 0/1 (instant) — no functional regression.
+The engine is skipped and the transition suppressed. Open/closed state still flips via opacity 0/1 (instant); no functional regression.
 
 ## Elastic motion
 
-Engine `src/motion/elastic.js` (reference: kabarza's elastic toggles, instagram.com/reel/DeK0AFcIRhf). Applies to the bubble on open (scales from the arrow, since it carries text. Shipped, stretch, squash and lean are 0, so it moves exactly as before; tune it in sc-tune (`previews/tune/?c=Tooltip`), where concepts start at the reel's Balanced preset.
+Engine `src/motion/elastic.js` via Tooltip.jsx (reference: kabarza's elastic toggles, instagram.com/reel/DeK0AFcIRhf). On open the plate grows from a point at the arrow tip to full size, overshoots 3% and settles; on close it shrinks back into the same point. A run cut short hands its pose to the next, so leaving mid-grow shrinks from the size it reached.
 
 | Token | Shipped | Role |
 | --- | --- | --- |
-| `--sc-motion-tooltip-travel-duration` / `-easing` | = `motion.reveal` (200ms, quint-out) | Travel time and curve; a spring set in the lab writes its settle time to the duration |
-| `--sc-motion-tooltip-stretch` | 0 | Extra length at peak speed |
-| `--sc-motion-tooltip-squash` | 0 | Flattening at peak speed |
-| `--sc-motion-tooltip-grow-from` | 1 | Start scale of the open, about the arrow tip (the trigger point); the travel curve carries it to 1, so a spring with bounce overshoots; on close it shrinks back into the trigger point on the same curve, cut where the curve first reaches 1. 1 = no grow |
-
-Reduced motion skips the engine.
+| `--sc-motion-tooltip-travel-duration` / `-easing` | 720ms (`motion.duration.orchestrated`), spring 146 / 17.88 / 1 (the Switch spring, 3% overshoot) | Travel time and curve. The spring alone settles in 1093ms; it plays over 720ms |
+| `--sc-motion-tooltip-stretch` | 2 | Taller at peak speed: 1 = 20% |
+| `--sc-motion-tooltip-squash` | 2 | Narrower at peak speed: 1 = 20% |
+| `--sc-motion-tooltip-grow-from` | 0 | Start scale about the arrow tip; the curve carries it to 1. On close the curve runs back and is cut where it first reaches 1, so an overshoot never flashes the plate back. 1 = no grow |
