@@ -11,7 +11,8 @@
  * open the bubble grows from --sc-motion-tooltip-grow-from to full size about
  * the arrow tip (the trigger point), lifts along its travel curve and, while
  * it moves fast, stretches up and squeezes in. A spring with bounce
- * overshoots the full size and settles. It scales rather than
+ * overshoots the full size and settles. On close it shrinks back into the
+ * trigger point along the same curve. It scales rather than
  * growing as two ends and a bar, because it carries text. Shipped, stretch
  * and squash are 0 and the CSS transition lifts it as before.
  *
@@ -35,21 +36,35 @@ export function Tooltip({ content, multiline = false, open: forced, variant = 's
   const tipRef = useRef(null);
   const { id: filterId, filter } = useGlassRefraction(tipRef, glass, 'frosted');
 
+  const wasOpen = useRef(open);
+  const runId = useRef(0);
+
   useLayoutEffect(() => {
     const wrap = wrapRef.current;
     const tip = tipRef.current;
-    if (!open || !wrap || !tip || prefersReducedMotion()) return;
+    const closing = wasOpen.current && !open;
+    wasOpen.current = open;
+    if ((!open && !closing) || !wrap || !tip || prefersReducedMotion()) return;
     const m = readElastic(tip, 'tooltip');
     const cs = getComputedStyle(tip);
     const g = parseFloat(cs.getPropertyValue('--sc-motion-tooltip-grow-from'));
     const grow = Number.isFinite(g) ? Math.min(1, Math.max(0, g)) : 1;
     if (!isActive(m) && grow === 1) return;
     const lift = parseFloat(cs.getPropertyValue('--sc-size-tooltip-lift')) || 0;
-    const p = sampleEasing(m.travelEasing);
+    let p = sampleEasing(m.travelEasing);
+    let duration = m.travelDur;
+    if (closing) {
+      // Close runs the same curve the other way: full size back to grow at
+      // the trigger point. It ends where the curve first reaches 1 (the
+      // bubble is gone there), so an overshoot never flashes it back.
+      const end = p.findIndex((y) => y >= 1);
+      if (end > 0) { duration = Math.round((duration * end) / (p.length - 1)); p = p.slice(0, end + 1).map((y) => Math.min(1, y)); }
+    }
     const v = speeds(p);
     // Size runs grow → 1 on the curve (past 1 on an overshoot); stretch and
     // squash ride on it: 1 = 20% taller or narrower at peak speed.
-    const frames = p.map((y, i) => {
+    const frames = p.map((c, i) => {
+      const y = closing ? 1 - c : c;
       const s = Math.max(0, grow + (1 - grow) * y);
       return {
         transform: `translate(-50%, ${-lift * (1 - y)}px) scale(${s * (1 - 0.2 * m.squash * v[i])}, ${s * (1 + 0.2 * m.stretch * v[i])})`,
@@ -57,10 +72,12 @@ export function Tooltip({ content, multiline = false, open: forced, variant = 's
       };
     });
     tip.getAnimations().forEach((a) => a.cancel());
+    const id = ++runId.current;
+    const done = () => { if (runId.current === id) wrap.removeAttribute('data-driven'); };
     wrap.setAttribute('data-driven', '');
-    const a = tip.animate(frames, { duration: m.travelDur, easing: 'linear' });
-    a.onfinish = () => wrap.removeAttribute('data-driven');
-    a.oncancel = () => wrap.removeAttribute('data-driven');
+    const a = tip.animate(frames, { duration, easing: 'linear' });
+    a.onfinish = done;
+    a.oncancel = done;
   }, [open]);
 
   const handleOpen = () => setOpen(true);

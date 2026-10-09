@@ -58,6 +58,6 @@ Engine `src/motion/elastic.js` (reference: kabarza's elastic toggles, instagram.
 | `--sc-motion-tooltip-travel-duration` / `-easing` | = `motion.reveal` (200ms, quint-out) | Travel time and curve; a spring set in the lab writes its settle time to the duration |
 | `--sc-motion-tooltip-stretch` | 0 | Extra length at peak speed |
 | `--sc-motion-tooltip-squash` | 0 | Flattening at peak speed |
-| `--sc-motion-tooltip-grow-from` | 1 | Start scale of the open, about the arrow tip (the trigger point); the travel curve carries it to 1, so a spring with bounce overshoots. 1 = no grow |
+| `--sc-motion-tooltip-grow-from` | 1 | Start scale of the open, about the arrow tip (the trigger point); the travel curve carries it to 1, so a spring with bounce overshoots; on close it shrinks back into the trigger point on the same curve, cut where the curve first reaches 1. 1 = no grow |
 
 Reduced motion skips the engine.
