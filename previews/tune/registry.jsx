@@ -594,6 +594,9 @@ export const REGISTRY = {
     // surface (a porthole), lit from the top left. Ships flat (zero alpha).
     // The ground behind it is the View panel's ground (page, raised, sunk,
     // floating), shared by every stage.
+    // Seed (Claude's start, not a pick): the ring is the top-left recess,
+    // record SegmentedControl 2026-10-07-1645 track, per mode.
+    seed: { scoped: perMode((m) => ({ '--sc-shadow-avatar-ring': m.recess })) },
     shippedSound: null,
     trigger: 'ships silent',
     props: [
