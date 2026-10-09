@@ -5,7 +5,7 @@
 # Design Token Map — The Shokunin Crafthouse · Brand Identity
 
 **Generated** from `tokens/primitives.json` + `tokens/semantic.json`.
-**Source fingerprint:** `6f929a16d6a2` · **187 primitives · 332 semantic tokens.**
+**Source fingerprint:** `2282476a34a0` · **187 primitives · 332 semantic tokens.**
 
 > **This file is a mirror, not the source.** `tokens/*.json` is upstream; this document and the Figma
 > library are generated from / synced to it. It previously claimed the opposite — that both were
@@ -672,7 +672,7 @@ channel-triplet primitives) rather than an alias to a single primitive.
 
 | Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
 |---|---|---|---|---|---|---|
-| `color/avatar/ground` | `--sc-color-avatar-ground` | `color/warmGray/200` | `#D8D1CC` | `color/dark/well` | `#1F252C` | 2026-10-08 · Avatar (physical-controls Tier 2: a recessed ring so the photo sits in the surface, a porthole), tuned in sc-tune. |
+| `color/avatar/ground` | `--sc-color-avatar-ground` | `color/warmGray/200` | `#D8D1CC` | `color/dark/well` | `#1F252C` | 2026-10-08 · Avatar (physical-controls Tier 2). |
 
 ### Typography · Semantic
 
@@ -762,7 +762,7 @@ channel-triplet primitives) rather than an alias to a single primitive.
 |---|---|---|---|---|---|---|
 | `radius/field` | `--sc-radius-field` | `radius/default` | `8px` | `radius/default` | `8px` | 2026-10-07 · Input material (physical-controls Tier 1), tuned in sc-tune. |
 | `radius/card` | `--sc-radius-card` | `radius/surface` | `⚠ unresolved` | `radius/surface` | `⚠ unresolved` | 2026-10-07 · Card (physical-controls Tier 2: flat, or liquid glass in three levels and two tones, Levi 2026-10-08). |
-| `radius/avatar` | `--sc-radius-avatar` | `radius/pill` | `⚠ unresolved` | `radius/pill` | `⚠ unresolved` | 2026-10-08 · Avatar (physical-controls Tier 2: a recessed ring so the photo sits in the surface, a porthole), tuned in sc-tune. |
+| `radius/avatar` | `--sc-radius-avatar` | `radius/pill` | `⚠ unresolved` | `radius/pill` | `⚠ unresolved` | 2026-10-08 · Avatar (physical-controls Tier 2). |
 | `radius/statusPill` | `--sc-radius-status-pill` | `radius/pill` | `⚠ unresolved` | `radius/pill` | `⚠ unresolved` | 2026-10-08 · StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis, the label written by the consumer; physical-controls Tier 2). |
 | `radius/tooltip` | `--sc-radius-tooltip` | `space/4` | `4px` | `space/4` | `4px` | 2026-10-08 · Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. |
 | `radius/control` | `--sc-radius-control` | `radius/input` | `3px` | `radius/input` | `3px` | Sprint 4 addition · controls that read as inscribed rather than lifted (3px). |
