@@ -348,7 +348,8 @@ export const REGISTRY = {
       },
     },
     shippedSound: null,
-    trigger: 'ships silent',
+    // Ships silent; a sound tuned here plays as the tooltip opens.
+    trigger: 'the tooltip opens (pointer enters or focus lands on the trigger)',
     props: [
       // hover: the trigger opens it (the motion plays on every hover); open / closed force it.
       { name: 'show', type: 'enum', options: ['hover', 'open', 'closed'], default: 'hover' },
@@ -358,12 +359,18 @@ export const REGISTRY = {
       { name: 'content', type: 'text', default: 'Copied to clipboard' },
     ],
     play: (p, set) => set('show', p.show === 'open' ? 'closed' : 'open'),
-    render: (p) => (
+    render: (p, set, sound) => (
       <div style={{ position: 'relative', padding: 'var(--sc-space-layout-stack-md) var(--sc-space-layout-stack-sm) var(--sc-space-layout-stack-sm)' }}>
         {CARD_BACKDROPS[p.backdrop]}
         <span style={{ position: 'relative', display: 'inline-block', paddingTop: 'var(--sc-space-layout-stack-md)' }}>
           <Tooltip content={p.content} multiline={p.multiline} open={p.show === 'hover' ? undefined : p.show === 'open'} variant={p.variant}>
-            <Button variant="primary" size="sm" arrow={false} sound={false}>Copy</Button>
+            <span
+              style={{ display: 'inline-block' }}
+              onMouseEnter={() => { if (p.show === 'hover') sound(); }}
+              onFocus={() => { if (p.show === 'hover') sound(); }}
+            >
+              <Button variant="primary" size="sm" arrow={false} sound={false}>Copy</Button>
+            </span>
           </Tooltip>
         </span>
       </div>
