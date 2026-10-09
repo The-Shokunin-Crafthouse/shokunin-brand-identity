@@ -8,8 +8,10 @@
  * default; pass `multiline` prop to allow wrapping.
  *
  * Elastic motion (src/motion/elastic.js, tokens --sc-motion-tooltip-*): on
- * open the bubble lifts along its travel curve and, while it moves fast,
- * stretches up and squeezes in from its arrow. It scales rather than
+ * open the bubble grows from --sc-motion-tooltip-grow-from to full size about
+ * the arrow tip (the trigger point), lifts along its travel curve and, while
+ * it moves fast, stretches up and squeezes in. A spring with bounce
+ * overshoots the full size and settles. It scales rather than
  * growing as two ends and a bar, because it carries text. Shipped, stretch
  * and squash are 0 and the CSS transition lifts it as before.
  *
@@ -38,15 +40,22 @@ export function Tooltip({ content, multiline = false, open: forced, variant = 's
     const tip = tipRef.current;
     if (!open || !wrap || !tip || prefersReducedMotion()) return;
     const m = readElastic(tip, 'tooltip');
-    if (!isActive(m)) return;
-    const lift = parseFloat(getComputedStyle(tip).getPropertyValue('--sc-size-tooltip-lift')) || 0;
+    const cs = getComputedStyle(tip);
+    const g = parseFloat(cs.getPropertyValue('--sc-motion-tooltip-grow-from'));
+    const grow = Number.isFinite(g) ? Math.min(1, Math.max(0, g)) : 1;
+    if (!isActive(m) && grow === 1) return;
+    const lift = parseFloat(cs.getPropertyValue('--sc-size-tooltip-lift')) || 0;
     const p = sampleEasing(m.travelEasing);
     const v = speeds(p);
-    // 1 = 20% taller (stretch) or narrower (squash) at peak speed.
-    const frames = p.map((y, i) => ({
-      transform: `translate(-50%, ${-lift * (1 - y)}px) scale(${1 - 0.2 * m.squash * v[i]}, ${1 + 0.2 * m.stretch * v[i]})`,
-      opacity: Math.min(1, Math.max(0, y)),
-    }));
+    // Size runs grow → 1 on the curve (past 1 on an overshoot); stretch and
+    // squash ride on it: 1 = 20% taller or narrower at peak speed.
+    const frames = p.map((y, i) => {
+      const s = Math.max(0, grow + (1 - grow) * y);
+      return {
+        transform: `translate(-50%, ${-lift * (1 - y)}px) scale(${s * (1 - 0.2 * m.squash * v[i])}, ${s * (1 + 0.2 * m.stretch * v[i])})`,
+        opacity: Math.min(1, Math.max(0, y)),
+      };
+    });
     tip.getAnimations().forEach((a) => a.cancel());
     wrap.setAttribute('data-driven', '');
     const a = tip.animate(frames, { duration: m.travelDur, easing: 'linear' });

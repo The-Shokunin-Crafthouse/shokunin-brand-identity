@@ -5,7 +5,7 @@
 # Design Token Map — The Shokunin Crafthouse · Brand Identity
 
 **Generated** from `tokens/primitives.json` + `tokens/semantic.json`.
-**Source fingerprint:** `0f5705d9f608` · **187 primitives · 313 semantic tokens.**
+**Source fingerprint:** `6982f8875a32` · **187 primitives · 314 semantic tokens.**
 
 > **This file is a mirror, not the source.** `tokens/*.json` is upstream; this document and the Figma
 > library are generated from / synced to it. It previously claimed the opposite — that both were
@@ -861,6 +861,7 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | `motion/tooltip/travel/easing` | `--sc-motion-tooltip-travel-easing` | `motion/easing/out` | `cubic-bezier(0.22, 1, 0.36, 1)` | `motion/easing/out` | `cubic-bezier(0.22, 1, 0.36, 1)` | 2026-10-07 · Elastic motion from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), engine src/motion/elastic.js, tuned in sc-tune. |
 | `motion/tooltip/stretch` | `--sc-motion-tooltip-stretch` | _literal_ | `0` | _literal_ | `0` | 2026-10-07 · Elastic motion from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), engine src/motion/elastic.js, tuned in sc-tune. |
 | `motion/tooltip/squash` | `--sc-motion-tooltip-squash` | _literal_ | `0` | _literal_ | `0` | 2026-10-07 · Elastic motion from kabarza's elastic toggles reel (instagram.com/reel/DeK0AFcIRhf), engine src/motion/elastic.js, tuned in sc-tune. |
+| `motion/tooltip/growFrom` | `--sc-motion-tooltip-grow-from` | _literal_ | `1` | _literal_ | `1` | 2026-10-08 · Tooltip motion (physical-controls Tier 2), Levi: the bubble grows out of the trigger point with elasticity. |
 
 #### `motion/stepper`
 

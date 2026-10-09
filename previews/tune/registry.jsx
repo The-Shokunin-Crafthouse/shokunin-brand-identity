@@ -325,12 +325,23 @@ export const REGISTRY = {
     // Physical-controls Tier 2: a raised plate with a short lift (concept A),
     // or liquid glass, since a tooltip is a floating layer (concept B, the
     // glass variant). The refraction numbers are read by Card/glass.js.
-    jsTokens: [...reel('tooltip', { press: false }).jsTokens, ...['refraction', 'depth', 'splay'].map((k) => `--sc-size-tooltip-glass-frosted-${k}`)],
+    jsTokens: [...reel('tooltip', { press: false }).jsTokens, '--sc-motion-tooltip-grow-from', ...['refraction', 'depth', 'splay'].map((k) => `--sc-size-tooltip-glass-frosted-${k}`)],
     // Plate start: the Button key (record Button 2026-10-07-1418) lift on the
     // surface.raised fill with text.primary ink, lit from the top left. The
     // role tokens ship equal to today (inverse ground, no shadow).
+    // Motion start (Levi, 2026-10-08: grow out of the trigger point with
+    // elasticity, 3% overshoot, a slight squish): the Switch's spring (record
+    // Switch 2026-10-07-1539 B: stiffness 146, damping 17.88, mass 1, 3%
+    // overshoot) and its squash (0.15), growing from 0 about the arrow tip
+    // with no lift and no stretch. Values, not the Switch's tokens.
     seed: {
-      ...reel('tooltip', { press: false }).seed,
+      overrides: {
+        '--sc-motion-tooltip-grow-from': '0',
+        '--sc-motion-tooltip-stretch': '0',
+        '--sc-motion-tooltip-squash': '0.15',
+        '--sc-size-tooltip-lift': '0px',
+      },
+      springs: { '--sc-motion-tooltip-travel-easing': { stiffness: 146, damping: 17.88, mass: 1 } },
       scoped: {
         light: { '--sc-color-tooltip-surface': MATERIAL.light.keyFill, '--sc-color-tooltip-text': '#1A1815', '--sc-shadow-tooltip-plate': MATERIAL.light.key },
         dark: { '--sc-color-tooltip-surface': MATERIAL.dark.keyFill, '--sc-color-tooltip-text': '#EAE8E3', '--sc-shadow-tooltip-plate': MATERIAL.dark.key },

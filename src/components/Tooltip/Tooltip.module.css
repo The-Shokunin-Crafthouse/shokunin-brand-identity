@@ -11,6 +11,7 @@
  *   --sc-font-text-caption-*                 · 13 / regular / relaxed
  *   --sc-motion-tooltip-travel-duration / -easing · enter lift (role tokens, = motion.reveal)
  *   --sc-motion-tooltip-stretch / -squash · elastic scale on open (Tooltip.jsx; 0 = off)
+ *   --sc-motion-tooltip-grow-from            · start scale of the open, about the arrow tip (Tooltip.jsx; 1 = off)
  *   --sc-border-width-default                · forced-colors edge
  *
  * Glass (variant="glass", concept B in sc-tune; the shipped tooltip is solid):
@@ -49,8 +50,9 @@
   transition:
     opacity var(--sc-motion-tooltip-travel-duration) var(--sc-motion-tooltip-travel-easing),
     transform var(--sc-motion-tooltip-travel-duration) var(--sc-motion-tooltip-travel-easing);
-  /* Stretch and squash scale from the arrow (Tooltip.jsx; 0 = none). */
-  transform-origin: 50% 100%;
+  /* Grow, stretch and squash scale about the arrow tip, the trigger point
+     (Tooltip.jsx; shipped none, so the origin moves nothing). */
+  transform-origin: 50% calc(100% + var(--sc-size-tooltip-arrow));
   z-index: 10;
 }
 

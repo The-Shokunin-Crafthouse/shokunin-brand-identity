@@ -171,8 +171,8 @@ public enum SCDS {
     public static let semanticVersion = "0.1.0"
     public static let sourceGenerated = "2026-05-26"
     public static let primitivesHash = "41d576559668277a"
-    public static let semanticHash = "93b715d2b0f0770d"
-    public static let tokenCount = 313
+    public static let semanticHash = "0430785e15699825"
+    public static let tokenCount = 314
   }
 
   // MARK: - Color
@@ -1544,6 +1544,9 @@ public enum SCDS {
 
     /// `motion.tooltip.squash`
     public static let tooltipSquash: CGFloat = 0
+
+    /// `motion.tooltip.growFrom`
+    public static let tooltipGrowFrom: CGFloat = 1
 
     /// `motion.stepper.travel.duration` · 1062ms
     public static let stepperTravelDuration: TimeInterval = 1.062
