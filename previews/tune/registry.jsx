@@ -29,6 +29,7 @@ import { PlusUnderline } from '../../src/components/PlusUnderline/PlusUnderline.
 import { Slider } from '../../src/components/Slider/Slider.jsx';
 import { Input } from '../../src/components/Input/Input.jsx';
 import { Card } from '../../src/components/Card/Card.jsx';
+import { Badge } from '../../src/components/Badge/Badge.jsx';
 import { MagnifyingGlass, EnvelopeSimple, MapPin, Eye, Copy, CalendarBlank, Clock, CaretDown } from '@phosphor-icons/react';
 import switchCss from '../../src/components/Switch/Switch.module.css?raw';
 import stepperCss from '../../src/components/Stepper/Stepper.module.css?raw';
@@ -41,6 +42,7 @@ import underlineCss from '../../src/components/PlusUnderline/PlusUnderline.modul
 import sliderCss from '../../src/components/Slider/Slider.module.css?raw';
 import inputCss from '../../src/components/Input/Input.module.css?raw';
 import cardCss from '../../src/components/Card/Card.module.css?raw';
+import badgeCss from '../../src/components/Badge/Badge.module.css?raw';
 import s from './Tune.module.css';
 
 const SEGMENTS = ['day', 'week', 'month'];
@@ -143,6 +145,28 @@ const CARD_BACKDROPS = {
   ),
   none: null,
 };
+
+/* Badge variants with the docs page's labels (src/sections/ComponentSections.jsx). */
+const BADGES = { default: 'Studio', success: 'Shipped', warning: 'In review', error: 'Failed', neutral: 'Draft' };
+
+/*
+ * LED starts (Claude's, Levi tunes): lit = the variant's fill hue in each
+ * mode (brand.accent, status.*, text.secondary), glowing in the same hue
+ * with zero offset (emitted light, not a cast shade). Light-mode error uses
+ * signal.live (#C8281C): status.error is oxblood there and does not read lit.
+ * Unlit = ink 20% light, white 16% dark, flat.
+ */
+const BADGE_LIT = {
+  light: { default: '3 142 147', success: '47 133 90', warning: '194 65 12', error: '200 40 28', neutral: '90 87 80' },
+  dark: { default: '3 142 147', success: '87 173 127', warning: '246 119 81', error: '254 107 103', neutral: '201 199 195' },
+};
+const ledSeed = (off, lit, blur, alpha) => ({
+  '--sc-color-badge-led-off': off,
+  ...Object.fromEntries(Object.entries(lit).flatMap(([v, c]) => [
+    [`--sc-color-badge-led-${v}`, `rgb(${c})`],
+    [`--sc-shadow-badge-led-${v}`, `0 0 ${blur}px 1px rgb(${c} / ${alpha})`],
+  ])),
+});
 
 /* Set on a keyboard step so the lab's tick plays on keys only, never on a drag. */
 let keyStep = false;
@@ -539,6 +563,38 @@ export const REGISTRY = {
               </Card>,
             ])}
           </div>
+        </div>
+      );
+    },
+  },
+  Badge: {
+    css: [badgeCss],
+    // Physical-controls Tier 2: an LED dot (Drams LED Switch, mapping #9)
+    // that glows for live states. `live` lit or off shows the LED; none is
+    // today's badge, with no LED. The LED tokens ship inert (0, transparent).
+    seed: {
+      overrides: { '--sc-size-badge-led': '6px', '--sc-space-component-gap-badge': '6px' },
+      scoped: {
+        light: ledSeed('rgb(26 24 21 / 0.20)', BADGE_LIT.light, 4, 0.55),
+        dark: ledSeed('rgb(255 255 255 / 0.16)', BADGE_LIT.dark, 6, 0.65),
+      },
+    },
+    shippedSound: null,
+    trigger: 'ships silent',
+    props: [
+      { name: 'live', type: 'enum', options: ['lit', 'off', 'none'], default: 'lit' },
+      { name: 'show', type: 'enum', options: ['all', ...Object.keys(BADGES)], default: 'all' },
+      { name: 'content', type: 'text', default: 'Live' },
+    ],
+    play: (p, set) => set('live', p.live === 'lit' ? 'off' : 'lit'),
+    render: (p) => {
+      const shown = p.show === 'all' ? Object.keys(BADGES) : [p.show];
+      const live = p.live === 'none' ? undefined : p.live === 'lit';
+      return (
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 'var(--sc-space-layout-stack-sm)' }}>
+          {shown.map((v) => (
+            <Badge key={v} variant={v} live={live}>{p.show === 'all' ? BADGES[v] : p.content}</Badge>
+          ))}
         </div>
       );
     },
