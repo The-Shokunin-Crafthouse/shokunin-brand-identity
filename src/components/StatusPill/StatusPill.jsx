@@ -26,13 +26,14 @@ const EMPHASES = ['filled', 'outline'];
  * child's layout effect runs). */
 function DashedEdge() {
   const svg = useRef(null);
-  const [box, setBox] = useState({ w: 0, h: 0, sw: 0 });
+  const [box, setBox] = useState({ w: 0, h: 0, sw: 0, dash: 0, gap: 0 });
   useLayoutEffect(() => {
     const el = svg.current && svg.current.parentElement;
     if (!el) return undefined;
     const read = () => {
-      const sw = parseFloat(getComputedStyle(el).getPropertyValue('--sc-size-status-pill-dash-width')) || 0;
-      setBox({ w: el.offsetWidth, h: el.offsetHeight, sw });
+      const cs = getComputedStyle(el);
+      const px = (name) => parseFloat(cs.getPropertyValue(name)) || 0;
+      setBox({ w: el.offsetWidth, h: el.offsetHeight, sw: px('--sc-size-status-pill-dash-width'), dash: px('--sc-size-status-pill-dash'), gap: px('--sc-size-status-pill-dash-gap') });
     };
     read();
     const ro = new ResizeObserver(read);
@@ -44,11 +45,20 @@ function DashedEdge() {
       window.removeEventListener('sc-tokens-change', read);
     };
   }, []);
-  const { w, h, sw } = box;
-  const r = Math.max(0, h / 2 - sw / 2);
+  const { w, h, sw, dash, gap } = box;
+  const rw = Math.max(0, w - sw);
+  const rh = Math.max(0, h - sw);
+  const r = Math.min(rw, rh) / 2;
+  // An even loop: the perimeter holds a whole number of dash + gap periods, so
+  // the last gap meets the first dash with no seam. pathLength makes the
+  // browser scale the dash units to its own measure of the loop (each period
+  // stretches by under half a period over the whole loop).
+  const perimeter = 2 * (rw - 2 * r) + 2 * (rh - 2 * r) + 2 * Math.PI * r;
+  const period = dash + gap;
+  const periods = period > 0 ? Math.max(1, Math.round(perimeter / period)) : 1;
   return (
     <svg ref={svg} className={styles.dash} width={w} height={h} viewBox={`0 0 ${w} ${h}`} aria-hidden="true" focusable="false">
-      {w > 0 ? <rect x={sw / 2} y={sw / 2} width={Math.max(0, w - sw)} height={Math.max(0, h - sw)} rx={r} ry={r} /> : null}
+      {w > 0 ? <rect x={sw / 2} y={sw / 2} width={rw} height={rh} rx={r} ry={r} pathLength={periods * period || undefined} /> : null}
     </svg>
   );
 }
