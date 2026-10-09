@@ -5,7 +5,7 @@
 # Design Token Map — The Shokunin Crafthouse · Brand Identity
 
 **Generated** from `tokens/primitives.json` + `tokens/semantic.json`.
-**Source fingerprint:** `27b74fd20274` · **187 primitives · 330 semantic tokens.**
+**Source fingerprint:** `c8bcf89b88e9` · **187 primitives · 333 semantic tokens.**
 
 > **This file is a mirror, not the source.** `tokens/*.json` is upstream; this document and the Figma
 > library are generated from / synced to it. It previously claimed the opposite — that both were
@@ -668,6 +668,12 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | `color/tooltip/surface` | `--sc-color-tooltip-surface` | `color/utility/white` | `#FFFFFF` | `color/dark/raised1` | `#343A41` | 2026-10-08 · Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. |
 | `color/tooltip/text` | `--sc-color-tooltip-text` | `color/warmGray/800` | `#1A1815` | `color/dark/textPrimary` | `#EAE8E3` | 2026-10-08 · Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. |
 
+#### `color/avatar`
+
+| Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
+|---|---|---|---|---|---|---|
+| `color/avatar/ground` | `--sc-color-avatar-ground` | `color/warmGray/200` | `#D8D1CC` | `color/dark/well` | `#1F252C` | 2026-10-08 · Avatar (physical-controls Tier 2: a recessed ring so the photo sits in the surface, a porthole), tuned in sc-tune. |
+
 ### Typography · Semantic
 
 #### `font/text`
@@ -756,6 +762,7 @@ channel-triplet primitives) rather than an alias to a single primitive.
 |---|---|---|---|---|---|---|
 | `radius/field` | `--sc-radius-field` | `radius/default` | `8px` | `radius/default` | `8px` | 2026-10-07 · Input material (physical-controls Tier 1), tuned in sc-tune. |
 | `radius/card` | `--sc-radius-card` | `radius/surface` | `⚠ unresolved` | `radius/surface` | `⚠ unresolved` | 2026-10-07 · Card (physical-controls Tier 2: flat, or liquid glass in three levels and two tones, Levi 2026-10-08). |
+| `radius/avatar` | `--sc-radius-avatar` | `radius/pill` | `⚠ unresolved` | `radius/pill` | `⚠ unresolved` | 2026-10-08 · Avatar (physical-controls Tier 2: a recessed ring so the photo sits in the surface, a porthole), tuned in sc-tune. |
 | `radius/statusPill` | `--sc-radius-status-pill` | `radius/pill` | `⚠ unresolved` | `radius/pill` | `⚠ unresolved` | 2026-10-08 · StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis, the label written by the consumer; physical-controls Tier 2). |
 | `radius/tooltip` | `--sc-radius-tooltip` | `space/4` | `4px` | `space/4` | `4px` | 2026-10-08 · Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. |
 | `radius/control` | `--sc-radius-control` | `radius/input` | `3px` | `radius/input` | `3px` | Sprint 4 addition · controls that read as inscribed rather than lifted (3px). |
@@ -984,6 +991,12 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
 |---|---|---|---|---|---|---|
 | `shadow/tooltip/plate` | `--sc-shadow-tooltip-plate` | _literal_ | `2px 2px 6px 0 rgb(100 91 79 / 0.50)` | _literal_ | `3px 3px 7px 0 rgb(0 0 0 / 0.50)` | 2026-10-08 · Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. |
+
+#### `shadow/avatar`
+
+| Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
+|---|---|---|---|---|---|---|
+| `shadow/avatar/ring` | `--sc-shadow-avatar-ring` | _literal_ | `inset 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)` | _literal_ | `inset 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)` | 2026-10-08 · Avatar (physical-controls Tier 2: a recessed ring so the photo sits in the surface, a porthole), tuned in sc-tune. |
 
 ### Size · Semantic
 

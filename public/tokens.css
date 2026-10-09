@@ -492,12 +492,14 @@
   --sc-color-status-pill-live-ink: var(--sc-color-text-on-inverse);
   --sc-color-tooltip-surface: var(--sc-p-color-utility-white);
   --sc-color-tooltip-text: var(--sc-p-color-warm-gray-800);
+  --sc-color-avatar-ground: var(--sc-p-color-warm-gray-200);
   --sc-border-width-default: var(--sc-p-border-width-hairline);
   --sc-border-width-focus: var(--sc-p-border-width-focus);
   --sc-border-width-accent: var(--sc-p-border-width-accent);
   --sc-border-focus-offset: var(--sc-p-space-micro-2);
   --sc-radius-field: var(--sc-p-radius-default);
   --sc-radius-card: var(--sc-radius-surface);
+  --sc-radius-avatar: var(--sc-radius-pill);
   --sc-radius-status-pill: var(--sc-radius-pill);
   --sc-radius-tooltip: var(--sc-p-space-4);
   --sc-radius-control: var(--sc-p-radius-input);
@@ -529,6 +531,7 @@
   --sc-shadow-card-glass-text-dark: 0 0 2px rgb(var(--sc-p-color-white-rgb) / 0.50);
   --sc-shadow-card-glass-text-auto: var(--sc-shadow-card-glass-text-light);
   --sc-shadow-tooltip-plate: 2px 2px 6px 0 rgb(100 91 79 / 0.50);
+  --sc-shadow-avatar-ring: inset 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0);
   --sc-motion-hover-duration: var(--sc-p-motion-duration-micro);
   --sc-motion-hover-easing: var(--sc-p-motion-easing-out);
   --sc-motion-press-duration: var(--sc-p-motion-duration-press);
@@ -971,12 +974,14 @@
   --sc-color-status-pill-live-ink: var(--sc-color-text-on-inverse);
   --sc-color-tooltip-surface: var(--sc-p-color-dark-raised1);
   --sc-color-tooltip-text: var(--sc-p-color-dark-text-primary);
+  --sc-color-avatar-ground: var(--sc-p-color-dark-well);
   --sc-border-width-default: var(--sc-p-border-width-hairline);
   --sc-border-width-focus: var(--sc-p-border-width-focus);
   --sc-border-width-accent: var(--sc-p-border-width-accent);
   --sc-border-focus-offset: var(--sc-p-space-micro-2);
   --sc-radius-field: var(--sc-p-radius-default);
   --sc-radius-card: var(--sc-radius-surface);
+  --sc-radius-avatar: var(--sc-radius-pill);
   --sc-radius-status-pill: var(--sc-radius-pill);
   --sc-radius-tooltip: var(--sc-p-space-4);
   --sc-radius-control: var(--sc-p-radius-input);
@@ -1008,6 +1013,7 @@
   --sc-shadow-card-glass-text-dark: 0 0 2px rgb(0 0 0 / 0.70);
   --sc-shadow-card-glass-text-auto: var(--sc-shadow-card-glass-text-dark);
   --sc-shadow-tooltip-plate: 3px 3px 7px 0 rgb(0 0 0 / 0.50);
+  --sc-shadow-avatar-ring: inset 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0);
   --sc-motion-hover-duration: var(--sc-p-motion-duration-micro);
   --sc-motion-hover-easing: var(--sc-p-motion-easing-out);
   --sc-motion-press-duration: var(--sc-p-motion-duration-press);

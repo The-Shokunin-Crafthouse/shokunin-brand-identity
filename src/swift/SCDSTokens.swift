@@ -171,8 +171,8 @@ public enum SCDS {
     public static let semanticVersion = "0.1.0"
     public static let sourceGenerated = "2026-05-26"
     public static let primitivesHash = "41d576559668277a"
-    public static let semanticHash = "c5541c30c8000b0c"
-    public static let tokenCount = 330
+    public static let semanticHash = "80e0688ee2b8827a"
+    public static let tokenCount = 333
   }
 
   // MARK: - Color
@@ -856,6 +856,12 @@ public enum SCDS {
         light: (0.101961, 0.094118, 0.082353, 1),
         dark:  (0.917647, 0.909804, 0.890196, 1)
     )
+
+    /// `color.avatar.ground`
+    public static let avatarGround = SwiftUI.Color.scdsDynamic(
+        light: (0.847059, 0.819608, 0.8, 1),
+        dark:  (0.121569, 0.145098, 0.172549, 1)
+    )
   }
 
   // MARK: - Typography
@@ -1274,6 +1280,9 @@ public enum SCDS {
 
     /// `radius.card`
     public static let card: CGFloat = 8
+
+    /// `radius.avatar`
+    public static let avatar: CGFloat = 9999
 
     /// `radius.statusPill`
     public static let statusPill: CGFloat = 9999
@@ -1970,6 +1979,16 @@ public enum SCDS {
         ],
         dark: [
             SCDSShadowLayer(inset: false, x: 3, y: 3, blur: 7, spread: 0, rgb: (0, 0, 0), alpha: 0.5),
+        ]
+    )
+
+    /// `shadow.avatar.ring` · 1 layers
+    public static let avatarRing = SCDSShadow(
+        light: [
+            SCDSShadowLayer(inset: true, x: 0, y: 0, blur: 0, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0),
+        ],
+        dark: [
+            SCDSShadowLayer(inset: true, x: 0, y: 0, blur: 0, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0),
         ]
     )
   }
