@@ -2608,6 +2608,17 @@ Levi: the trailing arrow uses Phosphor's bold weight, not regular. Code: `ArrowR
 - **Not in Figma:** the glow pulse (Figma shows it still) and the even dash loop (Figma lays out its own 3 / 3 dashes).
 - `tokens:verify`, `tokens:map:check`, `tokens:swift:check`, `test:scripts` (27), `npm run build`, `build:lib` and `swiftc -typecheck` exit 0.
 
+### 2026-10-08: brand-site shell, part A (WQ-100): the 80 gutter reuses space.80; the 1082 measure is a new primitive
+
+**Status:** Accepted. Sprint `stages/03-build/brand-site-nav-layout/CONTEXT.md`, part A. Branch `feat/wq100-brand-site-nav-layout`.
+
+- **Gutter 80px:** a spacing token already equals it, so no token is added. The shell names it `--shell-gutter: var(--sc-p-space-80)`. The semantic `space.layout.stack.xl` is also 80px, but it is the vertical rhythm between showcase sections, not an inline gutter, so the shell does not borrow it.
+- **Content measure 1082px:** new primitive `size.measure.1082` (`--sc-p-size-measure-1082`), the first entry in a primitive `size` group. It is a column width, not a gap, so it stays off the spacing ladders. It is a primitive and not a semantic token because a semantic token adds a symbol to `SCDSTokens.swift`, which this row may not touch. The shell names it `--shell-content-max`. The dead `--shell-col-gutter: 168px` is removed.
+- **Generated Swift:** any edit to `tokens/primitives.json` changes `SCDS.Stamp.primitivesHash` in `src/swift/SCDSTokens.swift`, so `tokens:swift:check` (pr-check) fails until `npm run tokens:swift` is run and committed. That file was outside this row's file list; the PR names it as the one open step.
+- **Figma:** the primitive is not in the Figma Primitives collection yet. Follow-on row.
+- **Motion:** no SCDS motion philosophy is logged (the 2026-10-07 entry leaves the pick to Levi). The nav reveal follows the logged 2026-10-07 direction for reading surfaces: it reads `motion.reveal.*` (200ms, quint-out) and does not overshoot. Reduced motion cuts it.
+- **Open groups:** only `NAV[0]` and the group that holds the routed page start open, per page load, not persisted. A later route into a collapsed group (a body link, the mobile menu) opens that group too, so the current link is never hidden; nothing the reader opened is closed.
+
 ### 2026-10-08: Avatar role and ring tokens for its sc-tune session (shipped equal to today)
 
 **Status:** Accepted. Tier 2, the fourth component (branch `feat/physical-controls-7`). Audit row: today a flat circle on `surface.sunk`; Drams reference none (a recessed porthole); change: a recessed ring so the photo sits in the surface; finding 5.
