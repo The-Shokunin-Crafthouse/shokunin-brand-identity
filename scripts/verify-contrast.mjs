@@ -85,9 +85,10 @@ function semanticHex(path, mode) {
   if (!node) throw new Error(`no semantic token at ${path}`);
   const v = node.$extensions?.modes?.[mode] ?? node.$value;
   // A semantic token may alias another semantic token (the Stepper keys alias
-  // the Button's), resolved in the same mode.
+  // the Button's), resolved in the same mode. A reference to its own path
+  // (color.signal.progress -> {color.signal.progress}) names the primitive.
   const target = typeof v === 'string' && v.match(/^\{(.+)\}$/)?.[1];
-  if (target && walk(semantic, target)?.$value !== undefined) return semanticHex(target, mode);
+  if (target && target !== path && walk(semantic, target)?.$value !== undefined) return semanticHex(target, mode);
   return refHex(v);
 }
 
