@@ -5,7 +5,7 @@
 # Design Token Map — The Shokunin Crafthouse · Brand Identity
 
 **Generated** from `tokens/primitives.json` + `tokens/semantic.json`.
-**Source fingerprint:** `c10668b9af61` · **187 primitives · 306 semantic tokens.**
+**Source fingerprint:** `31bd779737bc` · **187 primitives · 321 semantic tokens.**
 
 > **This file is a mirror, not the source.** `tokens/*.json` is upstream; this document and the Figma
 > library are generated from / synced to it. It previously claimed the opposite — that both were
@@ -644,6 +644,17 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | `color/card/glass/hover/dark` | `--sc-color-card-glass-hover-dark` | _literal_ | `rgb(var(--sc-p-color-ink-rgb) / 0.06)` | _literal_ | `rgb(var(--sc-p-color-black-rgb) / 0.12)` | 2026-10-08 · Card glass (physical-controls Tier 2). |
 | `color/card/glass/hover/auto` | `--sc-color-card-glass-hover-auto` | `color/card/glass/hover/light` | `⚠ unresolved` | `color/card/glass/hover/dark` | `⚠ unresolved` | 2026-10-08 · Card glass (physical-controls Tier 2). |
 
+#### `color/badge`
+
+| Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
+|---|---|---|---|---|---|---|
+| `color/badge/led/off` | `--sc-color-badge-led-off` | _literal_ | `rgb(var(--sc-p-color-ink-rgb) / 0)` | _literal_ | `rgb(var(--sc-p-color-ink-rgb) / 0)` | 2026-10-08 · Badge (physical-controls Tier 2: an LED dot that glows for live states, Drams LED Switch, mapping #9), tuned in sc-tune. |
+| `color/badge/led/default` | `--sc-color-badge-led-default` | _literal_ | `rgb(var(--sc-p-color-ink-rgb) / 0)` | _literal_ | `rgb(var(--sc-p-color-ink-rgb) / 0)` | 2026-10-08 · Badge (physical-controls Tier 2: an LED dot that glows for live states, Drams LED Switch, mapping #9), tuned in sc-tune. |
+| `color/badge/led/success` | `--sc-color-badge-led-success` | _literal_ | `rgb(var(--sc-p-color-ink-rgb) / 0)` | _literal_ | `rgb(var(--sc-p-color-ink-rgb) / 0)` | 2026-10-08 · Badge (physical-controls Tier 2: an LED dot that glows for live states, Drams LED Switch, mapping #9), tuned in sc-tune. |
+| `color/badge/led/warning` | `--sc-color-badge-led-warning` | _literal_ | `rgb(var(--sc-p-color-ink-rgb) / 0)` | _literal_ | `rgb(var(--sc-p-color-ink-rgb) / 0)` | 2026-10-08 · Badge (physical-controls Tier 2: an LED dot that glows for live states, Drams LED Switch, mapping #9), tuned in sc-tune. |
+| `color/badge/led/error` | `--sc-color-badge-led-error` | _literal_ | `rgb(var(--sc-p-color-ink-rgb) / 0)` | _literal_ | `rgb(var(--sc-p-color-ink-rgb) / 0)` | 2026-10-08 · Badge (physical-controls Tier 2: an LED dot that glows for live states, Drams LED Switch, mapping #9), tuned in sc-tune. |
+| `color/badge/led/neutral` | `--sc-color-badge-led-neutral` | _literal_ | `rgb(var(--sc-p-color-ink-rgb) / 0)` | _literal_ | `rgb(var(--sc-p-color-ink-rgb) / 0)` | 2026-10-08 · Badge (physical-controls Tier 2: an LED dot that glows for live states, Drams LED Switch, mapping #9), tuned in sc-tune. |
+
 #### `color/tooltip`
 
 | Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
@@ -704,12 +715,14 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | `space/component/padding-inline/button-sm` | `--sc-space-component-padding-inline-button-sm` | `space/16` | `16px` | `space/16` | `16px` | Small Button inline padding (16px). |
 | `space/component/padding-inline/input` | `--sc-space-component-padding-inline-input` | `space/16` | `16px` | `space/16` | `16px` | 2026-10-07 · Input material (physical-controls Tier 1: a true recessed well, the focus underline stays, a hover state), tuned in sc-tune. |
 | `space/component/padding-inline/tooltip` | `--sc-space-component-padding-inline-tooltip` | `space/12` | `12px` | `space/12` | `12px` | 2026-10-08 · Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. |
+| `space/component/padding-inline/badge` | `--sc-space-component-padding-inline-badge` | `space/micro/6` | `6px` | `space/micro/6` | `6px` | 2026-10-08 · Badge (physical-controls Tier 2: an LED dot that glows for live states, Drams LED Switch, mapping #9), tuned in sc-tune. |
 | `space/component/padding-block/sm` | `--sc-space-component-padding-block-sm` | `space/micro/2` | `2px` | `space/micro/2` | `2px` | Sprint 4 addition · ultra-thin block padding (2px). |
 | `space/component/padding-block/md` | `--sc-space-component-padding-block-md` | `space/8` | `8px` | `space/8` | `8px` | Sprint 4 addition · default block padding (8px). |
 | `space/component/padding-block/lg` | `--sc-space-component-padding-block-lg` | `space/12` | `12px` | `space/12` | `12px` | Sprint 4 addition · generous block padding (12px). |
 | `space/component/padding-block/button-sm` | `--sc-space-component-padding-block-button-sm` | `space/4` | `4px` | `space/4` | `4px` | Small Button block padding (4px, the dense 4pt step). |
 | `space/component/padding-block/input` | `--sc-space-component-padding-block-input` | `space/12` | `12px` | `space/12` | `12px` | 2026-10-07 · Input material (physical-controls Tier 1: a true recessed well, the focus underline stays, a hover state), tuned in sc-tune. |
 | `space/component/padding-block/tooltip` | `--sc-space-component-padding-block-tooltip` | `space/8` | `8px` | `space/8` | `8px` | 2026-10-08 · Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. |
+| `space/component/padding-block/badge` | `--sc-space-component-padding-block-badge` | `space/micro/2` | `2px` | `space/micro/2` | `2px` | 2026-10-08 · Badge (physical-controls Tier 2: an LED dot that glows for live states, Drams LED Switch, mapping #9), tuned in sc-tune. |
 | `space/component/gap/sm` | `--sc-space-component-gap-sm` | `space/4` | `4px` | `space/4` | `4px` | Sprint 4 addition · tightest inter-element gap (4px). |
 | `space/component/gap/md` | `--sc-space-component-gap-md` | `space/8` | `8px` | `space/8` | `8px` | Sprint 4 addition · default inter-element gap (8px). |
 | `space/component/gap/lg` | `--sc-space-component-gap-lg` | `space/12` | `12px` | `space/12` | `12px` | Sprint 4 addition · generous gap (12px). |
@@ -717,6 +730,7 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | `space/component/gap/input` | `--sc-space-component-gap-input` | `space/4` | `4px` | `space/4` | `4px` | 2026-10-07 · Input material (physical-controls Tier 1: a true recessed well, the focus underline stays, a hover state), tuned in sc-tune. |
 | `space/component/gap/input-inline` | `--sc-space-component-gap-input-inline` | `space/16` | `16px` | `space/16` | `16px` | 2026-10-07 · Input material (physical-controls Tier 1), tuned in sc-tune. |
 | `space/component/gap/tooltip` | `--sc-space-component-gap-tooltip` | `space/24` | `24px` | `space/24` | `24px` | 2026-10-08 · Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. |
+| `space/component/gap/badge` | `--sc-space-component-gap-badge` | _literal_ | `0px` | _literal_ | `0px` | 2026-10-08 · Badge (physical-controls Tier 2: an LED dot that glows for live states, Drams LED Switch, mapping #9), tuned in sc-tune. |
 
 #### `space/layout`
 
@@ -950,6 +964,16 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | `shadow/card/glass/text/dark` | `--sc-shadow-card-glass-text-dark` | _literal_ | `0 0 2px rgb(var(--sc-p-color-white-rgb) / 0.50)` | _literal_ | `0 0 2px rgb(0 0 0 / 0.70)` | 2026-10-08 · Card glass (physical-controls Tier 2). |
 | `shadow/card/glass/text/auto` | `--sc-shadow-card-glass-text-auto` | `shadow/card/glass/text/light` | `⚠ unresolved` | `shadow/card/glass/text/dark` | `⚠ unresolved` | 2026-10-08 · Card glass (physical-controls Tier 2). |
 
+#### `shadow/badge`
+
+| Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
+|---|---|---|---|---|---|---|
+| `shadow/badge/led/default` | `--sc-shadow-badge-led-default` | _literal_ | `0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)` | _literal_ | `0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)` | 2026-10-08 · Badge (physical-controls Tier 2: an LED dot that glows for live states, Drams LED Switch, mapping #9), tuned in sc-tune. |
+| `shadow/badge/led/success` | `--sc-shadow-badge-led-success` | _literal_ | `0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)` | _literal_ | `0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)` | 2026-10-08 · Badge (physical-controls Tier 2: an LED dot that glows for live states, Drams LED Switch, mapping #9), tuned in sc-tune. |
+| `shadow/badge/led/warning` | `--sc-shadow-badge-led-warning` | _literal_ | `0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)` | _literal_ | `0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)` | 2026-10-08 · Badge (physical-controls Tier 2: an LED dot that glows for live states, Drams LED Switch, mapping #9), tuned in sc-tune. |
+| `shadow/badge/led/error` | `--sc-shadow-badge-led-error` | _literal_ | `0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)` | _literal_ | `0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)` | 2026-10-08 · Badge (physical-controls Tier 2: an LED dot that glows for live states, Drams LED Switch, mapping #9), tuned in sc-tune. |
+| `shadow/badge/led/neutral` | `--sc-shadow-badge-led-neutral` | _literal_ | `0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)` | _literal_ | `0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)` | 2026-10-08 · Badge (physical-controls Tier 2: an LED dot that glows for live states, Drams LED Switch, mapping #9), tuned in sc-tune. |
+
 #### `shadow/tooltip`
 
 | Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
@@ -957,6 +981,12 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | `shadow/tooltip/plate` | `--sc-shadow-tooltip-plate` | _literal_ | `2px 2px 6px 0 rgb(100 91 79 / 0.50)` | _literal_ | `3px 3px 7px 0 rgb(0 0 0 / 0.50)` | 2026-10-08 · Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. |
 
 ### Size · Semantic
+
+#### `size/badge`
+
+| Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
+|---|---|---|---|---|---|---|
+| `size/badge/led` | `--sc-size-badge-led` | _literal_ | `0px` | _literal_ | `0px` | 2026-10-08 · Badge (physical-controls Tier 2: an LED dot that glows for live states, Drams LED Switch, mapping #9), tuned in sc-tune. |
 
 #### `size/tooltip`
 

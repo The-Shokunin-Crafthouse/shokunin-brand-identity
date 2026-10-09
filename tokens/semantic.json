@@ -712,6 +712,16 @@
         }
       }
     },
+    "badge": {
+      "led": {
+        "off": { "$type": "color", "$value": "rgb(var(--sc-p-color-ink-rgb) / 0)", "$description": "2026-10-08 \u00b7 Badge (physical-controls Tier 2: an LED dot that glows for live states, Drams LED Switch, mapping #9), tuned in sc-tune. LED fill while the badge is not live: unlit and flat, no glow. Shipped transparent (no LED, today); the LED shows only when a badge sets live, so no current badge changes.", "$extensions": { "modes": { "light": "rgb(var(--sc-p-color-ink-rgb) / 0)", "dark": "rgb(var(--sc-p-color-ink-rgb) / 0)" } } },
+        "default": { "$type": "color", "$value": "rgb(var(--sc-p-color-ink-rgb) / 0)", "$description": "2026-10-08 \u00b7 Badge (physical-controls Tier 2: an LED dot that glows for live states, Drams LED Switch, mapping #9), tuned in sc-tune. LED fill on a default badge while live (lit). Shipped transparent (no LED, today); the LED shows only when a badge sets live, so no current badge changes.", "$extensions": { "modes": { "light": "rgb(var(--sc-p-color-ink-rgb) / 0)", "dark": "rgb(var(--sc-p-color-ink-rgb) / 0)" } } },
+        "success": { "$type": "color", "$value": "rgb(var(--sc-p-color-ink-rgb) / 0)", "$description": "2026-10-08 \u00b7 Badge (physical-controls Tier 2: an LED dot that glows for live states, Drams LED Switch, mapping #9), tuned in sc-tune. LED fill on a success badge while live (lit). Shipped transparent (no LED, today); the LED shows only when a badge sets live, so no current badge changes.", "$extensions": { "modes": { "light": "rgb(var(--sc-p-color-ink-rgb) / 0)", "dark": "rgb(var(--sc-p-color-ink-rgb) / 0)" } } },
+        "warning": { "$type": "color", "$value": "rgb(var(--sc-p-color-ink-rgb) / 0)", "$description": "2026-10-08 \u00b7 Badge (physical-controls Tier 2: an LED dot that glows for live states, Drams LED Switch, mapping #9), tuned in sc-tune. LED fill on a warning badge while live (lit). Shipped transparent (no LED, today); the LED shows only when a badge sets live, so no current badge changes.", "$extensions": { "modes": { "light": "rgb(var(--sc-p-color-ink-rgb) / 0)", "dark": "rgb(var(--sc-p-color-ink-rgb) / 0)" } } },
+        "error": { "$type": "color", "$value": "rgb(var(--sc-p-color-ink-rgb) / 0)", "$description": "2026-10-08 \u00b7 Badge (physical-controls Tier 2: an LED dot that glows for live states, Drams LED Switch, mapping #9), tuned in sc-tune. LED fill on a error badge while live (lit). Shipped transparent (no LED, today); the LED shows only when a badge sets live, so no current badge changes.", "$extensions": { "modes": { "light": "rgb(var(--sc-p-color-ink-rgb) / 0)", "dark": "rgb(var(--sc-p-color-ink-rgb) / 0)" } } },
+        "neutral": { "$type": "color", "$value": "rgb(var(--sc-p-color-ink-rgb) / 0)", "$description": "2026-10-08 \u00b7 Badge (physical-controls Tier 2: an LED dot that glows for live states, Drams LED Switch, mapping #9), tuned in sc-tune. LED fill on a neutral badge while live (lit). Shipped transparent (no LED, today); the LED shows only when a badge sets live, so no current badge changes.", "$extensions": { "modes": { "light": "rgb(var(--sc-p-color-ink-rgb) / 0)", "dark": "rgb(var(--sc-p-color-ink-rgb) / 0)" } } }
+      }
+    },
     "tooltip": {
       "surface": { "$type": "color", "$value": "{color.utility.white}", "$description": "2026-10-08 \u00b7 Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. Bubble ground. Shipped = surface.inverse (today: ink in light, near-white in dark); its own role so the tooltip tunes without moving PlusField and the other inverse grounds. The lab starts concept A from the Button key fill (surface.raised values). Record Tooltip 2026-10-08-2007, concept A (Levi), applied 2026-10-08: white (utility.white) in light, the dark key (dark.raised1) in dark, a raised plate; was surface-inverse (warmGray.800 / warmGray.50).", "$extensions": {"modes": {"light": "{color.utility.white}", "dark": "{color.dark.raised1}"}}},
       "text": { "$type": "color", "$value": "{color.warmGray.800}", "$description": "2026-10-08 \u00b7 Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. Bubble text. Shipped = text-on-inverse (today); its own role, paired with color.tooltip.surface. The lab starts concept A from text.primary values. Record Tooltip 2026-10-08-2007, concept A (Levi), applied 2026-10-08: text.primary values (warmGray.800 / dark.textPrimary); was text-on-inverse (warmGray.50 / warmGray.800).", "$extensions": {"modes": {"light": "{color.warmGray.800}", "dark": "{color.dark.textPrimary}"}}}
@@ -878,6 +888,15 @@
           "dark": { "$type": "shadow", "$value": "0 0 2px rgb(var(--sc-p-color-white-rgb) / 0.50)", "$description": "2026-10-08 \u00b7 Card glass (physical-controls Tier 2). Text halo, dark tone: white 50% in light mode, black 70% in dark. Record Card 2026-10-08-0921 (Levi: both concepts; A = the light tone, B = the dark tone), applied 2026-10-08.", "$extensions": { "modes": { "light": "0 0 2px rgb(var(--sc-p-color-white-rgb) / 0.50)", "dark": "0 0 2px rgb(0 0 0 / 0.70)" } } },
           "auto": { "$type": "shadow", "$value": "{shadow.card.glass.text.light}", "$description": "2026-10-08 \u00b7 Card glass (physical-controls Tier 2). Auto tone, the default (Levi: a rule that can be broken based on what the card sits on): the light tone in light mode, the dark tone in dark mode, so the glass pushes the backdrop away from the text ink. A card breaks it with tone=light or tone=dark when the backdrop already gives the text its contrast. Text halo.", "$extensions": { "modes": { "light": "{shadow.card.glass.text.light}", "dark": "{shadow.card.glass.text.dark}" } } }
         }
+      }
+    },
+    "badge": {
+      "led": {
+        "default": { "$type": "shadow", "$value": "0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)", "$description": "2026-10-08 \u00b7 Badge (physical-controls Tier 2: an LED dot that glows for live states, Drams LED Switch, mapping #9), tuned in sc-tune. Glow of the lit LED on a default badge, centred on the dot (zero offset: emitted light, not a cast shade). Shipped with zero alpha (flat, today). Snaps, never transitions (tokens:verify rule 6).", "$extensions": { "modes": { "light": "0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)", "dark": "0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)" } } },
+        "success": { "$type": "shadow", "$value": "0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)", "$description": "2026-10-08 \u00b7 Badge (physical-controls Tier 2: an LED dot that glows for live states, Drams LED Switch, mapping #9), tuned in sc-tune. Glow of the lit LED on a success badge, centred on the dot (zero offset: emitted light, not a cast shade). Shipped with zero alpha (flat, today). Snaps, never transitions (tokens:verify rule 6).", "$extensions": { "modes": { "light": "0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)", "dark": "0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)" } } },
+        "warning": { "$type": "shadow", "$value": "0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)", "$description": "2026-10-08 \u00b7 Badge (physical-controls Tier 2: an LED dot that glows for live states, Drams LED Switch, mapping #9), tuned in sc-tune. Glow of the lit LED on a warning badge, centred on the dot (zero offset: emitted light, not a cast shade). Shipped with zero alpha (flat, today). Snaps, never transitions (tokens:verify rule 6).", "$extensions": { "modes": { "light": "0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)", "dark": "0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)" } } },
+        "error": { "$type": "shadow", "$value": "0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)", "$description": "2026-10-08 \u00b7 Badge (physical-controls Tier 2: an LED dot that glows for live states, Drams LED Switch, mapping #9), tuned in sc-tune. Glow of the lit LED on a error badge, centred on the dot (zero offset: emitted light, not a cast shade). Shipped with zero alpha (flat, today). Snaps, never transitions (tokens:verify rule 6).", "$extensions": { "modes": { "light": "0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)", "dark": "0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)" } } },
+        "neutral": { "$type": "shadow", "$value": "0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)", "$description": "2026-10-08 \u00b7 Badge (physical-controls Tier 2: an LED dot that glows for live states, Drams LED Switch, mapping #9), tuned in sc-tune. Glow of the lit LED on a neutral badge, centred on the dot (zero offset: emitted light, not a cast shade). Shipped with zero alpha (flat, today). Snaps, never transitions (tokens:verify rule 6).", "$extensions": { "modes": { "light": "0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)", "dark": "0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)" } } }
       }
     },
     "tooltip": {
@@ -1287,6 +1306,9 @@
     }
   },
   "size": {
+    "badge": {
+      "led": { "$type": "dimension", "$value": { "value": 0, "unit": "px" }, "$description": "2026-10-08 \u00b7 Badge (physical-controls Tier 2: an LED dot that glows for live states, Drams LED Switch, mapping #9), tuned in sc-tune. LED dot diameter (a circle). Shipped 0 (no LED, today); the LED shows only when a badge sets live.", "$extensions": { "modes": { "light": { "value": 0, "unit": "px" }, "dark": { "value": 0, "unit": "px" } } } }
+    },
     "tooltip": {
       "arrow": { "$type": "dimension", "$value": "{space.8}", "$description": "2026-10-08 \u00b7 Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. Arrow leg: the triangle under the bubble is this tall and twice this wide. Shipped = gap.sm (4px, today); its own role. 0 drops the arrow. Record Tooltip 2026-10-08-2007, concept A (Levi), applied 2026-10-08: 8px (space.8); was gap.sm 4px.", "$extensions": {"modes": {"light": "{space.8}", "dark": "{space.8}"}}},
       "arrowTip": { "$type": "dimension", "$value": "{space.micro.2}", "$description": "2026-10-08 \u00b7 Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. Radius of the arrow tip (Levi 2026-10-08: round the arrow pointing down). The arrow is an SVG path built by Tooltip.jsx. 0 = a sharp tip (shipped, today). Record Tooltip 2026-10-08-2007, concept A (Levi), applied 2026-10-08: 2px (space.micro.2); was 0, sharp.", "$extensions": {"modes": {"light": "{space.micro.2}", "dark": "{space.micro.2}"}}},
@@ -1534,6 +1556,12 @@
           "$value": "{space.12}",
           "$description": "2026-10-08 \u00b7 Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. Inline padding. Shipped = padding-inline.md (12px, today); its own role (CONTEXT finding 5) so the tooltip tunes without moving NavBar, SegmentedControl and Badge.",
           "$extensions": { "modes": { "light": "{space.12}", "dark": "{space.12}" } }
+        },
+        "badge": {
+          "$type": "dimension",
+          "$value": "{space.micro.6}",
+          "$description": "2026-10-08 \u00b7 Badge (physical-controls Tier 2: an LED dot that glows for live states, Drams LED Switch, mapping #9), tuned in sc-tune. Inline padding. Shipped = padding-inline.sm (6px, today); its own role (CONTEXT finding 5) so the badge tunes without moving SegmentedControl and the docs chrome that share padding-inline.sm.",
+          "$extensions": { "modes": { "light": "{space.micro.6}", "dark": "{space.micro.6}" } }
         }
       },
       "padding-block": {
@@ -1572,6 +1600,12 @@
           "$value": "{space.8}",
           "$description": "2026-10-08 \u00b7 Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. Block padding. Shipped = padding-block.md (8px, today); its own role (CONTEXT finding 5).",
           "$extensions": { "modes": { "light": "{space.8}", "dark": "{space.8}" } }
+        },
+        "badge": {
+          "$type": "dimension",
+          "$value": "{space.micro.2}",
+          "$description": "2026-10-08 \u00b7 Badge (physical-controls Tier 2: an LED dot that glows for live states, Drams LED Switch, mapping #9), tuned in sc-tune. Block padding. Shipped = padding-block.sm (2px, today); its own role (CONTEXT finding 5) so the badge tunes without moving SegmentedControl and the docs chrome that share padding-block.sm.",
+          "$extensions": { "modes": { "light": "{space.micro.2}", "dark": "{space.micro.2}" } }
         }
       },
       "gap": {
@@ -1616,6 +1650,12 @@
           "$value": "{space.24}",
           "$description": "2026-10-08 \u00b7 Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. Offset between the trigger and the arrow tip. Shipped = gap.md (8px, today); its own role (CONTEXT finding 5). Record Tooltip 2026-10-08-2007, concept A (Levi), applied 2026-10-08: 24px (space.24; Levi: offset another 16px so it sits higher); was gap.md 8px.",
           "$extensions": { "modes": { "light": "{space.24}", "dark": "{space.24}" } }
+        },
+        "badge": {
+          "$type": "dimension",
+          "$value": { "value": 0, "unit": "px" },
+          "$description": "2026-10-08 \u00b7 Badge (physical-controls Tier 2: an LED dot that glows for live states, Drams LED Switch, mapping #9), tuned in sc-tune. Gap between the LED and the label. Shipped 0 (no LED, today).",
+          "$extensions": { "modes": { "light": { "value": 0, "unit": "px" }, "dark": { "value": 0, "unit": "px" } } }
         }
       }
     },

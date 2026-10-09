@@ -171,8 +171,8 @@ public enum SCDS {
     public static let semanticVersion = "0.1.0"
     public static let sourceGenerated = "2026-05-26"
     public static let primitivesHash = "41d576559668277a"
-    public static let semanticHash = "df93fc8278248197"
-    public static let tokenCount = 306
+    public static let semanticHash = "34cd224fdcd6add5"
+    public static let tokenCount = 321
   }
 
   // MARK: - Color
@@ -773,6 +773,42 @@ public enum SCDS {
         dark:  (0, 0, 0, 0.12)
     )
 
+    /// `color.badge.led.off`
+    public static let badgeLedOff = SwiftUI.Color.scdsDynamic(
+        light: (0.101961, 0.094118, 0.082353, 0),
+        dark:  (0.101961, 0.094118, 0.082353, 0)
+    )
+
+    /// `color.badge.led.default`
+    public static let badgeLedDefault = SwiftUI.Color.scdsDynamic(
+        light: (0.101961, 0.094118, 0.082353, 0),
+        dark:  (0.101961, 0.094118, 0.082353, 0)
+    )
+
+    /// `color.badge.led.success`
+    public static let badgeLedSuccess = SwiftUI.Color.scdsDynamic(
+        light: (0.101961, 0.094118, 0.082353, 0),
+        dark:  (0.101961, 0.094118, 0.082353, 0)
+    )
+
+    /// `color.badge.led.warning`
+    public static let badgeLedWarning = SwiftUI.Color.scdsDynamic(
+        light: (0.101961, 0.094118, 0.082353, 0),
+        dark:  (0.101961, 0.094118, 0.082353, 0)
+    )
+
+    /// `color.badge.led.error`
+    public static let badgeLedError = SwiftUI.Color.scdsDynamic(
+        light: (0.101961, 0.094118, 0.082353, 0),
+        dark:  (0.101961, 0.094118, 0.082353, 0)
+    )
+
+    /// `color.badge.led.neutral`
+    public static let badgeLedNeutral = SwiftUI.Color.scdsDynamic(
+        light: (0.101961, 0.094118, 0.082353, 0),
+        dark:  (0.101961, 0.094118, 0.082353, 0)
+    )
+
     /// `color.tooltip.surface`
     public static let tooltipSurface = SwiftUI.Color.scdsDynamic(
         light: (1, 1, 1, 1),
@@ -1144,6 +1180,9 @@ public enum SCDS {
     /// `space.component.padding-inline.tooltip`
     public static let componentPaddingInlineTooltip: CGFloat = 12
 
+    /// `space.component.padding-inline.badge`
+    public static let componentPaddingInlineBadge: CGFloat = 6
+
     /// `space.component.padding-block.sm`
     public static let componentPaddingBlockSm: CGFloat = 2
 
@@ -1161,6 +1200,9 @@ public enum SCDS {
 
     /// `space.component.padding-block.tooltip`
     public static let componentPaddingBlockTooltip: CGFloat = 8
+
+    /// `space.component.padding-block.badge`
+    public static let componentPaddingBlockBadge: CGFloat = 2
 
     /// `space.component.gap.sm`
     public static let componentGapSm: CGFloat = 4
@@ -1182,6 +1224,9 @@ public enum SCDS {
 
     /// `space.component.gap.tooltip`
     public static let componentGapTooltip: CGFloat = 24
+
+    /// `space.component.gap.badge`
+    public static let componentGapBadge: CGFloat = 0
   }
 
   // MARK: - Radius
@@ -1234,6 +1279,9 @@ public enum SCDS {
 
   /// Named element sizes, including the touch-target floor.
   public enum Size {
+    /// `size.badge.led`
+    public static let badgeLed: CGFloat = 0
+
     /// `size.tooltip.arrow`
     public static let tooltipArrow: CGFloat = 8
 
@@ -1852,6 +1900,56 @@ public enum SCDS {
         ],
         dark: [
             SCDSShadowLayer(inset: false, x: 0, y: 0, blur: 2, spread: 0, rgb: (0, 0, 0), alpha: 0.7),
+        ]
+    )
+
+    /// `shadow.badge.led.default` · 1 layers
+    public static let badgeLedDefault = SCDSShadow(
+        light: [
+            SCDSShadowLayer(inset: false, x: 0, y: 0, blur: 0, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0),
+        ],
+        dark: [
+            SCDSShadowLayer(inset: false, x: 0, y: 0, blur: 0, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0),
+        ]
+    )
+
+    /// `shadow.badge.led.success` · 1 layers
+    public static let badgeLedSuccess = SCDSShadow(
+        light: [
+            SCDSShadowLayer(inset: false, x: 0, y: 0, blur: 0, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0),
+        ],
+        dark: [
+            SCDSShadowLayer(inset: false, x: 0, y: 0, blur: 0, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0),
+        ]
+    )
+
+    /// `shadow.badge.led.warning` · 1 layers
+    public static let badgeLedWarning = SCDSShadow(
+        light: [
+            SCDSShadowLayer(inset: false, x: 0, y: 0, blur: 0, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0),
+        ],
+        dark: [
+            SCDSShadowLayer(inset: false, x: 0, y: 0, blur: 0, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0),
+        ]
+    )
+
+    /// `shadow.badge.led.error` · 1 layers
+    public static let badgeLedError = SCDSShadow(
+        light: [
+            SCDSShadowLayer(inset: false, x: 0, y: 0, blur: 0, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0),
+        ],
+        dark: [
+            SCDSShadowLayer(inset: false, x: 0, y: 0, blur: 0, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0),
+        ]
+    )
+
+    /// `shadow.badge.led.neutral` · 1 layers
+    public static let badgeLedNeutral = SCDSShadow(
+        light: [
+            SCDSShadowLayer(inset: false, x: 0, y: 0, blur: 0, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0),
+        ],
+        dark: [
+            SCDSShadowLayer(inset: false, x: 0, y: 0, blur: 0, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0),
         ]
     )
 
