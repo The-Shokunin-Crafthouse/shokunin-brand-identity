@@ -1,22 +1,37 @@
 /* tokens:
- *   --sc-size-avatar-xs / sm / md / lg     · 24 / 32 / 48 / 
- *   --sc-radius-pill                       · · full circle
- *   --sc-color-surface-sunk                · initials fallback ground
+ *   --sc-size-avatar-xs / sm / md / lg     · 24 / 32 / 48 / 64
+ *   --sc-radius-avatar                     · full circle (role; = radius.pill)
+ *   --sc-color-avatar-ground               · initials ground, image ground while it loads (role; = surface.sunk)
+ *   --sc-shadow-avatar-ring                · recessed ring over the image (role; zero alpha = flat)
  *   --sc-color-text-primary                · initials ink
  *   --sc-font-text-label-chrome-*          · initials font composition
+ *   --sc-border-width-default              · forced-colors edge
  *
- * scds-v2 Phase 2 — fill-only, no resting outline. The sunk fill alone seats
- * the avatar against the page; the image or initials carry the shape.
+ * physical-controls Tier 2: a recessed ring so the photo sits in the
+ * surface, a porthole lit from the top left. The ring is an inset shadow on
+ * a layer above the image (an inset shadow on the circle itself paints under
+ * the image). It ships flat (zero alpha) until Levi tunes it, and it snaps:
+ * nothing here transitions.
  */
 
 .avatar {
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  border-radius: var(--sc-radius-pill);
-  background-color: var(--sc-color-surface-sunk);
+  border-radius: var(--sc-radius-avatar);
+  background-color: var(--sc-color-avatar-ground);
   flex-shrink: 0;
+}
+
+.avatar::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: var(--sc-shadow-avatar-ring);
+  pointer-events: none;
 }
 
 .xs { width: var(--sc-size-avatar-xs); height: var(--sc-size-avatar-xs); }
@@ -46,3 +61,11 @@
 .sm .initials { font-size: calc(var(--sc-size-avatar-sm) * 0.4); }
 .md .initials { font-size: calc(var(--sc-size-avatar-md) * 0.4); }
 .lg .initials { font-size: calc(var(--sc-size-avatar-lg) * 0.4); }
+
+/* High contrast drops every shadow, so the ring becomes an edge. */
+@media (forced-colors: active) {
+  .avatar {
+    outline: var(--sc-border-width-default) solid CanvasText;
+    outline-offset: calc(-1 * var(--sc-border-width-default));
+  }
+}
