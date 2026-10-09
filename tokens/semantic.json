@@ -1578,9 +1578,9 @@
         },
         "status-pill": {
           "$type": "dimension",
-          "$value": "{space.8}",
-          "$description": "2026-10-08 \u00b7 StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis, the label written by the consumer; physical-controls Tier 2). Inline padding, both sides, every pill (Levi 2026-10-08: 8px each side; the library had 16px).",
-          "$extensions": { "modes": { "light": "{space.8}", "dark": "{space.8}" } }
+          "$value": "{space.12}",
+          "$description": "2026-10-08 \u00b7 StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis, the label written by the consumer; physical-controls Tier 2). Inline padding, both sides, every pill (Levi 2026-10-08: 12px each side, after 8px; the library had 16px).",
+          "$extensions": { "modes": { "light": "{space.12}", "dark": "{space.12}" } }
         }
       },
       "padding-block": {
@@ -1622,9 +1622,9 @@
         },
         "status-pill": {
           "$type": "dimension",
-          "$value": "{space.micro.2}",
-          "$description": "2026-10-08 \u00b7 StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis, the label written by the consumer; physical-controls Tier 2). Block padding, from the library (2px): a 21px pill with the 11px chrome label.",
-          "$extensions": { "modes": { "light": "{space.micro.2}", "dark": "{space.micro.2}" } }
+          "$value": "{space.4}",
+          "$description": "2026-10-08 \u00b7 StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis, the label written by the consumer; physical-controls Tier 2). Block padding (Levi 2026-10-08: vertical 4 to 8, read as the top and bottom together, 4px each; the library had 2px): a 24.5px pill with the 11px chrome label.",
+          "$extensions": { "modes": { "light": "{space.4}", "dark": "{space.4}" } }
         }
       },
       "gap": {

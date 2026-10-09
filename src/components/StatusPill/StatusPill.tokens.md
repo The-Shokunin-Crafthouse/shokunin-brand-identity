@@ -1,6 +1,6 @@
 # StatusPill · token consumption
 
-Spec ref: §2 Tier 3 · 3.2 (was Badge). 2026-10-08: Badge and Pill fold into StatusPill (Levi). Height, gap, radius and label from the library StatusPill set; padding 8px each side (Levi).
+Spec ref: §2 Tier 3 · 3.2 (was Badge). 2026-10-08: Badge and Pill fold into StatusPill (Levi). Height, gap, radius and label from the library StatusPill set; padding 12px by 4px (Levi).
 
 ## API
 
@@ -17,8 +17,8 @@ The live tone sets its label in capitals (LIVE). The neutral tone (planned) has 
 
 | Token | Use |
 |---|---|
-| `--sc-space-component-padding-inline-status-pill` | inline padding, both sides (8px) |
-| `--sc-space-component-padding-block-status-pill` | block padding (2px; a 21px pill) |
+| `--sc-space-component-padding-inline-status-pill` | inline padding, both sides (12px) |
+| `--sc-space-component-padding-block-status-pill` | block padding (4px; a 24.5px pill) |
 | `--sc-space-component-gap-status-pill` | glyph to label (6px) |
 | `--sc-radius-status-pill` | capsule (radius.pill) |
 | `--sc-border-width-default` | outline edge, drawn inside (no size change) |

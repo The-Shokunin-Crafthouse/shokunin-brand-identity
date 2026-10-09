@@ -5,7 +5,7 @@
 # Design Token Map — The Shokunin Crafthouse · Brand Identity
 
 **Generated** from `tokens/primitives.json` + `tokens/semantic.json`.
-**Source fingerprint:** `9fbf56d99d7b` · **187 primitives · 330 semantic tokens.**
+**Source fingerprint:** `27b74fd20274` · **187 primitives · 330 semantic tokens.**
 
 > **This file is a mirror, not the source.** `tokens/*.json` is upstream; this document and the Figma
 > library are generated from / synced to it. It previously claimed the opposite — that both were
@@ -721,14 +721,14 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | `space/component/padding-inline/button-sm` | `--sc-space-component-padding-inline-button-sm` | `space/16` | `16px` | `space/16` | `16px` | Small Button inline padding (16px). |
 | `space/component/padding-inline/input` | `--sc-space-component-padding-inline-input` | `space/16` | `16px` | `space/16` | `16px` | 2026-10-07 · Input material (physical-controls Tier 1: a true recessed well, the focus underline stays, a hover state), tuned in sc-tune. |
 | `space/component/padding-inline/tooltip` | `--sc-space-component-padding-inline-tooltip` | `space/12` | `12px` | `space/12` | `12px` | 2026-10-08 · Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. |
-| `space/component/padding-inline/status-pill` | `--sc-space-component-padding-inline-status-pill` | `space/8` | `8px` | `space/8` | `8px` | 2026-10-08 · StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis, the label written by the consumer; physical-controls Tier 2). |
+| `space/component/padding-inline/status-pill` | `--sc-space-component-padding-inline-status-pill` | `space/12` | `12px` | `space/12` | `12px` | 2026-10-08 · StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis, the label written by the consumer; physical-controls Tier 2). |
 | `space/component/padding-block/sm` | `--sc-space-component-padding-block-sm` | `space/micro/2` | `2px` | `space/micro/2` | `2px` | Sprint 4 addition · ultra-thin block padding (2px). |
 | `space/component/padding-block/md` | `--sc-space-component-padding-block-md` | `space/8` | `8px` | `space/8` | `8px` | Sprint 4 addition · default block padding (8px). |
 | `space/component/padding-block/lg` | `--sc-space-component-padding-block-lg` | `space/12` | `12px` | `space/12` | `12px` | Sprint 4 addition · generous block padding (12px). |
 | `space/component/padding-block/button-sm` | `--sc-space-component-padding-block-button-sm` | `space/4` | `4px` | `space/4` | `4px` | Small Button block padding (4px, the dense 4pt step). |
 | `space/component/padding-block/input` | `--sc-space-component-padding-block-input` | `space/12` | `12px` | `space/12` | `12px` | 2026-10-07 · Input material (physical-controls Tier 1: a true recessed well, the focus underline stays, a hover state), tuned in sc-tune. |
 | `space/component/padding-block/tooltip` | `--sc-space-component-padding-block-tooltip` | `space/8` | `8px` | `space/8` | `8px` | 2026-10-08 · Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. |
-| `space/component/padding-block/status-pill` | `--sc-space-component-padding-block-status-pill` | `space/micro/2` | `2px` | `space/micro/2` | `2px` | 2026-10-08 · StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis, the label written by the consumer; physical-controls Tier 2). |
+| `space/component/padding-block/status-pill` | `--sc-space-component-padding-block-status-pill` | `space/4` | `4px` | `space/4` | `4px` | 2026-10-08 · StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis, the label written by the consumer; physical-controls Tier 2). |
 | `space/component/gap/sm` | `--sc-space-component-gap-sm` | `space/4` | `4px` | `space/4` | `4px` | Sprint 4 addition · tightest inter-element gap (4px). |
 | `space/component/gap/md` | `--sc-space-component-gap-md` | `space/8` | `8px` | `space/8` | `8px` | Sprint 4 addition · default inter-element gap (8px). |
 | `space/component/gap/lg` | `--sc-space-component-gap-lg` | `space/12` | `12px` | `space/12` | `12px` | Sprint 4 addition · generous gap (12px). |

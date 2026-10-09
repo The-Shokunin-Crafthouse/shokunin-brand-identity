@@ -171,7 +171,7 @@ public enum SCDS {
     public static let semanticVersion = "0.1.0"
     public static let sourceGenerated = "2026-05-26"
     public static let primitivesHash = "41d576559668277a"
-    public static let semanticHash = "d4058a91e7127a4a"
+    public static let semanticHash = "c5541c30c8000b0c"
     public static let tokenCount = 330
   }
 
@@ -1217,7 +1217,7 @@ public enum SCDS {
     public static let componentPaddingInlineTooltip: CGFloat = 12
 
     /// `space.component.padding-inline.status-pill`
-    public static let componentPaddingInlineStatusPill: CGFloat = 8
+    public static let componentPaddingInlineStatusPill: CGFloat = 12
 
     /// `space.component.padding-block.sm`
     public static let componentPaddingBlockSm: CGFloat = 2
@@ -1238,7 +1238,7 @@ public enum SCDS {
     public static let componentPaddingBlockTooltip: CGFloat = 8
 
     /// `space.component.padding-block.status-pill`
-    public static let componentPaddingBlockStatusPill: CGFloat = 2
+    public static let componentPaddingBlockStatusPill: CGFloat = 4
 
     /// `space.component.gap.sm`
     public static let componentGapSm: CGFloat = 4
