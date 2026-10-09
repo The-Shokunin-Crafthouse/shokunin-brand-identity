@@ -57,7 +57,7 @@ that needs the real node URLs.
 | Button | `Button/Button.figma.tsx` | ✅ code wired 1:1 · ✅ Figma node-id + prop names confirmed (2026-09-11) · publish still plan-gated |
 | Alert | — | ☐ TODO |
 | Avatar | — | ☐ TODO |
-| Badge | — | ☐ TODO |
+| StatusPill | `9:767` | ☐ TODO |
 | Card | — | ☐ TODO |
 | Divider | — | ☐ TODO |
 | Icon | — | ☐ TODO |

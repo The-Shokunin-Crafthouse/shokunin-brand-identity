@@ -11,7 +11,7 @@
 import { useState } from 'react';
 import { Section, Metabar, Hero, Chapter, Accent, Em, Slash, kit } from './_kit/Editorial.jsx';
 import { Button } from '../components/Button/Button.jsx';
-import { Badge } from '../components/Badge/Badge.jsx';
+import { StatusPill } from '../components/StatusPill/StatusPill.jsx';
 import { Card } from '../components/Card/Card.jsx';
 import { Input } from '../components/Input/Input.jsx';
 import { Alert } from '../components/Alert/Alert.jsx';
@@ -65,9 +65,9 @@ export function SpecimenSection() {
       <Chapter
         ord="i"
         eyebrow="Feedback / says something back"
-        title="Button, Badge, Alert."
+        title="Button, StatusPill, Alert."
         premise="The components that respond — an action to take, a state to read, a message to answer. All three carry status through the same semantic colour layer."
-        annotations={[{ title: 'Shared signal', body: 'Button, Badge, and Alert all read status from the same tokens. A success is the same olive in all three.' }]}
+        annotations={[{ title: 'Shared signal', body: 'Button, StatusPill, and Alert all read status from the same tokens. A success is the same green in all three.' }]}
       >
         <div className={styles.blocks}>
           <Block name="Button" count="6 states">
@@ -80,13 +80,15 @@ export function SpecimenSection() {
               <Button loading>Saving</Button>
             </div>
           </Block>
-          <Block name="Badge" count="5 variants">
+          <Block name="StatusPill" count="7 tones">
             <div className={styles.row}>
-              <Badge>Studio</Badge>
-              <Badge variant="success">Shipped</Badge>
-              <Badge variant="warning">In review</Badge>
-              <Badge variant="error">Failed</Badge>
-              <Badge variant="neutral">Draft</Badge>
+              <StatusPill tone="progress">In progress</StatusPill>
+              <StatusPill tone="live">Live</StatusPill>
+              <StatusPill tone="success">Shipped</StatusPill>
+              <StatusPill tone="warning">In review</StatusPill>
+              <StatusPill tone="error">Failed</StatusPill>
+              <StatusPill tone="info">Info</StatusPill>
+              <StatusPill tone="neutral" emphasis="outline">Draft</StatusPill>
             </div>
           </Block>
           <Block name="Alert" count="4 variants" wide>
