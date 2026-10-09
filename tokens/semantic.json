@@ -913,9 +913,6 @@
     },
     "tooltip": {
       "plate": { "$type": "shadow", "$value": "2px 2px 6px 0 rgb(100 91 79 / 0.50)", "$description": "2026-10-08 \u00b7 Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. Shadow of the plate. Shipped with zero alpha (flat, today); the lab starts concept A from shadow.control.key, the Button key, lit from the top left. Tooltip.jsx turns each outer layer into a drop-shadow filter, so the shadow follows the bubble and its rounded arrow as one shape; spread and inset layers do not render (Levi 2026-10-08: only a drop shadow, no highlight). Snaps, never transitions (tokens:verify rule 6). Record Tooltip 2026-10-08-2007, concept A (Levi), applied 2026-10-08: the Button key shade without its highlight (Levi: only a drop shadow, no border), light 2px 2px 6px warm gray 50%, dark 3px 3px 7px black 50%; was zero alpha (no shadow).", "$extensions": {"modes": {"light": "2px 2px 6px 0 rgb(100 91 79 / 0.50)", "dark": "3px 3px 7px 0 rgb(0 0 0 / 0.50)"}}}
-    },
-    "avatar": {
-      "ring": { "$type": "shadow", "$value": "inset 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)", "$description": "2026-10-08 \u00b7 Avatar (physical-controls Tier 2: a recessed ring so the photo sits in the surface, a porthole), tuned in sc-tune. Recess of the ring, drawn over the image so the photo sits below the surface. Shipped with zero alpha (flat, today); the lab starts concept A from the top-left recess (SegmentedControl 1645 track), per mode. Snaps, never transitions (tokens:verify rule 6).", "$extensions": { "modes": { "light": "inset 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)", "dark": "inset 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)" } } }
     }
   },
   "motion": {

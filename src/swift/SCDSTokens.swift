@@ -171,8 +171,8 @@ public enum SCDS {
     public static let semanticVersion = "0.1.0"
     public static let sourceGenerated = "2026-05-26"
     public static let primitivesHash = "41d576559668277a"
-    public static let semanticHash = "80e0688ee2b8827a"
-    public static let tokenCount = 333
+    public static let semanticHash = "b0e2096af01de82e"
+    public static let tokenCount = 332
   }
 
   // MARK: - Color
@@ -1979,16 +1979,6 @@ public enum SCDS {
         ],
         dark: [
             SCDSShadowLayer(inset: false, x: 3, y: 3, blur: 7, spread: 0, rgb: (0, 0, 0), alpha: 0.5),
-        ]
-    )
-
-    /// `shadow.avatar.ring` · 1 layers
-    public static let avatarRing = SCDSShadow(
-        light: [
-            SCDSShadowLayer(inset: true, x: 0, y: 0, blur: 0, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0),
-        ],
-        dark: [
-            SCDSShadowLayer(inset: true, x: 0, y: 0, blur: 0, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0),
         ]
     )
   }

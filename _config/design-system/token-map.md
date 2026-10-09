@@ -5,7 +5,7 @@
 # Design Token Map — The Shokunin Crafthouse · Brand Identity
 
 **Generated** from `tokens/primitives.json` + `tokens/semantic.json`.
-**Source fingerprint:** `c8bcf89b88e9` · **187 primitives · 333 semantic tokens.**
+**Source fingerprint:** `6f929a16d6a2` · **187 primitives · 332 semantic tokens.**
 
 > **This file is a mirror, not the source.** `tokens/*.json` is upstream; this document and the Figma
 > library are generated from / synced to it. It previously claimed the opposite — that both were
@@ -991,12 +991,6 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
 |---|---|---|---|---|---|---|
 | `shadow/tooltip/plate` | `--sc-shadow-tooltip-plate` | _literal_ | `2px 2px 6px 0 rgb(100 91 79 / 0.50)` | _literal_ | `3px 3px 7px 0 rgb(0 0 0 / 0.50)` | 2026-10-08 · Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. |
-
-#### `shadow/avatar`
-
-| Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
-|---|---|---|---|---|---|---|
-| `shadow/avatar/ring` | `--sc-shadow-avatar-ring` | _literal_ | `inset 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)` | _literal_ | `inset 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)` | 2026-10-08 · Avatar (physical-controls Tier 2: a recessed ring so the photo sits in the surface, a porthole), tuned in sc-tune. |
 
 ### Size · Semantic
 

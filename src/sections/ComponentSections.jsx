@@ -369,7 +369,7 @@ export function SwitchPage() {
 export function AvatarPage() {
   return (
     <ComponentPage
-      id="avatar" label="Avatar" tokensN={10}
+      id="avatar" label="Avatar" tokensN={9}
       eyebrow={<>Avatar<Slash />four sizes, one fallback</>}
       title={<>Image first. <Em>Initials when it fails.</Em></>}
       lead={<>The avatar is a circle at one of four token-driven sizes. An image fills it; when there is no image, or the image fails to load, it falls back to initials on the sunk ground. The fallback is automatic — a broken image never shows.</>}
@@ -394,7 +394,6 @@ export function AvatarPage() {
         { prop: 'Size · lg', token: '--sc-size-avatar-lg' },
         { prop: 'Radius', token: '--sc-radius-avatar' },
         { prop: 'Fallback ground', token: '--sc-color-avatar-ground' },
-        { prop: 'Ring', token: '--sc-shadow-avatar-ring' },
         { prop: 'Initials ink', token: '--sc-color-text-primary' },
         { prop: 'Initials type', token: '--sc-font-text-label-chrome', light: '11 / medium / caps' },
         { prop: 'Forced-colors edge', token: '--sc-border-width-default' },

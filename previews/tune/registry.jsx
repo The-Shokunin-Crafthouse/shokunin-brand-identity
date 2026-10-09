@@ -590,13 +590,9 @@ export const REGISTRY = {
   },
   Avatar: {
     css: [avatarCss],
-    // Physical-controls Tier 2: a recessed ring so the photo sits in the
-    // surface (a porthole), lit from the top left. Ships flat (zero alpha).
-    // The ground behind it is the View panel's ground (page, raised, sunk,
+    // Physical-controls Tier 2: Avatar stays flat (Levi, 2026-10-08). The
+    // ground behind it is the View panel's ground (page, raised, sunk,
     // floating), shared by every stage.
-    // Seed (Claude's start, not a pick): the ring is the top-left recess,
-    // record SegmentedControl 2026-10-07-1645 track, per mode.
-    seed: { scoped: perMode((m) => ({ '--sc-shadow-avatar-ring': m.recess })) },
     shippedSound: null,
     trigger: 'ships silent',
     props: [
