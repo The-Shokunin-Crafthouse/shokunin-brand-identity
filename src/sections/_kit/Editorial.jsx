@@ -16,7 +16,19 @@
  */
 
 import { Fragment } from 'react';
+import { PlusSeparator } from '../../components/PlusSeparator/PlusSeparator.jsx';
+import consumers from '../../meta/consumers.json';
 import styles from './editorial.module.css';
+
+// Build-time date of the last commit (vite.config.js define), so the
+// header moves with every merge instead of holding a hand-typed date.
+const REVISED = typeof __SCDS_REVISED__ === 'undefined' ? '' : __SCDS_REVISED__;
+// Repos that receive SCDS changes automatically · src/meta/consumers.json.
+const META = [
+  ['Last revised', REVISED],
+  ['Repos', String(consumers.length)],
+  ['Status', 'Stable'],
+];
 
 // Slash separator — always lighter than adjacent text (design rule).
 export function Slash() { return <span className={styles.slash}> / </span>; }
@@ -29,6 +41,28 @@ export function withSlash(str) {
   ));
 }
 
+/**
+ * ChapterEyebrow — the chapter's ordinal on an accent disc, then the
+ * eyebrow phrase on a floating pill. Parts split on '·' or '/' and are
+ * joined by a PlusSeparator (Figma Color — DL, node 2147:217, 2026-10-09).
+ */
+export function ChapterEyebrow({ ord, children }) {
+  const parts = String(children).split(/\s*[·/]\s*/);
+  return (
+    <div className={styles.chapterEyebrow}>
+      <span className={styles.ord}>{ord}</span>
+      <span className={styles.eyebrowPill}>
+        {parts.map((p, i) => (
+          <Fragment key={i}>
+            <span>{p}</span>
+            {i < parts.length - 1 && <PlusSeparator />}
+          </Fragment>
+        ))}
+      </span>
+    </div>
+  );
+}
+
 /** Page wrapper — sets the content/gutter column constants + max width. */
 export function Section({ id, labelledBy, children }) {
   return (
@@ -39,11 +73,12 @@ export function Section({ id, labelledBy, children }) {
 }
 
 /**
- * Metabar — the LAST REVISED / TOKENS N / SPEC v1.2 / STATUS COMPLETE
- * header bar. `meta` is an ordered list of [label, value] pairs; the
- * Status value renders in the success hue when it reads "Complete".
+ * Metabar — the LAST REVISED / REPOS N / SPEC v1.2 / STATUS STABLE header
+ * bar. Every page shows the same system-level facts; Repos counts the
+ * consumers that pick up a change here without a hand sync.
  */
-export function Metabar({ ord, crumb, meta = [] }) {
+export function Metabar({ ord, crumb, spec = 'v1.2' }) {
+  const meta = [...META.slice(0, 2), ['Spec', spec], META[2]];
   return (
     <div className={styles.metabar}>
       <div className={styles.crumb}>
@@ -51,15 +86,12 @@ export function Metabar({ ord, crumb, meta = [] }) {
         {withSlash(crumb)}
       </div>
       <div className={styles.metaRight}>
-        {meta.map(([label, value]) => {
-          const complete = label.toLowerCase() === 'status' && /complete/i.test(value);
-          return (
-            <span key={label}>
-              <b>{label}</b>{' '}
-              <span className={complete ? styles.statusComplete : undefined}>{value}</span>
-            </span>
-          );
-        })}
+        {meta.map(([label, value]) => (
+          <span key={label}>
+            <b>{label}</b>{' '}
+            <span className={label === 'Status' ? styles.statusStable : undefined}>{value}</span>
+          </span>
+        ))}
       </div>
     </div>
   );
@@ -89,11 +121,7 @@ export function Chapter({ ord, eyebrow, title, premise, annotations = [], childr
   return (
     <section className={styles.chapter}>
       <div className={styles.chapterHead}>
-        <div className={styles.chapterEyebrow}>
-          <span className={styles.ord}>{ord}</span>
-          <span className={styles.dot} />
-          <span>{withSlash(eyebrow)}</span>
-        </div>
+        <ChapterEyebrow ord={ord}>{eyebrow}</ChapterEyebrow>
         <h2 className={styles.chapterTitle}>{title}</h2>
         {premise && <p className={styles.premise}>{premise}</p>}
       </div>

@@ -4,7 +4,6 @@
  * ============================================================ */
 
 .checker {
-  border: var(--sc-border-width-default) solid var(--sc-color-border-default);
   border-radius: var(--sc-radius-control); overflow: hidden;
   background: var(--sc-color-surface-raised);
 }
@@ -14,14 +13,14 @@
 .regChip {
   padding: var(--sc-space-component-padding-block-sm) var(--sc-space-component-padding-inline-md);
   background: var(--sc-color-surface-sunk);
-  border: var(--sc-border-width-default) solid var(--sc-color-border-default);
   border-radius: var(--sc-radius-control);
   color: var(--sc-color-text-secondary);
   font: var(--sc-font-text-mono-chrome); letter-spacing: 0; cursor: pointer;
-  transition: color var(--sc-motion-hover-duration) var(--sc-motion-hover-easing), border-color var(--sc-motion-hover-duration) var(--sc-motion-hover-easing);
+  transition: color var(--sc-motion-hover-duration) var(--sc-motion-hover-easing);
+  border: 0;
 }
-.regChip:hover { color: var(--sc-color-interactive-hover); border-color: var(--sc-color-interactive-hover); }
-.regChipSel { color: var(--sc-color-text-on-accent); background: var(--sc-color-brand-accent); border-color: var(--sc-color-brand-accent); }
+.regChip:hover { color: var(--sc-color-interactive-hover);}
+.regChipSel { color: var(--sc-color-text-on-accent); background: var(--sc-color-brand-accent);}
 
 .srLabel { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .textarea {
@@ -41,40 +40,38 @@
   appearance: none; cursor: pointer;
   padding: var(--sc-space-component-padding-block-md) var(--sc-space-component-padding-inline-lg);
   background: var(--sc-color-brand-accent); color: var(--sc-color-text-on-accent);
-  border: var(--sc-border-width-default) solid var(--sc-color-brand-accent);
   border-radius: var(--sc-radius-control);
   font: var(--sc-font-text-label-chrome); letter-spacing: var(--sc-font-text-label-chrome-letter-spacing); text-transform: uppercase;
   transition: filter var(--sc-motion-press-duration) var(--sc-motion-press-easing);
+  border: 0;
 }
 .run:hover { filter: brightness(1.05); }
 .run:active { transform: scale(var(--sc-motion-press-scale)); }
-.run:disabled { background: var(--sc-color-text-disabled); border-color: var(--sc-color-text-disabled); cursor: progress; }
+.run:disabled { background: var(--sc-color-text-disabled);cursor: progress; }
 .reset {
-  appearance: none; cursor: pointer; background: transparent;
+  appearance: none; cursor: pointer; background: var(--sc-color-surface-sunk);
   padding: var(--sc-space-component-padding-block-md) var(--sc-space-component-padding-inline-md);
-  border: var(--sc-border-width-default) solid var(--sc-color-border-default);
   border-radius: var(--sc-radius-control);
   color: var(--sc-color-text-secondary);
   font: var(--sc-font-text-label-chrome); letter-spacing: var(--sc-font-text-label-chrome-letter-spacing); text-transform: uppercase;
+  border: 0;
 }
-.reset:hover { color: var(--sc-color-interactive-hover); border-color: var(--sc-color-interactive-hover); }
+.reset:hover { color: var(--sc-color-interactive-hover);}
 
 /* ── Result ──────────────────────────────────────────────── */
-.result { border-top: var(--sc-border-width-default) solid var(--sc-color-border-default); }
 .resultHead {
   display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--sc-space-component-gap-lg);
   padding: var(--sc-space-component-padding-md) var(--sc-space-component-padding-lg);
   background: var(--sc-color-surface-sunk);
-  border-bottom: var(--sc-border-width-default) solid var(--sc-color-border-default);
 }
 .verdict {
   font: var(--sc-font-text-mono-chrome); letter-spacing: var(--sc-font-text-mono-chrome-letter-spacing); text-transform: uppercase;
   padding-inline: var(--sc-space-component-padding-inline-sm); padding-block: var(--sc-space-component-padding-block-sm);
-  border: var(--sc-border-width-default) solid currentColor; border-radius: var(--sc-radius-control);
+border-radius: var(--sc-radius-control);
 }
-.vGood { color: var(--sc-color-status-success); }
-.vMid { color: var(--sc-color-status-warning); }
-.vBad { color: var(--sc-color-status-error); }
+.vGood { color: var(--sc-color-status-pill-success-ink); background: var(--sc-color-status-pill-success-fill); }
+.vMid { color: var(--sc-color-status-pill-warning-ink); background: var(--sc-color-status-pill-warning-fill); }
+.vBad { color: var(--sc-color-status-pill-error-ink); background: var(--sc-color-status-pill-error-fill); }
 .avg { font: var(--sc-font-text-mono-caption); color: var(--sc-color-text-primary); }
 .avgMax { color: var(--sc-color-text-disabled); }
 .source { margin-left: auto; font: var(--sc-font-text-mono-chrome); letter-spacing: 0; color: var(--sc-color-text-disabled); }
@@ -95,7 +92,7 @@
 .scoreNum { font: var(--sc-font-text-mono-caption); color: var(--sc-color-text-secondary); }
 .scoreWhy { grid-column: 2; font: var(--sc-font-text-caption); color: var(--sc-color-text-secondary); }
 
-.flags { padding: var(--sc-space-component-padding-lg); display: flex; flex-direction: column; gap: var(--sc-space-component-gap-lg); border-top: var(--sc-border-width-default) solid var(--sc-color-border-default); }
+.flags { padding: var(--sc-space-component-padding-lg); display: flex; flex-direction: column; gap: var(--sc-space-component-gap-lg);}
 .flagsHead { font: var(--sc-font-text-mono-chrome); letter-spacing: var(--sc-font-text-mono-chrome-letter-spacing); text-transform: uppercase; color: var(--sc-color-text-secondary); }
 .flag { display: flex; flex-direction: column; gap: var(--sc-space-component-gap-sm); padding-left: var(--sc-p-space-12); border-left: var(--sc-border-width-accent) solid var(--sc-color-status-error); }
 .flagCat { font: var(--sc-font-text-mono-chrome); letter-spacing: 0; color: var(--sc-color-status-error); }

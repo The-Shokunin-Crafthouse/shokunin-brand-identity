@@ -101,12 +101,7 @@ export function MotionSection() {
       <Metabar
         ord="01"
         crumb="Foundations / Motion"
-        meta={[
-          ['Last revised', '2026.10.07'],
-          ['Tokens', '19'],
-          ['Spec', 'v2.0'],
-          ['Status', 'Complete'],
-        ]}
+        spec="v2.0"
       />
 
       <Hero

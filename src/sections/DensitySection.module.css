@@ -8,7 +8,6 @@
 .levels { display: flex; flex-direction: column; gap: var(--sc-space-layout-stack-sm); }
 .level {
   margin: 0;
-  border: var(--sc-border-width-default) solid var(--sc-color-border-default);
   border-radius: var(--sc-radius-control); overflow: hidden;
   background: var(--sc-color-surface-raised);
 }
@@ -16,7 +15,6 @@
   display: flex; flex-wrap: wrap; align-items: center; gap: var(--sc-space-component-gap-md);
   padding: var(--sc-space-component-padding-md) var(--sc-space-component-padding-lg);
   background: var(--sc-color-surface-sunk);
-  border-bottom: var(--sc-border-width-default) solid var(--sc-color-border-default);
 }
 .levelTag { font: var(--sc-font-text-mono-chrome); letter-spacing: var(--sc-font-text-mono-chrome-letter-spacing); text-transform: uppercase; color: var(--sc-color-text-primary); }
 .levelCount { margin-left: auto; font: var(--sc-font-text-mono-chrome); letter-spacing: 0; color: var(--sc-color-text-disabled); }
@@ -24,7 +22,6 @@
 .levelNote {
   padding: var(--sc-space-component-padding-md) var(--sc-space-component-padding-lg);
   font: var(--sc-font-text-mono-caption); color: var(--sc-color-text-secondary);
-  border-top: var(--sc-border-width-default) solid var(--sc-color-border-subtle);
 }
 
 /* ── Word-range scale ────────────────────────────────────── */
@@ -63,7 +60,6 @@
 .compRule {
   padding: var(--sc-space-component-padding-md) var(--sc-space-component-padding-lg);
   font: var(--sc-font-text-caption); color: var(--sc-color-text-secondary);
-  border-top: var(--sc-border-width-default) solid var(--sc-color-border-subtle);
 }
 /* The kit panel clips its overflow · a raised tip needs stack-xl above the
    trigger and a centred trigger so its overhang clears both edges */

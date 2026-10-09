@@ -15,6 +15,7 @@
 
 import { Fragment, useEffect, useMemo, useRef, useState } from 'react';
 import { useTheme } from '../theme/ThemeProvider.jsx';
+import { Metabar, ChapterEyebrow } from './_kit/Editorial.jsx';
 import styles from './ColorSection.module.css';
 
 // Slash separator — always lighter than adjacent text per design rule.
@@ -161,14 +162,7 @@ export function ColorSection() {
       <span ref={probeRef} className={styles.probe} aria-hidden="true" />
 
       {/* META BAR */}
-      <div className={styles.metabar}>
-        <div className={styles.crumb}><span className={styles.crumbAccent}>01</span>Foundations / Color</div>
-        <div className={styles.metaRight}>
-          <span><b>Last revised</b> 2026.05.27</span>
-          <span><b>Tokens</b> 88</span>
-          <span><b>Spec</b> v1.2</span>
-        </div>
-      </div>
+      <Metabar ord="01" crumb="Foundations / Color" />
 
       {/* HERO */}
       <header className={styles.hero}>
@@ -184,7 +178,7 @@ export function ColorSection() {
       {/* i · THE ROOM */}
       <section className={styles.chapter}>
         <div className={styles.chapterHead}>
-          <div className={styles.chapterEyebrow}><span className={styles.ord}>i</span><span className={styles.dot} /><span>The room<Slash />warm-gray Ladder</span></div>
+          <ChapterEyebrow ord="i">The room / warm-gray ladder</ChapterEyebrow>
           <h2 className={styles.chapterTitle}>Thirteen steps. One hue. Built to absorb friction.</h2>
           <p className={styles.premise}>The page sits at warmGray.100. Ink sits at warmGray.800. The other eleven steps exist so the surface between them never has to fight to read.</p>
         </div>
@@ -232,7 +226,7 @@ export function ColorSection() {
       {/* ii · THE SIGNAL */}
       <section className={styles.chapter}>
         <div className={styles.chapterHead}>
-          <div className={styles.chapterEyebrow}><span className={styles.ord}>ii</span><span className={styles.dot} /><span>The signal<Slash />teal</span></div>
+          <ChapterEyebrow ord="ii">The signal / teal</ChapterEyebrow>
           <h2 className={styles.chapterTitle}>One teal. Three jobs. Nothing else.</h2>
           <p className={styles.premise}>Teal marks the cursor&rsquo;s intent — hover, focus, the studio mark&rsquo;s accent surface. If you catch it doing decorative work on a page, the page is wrong.</p>
         </div>
@@ -268,7 +262,7 @@ export function ColorSection() {
       {/* iii · OUTSIDE THE BAND */}
       <section className={styles.chapter}>
         <div className={styles.chapterHead}>
-          <div className={styles.chapterEyebrow}><span className={styles.ord}>iii</span><span className={styles.dot} /><span>Outside the band<Slash />status</span></div>
+          <ChapterEyebrow ord="iii">Outside the band / status</ChapterEyebrow>
           <h2 className={styles.chapterTitle}>Four independent hues. None of them the accent.</h2>
           <p className={styles.premise}>Error is oxblood, not red. When a screen says danger, the brand and the warning cannot be mistaken for each other. Each status carries a light pair and a dark pair, both calibrated AA on the ground beneath them.</p>
         </div>
@@ -295,7 +289,7 @@ export function ColorSection() {
       {/* iv · THREE-TIER */}
       <section className={styles.chapter}>
         <div className={styles.chapterHead}>
-          <div className={styles.chapterEyebrow}><span className={styles.ord}>iv</span><span className={styles.dot} /><span>Resolution<Slash />three tiers</span></div>
+          <ChapterEyebrow ord="iv">Resolution / three tiers</ChapterEyebrow>
           <h2 className={styles.chapterTitle}>A primitive holds the value. A semantic gives it a role.</h2>
           <p className={styles.premise}>Components consume only the middle column. Raw hex at the call site is a bug, not a shortcut. The resolution path below is the only path the system permits.</p>
         </div>
@@ -333,7 +327,7 @@ export function ColorSection() {
       {/* v · THE CHECKER */}
       <section className={styles.chapter}>
         <div className={styles.chapterHead}>
-          <div className={styles.chapterEyebrow}><span className={styles.ord}>v</span><span className={styles.dot} /><span>Contrast<Slash />the measurement</span></div>
+          <ChapterEyebrow ord="v">Contrast / the measurement</ChapterEyebrow>
           <h2 className={styles.chapterTitle}>Contrast is a measurement, not an instinct.</h2>
           <p className={styles.premise}>Every text-and-surface pairing has a number. The number decides. Body must pass AA; legal passes AAA. Pick any two values above, then read the verdict.</p>
         </div>

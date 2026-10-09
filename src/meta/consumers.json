@@ -1,0 +1,5 @@
+[
+  { "repo": "client-portal", "via": "repository_dispatch (deploy.yml, publish-package.yml)" },
+  { "repo": "shokunin-crafthouse-site", "via": "repository_dispatch (deploy.yml, publish-package.yml)" },
+  { "repo": "studio-pm", "via": "file: dependency on ../shokunin-brand-identity" }
+]

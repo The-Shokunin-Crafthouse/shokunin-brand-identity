@@ -46,7 +46,6 @@ export function DensitySection() {
       <Metabar
         ord="04"
         crumb="Voice / Density"
-        meta={[['Last revised', '2026.06.05'], ['Levels', '3'], ['Spec', 'v1.2'], ['Status', 'Complete']]}
       />
 
       <Hero
