@@ -42,7 +42,7 @@
 .crumbAccent { color: var(--sc-color-brand-accent); margin-right: var(--sc-space-component-gap-md); }
 .metaRight { display: flex; flex-wrap: wrap; gap: var(--sc-space-layout-stack-md); color: var(--sc-color-text-disabled); }
 .metaRight b { font-weight: var(--sc-p-font-weight-medium); color: var(--sc-color-text-secondary); }
-.statusComplete { color: var(--sc-color-status-success); }
+.statusStable { color: var(--sc-color-status-success); }
 
 /* ── Hero ────────────────────────────────────────────────── */
 .hero { max-width: var(--col-content); margin-bottom: var(--sc-space-layout-stack-xl); }
@@ -78,14 +78,31 @@
 .chapter:first-of-type { } /* keep first chapter rule for visual rhythm */
 .chapterHead { max-width: var(--col-content); margin-bottom: var(--sc-space-layout-stack-lg); }
 .chapterEyebrow {
-  display: flex; gap: var(--sc-space-component-gap-md); align-items: baseline;
-  font: var(--sc-font-text-mono-chrome);
-  letter-spacing: var(--sc-font-text-mono-chrome-letter-spacing);
-  text-transform: uppercase; color: var(--sc-color-text-disabled);
+  display: flex; flex-wrap: wrap; align-items: center; gap: var(--sc-space-component-gap-lg);
   margin-bottom: var(--sc-space-layout-stack-md);
 }
-.ord { color: var(--sc-color-text-secondary); }
-.dot { width: var(--sc-p-space-4); height: var(--sc-p-space-4); background: var(--sc-color-brand-accent); align-self: center; }
+/* Ordinal disc · teal fill under white: accent-fill (teal-600) holds AA at
+ * 11px where brand-accent (teal-500) would not. Content-box + 1lh min width
+ * keeps "i" a circle and lets "iii" grow into a pill. */
+.ord {
+  box-sizing: content-box;
+  display: inline-flex; align-items: center; justify-content: center;
+  min-inline-size: 1lh; padding: var(--sc-p-space-4);
+  border-radius: var(--sc-radius-pill);
+  background: var(--sc-color-brand-accent-fill);
+  color: var(--sc-color-text-on-accent);
+  font: var(--sc-font-text-mono-chrome);
+  letter-spacing: var(--sc-font-text-mono-chrome-letter-spacing);
+}
+.eyebrowPill {
+  display: inline-flex; flex-wrap: wrap; align-items: center; gap: var(--sc-space-component-gap-sm);
+  padding: var(--sc-p-space-4) var(--sc-p-space-8);
+  border-radius: var(--sc-radius-pill);
+  background: var(--sc-color-surface-floating);
+  color: var(--sc-color-text-secondary);
+  font: var(--sc-font-text-label-ui-medium);
+  letter-spacing: var(--sc-font-text-label-ui-medium-letter-spacing);
+}
 .chapterTitle {
   font: var(--sc-font-text-display-sm);
   letter-spacing: var(--sc-font-text-display-sm-letter-spacing);
@@ -120,7 +137,6 @@
 /* ── Generic primitives reused across content sections ───── */
 /* Bordered surface — the tier-table / checker container shape. */
 .panel {
-  border: var(--sc-border-width-default) solid var(--sc-color-border-default);
   border-radius: var(--sc-radius-control);
   overflow: hidden;
   background: var(--sc-color-surface-raised);
@@ -129,7 +145,6 @@
   display: flex; align-items: baseline; justify-content: space-between; gap: var(--sc-space-component-gap-md);
   padding: var(--sc-space-component-padding-md) var(--sc-space-component-padding-lg);
   background: var(--sc-color-surface-sunk);
-  border-bottom: var(--sc-border-width-default) solid var(--sc-color-border-default);
   font: var(--sc-font-text-mono-chrome);
   letter-spacing: var(--sc-font-text-mono-chrome-letter-spacing);
   text-transform: uppercase; color: var(--sc-color-text-secondary);
@@ -171,28 +186,25 @@
   padding-inline: var(--sc-space-component-padding-inline-sm);
   padding-block: var(--sc-space-component-padding-block-sm);
   border-radius: var(--sc-radius-control);
-  border: var(--sc-border-width-default) solid currentColor;
   font: var(--sc-font-text-mono-chrome);
   letter-spacing: var(--sc-font-text-mono-chrome-letter-spacing);
   text-transform: uppercase;
   white-space: nowrap;
 }
-.badgePass { color: var(--sc-color-status-success); }
-.badgeFail { color: var(--sc-color-status-error); }
-.badgeAccent { color: var(--sc-color-brand-accent); }
+.badgePass { color: var(--sc-color-status-pill-success-ink); background: var(--sc-color-status-pill-success-fill); }
+.badgeFail { color: var(--sc-color-status-pill-error-ink); background: var(--sc-color-status-pill-error-fill); }
+.badgeAccent { color: var(--sc-color-text-on-accent); background: var(--sc-color-brand-accent-fill); }
 
 /* State-grid — labeled cells for rendering component states side by side. */
 .stateGrid {
-  display: grid; grid-template-columns: 1fr; gap: var(--sc-border-width-default);
-  border: var(--sc-border-width-default) solid var(--sc-color-border-default);
-  border-radius: var(--sc-radius-control); overflow: hidden;
-  background: var(--sc-color-border-default);
+  display: grid; grid-template-columns: 1fr; gap: var(--sc-space-component-gap-sm);
 }
 .stateCell {
   background: var(--sc-color-surface-raised);
   padding: var(--sc-space-component-padding-lg);
   display: flex; flex-direction: column; gap: var(--sc-space-component-gap-lg);
   min-height: var(--sc-p-space-96);
+  border-radius: var(--sc-radius-control);
 }
 .stateDemo { display: flex; align-items: center; flex-wrap: wrap; gap: var(--sc-space-component-gap-md); flex: 1; min-height: var(--sc-p-space-48); }
 .stateLabel {

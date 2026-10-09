@@ -2,6 +2,17 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { mkdirSync, writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
+import { execSync } from 'node:child_process'
+
+// Page-header "Last revised" · the date of the last commit, read at build so
+// the header moves with every merge. Falls back to today outside a checkout.
+function lastRevised() {
+  try {
+    return execSync('git log -1 --format=%cs', { encoding: 'utf8' }).trim().replaceAll('-', '.')
+  } catch {
+    return new Date().toISOString().slice(0, 10).replaceAll('-', '.')
+  }
+}
 
 // Dev only: the sc-tune lab POSTs its export here so a record is read from
 // disk, never transcribed from a browser string. Writes one file per
@@ -36,6 +47,7 @@ const scTuneExport = {
 export default defineConfig({
   plugins: [react(), scTuneExport],
   base: process.env.BASE_PATH || '/',
+  define: { __SCDS_REVISED__: JSON.stringify(lastRevised()) },
   build: {
     outDir: 'dist',
   },

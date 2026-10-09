@@ -62,12 +62,6 @@ export function SpacingSection() {
       <Metabar
         ord="01"
         crumb="Foundations / Spacing"
-        meta={[
-          ['Last revised', '2026.06.05'],
-          ['Tokens', '36'],
-          ['Spec', 'v1.2'],
-          ['Status', 'Complete'],
-        ]}
       />
 
       <Hero

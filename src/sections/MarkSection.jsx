@@ -78,12 +78,6 @@ export function MarkSection() {
       <Metabar
         ord="01"
         crumb="Foundations / Mark"
-        meta={[
-          ['Last revised', '2026.06.05'],
-          ['Tokens', '2'],
-          ['Spec', 'v1.2'],
-          ['Status', 'Complete'],
-        ]}
       />
 
       <Hero

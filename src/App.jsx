@@ -326,7 +326,7 @@ function Sidebar({ active }) {
           <span className={styles.modeLabel}>
             Mode <span className={styles.modeState}>{isDark ? 'Dark' : 'Light'}</span>
           </span>
-          <Switch checked={isDark} onChange={toggle} label="" className={styles.modeSwitch} />
+          <Switch checked={isDark} onChange={toggle} label="" glyphs={false} className={styles.modeSwitch} />
         </div>
 
         <div className={styles.sidebarFoot}>

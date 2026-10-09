@@ -51,7 +51,6 @@ export function SpecimenSection() {
       <Metabar
         ord="02"
         crumb="Components / Specimen"
-        meta={[['Last revised', '2026.06.05'], ['Tokens', '88'], ['Spec', 'v1.2'], ['Status', 'Complete']]}
       />
 
       <Hero

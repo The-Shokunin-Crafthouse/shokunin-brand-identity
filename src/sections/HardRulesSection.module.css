@@ -31,7 +31,6 @@
 .libGroup { display: flex; flex-direction: column; gap: var(--sc-space-component-gap-lg); }
 .libRows {
   display: flex; flex-direction: column;
-  border: var(--sc-border-width-default) solid var(--sc-color-border-default);
   border-radius: var(--sc-radius-control); overflow: hidden;
   background: var(--sc-color-surface-raised);
 }

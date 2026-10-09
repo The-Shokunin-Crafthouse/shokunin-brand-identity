@@ -78,7 +78,6 @@ export function HardRulesSection() {
       <Metabar
         ord="04"
         crumb="Voice / Hard rules"
-        meta={[['Last revised', '2026.06.05'], ['Rules', '5'], ['Spec', 'v1.2'], ['Status', 'Complete']]}
       />
 
       <Hero
