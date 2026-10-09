@@ -31,6 +31,7 @@ import { Input } from '../../src/components/Input/Input.jsx';
 import { Card } from '../../src/components/Card/Card.jsx';
 import { StatusPill } from '../../src/components/StatusPill/StatusPill.jsx';
 import { Avatar } from '../../src/components/Avatar/Avatar.jsx';
+import { Alert } from '../../src/components/Alert/Alert.jsx';
 import { MagnifyingGlass, EnvelopeSimple, MapPin, Eye, Copy, CalendarBlank, Clock, CaretDown, Check, Pause, Archive, Warning } from '@phosphor-icons/react';
 import switchCss from '../../src/components/Switch/Switch.module.css?raw';
 import stepperCss from '../../src/components/Stepper/Stepper.module.css?raw';
@@ -45,6 +46,7 @@ import inputCss from '../../src/components/Input/Input.module.css?raw';
 import cardCss from '../../src/components/Card/Card.module.css?raw';
 import statusPillCss from '../../src/components/StatusPill/StatusPill.module.css?raw';
 import avatarCss from '../../src/components/Avatar/Avatar.module.css?raw';
+import alertCss from '../../src/components/Alert/Alert.module.css?raw';
 import avatarMark from '../../assets/logo/mark-icon-dark.png';
 import s from './Tune.module.css';
 
@@ -162,6 +164,13 @@ const AVATAR_PORTRAIT = `data:image/svg+xml,${encodeURIComponent('<svg xmlns="ht
 const AVATAR_IMAGES = { mark: avatarMark, portrait: AVATAR_PORTRAIT };
 const AVATAR_SIZES = ['xs', 'sm', 'md', 'lg'];
 
+/* Alert variants with the docs page's copy (src/sections/ComponentSections.jsx). */
+const ALERTS = {
+  info: ['Heads up', 'The brand site rebuilds on every push to main.'],
+  success: ['Shipped', 'Sprint 5 merged and deployed to brand.shokunincrafthouse.com.'],
+  warning: ['In review', 'Two approval gates remain before this can merge.'],
+  error: ['Build failed', 'Token build exited non-zero. The previous deploy is still live.'],
+};
 /* Set on a keyboard step so the lab's tick plays on keys only, never on a drag. */
 let keyStep = false;
 
@@ -502,7 +511,7 @@ export const REGISTRY = {
     ],
     play: null,
     render: (p, set) => (
-      <div style={{ width: 'calc(var(--sc-space-layout-stack-xl) * 4)', ...(p.surface === 'raised' ? { background: 'var(--sc-color-surface-raised)', padding: 'var(--sc-space-component-padding-md)' } : {}) }}>
+      <div style={{ width: 'calc(var(--sc-space-layout-stack-xl) * 2.5)', ...(p.surface === 'raised' ? { background: 'var(--sc-color-surface-raised)', padding: 'var(--sc-space-component-padding-md)' } : {}) }}>
         <Input
           surface={p.surface}
           label={p.label}
@@ -608,6 +617,35 @@ export const REGISTRY = {
         <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 'var(--sc-space-component-gap-md)', padding: 'var(--sc-space-layout-stack-sm)' }}>
           {shown.map((size) => (
             <Avatar key={size} size={size} name={p.name} src={p.content === 'image' ? AVATAR_IMAGES[p.image] : undefined} />
+          ))}
+        </div>
+      );
+    },
+  },
+  Alert: {
+    css: [alertCss],
+    // Physical-controls Tier 2: a plate (no LED, Levi). Not interactive, so
+    // silent (an unprompted sound is intrusive). Seed is Claude's start: the
+    // plate is the Button key (fill and lift, lit from the top left), per mode.
+    seed: {
+      scoped: {
+        light: { '--sc-color-alert-ground': MATERIAL.light.keyFill, '--sc-shadow-alert-plate': MATERIAL.light.key },
+        dark: { '--sc-color-alert-ground': MATERIAL.dark.keyFill, '--sc-shadow-alert-plate': MATERIAL.dark.key },
+      },
+    },
+    shippedSound: null,
+    trigger: 'ships silent',
+    props: [
+      { name: 'show', type: 'enum', options: ['all', ...Object.keys(ALERTS)], default: 'all' },
+      { name: 'title', type: 'boolean', default: true },
+    ],
+    play: null,
+    render: (p) => {
+      const shown = p.show === 'all' ? Object.keys(ALERTS) : [p.show];
+      return (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--sc-space-layout-stack-sm)', width: 'calc(var(--sc-space-layout-stack-xl) * 2.5)' }}>
+          {shown.map((v) => (
+            <Alert key={v} variant={v} title={p.title ? ALERTS[v][0] : undefined}>{ALERTS[v][1]}</Alert>
           ))}
         </div>
       );

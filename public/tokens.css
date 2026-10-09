@@ -494,12 +494,19 @@
   --sc-color-tooltip-surface: var(--sc-p-color-utility-white);
   --sc-color-tooltip-text: var(--sc-p-color-warm-gray-800);
   --sc-color-avatar-ground: var(--sc-p-color-warm-gray-200);
+  --sc-color-alert-ground: var(--sc-p-color-warm-gray-200);
+  --sc-color-alert-frame: var(--sc-p-color-warm-gray-350);
+  --sc-color-alert-rule-info: var(--sc-p-color-status-info-light);
+  --sc-color-alert-rule-warning: var(--sc-p-color-status-warning-light);
+  --sc-color-alert-rule-error: var(--sc-p-color-status-error-light);
+  --sc-color-alert-rule-success: var(--sc-p-color-status-success-light);
   --sc-border-width-default: var(--sc-p-border-width-hairline);
   --sc-border-width-focus: var(--sc-p-border-width-focus);
   --sc-border-width-accent: var(--sc-p-border-width-accent);
   --sc-border-focus-offset: var(--sc-p-space-micro-2);
   --sc-radius-field: var(--sc-p-radius-default);
   --sc-radius-card: var(--sc-radius-surface);
+  --sc-radius-alert: var(--sc-p-radius-default);
   --sc-radius-avatar: var(--sc-radius-pill);
   --sc-radius-status-pill: var(--sc-radius-pill);
   --sc-radius-tooltip: var(--sc-p-space-4);
@@ -532,6 +539,7 @@
   --sc-shadow-card-glass-text-dark: 0 0 2px rgb(var(--sc-p-color-white-rgb) / 0.50);
   --sc-shadow-card-glass-text-auto: var(--sc-shadow-card-glass-text-light);
   --sc-shadow-tooltip-plate: 2px 2px 6px 0 rgb(100 91 79 / 0.50);
+  --sc-shadow-alert-plate: inset 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0);
   --sc-motion-hover-duration: var(--sc-p-motion-duration-micro);
   --sc-motion-hover-easing: var(--sc-p-motion-easing-out);
   --sc-motion-press-duration: var(--sc-p-motion-duration-press);
@@ -770,6 +778,7 @@
   --sc-font-text-nav-node-line-height: var(--sc-p-font-text-text-tight-13-line-height);
   --sc-font-text-nav-node-letter-spacing: var(--sc-p-font-text-text-tight-13-letter-spacing);
   --sc-font-text-nav-node: var(--sc-p-font-text-text-tight-13);
+  --sc-size-alert-rule: var(--sc-p-border-width-accent);
   --sc-size-status-pill-dash: var(--sc-p-border-width-accent);
   --sc-size-status-pill-dash-gap: var(--sc-p-border-width-accent);
   --sc-size-status-pill-dash-width: var(--sc-p-border-width-focus);
@@ -827,6 +836,7 @@
   --sc-space-component-padding-md: var(--sc-p-space-16);
   --sc-space-component-padding-lg: var(--sc-p-space-24);
   --sc-space-component-padding-card: var(--sc-p-space-24);
+  --sc-space-component-padding-alert: var(--sc-p-space-24);
   --sc-space-component-padding-inline-sm: var(--sc-p-space-micro-6);
   --sc-space-component-padding-inline-md: var(--sc-p-space-12);
   --sc-space-component-padding-inline-lg: var(--sc-p-space-16);
@@ -850,6 +860,7 @@
   --sc-space-component-gap-input-inline: var(--sc-p-space-16);
   --sc-space-component-gap-tooltip: var(--sc-p-space-24);
   --sc-space-component-gap-status-pill: var(--sc-p-space-micro-6);
+  --sc-space-component-gap-alert-body: var(--sc-p-space-4);
   --sc-space-layout-stack-sm: var(--sc-p-space-16);
   --sc-space-layout-stack-md: var(--sc-p-space-24);
   --sc-space-layout-stack-lg: var(--sc-p-space-48);
@@ -975,12 +986,19 @@
   --sc-color-tooltip-surface: var(--sc-p-color-dark-raised1);
   --sc-color-tooltip-text: var(--sc-p-color-dark-text-primary);
   --sc-color-avatar-ground: var(--sc-p-color-dark-well);
+  --sc-color-alert-ground: var(--sc-p-color-dark-well);
+  --sc-color-alert-frame: var(--sc-p-color-dark-border);
+  --sc-color-alert-rule-info: var(--sc-p-color-status-info-dark);
+  --sc-color-alert-rule-warning: var(--sc-p-color-status-warning-dark);
+  --sc-color-alert-rule-error: var(--sc-p-color-status-error-dark);
+  --sc-color-alert-rule-success: var(--sc-p-color-status-success-dark);
   --sc-border-width-default: var(--sc-p-border-width-hairline);
   --sc-border-width-focus: var(--sc-p-border-width-focus);
   --sc-border-width-accent: var(--sc-p-border-width-accent);
   --sc-border-focus-offset: var(--sc-p-space-micro-2);
   --sc-radius-field: var(--sc-p-radius-default);
   --sc-radius-card: var(--sc-radius-surface);
+  --sc-radius-alert: var(--sc-p-radius-default);
   --sc-radius-avatar: var(--sc-radius-pill);
   --sc-radius-status-pill: var(--sc-radius-pill);
   --sc-radius-tooltip: var(--sc-p-space-4);
@@ -1013,6 +1031,7 @@
   --sc-shadow-card-glass-text-dark: 0 0 2px rgb(0 0 0 / 0.70);
   --sc-shadow-card-glass-text-auto: var(--sc-shadow-card-glass-text-dark);
   --sc-shadow-tooltip-plate: 3px 3px 7px 0 rgb(0 0 0 / 0.50);
+  --sc-shadow-alert-plate: inset 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0);
   --sc-motion-hover-duration: var(--sc-p-motion-duration-micro);
   --sc-motion-hover-easing: var(--sc-p-motion-easing-out);
   --sc-motion-press-duration: var(--sc-p-motion-duration-press);
@@ -1251,6 +1270,7 @@
   --sc-font-text-nav-node-line-height: var(--sc-p-font-text-text-tight-13-line-height);
   --sc-font-text-nav-node-letter-spacing: var(--sc-p-font-text-text-tight-13-letter-spacing);
   --sc-font-text-nav-node: var(--sc-p-font-text-text-tight-13);
+  --sc-size-alert-rule: var(--sc-p-border-width-accent);
   --sc-size-status-pill-dash: var(--sc-p-border-width-accent);
   --sc-size-status-pill-dash-gap: var(--sc-p-border-width-accent);
   --sc-size-status-pill-dash-width: var(--sc-p-border-width-focus);
@@ -1308,6 +1328,7 @@
   --sc-space-component-padding-md: var(--sc-p-space-16);
   --sc-space-component-padding-lg: var(--sc-p-space-24);
   --sc-space-component-padding-card: var(--sc-p-space-24);
+  --sc-space-component-padding-alert: var(--sc-p-space-24);
   --sc-space-component-padding-inline-sm: var(--sc-p-space-micro-6);
   --sc-space-component-padding-inline-md: var(--sc-p-space-12);
   --sc-space-component-padding-inline-lg: var(--sc-p-space-16);
@@ -1331,6 +1352,7 @@
   --sc-space-component-gap-input-inline: var(--sc-p-space-16);
   --sc-space-component-gap-tooltip: var(--sc-p-space-24);
   --sc-space-component-gap-status-pill: var(--sc-p-space-micro-6);
+  --sc-space-component-gap-alert-body: var(--sc-p-space-4);
   --sc-space-layout-stack-sm: var(--sc-p-space-16);
   --sc-space-layout-stack-md: var(--sc-p-space-24);
   --sc-space-layout-stack-lg: var(--sc-p-space-48);

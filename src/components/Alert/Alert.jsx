@@ -1,7 +1,8 @@
 /**
  * Alert — 3.11 · info, warning, error, success.
  *
- * Banner with status-coloured left rule, optional title, and body.
+ * Plate with a status-coloured left rule (role tokens), optional title,
+ * and body.
  * Live region so screen readers announce non-info alerts on insertion.
  */
 
