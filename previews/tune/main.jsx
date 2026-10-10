@@ -1085,7 +1085,7 @@ function Tune() {
                   ladder={ladderFor(n, kind)}
                   easingPresets={easingPresets}
                   origin={conceptEff[n] !== undefined ? originOf(concept, n, theme) : null}
-                  seeded={seeds.values[scopeOf(n, theme)][n] !== undefined}
+                  seed={seeds.values[scopeOf(n, theme)][n]}
                   restOf={n.endsWith('-hover') && tokens.includes(n.slice(0, -6)) ? n.slice(0, -6) : null}
                   {...(kind === 'easing' ? { replay, durationMs: (pair !== n && (tuned[pair] || shipped[pair]) ? toMs(tuned[pair] || shipped[pair]) : EASING_PREVIEW_MS) * state.view.slow } : {})}
                   onAction={onToken}

@@ -296,10 +296,14 @@ function Slot({ sizer, children }) {
   );
 }
 
-export const TokenControl = memo(function TokenControl({ name, kind, shipped, value, override, origin, seeded, scope, adj, spring, pin, refs, ladder, easingPresets, restOf, durationMs, replay, onAction }) {
-  // A seed is the registry's lab start, not a decision: it reads `seed`, is
-  // not tinted and offers `shipped`. A token with a seed resets to it (`reseed`).
+export const TokenControl = memo(function TokenControl({ name, kind, shipped, value, override, origin, seed, scope, adj, spring, pin, refs, ladder, easingPresets, restOf, durationMs, replay, onAction }) {
+  // A seed is the registry's lab start, not a decision (P2.3): its card reads
+  // `seed`, is not tinted and offers `shipped` (set the shipped value) and
+  // `reseed` (restore the seed, disabled while the value is the seed). A
+  // user, spring or copy override reads `tuned` and offers `reset`, which on
+  // a seeded token also restores the seed, as a reload would.
   const overridden = override !== undefined;
+  const seeded = seed !== undefined;
   const isSeed = overridden && origin === 'seed';
   const changed = overridden && !isSeed;
   const n = short(name);
@@ -399,17 +403,23 @@ export const TokenControl = memo(function TokenControl({ name, kind, shipped, va
     <div className={`${s.token} ${changed ? s.changed : isSeed ? s.seeded : ''}`} data-token={name}>
       <div className={s.tokenHead}>
         <code className={s.tokenName}>{n}</code>
-        {/* Four fixed slots: scope, copy rest, note, reset or shipped. An
-            absent action keeps its width, so a card never re-flows when it
-            becomes changed (P3.4). */}
+        {/* Four fixed slots: scope, copy rest, note, reset or shipped; a
+            seeded token adds a fifth, reseed. Slots depend on the token,
+            never on its state: an absent action keeps its width, so a card
+            never re-flows when it becomes changed (P3.4). */}
         <span className={s.tokenActions}>
           <Slot sizer="both modes">{overridden && scope && <span className={s.scope}>{scope === 'all' ? 'both modes' : `${scope} only`}</span>}</Slot>
           <Slot sizer="copy rest">{restOf && <button type="button" className={s.reset} aria-label={`Copy rest into ${n}`} title={`Set to this concept's ${short(restOf)} value`} onClick={() => onAction(name, 'copyRest')}>copy rest</button>}</Slot>
           <Slot sizer="note"><button type="button" className={s.reset} aria-pressed={pinOpen} aria-label={`Note on ${n}`} onClick={() => setPinOpen((o) => !o)}>note</button></Slot>
           <Slot sizer="shipped">
             {isSeed && <button type="button" className={s.reset} onClick={() => onAction(name, 'shipped')} aria-label={`Set shipped value on ${n}`}>shipped</button>}
-            {changed && <button type="button" className={`${s.reset} ${s.destructive}`} onClick={() => onAction(name, 'reset')} aria-label={`${seeded ? 'Reseed' : 'Reset'} ${n}`}>{seeded ? 'reseed' : 'reset'}</button>}
+            {changed && <button type="button" className={`${s.reset} ${s.destructive}`} onClick={() => onAction(name, 'reset')} aria-label={`Reset ${n}`}>reset</button>}
           </Slot>
+          {seeded && (
+            <Slot sizer="reseed">
+              {isSeed && <button type="button" className={s.reset} disabled={override === seed} onClick={() => onAction(name, 'reset')} aria-label={`Reseed ${n}`}>reseed</button>}
+            </Slot>
+          )}
         </span>
       </div>
       {editor}
