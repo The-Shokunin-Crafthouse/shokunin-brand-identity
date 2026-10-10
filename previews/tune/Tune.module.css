@@ -313,10 +313,17 @@
 }
 
 /* The changed mark (P3.5, F-02): an accent rule on the inline-start edge
-   over the sunk tint. A seed carries the rule in tertiary ink, no tint. */
+   over a raised tint. The tint is raised, not sunk: secondary ink reads
+   6.3:1 on it in light (4.8:1 on sunk misses the 5.4 values bar), so the
+   values keep their rank. A seed carries the rule in tertiary ink, no tint.
+   The easing unit box, raised on the page, turns page-toned on the tint. */
 .changed {
-  background-color: var(--sc-color-surface-sunk);
+  background-color: var(--sc-color-surface-raised);
   border-inline-start-color: var(--sc-color-brand-accent);
+}
+
+.changed .curveBox {
+  fill: var(--sc-color-surface-page);
 }
 
 .seeded {
