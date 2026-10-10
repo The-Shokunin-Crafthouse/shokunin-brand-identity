@@ -158,7 +158,7 @@ export const EasingEditor = memo(function EasingEditor({ label, value, shipped, 
             <input type="range" aria-label={`${label} spring duration`} min={50} max={2000} step={10} value={Math.round(dur * 1000)}
               onChange={(e) => setDB(+e.target.value / 1000, bounce)} />
           </Row>
-          <Row label="bounce" readout={bounce.toFixed(2)}>
+          <Row label="bounce" readout={(Math.abs(bounce) < 0.005 ? 0 : bounce).toFixed(2)}>
             <input type="range" aria-label={`${label} spring bounce`} min={0} max={0.95} step={0.01} value={Math.max(0, +bounce.toFixed(2))}
               onChange={(e) => setDB(dur, +e.target.value)} />
           </Row>
@@ -431,8 +431,9 @@ export const TokenControl = memo(function TokenControl({ name, kind, shipped, va
       {pinOpen && (
         <input type="text" className={s.pin} aria-label={`Note text on ${n}`} placeholder="Note on this value…" value={pin || ''} onChange={(e) => onAction(name, 'pin', e.target.value)} />
       )}
-      {kind === 'shadow' ? (
-        // The raw string is kept for copy, behind a closed disclosure (P3.7).
+      {kind === 'shadow' || /^linear\(/.test(value) || /^linear\(/.test(shipped || '') ? (
+        // A raw shadow (P3.7), or a spring's sampled linear(), is kept for
+        // copy behind a closed disclosure; the editor above shows it structured.
         <div className={s.values}>
           <button type="button" className={s.disclosure} aria-expanded={rawOpen} aria-label={`Raw values of ${n}`} onClick={() => setRawOpen((o) => !o)}>raw</button>
           {rawOpen && lines}

@@ -954,6 +954,13 @@ fieldset:disabled {
   min-block-size: var(--tune-target);
 }
 
+/* WebKit draws a native select at its own height; the styled appearance
+   honours the box, in every engine. */
+:is(.bar, .panel) select {
+  appearance: menulist-button;
+  block-size: var(--tune-target);
+}
+
 .panel input[type='range'] {
   min-block-size: var(--tune-target);
   margin: 0;
