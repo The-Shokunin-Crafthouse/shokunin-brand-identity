@@ -16,7 +16,7 @@
  *   --sc-color-toast-dismiss-surface / -hover    · dismiss ground at rest; on hover and press (= the x colour)
  *   --sc-color-toast-dismiss-ink-hover           · x on hover and press (= the rest ground): the colours invert
  *   --sc-color-toast-dismiss-ink / -ink-disabled · the x (role; brand.accent light, teal.200 dark; GRAPHIC_PAIRS)
- *   --sc-shadow-toast-plate                      · floating shadow (role; Figma elevation/2)
+ *   --sc-shadow-toast-plate                      · floating shadow (role; record 2026-10-10-1534: the Tooltip plate shade, top left)
  *   --sc-color-toast-glass, --sc-shadow-toast-glass / -glass-text · glass tint, rim, text halo (= Card frosted, auto)
  *   --sc-size-toast-glass-frost / -glass-saturation · glass backdrop blur and saturation
  *   --sc-size-toast-lift                         · floating rise on enter and exit

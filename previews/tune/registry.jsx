@@ -627,11 +627,11 @@ export const REGISTRY = {
   },
   Toast: {
     css: [toastCss],
-    // Alert folds into Toast (Levi, 2026-10-08). Every role token ships equal
-    // to the Figma Toast (set 9:897). The seed is Claude's start, not a pick:
-    // the shipped shadow is Figma's elevation/2, lit from the top, and concept
-    // A starts from the Tooltip plate, lit from the system top left
-    // (directive 2). Not a control the reader asked for, so silent.
+    // Alert folds into Toast (Levi, 2026-10-08). Role tokens shipped equal
+    // to the Figma Toast (set 9:897); record Toast 2026-10-10-1534 applied
+    // concept A, the plate shadow relit from the top left (the Tooltip plate
+    // shade), so the shipped stage now carries it and the seed is inert.
+    // Not a control the reader asked for, so silent.
     jsTokens: ['--sc-motion-toast-hold'],
     seed: {
       scoped: {

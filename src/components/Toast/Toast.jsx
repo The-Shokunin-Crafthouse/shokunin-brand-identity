@@ -12,7 +12,7 @@
  *              the filled glyph.
  *   placement  inline (default): in flow and persistent, the Alert
  *              replacement; no shadow, no dismiss, never leaves on its own.
- *              floating: the Figma Toast; elevation shadow, dismiss button,
+ *              floating: the Figma Toast; a top-left shadow, dismiss button,
  *              rises in and dismisses itself after --sc-motion-toast-hold.
  *              A floating toast never holds a required action: anything the
  *              reader must do belongs inline or in a dialog.

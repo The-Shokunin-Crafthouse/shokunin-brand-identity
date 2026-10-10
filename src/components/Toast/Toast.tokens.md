@@ -13,9 +13,9 @@ Spec ref: §2 Tier 3 · 3.11 (was Alert). 2026-10-08: Alert folds into Toast (Le
 | `--sc-space-component-padding-inline-toast-end` | after the dismiss | = `layout.inset.lg` (48px) |
 | `--sc-space-component-gap-toast` | badge, message, dismiss | = `space.12` (space/12) |
 | `--sc-size-toast-width` | floating width | 380px (fixed width, height hugs) |
-| `--sc-shadow-toast-plate` | floating shadow; inline draws none | elevation/2: 0 2 8 0 ink 10%, 0 1 0 0 ink 4% |
+| `--sc-shadow-toast-plate` | floating shadow; inline draws none | light 2px 2px 6px warm gray 50%, dark 3px 3px 7px black 50% (record Toast 2026-10-10-1534; Figma elevation/2 before) |
 
-The shadow is lit from the top, not the system top left, so `verify-light` names `shadow.toast.plate` as an exemption until Levi's record re-lights or keeps it. The lab seeds concept A from the Tooltip plate (top left).
+The shadow is the Tooltip plate shade, lit from the system top left (record Toast 2026-10-10-1534, concept A). The Figma elevation/2 it replaced was lit from the top.
 
 ## Glass (`surface="glass"`)
 

@@ -5,7 +5,7 @@
 # Design Token Map — The Shokunin Crafthouse · Brand Identity
 
 **Generated** from `tokens/primitives.json` + `tokens/semantic.json`.
-**Source fingerprint:** `4c8dc053325c` · **188 primitives · 371 semantic tokens.**
+**Source fingerprint:** `d4e3bb475a15` · **188 primitives · 371 semantic tokens.**
 
 > **This file is a mirror, not the source.** `tokens/*.json` is upstream; this document and the Figma
 > library are generated from / synced to it. It previously claimed the opposite — that both were
@@ -1088,7 +1088,7 @@ channel-triplet primitives) rather than an alias to a single primitive.
 
 | Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
 |---|---|---|---|---|---|---|
-| `shadow/toast/plate` | `--sc-shadow-toast-plate` | _literal_ | `0 2px 8px 0 rgb(var(--sc-p-color-ink-rgb) / 0.10), 0 1px 0 0 rgb(var(--sc-p-color-ink-rgb) / 0.04)` | _literal_ | `0 2px 8px 0 rgb(var(--sc-p-color-ink-rgb) / 0.10), 0 1px 0 0 rgb(var(--sc-p-color-ink-rgb) / 0.04)` | 2026-10-10 · Toast (Alert folds into Toast, decisions 2026-10-08; physical-controls Tier 2), tuned in sc-tune. |
+| `shadow/toast/plate` | `--sc-shadow-toast-plate` | _literal_ | `2px 2px 6px 0 rgb(100 91 79 / 0.50)` | _literal_ | `3px 3px 7px 0 rgb(0 0 0 / 0.50)` | 2026-10-10 · Toast (Alert folds into Toast, decisions 2026-10-08; physical-controls Tier 2), tuned in sc-tune. |
 | `shadow/toast/glass` | `--sc-shadow-toast-glass` | `shadow/card/glass/frosted` | `⚠ unresolved` | `shadow/card/glass/frosted` | `⚠ unresolved` | 2026-10-10 · Toast (Alert folds into Toast, decisions 2026-10-08; physical-controls Tier 2), tuned in sc-tune. |
 | `shadow/toast/glassText` | `--sc-shadow-toast-glass-text` | `shadow/card/glass/text/auto` | `⚠ unresolved` | `shadow/card/glass/text/auto` | `⚠ unresolved` | 2026-10-10 · Toast (Alert folds into Toast, decisions 2026-10-08; physical-controls Tier 2), tuned in sc-tune. |
 

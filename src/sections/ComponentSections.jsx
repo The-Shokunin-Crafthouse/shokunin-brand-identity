@@ -345,7 +345,7 @@ export function ToastPage() {
         { prop: 'Padding after dismiss', token: '--sc-space-component-padding-inline-toast-end' },
         { prop: 'Gap', token: '--sc-space-component-gap-toast' },
         { prop: 'Floating width', token: '--sc-size-toast-width' },
-        { prop: 'Floating shadow', token: '--sc-shadow-toast-plate', light: 'elevation/2', dark: 'elevation/2' },
+        { prop: 'Floating shadow', token: '--sc-shadow-toast-plate', light: '2 2 6 warm gray 50%', dark: '3 3 7 black 50%' },
         { prop: 'Badge', token: '--sc-size-toast-badge' },
         { prop: 'Success badge', token: '--sc-color-toast-badge-success' },
         { prop: 'Info badge', token: '--sc-color-toast-badge-info' },

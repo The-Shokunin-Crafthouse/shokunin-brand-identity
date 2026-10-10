@@ -171,7 +171,7 @@ public enum SCDS {
     public static let semanticVersion = "0.1.0"
     public static let sourceGenerated = "2026-05-26"
     public static let primitivesHash = "91c76a72c4dcc85e"
-    public static let semanticHash = "b3fda176412b6642"
+    public static let semanticHash = "a0fab02c7d5cccaa"
     public static let tokenCount = 371
   }
 
@@ -2136,15 +2136,13 @@ public enum SCDS {
         ]
     )
 
-    /// `shadow.toast.plate` · 2 layers
+    /// `shadow.toast.plate` · 1 layers
     public static let toastPlate = SCDSShadow(
         light: [
-            SCDSShadowLayer(inset: false, x: 0, y: 2, blur: 8, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0.1),
-            SCDSShadowLayer(inset: false, x: 0, y: 1, blur: 0, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0.04),
+            SCDSShadowLayer(inset: false, x: 2, y: 2, blur: 6, spread: 0, rgb: (0.392157, 0.356863, 0.309804), alpha: 0.5),
         ],
         dark: [
-            SCDSShadowLayer(inset: false, x: 0, y: 2, blur: 8, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0.1),
-            SCDSShadowLayer(inset: false, x: 0, y: 1, blur: 0, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0.04),
+            SCDSShadowLayer(inset: false, x: 3, y: 3, blur: 7, spread: 0, rgb: (0, 0, 0), alpha: 0.5),
         ]
     )
 
