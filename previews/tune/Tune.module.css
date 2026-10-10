@@ -4,6 +4,9 @@
  */
 
 .app {
+  /* The smallest hit box any chrome control may have (P4.1, WCAG 2.5.8).
+     No semantic token sits at 24, so the chrome names the primitive once. */
+  --tune-target: var(--sc-p-space-24);
   display: grid;
   /* The panel is the user's width (P1.6): --panel-w is set from view state;
      the bounds hold even when the window changes under a saved width. */
@@ -33,19 +36,46 @@
   gap: var(--sc-space-component-gap-md) var(--sc-space-component-gap-lg);
 }
 
+/* ---------- two text roles (P3.2, A-05) ----------
+   label-chrome (11, uppercase, tracked): group legends, rail chips, stage
+   captions, the brand. mono-caption (13): every name, value and readout,
+   and every other line of chrome text. Ink carries the rank: names primary,
+   tuned values and readouts secondary, shipped values and meta tertiary.
+   Stages are not chrome: a staged component keeps its own type. */
+.bar,
+.strip,
+.panel {
+  font-family: var(--sc-font-text-mono-body-family);
+  font-size: var(--sc-font-text-caption-size);
+  font-weight: var(--sc-font-text-caption-weight);
+  line-height: var(--sc-font-text-caption-line-height);
+  letter-spacing: var(--sc-font-text-caption-letter-spacing);
+}
+
+:where(.bar, .strip, .panel) :where(code, kbd) {
+  font: inherit;
+}
+
 .brand {
+  margin: 0;
   font-family: var(--sc-font-text-label-chrome-family);
   font-size: var(--sc-font-text-label-chrome-size);
   font-weight: var(--sc-font-text-label-chrome-weight);
+  line-height: var(--sc-font-text-label-chrome-line-height);
   letter-spacing: var(--sc-font-text-label-chrome-letter-spacing);
 }
 
-.meta,
+.meta {
+  font-family: var(--sc-font-text-mono-body-family);
+  font-size: var(--sc-font-text-caption-size);
+  color: var(--sc-color-text-tertiary);
+}
+
 .readout,
 .values {
   font-family: var(--sc-font-text-mono-body-family);
   font-size: var(--sc-font-text-caption-size);
-  color: var(--sc-color-text-tertiary);
+  color: var(--sc-color-text-secondary);
 }
 
 .spacer {
@@ -74,7 +104,9 @@
 .stripShipped {
   font-family: var(--sc-font-text-label-chrome-family);
   font-size: var(--sc-font-text-label-chrome-size);
+  line-height: var(--sc-font-text-label-chrome-line-height);
   letter-spacing: var(--sc-font-text-label-chrome-letter-spacing);
+  text-transform: uppercase;
   color: var(--sc-color-text-tertiary);
 }
 
@@ -107,8 +139,16 @@
   margin: 0;
   font-family: var(--sc-font-text-label-chrome-family);
   font-size: var(--sc-font-text-label-chrome-size);
+  font-weight: var(--sc-font-text-label-chrome-weight);
+  line-height: var(--sc-font-text-label-chrome-line-height);
   letter-spacing: var(--sc-font-text-label-chrome-letter-spacing);
+  text-transform: uppercase;
   color: var(--sc-color-text-tertiary);
+}
+
+.stageLabel .readout {
+  text-transform: none;
+  letter-spacing: normal;
 }
 
 .stage {
@@ -177,76 +217,208 @@
 .group > legend {
   font-family: var(--sc-font-text-label-chrome-family);
   font-size: var(--sc-font-text-label-chrome-size);
+  font-weight: var(--sc-font-text-label-chrome-weight);
+  line-height: var(--sc-font-text-label-chrome-line-height);
   letter-spacing: var(--sc-font-text-label-chrome-letter-spacing);
   color: var(--sc-color-text-secondary);
   text-transform: uppercase;
   padding-block-end: var(--sc-space-component-gap-sm);
 }
 
-.prop,
 .editor {
   display: flex;
   align-items: center;
   gap: var(--sc-space-component-gap-md);
 }
 
-.prop > label {
-  min-width: 7rem;
+/* ---------- one control grid (P3.3, A-06) ----------
+   Every control row: [label 7rem] [control 1fr] [readout 4.5rem]. Rows
+   outside a token card take the card's inset, so every slider in the panel
+   ends on one x. */
+.row {
+  display: grid;
+  grid-template-columns: 7rem minmax(0, 1fr) 4.5rem;
+  align-items: center;
+  column-gap: var(--sc-space-component-gap-md);
+  min-block-size: var(--tune-target);
 }
 
+.prop {
+  padding-inline: var(--sc-space-component-padding-sm);
+  border-inline-start: var(--sc-border-width-focus) solid transparent;
+}
+
+.rowLabel {
+  min-inline-size: 0;
+  color: var(--sc-color-text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.rowControl {
+  display: flex;
+  align-items: center;
+  gap: var(--sc-space-component-gap-sm);
+  min-inline-size: 0;
+}
+
+.rowControl > :is(input[type='range'], input[type='text'], select) {
+  flex: 1 1 0;
+  min-inline-size: 0;
+}
+
+.rowWide {
+  grid-column: 2 / -1;
+}
+
+.rowWide .num {
+  flex: 1 1 0;
+  inline-size: auto;
+  min-inline-size: 0;
+}
+
+.rowReadout {
+  min-inline-size: 0;
+  text-align: end;
+  white-space: nowrap;
+  overflow: hidden;
+  font-variant-numeric: tabular-nums;
+  color: var(--sc-color-text-secondary);
+}
+
+.rowReadout .num {
+  inline-size: 100%;
+  text-align: end;
+}
+
+.propName {
+  color: var(--sc-color-text-primary);
+}
+
+.derivedName {
+  color: var(--sc-color-text-primary);
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
+
+/* ---------- token card ---------- */
 .token {
   display: flex;
   flex-direction: column;
   gap: var(--sc-space-component-gap-sm);
   padding: var(--sc-space-component-padding-sm);
+  border-inline-start: var(--sc-border-width-focus) solid transparent;
   border-radius: var(--sc-radius-control);
 }
 
+/* The changed mark (P3.5, F-02): an accent rule on the inline-start edge
+   over the sunk tint. A seed carries the rule in tertiary ink, no tint. */
 .changed {
   background-color: var(--sc-color-surface-sunk);
+  border-inline-start-color: var(--sc-color-brand-accent);
 }
 
+.seeded {
+  border-inline-start-color: var(--sc-color-text-tertiary);
+}
+
+/* The actions wrap under the name as one unit when the card is narrow; the
+   slots are fixed, so the wrap depends on the panel, never on the state. */
 .tokenHead {
   display: flex;
+  flex-wrap: wrap;
+  align-items: center;
   justify-content: space-between;
-  gap: var(--sc-space-component-gap-md);
+  gap: var(--sc-space-component-gap-sm) var(--sc-space-component-gap-md);
 }
 
 .tokenName {
-  font-family: var(--sc-font-text-mono-body-family);
-  font-size: var(--sc-font-text-caption-size);
+  flex: 1 1 12rem;
+  min-inline-size: 0;
+  color: var(--sc-color-text-primary);
   overflow-wrap: anywhere;
 }
 
 .values {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   overflow-wrap: anywhere;
 }
 
+.shippedValue {
+  color: var(--sc-color-text-tertiary);
+}
+
+.tunedValue {
+  color: var(--sc-color-text-secondary);
+}
+
 .num {
-  width: 4.5rem;
+  inline-size: 4.5rem;
 }
 
 .mini {
   display: flex;
   align-items: center;
   gap: var(--sc-space-component-gap-sm);
-  font-size: var(--sc-font-text-caption-size);
+  white-space: nowrap;
+}
+
+/* ---------- easing preview (P3.8, F-14) ----------
+   A 48 px unit box; overshoot draws outside it, so the cell leaves room
+   above and below. The shipped curve is the faint second path. */
+.curveCell {
+  overflow: visible;
 }
 
 .curve {
-  width: var(--sc-space-layout-stack-sm);
-  height: var(--sc-space-layout-stack-sm);
-  flex: none;
+  display: block;
+  inline-size: var(--sc-space-layout-stack-lg);
+  block-size: var(--sc-space-layout-stack-lg);
+  max-inline-size: none;
+  margin-block: var(--sc-space-component-gap-lg);
   overflow: visible;
-  border: var(--sc-border-width-default) solid var(--sc-color-border-subtle);
 }
 
-.curve path {
+.curveBox {
+  fill: var(--sc-color-surface-raised);
+}
+
+.curveTuned,
+.curveShipped {
   fill: none;
+  vector-effect: non-scaling-stroke;
+}
+
+.curveTuned {
   stroke: var(--sc-color-brand-accent);
-  stroke-width: 0.06;
+  stroke-width: var(--sc-border-width-focus);
+}
+
+.curveShipped {
+  stroke: var(--sc-color-text-tertiary);
+  stroke-width: var(--sc-border-width-default);
+}
+
+.playhead {
+  opacity: 0;
+}
+
+.playhead,
+.playhead circle {
+  transform-box: view-box;
+}
+
+.playhead line {
+  stroke: var(--sc-color-text-secondary);
+  stroke-width: var(--sc-border-width-default);
+  vector-effect: non-scaling-stroke;
+}
+
+.playhead circle {
+  fill: var(--sc-color-brand-accent);
 }
 
 .sounds {
@@ -268,8 +440,10 @@
 
 .sound > label {
   flex: 1;
-  font-family: var(--sc-font-text-mono-body-family);
-  font-size: var(--sc-font-text-caption-size);
+  display: flex;
+  align-items: center;
+  gap: var(--sc-space-component-gap-sm);
+  min-block-size: var(--tune-target);
 }
 
 .shippedSound > label {
@@ -277,6 +451,7 @@
 }
 
 .reset,
+.snap,
 .bar button,
 .sound button {
   font: inherit;
@@ -287,9 +462,23 @@
   border-radius: var(--sc-radius-pill);
   padding: var(--sc-space-component-padding-block-sm) var(--sc-space-component-padding-inline-sm);
   cursor: pointer;
+  /* Visual size stays; the hit box is at least 24 by 24 (P4.1, F-10). */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-block-size: var(--tune-target);
+  min-inline-size: var(--tune-target);
+  white-space: nowrap;
+}
+
+/* reset destroys: it reads as destructive at rest (P4.2, F-12). */
+.destructive,
+.destructive:hover {
+  color: var(--sc-color-status-error);
 }
 
 .reset:hover,
+.snap:hover,
 .bar button:hover,
 .sound button:hover {
   background: var(--sc-color-surface-hover);
@@ -297,6 +486,7 @@
 }
 
 .reset:focus-visible,
+.snap:focus-visible,
 .bar button:focus-visible,
 .sound button:focus-visible,
 .panel :is(input, select):focus-visible,
@@ -306,6 +496,7 @@
 }
 
 .reset:active,
+.snap:active,
 .bar button:active,
 .sound button:active {
   scale: var(--sc-motion-press-scale);
@@ -314,22 +505,6 @@
 button:disabled,
 fieldset:disabled {
   opacity: 0.6;
-}
-
-@media (max-width: 899px) {
-  .app {
-    grid-template-columns: minmax(0, 1fr);
-    grid-template-rows: auto 60vh auto;
-    height: auto;
-  }
-  .panel {
-    grid-column: 1;
-    grid-row: 3;
-    border-inline-start: none;
-  }
-  .handle {
-    display: none;
-  }
 }
 
 /* ---------- v2: notes, concepts, motion ---------- */
@@ -361,9 +536,15 @@ fieldset:disabled {
   border-radius: var(--sc-radius-pill);
   padding: var(--sc-space-component-padding-block-sm) var(--sc-space-component-padding-inline-sm);
   cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-block-size: var(--tune-target);
+  min-inline-size: var(--tune-target);
+  white-space: nowrap;
 }
 
-.tab[aria-selected='true'] {
+.tab[aria-pressed='true'] {
   background: var(--sc-color-brand-accent);
   color: var(--sc-color-text-on-accent);
 }
@@ -394,13 +575,29 @@ fieldset:disabled {
   gap: var(--sc-space-component-gap-sm);
 }
 
-.propLabel {
-  min-width: 7rem;
-}
-
+/* Fixed action slots (P3.4, A-07): each slot is as wide as its longest
+   label whether or not its action is present, so nothing re-flows. */
 .tokenActions {
   display: flex;
+  align-items: center;
   gap: var(--sc-space-component-gap-sm);
+  flex: none;
+  margin-inline-start: auto;
+}
+
+.slot {
+  display: inline-grid;
+  align-items: center;
+}
+
+.slot > * {
+  grid-area: 1 / 1;
+}
+
+.sizer {
+  visibility: hidden;
+  padding-inline: var(--sc-space-component-padding-inline-sm);
+  white-space: nowrap;
 }
 
 .pin {
@@ -484,26 +681,17 @@ fieldset:disabled {
   display: flex;
   flex-direction: column;
   gap: var(--sc-space-component-gap-sm);
-  padding: var(--sc-space-component-padding-sm);
-  border-radius: var(--sc-radius-control);
-  background: var(--sc-color-surface-raised);
+  padding-block-start: var(--sc-space-component-gap-sm);
 }
 .layerHead {
-  font-family: var(--sc-font-text-mono-body-family);
-  font-size: var(--sc-font-text-caption-size);
-  color: var(--sc-color-text-secondary);
+  color: var(--sc-color-text-primary);
 }
-.layerGrid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--sc-space-component-gap-md);
-}
+/* Scope is text in the actions row, not a badge (F-04). */
 .scope {
-  margin-inline-start: var(--sc-space-component-gap-md);
-  padding: 0 var(--sc-space-component-padding-inline-sm);
-  border-radius: var(--sc-radius-pill);
-  background: var(--sc-color-surface-sunk);
+  padding-inline: var(--sc-space-component-padding-inline-sm);
   color: var(--sc-color-text-secondary);
+  white-space: nowrap;
+  text-align: center;
 }
 
 /* ---------- type-scale steps on font-size tokens ---------- */
@@ -514,7 +702,9 @@ fieldset:disabled {
 }
 .step {
   display: inline-flex;
-  align-items: baseline;
+  align-items: center;
+  min-block-size: var(--tune-target);
+  min-inline-size: var(--tune-target);
   gap: var(--sc-space-component-gap-sm);
   font: inherit;
   font-family: var(--sc-font-text-mono-body-family);
@@ -542,7 +732,7 @@ fieldset:disabled {
   scale: var(--sc-motion-press-scale);
 }
 .stepRole {
-  font-family: var(--sc-font-text-body-dense-family);
+  opacity: 0.8;
 }
 
 /* ---------- panel map: rail, filters, disclosures (P1.2-P1.4) ----------
@@ -586,7 +776,13 @@ fieldset:disabled {
   font: inherit;
   font-family: var(--sc-font-text-label-chrome-family);
   font-size: var(--sc-font-text-label-chrome-size);
+  font-weight: var(--sc-font-text-label-chrome-weight);
+  line-height: var(--sc-font-text-label-chrome-line-height);
   letter-spacing: var(--sc-font-text-label-chrome-letter-spacing);
+  display: inline-flex;
+  align-items: center;
+  min-block-size: var(--tune-target);
+  min-inline-size: var(--tune-target);
   text-transform: uppercase;
   white-space: nowrap;
   color: var(--sc-color-text-secondary);
@@ -640,7 +836,9 @@ fieldset:disabled {
   padding: 0;
   cursor: pointer;
   display: inline-flex;
-  align-items: baseline;
+  align-items: center;
+  min-block-size: var(--tune-target);
+  min-inline-size: var(--tune-target);
   gap: var(--sc-space-component-gap-sm);
 }
 
@@ -722,7 +920,7 @@ fieldset:disabled {
 
 .note {
   font-family: var(--sc-font-text-mono-body-family);
-  font-size: var(--sc-font-text-label-chrome-size);
+  font-size: var(--sc-font-text-caption-size);
   color: var(--sc-color-text-secondary);
   white-space: nowrap;
 }
@@ -733,4 +931,151 @@ fieldset:disabled {
 .tab[data-armed] {
   background: var(--sc-color-status-pill-error-fill);
   color: var(--sc-color-status-pill-error-ink);
+}
+
+/* ---------- no horizontal overflow (P3.9, A-08) ----------
+   Every flex and grid child in the panel may shrink below its content;
+   a select never outgrows its column. Native boxes that must keep their
+   size say so. */
+.panel :is(div, span, p, label, fieldset, legend, ul, li, nav, code, select, input, textarea) {
+  min-inline-size: 0;
+}
+
+.panel select {
+  max-inline-size: 100%;
+}
+
+.panel :is(input[type='checkbox'], input[type='radio'], input[type='color']) {
+  flex: none;
+}
+
+/* ---------- fields at target size (P4.1) ---------- */
+:is(.bar, .panel) :is(select, input[type='text'], input[type='search'], input[type='number']) {
+  min-block-size: var(--tune-target);
+}
+
+.panel input[type='range'] {
+  min-block-size: var(--tune-target);
+  margin: 0;
+}
+
+.panel input[type='color'] {
+  inline-size: var(--sc-space-layout-stack-lg);
+  block-size: var(--tune-target);
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.panel input[type='color']:focus-visible {
+  outline: var(--sc-border-width-focus) solid var(--sc-color-border-focus);
+  outline-offset: var(--sc-border-focus-offset);
+}
+
+.colorText {
+  flex: 1 1 0;
+}
+
+/* A radio or checkbox row: the label is the row and the row is the target. */
+.checkRow {
+  min-block-size: var(--tune-target);
+  cursor: pointer;
+}
+
+/* ---------- ladder hint (P4.4, F-11) ---------- */
+.hint {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sc-space-component-gap-sm);
+  color: var(--sc-color-text-secondary);
+}
+
+/* ---------- shortcuts disclosure (P4.5, A-16) ---------- */
+.keysWrap {
+  position: relative;
+}
+
+.keys {
+  position: absolute;
+  inset-block-start: calc(100% + var(--sc-space-component-gap-sm));
+  inset-inline-end: 0;
+  z-index: 4;
+  margin: 0;
+  display: grid;
+  gap: var(--sc-space-component-gap-sm);
+  padding: var(--sc-space-component-padding-sm) var(--sc-space-component-padding-md);
+  border-radius: var(--sc-radius-control);
+  background-color: var(--sc-color-surface-floating);
+  box-shadow: var(--sc-shadow-tooltip-plate);
+  white-space: nowrap;
+}
+
+.keys[hidden] {
+  display: none;
+}
+
+.keys > div {
+  display: grid;
+  grid-template-columns: 7rem auto;
+  gap: var(--sc-space-component-gap-md);
+}
+
+.keys dt {
+  color: var(--sc-color-text-primary);
+}
+
+.keys dd {
+  margin: 0;
+  color: var(--sc-color-text-secondary);
+}
+
+/* ---------- reduced motion (Gate 3) ----------
+   The playhead is cut; press scales hold still. Rail jumps already scroll
+   without smoothing (main.jsx). */
+@media (prefers-reduced-motion: reduce) {
+  .playhead {
+    display: none;
+  }
+  .reset:active,
+  .snap:active,
+  .bar button:active,
+  .sound button:active,
+  .chip:active:not(:disabled),
+  .step:active {
+    scale: none;
+  }
+}
+
+/* Under 900 px (P5.4, F-15): the page scrolls, the stage sticks to the top
+   at 40vh and the panel scrolls beneath it, the header wraps. */
+@media (max-width: 899px) {
+  .app {
+    display: block;
+    height: auto;
+  }
+  .main {
+    position: sticky;
+    top: 0;
+    z-index: 3;
+    block-size: 40vh;
+    background-color: var(--sc-color-surface-page);
+    border-block-end: var(--sc-border-width-default) solid var(--sc-color-border-subtle);
+  }
+  .panel {
+    overflow: visible;
+    border-inline-start: none;
+  }
+  .rail {
+    top: 40vh;
+    margin-block-start: 0;
+  }
+  .handle {
+    display: none;
+  }
+  .note {
+    white-space: normal;
+  }
 }

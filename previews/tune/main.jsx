@@ -24,7 +24,7 @@
  * Procedure: skills/sc-tune/SKILL.md.
  */
 
-import React, { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import React, { Profiler, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import { SoundProvider } from '../../src/sound/SoundProvider.jsx';
 import tokensCss from '../../src/styles/tokens.css?raw';
@@ -32,7 +32,7 @@ import '../../src/styles/fonts.css';
 import '../../src/styles/tokens.css';
 import '../../src/styles/reset.css';
 import { REGISTRY, GROUP_ORDER, lastFrameMs } from './registry.jsx';
-import { TokenControl, PropControl, round } from './controls.jsx';
+import { TokenControl, PropControl, round, short, stepsFor, toMs } from './controls.jsx';
 import { springToLinear } from './motion.js';
 import s from './Tune.module.css';
 
@@ -55,6 +55,8 @@ const HISTORY = 50;
 const docOf = (st) => ({ notes: st.notes, concepts: st.concepts, pick: st.pick });
 const sameDoc = (a, b) => a.notes === b.notes && a.concepts === b.concepts && a.pick === b.pick;
 const ARM_MS = 3000;
+// An easing token with no paired -duration previews at this length.
+const EASING_PREVIEW_MS = 600;
 
 /* ---------- token discovery ---------- */
 
@@ -66,6 +68,29 @@ const PRIM = {
   time: PRIMITIVES.filter((n) => n.startsWith('--sc-p-motion-duration-')),
 };
 const EASING_NAMES = PRIMITIVES.filter((n) => n.startsWith('--sc-p-motion-easing-'));
+const FONT_SIZES = PRIMITIVES.filter((n) => n.startsWith('--sc-p-font-size-'));
+// The ladder each length or time control is checked against (P4.4): the
+// same primitives its `token…` select offers, resolved once to px or ms.
+// Font sizes check against the type scale, icon sizes against their steps.
+let LADDERS = null;
+function laddersOf() {
+  if (LADDERS) return LADDERS;
+  const cs = getComputedStyle(document.documentElement);
+  const read = (names, unit) => names.map((name) => {
+    const raw = cs.getPropertyValue(name).trim();
+    return { name, v: unit === 'ms' ? toMs(raw) : parseFloat(raw) };
+  }).filter((p) => Number.isFinite(p.v) && (unit === 'ms' || /px$/.test(cs.getPropertyValue(p.name).trim())));
+  LADDERS = { length: read(PRIM.length, 'px'), time: read(PRIM.time, 'ms'), font: read(FONT_SIZES, 'px') };
+  return LADDERS;
+}
+const ladderFor = (name, kind) => {
+  if (kind === 'time') return laddersOf().time;
+  if (kind !== 'length') return null;
+  const steps = stepsFor(name);
+  if (!steps) return laddersOf().length;
+  if (/^--sc-font-/.test(name)) return laddersOf().font;
+  return laddersOf().length.filter((p) => steps.some(([, , prim]) => prim === p.name));
+};
 
 function discover(cssList) {
   const css = cssList.join('\n');
@@ -100,6 +125,11 @@ function classify(v) {
   if (/^-?[\d.]+$/.test(v)) return 'number';
   return 'text';
 }
+
+const sameMap = (a, b) => {
+  const ka = Object.keys(a);
+  return ka.length === Object.keys(b).length && ka.every((k) => a[k] === b[k]);
+};
 
 const readVars = (el, names) => {
   if (!el) return {};
@@ -169,7 +199,15 @@ async function playFile(file, volume, rate) {
    state so hot-reloaded CSS is picked up. */
 const FORCE_STATES = ['rest', 'hover', 'focus', 'active'];
 const PSEUDO = { hover: ':hover', focus: ':focus-visible', active: ':active' };
+// Memoised per (state, stylesheet count) (P5.3, A-20): a slider drag while
+// `hover` is forced never re-walks the sheets; a hot reload adds a sheet.
+const forceCache = new Map();
 function forceStateCss(state) {
+  const key = `${state}:${document.styleSheets.length}`;
+  if (!forceCache.has(key)) forceCache.set(key, walkForceState(state));
+  return forceCache.get(key);
+}
+function walkForceState(state) {
   const pseudo = PSEUDO[state];
   if (!pseudo) return '';
   const out = [];
@@ -385,10 +423,13 @@ function Tune() {
   }, [force]);
 
   useLayoutEffect(() => {
-    setShipped(readVars(shippedRef.current, tokens));
     const base = readVars(shippedRef.current, tokens);
+    // Shipped moves only with the theme or the subject; keeping the old
+    // object when nothing moved spares every card a re-render (P5.1).
+    setShipped((prev) => (sameMap(prev, base) ? prev : base));
     shippedByMode.current[state.view.theme] = base;
-    setTuned({ ...base, ...resolveOverrides(shippedRef.current, effective(concept, state.view.theme)) });
+    const next = { ...base, ...resolveOverrides(shippedRef.current, effective(concept, state.view.theme)) };
+    setTuned((prev) => (sameMap(prev, next) ? prev : next));
     const node = activeRef.current?.querySelector('[class]');
     setDerived(resolveLengths(node ? (node.closest('label') || node) : null, derivedNames));
   }, [tokens, derivedNames, concept.overrides, state.view.theme, concept.props]);
@@ -549,6 +590,33 @@ function Tune() {
   }));
   const setPin = (name, text) => editActive((c) => ({ ...c, pins: { ...c.pins, [name]: text } }));
   const setSound = (k, v) => editActive((c) => ({ ...c, sound: { ...c.sound, [k]: v } }));
+
+  /* One stable dispatcher per control kind (P5.1, A-18): a card calls
+     onToken(name, action, payload) and the lab routes it to this render's
+     handlers, so memoised cards never see a new callback. */
+  const tokenHandlers = {
+    set: (n, v) => setOverride(n, v),
+    adj: (n, a) => setShadowAdj(n, a),
+    easing: (n, { easing, sp, settle }) => { setOverride(n, easing); setSpring(n, sp, settle); },
+    reset: (n) => resetOverride(n),
+    shipped: (n) => shipToken(n),
+    copyRest: (n) => setOverride(n, tuned[n.slice(0, -6)] || shipped[n.slice(0, -6)], 'copy'),
+    pin: (n, t) => setPin(n, t),
+  };
+  const propHandlers = {
+    set: (n, v) => setPropFor(concept.id)(n, v),
+    spring: (n, { easing, sp, settle }) => editActive((c) => {
+      const d = entry.props.find((x) => x.name === n);
+      const springs = { ...c.springs };
+      const props = { ...c.props, [n]: easing };
+      if (sp) { springs[`prop:${n}`] = sp; if (d?.durationProp) props[d.durationProp] = settle; } else delete springs[`prop:${n}`];
+      return { ...c, springs, props };
+    }),
+  };
+  const handlersRef = useRef(null);
+  handlersRef.current = { token: tokenHandlers, prop: propHandlers };
+  const onToken = useCallback((n, action, payload) => { if (!SNAPSHOT) handlersRef.current.token[action](n, payload); }, []);
+  const onProp = useCallback((n, action, payload) => { if (!SNAPSHOT) handlersRef.current.prop[action](n, payload); }, []);
   const setView = (k, v) => setState((p) => ({ ...p, view: { ...p.view, [k]: v } }));
   // One state for every stage. hover/focus/active are forced (see
   // forceStateCss); disabled is the component's own prop, set on every
@@ -710,13 +778,28 @@ function Tune() {
       const panel = panelRef.current;
       const el = panel?.querySelector(`[data-group="${g}"]`);
       if (!el) return;
-      const top = panel.scrollTop + el.getBoundingClientRect().top - panel.getBoundingClientRect().top - (railRef.current?.offsetHeight || 0);
-      panel.scrollTo({ top, behavior: prefersReducedMotion() ? 'auto' : 'smooth' });
+      const behavior = prefersReducedMotion() ? 'auto' : 'smooth';
+      const rail = railRef.current?.offsetHeight || 0;
+      // Under 900 px the page scrolls beneath a sticky stage (P5.4); above
+      // it, the panel scrolls on its own.
+      if (getComputedStyle(panel).overflowY === 'visible') {
+        const stage = appRef.current?.querySelector('main')?.offsetHeight || 0;
+        window.scrollTo({ top: window.scrollY + el.getBoundingClientRect().top - stage - rail, behavior });
+        return;
+      }
+      const top = panel.scrollTop + el.getBoundingClientRect().top - panel.getBoundingClientRect().top - rail;
+      panel.scrollTo({ top, behavior });
     }));
   };
+  const [keysOpen, setKeysOpen] = useState(false);
+  const playRef = useRef(null);
+  playRef.current = play;
   useEffect(() => {
     const onKey = (e) => {
-      if (e.key !== '/' || e.metaKey || e.ctrlKey || e.altKey || typingIn(e.target)) return;
+      if (e.metaKey || e.ctrlKey || e.altKey || typingIn(e.target)) return;
+      if (e.key === 'Escape') { setKeysOpen(false); return; }
+      if (e.key === 'p' || e.key === 'P') { e.preventDefault(); playRef.current(); return; }
+      if (e.key !== '/') return;
       e.preventDefault();
       filterRef.current?.focus();
     };
@@ -748,7 +831,7 @@ function Tune() {
       <header className={s.bar}>
         <div className={s.barRow}>
         <span className={s.cluster}>
-          <span className={s.brand}>sc-tune</span>
+          <h1 className={s.brand}>sc-tune</h1>
           <select aria-label="Subject" value={component} disabled={SNAPSHOT} onChange={(e) => switchTo(e.target.value)}>
             {Object.keys(REGISTRY).map((c) => <option key={c}>{c}</option>)}
           </select>
@@ -765,6 +848,15 @@ function Tune() {
             <button type="button" data-arm="reset" data-armed={armed === 'reset' || undefined} onClick={armed2('reset', () => mutate(() => freshState(component)))}>{armed === 'reset' ? 'Reset all?' : 'Reset all'}</button>
           </span>
         )}
+        {/* The shortcuts, one line each (P4.5, A-16). */}
+        <span className={s.keysWrap}>
+          <button type="button" className={s.keysButton} aria-expanded={keysOpen} aria-controls="sc-tune-keys" aria-label="Keyboard shortcuts" onClick={() => setKeysOpen((o) => !o)}>?</button>
+          <dl id="sc-tune-keys" className={s.keys} hidden={!keysOpen}>
+            <div><dt><kbd>/</kbd></dt><dd>filter tokens</dd></div>
+            <div><dt><kbd>⌘Z</kbd> · <kbd>⇧⌘Z</kbd></dt><dd>undo · redo</dd></div>
+            <div><dt><kbd>P</kbd></dt><dd>play</dd></div>
+          </dl>
+        </span>
         </div>
         <div className={s.barRow}>
         <span className={s.cluster}>
@@ -883,9 +975,9 @@ function Tune() {
           <textarea className={s.notes} aria-label={`Notes on concept ${concept.id}`} placeholder={`What concept ${concept.id} is trying…`} value={concept.notes} onChange={(e) => editActive((c) => ({ ...c, notes: e.target.value }))} />
           {state.concepts.length > 1 && (
             <div className={s.pick}>
-              <span className={s.propLabel}><code>pick</code></span>
+              <span className={s.propName}><code>pick</code></span>
               {state.concepts.map((c) => (
-                <label key={c.id} className={s.mini}>
+                <label key={c.id} className={`${s.mini} ${s.checkRow}`}>
                   <input type="radio" name="pick" checked={state.pick.id === c.id} onChange={() => setState((p) => ({ ...p, pick: { ...p.pick, id: c.id } }))} /> {c.id}
                 </label>
               ))}
@@ -900,21 +992,21 @@ function Tune() {
           {(() => {
             const rows = entry.props.map((d) => (
               <PropControl key={d.name} def={d} value={concept.props[d.name]} spring={concept.springs[`prop:${d.name}`]} easingPresets={easingPresets}
-                onChange={(v) => setPropFor(concept.id)(d.name, v)}
-                onSpring={(easing, sp, settle) => editActive((c) => {
-                  const springs = { ...c.springs };
-                  const props = { ...c.props, [d.name]: easing };
-                  if (sp) { springs[`prop:${d.name}`] = sp; if (d.durationProp) props[d.durationProp] = settle; } else delete springs[`prop:${d.name}`];
-                  return { ...c, springs, props };
-                })} />
+                onProp={onProp}
+                {...(d.type === 'easing' ? { replay, durationMs: (+concept.props[d.durationProp] || 0) * state.view.slow } : {})} />
             ));
             // state sits fourth (Levi, 2026-10-07), or last on a shorter list
             if (!isMotion) rows.splice(Math.min(3, rows.length), 0, (
-              <div key="state" className={s.prop}><label htmlFor="p-state"><code>state</code></label>
-                <select id="p-state" value={hasDisabled && concept.props.disabled ? 'disabled' : force} onChange={(e) => setStageState(e.target.value)}>
-                  {FORCE_STATES.map((f) => <option key={f} value={f}>{f === 'rest' ? 'default' : f}</option>)}
-                  {hasDisabled && <option value="disabled">disabled</option>}
-                </select></div>
+              <div key="state" className={`${s.row} ${s.prop}`}>
+                <span className={s.rowLabel}><label htmlFor="p-state" className={s.propName}><code>state</code></label></span>
+                <span className={s.rowControl}>
+                  <select id="p-state" value={hasDisabled && concept.props.disabled ? 'disabled' : force} onChange={(e) => setStageState(e.target.value)}>
+                    {FORCE_STATES.map((f) => <option key={f} value={f}>{f === 'rest' ? 'default' : f}</option>)}
+                    {hasDisabled && <option value="disabled">disabled</option>}
+                  </select>
+                </span>
+                <span className={s.rowReadout} />
+              </div>
             ));
             return rows;
           })()}
@@ -934,10 +1026,10 @@ function Tune() {
           <div id="gb-sound" className={s.groupBody} hidden={!isOpen('sound')}>
             {isOpen('sound') && (
               <>
-                <div className={s.prop}><label htmlFor="s-vol"><code>volume</code></label>
-                  <input id="s-vol" type="range" min="0" max="1" step="0.05" value={concept.sound.volume} onChange={(e) => setSound('volume', +e.target.value)} /><span className={s.readout}>{concept.sound.volume}</span></div>
-                <div className={s.prop}><label htmlFor="s-rate"><code>pitch</code></label>
-                  <input id="s-rate" type="range" min="0.5" max="2" step="0.05" value={concept.sound.rate} onChange={(e) => setSound('rate', +e.target.value)} /><span className={s.readout}>{concept.sound.rate}×</span></div>
+                <div className={`${s.row} ${s.prop}`}><span className={s.rowLabel}><label htmlFor="s-vol" className={s.propName}><code>volume</code></label></span>
+                  <span className={s.rowControl}><input id="s-vol" type="range" min="0" max="1" step="0.05" value={concept.sound.volume} onChange={(e) => setSound('volume', +e.target.value)} /></span><span className={s.rowReadout}>{concept.sound.volume}</span></div>
+                <div className={`${s.row} ${s.prop}`}><span className={s.rowLabel}><label htmlFor="s-rate" className={s.propName}><code>pitch</code></label></span>
+                  <span className={s.rowControl}><input id="s-rate" type="range" min="0.5" max="2" step="0.05" value={concept.sound.rate} onChange={(e) => setSound('rate', +e.target.value)} /></span><span className={s.rowReadout}>{concept.sound.rate}×</span></div>
                 <div className={s.listHead}>
                   <span className={s.summary}>{SNAPSHOT ? 'recorded sound' : `${sounds.length} of ${manifest.length} sounds`}</span>
                   {!SNAPSHOT && <Chip pressed={shortOnly} onClick={() => setShortOnly((v) => !v)}>under 1 s only</Chip>}
@@ -972,32 +1064,34 @@ function Tune() {
               </button>
             </legend>
             <div id={`gb-${cat}`} className={s.groupBody} hidden={!open}>
-            {open && visible.map((n) => (
-              <TokenControl
-                key={`${concept.id}${theme}${n}`}
-                name={n}
-                kind={classify(shipped[n])}
-                shipped={shipped[n]}
-                value={tuned[n] || shipped[n] || ''}
-                override={conceptEff[n]}
-                scope={concept.overrides[scopeOf(n, theme)][n] !== undefined ? scopeOf(n, theme) : (concept.overrides.all[n] !== undefined ? 'all' : null)}
-                adj={concept.shadowAdj[scopeOf(n, theme)]?.[n]}
-                spring={concept.springs[n]}
-                pin={concept.pins[n]}
-                refs={PRIM[classify(shipped[n])]}
-                easingPresets={easingPresets}
-                onSet={(v) => setOverride(n, v)}
-                onAdj={(a) => setShadowAdj(n, a)}
-                onSpring={(sp, settle) => setSpring(n, sp, settle)}
-                origin={conceptEff[n] !== undefined ? originOf(concept, n, theme) : null}
-                seeded={seeds.values[scopeOf(n, theme)][n] !== undefined}
-                onReset={() => resetOverride(n)}
-                onShipped={() => shipToken(n)}
-                restOf={n.endsWith('-hover') && tokens.includes(n.slice(0, -6)) ? n.slice(0, -6) : null}
-                onCopyRest={() => setOverride(n, tuned[n.slice(0, -6)] || shipped[n.slice(0, -6)], 'copy')}
-                onPin={(t) => setPin(n, t)}
-              />
-            ))}
+            {open && visible.map((n) => {
+              const kind = classify(shipped[n]);
+              const pair = n.replace(/-easing$/, '-duration');
+              return (
+                // Keyed on the name alone (P5.2, A-19): a theme flip or a
+                // concept switch updates the card in place, never remounts it.
+                <TokenControl
+                  key={n}
+                  name={n}
+                  kind={kind}
+                  shipped={shipped[n]}
+                  value={tuned[n] || shipped[n] || ''}
+                  override={conceptEff[n]}
+                  scope={concept.overrides[scopeOf(n, theme)][n] !== undefined ? scopeOf(n, theme) : (concept.overrides.all[n] !== undefined ? 'all' : null)}
+                  adj={concept.shadowAdj[scopeOf(n, theme)]?.[n]}
+                  spring={concept.springs[n]}
+                  pin={concept.pins[n]}
+                  refs={PRIM[kind]}
+                  ladder={ladderFor(n, kind)}
+                  easingPresets={easingPresets}
+                  origin={conceptEff[n] !== undefined ? originOf(concept, n, theme) : null}
+                  seeded={seeds.values[scopeOf(n, theme)][n] !== undefined}
+                  restOf={n.endsWith('-hover') && tokens.includes(n.slice(0, -6)) ? n.slice(0, -6) : null}
+                  {...(kind === 'easing' ? { replay, durationMs: (pair !== n && (tuned[pair] || shipped[pair]) ? toMs(tuned[pair] || shipped[pair]) : EASING_PREVIEW_MS) * state.view.slow } : {})}
+                  onAction={onToken}
+                />
+              );
+            })}
             </div>
           </fieldset>
           );
@@ -1009,7 +1103,9 @@ function Tune() {
               <button type="button" className={s.disclosure} aria-expanded={isOpen('derived')} aria-controls="gb-derived" onClick={() => setOpen('derived', !isOpen('derived'))}>derived · read-only</button>
             </legend>
             <div id="gb-derived" className={s.groupBody} hidden={!isOpen('derived')}>
-              {isOpen('derived') && derivedNames.filter(matches).map((n) => <div key={n} className={s.values}><code>{n}</code> {derived[n]}</div>)}
+              {isOpen('derived') && derivedNames.filter(matches).map((n) => (
+                <div key={n} className={`${s.row} ${s.prop}`}><code className={`${s.rowLabel} ${s.derivedName}`}>{n}</code><span className={`${s.rowControl} ${s.rowWide} ${s.readout}`}>{derived[n]}</span></div>
+              ))}
             </div>
           </fieldset>
         )}
@@ -1019,12 +1115,13 @@ function Tune() {
 }
 
 /* The concept tabs: one component in the panel and in the strip above the
-   stages, so the two can never disagree (P1.7). */
+   stages, so the two can never disagree (P1.7). Pressed buttons, not an ARIA
+   tab pattern, in both places (P4.3). */
 function ConceptTabs({ label, concepts, active, pickId, onSelect }) {
   return (
-    <span className={s.tabs} role="tablist" aria-label={label}>
+    <span className={s.tabs} role="group" aria-label={label}>
       {concepts.map((c) => (
-        <button key={c.id} type="button" role="tab" aria-selected={c.id === active} className={s.tab} onClick={() => onSelect(c.id)}>
+        <button key={c.id} type="button" aria-pressed={c.id === active} className={s.tab} onClick={() => onSelect(c.id)}>
           {c.id}{pickId === c.id && ' · picked'}
         </button>
       ))}
@@ -1062,10 +1159,26 @@ function NoEntry({ name }) {
   );
 }
 
+/* The perf bar's instrument (P5.1): every commit's render time, read with
+   window.scTuneProfile.read() after window.scTuneProfile.reset(). */
+const COMMITS = [];
+window.scTuneProfile = {
+  reset: () => { COMMITS.length = 0; },
+  read: () => COMMITS.slice(),
+  p95: () => {
+    const d = COMMITS.map((c) => c.actualDuration).sort((a, b) => a - b);
+    return d.length ? d[Math.min(d.length - 1, Math.floor(d.length * 0.95))] : null;
+  },
+};
+const onCommit = (id, phase, actualDuration, baseDuration, startTime, commitTime) => {
+  if (COMMITS.length > 5000) COMMITS.shift();
+  COMMITS.push({ phase, actualDuration, commitTime });
+};
+
 function Lab() {
   const asked = new URLSearchParams(location.search).get('c');
   if (!SNAPSHOT && asked !== null && !Object.hasOwn(REGISTRY, asked)) return <NoEntry name={asked} />;
-  return <Tune />;
+  return <Profiler id="sc-tune" onRender={onCommit}><Tune /></Profiler>;
 }
 
 // Guard: a snapshot served through the dev server can evaluate twice.
