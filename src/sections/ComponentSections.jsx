@@ -266,7 +266,7 @@ export function InputPage() {
  * demo sits on the page ground it is built for. */
 function ToastStage({ children }) {
   return (
-    <div style={{ display: 'grid', gap: 'var(--sc-space-layout-stack-sm)', justifyItems: 'start', background: 'var(--sc-color-surface-page)', padding: 'var(--sc-space-component-padding-md)', borderRadius: 'var(--sc-radius-card)' }}>
+    <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr)', gap: 'var(--sc-space-layout-stack-sm)', justifyItems: 'start', inlineSize: '100%', background: 'var(--sc-color-surface-page)', padding: 'var(--sc-space-component-padding-md)', borderRadius: 'var(--sc-radius-card)' }}>
       {children}
     </div>
   );
@@ -290,7 +290,7 @@ function ToastLiveDemo() {
   return (
     <ToastStage>
       <Button variant="secondary" size="sm" arrow={false} onClick={add}>Show a toast</Button>
-      <div style={{ display: 'grid', gap: 'var(--sc-space-layout-stack-sm)', inlineSize: '100%', justifyItems: 'start' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr)', gap: 'var(--sc-space-layout-stack-sm)', inlineSize: '100%', justifyItems: 'start' }}>
         {toasts.map((t) => (
           <Toast key={t.id} tone={t.tone} placement="floating" onDismiss={() => setToasts((list) => list.filter((x) => x.id !== t.id))}>{t.message}</Toast>
         ))}

@@ -55,7 +55,7 @@ States: default, hover (lighter ground), focus (the shared focus ring), active (
 | `--sc-size-toast-lift` | rise on enter, fall on exit | = `space.8` |
 | `--sc-motion-toast-hold` | time before it dismisses itself (read in JS) | 6000ms |
 
-Only opacity and transform transition; the shadow snaps (tokens:verify rule 6). Reduced motion keeps the fade and drops the rise and the press.
+Only opacity and transform transition; the shadow snaps (tokens:verify rule 6). Reduced motion drops the rise and the press; the fade stays, or is instant where the SCDS reset is loaded (it shortens every transition).
 
 ## Contrast (verify-contrast)
 

@@ -152,7 +152,9 @@
   block-size: var(--sc-size-toast-dismiss-icon);
 }
 
-/* --- Reduced motion: the fade stays, the rise and the press go ---- */
+/* --- Reduced motion: the rise and the press go. The fade stays; where
+   the SCDS reset is loaded it shortens every transition, so the toast
+   appears and leaves at once. Either way nothing moves. --------- */
 @media (prefers-reduced-motion: reduce) {
   .floating { transition: opacity var(--sc-motion-toast-travel-duration) linear; }
   .floating[data-state='enter'],

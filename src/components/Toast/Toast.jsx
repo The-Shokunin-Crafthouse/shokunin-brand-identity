@@ -19,7 +19,8 @@
  *
  * The hold timer pauses while the pointer or focus is inside the toast
  * (WCAG 2.2.1) and resumes with the time it had left. Escape dismisses a
- * focused floating toast. Reduced motion keeps the fade and drops the rise.
+ * focused floating toast. Reduced motion drops the rise and the press (the
+ * fade stays, or is instant under the SCDS reset).
  *
  * The component positions nothing: the consumer places floating toasts in a
  * fixed region of its own (a corner stack), and owns the list of messages.
@@ -108,39 +109,45 @@ export function Toast({
     return () => { el.removeEventListener('transitionend', onEnd); clearTimeout(id); };
   }, [phase, finish]);
 
-  // Hold timer: starts once the toast is open, pauses inside, resumes with the time left.
+  // Hold timer: starts once the toast is open, pauses while the pointer or
+  // focus is inside (either can arrive during the rise-in, before the timer
+  // exists), and resumes with the time it had left once both are out.
+  const inside = useRef({ pointer: false, focus: false });
+  const holding = floating && autoDismiss && phase === 'open';
   const run = useCallback((left) => {
     clearTimeout(timer.current.id);
     timer.current = { id: setTimeout(dismiss, left), left, started: Date.now() };
   }, [dismiss]);
-  const pause = useCallback(() => {
+  const pause = useCallback((why) => {
+    inside.current[why] = true;
     const tm = timer.current;
     if (!tm.id) return;
     clearTimeout(tm.id);
     timer.current = { id: 0, left: Math.max(0, tm.left - (Date.now() - tm.started)), started: 0 };
   }, []);
-  const resume = useCallback(() => {
-    if (timer.current.id || !floating || !autoDismiss || phase !== 'open') return;
-    const el = ref.current;
-    if (el && (el.matches(':hover') || el.contains(document.activeElement))) return;
+  const resume = useCallback((why) => {
+    inside.current[why] = false;
+    if (!holding || timer.current.id || inside.current.pointer || inside.current.focus) return;
     run(timer.current.left);
-  }, [floating, autoDismiss, phase, run]);
+  }, [holding, run]);
 
   useEffect(() => {
-    if (!floating || !autoDismiss || phase !== 'open' || !ref.current) return undefined;
-    run(ms(getComputedStyle(ref.current).getPropertyValue('--sc-motion-toast-hold')));
+    if (!holding || !ref.current) return undefined;
+    const hold = ms(getComputedStyle(ref.current).getPropertyValue('--sc-motion-toast-hold'));
+    if (inside.current.pointer || inside.current.focus) timer.current = { id: 0, left: hold, started: 0 };
+    else run(hold);
     return () => clearTimeout(timer.current.id);
-  }, [floating, autoDismiss, phase, run]);
+  }, [holding, run]);
 
   if (phase === 'gone') return null;
 
   const role = t === 'error' || t === 'warning' ? 'alert' : 'status';
   const handlers = floating
     ? {
-        onPointerEnter: pause,
-        onPointerLeave: resume,
-        onFocus: pause,
-        onBlur: (e) => { if (!e.currentTarget.contains(e.relatedTarget)) resume(); },
+        onPointerEnter: () => pause('pointer'),
+        onPointerLeave: () => resume('pointer'),
+        onFocus: () => pause('focus'),
+        onBlur: (e) => { if (!e.currentTarget.contains(e.relatedTarget)) resume('focus'); },
         onKeyDown: (e) => { if (e.key === 'Escape' && !dismissDisabled) { e.stopPropagation(); dismiss(); } },
       }
     : {};
