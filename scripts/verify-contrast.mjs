@@ -186,7 +186,7 @@ const GRAPHIC_PAIRS = [
   ['color.toast.icon', 'color.toast.badge.warning'],
   ['color.toast.icon', 'color.toast.badge.info'],
   ['color.toast.dismiss.ink', 'color.toast.dismiss.surface'],
-  ['color.toast.dismiss.ink', 'color.toast.dismiss.hover'],
+  ['color.toast.dismiss.inkHover', 'color.toast.dismiss.hover'],
 ];
 function checkGraphicPairs() {
   const failures = [];

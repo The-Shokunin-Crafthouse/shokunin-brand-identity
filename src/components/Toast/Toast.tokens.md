@@ -8,7 +8,7 @@ Spec ref: §2 Tier 3 · 3.11 (was Alert). 2026-10-08: Alert folds into Toast (Le
 |---|---|---|
 | `--sc-color-toast-surface` | plate fill | = `surface.raised` (color/surface/raised) |
 | `--sc-radius-toast-plate` | capsule corner | = `radius.pill` (radius/pill) |
-| `--sc-space-component-padding-block-toast` | top and bottom | = `layout.inset.md` (24px) |
+| `--sc-space-component-padding-block-toast` | top and bottom | = `layout.inset.sm` (16px). Figma 24; Levi 2026-10-10: 8px less |
 | `--sc-space-component-padding-inline-toast-start` | before the badge | = `layout.inset.sm` (16px) |
 | `--sc-space-component-padding-inline-toast-end` | after the dismiss | = `layout.inset.lg` (48px) |
 | `--sc-space-component-gap-toast` | badge, message, dismiss | = `space.12` (space/12) |
@@ -55,12 +55,13 @@ Reduced transparency, more contrast and an engine with no backdrop filter turn g
 | `--sc-size-toast-dismiss-offset-block` | rise above the plate's top edge | = `space.micro.18` (Figma top -18) |
 | `--sc-size-toast-dismiss-offset-inline` | overhang past the end edge | = `space.20` (Figma 19 / 20) |
 | `--sc-color-toast-dismiss-surface` | ground at rest | = `surface.raised` |
-| `--sc-color-toast-dismiss-hover` | ground on hover and press | white light, `dark.raised2` dark (not in Figma) |
+| `--sc-color-toast-dismiss-hover` | ground on hover and press | = `toast.dismiss.ink` (not in Figma; Levi 2026-10-10: invert) |
+| `--sc-color-toast-dismiss-ink-hover` | x on hover and press | = `toast.dismiss.surface` |
 | `--sc-size-toast-dismiss-icon` | x | = `size.icon.sm` (16px) |
 | `--sc-color-toast-dismiss-ink` | x | light `brand.accent` (Figma); dark `teal.200` |
 | `--sc-color-toast-dismiss-ink-disabled` | x when disabled | = `text.disabled` |
 
-States: default, hover (lighter ground), focus (the shared focus ring), active (lighter ground and the shared press scale), disabled (flat: text.disabled x, no hover, no press). Focus ring, press scale and press timing are the shared `--sc-border-*-focus` and `--sc-motion-press-*`.
+States: default, hover (inverted: accent ground, plate-coloured x), focus (the shared focus ring), active (inverted, plus the shared press scale), disabled (flat: text.disabled x, no hover, no press). Focus ring, press scale and press timing are the shared `--sc-border-*-focus` and `--sc-motion-press-*`.
 
 ## Motion (floating only)
 
@@ -75,7 +76,7 @@ Only opacity and transform transition; the shadow snaps (tokens:verify rule 6). 
 ## Contrast (verify-contrast)
 
 - FILL_PAIRS (AA 4.5): `toast.text` on `toast.surface`.
-- GRAPHIC_PAIRS (WCAG 1.4.11, 3:1): `toast.icon` on each badge fill; `toast.dismiss.ink` on the dismiss ground at rest and on hover. Figma's warmGray.50 glyph and teal.500 x fall under 3:1 on the dark grounds, so dark takes `dark.well` and `teal.200`.
+- GRAPHIC_PAIRS (WCAG 1.4.11, 3:1): `toast.icon` on each badge fill; `toast.dismiss.ink` on the dismiss ground at rest, and `toast.dismiss.inkHover` on the hover ground. Figma's warmGray.50 glyph and teal.500 x fall under 3:1 on the dark grounds, so dark takes `dark.well` and `teal.200`.
 
 ## Forced colors
 

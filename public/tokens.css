@@ -503,7 +503,8 @@
   --sc-color-toast-icon: var(--sc-p-color-warm-gray-50);
   --sc-color-toast-glass: var(--sc-color-card-glass-frosted-auto);
   --sc-color-toast-dismiss-surface: var(--sc-color-surface-raised);
-  --sc-color-toast-dismiss-hover: var(--sc-p-color-utility-white);
+  --sc-color-toast-dismiss-hover: var(--sc-color-toast-dismiss-ink);
+  --sc-color-toast-dismiss-ink-hover: var(--sc-color-toast-dismiss-surface);
   --sc-color-toast-dismiss-ink: var(--sc-color-brand-accent);
   --sc-color-toast-dismiss-ink-disabled: var(--sc-color-text-disabled);
   --sc-border-width-default: var(--sc-p-border-width-hairline);
@@ -882,7 +883,7 @@
   --sc-space-component-padding-block-button-sm: var(--sc-p-space-4);
   --sc-space-component-padding-block-input: var(--sc-p-space-12);
   --sc-space-component-padding-block-tooltip: var(--sc-p-space-8);
-  --sc-space-component-padding-block-toast: var(--sc-space-layout-inset-md);
+  --sc-space-component-padding-block-toast: var(--sc-space-layout-inset-sm);
   --sc-space-component-padding-block-status-pill: var(--sc-p-space-4);
   --sc-space-component-gap-sm: var(--sc-p-space-4);
   --sc-space-component-gap-md: var(--sc-p-space-8);
@@ -1027,7 +1028,8 @@
   --sc-color-toast-icon: var(--sc-p-color-dark-well);
   --sc-color-toast-glass: var(--sc-color-card-glass-frosted-auto);
   --sc-color-toast-dismiss-surface: var(--sc-color-surface-raised);
-  --sc-color-toast-dismiss-hover: var(--sc-p-color-dark-raised2);
+  --sc-color-toast-dismiss-hover: var(--sc-color-toast-dismiss-ink);
+  --sc-color-toast-dismiss-ink-hover: var(--sc-color-toast-dismiss-surface);
   --sc-color-toast-dismiss-ink: var(--sc-p-color-teal-200);
   --sc-color-toast-dismiss-ink-disabled: var(--sc-color-text-disabled);
   --sc-border-width-default: var(--sc-p-border-width-hairline);
@@ -1406,7 +1408,7 @@
   --sc-space-component-padding-block-button-sm: var(--sc-p-space-4);
   --sc-space-component-padding-block-input: var(--sc-p-space-12);
   --sc-space-component-padding-block-tooltip: var(--sc-p-space-8);
-  --sc-space-component-padding-block-toast: var(--sc-space-layout-inset-md);
+  --sc-space-component-padding-block-toast: var(--sc-space-layout-inset-sm);
   --sc-space-component-padding-block-status-pill: var(--sc-p-space-4);
   --sc-space-component-gap-sm: var(--sc-p-space-4);
   --sc-space-component-gap-md: var(--sc-p-space-8);

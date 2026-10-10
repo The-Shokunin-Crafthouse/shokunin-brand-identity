@@ -5,7 +5,7 @@
 # Design Token Map — The Shokunin Crafthouse · Brand Identity
 
 **Generated** from `tokens/primitives.json` + `tokens/semantic.json`.
-**Source fingerprint:** `cc5f4f3a8a2e` · **188 primitives · 370 semantic tokens.**
+**Source fingerprint:** `4c8dc053325c` · **188 primitives · 371 semantic tokens.**
 
 > **This file is a mirror, not the source.** `tokens/*.json` is upstream; this document and the Figma
 > library are generated from / synced to it. It previously claimed the opposite — that both were
@@ -693,7 +693,8 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | `color/toast/icon` | `--sc-color-toast-icon` | `color/warmGray/50` | `#F1EFEB` | `color/dark/well` | `#1F252C` | 2026-10-10 · Toast (Alert folds into Toast, decisions 2026-10-08; physical-controls Tier 2), tuned in sc-tune. |
 | `color/toast/glass` | `--sc-color-toast-glass` | `color/card/glass/frosted/auto` | `⚠ unresolved` | `color/card/glass/frosted/auto` | `⚠ unresolved` | 2026-10-10 · Toast (Alert folds into Toast, decisions 2026-10-08; physical-controls Tier 2), tuned in sc-tune. |
 | `color/toast/dismiss/surface` | `--sc-color-toast-dismiss-surface` | `color/surface/raised` | `⚠ unresolved` | `color/surface/raised` | `⚠ unresolved` | 2026-10-10 · Toast (Alert folds into Toast, decisions 2026-10-08; physical-controls Tier 2), tuned in sc-tune. |
-| `color/toast/dismiss/hover` | `--sc-color-toast-dismiss-hover` | `color/utility/white` | `#FFFFFF` | `color/dark/raised2` | `#3B4249` | 2026-10-10 · Toast (Alert folds into Toast, decisions 2026-10-08; physical-controls Tier 2), tuned in sc-tune. |
+| `color/toast/dismiss/hover` | `--sc-color-toast-dismiss-hover` | `color/toast/dismiss/ink` | `⚠ unresolved` | `color/toast/dismiss/ink` | `⚠ unresolved` | 2026-10-10 · Toast (Alert folds into Toast, decisions 2026-10-08; physical-controls Tier 2), tuned in sc-tune. |
+| `color/toast/dismiss/inkHover` | `--sc-color-toast-dismiss-ink-hover` | `color/toast/dismiss/surface` | `⚠ unresolved` | `color/toast/dismiss/surface` | `⚠ unresolved` | 2026-10-10 · Toast (Alert folds into Toast, decisions 2026-10-08; physical-controls Tier 2), tuned in sc-tune. |
 | `color/toast/dismiss/ink` | `--sc-color-toast-dismiss-ink` | `color/brand/accent` | `⚠ unresolved` | `color/teal/200` | `#8FD2D5` | 2026-10-10 · Toast (Alert folds into Toast, decisions 2026-10-08; physical-controls Tier 2), tuned in sc-tune. |
 | `color/toast/dismiss/inkDisabled` | `--sc-color-toast-dismiss-ink-disabled` | `color/text/disabled` | `⚠ unresolved` | `color/text/disabled` | `⚠ unresolved` | 2026-10-10 · Toast (Alert folds into Toast, decisions 2026-10-08; physical-controls Tier 2), tuned in sc-tune. |
 
@@ -760,7 +761,7 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | `space/component/padding-block/button-sm` | `--sc-space-component-padding-block-button-sm` | `space/4` | `4px` | `space/4` | `4px` | Small Button block padding (4px, the dense 4pt step). |
 | `space/component/padding-block/input` | `--sc-space-component-padding-block-input` | `space/12` | `12px` | `space/12` | `12px` | 2026-10-07 · Input material (physical-controls Tier 1: a true recessed well, the focus underline stays, a hover state), tuned in sc-tune. |
 | `space/component/padding-block/tooltip` | `--sc-space-component-padding-block-tooltip` | `space/8` | `8px` | `space/8` | `8px` | 2026-10-08 · Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. |
-| `space/component/padding-block/toast` | `--sc-space-component-padding-block-toast` | `space/layout/inset/md` | `⚠ unresolved` | `space/layout/inset/md` | `⚠ unresolved` | 2026-10-10 · Toast (Alert folds into Toast, decisions 2026-10-08; physical-controls Tier 2), tuned in sc-tune. |
+| `space/component/padding-block/toast` | `--sc-space-component-padding-block-toast` | `space/layout/inset/sm` | `⚠ unresolved` | `space/layout/inset/sm` | `⚠ unresolved` | 2026-10-10 · Toast (Alert folds into Toast, decisions 2026-10-08; physical-controls Tier 2), tuned in sc-tune. |
 | `space/component/padding-block/status-pill` | `--sc-space-component-padding-block-status-pill` | `space/4` | `4px` | `space/4` | `4px` | 2026-10-08 · StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis, the label written by the consumer; physical-controls Tier 2). |
 | `space/component/gap/sm` | `--sc-space-component-gap-sm` | `space/4` | `4px` | `space/4` | `4px` | Sprint 4 addition · tightest inter-element gap (4px). |
 | `space/component/gap/md` | `--sc-space-component-gap-md` | `space/8` | `8px` | `space/8` | `8px` | Sprint 4 addition · default inter-element gap (8px). |

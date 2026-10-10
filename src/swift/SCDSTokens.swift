@@ -171,8 +171,8 @@ public enum SCDS {
     public static let semanticVersion = "0.1.0"
     public static let sourceGenerated = "2026-05-26"
     public static let primitivesHash = "91c76a72c4dcc85e"
-    public static let semanticHash = "4ca7b0478f5f8aa8"
-    public static let tokenCount = 370
+    public static let semanticHash = "b3fda176412b6642"
+    public static let tokenCount = 371
   }
 
   // MARK: - Color
@@ -919,8 +919,14 @@ public enum SCDS {
 
     /// `color.toast.dismiss.hover`
     public static let toastDismissHover = SwiftUI.Color.scdsDynamic(
-        light: (1, 1, 1, 1),
-        dark:  (0.231373, 0.258824, 0.286275, 1)
+        light: (0.011765, 0.556863, 0.576471, 1),
+        dark:  (0.560784, 0.823529, 0.835294, 1)
+    )
+
+    /// `color.toast.dismiss.inkHover`
+    public static let toastDismissInkHover = SwiftUI.Color.scdsDynamic(
+        light: (0.945098, 0.937255, 0.921569, 1),
+        dark:  (0.203922, 0.227451, 0.254902, 1)
     )
 
     /// `color.toast.dismiss.ink`
@@ -1332,7 +1338,7 @@ public enum SCDS {
     public static let componentPaddingBlockTooltip: CGFloat = 8
 
     /// `space.component.padding-block.toast`
-    public static let componentPaddingBlockToast: CGFloat = 24
+    public static let componentPaddingBlockToast: CGFloat = 16
 
     /// `space.component.padding-block.status-pill`
     public static let componentPaddingBlockStatusPill: CGFloat = 4
