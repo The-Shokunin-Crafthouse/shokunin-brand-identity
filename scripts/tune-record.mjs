@@ -2,7 +2,7 @@
 /**
  * tune-record.mjs — turn an sc-tune export into a permanent tuning record.
  *
- *   node scripts/tune-record.mjs <spec.json | ->
+ *   node scripts/tune-record.mjs [--force] <spec.json | ->
  *
  * Input: the object `window.scTune.export()` returns in the tuning lab
  * (previews/tune/, spec version 2), as a file or on stdin.
@@ -18,7 +18,8 @@
  *               chosen sound copied in. Serve it, then open index.html:
  *               npx vite preview --outDir <that folder>
  *
- * Exits non-zero, writing nothing, if the input is not an sc-tune export.
+ * Exits non-zero, writing nothing, if the input is not an sc-tune export, or
+ * if the record folder already exists. Pass --force to overwrite it.
  */
 
 import { readFileSync, writeFileSync, mkdirSync, copyFileSync, existsSync } from 'node:fs';
@@ -27,9 +28,11 @@ import { fileURLToPath } from 'node:url';
 import { execFileSync } from 'node:child_process';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-const arg = process.argv[2];
+const argv = process.argv.slice(2);
+const force = argv.includes('--force');
+const arg = argv.find((a) => a !== '--force');
 if (!arg) {
-  console.error('usage: node scripts/tune-record.mjs <spec.json | ->');
+  console.error('usage: node scripts/tune-record.mjs [--force] <spec.json | ->');
   process.exit(2);
 }
 const raw = arg === '-' ? readFileSync(0, 'utf8') : readFileSync(resolve(arg), 'utf8');
@@ -90,6 +93,10 @@ const when = new Date(spec.recorded || Date.now());
 const pad = (n) => String(n).padStart(2, '0');
 const stamp = `${when.getFullYear()}-${pad(when.getMonth() + 1)}-${pad(when.getDate())}-${pad(when.getHours())}${pad(when.getMinutes())}`;
 const outDir = resolve(root, 'output/tuning', spec.component, stamp);
+if (existsSync(outDir) && !force) {
+  console.error(`record folder already exists: ${relative(root, outDir)} (pass --force to overwrite it)`);
+  process.exit(1);
+}
 mkdirSync(outDir, { recursive: true });
 writeFileSync(resolve(outDir, 'spec.json'), JSON.stringify(spec, null, 2) + '\n');
 

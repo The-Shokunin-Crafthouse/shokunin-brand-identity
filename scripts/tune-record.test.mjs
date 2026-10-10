@@ -53,7 +53,7 @@ test('refuses to write into a record folder that already exists', () => {
   assert.equal(existsSync(join(recordDir, 'snapshot')), false, 'no snapshot build');
 });
 
-test('--force is accepted before the input argument and still refuses nothing else (usage path only)', () => {
+test('--force alone is not an input: usage error', () => {
   const r = run('--force');
   assert.equal(r.status, 2, 'only a flag, no input: usage error');
   assert.match(r.stderr, /usage:.*--force/);
