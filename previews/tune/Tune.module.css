@@ -379,20 +379,29 @@
   white-space: nowrap;
 }
 
-/* ---------- easing preview (P3.8, F-14) ----------
-   A 48 px unit box; overshoot draws outside it, so the cell leaves room
-   above and below. The shipped curve is the faint second path. */
+/* ---------- easing preview (P3.8, F-14, N-01) ----------
+   A 48 px unit box; overshoot draws outside it, into a reserve above and
+   below. A spring reserves one unit box above (from rest it never
+   overshoots 100%: 30 px at bounce 0.9), a bezier a gap. The clip stops at
+   the reserve, so a typed extreme bezier never runs into the token name.
+   The shipped curve is the faint second path. */
 .curveCell {
   overflow: visible;
 }
 
 .curve {
+  --tune-curve-reach: var(--sc-space-component-gap-lg);
   display: block;
   inline-size: var(--sc-space-layout-stack-lg);
   block-size: var(--sc-space-layout-stack-lg);
   max-inline-size: none;
-  margin-block: var(--sc-space-component-gap-lg);
+  margin-block: var(--tune-curve-reach) var(--sc-space-component-gap-lg);
   overflow: visible;
+  clip-path: inset(calc(-1 * var(--tune-curve-reach)) calc(-1 * var(--sc-space-component-gap-lg)) calc(-1 * var(--sc-space-component-gap-lg)));
+}
+
+.curveSpring {
+  --tune-curve-reach: var(--sc-space-layout-stack-lg);
 }
 
 .curveBox {

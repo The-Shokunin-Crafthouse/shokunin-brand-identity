@@ -67,9 +67,11 @@ const curveFit = (easing) => {
  * shipped curve as a faint second path, overshoot drawn outside the box,
  * and a playhead that runs on Play at the token's duration (slow-mo
  * multiplies it). The playhead's dot rides the easing itself, so its
- * overshoot is the overshoot you will see.
+ * overshoot is the overshoot you will see. A spring reserves one unit box
+ * above (a spring from rest never overshoots 100%), a bezier a small gap;
+ * anything past the reserve is clipped there, never drawn into the name.
  */
-const Curve = memo(function Curve({ value, shipped, durationMs, replay }) {
+const Curve = memo(function Curve({ value, shipped, durationMs, replay, springy }) {
   const head = useRef(null);
   const dot = useRef(null);
   const seen = useRef(replay);
@@ -84,7 +86,7 @@ const Curve = memo(function Curve({ value, shipped, durationMs, replay }) {
     try { dot.current.animate(keys, { duration, easing: value }); } catch { dot.current.animate(keys, { duration, easing: 'linear' }); }
   }, [replay, durationMs, value]);
   return (
-    <svg className={s.curve} viewBox="0 0 1 1" preserveAspectRatio="none" aria-hidden="true" data-curve="">
+    <svg className={`${s.curve} ${springy ? s.curveSpring : ''}`} viewBox="0 0 1 1" preserveAspectRatio="none" aria-hidden="true" data-curve="">
       <rect className={s.curveBox} x="0" y="0" width="1" height="1" />
       {shipped && shipped !== value && <path className={s.curveShipped} d={curvePath(shipped)} transform={curveFit(shipped)} />}
       <path className={s.curveTuned} d={curvePath(value)} transform={curveFit(value)} />
@@ -125,7 +127,7 @@ export const EasingEditor = memo(function EasingEditor({ label, value, shipped, 
   return (
     <div className={s.easing}>
       <div className={s.row}>
-        <span className={`${s.rowLabel} ${s.curveCell}`}><Curve value={value} shipped={shipped} durationMs={durationMs} replay={replay} /></span>
+        <span className={`${s.rowLabel} ${s.curveCell}`}><Curve value={value} shipped={shipped} durationMs={durationMs} replay={replay} springy={!!spring} /></span>
         <span className={`${s.rowControl} ${s.rowWide}`}>
           <select aria-label={`${label} mode`} value={mode} onChange={(e) => {
             if (e.target.value === 'spring') applySpring(sp);
