@@ -188,8 +188,12 @@ const TYPE_STEPS = [11, 12, 13, 14, 16, 20].map((px, i) => [px, ['chrome', 'ui',
 const ICON_STEPS = [[10, '', '--sc-p-space-micro-10'], [12, 'xs', '--sc-p-space-12'], [14, '', '--sc-p-space-micro-14'], [16, 'sm', '--sc-p-space-16'], [18, '', '--sc-p-space-micro-18'], [24, 'md', '--sc-p-space-24']];
 const stepsFor = (name) => (/^--sc-font-.*-size$/.test(name) ? TYPE_STEPS : /^--sc-size-.*icon/.test(name) ? ICON_STEPS : null);
 
-export function TokenControl({ name, kind, shipped, value, override, scope, adj, spring, pin, refs, easingPresets, onSet, onAdj, onSpring, onReset, onPin, restOf, onCopyRest }) {
-  const changed = override !== undefined;
+export function TokenControl({ name, kind, shipped, value, override, origin, seeded, scope, adj, spring, pin, refs, easingPresets, onSet, onAdj, onSpring, onReset, onShipped, onPin, restOf, onCopyRest }) {
+  // A seed is the registry's lab start, not a decision: it reads `seed`, is
+  // not tinted and offers `shipped`. A token with a seed resets to it (`reseed`).
+  const overridden = override !== undefined;
+  const isSeed = overridden && origin === 'seed';
+  const changed = overridden && !isSeed;
   const [pinOpen, setPinOpen] = useState(!!pin);
   let editor = null;
   if (kind === 'color') {
@@ -259,11 +263,12 @@ export function TokenControl({ name, kind, shipped, value, override, scope, adj,
   return (
     <div className={`${s.token} ${changed ? s.changed : ''}`}>
       <div className={s.tokenHead}>
-        <code className={s.tokenName}>{name.replace('--sc-', '')}{changed && scope && <span className={s.scope}>{scope === 'all' ? 'both modes' : `${scope} only`}</span>}</code>
+        <code className={s.tokenName}>{name.replace('--sc-', '')}{overridden && scope && <span className={s.scope}>{scope === 'all' ? 'both modes' : `${scope} only`}</span>}</code>
         <span className={s.tokenActions}>
           {restOf && <button type="button" className={s.reset} title={`Set to this concept's ${restOf.replace('--sc-', '')} value`} onClick={onCopyRest}>copy rest</button>}
           <button type="button" className={s.reset} aria-pressed={pinOpen} onClick={() => setPinOpen((o) => !o)}>note</button>
-          {changed && <button type="button" className={s.reset} onClick={onReset} aria-label={`Reset ${name}`}>reset</button>}
+          {isSeed && <button type="button" className={s.reset} onClick={onShipped} aria-label={`Set ${name} to shipped`}>shipped</button>}
+          {changed && <button type="button" className={s.reset} onClick={onReset} aria-label={`${seeded ? 'Reseed' : 'Reset'} ${name}`}>{seeded ? 'reseed' : 'reset'}</button>}
         </span>
       </div>
       {editor}
@@ -278,7 +283,7 @@ export function TokenControl({ name, kind, shipped, value, override, scope, adj,
       )}
       <div className={s.values}>
         <span title={shipped}>shipped {shipped}</span>
-        {changed && <span title={value}>tuned {value}</span>}
+        {overridden && <span title={value}>{isSeed ? 'seed' : 'tuned'} {value}</span>}
       </div>
     </div>
   );

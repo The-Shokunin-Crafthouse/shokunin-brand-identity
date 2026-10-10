@@ -116,11 +116,13 @@ for (const c of spec.concepts) {
   lines.push('### Tokens', '');
   if (!c.tokens.length) lines.push('No token changed.', '');
   else {
-    lines.push('| Token | Mode | Kind | Shipped | Tuned | Set as | Token match | Note |', '| --- | --- | --- | --- | --- | --- | --- | --- |');
+    // Origin (spec v3, 2026-10-09): user, seed (the registry's lab start, not
+    // a decision), spring (a spring's paired duration) or copy (`copy rest`).
+    lines.push('| Token | Mode | Origin | Kind | Shipped | Tuned | Set as | Token match | Note |', '| --- | --- | --- | --- | --- | --- | --- | --- | --- |');
     for (const t of c.tokens) {
       const how = t.spring ? `spring k${t.spring.stiffness} c${t.spring.damping} m${t.spring.mass}` : `\`${esc(t.override.length > 80 ? t.override.slice(0, 77) + '…' : t.override)}\``;
       const tunedShown = t.tuned && t.tuned.length > 80 ? t.tuned.slice(0, 77) + '…' : t.tuned;
-      lines.push(`| \`${t.name}\` | ${t.mode === 'all' || !t.mode ? 'both' : t.mode} | ${t.kind} | \`${esc(t.shipped)}\` | \`${esc(tunedShown)}\` | ${how}${t.shadowAdjust ? ` (scale ${t.shadowAdjust.scale ?? 1}, strength ${t.shadowAdjust.strength ?? 1})` : ''} | ${esc(nearest(t))} | ${esc(c.pins?.[t.name] || '')} |`);
+      lines.push(`| \`${t.name}\` | ${t.mode === 'all' || !t.mode ? 'both' : t.mode} | ${t.origin || 'unrecorded'} | ${t.kind} | \`${esc(t.shipped)}\` | \`${esc(tunedShown)}\` | ${how}${t.shadowAdjust ? ` (scale ${t.shadowAdjust.scale ?? 1}, strength ${t.shadowAdjust.strength ?? 1})` : ''} | ${esc(nearest(t))} | ${esc(c.pins?.[t.name] || '')} |`);
     }
     lines.push('');
   }

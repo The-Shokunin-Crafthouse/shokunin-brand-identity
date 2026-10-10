@@ -175,31 +175,72 @@ function forceStateCss(state) {
 
 const defaults = (entry) => Object.fromEntries(entry.props.map((p) => [p.name, p.default]));
 
+/* Every override carries where it came from (P2.3): `user` (a control),
+   `seed` (the registry's lab start), `spring` (a spring wrote its paired
+   duration) or `copy` (`copy rest` took a sibling's value). It lives beside
+   the override as c.origin[mode][name] and is written to the export per
+   token. Only non-seed overrides count as changes. */
+const originOf = (c, name, theme) =>
+  (c.overrides[theme]?.[name] !== undefined ? c.origin?.[theme]?.[name] : c.origin?.all?.[name]) || 'user';
+
+// The registry seed per mode, as the values seedConcept writes.
+function seedValues(entry) {
+  const v = scoped();
+  const springs = {};
+  for (const [name, value] of Object.entries(entry.seed?.overrides || {})) v.all[name] = value;
+  for (const [mode, map] of Object.entries(entry.seed?.scoped || {})) Object.assign(v[mode], map);
+  for (const [name, sp] of Object.entries(entry.seed?.springs || {})) {
+    const r = springToLinear(sp);
+    springs[name] = sp;
+    v.all[name] = r.easing;
+    v.all[name.replace(/-easing$/, '-duration')] = `${r.settleMs}ms`;
+  }
+  return { values: v, springs };
+}
+
 // A registry `seed` is where a new setting starts in the lab when its shipped
 // value is deliberately inert (the Switch's reel motion ships at 0, so the
 // component is unchanged until Levi records a concept). It fills only tokens
 // the concept has not touched; a spring seeds its easing and paired duration.
 function seedConcept(entry, c) {
+  c.origin ||= scoped();
+  const put = (mode, name, value) => { c.overrides[mode][name] = value; c.origin[mode][name] = 'seed'; };
   for (const [name, value] of Object.entries(entry.seed?.overrides || {})) {
-    if (!Object.values(c.overrides).some((m) => name in m)) c.overrides.all[name] = value;
+    if (!Object.values(c.overrides).some((m) => name in m)) put('all', name, value);
   }
   // Per-mode seeds (a shadow or colour whose start differs in light and dark).
   for (const [mode, map] of Object.entries(entry.seed?.scoped || {})) {
     for (const [name, value] of Object.entries(map)) {
-      if (!(name in c.overrides[mode]) && !(name in c.overrides.all)) c.overrides[mode][name] = value;
+      if (!(name in c.overrides[mode]) && !(name in c.overrides.all)) put(mode, name, value);
     }
   }
   for (const [name, sp] of Object.entries(entry.seed?.springs || {})) {
     if (c.springs[name] || Object.values(c.overrides).some((m) => name in m)) continue;
     const r = springToLinear(sp);
     c.springs[name] = sp;
-    c.overrides.all[name] = r.easing;
-    c.overrides.all[name.replace(/-easing$/, '-duration')] = `${r.settleMs}ms`;
+    put('all', name, r.easing);
+    put('all', name.replace(/-easing$/, '-duration'), `${r.settleMs}ms`);
+  }
+  return c;
+}
+
+// Sessions saved before origin existed: a value equal to the registry seed is
+// `seed`, a value with a springs entry (or the duration paired to one) is
+// `spring`, anything else is `user`.
+function backfillOrigin(entry, c) {
+  if (c.origin) { for (const m of MODES) c.origin[m] ||= {}; return c; }
+  const seeds = seedValues(entry).values;
+  c.origin = scoped();
+  for (const mode of MODES) {
+    for (const [name, value] of Object.entries(c.overrides[mode] || {})) {
+      const springPair = name.endsWith('-duration') && c.springs[name.replace(/-duration$/, '-easing')];
+      c.origin[mode][name] = seeds[mode][name] === value ? 'seed' : (c.springs[name] || springPair) ? 'spring' : 'user';
+    }
   }
   return c;
 }
 const blankConcept = (entry, id) => seedConcept(entry, {
-  id, overrides: scoped(), shadowAdj: scoped(), springs: {}, pins: {}, notes: '',
+  id, overrides: scoped(), origin: scoped(), shadowAdj: scoped(), springs: {}, pins: {}, notes: '',
   props: defaults(entry),
   sound: { file: entry.shippedSound, volume: 0.7, rate: 1 },
 });
@@ -249,7 +290,7 @@ function loadState(component) {
       // #E3DFD8 was a raw candidate ground; it ships as the light
       // surface.page since 2026-10-07, so the token (which flips) replaces it.
       if (saved.view?.ground === '#E3DFD8') saved.view.ground = '--sc-color-surface-page';
-      for (const c of saved.concepts) seedConcept(REGISTRY[component], c);
+      for (const c of saved.concepts) seedConcept(REGISTRY[component], backfillOrigin(REGISTRY[component], c));
       return saved;
     }
   } catch { /* blocked storage: start fresh */ }
@@ -346,24 +387,45 @@ function Tune() {
     if (value === undefined) delete next[sc][name]; else next[sc][name] = value;
     return next;
   };
-  const setOverride = (name, value) => editActive((c) => ({ ...c, overrides: putScoped(c.overrides, name, value) }));
+  const seeds = useMemo(() => seedValues(entry), [entry]);
+  const setOverride = (name, value, origin = 'user') => editActive((c) => ({
+    ...c, overrides: putScoped(c.overrides, name, value), origin: putScoped(c.origin || scoped(), name, origin),
+  }));
+  // `reset` returns a token to where it started: the registry seed when it
+  // has one (as a reload would), else the shipped value.
   const resetOverride = (name) => editActive((c) => {
+    const sc = scopeOf(name, theme);
+    const seed = seeds.values[sc][name];
     const sp = { ...c.springs }; delete sp[name];
-    return { ...c, overrides: putScoped(c.overrides, name, undefined), shadowAdj: putScoped(c.shadowAdj, name, undefined), springs: sp };
+    if (seed !== undefined && seeds.springs[name]) sp[name] = seeds.springs[name];
+    return {
+      ...c,
+      overrides: putScoped(c.overrides, name, seed),
+      origin: putScoped(c.origin || scoped(), name, seed === undefined ? undefined : 'seed'),
+      shadowAdj: putScoped(c.shadowAdj, name, undefined),
+      springs: sp,
+    };
+  });
+  // On a seeded card: `shipped` sets the shipped value (a decision, so `user`).
+  const shipToken = (name) => editActive((c) => {
+    const sp = { ...c.springs }; delete sp[name];
+    return { ...c, overrides: putScoped(c.overrides, name, shipped[name]), origin: putScoped(c.origin || scoped(), name, 'user'), shadowAdj: putScoped(c.shadowAdj, name, undefined), springs: sp };
   });
   const setSpring = (name, sp, settle) => editActive((c) => {
     const springs = { ...c.springs };
     let overrides = c.overrides;
+    let origin = c.origin || scoped();
     if (sp) {
       springs[name] = sp;
       const pair = name.replace(/-easing$/, '-duration');
-      if (pair !== name && tokens.includes(pair)) overrides = putScoped(overrides, pair, `${settle}ms`);
+      if (pair !== name && tokens.includes(pair)) { overrides = putScoped(overrides, pair, `${settle}ms`); origin = putScoped(origin, pair, 'spring'); }
     } else delete springs[name];
-    return { ...c, springs, overrides };
+    return { ...c, springs, overrides, origin };
   });
   const setShadowAdj = (name, adj) => editActive((c) => ({
     ...c, shadowAdj: putScoped(c.shadowAdj, name, adj),
     overrides: putScoped(c.overrides, name, adjustShadow(shipped[name], adj.scale ?? 1, adj.strength ?? 1)),
+    origin: putScoped(c.origin || scoped(), name, 'user'),
   }));
   const setPin = (name, text) => editActive((c) => ({ ...c, pins: { ...c.pins, [name]: text } }));
   const setSound = (k, v) => editActive((c) => ({ ...c, sound: { ...c.sound, [k]: v } }));
@@ -455,7 +517,7 @@ function Tune() {
             const override = c.overrides[mode][name];
             const viewable = mode === 'all' || mode === state.view.theme;
             return {
-              name, mode, category: category(name), kind: classify(base[name] || shipped[name]),
+              name, mode, origin: c.origin?.[mode]?.[name] || 'user', category: category(name), kind: classify(base[name] || shipped[name]),
               shipped: base[name] ?? null,
               // A var() ref resolves only in the mode on screen; elsewhere the ref itself is the record.
               tuned: viewable ? (resolved[name] ?? override) : override,
@@ -489,7 +551,9 @@ function Tune() {
   const ctx = { replay, slow: state.view.slow };
   const sounds = manifest.filter((m) => !shortOnly || m.seconds <= 1);
   const conceptEff = effective(concept, state.view.theme);
-  const changedCount = Object.keys(conceptEff).length;
+  // Seeds are the lab's start, not decisions: never counted as changes.
+  const isChanged = (n) => conceptEff[n] !== undefined && originOf(concept, n, theme) !== 'seed';
+  const changedCount = Object.keys(conceptEff).filter(isChanged).length;
 
   return (
     <div className={s.app}>
@@ -657,9 +721,12 @@ function Tune() {
                 onSet={(v) => setOverride(n, v)}
                 onAdj={(a) => setShadowAdj(n, a)}
                 onSpring={(sp, settle) => setSpring(n, sp, settle)}
+                origin={conceptEff[n] !== undefined ? originOf(concept, n, theme) : null}
+                seeded={seeds.values[scopeOf(n, theme)][n] !== undefined}
                 onReset={() => resetOverride(n)}
+                onShipped={() => shipToken(n)}
                 restOf={n.endsWith('-hover') && tokens.includes(n.slice(0, -6)) ? n.slice(0, -6) : null}
-                onCopyRest={() => setOverride(n, tuned[n.slice(0, -6)] || shipped[n.slice(0, -6)])}
+                onCopyRest={() => setOverride(n, tuned[n.slice(0, -6)] || shipped[n.slice(0, -6)], 'copy')}
                 onPin={(t) => setPin(n, t)}
               />
             ))}
