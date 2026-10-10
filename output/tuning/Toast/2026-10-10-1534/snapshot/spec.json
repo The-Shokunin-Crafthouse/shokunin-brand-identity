@@ -1,0 +1,114 @@
+{
+  "tool": "sc-tune",
+  "version": 3,
+  "component": "Toast",
+  "kind": "component",
+  "recorded": "2026-10-10T21:34:04.181Z",
+  "theme": "dark",
+  "notes": "",
+  "pick": null,
+  "concepts": [
+    {
+      "id": "A",
+      "notes": "",
+      "props": {
+        "show": "all",
+        "placement": "floating",
+        "surface": "flat",
+        "glyph": "outline",
+        "backdrop": "none",
+        "autoDismiss": false,
+        "dismissDisabled": false,
+        "message": "Changes saved."
+      },
+      "sound": {
+        "file": null,
+        "volume": 0.7,
+        "rate": 1,
+        "shipped": null,
+        "trigger": "ships silent"
+      },
+      "tokens": [
+        {
+          "name": "--sc-shadow-toast-plate",
+          "mode": "light",
+          "category": "shadow",
+          "kind": "shadow",
+          "shipped": null,
+          "tuned": "2px 2px 6px 0 rgb(100 91 79 / 0.50)",
+          "override": "2px 2px 6px 0 rgb(100 91 79 / 0.50)"
+        },
+        {
+          "name": "--sc-shadow-toast-plate",
+          "mode": "dark",
+          "category": "shadow",
+          "kind": "shadow",
+          "shipped": "0 2px 8px 0 rgb(26 24 21 / 0.10), 0 1px 0 0 rgb(26 24 21 / 0.04)",
+          "tuned": "3px 3px 7px 0 rgb(0 0 0 / 0.50)",
+          "override": "3px 3px 7px 0 rgb(0 0 0 / 0.50)"
+        }
+      ],
+      "pins": {}
+    }
+  ],
+  "derived": {
+    "--badge-fill": "0px"
+  },
+  "tokenCount": 52,
+  "state": {
+    "component": "Toast",
+    "notes": "",
+    "active": "A",
+    "concepts": [
+      {
+        "id": "A",
+        "overrides": {
+          "all": {},
+          "light": {
+            "--sc-shadow-toast-plate": "2px 2px 6px 0 rgb(100 91 79 / 0.50)"
+          },
+          "dark": {
+            "--sc-shadow-toast-plate": "3px 3px 7px 0 rgb(0 0 0 / 0.50)"
+          }
+        },
+        "shadowAdj": {
+          "all": {},
+          "light": {},
+          "dark": {}
+        },
+        "springs": {},
+        "pins": {},
+        "notes": "",
+        "props": {
+          "show": "all",
+          "placement": "floating",
+          "surface": "flat",
+          "glyph": "outline",
+          "backdrop": "none",
+          "autoDismiss": false,
+          "dismissDisabled": false,
+          "message": "Changes saved."
+        },
+        "sound": {
+          "file": null,
+          "volume": 0.7,
+          "rate": 1
+        }
+      }
+    ],
+    "pick": {
+      "id": null,
+      "reason": ""
+    },
+    "view": {
+      "theme": "dark",
+      "zoom": 1,
+      "ground": "--sc-color-surface-page",
+      "compare": false,
+      "blind": false,
+      "order": null,
+      "slow": 1
+    },
+    "updated": "2026-10-10T21:33:21.081Z"
+  }
+}
