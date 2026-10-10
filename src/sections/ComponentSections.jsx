@@ -33,7 +33,7 @@ const noop = () => {};
 export function ButtonPage() {
   return (
     <ComponentPage
-      id="button" label="Button" tokensN={16}
+      id="button" label="Button"
       eyebrow={<>Button<Slash />the move forward</>}
       title={<>One fill per view. <Accent>Hover</Accent> is where the accent <Em>lives.</Em></>}
       lead={<>Four variants on one hierarchy: primary fills, secondary outlines, ghost recedes, destructive warns. Weight is carried by fill, not by colour — so the single filled button on a surface is, by construction, the one thing to do next.</>}
@@ -89,7 +89,7 @@ export function ButtonPage() {
 export function StatusPillPage() {
   return (
     <ComponentPage
-      id="status-pill" label="StatusPill" tokensN={14}
+      id="status-pill" label="StatusPill"
       eyebrow={<>StatusPill<Slash />the state of a thing</>}
       title={<>One pill for every status. <Em>The tone says how; the label says what.</Em></>}
       lead={<>A status pill names the state of a project, a milestone, a session or a deploy. It fills with its tone, or outlines where the page must stay quiet. The label is always the product&rsquo;s own word. A live or in-progress pill glows in its own hue and the glow breathes, so a glance tells you the thing is still running.</>}
@@ -149,7 +149,7 @@ function GlassStage({ children }) {
 export function CardPage() {
   return (
     <ComponentPage
-      id="card" label="Card" tokensN={36}
+      id="card" label="Card"
       eyebrow={<>Card<Slash />flat or glass</>}
       title={<>Two styles. <Em>A flat surface, or glass.</Em></>}
       lead={<>A flat card is the floating surface with no border and no shadow. A glass card is liquid glass over whatever sits behind it, in three levels named for the surface: clear, frosted (the studio's Figma Glass setting) and thick. Each comes in a light tone, which lightens what is behind it, and a dark tone, which darkens it; by default the tone follows the theme. A soft shade cast down and to the right makes it float. Frost, tint and a rim lit from the top left are CSS; the refraction that bends the backdrop at the edge is an SVG filter the card builds for its own size.</>}
@@ -211,7 +211,7 @@ function InputDemo({ initial = '', ...props }) {
 export function InputPage() {
   return (
     <ComponentPage
-      id="input" label="Input" tokensN={25}
+      id="input" label="Input"
       eyebrow={<>Input<Slash />a filled field, titled above</>}
       title={<>The title sits above. <Accent>The field</Accent> is a quiet <Em>tinted box.</Em></>}
       lead={<>A filled field: a tinted box with no rule and no frame, holding the value with a leading icon, a prefix or suffix, a clear button and a trailing control where the field needs them. The title stays above it, left-aligned, with optional subcopy between the title and the field. Icons are Phosphor, bold.</>}
@@ -265,7 +265,7 @@ export function InputPage() {
 export function AlertPage() {
   return (
     <ComponentPage
-      id="alert" label="Alert" tokensN={14} statesVariant="stack"
+      id="alert" label="Alert" statesVariant="stack"
       eyebrow={<>Alert<Slash />signal on a left rule</>}
       title={<>A three-pixel rule carries the state. <Em>The banner stays calm.</Em></>}
       lead={<>Alerts mark status with a single coloured left rule, not a full tint. The banner ground stays sunk and predictable; the rule does the category-marking at the same visual weight as every other rule in the system. The colour informs, it does not shout.</>}
@@ -312,7 +312,7 @@ export function AlertPage() {
 export function SwitchPage() {
   return (
     <ComponentPage
-      id="switch" label="Switch" tokensN={31}
+      id="switch" label="Switch"
       eyebrow={<>Switch<Slash />Drams Standard Switch, at our size</>}
       title={<>On is teal. <Em>The knob is an object.</Em></>}
       lead={<>The switch is an immediate binary: it flips instantly, the brand accent fills the track when on, and a short mechanical click confirms it. The form follows the Drams Standard Switch, a recessed track under a lit, lifted knob, at 40 × 22 with a 15px knob. The knob travels on a spring, stretches with its speed and leans toward its target when pressed, tuned in sc-tune (record 2026-10-07-1539). Every measurement, including the knob’s inset, its travel and the I/O marks, is derived by calc() from the size tokens.</>}
@@ -370,7 +370,7 @@ export function SwitchPage() {
 export function AvatarPage() {
   return (
     <ComponentPage
-      id="avatar" label="Avatar" tokensN={9}
+      id="avatar" label="Avatar"
       eyebrow={<>Avatar<Slash />four sizes, one fallback</>}
       title={<>Image first. <Em>Initials when it fails.</Em></>}
       lead={<>The avatar is a circle at one of four token-driven sizes. An image fills it; when there is no image, or the image fails to load, it falls back to initials on the sunk ground. The fallback is automatic — a broken image never shows.</>}
@@ -425,7 +425,7 @@ function SliderDemo({ initial = 0.3, label = 'Volume', disabled = false }) {
 export function ProgressPage() {
   return (
     <ComponentPage
-      id="progress" label="Progress" tokensN={22}
+      id="progress" label="Progress"
       eyebrow={<>Progress<Slash />three shapes, one fill</>}
       title={<>Bar, ring, steps. <Accent>Teal</Accent> is always the <Em>fill.</Em></>}
       lead={<>Three indicators for three situations: a bar for a single continuous task, a ring for a compact or circular slot, steps for a discrete sequence. All three fill with the brand accent against a deep-sunk track, and the circular ring decouples its drawing from its size by maths, not magic. Every one is read, never touched, so all three stay flat. A value the user sets is a Slider.</>}
@@ -475,7 +475,7 @@ export function ProgressPage() {
 export function SliderPage() {
   return (
     <ComponentPage
-      id="slider" label="Slider" tokensN={32}
+      id="slider" label="Slider"
       eyebrow={<>Slider<Slash />new · Drams #5</>}
       title={<>Progress is read. <Em>A slider is moved.</Em></>}
       lead={<>A value the user sets by dragging or by keys: Drams' Standard Volume as a recessed track with a physical thumb, lit from the top left. Split from the progress bar, which stays a flat meter. A click or an arrow key sends the thumb along a spring; a drag trails the pointer.</>}
@@ -520,7 +520,7 @@ export function SliderPage() {
 export function TooltipPage() {
   return (
     <ComponentPage
-      id="tooltip" label="Tooltip" tokensN={15} statesVariant="stack"
+      id="tooltip" label="Tooltip" statesVariant="stack"
       eyebrow={<>Tooltip<Slash />a raised plate</>}
       title={<>A plate that grows <Em>out of what you point at.</Em></>}
       lead={<>A tooltip is a small raised plate: white in light mode, the dark key in dark, with a drop shadow lit from the top left. It grows out of the trigger point with a little spring and shrinks back into it when you leave. Hover or focus the targets below to raise them.</>}
@@ -573,7 +573,7 @@ const tooltipTarget = { font: 'var(--sc-font-text-body-default)', color: 'var(--
 export function DividerPage() {
   return (
     <ComponentPage
-      id="divider" label="Divider" tokensN={5}
+      id="divider" label="Divider"
       eyebrow={<>Divider<Slash />the hairline</>}
       title={<>One rule weight. <Em>A label when the gap needs naming.</Em></>}
       lead={<>The divider is the quietest component in the system: a single hairline at the default border weight. It runs horizontal or vertical, and when a separation needs a name it carries a mono-caps label between two rules. No raw values touch it — every pixel is a token.</>}
@@ -614,7 +614,7 @@ export function NavBarPage() {
   ];
   return (
     <ComponentPage
-      id="navbar" label="NavBar" tokensN={13} statesVariant="stack"
+      id="navbar" label="NavBar" statesVariant="stack"
       eyebrow={<>NavBar<Slash />current is the only accent</>}
       title={<>Links recede. <Accent>The current page</Accent> is the one that <Em>holds teal.</Em></>}
       lead={<>The navigation floats on the page ground and stays out of the way: resting links sit in ink, hover turns teal, and the current page — driven entirely by aria-current — is the single link that holds the accent. The compact variant folds the same links into a toggle for narrow chrome.</>}
@@ -684,7 +684,7 @@ function SegmentedControlDemo({ defaultValue = 'week', disabled = false, options
 export function SegmentedControlPage() {
   return (
     <ComponentPage
-      id="segmented-control" label="Segmented Control" tokensN={13}
+      id="segmented-control" label="Segmented Control"
       eyebrow={<>Segmented Control<Slash />new · Drams #7</>}
       title={<>One of three. <Em>The fill slides, never the border.</Em></>}
       lead={<>A one-of-N selector for view/mode switches — Drams' 3-Way Switch mapped onto the studio's fill-only elevation model. The track sinks; the selected segment raises on the floating surface with no border or shadow, and a measured indicator slides beneath the label as selection moves.</>}
@@ -738,7 +738,7 @@ function StepperDemo({ defaultValue = 4, min = 0, max = 10, disabled = false }) 
 export function StepperPage() {
   return (
     <ComponentPage
-      id="stepper" label="Stepper" tokensN={29}
+      id="stepper" label="Stepper"
       eyebrow={<>Stepper<Slash />new · Drams #8</>}
       title={<>Minus. Number. Plus. <Em>Nothing else on the control.</Em></>}
       lead={<>A bounded numeric increment/decrement: Drams' Plus Minus Knob as two small keys on a recessed pill, lit from the top left like the Button key. The numeral sits flat in a two-digit mono readout, so the keys never move from 9 to 10, and rolls in from the direction of the step. Holding either key repeats until released.</>}
@@ -793,7 +793,7 @@ export function StepperPage() {
 export function WorkingMarkPage() {
   return (
     <ComponentPage
-      id="working-mark" label="Working Mark" tokensN={7}
+      id="working-mark" label="Working Mark"
       eyebrow={<>Working Mark<Slash />a scribble that keeps drawing</>}
       title={<>Something is <Accent>working</Accent> <Em>right now.</Em></>}
       lead={<>A hand-drawn scribble of eleven loops for the one moment a surface needs to say that work is happening and cannot say how long it will take. Each loop spins and pulses on its own phase, neighbours turning opposite ways, while a highlight sweeps round the whole mark faster than the loops turn. Live vector, seamless every 3.2 seconds, and still under reduced motion.</>}

@@ -33,7 +33,6 @@
   display: flex; flex-direction: column; gap: var(--sc-space-component-gap-lg);
   padding: var(--sc-space-component-padding-lg);
   background: var(--sc-color-surface-raised);
-  border: var(--sc-border-width-default) solid var(--sc-color-border-default);
   border-radius: var(--sc-radius-control);
   overflow: hidden;
 }
@@ -47,25 +46,22 @@
   min-width: var(--sc-p-space-32);
   padding: var(--sc-space-component-padding-block-sm) var(--sc-space-component-padding-inline-sm);
   background: var(--sc-color-surface-sunk);
-  border: var(--sc-border-width-default) solid var(--sc-color-border-default);
   border-radius: var(--sc-radius-control);
   color: var(--sc-color-text-secondary);
   font: var(--sc-font-text-mono-chrome); letter-spacing: 0;
   cursor: pointer;
-  transition: color var(--sc-motion-hover-duration) var(--sc-motion-hover-easing),
-              border-color var(--sc-motion-hover-duration) var(--sc-motion-hover-easing);
+  transition: color var(--sc-motion-hover-duration) var(--sc-motion-hover-easing);
+  border: 0;
 }
-.stepChip:hover { color: var(--sc-color-interactive-hover); border-color: var(--sc-color-interactive-hover); }
+.stepChip:hover { color: var(--sc-color-interactive-hover);}
 .stepChipSel {
   color: var(--sc-color-text-on-accent);
   background: var(--sc-color-brand-accent);
-  border-color: var(--sc-color-brand-accent);
 }
 
 /* ── Scale ladder ────────────────────────────────────────── */
 .ladder {
   display: flex; flex-direction: column;
-  border: var(--sc-border-width-default) solid var(--sc-color-border-default);
   border-radius: var(--sc-radius-control); overflow: hidden;
   background: var(--sc-color-surface-raised);
 }
@@ -88,16 +84,14 @@
 
 /* ── Weight ramp ─────────────────────────────────────────── */
 .weightRamp {
-  display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--sc-border-width-default);
-  border: var(--sc-border-width-default) solid var(--sc-color-border-default);
-  border-radius: var(--sc-radius-control); overflow: hidden;
-  background: var(--sc-color-border-default);
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--sc-space-component-gap-sm);
 }
 .weightSwatch {
   background: var(--sc-color-surface-raised);
   padding: var(--sc-space-component-padding-lg);
   display: flex; flex-direction: column; gap: var(--sc-space-component-gap-md);
   align-items: flex-start;
+  border-radius: var(--sc-radius-control);
 }
 .weightGlyph {
   font-family: var(--sc-p-font-family-sans);
@@ -123,15 +117,13 @@
 
 /* ── Optical before/after ────────────────────────────────── */
 .opticalGrid {
-  display: grid; grid-template-columns: 1fr; gap: var(--sc-border-width-default);
-  border: var(--sc-border-width-default) solid var(--sc-color-border-default);
-  border-radius: var(--sc-radius-control); overflow: hidden;
-  background: var(--sc-color-border-default);
+  display: grid; grid-template-columns: 1fr; gap: var(--sc-space-component-gap-sm);
 }
 .opticalCell {
   background: var(--sc-color-surface-raised);
   padding: var(--sc-space-component-padding-lg);
   display: flex; flex-direction: column; gap: var(--sc-space-component-gap-lg);
+  border-radius: var(--sc-radius-control);
 }
 .opticalTag { display: flex; align-items: center; gap: var(--sc-space-component-gap-md); }
 .opticalSpecimen {

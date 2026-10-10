@@ -10,13 +10,12 @@
 .curveCard {
   appearance: none; text-align: left; cursor: pointer; width: 100%;
   background: var(--sc-color-surface-raised);
-  border: var(--sc-border-width-default) solid var(--sc-color-border-default);
   border-radius: var(--sc-radius-control);
   padding: var(--sc-space-component-padding-lg);
   display: flex; flex-direction: column; gap: var(--sc-space-component-gap-md);
-  transition: border-color var(--sc-motion-hover-duration) var(--sc-motion-hover-easing);
+  transition: background-color var(--sc-motion-hover-duration) var(--sc-motion-hover-easing);
 }
-.curveCard:hover { border-color: var(--sc-color-interactive-hover); }
+.curveCard:hover { background: var(--sc-color-surface-floating); }
 .curveCard:focus-visible { outline: var(--sc-border-width-focus) solid var(--sc-color-border-focus); outline-offset: var(--sc-border-focus-offset); }
 .curveHead { display: flex; align-items: baseline; justify-content: space-between; gap: var(--sc-space-component-gap-md); }
 .curveLabel { font: var(--sc-font-text-title-card); color: var(--sc-color-text-primary); }
@@ -28,7 +27,6 @@
 .curvePlotWrap {
   width: var(--sc-p-space-96); height: var(--sc-p-space-96);
   background: var(--sc-color-surface-floating);
-  border: var(--sc-border-width-default) solid var(--sc-color-border-subtle);
   border-radius: var(--sc-radius-control);
   padding: var(--sc-space-component-padding-sm);
 }
@@ -72,7 +70,6 @@
   display: flex; flex-direction: column; gap: var(--sc-space-component-gap-lg);
   padding: var(--sc-space-component-padding-lg);
   background: var(--sc-color-surface-raised);
-  border: var(--sc-border-width-default) solid var(--sc-color-border-default);
   border-radius: var(--sc-radius-control);
 }
 .raceTop { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sc-space-component-gap-lg); }
@@ -81,12 +78,12 @@
   padding: var(--sc-space-component-padding-block-md) var(--sc-space-component-padding-inline-md);
   background: var(--sc-color-brand-accent);
   color: var(--sc-color-text-on-accent);
-  border: var(--sc-border-width-default) solid var(--sc-color-brand-accent);
   border-radius: var(--sc-radius-control);
   font: var(--sc-font-text-label-chrome);
   letter-spacing: var(--sc-font-text-label-chrome-letter-spacing);
   text-transform: uppercase;
   transition: filter var(--sc-motion-press-duration) var(--sc-motion-press-easing);
+  border: 0;
 }
 .playBtn:hover { filter: brightness(1.05); }
 .playBtn:active { transform: scale(var(--sc-motion-press-scale)); }
@@ -113,7 +110,6 @@
 .pairNote {
   padding: var(--sc-space-component-padding-md) var(--sc-space-component-padding-lg);
   font: var(--sc-font-text-caption); color: var(--sc-color-text-secondary);
-  border-top: var(--sc-border-width-default) solid var(--sc-color-border-subtle);
 }
 .pairNote code { font: var(--sc-font-text-mono-caption); color: var(--sc-color-brand-accent); }
 .tooltipTarget {

@@ -119,8 +119,8 @@ function TokenTable({ rows }) {
 }
 
 export function ComponentPage({
-  id, label, tokensN,
-  ord = '02', group = 'Components', revised = '2026.06.05',
+  id, label,
+  ord = '02', group = 'Components',
   eyebrow, title, lead,
   states, statesTitle, statesPremise, callouts = [], statesVariant = 'grid',
   tokenRows, tokenTitle, tokenPremise, tokenCallouts = [],
@@ -132,7 +132,6 @@ export function ComponentPage({
       <Metabar
         ord={ord}
         crumb={`${group} / ${label}`}
-        meta={[['Last revised', revised], ['Tokens', String(tokensN)], ['Spec', 'v1.2'], ['Status', 'Complete']]}
       />
       <Hero id={`${id}-title`} eyebrow={eyebrow} title={title} lead={lead} />
 

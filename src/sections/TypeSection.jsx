@@ -81,12 +81,6 @@ export function TypeSection() {
       <Metabar
         ord="01"
         crumb="Foundations / Type"
-        meta={[
-          ['Last revised', '2026.06.05'],
-          ['Tokens', '50'],
-          ['Spec', 'v1.2'],
-          ['Status', 'Complete'],
-        ]}
       />
 
       <Hero

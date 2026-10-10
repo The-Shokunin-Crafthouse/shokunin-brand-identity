@@ -84,7 +84,6 @@ export function RegisterSection() {
       <Metabar
         ord="04"
         crumb="Voice / Register"
-        meta={[['Last revised', '2026.06.05'], ['Registers', '4'], ['Spec', 'v1.2'], ['Status', 'Complete']]}
       />
 
       <Hero

@@ -33,7 +33,7 @@ export function PlusFieldPage() {
   return (
     <ComponentPage
       {...PAGE}
-      id="plus-field" label="Plus Field" tokensN={8}
+      id="plus-field" label="Plus Field"
       eyebrow={<>Plus Field<Slash />one mark, every slot</>}
       title={<>Every mark is a <Accent>plus.</Accent> The slot decides the <Em>shape.</Em></>}
       lead={<>One canvas primitive draws every brand element in the system. Name an art and it fills its box: crisp grids where the layout needs structure, loose ribbons where a page needs a hand. Colour comes from the tokens at draw time, so dark mode costs nothing. The ten pages that follow are this field with the decisions already made.</>}
@@ -88,7 +88,7 @@ export function SectionDividerPage() {
   return (
     <ComponentPage
       {...PAGE}
-      id="section-divider" label="Section Divider" tokensN={4} statesVariant="stack"
+      id="section-divider" label="Section Divider" statesVariant="stack"
       eyebrow={<>Section Divider<Slash />three weights of pause</>}
       title={<>A pause you can <Accent>measure</Accent> in <Em>rows.</Em></>}
       lead={<>One row between paragraphs, three between sections, five with square ends for a chapter break. The grid is crisp because a divider is structure. It draws in primary ink on whatever surface holds it and never brings a background of its own.</>}
@@ -125,7 +125,7 @@ export function HeadingRulePage() {
   return (
     <ComponentPage
       {...PAGE}
-      id="heading-rule" label="Heading Rule" tokensN={6} statesVariant="stack"
+      id="heading-rule" label="Heading Rule" statesVariant="stack"
       eyebrow={<>Heading Rule<Slash />the section opener</>}
       title={<>The heading names it. The rule <Accent>carries it</Accent> to the <Em>edge.</Em></>}
       lead={<>A heading, then a plus rule that fills the rest of the line and thins out as it goes. Title opens a section with a three-row band. Eyebrow labels a run of content with a single row. The heading is real text in a real heading element; the rule is decoration.</>}
@@ -179,7 +179,7 @@ export function PlusUnderlinePage() {
   return (
     <ComponentPage
       {...PAGE}
-      id="plus-underline" label="Plus Underline" tokensN={4}
+      id="plus-underline" label="Plus Underline"
       eyebrow={<>Plus Underline<Slash />where you are</>}
       title={<>Two rows of <Accent>teal</Accent> under the tab you are <Em>on.</Em></>}
       lead={<>The active-tab indicator for nav links and segmented tabs. Every tab gets one and only the current one draws. Inactive underlines keep their height, so the labels never jump when the selection moves.</>}
@@ -215,7 +215,7 @@ export function PlusProgressPage() {
   return (
     <ComponentPage
       {...PAGE}
-      id="plus-progress" label="Plus Progress" tokensN={4}
+      id="plus-progress" label="Plus Progress"
       eyebrow={<>Plus Progress<Slash />how far along</>}
       title={<>Teal fills the row as the work <Accent>moves.</Accent> The rest waits in <Em>faint ink.</Em></>}
       lead={<>A row of plus marks that fills with teal from the left. Thin is one row for an upload or a scroll position. Band is three rows for reading or task progress. A hidden progressbar carries the value, so a screen reader hears the number the marks show.</>}
@@ -256,7 +256,7 @@ export function PlusLoaderPage() {
   return (
     <ComponentPage
       {...PAGE}
-      id="plus-loader" label="Plus Loader" tokensN={4}
+      id="plus-loader" label="Plus Loader"
       eyebrow={<>Plus Loader<Slash />the page is coming</>}
       title={<>It draws, it holds, it <Em>fades.</Em> Then it <Accent>starts again.</Accent></>}
       lead={<>The page loader. A zigzag of marks draws itself in, holds, fades and repeats every 2.8 seconds on the inverse ground. It says “Loading” once to assistive tech, stops while it is offscreen, and holds the finished drawing under reduced motion.</>}
@@ -292,7 +292,7 @@ export function PlusSkeletonPage() {
   return (
     <ComponentPage
       {...PAGE}
-      id="plus-skeleton" label="Plus Skeleton" tokensN={4}
+      id="plus-skeleton" label="Plus Skeleton"
       eyebrow={<>Plus Skeleton<Slash />the card before the card</>}
       title={<>The shape of the card, <Accent>before</Accent> the <Em>card.</Em></>}
       lead={<>An avatar, a title, three lines of body and a media block, drawn in faint marks, with a highlight sweeping across while the data loads. It holds the space the card will take, so nothing jumps when the content lands.</>}
@@ -328,7 +328,7 @@ export function PlusTimelinePage() {
   return (
     <ComponentPage
       {...PAGE}
-      id="plus-timeline" label="Plus Timeline" tokensN={6}
+      id="plus-timeline" label="Plus Timeline"
       eyebrow={<>Plus Timeline<Slash />done, now, next</>}
       title={<>Done is solid. Now is <Accent>teal.</Accent> Next is <Em>faint.</Em></>}
       lead={<>A vertical stepper. The rail and the nodes are drawn; the labels are a real ordered list, and each one sits level with its node because both share one row pitch. The current step carries aria-current, so the list says what the colour shows.</>}
@@ -366,7 +366,7 @@ export function PlusBulletPage() {
   return (
     <ComponentPage
       {...PAGE}
-      id="plus-bullet" label="Plus Bullet" tokensN={3}
+      id="plus-bullet" label="Plus Bullet"
       eyebrow={<>Plus Bullet<Slash />a list in the brand’s hand</>}
       title={<>Nine marks per item. <Accent>Teal</Accent> for the one you are <Em>on.</Em></>}
       lead={<>A 3×3 block of plus marks, icon-sized, for short lists that carry the brand. accent turns the current item teal. The bullet is decoration; the list is a real list.</>}
@@ -420,7 +420,7 @@ export function PlusSeparatorPage() {
   return (
     <ComponentPage
       {...PAGE}
-      id="plus-separator" label="Plus Separator" tokensN={2}
+      id="plus-separator" label="Plus Separator"
       eyebrow={<>Plus Separator<Slash />the step between crumbs</>}
       title={<>Three marks <Accent>climbing</Accent> from one crumb to the <Em>next.</Em></>}
       lead={<>The breadcrumb separator. Three plus marks on a rising diagonal, sized under the label’s cap height so they read as punctuation. Assistive tech skips them; the current page is marked on its own item.</>}
@@ -456,7 +456,7 @@ export function PlusThumbnailPage() {
   return (
     <ComponentPage
       {...PAGE}
-      id="plus-thumbnail" label="Plus Thumbnail" tokensN={4}
+      id="plus-thumbnail" label="Plus Thumbnail"
       eyebrow={<>Plus Thumbnail<Slash />a picture from a name</>}
       title={<>Same seed, <Accent>same</Accent> <Em>picture.</Em></>}
       lead={<>A generated thumbnail for any item that has no image yet. The project’s slug seeds every choice the drawing makes, so “kiln” looks like kiln on every page and at every size. A placeholder with a point of view, not a grey box.</>}

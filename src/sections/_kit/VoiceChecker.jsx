@@ -192,7 +192,7 @@ export function VoiceChecker({ mode = 'audit' }) {
       </div>
 
       {result && (
-        <div className={styles.result}>
+        <div>
           <div className={styles.resultHead}>
             <span className={`${styles.verdict} ${result.verdict === 'On-voice' ? styles.vGood : result.verdict === 'Off-voice' ? styles.vBad : styles.vMid}`}>{result.verdict}</span>
             <span className={styles.avg}>avg {result.average}<span className={styles.avgMax}> / 5</span></span>

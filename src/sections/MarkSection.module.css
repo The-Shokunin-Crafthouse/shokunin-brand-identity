@@ -31,7 +31,6 @@
   display: flex; align-items: center; justify-content: center;
   min-height: var(--sc-p-space-120);
   padding: var(--sc-space-component-padding-lg);
-  border: var(--sc-border-width-default) solid var(--sc-color-border-default);
   border-radius: var(--sc-radius-control);
 }
 .plateMark { width: 45%; max-width: 14rem; height: auto; }
@@ -49,21 +48,19 @@
 .readChip {
   padding: var(--sc-space-component-padding-block-sm) var(--sc-space-component-padding-inline-sm);
   background: var(--sc-color-surface-raised);
-  border: var(--sc-border-width-default) solid var(--sc-color-border-default);
   border-radius: var(--sc-radius-control);
   color: var(--sc-color-text-secondary);
   font: var(--sc-font-text-mono-chrome); letter-spacing: 0;
   cursor: pointer;
-  transition: color var(--sc-motion-hover-duration) var(--sc-motion-hover-easing),
-              border-color var(--sc-motion-hover-duration) var(--sc-motion-hover-easing);
+  transition: color var(--sc-motion-hover-duration) var(--sc-motion-hover-easing);
+  border: 0;
 }
-.readChip:hover { color: var(--sc-color-interactive-hover); border-color: var(--sc-color-interactive-hover); }
-.readChipSel { color: var(--sc-color-text-on-accent); background: var(--sc-color-brand-accent); border-color: var(--sc-color-brand-accent); }
+.readChip:hover { color: var(--sc-color-interactive-hover);}
+.readChipSel { color: var(--sc-color-text-on-accent); background: var(--sc-color-brand-accent);}
 .diagramWrap {
   display: flex; justify-content: center;
   padding: var(--sc-space-layout-stack-md) var(--sc-space-component-padding-lg);
   background: var(--sc-color-surface-floating);
-  border-bottom: var(--sc-border-width-default) solid var(--sc-color-border-default);
 }
 .diagramWrap .grid { width: 100%; max-width: 22rem; }
 .diagramCaption { padding: var(--sc-space-component-padding-md) var(--sc-space-component-padding-lg); font: var(--sc-font-text-caption); color: var(--sc-color-text-secondary); }
@@ -72,12 +69,10 @@
 .lockupGrid { display: grid; grid-template-columns: 1fr; gap: var(--sc-space-layout-stack-sm); }
 .lockupPair { display: grid; grid-template-columns: 1fr 1fr; }
 .lockupCell { display: flex; align-items: center; justify-content: center; min-height: var(--sc-p-space-96); padding: var(--sc-space-component-padding-lg); }
-.lockupCell.plateLight { border-right: var(--sc-border-width-default) solid var(--sc-color-border-default); }
 .lockupImg { width: auto; max-width: 70%; max-height: var(--sc-p-space-64); }
 .lockupNote {
   padding: var(--sc-space-component-padding-md) var(--sc-space-component-padding-lg);
   font: var(--sc-font-text-caption); color: var(--sc-color-text-secondary);
-  border-top: var(--sc-border-width-default) solid var(--sc-color-border-subtle);
 }
 
 .clearStage { display: flex; flex-direction: column; gap: var(--sc-space-component-gap-lg); align-items: flex-start; padding: var(--sc-space-component-padding-lg); }
@@ -100,7 +95,6 @@
 /* ── Misuse ──────────────────────────────────────────────── */
 .misuseGrid { display: grid; grid-template-columns: 1fr; gap: var(--sc-space-layout-stack-sm); }
 .misuseCell {
-  border: var(--sc-border-width-default) solid var(--sc-color-border-default);
   border-radius: var(--sc-radius-control); overflow: hidden;
 }
 .misuseStage {
@@ -111,8 +105,8 @@
 }
 .misuseMark { width: 55%; max-width: 9rem; }
 .misuseImg { width: auto; max-height: var(--sc-p-space-48); }
-.misuseBadge { position: absolute; top: var(--sc-space-component-padding-md); left: var(--sc-space-component-padding-md); background: var(--sc-color-surface-page); }
-.misuseMeta { padding: var(--sc-space-component-padding-md) var(--sc-space-component-padding-lg); display: flex; flex-direction: column; gap: var(--sc-space-component-gap-sm); background: var(--sc-color-surface-raised); border-top: var(--sc-border-width-default) solid var(--sc-color-border-default); }
+.misuseBadge { position: absolute; top: var(--sc-space-component-padding-md); left: var(--sc-space-component-padding-md);}
+.misuseMeta { padding: var(--sc-space-component-padding-md) var(--sc-space-component-padding-lg); display: flex; flex-direction: column; gap: var(--sc-space-component-gap-sm); background: var(--sc-color-surface-raised);}
 .misuseTitle { font: var(--sc-font-text-mono-chrome); letter-spacing: var(--sc-font-text-mono-chrome-letter-spacing); text-transform: uppercase; color: var(--sc-color-text-primary); }
 .misuseWhy { font: var(--sc-font-text-caption); color: var(--sc-color-text-secondary); }
 
