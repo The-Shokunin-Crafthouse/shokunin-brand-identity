@@ -171,8 +171,8 @@ public enum SCDS {
     public static let semanticVersion = "0.1.0"
     public static let sourceGenerated = "2026-05-26"
     public static let primitivesHash = "91c76a72c4dcc85e"
-    public static let semanticHash = "2346f2bfe2014a9e"
-    public static let tokenCount = 362
+    public static let semanticHash = "4ca7b0478f5f8aa8"
+    public static let tokenCount = 370
   }
 
   // MARK: - Color
@@ -905,6 +905,12 @@ public enum SCDS {
         dark:  (0.121569, 0.145098, 0.172549, 1)
     )
 
+    /// `color.toast.glass`
+    public static let toastGlass = SwiftUI.Color.scdsDynamic(
+        light: (1, 1, 1, 0.24),
+        dark:  (0, 0, 0, 0.32)
+    )
+
     /// `color.toast.dismiss.surface`
     public static let toastDismissSurface = SwiftUI.Color.scdsDynamic(
         light: (0.945098, 0.937255, 0.921569, 1),
@@ -1204,11 +1210,11 @@ public enum SCDS {
         trackingEm: 0
     )
 
-    /// `font.text.toast.message` · Neue Haas Grotesk Text Pro 16/1.5
+    /// `font.text.toast.message` · Neue Haas Grotesk Text Pro 14/1.5
     public static let textToastMessage = SCDSTypeStyle(
         family: "Neue Haas Grotesk Text Pro",
         fallbacks: ["Helvetica Neue", "Inter", "system-ui", "sans-serif"],
-        size: 16,
+        size: 14,
         weight: .regular,
         lineHeightMultiple: 1.5,
         trackingEm: 0
@@ -1444,6 +1450,21 @@ public enum SCDS {
 
     /// `size.toast.lift`
     public static let toastLift: CGFloat = 8
+
+    /// `size.toast.lines`
+    public static let toastLines: CGFloat = 2
+
+    /// `size.toast.dismissOffsetBlock`
+    public static let toastDismissOffsetBlock: CGFloat = 18
+
+    /// `size.toast.dismissOffsetInline`
+    public static let toastDismissOffsetInline: CGFloat = 20
+
+    /// `size.toast.glassFrost`
+    public static let toastGlassFrost: CGFloat = 9
+
+    /// `size.toast.glassSaturation`
+    public static let toastGlassSaturation: CGFloat = 160
 
     /// `size.statusPill.dash`
     public static let statusPillDash: CGFloat = 3
@@ -2118,6 +2139,30 @@ public enum SCDS {
         dark: [
             SCDSShadowLayer(inset: false, x: 0, y: 2, blur: 8, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0.1),
             SCDSShadowLayer(inset: false, x: 0, y: 1, blur: 0, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0.04),
+        ]
+    )
+
+    /// `shadow.toast.glass` · 3 layers
+    public static let toastGlass = SCDSShadow(
+        light: [
+            SCDSShadowLayer(inset: true, x: 1, y: 1, blur: 0, spread: 0, rgb: (1, 1, 1), alpha: 0.3),
+            SCDSShadowLayer(inset: true, x: -1, y: -1, blur: 0, spread: 0, rgb: (1, 1, 1), alpha: 0.15),
+            SCDSShadowLayer(inset: false, x: 6, y: 6, blur: 24, spread: 0, rgb: (0.392157, 0.356863, 0.309804), alpha: 0.14),
+        ],
+        dark: [
+            SCDSShadowLayer(inset: true, x: 1, y: 1, blur: 0, spread: 0, rgb: (1, 1, 1), alpha: 0.3),
+            SCDSShadowLayer(inset: true, x: -1, y: -1, blur: 0, spread: 0, rgb: (1, 1, 1), alpha: 0.15),
+            SCDSShadowLayer(inset: false, x: 6, y: 6, blur: 24, spread: 0, rgb: (0, 0, 0), alpha: 0.3),
+        ]
+    )
+
+    /// `shadow.toast.glassText` · 1 layers
+    public static let toastGlassText = SCDSShadow(
+        light: [
+            SCDSShadowLayer(inset: false, x: 0, y: 0, blur: 2, spread: 0, rgb: (1, 1, 1), alpha: 0.6),
+        ],
+        dark: [
+            SCDSShadowLayer(inset: false, x: 0, y: 0, blur: 2, spread: 0, rgb: (0, 0, 0), alpha: 0.7),
         ]
     )
   }

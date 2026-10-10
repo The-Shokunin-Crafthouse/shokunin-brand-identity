@@ -264,10 +264,23 @@ export function InputPage() {
 /* ── 3.11 Toast (was Alert) ──────────────────────────────── */
 /* A toast's plate is surface.raised, the same tone as a state cell, so every
  * demo sits on the page ground it is built for. */
-function ToastStage({ children }) {
+function ToastStage({ children, backdrop = false }) {
+  // The floating dismiss sits on each toast's top-right corner, 18px above and
+  // 20px past the plate, so the stage leaves that room (stack.md, 24px).
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr)', gap: 'var(--sc-space-layout-stack-sm)', justifyItems: 'start', inlineSize: '100%', background: 'var(--sc-color-surface-page)', padding: 'var(--sc-space-component-padding-md)', borderRadius: 'var(--sc-radius-card)' }}>
+    <div style={{ position: 'relative', overflow: 'hidden', display: 'grid', gridTemplateColumns: 'minmax(0, 1fr)', gap: 'var(--sc-space-layout-stack-md)', justifyItems: 'start', inlineSize: '100%', background: 'var(--sc-color-surface-page)', padding: 'var(--sc-space-layout-stack-md)', borderRadius: 'var(--sc-radius-card)' }}>
+      {backdrop ? <ToastBackdrop /> : null}
       {children}
+    </div>
+  );
+}
+
+/* Something for the glass to sit over: type and two grounds. */
+function ToastBackdrop() {
+  return (
+    <div aria-hidden="true" style={{ position: 'absolute', inset: 0, overflow: 'hidden' }}>
+      <div style={{ position: 'absolute', inset: '0 55% 0 0', background: 'var(--sc-color-surface-sunk)' }} />
+      <div style={{ position: 'absolute', inset: 0, display: 'flex', flexWrap: 'wrap', alignContent: 'center', font: 'var(--sc-font-text-display-xs)', color: 'var(--sc-color-text-primary)', lineHeight: 1, wordBreak: 'break-all', opacity: 0.6 }}>SHOKUNIN CRAFTHOUSE SHOKUNIN CRAFTHOUSE SHOKUNIN</div>
     </div>
   );
 }
@@ -290,7 +303,7 @@ function ToastLiveDemo() {
   return (
     <ToastStage>
       <Button variant="secondary" size="sm" arrow={false} onClick={add}>Show a toast</Button>
-      <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr)', gap: 'var(--sc-space-layout-stack-sm)', inlineSize: '100%', justifyItems: 'start' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr)', gap: 'var(--sc-space-layout-stack-md)', inlineSize: '100%', justifyItems: 'start' }}>
         {toasts.map((t) => (
           <Toast key={t.id} tone={t.tone} placement="floating" onDismiss={() => setToasts((list) => list.filter((x) => x.id !== t.id))}>{t.message}</Toast>
         ))}
@@ -310,14 +323,17 @@ export function ToastPage() {
       callouts={[
         { title: 'Placement follows what the reader must do', body: 'Nothing to do: floating (saved, sent, copied, a non-blocking error). Something to read before going on, or a state that holds: inline. Anything the reader must act on belongs inline or in a dialog, never in a toast that leaves.' },
         { title: 'Colour informs, accessibility announces', body: 'Error and warning are assertive live regions (role="alert"); info and success are polite (role="status"). The badge glyph changes shape per tone and a hidden tone word leads the message, so colour never speaks alone.' },
-        { title: 'A fill, not a frame', body: 'The plate separates from the page by tone, and the floating plate by its shadow. No border, no status LED, no tinted banner.' },
+        { title: 'Flat or glass, never a frame', body: 'Flat: the plate separates from the page by tone, and the floating plate by its shadow. Glass: frosted glass over whatever sits behind it, opaque again when transparency is turned down. No border, no status LED, no tinted banner.' },
       ]}
       states={[
         { name: 'Success · inline', token: '--sc-color-toast-badge-success', render: <ToastStage><Toast tone="success">Sprint 5 merged and deployed to brand.shokunincrafthouse.com.</Toast></ToastStage> },
         { name: 'Info · inline', token: '--sc-color-toast-badge-info', render: <ToastStage><Toast tone="info">The brand site rebuilds on every push to main.</Toast></ToastStage> },
         { name: 'Warning · inline', token: '--sc-color-toast-badge-warning', render: <ToastStage><Toast tone="warning">Two approval gates remain before this can merge.</Toast></ToastStage> },
         { name: 'Error · inline', token: '--sc-color-toast-badge-error', render: <ToastStage><Toast tone="error">Token build exited non-zero. The previous deploy is still live.</Toast></ToastStage> },
-        { name: 'Floating · held for review', token: '--sc-shadow-toast-plate', render: <ToastStage><Toast tone="success" placement="floating" autoDismiss={false}>Changes saved.</Toast><Toast tone="error" placement="floating" autoDismiss={false}>Upload failed. The file is over 20 MB.</Toast></ToastStage> },
+        { name: 'Floating · flat', token: '--sc-shadow-toast-plate', render: <ToastStage><Toast tone="success" placement="floating" autoDismiss={false}>Update published. Your client sees it now.</Toast><Toast tone="error" placement="floating" autoDismiss={false}>That didn’t save. Check your connection and try again.</Toast></ToastStage> },
+        { name: 'Floating · glass', token: '--sc-color-toast-glass', render: <ToastStage backdrop><Toast tone="info" placement="floating" surface="glass" autoDismiss={false}>Draft saved. Only you can see this.</Toast><Toast tone="warning" placement="floating" surface="glass" autoDismiss={false}>Two approval gates remain before this can merge.</Toast></ToastStage> },
+        { name: 'Glyph · outline (bold) or fill', token: '--sc-size-toast-icon', render: <ToastStage>{['success', 'error', 'warning', 'info'].map((t) => <Toast key={t} tone={t} placement="floating" glyph="fill" autoDismiss={false}>Filled glyph, {t}.</Toast>)}</ToastStage> },
+        { name: 'Two lines max', token: '--sc-size-toast-lines', render: <ToastStage><Toast tone="error" placement="floating" autoDismiss={false}>Token build exited non-zero after the contrast check failed on three pairs. The previous deploy is still live and nothing has changed for visitors.</Toast></ToastStage> },
         { name: 'Floating · dismiss disabled', token: '--sc-color-toast-dismiss-ink-disabled', render: <ToastStage><Toast tone="info" placement="floating" autoDismiss={false} dismissDisabled>Sending. You can dismiss this once it lands.</Toast></ToastStage> },
         { name: 'Floating · live (hover, focus, press the x)', token: '--sc-motion-toast-hold', render: <ToastLiveDemo /> },
       ]}
@@ -338,19 +354,25 @@ export function ToastPage() {
         { prop: 'Badge glyph', token: '--sc-size-toast-icon' },
         { prop: 'Badge glyph ink', token: '--sc-color-toast-icon' },
         { prop: 'Message ink', token: '--sc-color-toast-text' },
-        { prop: 'Message type', token: '--sc-font-text-toast-message', light: '16 / 150%' },
+        { prop: 'Message type', token: '--sc-font-text-toast-message', light: '14 / 150%' },
+        { prop: 'Lines', token: '--sc-size-toast-lines', light: '2, then an ellipsis' },
+        { prop: 'Glass tint', token: '--sc-color-toast-glass', light: 'white 24%', dark: 'black 32%' },
+        { prop: 'Glass rim', token: '--sc-shadow-toast-glass', light: 'Card frosted', dark: 'Card frosted' },
+        { prop: 'Glass frost', token: '--sc-size-toast-glass-frost' },
         { prop: 'Dismiss', token: '--sc-size-toast-dismiss' },
         { prop: 'Dismiss ground', token: '--sc-color-toast-dismiss-surface' },
         { prop: 'Dismiss hover', token: '--sc-color-toast-dismiss-hover' },
         { prop: 'Dismiss x', token: '--sc-color-toast-dismiss-ink' },
         { prop: 'Dismiss x size', token: '--sc-size-toast-dismiss-icon' },
+        { prop: 'Dismiss above the top edge', token: '--sc-size-toast-dismiss-offset-block' },
+        { prop: 'Dismiss past the end edge', token: '--sc-size-toast-dismiss-offset-inline' },
         { prop: 'Rise', token: '--sc-size-toast-lift' },
         { prop: 'Enter and exit', token: '--sc-motion-toast-travel-duration', light: '200ms quint-out' },
         { prop: 'Hold', token: '--sc-motion-toast-hold', light: '6s, pauses inside' },
       ]}
       rulesTitle="Four rules for a message that knows when to leave."
       rules={[
-        { name: 'One fact and the way forward', text: 'The message states what happened and what to do next in one or two short sentences. No title: the badge names the tone.' },
+        { name: 'One fact and the way forward, in two lines', text: 'The message states what happened and what to do next in one or two short sentences. It shows two lines at most, then an ellipsis; write it to fit. No title: the badge names the tone.' },
         { name: 'Match the role to the urgency', text: 'Error and warning interrupt (role="alert"); info and success wait (role="status"). A polite success that interrupts a screen reader is a bug.' },
         { name: 'Floating never holds a required action', text: 'A floating toast leaves after six seconds, so it can only confirm. A choice the reader must make goes inline or in a dialog. The hold pauses under the pointer and under focus, and Escape dismisses.' },
         { name: 'Error is for failures, not warnings', text: 'Reserve the error badge for something that broke or was rejected. A cautionary message is a warning; downgrading it keeps error meaningful.' },

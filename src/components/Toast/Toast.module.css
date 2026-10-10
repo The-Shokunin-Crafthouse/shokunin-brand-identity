@@ -1,7 +1,8 @@
 /* tokens:
  *   --sc-color-toast-surface                     · plate fill (role; = surface.raised)
  *   --sc-color-toast-text                        · message ink (role; = text.primary; AA, FILL_PAIRS)
- *   --sc-font-text-toast-message-*               · message type (role; = body.default)
+ *   --sc-font-text-toast-message-*               · message type (role; = body.dense, 14)
+ *   --sc-size-toast-lines                        · two lines max, then an ellipsis
  *   --sc-radius-toast-plate / -badge / -dismiss  · capsule, circle, circle (role; = radius.pill)
  *   --sc-space-component-padding-block-toast     · 24 top and bottom (role; = layout.inset.md)
  *   --sc-space-component-padding-inline-toast-start / -end · 16 before, 48 after (role; = inset.sm / inset.lg)
@@ -11,9 +12,12 @@
  *   --sc-color-toast-badge-<tone>                · badge fill per tone (role; = status.*)
  *   --sc-color-toast-icon                        · badge glyph (role; warmGray.50 light, dark.well dark; GRAPHIC_PAIRS)
  *   --sc-size-toast-dismiss / -dismiss-icon / -dismiss-slop · 32 circle, 16 x, 6 hit slop to 44
+ *   --sc-size-toast-dismiss-offset-block / -inline · dismiss on the top-right corner (18 up, 20 out)
  *   --sc-color-toast-dismiss-surface / -hover    · dismiss ground at rest, on hover and press
  *   --sc-color-toast-dismiss-ink / -ink-disabled · the x (role; brand.accent light, teal.200 dark; GRAPHIC_PAIRS)
  *   --sc-shadow-toast-plate                      · floating shadow (role; Figma elevation/2)
+ *   --sc-color-toast-glass, --sc-shadow-toast-glass / -glass-text · glass tint, rim, text halo (= Card frosted, auto)
+ *   --sc-size-toast-glass-frost / -glass-saturation · glass backdrop blur and saturation
  *   --sc-size-toast-lift                         · floating rise on enter and exit
  *   --sc-motion-toast-travel-*                   · floating enter and exit time and curve
  *   --sc-motion-toast-hold                       · floating hold before it dismisses itself (read in JS)
@@ -60,6 +64,31 @@
   transform: translateY(var(--sc-size-toast-lift));
 }
 
+/* Glass: frosted glass over whatever sits behind the toast (Levi,
+   2026-10-10: flat or glass). Tint, lit rim and soft shade, text halo.
+   Figma frost is a blur radius; CSS blur() takes half. */
+.glass {
+  background-color: var(--sc-color-toast-glass);
+  box-shadow: var(--sc-shadow-toast-glass);
+  text-shadow: var(--sc-shadow-toast-glass-text);
+  -webkit-backdrop-filter: blur(calc(var(--sc-size-toast-glass-frost) / 2)) saturate(calc(var(--sc-size-toast-glass-saturation) / 100));
+  backdrop-filter: blur(calc(var(--sc-size-toast-glass-frost) / 2)) saturate(calc(var(--sc-size-toast-glass-saturation) / 100));
+}
+/* Opaque fallbacks: a bare tint over unknown content is not readable. */
+@media (prefers-reduced-transparency: reduce), (prefers-contrast: more) {
+  .glass {
+    background-color: var(--sc-color-toast-surface);
+    text-shadow: none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+  .inline.glass { box-shadow: none; }
+  .floating.glass { box-shadow: var(--sc-shadow-toast-plate); }
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .glass { background-color: var(--sc-color-toast-surface); text-shadow: none; }
+}
+
 /* --- Tone badge --------------------------------------------------- */
 .badge {
   flex: none;
@@ -91,6 +120,13 @@
   line-height: var(--sc-font-text-toast-message-line-height);
   letter-spacing: var(--sc-font-text-toast-message-letter-spacing);
   overflow-wrap: break-word;
+  /* Two lines max (Levi, 2026-10-10); the clamp is visual, the whole
+     message is still read out. */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: var(--sc-size-toast-lines);
+  line-clamp: var(--sc-size-toast-lines);
+  overflow: hidden;
 }
 
 /* The tone word leads the message for assistive tech only. */
@@ -106,9 +142,13 @@
   border: 0;
 }
 /* --- Dismiss: five states ----------------------------------------- */
+/* It sits on the plate's top-right corner, out of the flow (Figma layout
+   35:9): 18 above the top edge, 20 past the end edge. A floating region
+   leaves that much room above and to the end of each toast. */
 .dismiss {
-  position: relative;
-  flex: none;
+  position: absolute;
+  inset-block-start: calc(-1 * var(--sc-size-toast-dismiss-offset-block));
+  inset-inline-end: calc(-1 * var(--sc-size-toast-dismiss-offset-inline));
   display: grid;
   place-items: center;
   inline-size: var(--sc-size-toast-dismiss);
@@ -170,6 +210,8 @@
   .toast {
     outline: var(--sc-border-width-default) solid CanvasText;
     outline-offset: calc(-1 * var(--sc-border-width-default));
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
   }
   .badge {
     outline: var(--sc-border-width-default) solid CanvasText;

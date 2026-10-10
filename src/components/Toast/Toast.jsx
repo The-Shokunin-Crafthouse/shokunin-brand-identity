@@ -5,6 +5,11 @@
  * set `9:897`.
  *
  *   tone       success · error · warning · info
+ *   surface    flat (default): the raised fill. glass: frosted glass over
+ *              whatever sits behind it (the Card frosted glass, auto tone);
+ *              opaque flat under reduced transparency or more contrast.
+ *   glyph      outline (default): the tone glyph in Phosphor bold. fill:
+ *              the filled glyph.
  *   placement  inline (default): in flow and persistent, the Alert
  *              replacement; no shadow, no dismiss, never leaves on its own.
  *              floating: the Figma Toast; elevation shadow, dismiss button,
@@ -34,16 +39,14 @@ import styles from './Toast.module.css';
 const TONES = ['success', 'error', 'warning', 'info'];
 const PLACEMENTS = ['inline', 'floating'];
 
-/* Figma: success Icon/check-circle, info Icon/info (filled). The Figma Error
- * variant draws Icon/warning; code gives warning the triangle and error the
- * octagon, so the two tones differ in shape as well as hue (decisions
- * 2026-10-10, flagged to Levi with the badge hue). */
-const GLYPHS = {
-  success: [CheckCircle, 'regular'],
-  error: [WarningOctagon, 'regular'],
-  warning: [Warning, 'regular'],
-  info: [Info, 'fill'],
-};
+/* Figma: success Icon/check-circle, info Icon/info. The Figma Error variant
+ * draws Icon/warning; code gives warning the triangle and error the octagon,
+ * so the two tones differ in shape as well as hue (decisions 2026-10-10,
+ * flagged to Levi with the badge hue). Every glyph comes outlined (Phosphor
+ * bold) or filled (Levi, 2026-10-10). */
+const GLYPHS = { success: CheckCircle, error: WarningOctagon, warning: Warning, info: Info };
+const GLYPH_WEIGHTS = { outline: 'bold', fill: 'fill' };
+const SURFACES = ['flat', 'glass'];
 const TONE_WORDS = { success: 'Success', error: 'Error', warning: 'Warning', info: 'Info' };
 
 /* A CSS time (`6000ms`, `0.2s`) in milliseconds. */
@@ -56,6 +59,8 @@ function ms(value) {
 export function Toast({
   tone = 'info',
   placement = 'inline',
+  surface = 'flat',
+  glyph = 'outline',
   autoDismiss = true,
   onDismiss,
   dismissLabel = 'Dismiss notification',
@@ -68,7 +73,9 @@ export function Toast({
   const t = TONES.includes(tone) ? tone : 'info';
   const p = PLACEMENTS.includes(placement) ? placement : 'inline';
   const floating = p === 'floating';
-  const [Glyph, weight] = GLYPHS[t];
+  const sf = SURFACES.includes(surface) ? surface : 'flat';
+  const Glyph = GLYPHS[t];
+  const weight = GLYPH_WEIGHTS[glyph] ?? GLYPH_WEIGHTS.outline;
 
   const ref = useRef(null);
   // enter → open → exit → gone. Inline toasts are always open.
@@ -155,7 +162,7 @@ export function Toast({
   return (
     <div
       ref={ref}
-      className={`${styles.toast} ${styles[p]} ${styles[t]} ${className}`}
+      className={`${styles.toast} ${styles[p]} ${styles[sf]} ${styles[t]} ${className}`}
       role={role}
       aria-atomic="true"
       data-state={phase}

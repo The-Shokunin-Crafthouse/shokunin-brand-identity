@@ -5,7 +5,7 @@
 # Design Token Map — The Shokunin Crafthouse · Brand Identity
 
 **Generated** from `tokens/primitives.json` + `tokens/semantic.json`.
-**Source fingerprint:** `d43f9e789b07` · **188 primitives · 362 semantic tokens.**
+**Source fingerprint:** `cc5f4f3a8a2e` · **188 primitives · 370 semantic tokens.**
 
 > **This file is a mirror, not the source.** `tokens/*.json` is upstream; this document and the Figma
 > library are generated from / synced to it. It previously claimed the opposite — that both were
@@ -691,6 +691,7 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | `color/toast/badge/warning` | `--sc-color-toast-badge-warning` | `color/status/warning` | `⚠ unresolved` | `color/status/warning` | `⚠ unresolved` | 2026-10-10 · Toast (Alert folds into Toast, decisions 2026-10-08; physical-controls Tier 2), tuned in sc-tune. |
 | `color/toast/badge/info` | `--sc-color-toast-badge-info` | `color/status/info` | `⚠ unresolved` | `color/status/info` | `⚠ unresolved` | 2026-10-10 · Toast (Alert folds into Toast, decisions 2026-10-08; physical-controls Tier 2), tuned in sc-tune. |
 | `color/toast/icon` | `--sc-color-toast-icon` | `color/warmGray/50` | `#F1EFEB` | `color/dark/well` | `#1F252C` | 2026-10-10 · Toast (Alert folds into Toast, decisions 2026-10-08; physical-controls Tier 2), tuned in sc-tune. |
+| `color/toast/glass` | `--sc-color-toast-glass` | `color/card/glass/frosted/auto` | `⚠ unresolved` | `color/card/glass/frosted/auto` | `⚠ unresolved` | 2026-10-10 · Toast (Alert folds into Toast, decisions 2026-10-08; physical-controls Tier 2), tuned in sc-tune. |
 | `color/toast/dismiss/surface` | `--sc-color-toast-dismiss-surface` | `color/surface/raised` | `⚠ unresolved` | `color/surface/raised` | `⚠ unresolved` | 2026-10-10 · Toast (Alert folds into Toast, decisions 2026-10-08; physical-controls Tier 2), tuned in sc-tune. |
 | `color/toast/dismiss/hover` | `--sc-color-toast-dismiss-hover` | `color/utility/white` | `#FFFFFF` | `color/dark/raised2` | `#3B4249` | 2026-10-10 · Toast (Alert folds into Toast, decisions 2026-10-08; physical-controls Tier 2), tuned in sc-tune. |
 | `color/toast/dismiss/ink` | `--sc-color-toast-dismiss-ink` | `color/brand/accent` | `⚠ unresolved` | `color/teal/200` | `#8FD2D5` | 2026-10-10 · Toast (Alert folds into Toast, decisions 2026-10-08; physical-controls Tier 2), tuned in sc-tune. |
@@ -729,7 +730,7 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | `font/text/mono/caption` | `--sc-font-text-mono-caption` | `font/text/mono/13` | `fontFamily: {font.family.mono} · fontSize: {font.size.13} · fontWeight: {font.weight.regular} · lineHeight: {font.lineHeight.relaxed} · letterSpacing: {font.tracking.normal}` | `font/text/mono/13` | `fontFamily: {font.family.mono} · fontSize: {font.size.13} · fontWeight: {font.weight.regular} · lineHeight: {font.lineHeight.relaxed} · letterSpacing: {font.tracking.normal}` | Sprint 4 addition · mono caption · 13px. |
 | `font/text/mono/body` | `--sc-font-text-mono-body` | `font/text/mono/16` | `fontFamily: {font.family.mono} · fontSize: {font.size.16} · fontWeight: {font.weight.regular} · lineHeight: {font.lineHeight.relaxed} · letterSpacing: {font.tracking.normal}` | `font/text/mono/16` | `fontFamily: {font.family.mono} · fontSize: {font.size.16} · fontWeight: {font.weight.regular} · lineHeight: {font.lineHeight.relaxed} · letterSpacing: {font.tracking.normal}` | Sprint 4 addition · mono body · 16px. |
 | `font/text/mono/flow` | `--sc-font-text-mono-flow` | `font/text/mono/14-loose` | `fontFamily: {font.family.mono} · fontSize: {font.size.14} · fontWeight: {font.weight.regular} · lineHeight: {font.lineHeight.loose} · letterSpacing: {font.tracking.normal}` | `font/text/mono/14-loose` | `fontFamily: {font.family.mono} · fontSize: {font.size.14} · fontWeight: {font.weight.regular} · lineHeight: {font.lineHeight.loose} · letterSpacing: {font.tracking.normal}` | Mono prose: 14px on a 2.0 line. |
-| `font/text/toast/message` | `--sc-font-text-toast-message` | `font/text/body/default` | `⚠ unresolved` | `font/text/body/default` | `⚠ unresolved` | 2026-10-10 · Toast (Alert folds into Toast, decisions 2026-10-08; physical-controls Tier 2), tuned in sc-tune. |
+| `font/text/toast/message` | `--sc-font-text-toast-message` | `font/text/body/dense` | `⚠ unresolved` | `font/text/body/dense` | `⚠ unresolved` | 2026-10-10 · Toast (Alert folds into Toast, decisions 2026-10-08; physical-controls Tier 2), tuned in sc-tune. |
 | `font/text/nav/header` | `--sc-font-text-nav-header` | `font/text/displayTight/12` | `fontFamily: {font.family.display} · fontSize: {font.size.12} · fontWeight: {font.weight.black} · lineHeight: {font.lineHeight.tight} · letterSpacing: {font.tracking.normal}` | `font/text/displayTight/12` | `fontFamily: {font.family.display} · fontSize: {font.size.12} · fontWeight: {font.weight.black} · lineHeight: {font.lineHeight.tight} · letterSpacing: {font.tracking.normal}` | Navigation header: 12/black on 1.1. |
 | `font/text/nav/node` | `--sc-font-text-nav-node` | `font/text/textTight/13` | `fontFamily: {font.family.text} · fontSize: {font.size.13} · fontWeight: {font.weight.regular} · lineHeight: {font.lineHeight.tight} · letterSpacing: {font.tracking.normal}` | `font/text/textTight/13` | `fontFamily: {font.family.text} · fontSize: {font.size.13} · fontWeight: {font.weight.regular} · lineHeight: {font.lineHeight.tight} · letterSpacing: {font.tracking.normal}` | Navigation node: 13/regular on 1.1. |
 
@@ -1087,6 +1088,8 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
 |---|---|---|---|---|---|---|
 | `shadow/toast/plate` | `--sc-shadow-toast-plate` | _literal_ | `0 2px 8px 0 rgb(var(--sc-p-color-ink-rgb) / 0.10), 0 1px 0 0 rgb(var(--sc-p-color-ink-rgb) / 0.04)` | _literal_ | `0 2px 8px 0 rgb(var(--sc-p-color-ink-rgb) / 0.10), 0 1px 0 0 rgb(var(--sc-p-color-ink-rgb) / 0.04)` | 2026-10-10 · Toast (Alert folds into Toast, decisions 2026-10-08; physical-controls Tier 2), tuned in sc-tune. |
+| `shadow/toast/glass` | `--sc-shadow-toast-glass` | `shadow/card/glass/frosted` | `⚠ unresolved` | `shadow/card/glass/frosted` | `⚠ unresolved` | 2026-10-10 · Toast (Alert folds into Toast, decisions 2026-10-08; physical-controls Tier 2), tuned in sc-tune. |
+| `shadow/toast/glassText` | `--sc-shadow-toast-glass-text` | `shadow/card/glass/text/auto` | `⚠ unresolved` | `shadow/card/glass/text/auto` | `⚠ unresolved` | 2026-10-10 · Toast (Alert folds into Toast, decisions 2026-10-08; physical-controls Tier 2), tuned in sc-tune. |
 
 ### Size · Semantic
 
@@ -1101,6 +1104,11 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | `size/toast/dismissIcon` | `--sc-size-toast-dismiss-icon` | `size/icon/sm` | `⚠ unresolved` | `size/icon/sm` | `⚠ unresolved` | 2026-10-10 · Toast (Alert folds into Toast, decisions 2026-10-08; physical-controls Tier 2), tuned in sc-tune. |
 | `size/toast/dismissSlop` | `--sc-size-toast-dismiss-slop` | `space/micro/6` | `6px` | `space/micro/6` | `6px` | 2026-10-10 · Toast (Alert folds into Toast, decisions 2026-10-08; physical-controls Tier 2), tuned in sc-tune. |
 | `size/toast/lift` | `--sc-size-toast-lift` | `space/8` | `8px` | `space/8` | `8px` | 2026-10-10 · Toast (Alert folds into Toast, decisions 2026-10-08; physical-controls Tier 2), tuned in sc-tune. |
+| `size/toast/lines` | `--sc-size-toast-lines` | _literal_ | `2` | _literal_ | `2` | 2026-10-10 · Toast (Alert folds into Toast, decisions 2026-10-08; physical-controls Tier 2), tuned in sc-tune. |
+| `size/toast/dismissOffsetBlock` | `--sc-size-toast-dismiss-offset-block` | `space/micro/18` | `18px` | `space/micro/18` | `18px` | 2026-10-10 · Toast (Alert folds into Toast, decisions 2026-10-08; physical-controls Tier 2), tuned in sc-tune. |
+| `size/toast/dismissOffsetInline` | `--sc-size-toast-dismiss-offset-inline` | `space/20` | `20px` | `space/20` | `20px` | 2026-10-10 · Toast (Alert folds into Toast, decisions 2026-10-08; physical-controls Tier 2), tuned in sc-tune. |
+| `size/toast/glassFrost` | `--sc-size-toast-glass-frost` | `size/card/glass/frosted/frost` | `⚠ unresolved` | `size/card/glass/frosted/frost` | `⚠ unresolved` | 2026-10-10 · Toast (Alert folds into Toast, decisions 2026-10-08; physical-controls Tier 2), tuned in sc-tune. |
+| `size/toast/glassSaturation` | `--sc-size-toast-glass-saturation` | `size/card/glass/frosted/saturation` | `⚠ unresolved` | `size/card/glass/frosted/saturation` | `⚠ unresolved` | 2026-10-10 · Toast (Alert folds into Toast, decisions 2026-10-08; physical-controls Tier 2), tuned in sc-tune. |
 
 #### `size/statusPill`
 

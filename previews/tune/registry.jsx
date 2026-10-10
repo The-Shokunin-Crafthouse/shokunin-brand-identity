@@ -644,28 +644,37 @@ export const REGISTRY = {
     props: [
       { name: 'show', type: 'enum', options: ['all', ...Object.keys(TOASTS)], default: 'all' },
       { name: 'placement', type: 'enum', options: ['floating', 'inline'], default: 'floating' },
+      { name: 'surface', type: 'enum', options: ['flat', 'glass'], default: 'flat' },
+      { name: 'glyph', type: 'enum', options: ['outline', 'fill'], default: 'outline' },
+      { name: 'backdrop', type: 'enum', options: Object.keys(CARD_BACKDROPS), default: 'none' },
       { name: 'autoDismiss', type: 'boolean', default: false },
       { name: 'dismissDisabled', type: 'boolean', default: false },
-      { name: 'message', type: 'text', default: 'Changes saved.' },
+      { name: 'message', type: 'text', default: 'Token build exited non-zero after the contrast check failed on three pairs. The previous deploy is still live.' },
     ],
     // Play replays the floating enter (each Play remounts the toasts).
     play: null,
     render: (p, set, sound, ctx) => {
       const shown = p.show === 'all' ? Object.keys(TOASTS) : [p.show];
+      // Room for the dismiss on each toast's top-right corner (18 up, 20 out).
       return (
-        <div style={{ display: 'grid', justifyItems: 'start', gap: 'var(--sc-space-layout-stack-sm)', inlineSize: p.placement === 'inline' ? 'calc(var(--sc-space-layout-stack-xl) * 6)' : undefined, maxInlineSize: '100%' }}>
-          {shown.map((t) => (
-            <Toast
-              key={`${t}-${ctx.replay}`}
-              tone={t}
-              placement={p.placement}
-              autoDismiss={p.autoDismiss}
-              dismissDisabled={p.dismissDisabled}
-              onDismiss={() => {}}
-            >
-              {p.show === 'all' ? TOASTS[t] : p.message}
-            </Toast>
-          ))}
+        <div style={{ position: 'relative', padding: 'var(--sc-space-layout-stack-md)' }}>
+          {CARD_BACKDROPS[p.backdrop]}
+          <div style={{ position: 'relative', display: 'grid', justifyItems: 'start', gap: 'var(--sc-space-layout-stack-md)', inlineSize: p.placement === 'inline' ? 'calc(var(--sc-space-layout-stack-xl) * 6)' : undefined, maxInlineSize: '100%' }}>
+            {shown.map((t) => (
+              <Toast
+                key={`${t}-${ctx.replay}`}
+                tone={t}
+                placement={p.placement}
+                surface={p.surface}
+                glyph={p.glyph}
+                autoDismiss={p.autoDismiss}
+                dismissDisabled={p.dismissDisabled}
+                onDismiss={() => {}}
+              >
+                {p.show === 'all' ? TOASTS[t] : p.message}
+              </Toast>
+            ))}
+          </div>
         </div>
       );
     },

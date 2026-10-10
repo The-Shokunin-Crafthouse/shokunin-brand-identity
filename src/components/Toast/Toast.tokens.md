@@ -17,6 +17,18 @@ Spec ref: §2 Tier 3 · 3.11 (was Alert). 2026-10-08: Alert folds into Toast (Le
 
 The shadow is lit from the top, not the system top left, so `verify-light` names `shadow.toast.plate` as an exemption until Levi's record re-lights or keeps it. The lab seeds concept A from the Tooltip plate (top left).
 
+## Glass (`surface="glass"`)
+
+| Token | Use | Shipped |
+|---|---|---|
+| `--sc-color-toast-glass` | tint | = `card.glass.frosted.auto` (white 24% light, black 32% dark) |
+| `--sc-shadow-toast-glass` | lit top-left rim and soft shade, both placements | = `shadow.card.glass.frosted` |
+| `--sc-shadow-toast-glass-text` | text halo | = `shadow.card.glass.text.auto` |
+| `--sc-size-toast-glass-frost` | backdrop blur (Figma units; CSS takes half) | = `card.glass.frosted.frost` (9) |
+| `--sc-size-toast-glass-saturation` | backdrop saturation, percent | = `card.glass.frosted.saturation` (160) |
+
+Reduced transparency, more contrast and an engine with no backdrop filter turn glass back into the flat plate. The Card's SVG edge refraction is not carried over (Chromium only); it follows if glass is picked.
+
 ## Badge and message
 
 | Token | Use | Shipped (Figma) |
@@ -27,10 +39,11 @@ The shadow is lit from the top, not the system top left, so `verify-light` names
 | `--sc-color-toast-badge-error` | error fill | = `status.error`. **Deviation:** Figma fills Error with status/warning/light. Open with Levi |
 | `--sc-color-toast-badge-warning` | warning fill | = `status.warning` (no Figma variant; from Alert) |
 | `--sc-color-toast-badge-info` | info fill | = `status.info` (status/info/light) |
-| `--sc-size-toast-icon` | glyph | = `space.20` (20px) |
+| `--sc-size-toast-icon` | glyph, Phosphor bold (`glyph="outline"`) or fill | = `space.20` (20px) |
 | `--sc-color-toast-icon` | glyph ink | light `warmGray.50` (Figma); dark `dark.well` |
 | `--sc-color-toast-text` | message ink | = `text.primary` |
-| `--sc-font-text-toast-message-*` | message type | = `body.default` (16 / 150%) |
+| `--sc-font-text-toast-message-*` | message type | = `body.dense` (14 / 150%). Figma 16; Levi 2026-10-10: 2px smaller |
+| `--sc-size-toast-lines` | most lines shown, then an ellipsis | 2 (Levi 2026-10-10) |
 
 ## Dismiss (floating only)
 
@@ -39,6 +52,8 @@ The shadow is lit from the top, not the system top left, so `verify-light` names
 | `--sc-size-toast-dismiss` | circle diameter | = `space.32` (32px) |
 | `--sc-radius-toast-dismiss` | circle | = `radius.pill` |
 | `--sc-size-toast-dismiss-slop` | hit slop to a 44px target | = `space.micro.6` |
+| `--sc-size-toast-dismiss-offset-block` | rise above the plate's top edge | = `space.micro.18` (Figma top -18) |
+| `--sc-size-toast-dismiss-offset-inline` | overhang past the end edge | = `space.20` (Figma 19 / 20) |
 | `--sc-color-toast-dismiss-surface` | ground at rest | = `surface.raised` |
 | `--sc-color-toast-dismiss-hover` | ground on hover and press | white light, `dark.raised2` dark (not in Figma) |
 | `--sc-size-toast-dismiss-icon` | x | = `size.icon.sm` (16px) |
