@@ -72,7 +72,7 @@ Do this when Levi says to record, save or capture the settings, or says that the
 4. Read the new `spec.md` in full.
    Result: the pick and its reason come first, then Levi's notes, then one section per concept. Each token table lists the shipped value, the tuned value, how it was set (a spring shows its stiffness, damping and mass), the nearest primitive, and any pinned note. A raw value that is off the token ladder is flagged.
 5. Open the snapshot in the browser pane: `http://localhost:5173/output/tuning/<Component>/<stamp>/snapshot/index.html`.
-   Result: the header reads `snapshot · recorded <time>`, the Tuned stage matches what Levi left, and every control is disabled.
+   Result: the header reads `snapshot · recorded <time>`, the Tuned stage matches what Levi left, and every editing control is disabled. The group rail, the filter and the group disclosures still work, because they only navigate.
 6. Stage the record by path: `git add output/tuning/<Component>/<stamp>`. Stage by path, never with `git add -A`, because another unit's files can be on disk (learning #281).
 7. Commit the record on the current branch.
 8. Report to Levi: the record path, the picked concept, and each of its changes as shipped → tuned. Add the sound settings, every value that is off the token ladder, and every note you cannot yet meet.
