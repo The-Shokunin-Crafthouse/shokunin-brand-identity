@@ -40,6 +40,7 @@ import { fileURLToPath } from 'node:url';
 export const EXEMPT = [
   { path: 'shadow.switch', why: 'the Switch stays the Drams repaint, lit from the top (decisions 2026-10-07, "the Switch re-light is reverted")' },
   { path: 'shadow.control.raised', why: 'superseded, held for Studio PM RunButton.swift (decisions 2026-10-07, "shadow.control.bevel retired")' },
+  { path: 'shadow.toast.plate', why: 'ships equal to the Figma effect style elevation/2, lit from the top (decisions 2026-10-10, "Toast replaces Alert"); Levi\'s lab record re-lights or keeps it, and this entry goes once it is applied' },
   { path: 'shadow.control.inset', why: 'no SCDS consumer since Card went flat and glass (decisions 2026-10-08); held, lit from the top, for Money Bags, whose vendored Swift test reads SCDS.Shadow.controlInset; remove once that test moves' },
 ];
 const EXEMPT_CSS = [

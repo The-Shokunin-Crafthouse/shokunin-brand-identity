@@ -58,7 +58,7 @@ Twelve primitive components with tokens applied. These prove the system works an
 | 3.8 | Tooltip | Single-line, multi-line |
 | 3.9 | Switch / toggle | On, off, disabled |
 | 3.10 | Progress indicator | Bar, circular, step |
-| 3.11 | Alert / callout | Info, warning, error, success |
+| 3.11 | Toast (was Alert) | Success, error, warning, info · inline, floating |
 | 3.12 | Typography specimen | All scale steps in-use |
 
 ### Tier 4 — Living Brand Reference Site

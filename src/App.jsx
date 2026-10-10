@@ -21,7 +21,7 @@ import { SpacingSection } from './sections/SpacingSection.jsx';
 import { MotionSection } from './sections/MotionSection.jsx';
 import { MarkSection } from './sections/MarkSection.jsx';
 import {
-  ButtonPage, StatusPillPage, CardPage, InputPage, AlertPage, SwitchPage,
+  ButtonPage, StatusPillPage, CardPage, InputPage, ToastPage, SwitchPage,
   AvatarPage, ProgressPage, TooltipPage, DividerPage, NavBarPage,
   SegmentedControlPage, StepperPage, SliderPage, WorkingMarkPage,
 } from './sections/ComponentSections.jsx';
@@ -88,7 +88,7 @@ const NAV = [
       { id: 'status-pill', label: 'StatusPill' },
       { id: 'card', label: 'Card' },
       { id: 'input', label: 'Input' },
-      { id: 'alert', label: 'Alert' },
+      { id: 'toast', label: 'Toast' },
       { id: 'switch', label: 'Switch' },
       { id: 'avatar', label: 'Avatar' },
       { id: 'progress', label: 'Progress' },
@@ -169,7 +169,7 @@ const SECTIONS = {
   'status-pill': StatusPillPage,
   card: CardPage,
   input: InputPage,
-  alert: AlertPage,
+  toast: ToastPage,
   switch: SwitchPage,
   avatar: AvatarPage,
   progress: ProgressPage,
@@ -197,8 +197,12 @@ const SECTIONS = {
   'hard-rules': HardRulesSection,
 };
 
+// Renamed pages keep their old links: #alert opens Toast (decisions 2026-10-08).
+const RENAMED = { alert: 'toast' };
+
 function currentHash() {
-  const id = window.location.hash.replace(/^#/, '');
+  const raw = window.location.hash.replace(/^#/, '');
+  const id = RENAMED[raw] ?? raw;
   return SECTION_INDEX[id] ? id : DEFAULT_SECTION;
 }
 

@@ -5,7 +5,7 @@
 # Design Token Map — The Shokunin Crafthouse · Brand Identity
 
 **Generated** from `tokens/primitives.json` + `tokens/semantic.json`.
-**Source fingerprint:** `710967800ad3` · **188 primitives · 343 semantic tokens.**
+**Source fingerprint:** `d43f9e789b07` · **188 primitives · 362 semantic tokens.**
 
 > **This file is a mirror, not the source.** `tokens/*.json` is upstream; this document and the Figma
 > library are generated from / synced to it. It previously claimed the opposite — that both were
@@ -680,16 +680,21 @@ channel-triplet primitives) rather than an alias to a single primitive.
 |---|---|---|---|---|---|---|
 | `color/avatar/ground` | `--sc-color-avatar-ground` | `color/warmGray/200` | `#D8D1CC` | `color/dark/well` | `#1F252C` | 2026-10-08 · Avatar (physical-controls Tier 2). |
 
-#### `color/alert`
+#### `color/toast`
 
 | Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
 |---|---|---|---|---|---|---|
-| `color/alert/ground` | `--sc-color-alert-ground` | `color/warmGray/200` | `#D8D1CC` | `color/dark/well` | `#1F252C` | 2026-10-08 · Alert (physical-controls Tier 2: a plate; not interactive, so silent; no LED, Levi), tuned in sc-tune. |
-| `color/alert/frame` | `--sc-color-alert-frame` | `color/warmGray/350` | `#9A9186` | `color/dark/border` | `#4D535B` | 2026-10-08 · Alert (physical-controls Tier 2: a plate; not interactive, so silent; no LED, Levi), tuned in sc-tune. |
-| `color/alert/rule/info` | `--sc-color-alert-rule-info` | `color/status/info/light` | `#2D5AD8` | `color/status/info/dark` | `#709AFD` | 2026-10-08 · Alert (physical-controls Tier 2: a plate; not interactive, so silent; no LED, Levi), tuned in sc-tune. |
-| `color/alert/rule/warning` | `--sc-color-alert-rule-warning` | `color/status/warning/light` | `#C2410C` | `color/status/warning/dark` | `#F67751` | 2026-10-08 · Alert (physical-controls Tier 2: a plate; not interactive, so silent; no LED, Levi), tuned in sc-tune. |
-| `color/alert/rule/error` | `--sc-color-alert-rule-error` | `color/status/error/light` | `#7F1D1D` | `color/status/error/dark` | `#FE6B67` | 2026-10-08 · Alert (physical-controls Tier 2: a plate; not interactive, so silent; no LED, Levi), tuned in sc-tune. |
-| `color/alert/rule/success` | `--sc-color-alert-rule-success` | `color/status/success/light` | `#2F855A` | `color/status/success/dark` | `#57AD7F` | 2026-10-08 · Alert (physical-controls Tier 2: a plate; not interactive, so silent; no LED, Levi), tuned in sc-tune. |
+| `color/toast/surface` | `--sc-color-toast-surface` | `color/surface/raised` | `⚠ unresolved` | `color/surface/raised` | `⚠ unresolved` | 2026-10-10 · Toast (Alert folds into Toast, decisions 2026-10-08; physical-controls Tier 2), tuned in sc-tune. |
+| `color/toast/text` | `--sc-color-toast-text` | `color/text/primary` | `⚠ unresolved` | `color/text/primary` | `⚠ unresolved` | 2026-10-10 · Toast (Alert folds into Toast, decisions 2026-10-08; physical-controls Tier 2), tuned in sc-tune. |
+| `color/toast/badge/success` | `--sc-color-toast-badge-success` | `color/status/success` | `⚠ unresolved` | `color/status/success` | `⚠ unresolved` | 2026-10-10 · Toast (Alert folds into Toast, decisions 2026-10-08; physical-controls Tier 2), tuned in sc-tune. |
+| `color/toast/badge/error` | `--sc-color-toast-badge-error` | `color/status/error` | `⚠ unresolved` | `color/status/error` | `⚠ unresolved` | 2026-10-10 · Toast (Alert folds into Toast, decisions 2026-10-08; physical-controls Tier 2), tuned in sc-tune. |
+| `color/toast/badge/warning` | `--sc-color-toast-badge-warning` | `color/status/warning` | `⚠ unresolved` | `color/status/warning` | `⚠ unresolved` | 2026-10-10 · Toast (Alert folds into Toast, decisions 2026-10-08; physical-controls Tier 2), tuned in sc-tune. |
+| `color/toast/badge/info` | `--sc-color-toast-badge-info` | `color/status/info` | `⚠ unresolved` | `color/status/info` | `⚠ unresolved` | 2026-10-10 · Toast (Alert folds into Toast, decisions 2026-10-08; physical-controls Tier 2), tuned in sc-tune. |
+| `color/toast/icon` | `--sc-color-toast-icon` | `color/warmGray/50` | `#F1EFEB` | `color/dark/well` | `#1F252C` | 2026-10-10 · Toast (Alert folds into Toast, decisions 2026-10-08; physical-controls Tier 2), tuned in sc-tune. |
+| `color/toast/dismiss/surface` | `--sc-color-toast-dismiss-surface` | `color/surface/raised` | `⚠ unresolved` | `color/surface/raised` | `⚠ unresolved` | 2026-10-10 · Toast (Alert folds into Toast, decisions 2026-10-08; physical-controls Tier 2), tuned in sc-tune. |
+| `color/toast/dismiss/hover` | `--sc-color-toast-dismiss-hover` | `color/utility/white` | `#FFFFFF` | `color/dark/raised2` | `#3B4249` | 2026-10-10 · Toast (Alert folds into Toast, decisions 2026-10-08; physical-controls Tier 2), tuned in sc-tune. |
+| `color/toast/dismiss/ink` | `--sc-color-toast-dismiss-ink` | `color/brand/accent` | `⚠ unresolved` | `color/teal/200` | `#8FD2D5` | 2026-10-10 · Toast (Alert folds into Toast, decisions 2026-10-08; physical-controls Tier 2), tuned in sc-tune. |
+| `color/toast/dismiss/inkDisabled` | `--sc-color-toast-dismiss-ink-disabled` | `color/text/disabled` | `⚠ unresolved` | `color/text/disabled` | `⚠ unresolved` | 2026-10-10 · Toast (Alert folds into Toast, decisions 2026-10-08; physical-controls Tier 2), tuned in sc-tune. |
 
 ### Typography · Semantic
 
@@ -724,6 +729,7 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | `font/text/mono/caption` | `--sc-font-text-mono-caption` | `font/text/mono/13` | `fontFamily: {font.family.mono} · fontSize: {font.size.13} · fontWeight: {font.weight.regular} · lineHeight: {font.lineHeight.relaxed} · letterSpacing: {font.tracking.normal}` | `font/text/mono/13` | `fontFamily: {font.family.mono} · fontSize: {font.size.13} · fontWeight: {font.weight.regular} · lineHeight: {font.lineHeight.relaxed} · letterSpacing: {font.tracking.normal}` | Sprint 4 addition · mono caption · 13px. |
 | `font/text/mono/body` | `--sc-font-text-mono-body` | `font/text/mono/16` | `fontFamily: {font.family.mono} · fontSize: {font.size.16} · fontWeight: {font.weight.regular} · lineHeight: {font.lineHeight.relaxed} · letterSpacing: {font.tracking.normal}` | `font/text/mono/16` | `fontFamily: {font.family.mono} · fontSize: {font.size.16} · fontWeight: {font.weight.regular} · lineHeight: {font.lineHeight.relaxed} · letterSpacing: {font.tracking.normal}` | Sprint 4 addition · mono body · 16px. |
 | `font/text/mono/flow` | `--sc-font-text-mono-flow` | `font/text/mono/14-loose` | `fontFamily: {font.family.mono} · fontSize: {font.size.14} · fontWeight: {font.weight.regular} · lineHeight: {font.lineHeight.loose} · letterSpacing: {font.tracking.normal}` | `font/text/mono/14-loose` | `fontFamily: {font.family.mono} · fontSize: {font.size.14} · fontWeight: {font.weight.regular} · lineHeight: {font.lineHeight.loose} · letterSpacing: {font.tracking.normal}` | Mono prose: 14px on a 2.0 line. |
+| `font/text/toast/message` | `--sc-font-text-toast-message` | `font/text/body/default` | `⚠ unresolved` | `font/text/body/default` | `⚠ unresolved` | 2026-10-10 · Toast (Alert folds into Toast, decisions 2026-10-08; physical-controls Tier 2), tuned in sc-tune. |
 | `font/text/nav/header` | `--sc-font-text-nav-header` | `font/text/displayTight/12` | `fontFamily: {font.family.display} · fontSize: {font.size.12} · fontWeight: {font.weight.black} · lineHeight: {font.lineHeight.tight} · letterSpacing: {font.tracking.normal}` | `font/text/displayTight/12` | `fontFamily: {font.family.display} · fontSize: {font.size.12} · fontWeight: {font.weight.black} · lineHeight: {font.lineHeight.tight} · letterSpacing: {font.tracking.normal}` | Navigation header: 12/black on 1.1. |
 | `font/text/nav/node` | `--sc-font-text-nav-node` | `font/text/textTight/13` | `fontFamily: {font.family.text} · fontSize: {font.size.13} · fontWeight: {font.weight.regular} · lineHeight: {font.lineHeight.tight} · letterSpacing: {font.tracking.normal}` | `font/text/textTight/13` | `fontFamily: {font.family.text} · fontSize: {font.size.13} · fontWeight: {font.weight.regular} · lineHeight: {font.lineHeight.tight} · letterSpacing: {font.tracking.normal}` | Navigation node: 13/regular on 1.1. |
 
@@ -737,7 +743,6 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | `space/component/padding/md` | `--sc-space-component-padding-md` | `space/16` | `16px` | `space/16` | `16px` | Medium component padding · 16px. |
 | `space/component/padding/lg` | `--sc-space-component-padding-lg` | `space/24` | `24px` | `space/24` | `24px` | Large component padding · 24px. |
 | `space/component/padding/card` | `--sc-space-component-padding-card` | `space/24` | `24px` | `space/24` | `24px` | 2026-10-07 · Card (physical-controls Tier 2: flat, or liquid glass in three levels and two tones, Levi 2026-10-08). |
-| `space/component/padding/alert` | `--sc-space-component-padding-alert` | `space/24` | `24px` | `space/24` | `24px` | 2026-10-08 · Alert (physical-controls Tier 2: a plate; not interactive, so silent; no LED, Levi), tuned in sc-tune. |
 | `space/component/padding-inline/sm` | `--sc-space-component-padding-inline-sm` | `space/micro/6` | `6px` | `space/micro/6` | `6px` | Sprint 4 addition · tight inline padding (6px). |
 | `space/component/padding-inline/md` | `--sc-space-component-padding-inline-md` | `space/12` | `12px` | `space/12` | `12px` | Sprint 4 addition · default inline padding (12px). |
 | `space/component/padding-inline/lg` | `--sc-space-component-padding-inline-lg` | `space/16` | `16px` | `space/16` | `16px` | Sprint 4 addition · generous inline padding (16px). |
@@ -745,6 +750,8 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | `space/component/padding-inline/button-sm` | `--sc-space-component-padding-inline-button-sm` | `space/16` | `16px` | `space/16` | `16px` | Small Button inline padding (16px). |
 | `space/component/padding-inline/input` | `--sc-space-component-padding-inline-input` | `space/16` | `16px` | `space/16` | `16px` | 2026-10-07 · Input material (physical-controls Tier 1: a true recessed well, the focus underline stays, a hover state), tuned in sc-tune. |
 | `space/component/padding-inline/tooltip` | `--sc-space-component-padding-inline-tooltip` | `space/12` | `12px` | `space/12` | `12px` | 2026-10-08 · Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. |
+| `space/component/padding-inline/toast-start` | `--sc-space-component-padding-inline-toast-start` | `space/layout/inset/sm` | `⚠ unresolved` | `space/layout/inset/sm` | `⚠ unresolved` | 2026-10-10 · Toast (Alert folds into Toast, decisions 2026-10-08; physical-controls Tier 2), tuned in sc-tune. |
+| `space/component/padding-inline/toast-end` | `--sc-space-component-padding-inline-toast-end` | `space/layout/inset/lg` | `⚠ unresolved` | `space/layout/inset/lg` | `⚠ unresolved` | 2026-10-10 · Toast (Alert folds into Toast, decisions 2026-10-08; physical-controls Tier 2), tuned in sc-tune. |
 | `space/component/padding-inline/status-pill` | `--sc-space-component-padding-inline-status-pill` | `space/12` | `12px` | `space/12` | `12px` | 2026-10-08 · StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis, the label written by the consumer; physical-controls Tier 2). |
 | `space/component/padding-block/sm` | `--sc-space-component-padding-block-sm` | `space/micro/2` | `2px` | `space/micro/2` | `2px` | Sprint 4 addition · ultra-thin block padding (2px). |
 | `space/component/padding-block/md` | `--sc-space-component-padding-block-md` | `space/8` | `8px` | `space/8` | `8px` | Sprint 4 addition · default block padding (8px). |
@@ -752,6 +759,7 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | `space/component/padding-block/button-sm` | `--sc-space-component-padding-block-button-sm` | `space/4` | `4px` | `space/4` | `4px` | Small Button block padding (4px, the dense 4pt step). |
 | `space/component/padding-block/input` | `--sc-space-component-padding-block-input` | `space/12` | `12px` | `space/12` | `12px` | 2026-10-07 · Input material (physical-controls Tier 1: a true recessed well, the focus underline stays, a hover state), tuned in sc-tune. |
 | `space/component/padding-block/tooltip` | `--sc-space-component-padding-block-tooltip` | `space/8` | `8px` | `space/8` | `8px` | 2026-10-08 · Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. |
+| `space/component/padding-block/toast` | `--sc-space-component-padding-block-toast` | `space/layout/inset/md` | `⚠ unresolved` | `space/layout/inset/md` | `⚠ unresolved` | 2026-10-10 · Toast (Alert folds into Toast, decisions 2026-10-08; physical-controls Tier 2), tuned in sc-tune. |
 | `space/component/padding-block/status-pill` | `--sc-space-component-padding-block-status-pill` | `space/4` | `4px` | `space/4` | `4px` | 2026-10-08 · StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis, the label written by the consumer; physical-controls Tier 2). |
 | `space/component/gap/sm` | `--sc-space-component-gap-sm` | `space/4` | `4px` | `space/4` | `4px` | Sprint 4 addition · tightest inter-element gap (4px). |
 | `space/component/gap/md` | `--sc-space-component-gap-md` | `space/8` | `8px` | `space/8` | `8px` | Sprint 4 addition · default inter-element gap (8px). |
@@ -761,7 +769,7 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | `space/component/gap/input-inline` | `--sc-space-component-gap-input-inline` | `space/16` | `16px` | `space/16` | `16px` | 2026-10-07 · Input material (physical-controls Tier 1), tuned in sc-tune. |
 | `space/component/gap/tooltip` | `--sc-space-component-gap-tooltip` | `space/24` | `24px` | `space/24` | `24px` | 2026-10-08 · Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. |
 | `space/component/gap/status-pill` | `--sc-space-component-gap-status-pill` | `space/micro/6` | `6px` | `space/micro/6` | `6px` | 2026-10-08 · StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis, the label written by the consumer; physical-controls Tier 2). |
-| `space/component/gap/alert-body` | `--sc-space-component-gap-alert-body` | `space/4` | `4px` | `space/4` | `4px` | 2026-10-08 · Alert (physical-controls Tier 2: a plate; not interactive, so silent; no LED, Levi), tuned in sc-tune. |
+| `space/component/gap/toast` | `--sc-space-component-gap-toast` | `space/12` | `12px` | `space/12` | `12px` | 2026-10-10 · Toast (Alert folds into Toast, decisions 2026-10-08; physical-controls Tier 2), tuned in sc-tune. |
 
 #### `space/layout`
 
@@ -777,18 +785,72 @@ channel-triplet primitives) rather than an alias to a single primitive.
 
 ### Radius · Semantic
 
+#### `radius/field`
+
 | Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
 |---|---|---|---|---|---|---|
 | `radius/field` | `--sc-radius-field` | `radius/default` | `8px` | `radius/default` | `8px` | 2026-10-07 · Input material (physical-controls Tier 1), tuned in sc-tune. |
+
+#### `radius/card`
+
+| Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
+|---|---|---|---|---|---|---|
 | `radius/card` | `--sc-radius-card` | `radius/surface` | `⚠ unresolved` | `radius/surface` | `⚠ unresolved` | 2026-10-07 · Card (physical-controls Tier 2: flat, or liquid glass in three levels and two tones, Levi 2026-10-08). |
-| `radius/alert` | `--sc-radius-alert` | `radius/default` | `8px` | `radius/default` | `8px` | 2026-10-08 · Alert (physical-controls Tier 2: a plate; not interactive, so silent; no LED, Levi), tuned in sc-tune. |
+
+#### `radius/toast`
+
+| Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
+|---|---|---|---|---|---|---|
+| `radius/toast/plate` | `--sc-radius-toast-plate` | `radius/pill` | `⚠ unresolved` | `radius/pill` | `⚠ unresolved` | 2026-10-10 · Toast (Alert folds into Toast, decisions 2026-10-08; physical-controls Tier 2), tuned in sc-tune. |
+| `radius/toast/badge` | `--sc-radius-toast-badge` | `radius/pill` | `⚠ unresolved` | `radius/pill` | `⚠ unresolved` | 2026-10-10 · Toast (Alert folds into Toast, decisions 2026-10-08; physical-controls Tier 2), tuned in sc-tune. |
+| `radius/toast/dismiss` | `--sc-radius-toast-dismiss` | `radius/pill` | `⚠ unresolved` | `radius/pill` | `⚠ unresolved` | 2026-10-10 · Toast (Alert folds into Toast, decisions 2026-10-08; physical-controls Tier 2), tuned in sc-tune. |
+
+#### `radius/avatar`
+
+| Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
+|---|---|---|---|---|---|---|
 | `radius/avatar` | `--sc-radius-avatar` | `radius/pill` | `⚠ unresolved` | `radius/pill` | `⚠ unresolved` | 2026-10-08 · Avatar (physical-controls Tier 2). |
+
+#### `radius/statusPill`
+
+| Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
+|---|---|---|---|---|---|---|
 | `radius/statusPill` | `--sc-radius-status-pill` | `radius/pill` | `⚠ unresolved` | `radius/pill` | `⚠ unresolved` | 2026-10-08 · StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis, the label written by the consumer; physical-controls Tier 2). |
+
+#### `radius/tooltip`
+
+| Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
+|---|---|---|---|---|---|---|
 | `radius/tooltip` | `--sc-radius-tooltip` | `space/4` | `4px` | `space/4` | `4px` | 2026-10-08 · Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. |
+
+#### `radius/control`
+
+| Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
+|---|---|---|---|---|---|---|
 | `radius/control` | `--sc-radius-control` | `radius/input` | `3px` | `radius/input` | `3px` | Sprint 4 addition · controls that read as inscribed rather than lifted (3px). |
+
+#### `radius/surface`
+
+| Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
+|---|---|---|---|---|---|---|
 | `radius/surface` | `--sc-radius-surface` | `radius/default` | `8px` | `radius/default` | `8px` | Sprint 4 addition · raised surfaces (8px). |
+
+#### `radius/surfaceLarge`
+
+| Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
+|---|---|---|---|---|---|---|
 | `radius/surfaceLarge` | `--sc-radius-surface-large` | `radius/large` | `16px` | `radius/large` | `16px` | 2026-08-16 Figma variable sync · large raised surfaces (16px). |
+
+#### `radius/pill`
+
+| Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
+|---|---|---|---|---|---|---|
 | `radius/pill` | `--sc-radius-pill` | `radius/circle` | `9999px` | `radius/circle` | `9999px` | Sprint 4 addition · pill / circle (9999px). |
+
+#### `radius/none`
+
+| Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
+|---|---|---|---|---|---|---|
 | `radius/none` | `--sc-radius-none` | `radius/none` | `0px` | `radius/none` | `0px` | Sprint 4 addition · structural rectangles, code surfaces (0). |
 
 ### Border · Semantic
@@ -852,7 +914,7 @@ channel-triplet primitives) rather than an alias to a single primitive.
 
 | Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
 |---|---|---|---|---|---|---|
-| `motion/reveal/duration` | `--sc-motion-reveal-duration` | `motion/duration/micro` | `200ms` | `motion/duration/micro` | `200ms` | Sprint 4 addition · Tooltip enter, Alert enter, Switch thumb slide (200ms). |
+| `motion/reveal/duration` | `--sc-motion-reveal-duration` | `motion/duration/micro` | `200ms` | `motion/duration/micro` | `200ms` | Sprint 4 addition · Tooltip enter, Toast enter, Switch thumb slide (200ms). |
 | `motion/reveal/easing` | `--sc-motion-reveal-easing` | `motion/easing/out` | `cubic-bezier(0.22, 1, 0.36, 1)` | `motion/easing/out` | `cubic-bezier(0.22, 1, 0.36, 1)` | Sprint 4 addition · quint-out · reveal entrance. |
 
 #### `motion/switch`
@@ -906,6 +968,14 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | `motion/statusPill/pulse/duration` | `--sc-motion-status-pill-pulse-duration` | `motion/duration/orchestrated` | `720ms` | `motion/duration/orchestrated` | `720ms` | 2026-10-08 · StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis, the label written by the consumer; physical-controls Tier 2). |
 | `motion/statusPill/pulse/easing` | `--sc-motion-status-pill-pulse-easing` | `motion/easing/inOut` | `cubic-bezier(0.65, 0, 0.35, 1)` | `motion/easing/inOut` | `cubic-bezier(0.65, 0, 0.35, 1)` | 2026-10-08 · StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis, the label written by the consumer; physical-controls Tier 2). |
 | `motion/statusPill/pulse/from` | `--sc-motion-status-pill-pulse-from` | _literal_ | `0.25` | _literal_ | `0.25` | 2026-10-08 · StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis, the label written by the consumer; physical-controls Tier 2). |
+
+#### `motion/toast`
+
+| Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
+|---|---|---|---|---|---|---|
+| `motion/toast/travel/duration` | `--sc-motion-toast-travel-duration` | `motion/reveal/duration` | `⚠ unresolved` | `motion/reveal/duration` | `⚠ unresolved` | 2026-10-10 · Toast (Alert folds into Toast, decisions 2026-10-08; physical-controls Tier 2), tuned in sc-tune. |
+| `motion/toast/travel/easing` | `--sc-motion-toast-travel-easing` | `motion/reveal/easing` | `⚠ unresolved` | `motion/reveal/easing` | `⚠ unresolved` | 2026-10-10 · Toast (Alert folds into Toast, decisions 2026-10-08; physical-controls Tier 2), tuned in sc-tune. |
+| `motion/toast/hold` | `--sc-motion-toast-hold` | _literal_ | `6000ms` | _literal_ | `6000ms` | 2026-10-10 · Toast (Alert folds into Toast, decisions 2026-10-08; physical-controls Tier 2), tuned in sc-tune. |
 
 #### `motion/tooltip`
 
@@ -1012,19 +1082,25 @@ channel-triplet primitives) rather than an alias to a single primitive.
 |---|---|---|---|---|---|---|
 | `shadow/tooltip/plate` | `--sc-shadow-tooltip-plate` | _literal_ | `2px 2px 6px 0 rgb(100 91 79 / 0.50)` | _literal_ | `3px 3px 7px 0 rgb(0 0 0 / 0.50)` | 2026-10-08 · Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. |
 
-#### `shadow/alert`
+#### `shadow/toast`
 
 | Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
 |---|---|---|---|---|---|---|
-| `shadow/alert/plate` | `--sc-shadow-alert-plate` | _literal_ | `inset 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)` | _literal_ | `inset 0 0 0 0 rgb(var(--sc-p-color-ink-rgb) / 0)` | 2026-10-08 · Alert (physical-controls Tier 2: a plate; not interactive, so silent; no LED, Levi), tuned in sc-tune. |
+| `shadow/toast/plate` | `--sc-shadow-toast-plate` | _literal_ | `0 2px 8px 0 rgb(var(--sc-p-color-ink-rgb) / 0.10), 0 1px 0 0 rgb(var(--sc-p-color-ink-rgb) / 0.04)` | _literal_ | `0 2px 8px 0 rgb(var(--sc-p-color-ink-rgb) / 0.10), 0 1px 0 0 rgb(var(--sc-p-color-ink-rgb) / 0.04)` | 2026-10-10 · Toast (Alert folds into Toast, decisions 2026-10-08; physical-controls Tier 2), tuned in sc-tune. |
 
 ### Size · Semantic
 
-#### `size/alert`
+#### `size/toast`
 
 | Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
 |---|---|---|---|---|---|---|
-| `size/alert/rule` | `--sc-size-alert-rule` | `border/width/accent` | `3px` | `border/width/accent` | `3px` | 2026-10-08 · Alert (physical-controls Tier 2: a plate; not interactive, so silent; no LED, Levi), tuned in sc-tune. |
+| `size/toast/width` | `--sc-size-toast-width` | _literal_ | `380px` | _literal_ | `380px` | 2026-10-10 · Toast (Alert folds into Toast, decisions 2026-10-08; physical-controls Tier 2), tuned in sc-tune. |
+| `size/toast/badge` | `--sc-size-toast-badge` | _literal_ | `50px` | _literal_ | `50px` | 2026-10-10 · Toast (Alert folds into Toast, decisions 2026-10-08; physical-controls Tier 2), tuned in sc-tune. |
+| `size/toast/icon` | `--sc-size-toast-icon` | `space/20` | `20px` | `space/20` | `20px` | 2026-10-10 · Toast (Alert folds into Toast, decisions 2026-10-08; physical-controls Tier 2), tuned in sc-tune. |
+| `size/toast/dismiss` | `--sc-size-toast-dismiss` | `space/32` | `32px` | `space/32` | `32px` | 2026-10-10 · Toast (Alert folds into Toast, decisions 2026-10-08; physical-controls Tier 2), tuned in sc-tune. |
+| `size/toast/dismissIcon` | `--sc-size-toast-dismiss-icon` | `size/icon/sm` | `⚠ unresolved` | `size/icon/sm` | `⚠ unresolved` | 2026-10-10 · Toast (Alert folds into Toast, decisions 2026-10-08; physical-controls Tier 2), tuned in sc-tune. |
+| `size/toast/dismissSlop` | `--sc-size-toast-dismiss-slop` | `space/micro/6` | `6px` | `space/micro/6` | `6px` | 2026-10-10 · Toast (Alert folds into Toast, decisions 2026-10-08; physical-controls Tier 2), tuned in sc-tune. |
+| `size/toast/lift` | `--sc-size-toast-lift` | `space/8` | `8px` | `space/8` | `8px` | 2026-10-10 · Toast (Alert folds into Toast, decisions 2026-10-08; physical-controls Tier 2), tuned in sc-tune. |
 
 #### `size/statusPill`
 

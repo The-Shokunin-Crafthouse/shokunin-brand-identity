@@ -31,7 +31,7 @@ import { Input } from '../../src/components/Input/Input.jsx';
 import { Card } from '../../src/components/Card/Card.jsx';
 import { StatusPill } from '../../src/components/StatusPill/StatusPill.jsx';
 import { Avatar } from '../../src/components/Avatar/Avatar.jsx';
-import { Alert } from '../../src/components/Alert/Alert.jsx';
+import { Toast } from '../../src/components/Toast/Toast.jsx';
 import { MagnifyingGlass, EnvelopeSimple, MapPin, Eye, Copy, CalendarBlank, Clock, CaretDown, Check, Pause, Archive, Warning } from '@phosphor-icons/react';
 import switchCss from '../../src/components/Switch/Switch.module.css?raw';
 import stepperCss from '../../src/components/Stepper/Stepper.module.css?raw';
@@ -46,7 +46,7 @@ import inputCss from '../../src/components/Input/Input.module.css?raw';
 import cardCss from '../../src/components/Card/Card.module.css?raw';
 import statusPillCss from '../../src/components/StatusPill/StatusPill.module.css?raw';
 import avatarCss from '../../src/components/Avatar/Avatar.module.css?raw';
-import alertCss from '../../src/components/Alert/Alert.module.css?raw';
+import toastCss from '../../src/components/Toast/Toast.module.css?raw';
 import avatarMark from '../../assets/logo/mark-icon-dark.png';
 import s from './Tune.module.css';
 
@@ -164,13 +164,16 @@ const AVATAR_PORTRAIT = `data:image/svg+xml,${encodeURIComponent('<svg xmlns="ht
 const AVATAR_IMAGES = { mark: avatarMark, portrait: AVATAR_PORTRAIT };
 const AVATAR_SIZES = ['xs', 'sm', 'md', 'lg'];
 
-/* Alert variants with the docs page's copy (src/sections/ComponentSections.jsx). */
-const ALERTS = {
-  info: ['Heads up', 'The brand site rebuilds on every push to main.'],
-  success: ['Shipped', 'Sprint 5 merged and deployed to brand.shokunincrafthouse.com.'],
-  warning: ['In review', 'Two approval gates remain before this can merge.'],
-  error: ['Build failed', 'Token build exited non-zero. The previous deploy is still live.'],
+/* Toast tones with the docs page's copy (src/sections/ComponentSections.jsx). */
+const TOASTS = {
+  success: 'Sprint 5 merged and deployed to brand.shokunincrafthouse.com.',
+  info: 'The brand site rebuilds on every push to main.',
+  warning: 'Two approval gates remain before this can merge.',
+  error: 'Token build exited non-zero. The previous deploy is still live.',
 };
+/* The Tooltip plate (record Tooltip 2026-10-08-2007 A): the Button key shade
+ * without its highlight, lit from the top left. Copied as values. */
+const PLATE_SHADE = { light: '2px 2px 6px 0 rgb(100 91 79 / 0.50)', dark: '3px 3px 7px 0 rgb(0 0 0 / 0.50)' };
 /* Set on a keyboard step so the lab's tick plays on keys only, never on a drag. */
 let keyStep = false;
 
@@ -622,30 +625,46 @@ export const REGISTRY = {
       );
     },
   },
-  Alert: {
-    css: [alertCss],
-    // Physical-controls Tier 2: a plate (no LED, Levi). Not interactive, so
-    // silent (an unprompted sound is intrusive). Seed is Claude's start: the
-    // plate is the Button key (fill and lift, lit from the top left), per mode.
+  Toast: {
+    css: [toastCss],
+    // Alert folds into Toast (Levi, 2026-10-08). Every role token ships equal
+    // to the Figma Toast (set 9:897). The seed is Claude's start, not a pick:
+    // the shipped shadow is Figma's elevation/2, lit from the top, and concept
+    // A starts from the Tooltip plate, lit from the system top left
+    // (directive 2). Not a control the reader asked for, so silent.
+    jsTokens: ['--sc-motion-toast-hold'],
     seed: {
       scoped: {
-        light: { '--sc-color-alert-ground': MATERIAL.light.keyFill, '--sc-shadow-alert-plate': MATERIAL.light.key },
-        dark: { '--sc-color-alert-ground': MATERIAL.dark.keyFill, '--sc-shadow-alert-plate': MATERIAL.dark.key },
+        light: { '--sc-shadow-toast-plate': PLATE_SHADE.light },
+        dark: { '--sc-shadow-toast-plate': PLATE_SHADE.dark },
       },
     },
     shippedSound: null,
     trigger: 'ships silent',
     props: [
-      { name: 'show', type: 'enum', options: ['all', ...Object.keys(ALERTS)], default: 'all' },
-      { name: 'title', type: 'boolean', default: true },
+      { name: 'show', type: 'enum', options: ['all', ...Object.keys(TOASTS)], default: 'all' },
+      { name: 'placement', type: 'enum', options: ['floating', 'inline'], default: 'floating' },
+      { name: 'autoDismiss', type: 'boolean', default: false },
+      { name: 'dismissDisabled', type: 'boolean', default: false },
+      { name: 'message', type: 'text', default: 'Changes saved.' },
     ],
+    // Play replays the floating enter (each Play remounts the toasts).
     play: null,
-    render: (p) => {
-      const shown = p.show === 'all' ? Object.keys(ALERTS) : [p.show];
+    render: (p, set, sound, ctx) => {
+      const shown = p.show === 'all' ? Object.keys(TOASTS) : [p.show];
       return (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--sc-space-layout-stack-sm)', width: 'calc(var(--sc-space-layout-stack-xl) * 2.5)' }}>
-          {shown.map((v) => (
-            <Alert key={v} variant={v} title={p.title ? ALERTS[v][0] : undefined}>{ALERTS[v][1]}</Alert>
+        <div style={{ display: 'grid', justifyItems: 'start', gap: 'var(--sc-space-layout-stack-sm)', inlineSize: p.placement === 'inline' ? 'calc(var(--sc-space-layout-stack-xl) * 6)' : undefined, maxInlineSize: '100%' }}>
+          {shown.map((t) => (
+            <Toast
+              key={`${t}-${ctx.replay}`}
+              tone={t}
+              placement={p.placement}
+              autoDismiss={p.autoDismiss}
+              dismissDisabled={p.dismissDisabled}
+              onDismiss={() => {}}
+            >
+              {p.show === 'all' ? TOASTS[t] : p.message}
+            </Toast>
           ))}
         </div>
       );

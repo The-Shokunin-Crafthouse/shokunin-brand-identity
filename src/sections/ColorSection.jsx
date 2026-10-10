@@ -306,7 +306,7 @@ export function ColorSection() {
               { p: '--sc-p-color-warm-gray-100', s: '--sc-color-surface-page', c: 'body { background: … }' },
               { p: '--sc-p-color-warm-gray-800', s: '--sc-color-text-primary', c: 'h1, p { color: … }' },
               { p: '--sc-p-color-teal-500', s: '--sc-color-interactive-hover', c: 'a:hover, .sc-button:hover' },
-              { p: '--sc-p-color-status-error-light', s: '--sc-color-status-error', c: '.sc-alert--error, .sc-badge--error' },
+              { p: '--sc-p-color-status-error-light', s: '--sc-color-status-error', c: 'Toast error badge, StatusPill error' },
             ].map((row) => (
               <div key={row.s} className={styles.tierRow}>
                 <div className={styles.tierCell}><span className={styles.swatchDot} style={{ background: `var(${row.p})` }} /><code className={styles.tok}>{row.p}<span className={styles.tokHex}>{hex[row.p] || ''}</span></code></div>

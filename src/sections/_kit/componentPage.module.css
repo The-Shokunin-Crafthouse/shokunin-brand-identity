@@ -8,7 +8,7 @@
 
 .stateMeta { display: flex; flex-direction: column; gap: var(--sc-space-component-gap-sm); }
 
-/* Full-width state stack — for wide components (NavBar, Alert). */
+/* Full-width state stack — for wide components (NavBar, Toast). */
 .stateStack {
   display: grid; grid-template-columns: 1fr; gap: var(--sc-space-component-gap-sm);
 }

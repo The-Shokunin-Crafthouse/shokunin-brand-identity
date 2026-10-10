@@ -170,9 +170,9 @@ public enum SCDS {
     public static let primitivesVersion = "0.1.0"
     public static let semanticVersion = "0.1.0"
     public static let sourceGenerated = "2026-05-26"
-    public static let primitivesHash = "7b1eefffce2ddb71"
-    public static let semanticHash = "71af087b76d46a21"
-    public static let tokenCount = 343
+    public static let primitivesHash = "91c76a72c4dcc85e"
+    public static let semanticHash = "2346f2bfe2014a9e"
+    public static let tokenCount = 362
   }
 
   // MARK: - Color
@@ -863,40 +863,70 @@ public enum SCDS {
         dark:  (0.121569, 0.145098, 0.172549, 1)
     )
 
-    /// `color.alert.ground`
-    public static let alertGround = SwiftUI.Color.scdsDynamic(
-        light: (0.847059, 0.819608, 0.8, 1),
-        dark:  (0.121569, 0.145098, 0.172549, 1)
+    /// `color.toast.surface`
+    public static let toastSurface = SwiftUI.Color.scdsDynamic(
+        light: (0.945098, 0.937255, 0.921569, 1),
+        dark:  (0.203922, 0.227451, 0.254902, 1)
     )
 
-    /// `color.alert.frame`
-    public static let alertFrame = SwiftUI.Color.scdsDynamic(
-        light: (0.603922, 0.568627, 0.52549, 1),
-        dark:  (0.301961, 0.32549, 0.356863, 1)
+    /// `color.toast.text`
+    public static let toastText = SwiftUI.Color.scdsDynamic(
+        light: (0.101961, 0.094118, 0.082353, 1),
+        dark:  (0.917647, 0.909804, 0.890196, 1)
     )
 
-    /// `color.alert.rule.info`
-    public static let alertRuleInfo = SwiftUI.Color.scdsDynamic(
-        light: (0.176471, 0.352941, 0.847059, 1),
-        dark:  (0.439216, 0.603922, 0.992157, 1)
+    /// `color.toast.badge.success`
+    public static let toastBadgeSuccess = SwiftUI.Color.scdsDynamic(
+        light: (0.184314, 0.521569, 0.352941, 1),
+        dark:  (0.341176, 0.678431, 0.498039, 1)
     )
 
-    /// `color.alert.rule.warning`
-    public static let alertRuleWarning = SwiftUI.Color.scdsDynamic(
-        light: (0.760784, 0.254902, 0.047059, 1),
-        dark:  (0.964706, 0.466667, 0.317647, 1)
-    )
-
-    /// `color.alert.rule.error`
-    public static let alertRuleError = SwiftUI.Color.scdsDynamic(
+    /// `color.toast.badge.error`
+    public static let toastBadgeError = SwiftUI.Color.scdsDynamic(
         light: (0.498039, 0.113725, 0.113725, 1),
         dark:  (0.996078, 0.419608, 0.403922, 1)
     )
 
-    /// `color.alert.rule.success`
-    public static let alertRuleSuccess = SwiftUI.Color.scdsDynamic(
-        light: (0.184314, 0.521569, 0.352941, 1),
-        dark:  (0.341176, 0.678431, 0.498039, 1)
+    /// `color.toast.badge.warning`
+    public static let toastBadgeWarning = SwiftUI.Color.scdsDynamic(
+        light: (0.760784, 0.254902, 0.047059, 1),
+        dark:  (0.964706, 0.466667, 0.317647, 1)
+    )
+
+    /// `color.toast.badge.info`
+    public static let toastBadgeInfo = SwiftUI.Color.scdsDynamic(
+        light: (0.176471, 0.352941, 0.847059, 1),
+        dark:  (0.439216, 0.603922, 0.992157, 1)
+    )
+
+    /// `color.toast.icon`
+    public static let toastIcon = SwiftUI.Color.scdsDynamic(
+        light: (0.945098, 0.937255, 0.921569, 1),
+        dark:  (0.121569, 0.145098, 0.172549, 1)
+    )
+
+    /// `color.toast.dismiss.surface`
+    public static let toastDismissSurface = SwiftUI.Color.scdsDynamic(
+        light: (0.945098, 0.937255, 0.921569, 1),
+        dark:  (0.203922, 0.227451, 0.254902, 1)
+    )
+
+    /// `color.toast.dismiss.hover`
+    public static let toastDismissHover = SwiftUI.Color.scdsDynamic(
+        light: (1, 1, 1, 1),
+        dark:  (0.231373, 0.258824, 0.286275, 1)
+    )
+
+    /// `color.toast.dismiss.ink`
+    public static let toastDismissInk = SwiftUI.Color.scdsDynamic(
+        light: (0.011765, 0.556863, 0.576471, 1),
+        dark:  (0.560784, 0.823529, 0.835294, 1)
+    )
+
+    /// `color.toast.dismiss.inkDisabled`
+    public static let toastDismissInkDisabled = SwiftUI.Color.scdsDynamic(
+        light: (0.517647, 0.486275, 0.443137, 1),
+        dark:  (0.486275, 0.478431, 0.462745, 1)
     )
   }
 
@@ -1174,6 +1204,16 @@ public enum SCDS {
         trackingEm: 0
     )
 
+    /// `font.text.toast.message` · Neue Haas Grotesk Text Pro 16/1.5
+    public static let textToastMessage = SCDSTypeStyle(
+        family: "Neue Haas Grotesk Text Pro",
+        fallbacks: ["Helvetica Neue", "Inter", "system-ui", "sans-serif"],
+        size: 16,
+        weight: .regular,
+        lineHeightMultiple: 1.5,
+        trackingEm: 0
+    )
+
     /// `font.text.nav.header` · Neue Haas Grotesk Display Pro 12/1.1
     public static let textNavHeader = SCDSTypeStyle(
         family: "Neue Haas Grotesk Display Pro",
@@ -1237,9 +1277,6 @@ public enum SCDS {
     /// `space.component.padding.card`
     public static let componentPaddingCard: CGFloat = 24
 
-    /// `space.component.padding.alert`
-    public static let componentPaddingAlert: CGFloat = 24
-
     /// `space.component.padding-inline.sm`
     public static let componentPaddingInlineSm: CGFloat = 6
 
@@ -1261,6 +1298,12 @@ public enum SCDS {
     /// `space.component.padding-inline.tooltip`
     public static let componentPaddingInlineTooltip: CGFloat = 12
 
+    /// `space.component.padding-inline.toast-start`
+    public static let componentPaddingInlineToastStart: CGFloat = 16
+
+    /// `space.component.padding-inline.toast-end`
+    public static let componentPaddingInlineToastEnd: CGFloat = 48
+
     /// `space.component.padding-inline.status-pill`
     public static let componentPaddingInlineStatusPill: CGFloat = 12
 
@@ -1281,6 +1324,9 @@ public enum SCDS {
 
     /// `space.component.padding-block.tooltip`
     public static let componentPaddingBlockTooltip: CGFloat = 8
+
+    /// `space.component.padding-block.toast`
+    public static let componentPaddingBlockToast: CGFloat = 24
 
     /// `space.component.padding-block.status-pill`
     public static let componentPaddingBlockStatusPill: CGFloat = 4
@@ -1309,8 +1355,8 @@ public enum SCDS {
     /// `space.component.gap.status-pill`
     public static let componentGapStatusPill: CGFloat = 6
 
-    /// `space.component.gap.alert-body`
-    public static let componentGapAlertBody: CGFloat = 4
+    /// `space.component.gap.toast`
+    public static let componentGapToast: CGFloat = 12
   }
 
   // MARK: - Radius
@@ -1323,8 +1369,14 @@ public enum SCDS {
     /// `radius.card`
     public static let card: CGFloat = 8
 
-    /// `radius.alert`
-    public static let alert: CGFloat = 8
+    /// `radius.toast.plate`
+    public static let toastPlate: CGFloat = 9999
+
+    /// `radius.toast.badge`
+    public static let toastBadge: CGFloat = 9999
+
+    /// `radius.toast.dismiss`
+    public static let toastDismiss: CGFloat = 9999
 
     /// `radius.avatar`
     public static let avatar: CGFloat = 9999
@@ -1372,8 +1424,26 @@ public enum SCDS {
 
   /// Named element sizes, including the touch-target floor.
   public enum Size {
-    /// `size.alert.rule`
-    public static let alertRule: CGFloat = 3
+    /// `size.toast.width`
+    public static let toastWidth: CGFloat = 380
+
+    /// `size.toast.badge`
+    public static let toastBadge: CGFloat = 50
+
+    /// `size.toast.icon`
+    public static let toastIcon: CGFloat = 20
+
+    /// `size.toast.dismiss`
+    public static let toastDismiss: CGFloat = 32
+
+    /// `size.toast.dismissIcon`
+    public static let toastDismissIcon: CGFloat = 16
+
+    /// `size.toast.dismissSlop`
+    public static let toastDismissSlop: CGFloat = 6
+
+    /// `size.toast.lift`
+    public static let toastLift: CGFloat = 8
 
     /// `size.statusPill.dash`
     public static let statusPillDash: CGFloat = 3
@@ -1673,6 +1743,15 @@ public enum SCDS {
 
     /// `motion.statusPill.pulse.from`
     public static let statusPillPulseFrom: CGFloat = 0.25
+
+    /// `motion.toast.travel.duration` · 200ms
+    public static let toastTravelDuration: TimeInterval = 0.2
+
+    /// `motion.toast.travel.easing`
+    public static let toastTravelEasing = SCDSEasing(0.22, 1, 0.36, 1)
+
+    /// `motion.toast.hold` · 6000ms
+    public static let toastHold: TimeInterval = 6
 
     /// `motion.tooltip.travel.duration` · 720ms
     public static let tooltipTravelDuration: TimeInterval = 0.72
@@ -2030,13 +2109,15 @@ public enum SCDS {
         ]
     )
 
-    /// `shadow.alert.plate` · 1 layers
-    public static let alertPlate = SCDSShadow(
+    /// `shadow.toast.plate` · 2 layers
+    public static let toastPlate = SCDSShadow(
         light: [
-            SCDSShadowLayer(inset: true, x: 0, y: 0, blur: 0, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0),
+            SCDSShadowLayer(inset: false, x: 0, y: 2, blur: 8, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0.1),
+            SCDSShadowLayer(inset: false, x: 0, y: 1, blur: 0, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0.04),
         ],
         dark: [
-            SCDSShadowLayer(inset: true, x: 0, y: 0, blur: 0, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0),
+            SCDSShadowLayer(inset: false, x: 0, y: 2, blur: 8, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0.1),
+            SCDSShadowLayer(inset: false, x: 0, y: 1, blur: 0, spread: 0, rgb: (0.101961, 0.094118, 0.082353), alpha: 0.04),
         ]
     )
   }

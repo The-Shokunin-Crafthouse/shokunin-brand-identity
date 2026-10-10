@@ -14,7 +14,7 @@ import { StatusPill } from '../components/StatusPill/StatusPill.jsx';
 import { Card } from '../components/Card/Card.jsx';
 import { Input } from '../components/Input/Input.jsx';
 import { EnvelopeSimple, MagnifyingGlass, MapPin, CalendarBlank, Check, Pause } from '@phosphor-icons/react';
-import { Alert } from '../components/Alert/Alert.jsx';
+import { Toast } from '../components/Toast/Toast.jsx';
 import { Switch } from '../components/Switch/Switch.jsx';
 import { Avatar } from '../components/Avatar/Avatar.jsx';
 import { ProgressIndicator } from '../components/ProgressIndicator/ProgressIndicator.jsx';
@@ -261,48 +261,99 @@ export function InputPage() {
   );
 }
 
-/* ── 3.11 Alert ──────────────────────────────────────────── */
-export function AlertPage() {
+/* ── 3.11 Toast (was Alert) ──────────────────────────────── */
+/* A toast's plate is surface.raised, the same tone as a state cell, so every
+ * demo sits on the page ground it is built for. */
+function ToastStage({ children }) {
+  return (
+    <div style={{ display: 'grid', gap: 'var(--sc-space-layout-stack-sm)', justifyItems: 'start', background: 'var(--sc-color-surface-page)', padding: 'var(--sc-space-component-padding-md)', borderRadius: 'var(--sc-radius-card)' }}>
+      {children}
+    </div>
+  );
+}
+
+const TOAST_LIVE = [
+  ['success', 'Changes saved.'],
+  ['info', 'Link copied to the clipboard.'],
+  ['error', 'Upload failed. The file is over 20 MB.'],
+];
+
+/* The consumer owns the stack: a list in state, one region, removal in onDismiss. */
+function ToastLiveDemo() {
+  const [toasts, setToasts] = useState([]);
+  const [n, setN] = useState(0);
+  const add = () => {
+    const [tone, message] = TOAST_LIVE[n % TOAST_LIVE.length];
+    setToasts((list) => [...list, { id: n, tone, message }]);
+    setN(n + 1);
+  };
+  return (
+    <ToastStage>
+      <Button variant="secondary" size="sm" arrow={false} onClick={add}>Show a toast</Button>
+      <div style={{ display: 'grid', gap: 'var(--sc-space-layout-stack-sm)', inlineSize: '100%', justifyItems: 'start' }}>
+        {toasts.map((t) => (
+          <Toast key={t.id} tone={t.tone} placement="floating" onDismiss={() => setToasts((list) => list.filter((x) => x.id !== t.id))}>{t.message}</Toast>
+        ))}
+      </div>
+    </ToastStage>
+  );
+}
+
+export function ToastPage() {
   return (
     <ComponentPage
-      id="alert" label="Alert" statesVariant="stack"
-      eyebrow={<>Alert<Slash />signal on a left rule</>}
-      title={<>A three-pixel rule carries the state. <Em>The banner stays calm.</Em></>}
-      lead={<>Alerts mark status with a single coloured left rule, not a full tint. The banner ground stays sunk and predictable; the rule does the category-marking at the same visual weight as every other rule in the system. The colour informs, it does not shout.</>}
-      statesTitle="Four states, one calm banner."
+      id="toast" label="Toast" statesVariant="stack"
+      eyebrow={<>Toast<Slash />one notification, two placements</>}
+      title={<>A capsule says what happened. <Em>Then it gets out of the way.</Em></>}
+      lead={<>Toast is the one notification in the system; it replaces Alert. A capsule plate, a tone badge and one message. Inline, it sits in the flow and stays. Floating, it rises in at the edge of the screen, carries a dismiss button and leaves on its own. A floating toast never holds a required action.</>}
+      statesTitle="Four tones, two placements."
       callouts={[
-        { title: 'Why a left rule, not a tint', body: 'Full tinted alerts read as decoration in a monochrome-with-accent register. A 3px rule signals state at chrome weight; the ground stays sunk and unobtrusive.' },
-        { title: 'Colour informs, accessibility announces', body: 'Warning and error are assertive live regions (role="alert"); info and success are polite (role="status"). The category is never carried by colour alone.' },
-        { title: 'Error is oxblood, not teal', body: 'The error rule pulls from status-error, deliberately off the brand teal band, so a danger banner and a brand surface can never be confused.' },
+        { title: 'Placement follows what the reader must do', body: 'Nothing to do: floating (saved, sent, copied, a non-blocking error). Something to read before going on, or a state that holds: inline. Anything the reader must act on belongs inline or in a dialog, never in a toast that leaves.' },
+        { title: 'Colour informs, accessibility announces', body: 'Error and warning are assertive live regions (role="alert"); info and success are polite (role="status"). The badge glyph changes shape per tone and a hidden tone word leads the message, so colour never speaks alone.' },
+        { title: 'A fill, not a frame', body: 'The plate separates from the page by tone, and the floating plate by its shadow. No border, no status LED, no tinted banner.' },
       ]}
       states={[
-        { name: 'Info', token: '--sc-color-alert-rule-info', render: <Alert variant="info" title="Heads up">The brand site rebuilds on every push to main.</Alert> },
-        { name: 'Success', token: '--sc-color-alert-rule-success', render: <Alert variant="success" title="Shipped">Sprint 5 merged and deployed to brand.shokunincrafthouse.com.</Alert> },
-        { name: 'Warning', token: '--sc-color-alert-rule-warning', render: <Alert variant="warning" title="In review">Two approval gates remain before this can merge.</Alert> },
-        { name: 'Error', token: '--sc-color-alert-rule-error', render: <Alert variant="error" title="Build failed">Token build exited non-zero. The previous deploy is still live.</Alert> },
+        { name: 'Success · inline', token: '--sc-color-toast-badge-success', render: <ToastStage><Toast tone="success">Sprint 5 merged and deployed to brand.shokunincrafthouse.com.</Toast></ToastStage> },
+        { name: 'Info · inline', token: '--sc-color-toast-badge-info', render: <ToastStage><Toast tone="info">The brand site rebuilds on every push to main.</Toast></ToastStage> },
+        { name: 'Warning · inline', token: '--sc-color-toast-badge-warning', render: <ToastStage><Toast tone="warning">Two approval gates remain before this can merge.</Toast></ToastStage> },
+        { name: 'Error · inline', token: '--sc-color-toast-badge-error', render: <ToastStage><Toast tone="error">Token build exited non-zero. The previous deploy is still live.</Toast></ToastStage> },
+        { name: 'Floating · held for review', token: '--sc-shadow-toast-plate', render: <ToastStage><Toast tone="success" placement="floating" autoDismiss={false}>Changes saved.</Toast><Toast tone="error" placement="floating" autoDismiss={false}>Upload failed. The file is over 20 MB.</Toast></ToastStage> },
+        { name: 'Floating · dismiss disabled', token: '--sc-color-toast-dismiss-ink-disabled', render: <ToastStage><Toast tone="info" placement="floating" autoDismiss={false} dismissDisabled>Sending. You can dismiss this once it lands.</Toast></ToastStage> },
+        { name: 'Floating · live (hover, focus, press the x)', token: '--sc-motion-toast-hold', render: <ToastLiveDemo /> },
       ]}
       tokenRows={[
-        { prop: 'Padding', token: '--sc-space-component-padding-alert' },
-        { prop: 'Title → body gap', token: '--sc-space-component-gap-alert-body' },
-        { prop: 'Radius', token: '--sc-radius-alert' },
-        { prop: 'Frame', token: '--sc-border-width-default' },
-        { prop: 'Left rule', token: '--sc-size-alert-rule' },
-        { prop: 'Ground', token: '--sc-color-alert-ground' },
-        { prop: 'Frame colour', token: '--sc-color-alert-frame' },
-        { prop: 'Plate', token: '--sc-shadow-alert-plate' },
-        { prop: 'Title', token: '--sc-color-text-primary' },
-        { prop: 'Body', token: '--sc-color-text-secondary' },
-        { prop: 'Info rule', token: '--sc-color-alert-rule-info' },
-        { prop: 'Warning rule', token: '--sc-color-alert-rule-warning' },
-        { prop: 'Error rule', token: '--sc-color-alert-rule-error' },
-        { prop: 'Success rule', token: '--sc-color-alert-rule-success' },
+        { prop: 'Plate fill', token: '--sc-color-toast-surface' },
+        { prop: 'Plate corner', token: '--sc-radius-toast-plate', light: 'capsule' },
+        { prop: 'Block padding', token: '--sc-space-component-padding-block-toast' },
+        { prop: 'Padding before badge', token: '--sc-space-component-padding-inline-toast-start' },
+        { prop: 'Padding after dismiss', token: '--sc-space-component-padding-inline-toast-end' },
+        { prop: 'Gap', token: '--sc-space-component-gap-toast' },
+        { prop: 'Floating width', token: '--sc-size-toast-width' },
+        { prop: 'Floating shadow', token: '--sc-shadow-toast-plate', light: 'elevation/2', dark: 'elevation/2' },
+        { prop: 'Badge', token: '--sc-size-toast-badge' },
+        { prop: 'Success badge', token: '--sc-color-toast-badge-success' },
+        { prop: 'Info badge', token: '--sc-color-toast-badge-info' },
+        { prop: 'Warning badge', token: '--sc-color-toast-badge-warning' },
+        { prop: 'Error badge', token: '--sc-color-toast-badge-error' },
+        { prop: 'Badge glyph', token: '--sc-size-toast-icon' },
+        { prop: 'Badge glyph ink', token: '--sc-color-toast-icon' },
+        { prop: 'Message ink', token: '--sc-color-toast-text' },
+        { prop: 'Message type', token: '--sc-font-text-toast-message', light: '16 / 150%' },
+        { prop: 'Dismiss', token: '--sc-size-toast-dismiss' },
+        { prop: 'Dismiss ground', token: '--sc-color-toast-dismiss-surface' },
+        { prop: 'Dismiss hover', token: '--sc-color-toast-dismiss-hover' },
+        { prop: 'Dismiss x', token: '--sc-color-toast-dismiss-ink' },
+        { prop: 'Dismiss x size', token: '--sc-size-toast-dismiss-icon' },
+        { prop: 'Rise', token: '--sc-size-toast-lift' },
+        { prop: 'Enter and exit', token: '--sc-motion-toast-travel-duration', light: '200ms quint-out' },
+        { prop: 'Hold', token: '--sc-motion-toast-hold', light: '6s, pauses inside' },
       ]}
-      rulesTitle="Four rules for a signal that stays calm."
+      rulesTitle="Four rules for a message that knows when to leave."
       rules={[
-        { name: 'The rule carries the state, not the ground', text: 'Never tint the whole banner. The 3px left rule is the signal; the sunk ground stays neutral so a screen of alerts does not become a wall of colour.' },
+        { name: 'One fact and the way forward', text: 'The message states what happened and what to do next in one or two short sentences. No title: the badge names the tone.' },
         { name: 'Match the role to the urgency', text: 'Error and warning interrupt (role="alert"); info and success wait (role="status"). A polite success that interrupts a screen reader is a bug.' },
-        { name: 'Title states, body explains', text: 'The title names the state in two or three words; the body gives the one fact and the path forward. No alert without a next step.' },
-        { name: 'Error is for failures, not warnings', text: 'Reserve the oxblood rule for something that broke or was rejected. A merely cautionary message is a warning — downgrading it keeps error meaningful.' },
+        { name: 'Floating never holds a required action', text: 'A floating toast leaves after six seconds, so it can only confirm. A choice the reader must make goes inline or in a dialog. The hold pauses under the pointer and under focus, and Escape dismisses.' },
+        { name: 'Error is for failures, not warnings', text: 'Reserve the error badge for something that broke or was rejected. A cautionary message is a warning; downgrading it keeps error meaningful.' },
       ]}
     />
   );

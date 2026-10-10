@@ -160,6 +160,7 @@ const FILL_PAIRS = [
   ['color.statusPill.error.ink', 'color.statusPill.error.fill'],
   ['color.statusPill.info.ink', 'color.statusPill.info.fill'],
   ['color.statusPill.live.ink', 'color.statusPill.live.fill'],
+  ['color.toast.text', 'color.toast.surface'],
 ];
 function checkFillPairs() {
   const failures = [];
@@ -169,6 +170,32 @@ function checkFillPairs() {
       const bg = semanticHex(bgPath, mode);
       const ratio = contrast(fg, bg);
       if (ratio < AA) failures.push(`${fgPath} on ${bgPath} (${mode}): ${fmt(ratio)}:1 < AA ${AA}:1, ${fg} on ${bg}.`);
+    }
+  }
+  return failures;
+}
+
+// --------------------------------------------- check 1c: glyph-on-fill pairs
+// Glyphs that carry meaning on their own ground (WCAG 1.4.11 non-text, 3:1).
+// The Toast tone glyph sits on its badge; the dismiss x sits on the plate and
+// on its hover ground. Each pair must clear 3:1 in every mode.
+const NON_TEXT = 3;
+const GRAPHIC_PAIRS = [
+  ['color.toast.icon', 'color.toast.badge.success'],
+  ['color.toast.icon', 'color.toast.badge.error'],
+  ['color.toast.icon', 'color.toast.badge.warning'],
+  ['color.toast.icon', 'color.toast.badge.info'],
+  ['color.toast.dismiss.ink', 'color.toast.dismiss.surface'],
+  ['color.toast.dismiss.ink', 'color.toast.dismiss.hover'],
+];
+function checkGraphicPairs() {
+  const failures = [];
+  for (const mode of MODES) {
+    for (const [fgPath, bgPath] of GRAPHIC_PAIRS) {
+      const fg = semanticHex(fgPath, mode);
+      const bg = semanticHex(bgPath, mode);
+      const ratio = contrast(fg, bg);
+      if (ratio < NON_TEXT) failures.push(`${fgPath} on ${bgPath} (${mode}): ${fmt(ratio)}:1 < ${NON_TEXT}:1 (WCAG 1.4.11), ${fg} on ${bg}.`);
     }
   }
   return failures;
@@ -497,6 +524,7 @@ console.log('\nContrast verification — tokens/primitives.json + tokens/semanti
 let fatalCount = 0;
 fatalCount += section(`WCAG AA on every text-tier × surface × mode pair (${TEXT_TIERS.length * SURFACES.length * MODES.length} pairs)`, aaFailures);
 fatalCount += section(`WCAG AA on every control label × its own fill × mode (${FILL_PAIRS.length * MODES.length} pairs)`, checkFillPairs());
+fatalCount += section(`WCAG 1.4.11 on every meaning-carrying glyph × its own ground × mode (${GRAPHIC_PAIRS.length * MODES.length} pairs)`, checkGraphicPairs());
 fatalCount += section(`every quoted figure matches its measured value (${CLAIMS.length} claims)`, claimFailures);
 fatalCount += section('every figure quoted in a $description is registered', orphanFailures);
 section('no restriction is over-broad', restricted, false);
