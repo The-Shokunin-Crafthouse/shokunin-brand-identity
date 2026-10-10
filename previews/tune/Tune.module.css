@@ -347,6 +347,12 @@
   overflow-wrap: anywhere;
 }
 
+.rawHead {
+  display: flex;
+  align-items: center;
+  gap: var(--sc-space-component-gap-md);
+}
+
 .shippedValue {
   color: var(--sc-color-text-tertiary);
 }
@@ -1058,7 +1064,8 @@ fieldset:disabled {
 
 /* Under 900 px (P5.4, F-15): the page scrolls, the stage sticks to the top
    at 40vh and the panel scrolls beneath it, the header wraps. */
-@media (max-width: 899px) {
+/* 56.25em is 900 px at the root size; a media query cannot read a token. */
+@media (width < 56.25em) {
   .app {
     display: block;
     height: auto;

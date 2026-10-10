@@ -435,7 +435,11 @@ export const TokenControl = memo(function TokenControl({ name, kind, shipped, va
         // A raw shadow (P3.7), or a spring's sampled linear(), is kept for
         // copy behind a closed disclosure; the editor above shows it structured.
         <div className={s.values}>
-          <button type="button" className={s.disclosure} aria-expanded={rawOpen} aria-label={`Raw values of ${n}`} onClick={() => setRawOpen((o) => !o)}>raw</button>
+          <span className={s.rawHead}>
+            <button type="button" className={s.disclosure} aria-expanded={rawOpen} aria-label={`Raw values of ${n}`} onClick={() => setRawOpen((o) => !o)}>raw</button>
+            {/* The origin word stays visible while the values are folded. */}
+            {!rawOpen && overridden && <span className={s.tunedValue}>{isSeed ? 'seed' : 'tuned'}</span>}
+          </span>
           {rawOpen && lines}
         </div>
       ) : (
