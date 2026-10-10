@@ -203,6 +203,12 @@ function MotionStage({ p, ctx }) {
 
 export const lastFrameMs = (p) => (p.reduced === 'none' ? 0 : p.delay + p.stagger * (p.count - 1) + p.duration);
 
+/* Panel group order (P3.1, A-03): the component's own layering, size first,
+   motion last. The one place it is written; the lab's rail and its token
+   groups both read it. `other` catches a token outside the eight families;
+   the read-only `derived` group always follows. */
+export const GROUP_ORDER = ['size', 'space', 'radius', 'border', 'color', 'shadow', 'font', 'motion', 'other'];
+
 /* ---------- entries ---------- */
 
 export const REGISTRY = {

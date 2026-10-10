@@ -31,7 +31,7 @@ import tokensCss from '../../src/styles/tokens.css?raw';
 import '../../src/styles/fonts.css';
 import '../../src/styles/tokens.css';
 import '../../src/styles/reset.css';
-import { REGISTRY, lastFrameMs } from './registry.jsx';
+import { REGISTRY, GROUP_ORDER, lastFrameMs } from './registry.jsx';
 import { TokenControl, PropControl, round } from './controls.jsx';
 import { springToLinear } from './motion.js';
 import s from './Tune.module.css';
@@ -75,9 +75,6 @@ function discover(cssList) {
 }
 
 const category = (name) => name.match(/^--sc-(color|size|space|radius|border|shadow|motion|font)/)?.[1] || 'other';
-// Panel group order, the component's own layering (A-03). The one place it is
-// written; the rail and the token groups both read it.
-const GROUP_ORDER = ['size', 'space', 'radius', 'border', 'color', 'shadow', 'font', 'motion', 'other'];
 const GROUND_OPTIONS = ['--sc-color-surface-page', '--sc-color-surface-raised', '--sc-color-surface-sunk', '--sc-color-surface-floating'];
 // A key typed into a field belongs to the field, not to a lab shortcut.
 const typingIn = (el) => el?.closest?.('input:not([type=range]):not([type=checkbox]):not([type=radio]), textarea, select, [contenteditable="true"]');
