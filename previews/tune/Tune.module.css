@@ -18,10 +18,17 @@
 .bar {
   grid-column: 1 / -1;
   display: flex;
-  align-items: center;
-  gap: var(--sc-space-component-gap-lg);
+  flex-direction: column;
+  gap: var(--sc-space-component-gap-md);
   padding: var(--sc-space-component-padding-md) var(--sc-space-layout-inset-sm);
   border-block-end: var(--sc-border-width-default) solid var(--sc-color-border-subtle);
+}
+
+.barRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sc-space-component-gap-md) var(--sc-space-component-gap-lg);
 }
 
 .brand {
@@ -104,6 +111,9 @@
   border: none;
   margin: 0;
   padding: 0;
+  /* A fieldset's min-inline-size is min-content by default, so one nowrap
+     summary would widen the whole panel. */
+  min-inline-size: 0;
   display: flex;
   flex-direction: column;
   gap: var(--sc-space-component-gap-md);
@@ -235,7 +245,7 @@
 .bar button:focus-visible,
 .sound button:focus-visible,
 .panel :is(input, select):focus-visible,
-.bar select:focus-visible {
+.bar :is(input, select):focus-visible {
   outline: var(--sc-border-width-focus) solid var(--sc-color-border-focus);
   outline-offset: var(--sc-border-focus-offset);
 }
@@ -377,6 +387,7 @@ fieldset:disabled {
    render with its own styles, not the lab's. */
 :is(.bar, .panel) select,
 :is(.bar, .panel) input[type='text'],
+:is(.bar, .panel) input[type='search'],
 :is(.bar, .panel) input[type='number'] {
   font: inherit;
   font-size: var(--sc-font-text-caption-size);
@@ -389,6 +400,7 @@ fieldset:disabled {
 
 :is(.bar, .panel) select:hover,
 :is(.bar, .panel) input[type='text']:hover,
+:is(.bar, .panel) input[type='search']:hover,
 :is(.bar, .panel) input[type='number']:hover {
   border-color: var(--sc-color-border-strong);
 }
@@ -472,4 +484,183 @@ fieldset:disabled {
 }
 .stepRole {
   font-family: var(--sc-font-text-body-dense-family);
+}
+
+/* ---------- panel map: rail, filters, disclosures (P1.2-P1.4) ----------
+   The rail sticks to the top of the panel's scroll; it carries the panel's
+   ground so cards pass under it, and a hairline marks where they do. */
+.panel {
+  position: relative;
+}
+
+.rail {
+  position: sticky;
+  top: calc(var(--sc-space-component-padding-md) * -1);
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sc-space-component-gap-md);
+  margin: calc(var(--sc-space-component-padding-md) * -1) calc(var(--sc-space-component-padding-md) * -1) 0;
+  padding: var(--sc-space-component-padding-md);
+  background-color: var(--sc-color-surface-page);
+  border-block-end: var(--sc-border-width-default) solid var(--sc-color-border-subtle);
+}
+
+.railChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sc-space-component-gap-sm);
+}
+
+.filters {
+  display: flex;
+  align-items: center;
+  gap: var(--sc-space-component-gap-md);
+}
+
+.panel .filter {
+  flex: 1;
+  min-width: 0;
+}
+
+.chip {
+  font: inherit;
+  font-family: var(--sc-font-text-label-chrome-family);
+  font-size: var(--sc-font-text-label-chrome-size);
+  letter-spacing: var(--sc-font-text-label-chrome-letter-spacing);
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--sc-color-text-secondary);
+  background: var(--sc-color-surface-sunk);
+  border: none;
+  border-radius: var(--sc-radius-control);
+  padding: var(--sc-space-component-padding-block-sm) var(--sc-space-component-padding-inline-sm);
+  cursor: pointer;
+}
+
+.chip:hover:not(:disabled) {
+  background: var(--sc-color-surface-hover);
+  color: var(--sc-color-text-primary);
+}
+
+.chip:active:not(:disabled) {
+  scale: var(--sc-motion-press-scale);
+}
+
+.chip[aria-pressed='true'] {
+  background: var(--sc-color-brand-accent);
+  color: var(--sc-color-text-on-accent);
+}
+
+.chip:disabled {
+  cursor: default;
+  color: var(--sc-color-text-disabled);
+}
+
+.chipChanged {
+  color: var(--sc-color-brand-accent-ink);
+}
+
+.chip[aria-pressed='true'] .chipChanged {
+  color: inherit;
+}
+
+.group > legend {
+  display: flex;
+  align-items: baseline;
+  gap: var(--sc-space-component-gap-sm);
+}
+
+.disclosure {
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--sc-space-component-gap-sm);
+}
+
+/* The disclosure's state glyph; the text alternative is empty because
+   aria-expanded already says it. */
+.disclosure::before {
+  content: '\25B8' / '';
+  display: inline-block;
+}
+
+.disclosure[aria-expanded='true']::before {
+  rotate: 90deg;
+}
+
+.disclosure:hover {
+  color: var(--sc-color-text-primary);
+}
+
+.chip:focus-visible,
+.disclosure:focus-visible {
+  outline: var(--sc-border-width-focus) solid var(--sc-color-border-focus);
+  outline-offset: var(--sc-border-focus-offset);
+}
+
+.groupBody {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sc-space-component-gap-md);
+}
+
+.groupBody[hidden] {
+  display: none;
+}
+
+.summary {
+  font-family: var(--sc-font-text-mono-body-family);
+  font-size: var(--sc-font-text-caption-size);
+  letter-spacing: normal;
+  text-transform: none;
+  color: var(--sc-color-text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+}
+
+.legendRow {
+  inline-size: 100%;
+}
+
+.cluster {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sc-space-component-gap-md);
+  white-space: nowrap;
+}
+
+.zoom {
+  inline-size: var(--sc-space-layout-stack-xl);
+}
+
+.listHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sc-space-component-gap-md);
+}
+
+/* Theme sits over its one-line mode note (P1.2). */
+.themeCtl {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--sc-space-component-gap-sm);
+}
+
+.note {
+  font-family: var(--sc-font-text-mono-body-family);
+  font-size: var(--sc-font-text-label-chrome-size);
+  color: var(--sc-color-text-secondary);
+  white-space: nowrap;
 }

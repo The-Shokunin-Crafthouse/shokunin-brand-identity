@@ -69,6 +69,13 @@ function discover(cssList) {
 }
 
 const category = (name) => name.match(/^--sc-(color|size|space|radius|border|shadow|motion|font)/)?.[1] || 'other';
+// Panel group order, the component's own layering (A-03). The one place it is
+// written; the rail and the token groups both read it.
+const GROUP_ORDER = ['size', 'space', 'radius', 'border', 'color', 'shadow', 'font', 'motion', 'other'];
+const GROUND_OPTIONS = ['--sc-color-surface-page', '--sc-color-surface-raised', '--sc-color-surface-sunk', '--sc-color-surface-floating'];
+// A key typed into a field belongs to the field, not to a lab shortcut.
+const typingIn = (el) => el?.closest?.('input:not([type=range]):not([type=checkbox]):not([type=radio]), textarea, select, [contenteditable="true"]');
+const prefersReducedMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 function classify(v) {
   if (!v) return 'text';
@@ -312,6 +319,11 @@ function Tune() {
   const [replay, setReplay] = useState(0);
   const [loop, setLoop] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [filter, setFilter] = useState('');
+  const [changedOnly, setChangedOnly] = useState(false);
+  const filterRef = useRef(null);
+  const panelRef = useRef(null);
+  const railRef = useRef(null);
   const shippedRef = useRef(null);
   const shippedByMode = useRef({});
   const activeRef = useRef(null);
@@ -541,8 +553,34 @@ function Tune() {
   const groups = useMemo(() => {
     const g = {};
     for (const t of tokens) (g[category(t)] ||= []).push(t);
-    return g;
+    return GROUP_ORDER.filter((cat) => g[cat]).map((cat) => [cat, g[cat]]);
   }, [tokens]);
+
+  /* ----- panel map: rail, filter, collapse ----- */
+  // Collapse lives in view state, so it persists with the session and is
+  // never undone. Every group opens by default except Sound (F-08).
+  const collapsed = state.view.collapsed || {};
+  const isOpen = (g) => !(collapsed[g] ?? g === 'sound');
+  const setOpen = (g, open) => setState((p) => ({ ...p, view: { ...p.view, collapsed: { ...(p.view.collapsed || {}), [g]: !open } } }));
+  const jumpTo = (g) => {
+    setOpen(g, true);
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      const panel = panelRef.current;
+      const el = panel?.querySelector(`[data-group="${g}"]`);
+      if (!el) return;
+      const top = panel.scrollTop + el.getBoundingClientRect().top - panel.getBoundingClientRect().top - (railRef.current?.offsetHeight || 0);
+      panel.scrollTo({ top, behavior: prefersReducedMotion() ? 'auto' : 'smooth' });
+    }));
+  };
+  useEffect(() => {
+    const onKey = (e) => {
+      if (e.key !== '/' || e.metaKey || e.ctrlKey || e.altKey || typingIn(e.target)) return;
+      e.preventDefault();
+      filterRef.current?.focus();
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, []);
 
   /* ----- stages ----- */
   const stageConcepts = state.view.compare
@@ -554,30 +592,62 @@ function Tune() {
   // Seeds are the lab's start, not decisions: never counted as changes.
   const isChanged = (n) => conceptEff[n] !== undefined && originOf(concept, n, theme) !== 'seed';
   const changedCount = Object.keys(conceptEff).filter(isChanged).length;
+  const q = filter.trim().toLowerCase();
+  const filtering = !!q || changedOnly;
+  const matches = (n) => !q || n.replace(/^--(sc-)?/, '').toLowerCase().includes(q);
+  const shows = (n) => matches(n) && (!changedOnly || isChanged(n));
+  const soundSeconds = manifest.find((m) => m.file === concept.sound.file)?.seconds;
 
   return (
     <div className={s.app}>
+      {/* Header = session and view; panel = the active concept (P1.1).
+          Row one is the session, row two the view of every stage. Clusters
+          wrap as units, never mid-cluster. */}
       <header className={s.bar}>
-        <span className={s.brand}>sc-tune</span>
-        <select aria-label="Subject" value={component} disabled={SNAPSHOT} onChange={(e) => switchTo(e.target.value)}>
-          {Object.keys(REGISTRY).map((c) => <option key={c}>{c}</option>)}
-        </select>
-        <span className={s.meta}>{isMotion ? 'choreography' : `${tokens.length} tokens`} · {state.concepts.length} concept{state.concepts.length > 1 ? 's' : ''}</span>
-        {snapshotMeta && <span className={s.meta}>snapshot · recorded {snapshotMeta.recorded}</span>}
+        <div className={s.barRow}>
+        <span className={s.cluster}>
+          <span className={s.brand}>sc-tune</span>
+          <select aria-label="Subject" value={component} disabled={SNAPSHOT} onChange={(e) => switchTo(e.target.value)}>
+            {Object.keys(REGISTRY).map((c) => <option key={c}>{c}</option>)}
+          </select>
+          <span className={s.meta}>{isMotion ? 'choreography' : `${tokens.length} tokens`} · {state.concepts.length} concept{state.concepts.length > 1 ? 's' : ''}</span>
+          {snapshotMeta && <span className={s.meta}>snapshot · recorded {snapshotMeta.recorded}</span>}
+        </span>
         <span className={s.spacer} />
-        <button type="button" onClick={play}>Play</button>
-        <button type="button" aria-pressed={loop} onClick={() => setLoop((l) => !l)}>{loop ? 'Stop loop' : 'Loop'}</button>
-        <select aria-label="Slow motion" value={state.view.slow} onChange={(e) => setView('slow', +e.target.value)}>
-          <option value={1}>1×</option><option value={2}>½×</option><option value={4}>¼×</option><option value={10}>⅒×</option>
-        </select>
-        <button type="button" aria-pressed={state.view.compare} disabled={state.concepts.length < 2} onClick={() => setView('compare', !state.view.compare)}>Compare</button>
-        <button type="button" aria-pressed={state.view.blind} disabled={state.concepts.length < 2} onClick={toggleBlind}>{state.view.blind ? 'Reveal' : 'Blind'}</button>
         {!SNAPSHOT && (
-          <>
+          <span className={s.cluster}>
             <button type="button" onClick={() => { navigator.clipboard?.writeText(JSON.stringify(exportSpec(), null, 2)).then(() => { setCopied(true); setTimeout(() => setCopied(false), 1500); }); }}>{copied ? 'Copied' : 'Copy spec'}</button>
             <button type="button" onClick={() => mutate(() => freshState(component))}>Reset all</button>
-          </>
+          </span>
         )}
+        </div>
+        <div className={s.barRow}>
+        <span className={s.cluster}>
+          <button type="button" onClick={play}>Play</button>
+          <button type="button" aria-pressed={loop} onClick={() => setLoop((l) => !l)}>{loop ? 'Stop loop' : 'Loop'}</button>
+          <select aria-label="Slow motion" value={state.view.slow} onChange={(e) => setView('slow', +e.target.value)}>
+            <option value={1}>1×</option><option value={2}>½×</option><option value={4}>¼×</option><option value={10}>⅒×</option>
+          </select>
+        </span>
+        <span className={s.cluster}>
+          <span className={s.themeCtl}>
+            <select aria-label="Theme" disabled={SNAPSHOT} value={state.view.theme} onChange={(e) => setView('theme', e.target.value)}><option>light</option><option>dark</option></select>
+            {!isMotion && <span className={s.note}>colour, shadow: {theme} only · size, type, motion: both</span>}
+          </span>
+          <label className={s.mini}>zoom
+            <input type="range" className={s.zoom} min="1" max="8" step="0.5" disabled={SNAPSHOT} value={state.view.zoom} onChange={(e) => setView('zoom', +e.target.value)} />
+            <span className={s.readout}>{state.view.zoom}×</span>
+          </label>
+          <label className={s.mini}>ground
+            <select disabled={SNAPSHOT} value={state.view.ground} onChange={(e) => setView('ground', e.target.value)}>
+              {!GROUND_OPTIONS.includes(state.view.ground) && <option value={state.view.ground}>{state.view.ground}</option>}
+              {GROUND_OPTIONS.map((g) => <option key={g} value={g}>{g.replace('--sc-color-', '')}</option>)}
+            </select>
+          </label>
+          <button type="button" aria-pressed={state.view.compare} disabled={state.concepts.length < 2} onClick={() => setView('compare', !state.view.compare)}>Compare</button>
+          <button type="button" aria-pressed={state.view.blind} disabled={state.concepts.length < 2} onClick={toggleBlind}>{state.view.blind ? 'Reveal' : 'Blind'}</button>
+        </span>
+        </div>
       </header>
 
       <main className={s.stages}>
@@ -610,7 +680,33 @@ function Tune() {
         </SoundProvider>
       </main>
 
-      <aside className={s.panel}>
+      <aside className={s.panel} ref={panelRef}>
+        {(groups.length > 0 || derivedNames.length > 0) && (
+          <div className={s.rail} ref={railRef}>
+            <nav className={s.railChips} aria-label="Token groups">
+              {groups.map(([cat, names]) => {
+                const ch = names.filter(isChanged).length;
+                return (
+                  <button key={cat} type="button" className={s.chip} disabled={!names.some(shows)}
+                    aria-label={`${cat}, ${names.length} tokens${ch ? `, ${ch} changed` : ''}`} onClick={() => jumpTo(cat)}>
+                    {cat} · {names.length}{ch > 0 && <span className={s.chipChanged}> · {ch}</span>}
+                  </button>
+                );
+              })}
+              {derivedNames.length > 0 && (
+                <button type="button" className={s.chip} disabled={changedOnly || !derivedNames.some(matches)}
+                  aria-label={`derived, ${derivedNames.length} read-only`} onClick={() => jumpTo('derived')}>derived · {derivedNames.length}</button>
+              )}
+            </nav>
+            <div className={s.filters}>
+              <input ref={filterRef} type="search" className={s.filter} aria-label="Filter tokens by name" placeholder="filter tokens  /" value={filter}
+                onChange={(e) => setFilter(e.target.value)}
+                onKeyDown={(e) => { if (e.key === 'Escape') { e.preventDefault(); setFilter(''); } }} />
+              <Chip pressed={changedOnly} onClick={() => setChangedOnly((v) => !v)}>changed · {changedCount}</Chip>
+            </div>
+          </div>
+        )}
+
         <fieldset className={s.group} disabled={SNAPSHOT}>
           <legend>Notes for the build</legend>
           <textarea className={s.notes} aria-label="Session notes" placeholder="Context, intent, constraints. Recorded word for word and treated as requirements." value={state.notes} onChange={(e) => setState((p) => ({ ...p, notes: e.target.value }))} />
@@ -640,17 +736,6 @@ function Tune() {
           )}
         </fieldset>
 
-        <fieldset className={s.group} disabled={SNAPSHOT}>
-          <legend>View</legend>
-          <div className={s.prop}><label htmlFor="v-theme"><code>theme</code></label>
-            <select id="v-theme" value={state.view.theme} onChange={(e) => setView('theme', e.target.value)}><option>light</option><option>dark</option></select></div>
-          <div className={s.prop}><label htmlFor="v-zoom"><code>zoom</code></label>
-            <input id="v-zoom" type="range" min="1" max="8" step="0.5" value={state.view.zoom} onChange={(e) => setView('zoom', +e.target.value)} /><span className={s.readout}>{state.view.zoom}×</span></div>
-          <div className={s.prop}><label htmlFor="v-ground"><code>ground</code></label>
-            <select id="v-ground" value={state.view.ground} onChange={(e) => setView('ground', e.target.value)}>
-              {['--sc-color-surface-page', '--sc-color-surface-raised', '--sc-color-surface-sunk', '--sc-color-surface-floating'].map((g) => <option key={g} value={g}>{g.replace('--sc-color-', '')}</option>)}
-            </select></div>
-        </fieldset>
 
         <fieldset className={s.group} disabled={SNAPSHOT}>
           <legend>{isMotion ? 'Motion' : 'Props'} · concept {concept.id}</legend>
@@ -677,34 +762,59 @@ function Tune() {
           })()}
         </fieldset>
 
-        <fieldset className={s.group} disabled={SNAPSHOT}>
-          <legend>Sound · {entry.trigger}</legend>
-          <div className={s.prop}><label htmlFor="s-vol"><code>volume</code></label>
-            <input id="s-vol" type="range" min="0" max="1" step="0.05" value={concept.sound.volume} onChange={(e) => setSound('volume', +e.target.value)} /><span className={s.readout}>{concept.sound.volume}</span></div>
-          <div className={s.prop}><label htmlFor="s-rate"><code>pitch</code></label>
-            <input id="s-rate" type="range" min="0.5" max="2" step="0.05" value={concept.sound.rate} onChange={(e) => setSound('rate', +e.target.value)} /><span className={s.readout}>{concept.sound.rate}×</span></div>
-          <div className={s.prop}><label htmlFor="s-short"><code>under 1 s only</code></label>
-            <input id="s-short" type="checkbox" checked={shortOnly} onChange={(e) => setShortOnly(e.target.checked)} /></div>
-          <ul className={s.sounds} aria-label="Sound candidates">
-            <li className={s.sound}><label><input type="radio" name="sound" checked={!concept.sound.file} onChange={() => setSound('file', null)} /> silent</label></li>
-            {(SNAPSHOT ? (concept.sound.file ? [{ file: concept.sound.file, seconds: '' }] : []) : sounds).map((m) => (
-              <li key={m.file} className={`${s.sound} ${m.file === entry.shippedSound ? s.shippedSound : ''}`}>
-                <label>
-                  <input type="radio" name="sound" checked={concept.sound.file === m.file} onChange={() => { setSound('file', m.file); playFile(m.file, concept.sound.volume, concept.sound.rate); }} />
-                  {m.file.replace(/\.(wav|mp3)$/, '')}
-                </label>
-                <span className={s.readout}>{m.seconds && `${m.seconds}s`}{m.file === entry.shippedSound ? ' · shipped' : ''}</span>
-                <button type="button" aria-label={`Play ${m.file}`} onClick={() => playFile(m.file, concept.sound.volume, concept.sound.rate)}>play</button>
-              </li>
-            ))}
-          </ul>
+        <fieldset className={s.group} disabled={SNAPSHOT} data-group="sound">
+          {/* Collapsed by default to one summary row (F-08); `change` opens the list. */}
+          <legend className={s.legendRow}>
+            <button type="button" className={s.disclosure} aria-expanded={isOpen('sound')} aria-controls="gb-sound" onClick={() => setOpen('sound', !isOpen('sound'))}>sound</button>
+            {isOpen('sound') ? <span className={s.summary}>· {entry.trigger}</span> : (
+              <>
+                <span className={s.summary}>· {concept.sound.file ? concept.sound.file.replace(/\.(wav|mp3)$/, '') : 'silent'}{soundSeconds ? ` · ${soundSeconds} s` : ''} ·</span>
+                <button type="button" className={s.reset} aria-label="Change sound" onClick={() => setOpen('sound', true)}>change</button>
+              </>
+            )}
+          </legend>
+          <div id="gb-sound" className={s.groupBody} hidden={!isOpen('sound')}>
+            {isOpen('sound') && (
+              <>
+                <div className={s.prop}><label htmlFor="s-vol"><code>volume</code></label>
+                  <input id="s-vol" type="range" min="0" max="1" step="0.05" value={concept.sound.volume} onChange={(e) => setSound('volume', +e.target.value)} /><span className={s.readout}>{concept.sound.volume}</span></div>
+                <div className={s.prop}><label htmlFor="s-rate"><code>pitch</code></label>
+                  <input id="s-rate" type="range" min="0.5" max="2" step="0.05" value={concept.sound.rate} onChange={(e) => setSound('rate', +e.target.value)} /><span className={s.readout}>{concept.sound.rate}×</span></div>
+                <div className={s.listHead}>
+                  <span className={s.summary}>{SNAPSHOT ? 'recorded sound' : `${sounds.length} of ${manifest.length} sounds`}</span>
+                  {!SNAPSHOT && <Chip pressed={shortOnly} onClick={() => setShortOnly((v) => !v)}>under 1 s only</Chip>}
+                </div>
+                <ul className={s.sounds} aria-label="Sound candidates">
+                  <li className={s.sound}><label><input type="radio" name="sound" checked={!concept.sound.file} onChange={() => setSound('file', null)} /> silent</label></li>
+                  {(SNAPSHOT ? (concept.sound.file ? [{ file: concept.sound.file, seconds: '' }] : []) : sounds).map((m) => (
+                    <li key={m.file} className={`${s.sound} ${m.file === entry.shippedSound ? s.shippedSound : ''}`}>
+                      <label>
+                        <input type="radio" name="sound" checked={concept.sound.file === m.file} onChange={() => { setSound('file', m.file); playFile(m.file, concept.sound.volume, concept.sound.rate); }} />
+                        {m.file.replace(/\.(wav|mp3)$/, '')}
+                      </label>
+                      <span className={s.readout}>{m.seconds && `${m.seconds}s`}{m.file === entry.shippedSound ? ' · shipped' : ''}</span>
+                      <button type="button" aria-label={`Play ${m.file}`} onClick={() => playFile(m.file, concept.sound.volume, concept.sound.rate)}>play</button>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
+          </div>
         </fieldset>
 
-        {!isMotion && <p className={s.meta}>{changedCount} of {tokens.length} tokens tuned in concept {concept.id}, {theme} mode. Colour and shadow edits apply to {theme} only; size, type and motion apply to both modes.</p>}
-        {Object.entries(groups).map(([cat, names]) => (
-          <fieldset key={cat} className={s.group} disabled={SNAPSHOT}>
-            <legend>{cat} · {names.length}</legend>
-            {names.map((n) => (
+        {groups.map(([cat, names]) => {
+          const visible = names.filter(shows);
+          if (!visible.length && filtering) return null;
+          const open = isOpen(cat);
+          return (
+          <fieldset key={cat} className={s.group} disabled={SNAPSHOT} data-group={cat}>
+            <legend>
+              <button type="button" className={s.disclosure} aria-expanded={open} aria-controls={`gb-${cat}`} onClick={() => setOpen(cat, !open)}>
+                {cat} · {filtering ? `${visible.length} of ${names.length}` : names.length}
+              </button>
+            </legend>
+            <div id={`gb-${cat}`} className={s.groupBody} hidden={!open}>
+            {open && visible.map((n) => (
               <TokenControl
                 key={`${concept.id}${theme}${n}`}
                 name={n}
@@ -730,18 +840,29 @@ function Tune() {
                 onPin={(t) => setPin(n, t)}
               />
             ))}
+            </div>
           </fieldset>
-        ))}
+          );
+        })}
 
-        {derivedNames.length > 0 && (
-          <fieldset className={s.group}>
-            <legend>derived · read-only</legend>
-            {derivedNames.map((n) => <div key={n} className={s.values}><code>{n}</code> {derived[n]}</div>)}
+        {derivedNames.length > 0 && !(filtering && (changedOnly || !derivedNames.some(matches))) && (
+          <fieldset className={s.group} data-group="derived">
+            <legend>
+              <button type="button" className={s.disclosure} aria-expanded={isOpen('derived')} aria-controls="gb-derived" onClick={() => setOpen('derived', !isOpen('derived'))}>derived · read-only</button>
+            </legend>
+            <div id="gb-derived" className={s.groupBody} hidden={!isOpen('derived')}>
+              {isOpen('derived') && derivedNames.filter(matches).map((n) => <div key={n} className={s.values}><code>{n}</code> {derived[n]}</div>)}
+            </div>
           </fieldset>
         )}
       </aside>
     </div>
   );
+}
+
+/* One filter chip for every filtered list: `changed only`, `under 1 s only`. */
+function Chip({ pressed, onClick, children }) {
+  return <button type="button" className={s.chip} aria-pressed={pressed} onClick={onClick}>{children}</button>;
 }
 
 function springToLinearMeta(sp) {
