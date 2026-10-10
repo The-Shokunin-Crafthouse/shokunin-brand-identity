@@ -76,6 +76,14 @@ const GROUND_OPTIONS = ['--sc-color-surface-page', '--sc-color-surface-raised', 
 // A key typed into a field belongs to the field, not to a lab shortcut.
 const typingIn = (el) => el?.closest?.('input:not([type=range]):not([type=checkbox]):not([type=radio]), textarea, select, [contenteditable="true"]');
 const prefersReducedMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
+// Panel width (P1.6), in rem: default 34, never under 26 or over half the window.
+const PANEL_DEFAULT = 34;
+const PANEL_MIN = 26;
+const remPx = () => parseFloat(getComputedStyle(document.documentElement).fontSize) || 16;
+const panelMax = () => Math.max(PANEL_MIN, (window.innerWidth * 0.5) / remPx());
+const clampPanel = (w) => Math.min(panelMax(), Math.max(PANEL_MIN, w));
+// The keyboard step is space-16, read from the token so it moves with the scale.
+const panelStep = () => (parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--sc-p-space-16')) || 16) / remPx();
 
 function classify(v) {
   if (!v) return 'text';
@@ -259,7 +267,7 @@ function freshState(component) {
     active: 'A',
     concepts: [blankConcept(entry, 'A')],
     pick: { id: null, reason: '' },
-    view: { theme: 'light', zoom: entry.kind === 'motion' ? 1 : 2, ground: '--sc-color-surface-page', compare: false, blind: false, order: null, slow: 1 },
+    view: { theme: 'light', zoom: entry.kind === 'motion' ? 1 : 2, ground: '--sc-color-surface-page', compare: false, blind: false, order: null, slow: 1, collapsed: {}, panelWidth: PANEL_DEFAULT },
   };
 }
 function loadState(component) {
@@ -323,6 +331,7 @@ function Tune() {
   const [changedOnly, setChangedOnly] = useState(false);
   const filterRef = useRef(null);
   const panelRef = useRef(null);
+  const appRef = useRef(null);
   const railRef = useRef(null);
   const shippedRef = useRef(null);
   const shippedByMode = useRef({});
@@ -464,6 +473,7 @@ function Tune() {
     const concepts = prev.concepts.filter((c) => c.id !== id);
     return { ...prev, concepts, active: concepts[0].id, pick: prev.pick.id === id ? { id: null, reason: prev.pick.reason } : prev.pick };
   });
+  const selectConcept = (id) => setState((p) => ({ ...p, active: id }));
   const toggleBlind = () => setState((p) => {
     const blind = !p.view.blind;
     const order = blind ? [...p.concepts.map((c) => c.id)].sort(() => Math.random() - 0.5) : null;
@@ -487,15 +497,16 @@ function Tune() {
 
   // Slow-mo multiplies every time token on every stage; it never reaches the spec.
   const timeTokens = tokens.filter((t) => classify(shipped[t]) === 'time');
+  // One ground for every stage (P1.5). A ground is a surface token, so it
+  // follows the theme. A raw colour (a candidate page, previewed as
+  // surface.page inside the stage) is a light-mode candidate: in dark the
+  // stages fall back to the dark page.
+  const g = state.view.ground;
+  const rawGround = !g.startsWith('--') && state.view.theme !== 'dark';
+  const groundStyle = g.startsWith('--') ? { background: `var(${g})` }
+    : rawGround ? { background: g } : { background: 'var(--sc-color-surface-page)' };
   const stageStyle = (overrides) => {
-    // A ground is a surface token, so it follows the theme. A raw colour
-    // (a candidate page, previewed as surface.page inside the stage) is a
-    // light-mode candidate: in dark the stage falls back to the dark page.
-    const g = state.view.ground;
-    const ground = g.startsWith('--') ? { background: `var(${g})` }
-      : state.view.theme === 'dark' ? { background: 'var(--sc-color-surface-page)' }
-      : { background: g, '--sc-color-surface-page': g };
-    const style = { zoom: state.view.zoom, ...ground, ...overrides };
+    const style = { zoom: state.view.zoom, ...(rawGround ? { '--sc-color-surface-page': g } : {}), ...overrides };
     if (state.view.slow !== 1) for (const t of timeTokens) style[t] = `calc(${overrides[t] ?? shipped[t]} * ${state.view.slow})`;
     return style;
   };
@@ -556,6 +567,38 @@ function Tune() {
     return GROUP_ORDER.filter((cat) => g[cat]).map((cat) => [cat, g[cat]]);
   }, [tokens]);
 
+  /* ----- panel width (P1.6) ----- */
+  const panelWidth = clampPanel(state.view.panelWidth ?? PANEL_DEFAULT);
+  const dragPanel = (e) => {
+    if (e.button !== 0) return;
+    e.preventDefault();
+    const handle = e.currentTarget;
+    handle.setPointerCapture(e.pointerId);
+    let w = panelWidth;
+    // While dragging, only the CSS variable moves; the state (and autosave)
+    // takes the final width on release.
+    const move = (ev) => {
+      w = clampPanel((appRef.current.getBoundingClientRect().right - ev.clientX) / remPx());
+      appRef.current.style.setProperty('--panel-w', `${w}rem`);
+    };
+    const up = () => {
+      handle.removeEventListener('pointermove', move);
+      handle.removeEventListener('pointerup', up);
+      handle.removeEventListener('pointercancel', up);
+      setView('panelWidth', +w.toFixed(3));
+    };
+    handle.addEventListener('pointermove', move);
+    handle.addEventListener('pointerup', up);
+    handle.addEventListener('pointercancel', up);
+  };
+  const keyPanel = (e) => {
+    const step = panelStep();
+    const next = { ArrowLeft: panelWidth + step, ArrowRight: panelWidth - step, Home: PANEL_MIN, End: panelMax() }[e.key];
+    if (next === undefined) return;
+    e.preventDefault();
+    setView('panelWidth', +clampPanel(next).toFixed(3));
+  };
+
   /* ----- panel map: rail, filter, collapse ----- */
   // Collapse lives in view state, so it persists with the session and is
   // never undone. Every group opens by default except Sound (F-08).
@@ -599,7 +642,7 @@ function Tune() {
   const soundSeconds = manifest.find((m) => m.file === concept.sound.file)?.seconds;
 
   return (
-    <div className={s.app}>
+    <div className={s.app} ref={appRef} style={{ '--panel-w': `${panelWidth}rem` }}>
       {/* Header = session and view; panel = the active concept (P1.1).
           Row one is the session, row two the view of every stage. Clusters
           wrap as units, never mid-cluster. */}
@@ -650,7 +693,18 @@ function Tune() {
         </div>
       </header>
 
-      <main className={s.stages}>
+      <main className={s.main}>
+        {/* The stage strip mirrors the panel's concept tabs (P1.7): same
+            component, same state. Hidden in blind mode, which hides names. */}
+        {!state.view.blind && (
+          <div className={s.strip}>
+            <span className={s.stripShipped}>{isMotion ? 'Default' : 'Shipped'}</span>
+            <ConceptTabs label="Concept on stage" concepts={state.concepts} active={state.active} pickId={state.pick.id} onSelect={selectConcept} />
+          </div>
+        )}
+        {/* Stages size to their component at the current zoom, plus one
+            layout-inset-sm on every side, and wrap on one shared ground (P1.5). */}
+        <div className={s.stages} style={groundStyle}>
         <SoundProvider enabled={false}>
           {!state.view.blind && (
             <section className={s.stageWrap} aria-label={isMotion ? 'Default' : 'Shipped'}>
@@ -664,11 +718,9 @@ function Tune() {
           {stageConcepts.map((c, i) => {
             const label = state.view.blind ? `Concept ${i + 1}` : `${c.id}${c.id === state.active ? ' · editing' : ''}${state.pick.id === c.id ? ' · picked' : ''}`;
             return (
-              <section key={c.id} className={`${s.stageWrap} ${c.id === state.active && !state.view.blind ? s.activeStage : ''}`} aria-label={label}>
+              <section key={c.id} className={`${s.stageWrap} ${c.id === state.active && !state.view.blind && stageConcepts.length > 1 ? s.activeStage : ''}`} aria-label={label}>
                 <h2 className={s.stageLabel}>
-                  {state.view.compare && !state.view.blind
-                    ? <button type="button" className={s.stageSelect} onClick={() => setState((p) => ({ ...p, active: c.id }))}>{label}</button>
-                    : label}
+                  {label}
                   {isMotion && <span className={s.readout}> · last frame {lastFrameMs(c.props)}ms</span>}
                 </h2>
                 <div className={s.stage} style={stageStyle(effective(c, theme))} ref={c.id === state.active ? activeRef : undefined} data-force={force}>
@@ -678,7 +730,12 @@ function Tune() {
             );
           })}
         </SoundProvider>
+        </div>
       </main>
+
+      <div className={s.handle} role="separator" tabIndex={0} aria-orientation="vertical" aria-label="Panel width"
+        aria-valuemin={PANEL_MIN} aria-valuemax={Math.round(panelMax())} aria-valuenow={Math.round(panelWidth)} aria-valuetext={`${+panelWidth.toFixed(1)} rem`}
+        onPointerDown={dragPanel} onKeyDown={keyPanel} />
 
       <aside className={s.panel} ref={panelRef}>
         {(groups.length > 0 || derivedNames.length > 0) && (
@@ -714,10 +771,8 @@ function Tune() {
 
         <fieldset className={s.group} disabled={SNAPSHOT}>
           <legend>Concepts</legend>
-          <div className={s.tabs} role="tablist" aria-label="Concepts">
-            {state.concepts.map((c) => (
-              <button key={c.id} type="button" role="tab" aria-selected={c.id === state.active} className={s.tab} onClick={() => setState((p) => ({ ...p, active: c.id }))}>{c.id}</button>
-            ))}
+          <div className={s.tabs}>
+            <ConceptTabs label="Concepts" concepts={state.concepts} active={state.active} pickId={state.pick.id} onSelect={selectConcept} />
             <button type="button" className={s.tab} disabled={state.concepts.length >= IDS.length} onClick={() => addConcept(true)}>duplicate</button>
             <button type="button" className={s.tab} disabled={state.concepts.length >= IDS.length} onClick={() => addConcept(false)}>new</button>
             <button type="button" className={s.tab} disabled={state.concepts.length < 2} onClick={() => removeConcept(concept.id)}>remove {concept.id}</button>
@@ -857,6 +912,20 @@ function Tune() {
         )}
       </aside>
     </div>
+  );
+}
+
+/* The concept tabs: one component in the panel and in the strip above the
+   stages, so the two can never disagree (P1.7). */
+function ConceptTabs({ label, concepts, active, pickId, onSelect }) {
+  return (
+    <span className={s.tabs} role="tablist" aria-label={label}>
+      {concepts.map((c) => (
+        <button key={c.id} type="button" role="tab" aria-selected={c.id === active} className={s.tab} onClick={() => onSelect(c.id)}>
+          {c.id}{pickId === c.id && ' · picked'}
+        </button>
+      ))}
+    </span>
   );
 }
 
