@@ -49,6 +49,12 @@ const scopeOf = (name, theme) => (isModal(name) ? theme : 'all');
 const scoped = () => ({ all: {}, light: {}, dark: {} });
 const effective = (c, theme) => ({ ...c.overrides.all, ...c.overrides[theme] });
 const IDS = ['A', 'B', 'C', 'D'];
+// Undo covers the document (concepts, notes, pick), never the view (theme,
+// zoom, compare, blind, collapsed, panel width), so ⌘Z never flips the theme.
+const HISTORY = 50;
+const docOf = (st) => ({ notes: st.notes, concepts: st.concepts, pick: st.pick });
+const sameDoc = (a, b) => a.notes === b.notes && a.concepts === b.concepts && a.pick === b.pick;
+const ARM_MS = 3000;
 
 /* ---------- token discovery ---------- */
 
@@ -366,8 +372,10 @@ function Tune() {
   }, []);
 
   const switchTo = (c) => {
+    const next = loadState(c);
     setComponent(c);
-    setState(loadState(c));
+    setState(next);
+    resetHistory(next);
     history.replaceState(null, '', `?c=${c}`);
   };
 
@@ -388,18 +396,112 @@ function Tune() {
     setDerived(resolveLengths(node ? (node.closest('label') || node) : null, derivedNames));
   }, [tokens, derivedNames, concept.overrides, state.view.theme, concept.props]);
 
+  // Autosave, and say so (P2.4): `saving…` for the debounce window, `saved`
+  // after the write, `storage blocked` when the write throws.
+  const [save, setSave] = useState('saved');
   useEffect(() => {
     if (SNAPSHOT) return;
+    setSave('saving');
     const t = setTimeout(() => {
-      try { localStorage.setItem(storageKey(component), JSON.stringify({ ...state, updated: new Date().toISOString() })); } catch { /* storage blocked */ }
+      try {
+        localStorage.setItem(storageKey(component), JSON.stringify({ ...state, updated: new Date().toISOString() }));
+        setSave('saved');
+      } catch { setSave('blocked'); }
     }, 150);
     return () => clearTimeout(t);
   }, [state, component]);
+
+  /* ----- undo / redo (P2.1) -----
+     A ring of the last 50 documents, captured on the autosave's 150 ms
+     debounce. `head` is the document on screen; a change the staged
+     component makes itself (a click on the Switch, Play) folds into the head
+     rather than becoming a step. */
+  const stateRef = useRef(state);
+  stateRef.current = state;
+  const hist = useRef(null);
+  if (!hist.current) hist.current = { past: [], future: [], head: docOf(state), transient: false };
+  const [histCounts, setHistCounts] = useState({ undo: 0, redo: 0 });
+  const syncCounts = () => setHistCounts({ undo: hist.current.past.length, redo: hist.current.future.length });
+  const resetHistory = (st) => { hist.current = { past: [], future: [], head: docOf(st), transient: false }; syncCounts(); };
+  const commitHistory = () => {
+    const h = hist.current;
+    const cur = docOf(stateRef.current);
+    if (sameDoc(cur, h.head)) { h.transient = false; return; }
+    if (!h.transient) {
+      h.past.push(h.head);
+      if (h.past.length > HISTORY) h.past.shift();
+      h.future = [];
+    }
+    h.head = cur;
+    h.transient = false;
+    syncCounts();
+  };
+  useEffect(() => {
+    if (SNAPSHOT) return;
+    const t = setTimeout(commitHistory, 150);
+    return () => clearTimeout(t);
+  }, [state.notes, state.concepts, state.pick]); // eslint-disable-line react-hooks/exhaustive-deps
+  const applyDoc = (doc) => setState((p) => ({ ...p, ...doc, active: doc.concepts.some((c) => c.id === p.active) ? p.active : doc.concepts[0].id }));
+  const undo = () => {
+    if (SNAPSHOT) return;
+    commitHistory();
+    const h = hist.current;
+    if (!h.past.length) return;
+    h.future.push(h.head);
+    h.head = h.past.pop();
+    applyDoc(h.head);
+    syncCounts();
+  };
+  const redo = () => {
+    if (SNAPSHOT) return;
+    commitHistory();
+    const h = hist.current;
+    if (!h.future.length) return;
+    h.past.push(h.head);
+    h.head = h.future.pop();
+    applyDoc(h.head);
+    syncCounts();
+  };
+  const undoRef = useRef(null);
+  undoRef.current = { undo, redo };
+  useEffect(() => {
+    const onKey = (e) => {
+      if (!(e.metaKey || e.ctrlKey) || e.altKey) return;
+      const k = e.key.toLowerCase();
+      const isRedo = (k === 'z' && e.shiftKey) || (k === 'y' && !e.shiftKey);
+      if (k !== 'z' && !isRedo) return;
+      // The filter's text is not part of the document; let it keep its own undo.
+      if (e.target?.matches?.('input[type=search]')) return;
+      e.preventDefault();
+      if (isRedo) undoRef.current.redo(); else undoRef.current.undo();
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, []);
+
+  /* ----- arming (P2.2) -----
+     `Reset all` and `remove X` arm on the first click (`Reset all?`) and act
+     on the second within 3 s; a click anywhere else, or Esc, disarms. No
+     dialogs. */
+  const [armed, setArmed] = useState(null);
+  useEffect(() => {
+    if (!armed) return;
+    const t = setTimeout(() => setArmed(null), ARM_MS);
+    const away = (e) => { if (!e.target.closest?.(`[data-arm="${armed}"]`)) setArmed(null); };
+    const esc = (e) => { if (e.key === 'Escape') setArmed(null); };
+    document.addEventListener('pointerdown', away, true);
+    document.addEventListener('keydown', esc);
+    return () => { clearTimeout(t); document.removeEventListener('pointerdown', away, true); document.removeEventListener('keydown', esc); };
+  }, [armed]);
+  const armed2 = (key, act) => () => { if (armed === key) { setArmed(null); act(); } else setArmed(key); };
 
   /* ----- state updates ----- */
   const mutate = useCallback((fn) => setState((prev) => (SNAPSHOT ? prev : fn(prev))), []);
   const updConcept = useCallback((id, fn) => setState((prev) => ({ ...prev, concepts: prev.concepts.map((c) => (c.id === id ? fn(c) : c)) })), []);
   const setPropFor = useCallback((id) => (name, value) => updConcept(id, (c) => ({ ...c, props: { ...c.props, [name]: value } })), [updConcept]);
+  // A prop the staged component sets itself (a click on it, Play) is not an
+  // edit: it folds into the current undo step.
+  const stagePropFor = useCallback((id) => (name, value) => { hist.current.transient = true; setPropFor(id)(name, value); }, [setPropFor]);
   const editActive = (fn) => mutate((prev) => ({ ...prev, concepts: prev.concepts.map((c) => (c.id === prev.active ? fn(c) : c)) }));
   const theme = state.view.theme;
   const putScoped = (map, name, value) => {
@@ -483,10 +585,10 @@ function Tune() {
   /* ----- motion ----- */
   const play = useCallback(() => {
     setReplay((r) => r + 1);
-    if (entry.play) state.concepts.forEach((c) => entry.play(c.props, setPropFor(c.id)));
+    if (entry.play) state.concepts.forEach((c) => entry.play(c.props, stagePropFor(c.id)));
     const active = state.concepts.find((c) => c.id === state.active);
     if (active?.sound.file) playFile(active.sound.file, active.sound.volume, active.sound.rate);
-  }, [entry, state.concepts, state.active, setPropFor]);
+  }, [entry, state.concepts, state.active, stagePropFor]);
 
   const cycleMs = isMotion ? Math.max(1200, lastFrameMs(concept.props) * state.view.slow + 900) : 1400 * state.view.slow;
   useEffect(() => {
@@ -655,12 +757,15 @@ function Tune() {
           </select>
           <span className={s.meta}>{isMotion ? 'choreography' : `${tokens.length} tokens`} · {state.concepts.length} concept{state.concepts.length > 1 ? 's' : ''}</span>
           {snapshotMeta && <span className={s.meta}>snapshot · recorded {snapshotMeta.recorded}</span>}
+          {!SNAPSHOT && <span className={s.meta} role={save === 'blocked' ? 'alert' : undefined}>· {{ saved: 'saved', saving: 'saving…', blocked: 'storage blocked' }[save]}</span>}
         </span>
         <span className={s.spacer} />
         {!SNAPSHOT && (
           <span className={s.cluster}>
+            <button type="button" aria-label={`Undo, ${histCounts.undo} step${histCounts.undo === 1 ? '' : 's'}`} disabled={!histCounts.undo} onClick={undo}>undo · {histCounts.undo}</button>
+            <button type="button" aria-label={`Redo, ${histCounts.redo} step${histCounts.redo === 1 ? '' : 's'}`} disabled={!histCounts.redo} onClick={redo}>redo · {histCounts.redo}</button>
             <button type="button" onClick={() => { navigator.clipboard?.writeText(JSON.stringify(exportSpec(), null, 2)).then(() => { setCopied(true); setTimeout(() => setCopied(false), 1500); }); }}>{copied ? 'Copied' : 'Copy spec'}</button>
-            <button type="button" onClick={() => mutate(() => freshState(component))}>Reset all</button>
+            <button type="button" data-arm="reset" data-armed={armed === 'reset' || undefined} onClick={armed2('reset', () => mutate(() => freshState(component)))}>{armed === 'reset' ? 'Reset all?' : 'Reset all'}</button>
           </span>
         )}
         </div>
@@ -724,7 +829,7 @@ function Tune() {
                   {isMotion && <span className={s.readout}> · last frame {lastFrameMs(c.props)}ms</span>}
                 </h2>
                 <div className={s.stage} style={stageStyle(effective(c, theme))} ref={c.id === state.active ? activeRef : undefined} data-force={force}>
-                  {entry.render(c.props, setPropFor(c.id), () => playFile(c.sound.file, c.sound.volume, c.sound.rate), ctx)}
+                  {entry.render(c.props, stagePropFor(c.id), () => playFile(c.sound.file, c.sound.volume, c.sound.rate), ctx)}
                 </div>
               </section>
             );
@@ -775,7 +880,8 @@ function Tune() {
             <ConceptTabs label="Concepts" concepts={state.concepts} active={state.active} pickId={state.pick.id} onSelect={selectConcept} />
             <button type="button" className={s.tab} disabled={state.concepts.length >= IDS.length} onClick={() => addConcept(true)}>duplicate</button>
             <button type="button" className={s.tab} disabled={state.concepts.length >= IDS.length} onClick={() => addConcept(false)}>new</button>
-            <button type="button" className={s.tab} disabled={state.concepts.length < 2} onClick={() => removeConcept(concept.id)}>remove {concept.id}</button>
+            <button type="button" className={s.tab} data-arm={`remove-${concept.id}`} data-armed={armed === `remove-${concept.id}` || undefined} disabled={state.concepts.length < 2}
+              onClick={armed2(`remove-${concept.id}`, () => removeConcept(concept.id))}>{armed === `remove-${concept.id}` ? `Remove ${concept.id}?` : `remove ${concept.id}`}</button>
           </div>
           <textarea className={s.notes} aria-label={`Notes on concept ${concept.id}`} placeholder={`What concept ${concept.id} is trying…`} value={concept.notes} onChange={(e) => editActive((c) => ({ ...c, notes: e.target.value }))} />
           {state.concepts.length > 1 && (

@@ -726,3 +726,11 @@ fieldset:disabled {
   color: var(--sc-color-text-secondary);
   white-space: nowrap;
 }
+
+/* ---------- armed destructive actions (P2.2) ----------
+   The second click acts; the armed state reads as a warning. */
+.bar button[data-armed],
+.tab[data-armed] {
+  background: var(--sc-color-status-pill-error-fill);
+  color: var(--sc-color-status-pill-error-ink);
+}
