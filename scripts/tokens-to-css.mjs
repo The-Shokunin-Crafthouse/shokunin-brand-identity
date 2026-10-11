@@ -244,6 +244,8 @@ const header = `/* ============================================================
  * Layer order:
  *   1. :root { primitives + light-mode semantic }
  *   2. [data-theme="dark"] { dark-mode semantic overrides }
+ *   3. @supports linear() { the spring easings; outside it each
+ *      spring var falls back to --sc-p-motion-easing-out }
  *
  * Every component CSS module references --sc-* semantic vars
  * (Sprint 4 contract resolution 1). Primitive vars are present
@@ -269,7 +271,31 @@ darkLines.push('  /* --- Semantic · dark mode overrides ------------------- */'
 walk(semantic, [], darkLines, { mode: 'dark' });
 darkLines.push('}');
 
-const out = [header, '', rootLines.join('\n'), '', darkLines.join('\n'), ''].join('\n');
+// A spring compiles to linear(), which Safari before 17.2 cannot parse: a
+// transition reading the var is then invalid and the control snaps. Each
+// spring var defaults to a bezier and takes its linear() value only where
+// the browser parses it (physical-controls audit, "a spring keeps a bezier
+// fallback"). The JS engine samples whichever value the var resolves to.
+const SPRING_FALLBACK = 'var(--sc-p-motion-easing-out)';
+function splitSprings(lines, selector) {
+  const springs = [];
+  for (let i = 0; i < lines.length; i++) {
+    const m = lines[i].match(/^(\s*)(--sc-[a-z0-9-]+): (linear\(.+\));$/);
+    if (!m) continue;
+    springs.push(`  ${m[1]}${m[2]}: ${m[3]};`);
+    lines[i] = `${m[1]}${m[2]}: ${SPRING_FALLBACK};`;
+  }
+  return springs.length ? [`  ${selector} {`, ...springs, '  }'] : [];
+}
+const supportsLines = [
+  ...splitSprings(rootLines, ':root'),
+  ...splitSprings(darkLines, '[data-theme="dark"]'),
+];
+const supports = supportsLines.length
+  ? ['@supports (transition-timing-function: linear(0, 1)) {', ...supportsLines, '}'].join('\n')
+  : '';
+
+const out = [header, '', rootLines.join('\n'), '', darkLines.join('\n'), '', ...(supports ? [supports, ''] : [])].join('\n');
 
 mkdirSync(dirname(OUT_PATH), { recursive: true });
 writeFileSync(OUT_PATH, out, 'utf8');
