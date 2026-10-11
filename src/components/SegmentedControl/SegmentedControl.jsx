@@ -173,7 +173,7 @@ export function SegmentedControl({
           ref={indicatorRef}
           className={styles.indicator}
           aria-hidden="true"
-          style={{ transform: `translateX(${indicator.left}px)`, width: `${indicator.width}px` }}
+          style={{ transform: `translateX(${indicator.left}px)`, width: `${indicator.width}px`, '--segment-indicator-x': `${indicator.left}px` }}
         />
       )}
       {options.map((opt, i) => {

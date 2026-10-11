@@ -5,7 +5,7 @@
 # Design Token Map — The Shokunin Crafthouse · Brand Identity
 
 **Generated** from `tokens/primitives.json` + `tokens/semantic.json`.
-**Source fingerprint:** `e099d4552cb5` · **188 primitives · 371 semantic tokens.**
+**Source fingerprint:** `b8223869407e` · **188 primitives · 377 semantic tokens.**
 
 > **This file is a mirror, not the source.** `tokens/*.json` is upstream; this document and the Figma
 > library are generated from / synced to it. It previously claimed the opposite — that both were
@@ -755,6 +755,9 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | `space/component/padding-inline/toast-start` | `--sc-space-component-padding-inline-toast-start` | `space/layout/inset/sm` | `⚠ unresolved` | `space/layout/inset/sm` | `⚠ unresolved` | 2026-10-10 · Toast (Alert folds into Toast, decisions 2026-10-08; physical-controls Tier 2), tuned in sc-tune. |
 | `space/component/padding-inline/toast-end` | `--sc-space-component-padding-inline-toast-end` | `space/layout/inset/lg` | `⚠ unresolved` | `space/layout/inset/lg` | `⚠ unresolved` | 2026-10-10 · Toast (Alert folds into Toast, decisions 2026-10-08; physical-controls Tier 2), tuned in sc-tune. |
 | `space/component/padding-inline/status-pill` | `--sc-space-component-padding-inline-status-pill` | `space/12` | `12px` | `space/12` | `12px` | 2026-10-08 · StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis, the label written by the consumer; physical-controls Tier 2). |
+| `space/component/padding-inline/segmented-control-sm` | `--sc-space-component-padding-inline-segmented-control-sm` | `space/component/padding-inline/sm` | `⚠ unresolved` | `space/component/padding-inline/sm` | `⚠ unresolved` | 2026-10-10 · SegmentedControl (physical-controls Tier 1; CONTEXT finding 5). |
+| `space/component/padding-inline/segmented-control` | `--sc-space-component-padding-inline-segmented-control` | `space/component/padding-inline/md` | `⚠ unresolved` | `space/component/padding-inline/md` | `⚠ unresolved` | 2026-10-10 · SegmentedControl (physical-controls Tier 1; CONTEXT finding 5). |
+| `space/component/padding-inline/segmented-control-lg` | `--sc-space-component-padding-inline-segmented-control-lg` | `space/component/padding-inline/lg` | `⚠ unresolved` | `space/component/padding-inline/lg` | `⚠ unresolved` | 2026-10-10 · SegmentedControl (physical-controls Tier 1; CONTEXT finding 5). |
 | `space/component/padding-block/sm` | `--sc-space-component-padding-block-sm` | `space/micro/2` | `2px` | `space/micro/2` | `2px` | Sprint 4 addition · ultra-thin block padding (2px). |
 | `space/component/padding-block/md` | `--sc-space-component-padding-block-md` | `space/8` | `8px` | `space/8` | `8px` | Sprint 4 addition · default block padding (8px). |
 | `space/component/padding-block/lg` | `--sc-space-component-padding-block-lg` | `space/12` | `12px` | `space/12` | `12px` | Sprint 4 addition · generous block padding (12px). |
@@ -763,6 +766,9 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | `space/component/padding-block/tooltip` | `--sc-space-component-padding-block-tooltip` | `space/8` | `8px` | `space/8` | `8px` | 2026-10-08 · Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. |
 | `space/component/padding-block/toast` | `--sc-space-component-padding-block-toast` | `space/layout/inset/sm` | `⚠ unresolved` | `space/layout/inset/sm` | `⚠ unresolved` | 2026-10-10 · Toast (Alert folds into Toast, decisions 2026-10-08; physical-controls Tier 2), tuned in sc-tune. |
 | `space/component/padding-block/status-pill` | `--sc-space-component-padding-block-status-pill` | `space/4` | `4px` | `space/4` | `4px` | 2026-10-08 · StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis, the label written by the consumer; physical-controls Tier 2). |
+| `space/component/padding-block/segmented-control-sm` | `--sc-space-component-padding-block-segmented-control-sm` | `space/component/padding-block/sm` | `⚠ unresolved` | `space/component/padding-block/sm` | `⚠ unresolved` | 2026-10-10 · SegmentedControl (physical-controls Tier 1; CONTEXT finding 5). |
+| `space/component/padding-block/segmented-control` | `--sc-space-component-padding-block-segmented-control` | `space/component/padding-block/md` | `⚠ unresolved` | `space/component/padding-block/md` | `⚠ unresolved` | 2026-10-10 · SegmentedControl (physical-controls Tier 1; CONTEXT finding 5). |
+| `space/component/padding-block/segmented-control-lg` | `--sc-space-component-padding-block-segmented-control-lg` | `space/component/padding-block/md` | `⚠ unresolved` | `space/component/padding-block/md` | `⚠ unresolved` | 2026-10-10 · SegmentedControl (physical-controls Tier 1; CONTEXT finding 5). |
 | `space/component/gap/sm` | `--sc-space-component-gap-sm` | `space/4` | `4px` | `space/4` | `4px` | Sprint 4 addition · tightest inter-element gap (4px). |
 | `space/component/gap/md` | `--sc-space-component-gap-md` | `space/8` | `8px` | `space/8` | `8px` | Sprint 4 addition · default inter-element gap (8px). |
 | `space/component/gap/lg` | `--sc-space-component-gap-lg` | `space/12` | `12px` | `space/12` | `12px` | Sprint 4 addition · generous gap (12px). |

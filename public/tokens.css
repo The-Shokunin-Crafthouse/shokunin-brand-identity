@@ -877,6 +877,9 @@
   --sc-space-component-padding-inline-toast-start: var(--sc-space-layout-inset-sm);
   --sc-space-component-padding-inline-toast-end: var(--sc-space-layout-inset-lg);
   --sc-space-component-padding-inline-status-pill: var(--sc-p-space-12);
+  --sc-space-component-padding-inline-segmented-control-sm: var(--sc-space-component-padding-inline-sm);
+  --sc-space-component-padding-inline-segmented-control: var(--sc-space-component-padding-inline-md);
+  --sc-space-component-padding-inline-segmented-control-lg: var(--sc-space-component-padding-inline-lg);
   --sc-space-component-padding-block-sm: var(--sc-p-space-micro-2);
   --sc-space-component-padding-block-md: var(--sc-p-space-8);
   --sc-space-component-padding-block-lg: var(--sc-p-space-12);
@@ -885,6 +888,9 @@
   --sc-space-component-padding-block-tooltip: var(--sc-p-space-8);
   --sc-space-component-padding-block-toast: var(--sc-space-layout-inset-sm);
   --sc-space-component-padding-block-status-pill: var(--sc-p-space-4);
+  --sc-space-component-padding-block-segmented-control-sm: var(--sc-space-component-padding-block-sm);
+  --sc-space-component-padding-block-segmented-control: var(--sc-space-component-padding-block-md);
+  --sc-space-component-padding-block-segmented-control-lg: var(--sc-space-component-padding-block-md);
   --sc-space-component-gap-sm: var(--sc-p-space-4);
   --sc-space-component-gap-md: var(--sc-p-space-8);
   --sc-space-component-gap-lg: var(--sc-p-space-12);
@@ -1402,6 +1408,9 @@
   --sc-space-component-padding-inline-toast-start: var(--sc-space-layout-inset-sm);
   --sc-space-component-padding-inline-toast-end: var(--sc-space-layout-inset-lg);
   --sc-space-component-padding-inline-status-pill: var(--sc-p-space-12);
+  --sc-space-component-padding-inline-segmented-control-sm: var(--sc-space-component-padding-inline-sm);
+  --sc-space-component-padding-inline-segmented-control: var(--sc-space-component-padding-inline-md);
+  --sc-space-component-padding-inline-segmented-control-lg: var(--sc-space-component-padding-inline-lg);
   --sc-space-component-padding-block-sm: var(--sc-p-space-micro-2);
   --sc-space-component-padding-block-md: var(--sc-p-space-8);
   --sc-space-component-padding-block-lg: var(--sc-p-space-12);
@@ -1410,6 +1419,9 @@
   --sc-space-component-padding-block-tooltip: var(--sc-p-space-8);
   --sc-space-component-padding-block-toast: var(--sc-space-layout-inset-sm);
   --sc-space-component-padding-block-status-pill: var(--sc-p-space-4);
+  --sc-space-component-padding-block-segmented-control-sm: var(--sc-space-component-padding-block-sm);
+  --sc-space-component-padding-block-segmented-control: var(--sc-space-component-padding-block-md);
+  --sc-space-component-padding-block-segmented-control-lg: var(--sc-space-component-padding-block-md);
   --sc-space-component-gap-sm: var(--sc-p-space-4);
   --sc-space-component-gap-md: var(--sc-p-space-8);
   --sc-space-component-gap-lg: var(--sc-p-space-12);
