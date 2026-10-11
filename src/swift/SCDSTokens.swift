@@ -171,7 +171,7 @@ public enum SCDS {
     public static let semanticVersion = "0.1.0"
     public static let sourceGenerated = "2026-05-26"
     public static let primitivesHash = "91c76a72c4dcc85e"
-    public static let semanticHash = "a0fab02c7d5cccaa"
+    public static let semanticHash = "d333fbae5200d799"
     public static let tokenCount = 371
   }
 

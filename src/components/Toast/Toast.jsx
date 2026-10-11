@@ -39,11 +39,10 @@ import styles from './Toast.module.css';
 const TONES = ['success', 'error', 'warning', 'info'];
 const PLACEMENTS = ['inline', 'floating'];
 
-/* Figma: success Icon/check-circle, info Icon/info. The Figma Error variant
- * draws Icon/warning; code gives warning the triangle and error the octagon,
- * so the two tones differ in shape as well as hue (decisions 2026-10-10,
- * flagged to Levi with the badge hue). Every glyph comes outlined (Phosphor
- * bold) or filled (Levi, 2026-10-10). */
+/* Figma icons Icon/<glyph>-bold and Icon/<glyph>-fill (Glyph = Outline or
+ * Fill on set 9:897). Warning takes the triangle and error the octagon, so
+ * the two tones differ in shape as well as hue; error is error red (Levi,
+ * 2026-10-10). Every glyph comes outlined (Phosphor bold) or filled. */
 const GLYPHS = { success: CheckCircle, error: WarningOctagon, warning: Warning, info: Info };
 const GLYPH_WEIGHTS = { outline: 'bold', fill: 'fill' };
 const SURFACES = ['flat', 'glass'];

@@ -36,7 +36,7 @@ Reduced transparency, more contrast and an engine with no backdrop filter turn g
 | `--sc-size-toast-badge` | badge diameter | 50px |
 | `--sc-radius-toast-badge` | circle | = `radius.pill` (radius/circle) |
 | `--sc-color-toast-badge-success` | success fill | = `status.success` (status/success/light) |
-| `--sc-color-toast-badge-error` | error fill | = `status.error`. **Deviation:** Figma fills Error with status/warning/light. Open with Levi |
+| `--sc-color-toast-badge-error` | error fill | = `status.error`, error red (Levi 2026-10-10; Figma Error rebound to it) |
 | `--sc-color-toast-badge-warning` | warning fill | = `status.warning` (no Figma variant; from Alert) |
 | `--sc-color-toast-badge-info` | info fill | = `status.info` (status/info/light) |
 | `--sc-size-toast-icon` | glyph, Phosphor bold (`glyph="outline"`) or fill | = `space.20` (20px) |
