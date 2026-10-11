@@ -12,16 +12,18 @@
  *   --sc-radius-pill                      · track + indicator + segment radius
  *   --sc-space-component-gap-sm           · inter-segment gap
  *   --sc-space-component-padding-sm       · track inset (also the indicator's vertical inset)
- *   --sc-space-component-padding-inline-md / -sm   · segment inline padding (md / sm size)
- *   --sc-space-component-padding-block-md / -sm    · segment block padding (md / sm size)
+ *   --sc-space-component-padding-inline-segmented-control / -sm / -lg · segment inline padding (role tokens, = padding-inline.md / .sm / .lg)
+ *   --sc-space-component-padding-block-segmented-control / -sm / -lg  · segment block padding (role tokens, = padding-block.md / .sm / .md)
  *   --sc-font-text-body-dense-*           · segment label (md size)
  *   --sc-font-text-label-ui-*             · segment label (sm size)
- *   --sc-space-component-padding-inline-lg / --sc-space-component-padding-block-md · lg segment padding
  *   --sc-font-text-label-tab-*            · segment label (lg size)
  *   --sc-space-component-gap-lg           · label ↔ count gap
  *   --sc-motion-segmented-control-travel-duration / -easing · indicator slide (role tokens, = motion.reveal)
  *   --sc-motion-segmented-control-stretch / -squash / -press-lean / -press-lean-duration · elastic motion (SegmentedControl.jsx; 0 = off)
  *   --sc-motion-hover-duration / -easing  · text color transition
+ *   --sc-motion-press-scale / -duration / -easing · segment press (the shared press, as Button)
+ *   --sc-motion-press-release-duration / -easing  · press release (the shared spring-out)
+ *   --sc-border-width-default             · forced-colors track edge
  */
 
 .track {
@@ -44,9 +46,17 @@
   background-color: var(--sc-color-segmented-control-indicator);
   background-image: linear-gradient(135deg, transparent, var(--sc-color-segmented-control-indicator-shade));
   box-shadow: var(--sc-shadow-segmented-control-indicator);
+  /* Press scale (below) uses the individual `scale` property, because the
+     inline `transform` carries the travel. Its origin sits on the
+     indicator's own centre (--segment-indicator-x is set inline), so the
+     key presses in place instead of drifting toward the track start. */
+  transform-origin: calc(var(--segment-indicator-x, 0px) + 50%) 50%;
+  --segment-press-duration: var(--sc-motion-press-release-duration);
+  --segment-press-easing: var(--sc-motion-press-release-easing);
   transition:
     transform var(--sc-motion-segmented-control-travel-duration) var(--sc-motion-segmented-control-travel-easing),
-    width var(--sc-motion-segmented-control-travel-duration) var(--sc-motion-segmented-control-travel-easing);
+    width var(--sc-motion-segmented-control-travel-duration) var(--sc-motion-segmented-control-travel-easing),
+    scale var(--segment-press-duration) var(--segment-press-easing);
 }
 
 /* While the elastic engine drives the indicator (stretch, squash or lean
@@ -68,12 +78,18 @@
   color: var(--sc-color-text-secondary);
   cursor: pointer;
   white-space: nowrap;
-  transition: color var(--sc-motion-hover-duration) var(--sc-motion-hover-easing);
+  /* Press-spring, as Button: the release pair at rest, the fast press pair
+     only while :active, so the press snaps in and the release settles. */
+  --segment-press-duration: var(--sc-motion-press-release-duration);
+  --segment-press-easing: var(--sc-motion-press-release-easing);
+  transition:
+    color var(--sc-motion-hover-duration) var(--sc-motion-hover-easing),
+    transform var(--segment-press-duration) var(--segment-press-easing);
 }
 
 .md .segment {
-  padding-inline: var(--sc-space-component-padding-inline-md);
-  padding-block: var(--sc-space-component-padding-block-md);
+  padding-inline: var(--sc-space-component-padding-inline-segmented-control);
+  padding-block: var(--sc-space-component-padding-block-segmented-control);
   font-family: var(--sc-font-text-body-dense-family);
   font-size: var(--sc-font-text-body-dense-size);
   font-weight: var(--sc-font-text-body-dense-weight);
@@ -82,8 +98,8 @@
 }
 
 .sm .segment {
-  padding-inline: var(--sc-space-component-padding-inline-sm);
-  padding-block: var(--sc-space-component-padding-block-sm);
+  padding-inline: var(--sc-space-component-padding-inline-segmented-control-sm);
+  padding-block: var(--sc-space-component-padding-block-segmented-control-sm);
   font-family: var(--sc-font-text-label-ui-family);
   font-size: var(--sc-font-text-label-ui-size);
   font-weight: var(--sc-font-text-label-ui-weight);
@@ -92,8 +108,8 @@
 }
 
 .lg .segment {
-  padding-inline: var(--sc-space-component-padding-inline-lg);
-  padding-block: var(--sc-space-component-padding-block-md);
+  padding-inline: var(--sc-space-component-padding-inline-segmented-control-lg);
+  padding-block: var(--sc-space-component-padding-block-segmented-control-lg);
   font-family: var(--sc-font-text-label-tab-family);
   font-size: var(--sc-font-text-label-tab-size);
   font-weight: var(--sc-font-text-label-tab-weight);
@@ -119,6 +135,22 @@
   outline-offset: var(--sc-border-focus-offset);
 }
 
+/* Press (directive 4, finding 8): the pressed segment's label takes the
+   shared press scale. An unselected segment: the label presses and the
+   indicator leans toward it (SegmentedControl.jsx); the indicator never
+   scales there, so it moves one way, not two. The selected segment: the
+   label and the indicator under it press together, one key. */
+.segment:active:not(:disabled) {
+  transform: scale(var(--sc-motion-press-scale));
+  --segment-press-duration: var(--sc-motion-press-duration);
+  --segment-press-easing: var(--sc-motion-press-easing);
+}
+.track:has(.segmentSelected:active:not(:disabled)) .indicator {
+  scale: var(--sc-motion-press-scale);
+  --segment-press-duration: var(--sc-motion-press-duration);
+  --segment-press-easing: var(--sc-motion-press-easing);
+}
+
 .segment:disabled {
   cursor: not-allowed;
   color: var(--sc-color-text-disabled);
@@ -137,21 +169,30 @@
 
 /* Forced colors (Windows high contrast): the recess, the key lift and the
    face drop, and the indicator's fill is forced to the track's. The track
-   keeps an edge; the selected segment keeps a Highlight frame inside it. */
+   keeps a CanvasText edge (the one stroke the fills rule allows); the
+   selected segment keeps a Highlight frame inside it; the focus ring takes
+   Highlight, because a token colour is forced to CanvasText and would read
+   as a second track edge. */
 @media (forced-colors: active) {
   .track {
     outline: var(--sc-border-width-default) solid CanvasText;
     outline-offset: calc(-1 * var(--sc-border-width-default));
   }
   .indicator {
+    background-image: none;
     outline: var(--sc-border-width-focus) solid Highlight;
     outline-offset: calc(-1 * var(--sc-border-width-focus));
   }
+  .segment:focus-visible { outline-color: Highlight; }
   .disabled.track { outline-color: GrayText; }
   .disabled .indicator { outline-color: GrayText; }
 }
 
+/* Reduced motion: no slide, no press scale. Selection still reads by the
+   indicator's place and the label ink. */
 @media (prefers-reduced-motion: reduce) {
   .indicator { transition: none; }
   .segment { transition: none; }
+  .segment:active:not(:disabled) { transform: none; }
+  .track:has(.segmentSelected:active:not(:disabled)) .indicator { scale: none; }
 }

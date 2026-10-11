@@ -781,18 +781,19 @@ export function SegmentedControlPage() {
       id="segmented-control" label="Segmented Control"
       eyebrow={<>Segmented Control<Slash />new · Drams #7</>}
       title={<>One of three. <Em>The fill slides, never the border.</Em></>}
-      lead={<>A one-of-N selector for view/mode switches — Drams' 3-Way Switch mapped onto the studio's fill-only elevation model. The track sinks; the selected segment raises on the floating surface with no border or shadow, and a measured indicator slides beneath the label as selection moves.</>}
+      lead={<>A one-of-N selector for view and mode switches: Drams' 3-Way Slide Switch as a key in a recessed track, lit from the top left like the Button. The selected segment is the key. It travels on a spring when the selection moves, stretches with its speed, and leans toward a segment the moment you press it.</>}
       statesTitle="Five states, one radiogroup."
       callouts={[
-        { title: 'Fill-only elevation, on purpose', body: 'The selected segment lifts via surface-floating alone — no border, no shadow. It shares the fill-only logic Cards and Buttons now carry, taken to its limit here because at this scale even a hairline would read as a grid line, not a selection.' },
-        { title: 'The indicator is measured, not divided', body: 'It does not assume equal-width segments. Its left/width come from getBoundingClientRect() on the selected button, re-measured on selection, option-count, size, and resize changes — so "Month" and "Day" can be different widths without the slide looking wrong.' },
-        { title: 'Arrow keys select, not just focus', body: 'This is the WAI-ARIA radiogroup pattern, not a tab-through list: an arrow key both moves focus and changes the value in one action, matching how a native radio group already behaves.' },
+        { title: 'The selection is the object you touch', body: 'The track sinks and the indicator rises with the Button key\'s lift and face, so the one thing you can move is the one thing with a shadow. The labels stay flat: they are read, not touched. Still no border. At this scale a hairline reads as a grid line, not a selection.' },
+        { title: 'The indicator is measured, not divided', body: 'It does not assume equal-width segments. Its left and width come from the selected button in CSS pixels, re-measured on selection, option count, size and resize, so "Month" and "Day" can differ in width without the slide looking wrong.' },
+        { title: 'Arrow keys select, not just focus', body: 'This is the WAI-ARIA radiogroup pattern, not a tab-through list. An arrow key moves focus and changes the value in one action, as a native radio group already does.' },
       ]}
       states={[
         { name: 'Default (2-way)', token: '--sc-color-segmented-control-indicator', render: <SegmentedControlDemo defaultValue="day" /> },
         { name: 'Selected · middle', token: '--sc-radius-pill', render: <SegmentedControlDemo defaultValue="week" /> },
         { name: 'Hover (hover a segment)', token: '--sc-color-text-primary', render: <SegmentedControlDemo defaultValue="month" /> },
         { name: 'Focus (tab to a segment)', token: '--sc-color-border-focus', render: <SegmentedControlDemo defaultValue="day" /> },
+        { name: 'Active (hold a segment)', token: '--sc-motion-press-scale', render: <SegmentedControlDemo defaultValue="week" /> },
         { name: 'Disabled', token: '--sc-color-text-disabled', render: <SegmentedControlDemo defaultValue="week" disabled /> },
         { name: 'Large · with counts', token: '--sc-font-text-label-tab', render: <SegmentedControlDemo defaultValue="waiting" options={ON_YOU_OPTIONS} size="lg" /> },
       ]}
@@ -812,11 +813,12 @@ export function SegmentedControlPage() {
         { prop: 'Radius', token: '--sc-radius-pill' },
         { prop: 'Segment gap', token: '--sc-space-component-gap-sm' },
         { prop: 'Track inset', token: '--sc-space-component-padding-sm' },
-        { prop: 'Segment inline padding', token: '--sc-space-component-padding-inline-md' },
-        { prop: 'Segment inline padding · small', token: '--sc-space-component-padding-inline-sm' },
-        { prop: 'Segment inline padding · large', token: '--sc-space-component-padding-inline-lg' },
-        { prop: 'Segment block padding · default, large', token: '--sc-space-component-padding-block-md' },
-        { prop: 'Segment block padding · small', token: '--sc-space-component-padding-block-sm' },
+        { prop: 'Segment inline padding', token: '--sc-space-component-padding-inline-segmented-control' },
+        { prop: 'Segment inline padding · small', token: '--sc-space-component-padding-inline-segmented-control-sm' },
+        { prop: 'Segment inline padding · large', token: '--sc-space-component-padding-inline-segmented-control-lg' },
+        { prop: 'Segment block padding', token: '--sc-space-component-padding-block-segmented-control' },
+        { prop: 'Segment block padding · small', token: '--sc-space-component-padding-block-segmented-control-sm' },
+        { prop: 'Segment block padding · large', token: '--sc-space-component-padding-block-segmented-control-lg' },
         { prop: 'Label type', token: '--sc-font-text-body-dense', light: '14 / regular' },
         { prop: 'Label type · small', token: '--sc-font-text-label-ui', light: '12 / bold / 0.04em' },
         { prop: 'Label type · large', token: '--sc-font-text-label-tab', light: '13 / medium' },
@@ -824,13 +826,16 @@ export function SegmentedControlPage() {
         { prop: 'Indicator travel', token: '--sc-motion-segmented-control-travel-duration', light: '600ms · spring +3%' },
         { prop: 'Stretch / squash', token: '--sc-motion-segmented-control-stretch', light: '0.45 / 0.2' },
         { prop: 'Press lean', token: '--sc-motion-segmented-control-press-lean', light: '0.15 · 160ms' },
+        { prop: 'Press scale', token: '--sc-motion-press-scale', light: '0.985' },
+        { prop: 'Press motion', token: '--sc-motion-press-duration', light: '160ms · outStrong' },
+        { prop: 'Release motion', token: '--sc-motion-press-release-duration', light: '220ms · springOut' },
         { prop: 'Text motion', token: '--sc-motion-hover-duration', light: '200ms · quint-out' },
       ]}
       rulesTitle="Four rules for a selector that never argues with a border."
       rules={[
-        { name: 'One of N, always exactly one', text: 'A segmented control always has a selection — there is no "none" state. If the UI needs an unset/all option, add it as an explicit segment rather than allowing nothing to be checked.' },
-        { name: 'Fill is the only signal', text: 'No border, no shadow, ever — on the track or the indicator. Reaching for a stroke here to "make selection clearer" breaks the elevation model the whole control is built on.' },
-        { name: 'Options stay short', text: 'Segment labels are one word or a short numeral (Day/Week/Month, 1/2/3). A segment that wraps to two lines has outgrown this component — reach for tabs or a select instead.' },
+        { name: 'One of N, always exactly one', text: 'A segmented control always has a selection. There is no "none" state. If the UI needs an unset or "all" option, add it as its own segment rather than letting nothing be checked.' },
+        { name: 'The key is the only signal', text: 'Selection reads by the key under the label and the label\'s ink. Never add a stroke to make it clearer: a border on the track or the key reads as a grid line and flattens the material. The one exception is forced colors, where the shadows drop and a system edge takes their place.' },
+        { name: 'Options stay short', text: 'Segment labels are one word or a short numeral (Day, Week, Month; 1, 2, 3). A segment that wraps to two lines has outgrown this component. Reach for tabs or a select instead.' },
         { name: 'Never nest a segmented control in a segmented control', text: 'It is a flat, single-level chooser. A control that needs sub-choices per segment is describing a different information architecture, not a sizing problem.' },
       ]}
     />

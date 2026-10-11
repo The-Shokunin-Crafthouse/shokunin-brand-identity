@@ -4,9 +4,9 @@
  * One-of-N selection. `radiogroup` + `radio` semantics with roving
  * tabindex and arrow-key navigation (WAI-ARIA radio-group pattern) — an
  * arrow key both moves focus AND selects, matching native radio-group
- * behaviour. A sliding indicator (fill-only elevation — no border, no
- * shadow) tracks the selected segment via measured layout, not a fixed
- * per-option width.
+ * behaviour. A sliding indicator (a key in a recessed track, record
+ * 2026-10-07-1645; no border) tracks the selected segment via measured
+ * layout, not a fixed per-option width.
  *
  * API: options: [{ value, label, count? }], value, onChange, disabled, label
  * (aria-label for the group), size ('sm' | 'md' | 'lg', default 'md').
@@ -19,7 +19,12 @@
  *
  * Elastic motion (src/motion/elastic.js, tokens --sc-motion-segmented-control-*):
  * the indicator stretches with speed and leans toward a pressed segment.
- * Shipped, those tokens are 0 and the CSS transition slides it as before.
+ * Record 2026-10-07-1645 tuned them (stretch 0.45, squash 0.2, lean 0.15).
+ *
+ * Press (CSS, SegmentedControl.module.css): the pressed segment's label takes
+ * the shared press scale; pressing the selected segment scales the indicator
+ * with it (`scale`, origin at --segment-indicator-x, set below), pressing
+ * another leans it instead. Reduced motion drops both.
  */
 
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
@@ -173,7 +178,7 @@ export function SegmentedControl({
           ref={indicatorRef}
           className={styles.indicator}
           aria-hidden="true"
-          style={{ transform: `translateX(${indicator.left}px)`, width: `${indicator.width}px` }}
+          style={{ transform: `translateX(${indicator.left}px)`, width: `${indicator.width}px`, '--segment-indicator-x': `${indicator.left}px` }}
         />
       )}
       {options.map((opt, i) => {
