@@ -269,7 +269,7 @@ function Swimlane({ m, hover, setHover }) {
 
 /* ---------- C · Signal ---------- */
 
-function Signal({ m, hover, setHover }) {
+function Signal({ m, hover, setHover, slow = 1 }) {
   const lead = 24, trail = 56, node = 44;
   const colW = (W - lead - trail) / m.cols;
   const arcH = 40;
@@ -279,26 +279,45 @@ function Signal({ m, hover, setHover }) {
   const height = top + node + 8 + 40 + 34;
   const endX = W - trail + 12;
   const X = (i) => (i >= m.n ? endX : cx(i));
-  const chevrons = (x0, x1, lit) => {
-    const out = [];
-    for (let x = x0 + 6; x < x1 - 8; x += 11) out.push(<path key={x} d={`M ${x} ${cy - 4} L ${x + 5} ${cy} L ${x} ${cy + 4}`} className={`${s.chevron} ${lit ? s.chevronLit : ''}`} />);
-    return out;
+  // The entrance (Levi, 2026-10-10: "a cinematic entrance that makes sense
+  // from left to right"). Time is counted in staggers, one per column: a node
+  // racks into focus at its column, its chevrons run toward the next node in
+  // the stagger after it, an arc draws from its source once the source has
+  // landed and takes one stagger per column it spans, a label follows its arc.
+  // --at is the start, --span the length, both in staggers.
+  const at = (start, span) => ({ '--at': start, '--span': span });
+  const chevrons = (x0, x1, lit, from) => {
+    const xs = [];
+    for (let x = x0 + 6; x < x1 - 8; x += 11) xs.push(x);
+    return xs.map((x, k) => (
+      <path key={x} d={`M ${x} ${cy - 4} L ${x + 5} ${cy} L ${x} ${cy + 4}`} style={at(from + 0.5 + (k + 1) / (xs.length + 1), 0)}
+        className={`${s.chevron} ${s.enterChevron} ${lit ? s.chevronLit : ''}`} />
+    ));
   };
   return (
-    <Frame height={height} m={m} hover={hover} g={{ card: (i) => ({ x: cx(i) - colW / 2 + 4, y: cy + node / 2 + 8, w: colW - 8, h: 40 }) }} grid soft>
+    <Frame height={height} m={m} hover={hover} g={{ card: (i) => ({ x: cx(i) - colW / 2 + 4, y: cy + node / 2 + 8, w: colW - 8, h: 40 }) }} grid soft style={{ '--wb-slow': slow }} entering>
       <svg className={s.svg} width={W} height={height} aria-hidden="true">
         {m.edges.map((e, k) => {
-          if (!e.rail) return <g key={k}>{chevrons(X(e.from) + node / 2, X(e.to) - (e.to >= m.n ? 0 : node / 2), e.travelled)}</g>;
+          if (!e.rail) return <g key={k}>{chevrons(X(e.from) + node / 2, X(e.to) - (e.to >= m.n ? 0 : node / 2), e.travelled, e.from)}</g>;
           const x0 = X(e.from), x1 = X(e.to), y = cy - node / 2 - 6 - (e.track + 1) * arcH + 8;
           const d = `M ${x0} ${cy - node / 2} C ${x0} ${y}, ${x1} ${y}, ${x1} ${e.to >= m.n ? cy - 8 : cy - node / 2}`;
-          return <path key={k} d={d} className={`${s.arc} ${e.travelled ? s.chevronLit : ''}`} />;
+          // A dashed arc draws through a mask: a solid copy of its path runs from
+          // the source to the target, uncovering the dashes as it goes.
+          const id = `wb-arc-${k}`;
+          return (
+            <g key={k}>
+              <mask id={id} maskUnits="userSpaceOnUse"><path d={d} pathLength="1" className={s.arcReveal} style={at(e.from + 1, Math.abs(e.to - e.from))} /></mask>
+              <path d={d} mask={`url(#${id})`} className={`${s.arc} ${e.travelled ? s.chevronLit : ''}`} />
+            </g>
+          );
         })}
       </svg>
       {m.edges.filter((e) => e.label).map((e, k) => {
         // A rail label sits on its arc's apex; a straight run's above the trail.
         const start = cy - node / 2, ctrl = start - 6 - (e.track + 1) * arcH + 8;
         const y = e.rail ? start + 0.75 * (ctrl - start) : cy + node / 2 + 8 + 40 + 14;
-        return <span key={k} className={`${s.signalTag} ${e.travelled ? s.pillLit : ''}`} style={{ left: (X(e.from) + X(e.to)) / 2, top: y }}>{e.label}</span>;
+        const lands = e.rail ? e.from + 1 + Math.abs(e.to - e.from) : e.from + 1;
+        return <span key={k} className={`${s.signalTag} ${s.enterFade} ${e.travelled ? s.pillLit : ''}`} style={{ left: (X(e.from) + X(e.to)) / 2, top: y, ...at(lands, 0) }}>{e.label}</span>;
       })}
       {m.steps.map((step, i) => {
         const st = m.state(i);
@@ -306,24 +325,24 @@ function Signal({ m, hover, setHover }) {
         return (
           <button key={step.id} type="button" data-state={st || 'none'} className={`${s.nodeWrap} ${hover === i ? s.hovered : ''}`}
             style={{ left: cx(i) - colW / 2, top: cy - node / 2, width: colW }} onPointerEnter={() => setHover(i)} onPointerLeave={() => setHover(null)} onFocus={() => setHover(i)} onBlur={() => setHover(null)}>
-            <span className={`${s.node} ${step.actor === 'you' ? s.youNode : ''}`} style={{ width: node, height: node }}>
+            <span className={`${s.node} ${s.enterNode} ${step.actor === 'you' ? s.youNode : ''}`} style={{ width: node, height: node, ...at(i, 0) }}>
               {st === 'current' ? <WorkingMark size="sm" label="Working" /> : <Glyph weight={st === 'done' ? 'fill' : 'regular'} className={s.nodeGlyph} aria-hidden="true" />}
             </span>
-            <span className={s.nodeChip}>{step.title}</span>
+            <span className={`${s.nodeChip} ${s.enterNode}`} style={at(i + 0.35, 0)}>{step.title}</span>
           </button>
         );
       })}
-      <span className={s.endTag} style={{ left: endX, top: cy - 8 }}>End</span>
+      <span className={`${s.endTag} ${s.enterFade}`} style={{ left: endX, top: cy - 8, ...at(m.n, 0) }}>End</span>
     </Frame>
   );
 }
 
 /* ---------- shared parts ---------- */
 
-function Frame({ height, m, hover, g, grid, soft, children }) {
+function Frame({ height, m, hover, g, grid, soft, style, entering, children }) {
   const f = hover != null && hover < m.n ? g.card(hover) : null;
   return (
-    <div className={`${s.board} ${grid ? (soft ? s.gridSoft : s.grid) : ''}`} style={{ width: W, height: height + (f ? 220 : 0) }}>
+    <div className={`${s.board} ${grid ? (soft ? s.gridSoft : s.grid) : ''} ${entering ? s.entering : ''}`} style={{ width: W, height: height + (f ? 220 : 0), ...style }}>
       {children}
       {f && <Panel m={m} i={hover} x={f.x} y={f.y + f.h + 10} />}
     </div>
@@ -364,7 +383,7 @@ function RunLine({ m, wf }) {
   );
 }
 
-export function WorkflowBoardLab({ look, workflow, run, hover: pinned, shipped }) {
+export function WorkflowBoardLab({ look, workflow, run, hover: pinned, shipped, replay = 0, slow = 1 }) {
   const wf = WORKFLOWS[WORKFLOW_NAMES[workflow]] || WORKFLOWS['sprint-unit'];
   const m = useMemo(() => model(wf, run), [wf, run]);
   const [pointer, setPointer] = useState(null);
@@ -378,7 +397,8 @@ export function WorkflowBoardLab({ look, workflow, run, hover: pinned, shipped }
         <span className={s.headMeta}>{shipped ? 'as built' : look}</span>
       </header>
       <RunLine m={m} wf={wf} />
-      <Look m={m} hover={hover} setHover={setPointer} />
+      {/* Play replays the entrance: a new key mounts the board again. */}
+      <Look key={replay} m={m} hover={hover} setHover={setPointer} slow={slow} />
     </div>
   );
 }

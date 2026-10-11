@@ -728,8 +728,9 @@ export const REGISTRY = {
       { props: { look: LOOKS[1] }, notes: 'Swimlane (reference 3, the ride flow): each actor a band with its name turned, a faint grid, handoffs between lanes dashed with an event chip, arrowheads, the step now in the accent.' },
       { props: { look: LOOKS[2] }, notes: 'Signal (reference 4): one line of round nodes, the actor as the glyph, the flow as a chevron trail lit up to the step now, branches as dashed arcs above, the title as a chip under each node.' },
     ],
-    play: null,
-    render: (p, set, sound, ctx) => <WorkflowBoardLab look={p.look} workflow={p.workflow} run={p.run} hover={p.hover} shipped={!!ctx?.shipped} />,
+    // Play replays the entrance of the chosen look (C, Levi 2026-10-10).
+    play: () => {},
+    render: (p, set, sound, ctx) => <WorkflowBoardLab look={p.look} workflow={p.workflow} run={p.run} hover={p.hover} shipped={!!ctx?.shipped} replay={ctx?.replay} slow={ctx?.slow} />,
   },
   Motion: {
     kind: 'motion',

@@ -274,7 +274,56 @@
 .panelActions { display: flex; gap: var(--sc-space-component-gap-lg); }
 .link { font: var(--sc-font-text-label-chrome); color: var(--sc-color-brand-accent-ink); }
 
+/* ---------- C · the entrance ----------
+   Cinematic Direction's rack focus (the shell's TileEntrance: out of focus,
+   a little back, coming sharp), read left to right. One stagger is a fifth of
+   a cut, the Dashboard's own; --at and --span are counted in staggers, set
+   per element from JS. --wb-slow is the lab's slow motion. */
+.entering {
+  --wb-stagger: calc(var(--sc-motion-cut-duration) / 5 * var(--wb-slow, 1));
+  --wb-entrance: calc(var(--sc-motion-entrance-duration) * var(--wb-slow, 1));
+}
+.enterNode {
+  animation: wbRack var(--wb-entrance) var(--sc-motion-entrance-easing) both;
+  animation-delay: calc(var(--at) * var(--wb-stagger));
+}
+.enterChevron {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: wbChevron calc(var(--sc-motion-hover-duration) * var(--wb-slow, 1)) var(--sc-motion-hover-easing) both;
+  animation-delay: calc(var(--at) * var(--wb-stagger));
+}
+.arcReveal {
+  fill: none;
+  stroke: var(--sc-color-text-on-accent);
+  stroke-width: var(--sc-space-component-gap-md);
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: wbDraw calc(var(--span) * var(--wb-stagger)) var(--sc-motion-entrance-easing) forwards;
+  animation-delay: calc(var(--at) * var(--wb-stagger));
+}
+.enterFade {
+  animation: wbFade var(--wb-entrance) var(--sc-motion-entrance-easing) both;
+  animation-delay: calc(var(--at) * var(--wb-stagger));
+}
+@keyframes wbRack {
+  from {
+    opacity: 0;
+    filter: blur(var(--sc-space-component-gap-md));
+    transform: translateX(calc(-1 * var(--sc-space-layout-stack-sm))) scale(var(--sc-motion-recede-scale));
+  }
+  to { opacity: 1; filter: blur(0); transform: none; }
+}
+@keyframes wbChevron {
+  from { opacity: 0; transform: translateX(calc(-1 * var(--sc-space-component-gap-sm))); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes wbDraw { to { stroke-dashoffset: 0; } }
+@keyframes wbFade { from { opacity: 0; } to { opacity: 1; } }
+
 @media (prefers-reduced-motion: reduce) {
+  .enterNode, .enterChevron, .enterFade { animation: none; }
+  .arcReveal { animation: none; stroke-dashoffset: 0; }
   .cardShipped, .chip, .block, .nodeWrap, .node { transition: none; }
   .hovered, .nodeWrap.hovered .node { transform: none; }
 }
