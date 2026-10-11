@@ -1,0 +1,280 @@
+/* The workflow board's lab looks (WorkflowBoard.jsx). Every ink, fill, radius,
+   space, type and motion is an SCDS token, so the lab's panel tunes it.
+   Positions and sizes are the board's own geometry, set inline from JS. */
+
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sc-space-component-gap-md);
+  color: var(--sc-color-text-primary);
+}
+.head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+.headTitle { font: var(--sc-font-text-title-card); }
+.headMeta, .runLine {
+  font: var(--sc-font-text-label-chrome);
+  letter-spacing: var(--sc-font-text-label-chrome-letter-spacing);
+  color: var(--sc-color-text-secondary);
+  margin: 0;
+}
+
+.board { position: relative; }
+.svg { position: absolute; inset: 0; overflow: visible; pointer-events: none; }
+.grid {
+  background-image:
+    linear-gradient(var(--sc-color-border-subtle) var(--sc-border-width-default), transparent var(--sc-border-width-default)),
+    linear-gradient(90deg, var(--sc-color-border-subtle) var(--sc-border-width-default), transparent var(--sc-border-width-default));
+  background-size: var(--sc-space-layout-stack-lg) var(--sc-space-layout-stack-lg);
+}
+.gridSoft {
+  background-image:
+    linear-gradient(var(--sc-color-border-subtle) var(--sc-border-width-default), transparent var(--sc-border-width-default)),
+    linear-gradient(90deg, var(--sc-color-border-subtle) var(--sc-border-width-default), transparent var(--sc-border-width-default));
+  background-size: var(--sc-space-layout-stack-xl) var(--sc-space-layout-stack-xl);
+}
+
+/* Every step is a button: one tab stop, its panel opens on hover and focus. */
+.cardShipped, .chip, .block, .nodeWrap {
+  position: absolute;
+  box-sizing: border-box;
+  margin: 0;
+  border: 0;
+  text-align: start;
+  cursor: pointer;
+  transition:
+    transform var(--sc-motion-hover-duration) var(--sc-motion-hover-easing),
+    background-color var(--sc-motion-hover-duration) var(--sc-motion-hover-easing),
+    box-shadow var(--sc-motion-hover-duration) var(--sc-motion-hover-easing);
+}
+.cardShipped:focus-visible, .chip:focus-visible, .block:focus-visible, .nodeWrap:focus-visible {
+  outline: var(--sc-border-width-focus) solid var(--sc-color-border-focus);
+  outline-offset: var(--sc-border-width-focus);
+}
+.titleUi {
+  font: var(--sc-font-text-label-ui);
+  letter-spacing: var(--sc-font-text-label-ui-letter-spacing);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.word {
+  font: var(--sc-font-text-label-chrome);
+  color: var(--sc-color-text-secondary);
+}
+
+/* A You step is the gate: yellow, dark teal ink, in every look. */
+.you { background: var(--sc-color-signal-progress) !important; color: var(--sc-p-color-teal-800) !important; }
+.you .word, .you .gateTag, .you .chipGlyph, .you .blockTitle { color: var(--sc-p-color-teal-800) !important; }
+
+/* ---------- Shipped ---------- */
+.cardShipped {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: var(--sc-space-component-padding-block-md) var(--sc-space-component-padding-inline-sm);
+  background: var(--sc-color-surface-raised);
+  color: var(--sc-color-text-primary);
+  border-radius: var(--sc-radius-surface-large);
+  box-shadow: var(--sc-shadow-control-raised);
+}
+.cardShipped.hovered { background: var(--sc-color-brand-accent-fill); color: var(--sc-color-text-on-accent); transform: translateY(calc(-1 * var(--sc-space-component-gap-sm))); }
+.cardShipped.hovered .word { color: var(--sc-color-text-on-accent); }
+.lineShipped { fill: none; stroke: var(--sc-color-text-primary); stroke-width: var(--sc-border-width-default); }
+.heavy { stroke-width: var(--sc-border-width-accent); }
+.rowName, .rowNameQuiet {
+  position: absolute;
+  left: 0;
+  display: flex;
+  align-items: center;
+  font: var(--sc-font-text-label-chrome);
+  letter-spacing: var(--sc-font-text-label-chrome-letter-spacing);
+  color: var(--sc-color-text-primary);
+}
+.rowNameQuiet { color: var(--sc-color-text-tertiary); text-transform: uppercase; }
+.labelPlain {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  font: var(--sc-font-text-label-chrome);
+  color: var(--sc-color-text-primary);
+  white-space: nowrap;
+}
+.endTag {
+  position: absolute;
+  font: var(--sc-font-text-label-chrome);
+  letter-spacing: var(--sc-font-text-label-chrome-letter-spacing);
+  color: var(--sc-color-text-secondary);
+}
+
+/* ---------- A · Pipeline ---------- */
+.chip {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sc-space-component-gap-sm);
+  padding: var(--sc-space-component-padding-block-sm) var(--sc-space-component-padding-inline-sm);
+  background: var(--sc-color-surface-raised);
+  color: var(--sc-color-text-primary);
+  border-radius: var(--sc-radius-surface);
+  box-shadow: inset 0 0 0 var(--sc-border-width-default) var(--sc-color-border-default);
+}
+.chip[data-state="done"] { box-shadow: inset 0 0 0 var(--sc-border-width-default) var(--sc-color-status-success); }
+.chip[data-state="current"] {
+  box-shadow: inset 0 0 0 var(--sc-border-width-accent) var(--sc-color-brand-accent), 0 0 var(--sc-space-component-gap-lg) var(--sc-color-brand-accent);
+}
+.chip[data-state="unrecorded"] { box-shadow: inset 0 0 0 var(--sc-border-width-default) var(--sc-color-status-warning); }
+.chip.hovered {
+  transform: translateY(calc(-1 * var(--sc-space-component-gap-sm)));
+  box-shadow: inset 0 0 0 var(--sc-border-width-accent) var(--sc-color-brand-accent), 0 0 var(--sc-space-layout-stack-sm) var(--sc-color-brand-accent);
+}
+.chipHead { display: flex; align-items: center; justify-content: space-between; min-height: var(--sc-size-icon-sm); }
+.chipGlyph { width: var(--sc-size-icon-sm); height: var(--sc-size-icon-sm); color: var(--sc-color-status-success); }
+.chip[data-state="unrecorded"] .chipGlyph { color: var(--sc-color-status-warning); }
+.gateTag {
+  font: var(--sc-font-text-label-chrome);
+  letter-spacing: var(--sc-font-text-label-chrome-letter-spacing);
+  text-transform: uppercase;
+}
+.linePipe { fill: none; stroke: var(--sc-color-border-strong); stroke-width: var(--sc-border-width-default); }
+.dashed { stroke-dasharray: var(--sc-space-component-gap-sm) var(--sc-space-component-gap-sm); }
+.lit { stroke: var(--sc-color-signal-progress); stroke-width: var(--sc-border-width-focus); }
+.pill, .eventChip, .signalTag {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  white-space: nowrap;
+  font: var(--sc-font-text-mono-caption);
+  padding: var(--sc-space-component-padding-block-status-pill) var(--sc-space-component-padding-inline-status-pill);
+  border-radius: var(--sc-radius-status-pill);
+  background: var(--sc-color-surface-floating);
+  color: var(--sc-color-text-secondary);
+  box-shadow: inset 0 0 0 var(--sc-border-width-default) var(--sc-color-border-default);
+}
+.pillLit { background: var(--sc-color-signal-progress); color: var(--sc-color-signal-on-progress); box-shadow: none; }
+
+/* ---------- B · Swimlane ---------- */
+.lane {
+  position: absolute;
+  left: 0;
+  right: 0;
+  border-top: var(--sc-border-width-default) solid var(--sc-color-border-default);
+  border-bottom: var(--sc-border-width-default) solid var(--sc-color-border-default);
+  background: var(--sc-color-surface-sunk);
+}
+.laneName {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font: var(--sc-font-text-label-chrome);
+  letter-spacing: var(--sc-font-text-label-chrome-letter-spacing);
+  text-transform: uppercase;
+  color: var(--sc-color-text-tertiary);
+}
+.block {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 var(--sc-space-component-padding-inline-sm);
+  border-radius: var(--sc-radius-surface);
+  background: var(--sc-color-surface-raised);
+  color: var(--sc-color-text-primary);
+  text-align: center;
+}
+.block[data-state="current"] { background: var(--sc-color-brand-accent-fill); color: var(--sc-color-text-on-accent); }
+.block.hovered {
+  transform: translateY(calc(-1 * var(--sc-space-component-gap-sm)));
+  box-shadow: 0 0 0 var(--sc-border-width-accent) var(--sc-color-brand-accent);
+}
+.blockTitle {
+  font: var(--sc-font-text-label-chrome);
+  letter-spacing: var(--sc-font-text-label-chrome-letter-spacing);
+  text-transform: uppercase;
+}
+/* Done is a badge on the block's corner, off the title. */
+.blockCheck {
+  position: absolute;
+  top: calc(-1 * var(--sc-space-component-gap-md));
+  right: calc(-1 * var(--sc-space-component-gap-md));
+  box-sizing: border-box;
+  width: var(--sc-size-icon-sm);
+  height: var(--sc-size-icon-sm);
+  padding: var(--sc-space-component-padding-block-sm);
+  border-radius: var(--sc-radius-pill);
+  background: var(--sc-color-status-pill-success-fill);
+  color: var(--sc-color-status-pill-success-ink);
+}
+.lineLane { fill: none; stroke: var(--sc-color-text-secondary); stroke-width: var(--sc-border-width-default); }
+.laneLit { stroke: var(--sc-color-brand-accent); stroke-width: var(--sc-border-width-focus); }
+.arrowHead { fill: var(--sc-color-text-secondary); }
+.eventChip { color: var(--sc-color-text-primary); }
+
+/* ---------- C · Signal ---------- */
+.nodeWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sc-space-component-gap-md);
+  padding: 0;
+  background: none;
+  color: var(--sc-color-text-primary);
+}
+.node {
+  display: grid;
+  place-items: center;
+  border-radius: var(--sc-radius-pill);
+  background: var(--sc-color-surface-raised);
+  box-shadow: inset 0 0 0 var(--sc-border-width-default) var(--sc-color-border-default);
+  color: var(--sc-color-text-secondary);
+  transition: box-shadow var(--sc-motion-hover-duration) var(--sc-motion-hover-easing), transform var(--sc-motion-hover-duration) var(--sc-motion-hover-easing);
+}
+.nodeWrap[data-state="done"] .node { background: var(--sc-color-status-pill-success-fill); color: var(--sc-color-status-pill-success-ink); box-shadow: none; }
+.nodeWrap[data-state="current"] .node { box-shadow: 0 0 0 var(--sc-border-width-accent) var(--sc-color-brand-accent), 0 0 var(--sc-space-layout-stack-sm) var(--sc-color-brand-accent); }
+.youNode { background: var(--sc-color-signal-progress) !important; color: var(--sc-p-color-teal-800) !important; box-shadow: none; }
+.nodeGlyph { width: var(--sc-size-icon-md); height: var(--sc-size-icon-md); }
+.nodeWrap.hovered .node { transform: scale(1.08); box-shadow: 0 0 0 var(--sc-border-width-accent) var(--sc-color-brand-accent), 0 0 var(--sc-space-layout-stack-sm) var(--sc-color-brand-accent); }
+.nodeChip {
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: var(--sc-space-component-padding-block-sm) var(--sc-space-component-padding-inline-sm);
+  border-radius: var(--sc-radius-surface);
+  background: var(--sc-color-surface-floating);
+  box-shadow: var(--sc-shadow-control-raised);
+  font: var(--sc-font-text-label-ui);
+  text-align: center;
+}
+.chevron { fill: none; stroke: var(--sc-color-border-strong); stroke-width: var(--sc-border-width-focus); stroke-linecap: round; stroke-linejoin: round; }
+.chevronLit { stroke: var(--sc-color-brand-accent); }
+.arc { fill: none; stroke: var(--sc-color-border-strong); stroke-width: var(--sc-border-width-default); stroke-dasharray: var(--sc-space-component-gap-sm) var(--sc-space-component-gap-sm); }
+.arc.chevronLit { stroke: var(--sc-color-brand-accent); }
+
+/* ---------- the panel, every look ---------- */
+.panel {
+  position: absolute;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sc-space-component-gap-sm);
+  width: calc(var(--sc-space-layout-stack-xl) * 5.5);
+  box-sizing: border-box;
+  padding: var(--sc-space-component-padding-lg);
+  border-radius: var(--sc-radius-surface-large);
+  background: var(--sc-color-surface-floating);
+  box-shadow: inset 0 0 0 var(--sc-border-width-default) var(--sc-color-brand-accent), var(--sc-shadow-control-raised);
+}
+.panelTitle { font: var(--sc-font-text-body-dense-bold); }
+.panelRow, .panelFact { font: var(--sc-font-text-label-chrome); color: var(--sc-color-text-tertiary); }
+.panelLine { font: var(--sc-font-text-body-dense); color: var(--sc-color-text-secondary); }
+.panelActions { display: flex; gap: var(--sc-space-component-gap-lg); }
+.link { font: var(--sc-font-text-label-chrome); color: var(--sc-color-brand-accent-ink); }
+
+@media (prefers-reduced-motion: reduce) {
+  .cardShipped, .chip, .block, .nodeWrap, .node { transition: none; }
+  .hovered, .nodeWrap.hovered .node { transform: none; }
+}

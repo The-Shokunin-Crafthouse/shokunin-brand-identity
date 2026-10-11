@@ -48,6 +48,10 @@ import statusPillCss from '../../src/components/StatusPill/StatusPill.module.css
 import avatarCss from '../../src/components/Avatar/Avatar.module.css?raw';
 import toastCss from '../../src/components/Toast/Toast.module.css?raw';
 import avatarMark from '../../assets/logo/mark-icon-dark.png';
+import { WorkflowBoardLab, LOOKS, WORKFLOW_NAMES, RUNS } from './subjects/WorkflowBoard.jsx';
+import { WORKFLOWS } from './subjects/workflowData.js';
+import workflowBoardCss from './subjects/WorkflowBoard.module.css?raw';
+import workingMarkCss from '../../src/components/WorkingMark/WorkingMark.module.css?raw';
 import s from './Tune.module.css';
 
 const SEGMENTS = ['day', 'week', 'month'];
@@ -703,6 +707,29 @@ export const REGISTRY = {
         {p.children}
       </Button>
     ),
+  },
+  WorkflowBoard: {
+    // Studio PM's workflow board (studio-pm ADR-119), a web model of the
+    // native board, so its look is chosen here before SwiftUI builds it.
+    // Shipped is the board as built; A, B and C are Levi's three references
+    // (2026-10-10), one concept each. The board is 1171 wide, so it opens at 1x.
+    css: [workflowBoardCss, workingMarkCss, iconCss],
+    zoom: 1,
+    shippedSound: null,
+    trigger: 'ships silent',
+    props: [
+      { name: 'look', type: 'enum', options: LOOKS, default: LOOKS[0] },
+      { name: 'workflow', type: 'enum', options: Object.keys(WORKFLOW_NAMES), default: 'Sprint unit' },
+      { name: 'run', type: 'enum', options: RUNS, default: 'sample' },
+      { name: 'hover', type: 'enum', options: ['none', ...new Set(Object.values(WORKFLOWS).flatMap((w) => w.steps.map((x) => x.title)))], default: 'none' },
+    ],
+    concepts: [
+      { props: { look: LOOKS[0] }, notes: 'Pipeline (reference 1, the CI graph): status chips with a glyph, rounded connectors, the travelled path lit in signal yellow, branch labels as pills on the line, return paths dashed.' },
+      { props: { look: LOOKS[1] }, notes: 'Swimlane (reference 3, the ride flow): each actor a band with its name turned, a faint grid, handoffs between lanes dashed with an event chip, arrowheads, the step now in the accent.' },
+      { props: { look: LOOKS[2] }, notes: 'Signal (reference 4): one line of round nodes, the actor as the glyph, the flow as a chevron trail lit up to the step now, branches as dashed arcs above, the title as a chip under each node.' },
+    ],
+    play: null,
+    render: (p, set, sound, ctx) => <WorkflowBoardLab look={p.look} workflow={p.workflow} run={p.run} hover={p.hover} shipped={!!ctx?.shipped} />,
   },
   Motion: {
     kind: 'motion',

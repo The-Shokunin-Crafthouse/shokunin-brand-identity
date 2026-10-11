@@ -306,9 +306,13 @@ function freshState(component) {
     component,
     notes: '',
     active: 'A',
-    concepts: [blankConcept(entry, 'A')],
+    // A subject may open on concepts it proposes (entry.concepts: their props
+    // and notes); otherwise one blank concept.
+    concepts: entry.concepts
+      ? entry.concepts.map((c, i) => ({ ...blankConcept(entry, 'ABCD'[i]), props: { ...defaults(entry), ...c.props }, notes: c.notes || '' }))
+      : [blankConcept(entry, 'A')],
     pick: { id: null, reason: '' },
-    view: { theme: 'light', zoom: entry.kind === 'motion' ? 1 : 2, ground: '--sc-color-surface-page', compare: false, blind: false, order: null, slow: 1, collapsed: {}, panelWidth: PANEL_DEFAULT },
+    view: { theme: 'light', zoom: entry.zoom ?? (entry.kind === 'motion' ? 1 : 2), ground: '--sc-color-surface-page', compare: false, blind: false, order: null, slow: 1, collapsed: {}, panelWidth: PANEL_DEFAULT },
   };
 }
 function loadState(component) {
@@ -904,7 +908,7 @@ function Tune() {
             <section className={s.stageWrap} aria-label={isMotion ? 'Default' : 'Shipped'}>
               <h2 className={s.stageLabel}>{isMotion ? 'Default' : 'Shipped'}</h2>
               <div className={s.stage} style={stageStyle({})} ref={shippedRef} inert="" data-force={force}>
-                {entry.render(isMotion ? defaults(entry) : concept.props, () => {}, () => {}, ctx)}
+                {entry.render(isMotion ? defaults(entry) : concept.props, () => {}, () => {}, { ...ctx, shipped: true })}
               </div>
             </section>
           )}
