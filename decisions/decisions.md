@@ -2811,3 +2811,14 @@ Levi: the trailing arrow uses Phosphor's bold weight, not regular. Code: `ArrowR
 - **Token sheet:** `Button.tokens.md` had the same stale `loading` row (spinner ring on `--sc-motion-mode-duration`). It now names `WorkingMark` at `--sc-size-button-icon-lg` / `-sm` and the removed click handler (`Button.jsx` sets `onClick` to undefined while loading).
 - **Not in this change:** the same sheet's `secondary` row still says "fill = `surface-sunk` ... fill-only, no stroke", but `Button.module.css` draws a `border-strong` outline on a transparent ground (ADR studio-pm-shell-blocklist-exception, 2026-10-05).
 - **Checks:** `npm run build` exits 0. Dev server, Chromium: the Button page renders light and dark at 1440 and 390. The page has no horizontal scroll at 390, and there are no console errors.
+
+### 2026-10-10: Button.tokens.md matches Button.module.css (secondary outline and four smaller lines)
+
+**Status:** Accepted. Levi: "fix the Button.tokens.md secondary row" (follow-up from the loading callout entry above). Docs-only; no token or component CSS changed.
+
+- **Secondary row:** it said "fill = `surface-sunk` ... fill-only, no stroke". The CSS draws a 1px `border-strong` outline on a transparent fill. On hover and focus the fill goes to `surface-hover` and the text to `interactive-hover`. On press the text goes to `interactive-active` with the scale. The row now says that. The outline returned on 2026-10-05 (ADR studio-pm-shell-blocklist-exception), and the intro line that still called secondary a "fill-only subtle chip" now cites that ADR.
+- **Same sheet, same drift:**
+  - The hover transition lists bg, border and colour only. It no longer says shadow: shadow changes snap, per the CSS header.
+  - The block padding row names the small role, `padding-block-button-sm` (4px).
+  - Reduced motion no longer mentions a spinner. The `WorkingMark` holds still on its own rule.
+- **Checks:** every changed line was read against the `Button.module.css` rules it describes. `npm run build` exits 0. The sheet is not rendered by the docs site, so there is no page to verify.

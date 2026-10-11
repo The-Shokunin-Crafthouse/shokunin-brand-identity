@@ -2,20 +2,20 @@
 
 Spec ref: §2 Tier 3 · 4.0 · Variants: primary, secondary, tertiary, destructive, disabled, loading.
 
-Pill-radius control with a trailing arrow (Phosphor `ArrowRight`, scds-v2 default icon family, `currentColor`). **The accent is a hover state, never a resting one** — primary rests neutral (a Drams OP-1 key) and turns teal on hover; secondary is a fill-only subtle chip (scds-v2 Phase 2 — was an ink outline) that goes teal on hover/focus; tertiary is a persistent teal ghost.
+Pill-radius control with a trailing arrow (Phosphor `ArrowRight`, scds-v2 default icon family, `currentColor`). **The accent is a hover state, never a resting one** — primary rests neutral (a Drams OP-1 key) and turns teal on hover; secondary is an ink outline on a transparent ground (the outline returned 2026-10-05, ADR studio-pm-shell-blocklist-exception, superseding the scds-v2 Phase 2 fill-only chip) that goes teal on hover/focus; tertiary is a persistent teal ghost.
 
 ## Shared (every variant)
 
 | Token | Use |
 |---|---|
 | `--sc-space-component-padding-inline-button-lg` / `-sm` | inline padding: 24 large, 16 small (Button roles, apart from the shared scale) |
-| `--sc-space-component-padding-block-md` | block padding |
+| `--sc-space-component-padding-block-md` / `-button-sm` | block padding: 8 large, 4 small |
 | `--sc-space-component-gap-md` | label ↔ arrow gap |
 | `--sc-radius-pill` | pill corner |
 | `--sc-border-width-default` | border weight |
 | `--sc-font-text-label-button-lg-*` / `-sm-*` | Labels: 14 large, 12 small; medium, loose 2.0 leading, slight 0.02em tracking, no uppercase. The leading sets the height: 46px large, 34px small, with the 1px border |
 | `--sc-color-border-focus` + `--sc-border-focus-offset` | styled focus ring |
-| `--sc-motion-hover-duration` + `-easing` | bg/border/color/shadow transition |
+| `--sc-motion-hover-duration` + `-easing` | bg/border/color transition (shadow changes snap: a Button repeats in toolbars and tables) |
 | `--sc-motion-press-duration` + `-easing` + `-scale` (0.985) | press-in feedback (fast phase) |
 | `--sc-motion-press-release-duration` + `-easing` | release feedback (spring-overshoot phase) |
 
@@ -24,7 +24,7 @@ Pill-radius control with a trailing arrow (Phosphor `ArrowRight`, scds-v2 defaul
 | Variant | Resting | Hover | Active |
 |---|---|---|---|
 | `primary` | fill = `surface-raised` (neutral), text = `text-primary`, **face = `linear-gradient(135deg, transparent, control-key-shade)` over the fill; shadow = `shadow-control-key`** | fill → `control-key-hover-fill` (teal.600), text → `control-key-hover-ink` (white, AA 5.2); shadow → `shadow-control-key-hover` (= key until tuned) | fill → `brand-accent-deep` (teal.700) + scale; shadow → `shadow-control-key-pressed` |
-| `secondary` | fill = `surface-sunk`, text = `text-primary` (ink, AA) — fill-only, no stroke | fill → `surface-hover`, text → `interactive-hover` (teal, transient AA exception); focus matches | text → `interactive-active` + scale |
+| `secondary` | border = `border-strong` (1px ink outline), transparent fill, text = `text-primary` (ink, AA) | fill → `surface-hover`, text → `interactive-hover` (teal, transient AA exception); focus matches | fill `surface-hover`, text → `interactive-active` + scale |
 | `tertiary` | text = `brand-accent-deep` (teal.700, AA 5.78), no border/fill | text → `interactive-hover` (teal) | text → `interactive-active` + scale |
 | `destructive` | fill + border = `status-error`, text = `text-on-accent`, same key face as primary | — | + scale; shadow → `shadow-control-key-pressed` |
 
@@ -72,4 +72,4 @@ Retired from Button: `--sc-shadow-control-raised` and `--sc-shadow-control-bevel
 
 ## Reduced-motion
 
-`@media (prefers-reduced-motion: reduce)` kills the transition, press-scale, and spinner. Functional path remains via color/shadow.
+`@media (prefers-reduced-motion: reduce)` kills the transition and the press-scale. The loading `WorkingMark` holds still on its own reduced-motion rule. Functional path remains via color/shadow.
