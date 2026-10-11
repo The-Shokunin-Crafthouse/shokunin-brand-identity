@@ -41,7 +41,7 @@ export function ButtonPage() {
       callouts={[
         { title: 'Why outlined secondary', body: 'Secondary carries no fill so the primary’s fill is the only filled element on a surface. Hierarchy by fill, not by colour weight.' },
         { title: 'What it refused', body: 'No icon-only variant in Sprint 4. An icon button needs an accessible-name contract the label button does not — deferred rather than shipped half-resolved.' },
-        { title: 'The token gap it exposed', body: 'The loading spinner needed a continuous-rotation duration. None existed in the semantic motion layer; it borrowed --sc-motion-mode-duration (380ms) and logged motion/continuous for a Sprint 5+ revisit.' },
+        { title: 'The token gap, and how it closed', body: 'The first loading state was a spinner ring. The motion layer had no continuous-rotation duration, so the ring borrowed --sc-motion-mode-duration (380ms). The ring is gone. Loading now draws the studio\'s WorkingMark at the arrow\'s size, and the mark keeps its own 1600ms beat. That beat stays a WorkingMark constant until a second component needs a loop of its own.' },
       ]}
       states={[
         { name: 'Primary', token: '--sc-shadow-control-key', render: <Button variant="primary">Start a project</Button> },

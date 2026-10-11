@@ -33,7 +33,7 @@ Pill-radius control with a trailing arrow (Phosphor `ArrowRight`, scds-v2 defaul
 | State | Tokens |
 |---|---|
 | `disabled` | `--sc-color-text-disabled`, fill `--sc-color-surface-sunk`, transparent border (fill-only, no stroke frame), `box-shadow: none`, `cursor: not-allowed`. Cross-variant. |
-| `loading` | label opacity 0.6, spinner ring (currentColor + `--sc-border-width-default` + `--sc-radius-pill` + `--sc-motion-mode-duration`) replaces the arrow. |
+| `loading` | label opacity 0.6; `WorkingMark` replaces the arrow at `--sc-size-button-icon-lg` / `-sm` (its 1600ms beat is a WorkingMark constant, see `WorkingMark.tokens.md`). The click handler is removed. |
 | `focus` | `:focus-visible` styled ring · `--sc-color-border-focus` at `--sc-border-width-focus`, `--sc-border-focus-offset`. Secondary additionally shifts fill + turns its label teal. |
 
 ## The press-spring (Drams #6 · Pushin' Click Button)
