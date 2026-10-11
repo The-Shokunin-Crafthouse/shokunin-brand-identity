@@ -14,7 +14,7 @@ import { Button } from '../components/Button/Button.jsx';
 import { StatusPill } from '../components/StatusPill/StatusPill.jsx';
 import { Card } from '../components/Card/Card.jsx';
 import { Input } from '../components/Input/Input.jsx';
-import { Alert } from '../components/Alert/Alert.jsx';
+import { Toast } from '../components/Toast/Toast.jsx';
 import { Switch } from '../components/Switch/Switch.jsx';
 import { Avatar } from '../components/Avatar/Avatar.jsx';
 import { ProgressIndicator } from '../components/ProgressIndicator/ProgressIndicator.jsx';
@@ -64,9 +64,9 @@ export function SpecimenSection() {
       <Chapter
         ord="i"
         eyebrow="Feedback / says something back"
-        title="Button, StatusPill, Alert."
+        title="Button, StatusPill, Toast."
         premise="The components that respond — an action to take, a state to read, a message to answer. All three carry status through the same semantic colour layer."
-        annotations={[{ title: 'Shared signal', body: 'Button, StatusPill, and Alert all read status from the same tokens. A success is the same green in all three.' }]}
+        annotations={[{ title: 'Shared signal', body: 'Button, StatusPill, and Toast all read status from the same tokens. A success is the same green in all three.' }]}
       >
         <div className={styles.blocks}>
           <Block name="Button" count="6 states">
@@ -90,10 +90,11 @@ export function SpecimenSection() {
               <StatusPill tone="neutral" emphasis="outline">Draft</StatusPill>
             </div>
           </Block>
-          <Block name="Alert" count="4 variants" wide>
-            <div className={styles.stack}>
-              <Alert variant="info" title="Heads up">The brand site rebuilds on every push to main.</Alert>
-              <Alert variant="error" title="Build failed">Token build exited non-zero. The previous deploy is still live.</Alert>
+          <Block name="Toast" count="4 tones · 2 placements" wide>
+            <div className={styles.stack} style={{ background: 'var(--sc-color-surface-page)', padding: 'var(--sc-space-component-padding-md)', borderRadius: 'var(--sc-radius-card)' }}>
+              <Toast tone="info">The brand site rebuilds on every push to main.</Toast>
+              <Toast tone="error">Token build exited non-zero. The previous deploy is still live.</Toast>
+              <Toast tone="success" placement="floating" autoDismiss={false}>Changes saved.</Toast>
             </div>
           </Block>
         </div>

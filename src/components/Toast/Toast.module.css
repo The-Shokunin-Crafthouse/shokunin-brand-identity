@@ -1,0 +1,229 @@
+/* tokens:
+ *   --sc-color-toast-surface                     · plate fill (role; = surface.raised)
+ *   --sc-color-toast-text                        · message ink (role; = text.primary; AA, FILL_PAIRS)
+ *   --sc-font-text-toast-message-*               · message type (role; = body.dense, 14)
+ *   --sc-size-toast-lines                        · two lines max, then an ellipsis
+ *   --sc-radius-toast-plate / -badge / -dismiss  · capsule, circle, circle (role; = radius.pill)
+ *   --sc-space-component-padding-block-toast     · 16 top and bottom (role; = layout.inset.sm; Figma 24)
+ *   --sc-space-component-padding-inline-toast-start / -end · 16 before, 48 after (role; = inset.sm / inset.lg)
+ *   --sc-space-component-gap-toast               · 12 between badge, message, dismiss (role; = space.12)
+ *   --sc-size-toast-width                        · 380 floating width (role; Figma)
+ *   --sc-size-toast-badge / -icon                · 50 badge, 20 glyph (role; Figma)
+ *   --sc-color-toast-badge-<tone>                · badge fill per tone (role; = status.*)
+ *   --sc-color-toast-icon                        · badge glyph (role; warmGray.50 light, dark.well dark; GRAPHIC_PAIRS)
+ *   --sc-size-toast-dismiss / -dismiss-icon / -dismiss-slop · 32 circle, 16 x, 6 hit slop to 44
+ *   --sc-size-toast-dismiss-offset-block / -inline · dismiss on the top-right corner (18 up, 20 out)
+ *   --sc-color-toast-dismiss-surface / -hover    · dismiss ground at rest; on hover and press (= the x colour)
+ *   --sc-color-toast-dismiss-ink-hover           · x on hover and press (= the rest ground): the colours invert
+ *   --sc-color-toast-dismiss-ink / -ink-disabled · the x (role; brand.accent light, teal.200 dark; GRAPHIC_PAIRS)
+ *   --sc-shadow-toast-plate                      · floating shadow (role; record 2026-10-10-1534: the Tooltip plate shade, top left)
+ *   --sc-color-toast-glass, --sc-shadow-toast-glass / -glass-text · glass tint, rim, text halo (= Card frosted, auto)
+ *   --sc-size-toast-glass-frost / -glass-saturation · glass backdrop blur and saturation
+ *   --sc-size-toast-lift                         · floating rise on enter and exit
+ *   --sc-motion-toast-travel-*                   · floating enter and exit time and curve
+ *   --sc-motion-toast-hold                       · floating hold before it dismisses itself (read in JS)
+ *   --sc-motion-press-*                          · dismiss press scale and timing (shared press)
+ *   --sc-border-width-focus, --sc-color-border-focus, --sc-border-focus-offset · dismiss focus ring
+ *   --sc-border-width-default                    · forced-colors edges
+ *
+ * physical-controls Tier 2. Boxes are fills, never strokes (decisions
+ * 2026-10-09): the plate separates from its ground by tone, and the floating
+ * plate by its shadow. No status LED (Levi, "thats ai slop"). The shadow
+ * snaps: only opacity and transform transition (tokens:verify rule 6).
+ */
+
+.toast {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--sc-space-component-gap-toast);
+  padding-block: var(--sc-space-component-padding-block-toast);
+  padding-inline-start: var(--sc-space-component-padding-inline-toast-start);
+  padding-inline-end: var(--sc-space-component-padding-inline-toast-end);
+  border-radius: var(--sc-radius-toast-plate);
+  background-color: var(--sc-color-toast-surface);
+  color: var(--sc-color-toast-text);
+}
+
+/* Inline: in flow, fills its container, persistent, flat. */
+.inline {
+  inline-size: 100%;
+}
+
+/* Floating: the Figma Toast. 380 wide, never wider than its region. */
+.floating {
+  inline-size: var(--sc-size-toast-width);
+  max-inline-size: 100%;
+  box-shadow: var(--sc-shadow-toast-plate);
+  transition:
+    opacity var(--sc-motion-toast-travel-duration) var(--sc-motion-toast-travel-easing),
+    transform var(--sc-motion-toast-travel-duration) var(--sc-motion-toast-travel-easing);
+}
+.floating[data-state='enter'],
+.floating[data-state='exit'] {
+  opacity: 0;
+  transform: translateY(var(--sc-size-toast-lift));
+}
+
+/* Glass: frosted glass over whatever sits behind the toast (Levi,
+   2026-10-10: flat or glass). Tint, lit rim and soft shade, text halo.
+   Figma frost is a blur radius; CSS blur() takes half. */
+.glass {
+  background-color: var(--sc-color-toast-glass);
+  box-shadow: var(--sc-shadow-toast-glass);
+  text-shadow: var(--sc-shadow-toast-glass-text);
+  -webkit-backdrop-filter: blur(calc(var(--sc-size-toast-glass-frost) / 2)) saturate(calc(var(--sc-size-toast-glass-saturation) / 100));
+  backdrop-filter: blur(calc(var(--sc-size-toast-glass-frost) / 2)) saturate(calc(var(--sc-size-toast-glass-saturation) / 100));
+}
+/* Opaque fallbacks: a bare tint over unknown content is not readable. */
+@media (prefers-reduced-transparency: reduce), (prefers-contrast: more) {
+  .glass {
+    background-color: var(--sc-color-toast-surface);
+    text-shadow: none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+  .inline.glass { box-shadow: none; }
+  .floating.glass { box-shadow: var(--sc-shadow-toast-plate); }
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .glass { background-color: var(--sc-color-toast-surface); text-shadow: none; }
+}
+
+/* --- Tone badge --------------------------------------------------- */
+.badge {
+  flex: none;
+  display: grid;
+  place-items: center;
+  inline-size: var(--sc-size-toast-badge);
+  block-size: var(--sc-size-toast-badge);
+  border-radius: var(--sc-radius-toast-badge);
+  background-color: var(--badge-fill);
+  color: var(--sc-color-toast-icon);
+}
+.success { --badge-fill: var(--sc-color-toast-badge-success); }
+.error { --badge-fill: var(--sc-color-toast-badge-error); }
+.warning { --badge-fill: var(--sc-color-toast-badge-warning); }
+.info { --badge-fill: var(--sc-color-toast-badge-info); }
+
+.icon {
+  inline-size: var(--sc-size-toast-icon);
+  block-size: var(--sc-size-toast-icon);
+}
+
+/* --- Message ------------------------------------------------------ */
+.message {
+  flex: 1;
+  min-inline-size: 0;
+  font-family: var(--sc-font-text-toast-message-family);
+  font-size: var(--sc-font-text-toast-message-size);
+  font-weight: var(--sc-font-text-toast-message-weight);
+  line-height: var(--sc-font-text-toast-message-line-height);
+  letter-spacing: var(--sc-font-text-toast-message-letter-spacing);
+  overflow-wrap: break-word;
+  /* Two lines max (Levi, 2026-10-10); the clamp is visual, the whole
+     message is still read out. */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: var(--sc-size-toast-lines);
+  line-clamp: var(--sc-size-toast-lines);
+  overflow: hidden;
+}
+
+/* The tone word leads the message for assistive tech only. */
+.srOnly {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+/* --- Dismiss: five states ----------------------------------------- */
+/* It sits on the plate's top-right corner, out of the flow (Figma layout
+   35:9): 18 above the top edge, 20 past the end edge. A floating region
+   leaves that much room above and to the end of each toast. */
+.dismiss {
+  position: absolute;
+  inset-block-start: calc(-1 * var(--sc-size-toast-dismiss-offset-block));
+  inset-inline-end: calc(-1 * var(--sc-size-toast-dismiss-offset-inline));
+  display: grid;
+  place-items: center;
+  inline-size: var(--sc-size-toast-dismiss);
+  block-size: var(--sc-size-toast-dismiss);
+  padding: 0;
+  border: 0;
+  border-radius: var(--sc-radius-toast-dismiss);
+  background-color: var(--sc-color-toast-dismiss-surface);
+  color: var(--sc-color-toast-dismiss-ink);
+  cursor: pointer;
+  transition: transform var(--sc-motion-press-release-duration) var(--sc-motion-press-release-easing);
+}
+/* Hit slop: a 44px target around the 32px circle, not drawn. */
+.dismiss::before {
+  content: '';
+  position: absolute;
+  inset: calc(-1 * var(--sc-size-toast-dismiss-slop));
+  border-radius: inherit;
+}
+.dismiss:hover:not(:disabled) {
+  background-color: var(--sc-color-toast-dismiss-hover);
+  color: var(--sc-color-toast-dismiss-ink-hover);
+}
+.dismiss:focus-visible {
+  outline: var(--sc-border-width-focus) solid var(--sc-color-border-focus);
+  outline-offset: var(--sc-border-focus-offset);
+}
+.dismiss:active:not(:disabled) {
+  background-color: var(--sc-color-toast-dismiss-hover);
+  color: var(--sc-color-toast-dismiss-ink-hover);
+  transform: scale(var(--sc-motion-press-scale));
+  transition-duration: var(--sc-motion-press-duration);
+  transition-timing-function: var(--sc-motion-press-easing);
+}
+/* Disabled is flat (directive 5): no hover ground, no press. */
+.dismiss:disabled {
+  color: var(--sc-color-toast-dismiss-ink-disabled);
+  cursor: not-allowed;
+}
+
+.x {
+  inline-size: var(--sc-size-toast-dismiss-icon);
+  block-size: var(--sc-size-toast-dismiss-icon);
+}
+
+/* --- Reduced motion: the rise and the press go. The fade stays; where
+   the SCDS reset is loaded it shortens every transition, so the toast
+   appears and leaves at once. Either way nothing moves. --------- */
+@media (prefers-reduced-motion: reduce) {
+  .floating { transition: opacity var(--sc-motion-toast-travel-duration) linear; }
+  .floating[data-state='enter'],
+  .floating[data-state='exit'] { transform: none; }
+  .dismiss { transition: none; }
+  .dismiss:active:not(:disabled) { transform: none; }
+}
+
+/* --- Forced colors: fills and the shadow drop, so edges carry the shapes.
+   The plate, the badge and the dismiss button each draw a system edge; the
+   badge glyph and the x take the system text colours. */
+@media (forced-colors: active) {
+  .toast {
+    outline: var(--sc-border-width-default) solid CanvasText;
+    outline-offset: calc(-1 * var(--sc-border-width-default));
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+  .badge {
+    outline: var(--sc-border-width-default) solid CanvasText;
+    color: CanvasText;
+  }
+  .dismiss {
+    outline: var(--sc-border-width-default) solid ButtonBorder;
+    color: ButtonText;
+  }
+  .dismiss:focus-visible { outline: var(--sc-border-width-focus) solid Highlight; }
+  .dismiss:disabled { color: GrayText; outline-color: GrayText; }
+}

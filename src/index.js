@@ -19,7 +19,6 @@
  * (see scripts/tokens-to-css.mjs). Never hand-edit it, here or downstream.
  */
 
-export { Alert } from './components/Alert/Alert.jsx';
 export { Avatar } from './components/Avatar/Avatar.jsx';
 export { Button } from './components/Button/Button.jsx';
 export { Card } from './components/Card/Card.jsx';
@@ -33,6 +32,7 @@ export { Slider } from './components/Slider/Slider.jsx';
 export { StatusPill } from './components/StatusPill/StatusPill.jsx';
 export { Stepper } from './components/Stepper/Stepper.jsx';
 export { Switch } from './components/Switch/Switch.jsx';
+export { Toast } from './components/Toast/Toast.jsx';
 export { Tooltip } from './components/Tooltip/Tooltip.jsx';
 export { TypographySpecimen } from './components/TypographySpecimen/TypographySpecimen.jsx';
 export { WorkingMark } from './components/WorkingMark/WorkingMark.jsx';
