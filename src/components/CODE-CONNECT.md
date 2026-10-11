@@ -55,7 +55,7 @@ that needs the real node URLs.
 | Component | Mapping file | Status |
 | --- | --- | --- |
 | Button | `Button/Button.figma.tsx` | ✅ code wired 1:1 · ✅ Figma node-id + prop names confirmed (2026-09-11) · publish still plan-gated |
-| Toast | `Toast/Toast.figma.tsx` (`9:897`) | ☑ code wired (Tone, Glyph) · Figma set 6 variants (2026-10-10) · publish plan-gated |
+| Toast | `Toast/Toast.figma.tsx` (`9:897`) | ☑ code wired (Tone, Glyph, Placement, Surface) · Figma set 32 variants (2026-10-10) · publish plan-gated |
 | Avatar | `556:1738` | ☐ TODO |
 | StatusPill | `9:767` | ☐ TODO |
 | Card | — | ☐ TODO |

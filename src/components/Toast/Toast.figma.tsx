@@ -7,18 +7,15 @@ import { Toast } from './Toast'
  *
  * Figma side read 2026-10-08 (stages/03-build/physical-controls/output/
  * toast-spec-from-figma.md): library file `0zVoxaLJQkjHENYJlQk1VT`, page
- * `24:7` → component set `9:897` (6 variants since 2026-10-10).
+ * `24:7` → component set `9:897` (32 variants since 2026-10-10).
  *
- *   Tone   VARIANT   Success | Error | Info
- *   Glyph  VARIANT   Outline | Fill (added 2026-10-10: Phosphor bold or fill)
+ *   Tone       VARIANT   Success | Error | Warning | Info
+ *   Glyph      VARIANT   Outline | Fill (Phosphor bold or fill)
+ *   Placement  VARIANT   Floating | Inline
+ *   Surface    VARIANT   Flat | Glass
  *
- * Code props with no Figma counterpart, unmapped:
- *
- *   • `tone="warning"` — the set has no Warning variant (the tone came from
- *     Alert). Error is error red on both sides (Levi, 2026-10-10).
- *   • `placement="inline"` — the set draws the floating toast only, so the
- *     example renders `placement="floating"`.
- *   • `autoDismiss`, `onDismiss`, `dismissDisabled` — behaviour, not design.
+ * Every code prop that shapes the design has a Figma axis (Levi, 2026-10-10).
+ * Behaviour props stay unmapped: `autoDismiss`, `onDismiss`, `dismissDisabled`.
  *
  * The message is a text layer, not a component property, so the example
  * carries a placeholder. Publishing stays plan-gated (see ../CODE-CONNECT.md);
@@ -29,10 +26,11 @@ figma.connect(
   'https://www.figma.com/design/0zVoxaLJQkjHENYJlQk1VT/SCDS?node-id=9-897',
   {
     props: {
-      // Figma "Tone" → Toast.jsx TONES. `warning` is code-only.
+      // Figma "Tone" → Toast.jsx TONES.
       tone: figma.enum('Tone', {
         Success: 'success',
         Error: 'error',
+        Warning: 'warning',
         Info: 'info',
       }),
       // Figma "Glyph" → Toast.jsx glyph.
@@ -40,9 +38,17 @@ figma.connect(
         Outline: 'outline',
         Fill: 'fill',
       }),
+      placement: figma.enum('Placement', {
+        Floating: 'floating',
+        Inline: 'inline',
+      }),
+      surface: figma.enum('Surface', {
+        Flat: 'flat',
+        Glass: 'glass',
+      }),
     },
-    example: ({ tone, glyph }) => (
-      <Toast tone={tone} glyph={glyph} placement="floating" onDismiss={() => {}}>
+    example: ({ tone, glyph, placement, surface }) => (
+      <Toast tone={tone} glyph={glyph} placement={placement} surface={surface} onDismiss={() => {}}>
         Changes saved.
       </Toast>
     ),
