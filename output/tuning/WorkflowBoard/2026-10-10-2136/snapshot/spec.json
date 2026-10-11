@@ -1,0 +1,198 @@
+{
+  "tool": "sc-tune",
+  "version": 3,
+  "component": "WorkflowBoard",
+  "kind": "component",
+  "recorded": "2026-10-11T03:36:22.177Z",
+  "theme": "dark",
+  "notes": "",
+  "pick": {
+    "concept": "C",
+    "reason": "Levi, 2026-10-10: \"go with C, add an cinematic entrance animation that makes sense from left to right, record my settings\". Recorded as it is: no token changed."
+  },
+  "concepts": [
+    {
+      "id": "A",
+      "notes": "Pipeline (reference 1, the CI graph): status chips with a glyph, rounded connectors, the travelled path lit in signal yellow, branch labels as pills on the line, return paths dashed.",
+      "props": {
+        "look": "A · Pipeline",
+        "workflow": "Sprint unit",
+        "run": "sample",
+        "hover": "none"
+      },
+      "sound": {
+        "file": null,
+        "volume": 0.7,
+        "rate": 1,
+        "shipped": null,
+        "trigger": "ships silent"
+      },
+      "tokens": [],
+      "pins": {}
+    },
+    {
+      "id": "B",
+      "notes": "Swimlane (reference 3, the ride flow): each actor a band with its name turned, a faint grid, handoffs between lanes dashed with an event chip, arrowheads, the step now in the accent.",
+      "props": {
+        "look": "B · Swimlane",
+        "workflow": "Sprint unit",
+        "run": "sample",
+        "hover": "none"
+      },
+      "sound": {
+        "file": null,
+        "volume": 0.7,
+        "rate": 1,
+        "shipped": null,
+        "trigger": "ships silent"
+      },
+      "tokens": [],
+      "pins": {}
+    },
+    {
+      "id": "C",
+      "notes": "Signal (reference 4): one line of round nodes, the actor as the glyph, the flow as a chevron trail lit up to the step now, branches as dashed arcs above, the title as a chip under each node.",
+      "props": {
+        "look": "C · Signal",
+        "workflow": "Sprint unit",
+        "run": "sample",
+        "hover": "none"
+      },
+      "sound": {
+        "file": null,
+        "volume": 0.7,
+        "rate": 1,
+        "shipped": null,
+        "trigger": "ships silent"
+      },
+      "tokens": [],
+      "pins": {}
+    }
+  ],
+  "derived": {
+    "--wm-beat": "0px",
+    "--wm-loops": "0px",
+    "--wm-pulse-floor": "0px",
+    "--wm-shimmer": "0px"
+  },
+  "tokenCount": 59,
+  "state": {
+    "component": "WorkflowBoard",
+    "notes": "",
+    "active": "C",
+    "concepts": [
+      {
+        "id": "A",
+        "overrides": {
+          "all": {},
+          "light": {},
+          "dark": {}
+        },
+        "origin": {
+          "all": {},
+          "light": {},
+          "dark": {}
+        },
+        "shadowAdj": {
+          "all": {},
+          "light": {},
+          "dark": {}
+        },
+        "springs": {},
+        "pins": {},
+        "notes": "Pipeline (reference 1, the CI graph): status chips with a glyph, rounded connectors, the travelled path lit in signal yellow, branch labels as pills on the line, return paths dashed.",
+        "props": {
+          "look": "A · Pipeline",
+          "workflow": "Sprint unit",
+          "run": "sample",
+          "hover": "none"
+        },
+        "sound": {
+          "file": null,
+          "volume": 0.7,
+          "rate": 1
+        }
+      },
+      {
+        "id": "B",
+        "overrides": {
+          "all": {},
+          "light": {},
+          "dark": {}
+        },
+        "origin": {
+          "all": {},
+          "light": {},
+          "dark": {}
+        },
+        "shadowAdj": {
+          "all": {},
+          "light": {},
+          "dark": {}
+        },
+        "springs": {},
+        "pins": {},
+        "notes": "Swimlane (reference 3, the ride flow): each actor a band with its name turned, a faint grid, handoffs between lanes dashed with an event chip, arrowheads, the step now in the accent.",
+        "props": {
+          "look": "B · Swimlane",
+          "workflow": "Sprint unit",
+          "run": "sample",
+          "hover": "none"
+        },
+        "sound": {
+          "file": null,
+          "volume": 0.7,
+          "rate": 1
+        }
+      },
+      {
+        "id": "C",
+        "overrides": {
+          "all": {},
+          "light": {},
+          "dark": {}
+        },
+        "origin": {
+          "all": {},
+          "light": {},
+          "dark": {}
+        },
+        "shadowAdj": {
+          "all": {},
+          "light": {},
+          "dark": {}
+        },
+        "springs": {},
+        "pins": {},
+        "notes": "Signal (reference 4): one line of round nodes, the actor as the glyph, the flow as a chevron trail lit up to the step now, branches as dashed arcs above, the title as a chip under each node.",
+        "props": {
+          "look": "C · Signal",
+          "workflow": "Sprint unit",
+          "run": "sample",
+          "hover": "none"
+        },
+        "sound": {
+          "file": null,
+          "volume": 0.7,
+          "rate": 1
+        }
+      }
+    ],
+    "pick": {
+      "id": "C",
+      "reason": "Levi, 2026-10-10: \"go with C, add an cinematic entrance animation that makes sense from left to right, record my settings\". Recorded as it is: no token changed."
+    },
+    "view": {
+      "theme": "dark",
+      "zoom": 1,
+      "ground": "--sc-color-surface-page",
+      "compare": true,
+      "blind": false,
+      "order": null,
+      "slow": 1,
+      "collapsed": {},
+      "panelWidth": 34
+    },
+    "updated": "2026-10-11T03:36:10.973Z"
+  }
+}
