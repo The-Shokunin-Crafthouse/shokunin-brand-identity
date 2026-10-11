@@ -1640,7 +1640,10 @@
           "$value": "{space.12}",
           "$description": "2026-10-08 \u00b7 StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis, the label written by the consumer; physical-controls Tier 2). Inline padding, both sides, every pill (Levi 2026-10-08: 12px each side, after 8px; the library had 16px).",
           "$extensions": { "modes": { "light": "{space.12}", "dark": "{space.12}" } }
-        }
+        },
+        "segmented-control-sm": { "$type": "dimension", "$value": "{space.component.padding-inline.sm}", "$description": "2026-10-10 \u00b7 SegmentedControl (physical-controls Tier 1; CONTEXT finding 5). Segment inline padding, size sm. = padding-inline.sm (6px). Its own role so a tune never moves the NavBar, Input, Tooltip and docs chrome that share the scale. Shipped equal to today (record SegmentedControl 2026-10-07-1645 did not tune padding).", "$extensions": { "modes": { "light": "{space.component.padding-inline.sm}", "dark": "{space.component.padding-inline.sm}" } } },
+        "segmented-control": { "$type": "dimension", "$value": "{space.component.padding-inline.md}", "$description": "2026-10-10 \u00b7 SegmentedControl (physical-controls Tier 1; CONTEXT finding 5). Segment inline padding, size md (the default). = padding-inline.md (12px). Its own role so a tune never moves the NavBar, Input, Tooltip and docs chrome that share the scale. Shipped equal to today (record SegmentedControl 2026-10-07-1645 did not tune padding).", "$extensions": { "modes": { "light": "{space.component.padding-inline.md}", "dark": "{space.component.padding-inline.md}" } } },
+        "segmented-control-lg": { "$type": "dimension", "$value": "{space.component.padding-inline.lg}", "$description": "2026-10-10 \u00b7 SegmentedControl (physical-controls Tier 1; CONTEXT finding 5). Segment inline padding, size lg (the tab-header segment). = padding-inline.lg (16px). Its own role so a tune never moves the NavBar, Input, Tooltip and docs chrome that share the scale. Shipped equal to today (record SegmentedControl 2026-10-07-1645 did not tune padding).", "$extensions": { "modes": { "light": "{space.component.padding-inline.lg}", "dark": "{space.component.padding-inline.lg}" } } }
       },
       "padding-block": {
         "sm": {
@@ -1685,7 +1688,10 @@
           "$value": "{space.4}",
           "$description": "2026-10-08 \u00b7 StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis, the label written by the consumer; physical-controls Tier 2). Block padding (Levi 2026-10-08: vertical 4 to 8, read as the top and bottom together, 4px each; the library had 2px): a 24.5px pill with the 11px chrome label.",
           "$extensions": { "modes": { "light": "{space.4}", "dark": "{space.4}" } }
-        }
+        },
+        "segmented-control-sm": { "$type": "dimension", "$value": "{space.component.padding-block.sm}", "$description": "2026-10-10 \u00b7 SegmentedControl (physical-controls Tier 1; CONTEXT finding 5). Segment block padding, size sm. = padding-block.sm (2px). Its own role so a tune never moves the NavBar, Input, Tooltip and docs chrome that share the scale. Shipped equal to today (record SegmentedControl 2026-10-07-1645 did not tune padding).", "$extensions": { "modes": { "light": "{space.component.padding-block.sm}", "dark": "{space.component.padding-block.sm}" } } },
+        "segmented-control": { "$type": "dimension", "$value": "{space.component.padding-block.md}", "$description": "2026-10-10 \u00b7 SegmentedControl (physical-controls Tier 1; CONTEXT finding 5). Segment block padding, size md (the default). = padding-block.md (8px). Its own role so a tune never moves the NavBar, Input, Tooltip and docs chrome that share the scale. Shipped equal to today (record SegmentedControl 2026-10-07-1645 did not tune padding).", "$extensions": { "modes": { "light": "{space.component.padding-block.md}", "dark": "{space.component.padding-block.md}" } } },
+        "segmented-control-lg": { "$type": "dimension", "$value": "{space.component.padding-block.md}", "$description": "2026-10-10 \u00b7 SegmentedControl (physical-controls Tier 1; CONTEXT finding 5). Segment block padding, size lg (the tab-header segment). = padding-block.md (8px). Its own role so a tune never moves the NavBar, Input, Tooltip and docs chrome that share the scale. Shipped equal to today (record SegmentedControl 2026-10-07-1645 did not tune padding).", "$extensions": { "modes": { "light": "{space.component.padding-block.md}", "dark": "{space.component.padding-block.md}" } } }
       },
       "gap": {
         "sm": {

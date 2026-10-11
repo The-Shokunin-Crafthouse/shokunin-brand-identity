@@ -171,8 +171,8 @@ public enum SCDS {
     public static let semanticVersion = "0.1.0"
     public static let sourceGenerated = "2026-05-26"
     public static let primitivesHash = "91c76a72c4dcc85e"
-    public static let semanticHash = "d333fbae5200d799"
-    public static let tokenCount = 371
+    public static let semanticHash = "3fd65e9f22658d5a"
+    public static let tokenCount = 377
   }
 
   // MARK: - Color
@@ -1319,6 +1319,15 @@ public enum SCDS {
     /// `space.component.padding-inline.status-pill`
     public static let componentPaddingInlineStatusPill: CGFloat = 12
 
+    /// `space.component.padding-inline.segmented-control-sm`
+    public static let componentPaddingInlineSegmentedControlSm: CGFloat = 6
+
+    /// `space.component.padding-inline.segmented-control`
+    public static let componentPaddingInlineSegmentedControl: CGFloat = 12
+
+    /// `space.component.padding-inline.segmented-control-lg`
+    public static let componentPaddingInlineSegmentedControlLg: CGFloat = 16
+
     /// `space.component.padding-block.sm`
     public static let componentPaddingBlockSm: CGFloat = 2
 
@@ -1342,6 +1351,15 @@ public enum SCDS {
 
     /// `space.component.padding-block.status-pill`
     public static let componentPaddingBlockStatusPill: CGFloat = 4
+
+    /// `space.component.padding-block.segmented-control-sm`
+    public static let componentPaddingBlockSegmentedControlSm: CGFloat = 2
+
+    /// `space.component.padding-block.segmented-control`
+    public static let componentPaddingBlockSegmentedControl: CGFloat = 8
+
+    /// `space.component.padding-block.segmented-control-lg`
+    public static let componentPaddingBlockSegmentedControlLg: CGFloat = 8
 
     /// `space.component.gap.sm`
     public static let componentGapSm: CGFloat = 4

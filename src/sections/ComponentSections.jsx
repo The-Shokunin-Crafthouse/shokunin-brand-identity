@@ -773,12 +773,13 @@ export function SegmentedControlPage() {
         { name: 'Selected · middle', token: '--sc-radius-pill', render: <SegmentedControlDemo defaultValue="week" /> },
         { name: 'Hover (hover a segment)', token: '--sc-color-text-primary', render: <SegmentedControlDemo defaultValue="month" /> },
         { name: 'Focus (tab to a segment)', token: '--sc-color-border-focus', render: <SegmentedControlDemo defaultValue="day" /> },
+        { name: 'Active (hold a segment)', token: '--sc-motion-press-scale', render: <SegmentedControlDemo defaultValue="week" /> },
         { name: 'Disabled', token: '--sc-color-text-disabled', render: <SegmentedControlDemo defaultValue="week" disabled /> },
         { name: 'Large · with counts', token: '--sc-font-text-label-tab', render: <SegmentedControlDemo defaultValue="waiting" options={ON_YOU_OPTIONS} size="lg" /> },
       ]}
       tokenRows={[
-        { prop: 'Track ground', token: '--sc-color-surface-sunk' },
-        { prop: 'Selected fill', token: '--sc-color-surface-floating' },
+        { prop: 'Track ground', token: '--sc-color-segmented-control-track' },
+        { prop: 'Selected fill', token: '--sc-color-segmented-control-indicator' },
         { prop: 'Unselected text', token: '--sc-color-text-secondary' },
         { prop: 'Selected text', token: '--sc-color-text-primary' },
         { prop: 'Disabled text', token: '--sc-color-text-disabled' },
@@ -786,10 +787,11 @@ export function SegmentedControlPage() {
         { prop: 'Radius', token: '--sc-radius-pill' },
         { prop: 'Segment gap', token: '--sc-space-component-gap-sm' },
         { prop: 'Track inset', token: '--sc-space-component-padding-sm' },
-        { prop: 'Segment inline padding', token: '--sc-space-component-padding-inline-md' },
-        { prop: 'Segment block padding', token: '--sc-space-component-padding-block-md' },
+        { prop: 'Segment inline padding', token: '--sc-space-component-padding-inline-segmented-control', light: '12px · sm 6 · lg 16' },
+        { prop: 'Segment block padding', token: '--sc-space-component-padding-block-segmented-control', light: '8px · sm 2 · lg 8' },
         { prop: 'Label type', token: '--sc-font-text-body-dense', light: '14 / regular' },
-        { prop: 'Indicator motion', token: '--sc-motion-reveal-duration', light: '200ms · quint-out' },
+        { prop: 'Indicator motion', token: '--sc-motion-segmented-control-travel-duration', light: '600ms · spring, 3% overshoot' },
+        { prop: 'Press', token: '--sc-motion-press-scale', light: '0.985 · 160ms in, 220ms spring-out' },
       ]}
       rulesTitle="Four rules for a selector that never argues with a border."
       rules={[
