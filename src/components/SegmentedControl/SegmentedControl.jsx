@@ -4,9 +4,9 @@
  * One-of-N selection. `radiogroup` + `radio` semantics with roving
  * tabindex and arrow-key navigation (WAI-ARIA radio-group pattern) — an
  * arrow key both moves focus AND selects, matching native radio-group
- * behaviour. A sliding indicator (fill-only elevation — no border, no
- * shadow) tracks the selected segment via measured layout, not a fixed
- * per-option width.
+ * behaviour. A sliding indicator (a key in a recessed track, record
+ * 2026-10-07-1645; no border) tracks the selected segment via measured
+ * layout, not a fixed per-option width.
  *
  * API: options: [{ value, label, count? }], value, onChange, disabled, label
  * (aria-label for the group), size ('sm' | 'md' | 'lg', default 'md').

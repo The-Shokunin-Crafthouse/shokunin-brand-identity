@@ -8,8 +8,8 @@ Role tokens: `color.segmentedControl.*`, `shadow.segmentedControl.*` and `motion
 
 | Token | Use |
 |---|---|
-| `--sc-color-surface-sunk` | track ground |
-| `--sc-color-surface-floating` | selected-segment fill — the "raised" surface, used here for **fill-only elevation** (no border, no shadow, per the spec) |
+| `--sc-color-segmented-control-track` | track ground (role token, = `surface.sunk`), recessed by `--sc-shadow-segmented-control-track` |
+| `--sc-color-segmented-control-indicator` | selected-segment fill (role token, = `surface.floating`), lifted as a key by `--sc-shadow-segmented-control-indicator` with the 135deg face `--sc-color-segmented-control-indicator-shade`. No border |
 | `--sc-color-text-secondary` | unselected segment label |
 | `--sc-color-text-primary` | selected segment label (ink) |
 | `--sc-color-text-disabled` | disabled segment label |
