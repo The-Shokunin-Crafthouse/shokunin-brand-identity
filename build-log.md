@@ -23,3 +23,25 @@
 - Three display TextStyles remain stale in Figma pending hand-edit in the desktop app (font-load block).
 
 **Learnings:** three Tier-1 entries appended to `LEARNINGS.md` (2026-06-07, retroactive).
+
+---
+
+## Sprint physical-controls (closed 2026-10-10; logged by sc-learn)
+
+**What was built** (feat/physical-controls-2 to -9, PRs through #99; close on feat/physical-controls-10)
+- Material layer: one light from the top left, graded by `scripts/verify-light.mjs` inside `tokens:verify`; `shadow.control.bevel` retired; forced-colors edges and no box-shadow transitions on every control.
+- Tier 1: SegmentedControl, Stepper, Slider (split from ProgressIndicator) and Input, each from an sc-tune record.
+- Tier 2: Card (flat plus three glass levels in two tones), Tooltip, StatusPill (Badge and Pill folded in), Avatar (kept flat), Toast (Alert folded in), synced to the Figma library.
+- At close: spring easings keep a bezier fallback (`tokens-to-css` `@supports`), tests red first.
+
+**Key decisions** (see `decisions/decisions.md`)
+- 2026-10-07: physical-controls Gate 1 picks (Levi)
+- 2026-10-07 to 2026-10-10: one "record applied (procedure D)" entry per component
+- 2026-10-10: spring easings keep a bezier fallback
+- 2026-10-10: physical-controls sprint closed; NavBar carried to the next sprint (retrospective)
+
+**Problems / resolutions**
+- Six seeds that invented an element were reworked; seeds reusing the Button key were picked (learning promoted as studio #282).
+- Evaluator (Fable): 9 pass, 5 logged gap, 2 fail, 1 not run. The spring fallback fail is fixed; the Slider thumb light-mode contrast (2.39:1 on the track) is open for Levi.
+
+**Learnings:** two Tier-1 entries appended to `LEARNINGS.md` (2026-10-10).
