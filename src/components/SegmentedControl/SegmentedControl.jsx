@@ -19,7 +19,12 @@
  *
  * Elastic motion (src/motion/elastic.js, tokens --sc-motion-segmented-control-*):
  * the indicator stretches with speed and leans toward a pressed segment.
- * Shipped, those tokens are 0 and the CSS transition slides it as before.
+ * Record 2026-10-07-1645 tuned them (stretch 0.45, squash 0.2, lean 0.15).
+ *
+ * Press (CSS, SegmentedControl.module.css): the pressed segment's label takes
+ * the shared press scale; pressing the selected segment scales the indicator
+ * with it (`scale`, origin at --segment-indicator-x, set below), pressing
+ * another leans it instead. Reduced motion drops both.
  */
 
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
