@@ -277,21 +277,19 @@
 /* ---------- C · the entrance ----------
    Cinematic Direction's rack focus (the shell's TileEntrance: out of focus,
    a little back, coming sharp), read left to right. One stagger is a fifth of
-   a cut, the Dashboard's own; --at and --span are counted in staggers, set
-   per element from JS. --wb-slow is the lab's slow motion. */
-.entering {
-  --wb-stagger: calc(var(--sc-motion-cut-duration) / 5 * var(--wb-slow, 1));
-  --wb-entrance: calc(var(--sc-motion-entrance-duration) * var(--wb-slow, 1));
-}
+   a cut, the Dashboard's own; --at and --span are counted in staggers and
+   --wb-slow is the lab's slow motion, all three set inline from JS. The calc
+   is written out on each rule, not held in a custom property, so the lab
+   reads the motion tokens themselves. */
 .enterNode {
-  animation: wbRack var(--wb-entrance) var(--sc-motion-entrance-easing) both;
-  animation-delay: calc(var(--at) * var(--wb-stagger));
+  animation: wbRack calc(var(--sc-motion-entrance-duration) * var(--wb-slow, 1)) var(--sc-motion-entrance-easing) both;
+  animation-delay: calc(var(--at) * var(--sc-motion-cut-duration) / 5 * var(--wb-slow, 1));
 }
 .enterChevron {
   transform-box: fill-box;
   transform-origin: center;
   animation: wbChevron calc(var(--sc-motion-hover-duration) * var(--wb-slow, 1)) var(--sc-motion-hover-easing) both;
-  animation-delay: calc(var(--at) * var(--wb-stagger));
+  animation-delay: calc(var(--at) * var(--sc-motion-cut-duration) / 5 * var(--wb-slow, 1));
 }
 .arcReveal {
   fill: none;
@@ -299,12 +297,12 @@
   stroke-width: var(--sc-space-component-gap-md);
   stroke-dasharray: 1;
   stroke-dashoffset: 1;
-  animation: wbDraw calc(var(--span) * var(--wb-stagger)) var(--sc-motion-entrance-easing) forwards;
-  animation-delay: calc(var(--at) * var(--wb-stagger));
+  animation: wbDraw calc(var(--span) * var(--sc-motion-cut-duration) / 5 * var(--wb-slow, 1)) var(--sc-motion-entrance-easing) forwards;
+  animation-delay: calc(var(--at) * var(--sc-motion-cut-duration) / 5 * var(--wb-slow, 1));
 }
 .enterFade {
-  animation: wbFade var(--wb-entrance) var(--sc-motion-entrance-easing) both;
-  animation-delay: calc(var(--at) * var(--wb-stagger));
+  animation: wbFade calc(var(--sc-motion-entrance-duration) * var(--wb-slow, 1)) var(--sc-motion-entrance-easing) both;
+  animation-delay: calc(var(--at) * var(--sc-motion-cut-duration) / 5 * var(--wb-slow, 1));
 }
 @keyframes wbRack {
   from {

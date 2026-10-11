@@ -295,7 +295,7 @@ function Signal({ m, hover, setHover, slow = 1 }) {
     ));
   };
   return (
-    <Frame height={height} m={m} hover={hover} g={{ card: (i) => ({ x: cx(i) - colW / 2 + 4, y: cy + node / 2 + 8, w: colW - 8, h: 40 }) }} grid soft style={{ '--wb-slow': slow }} entering>
+    <Frame height={height} m={m} hover={hover} g={{ card: (i) => ({ x: cx(i) - colW / 2 + 4, y: cy + node / 2 + 8, w: colW - 8, h: 40 }) }} grid soft style={{ '--wb-slow': slow }}>
       <svg className={s.svg} width={W} height={height} aria-hidden="true">
         {m.edges.map((e, k) => {
           if (!e.rail) return <g key={k}>{chevrons(X(e.from) + node / 2, X(e.to) - (e.to >= m.n ? 0 : node / 2), e.travelled, e.from)}</g>;
@@ -339,10 +339,10 @@ function Signal({ m, hover, setHover, slow = 1 }) {
 
 /* ---------- shared parts ---------- */
 
-function Frame({ height, m, hover, g, grid, soft, style, entering, children }) {
+function Frame({ height, m, hover, g, grid, soft, style, children }) {
   const f = hover != null && hover < m.n ? g.card(hover) : null;
   return (
-    <div className={`${s.board} ${grid ? (soft ? s.gridSoft : s.grid) : ''} ${entering ? s.entering : ''}`} style={{ width: W, height: height + (f ? 220 : 0), ...style }}>
+    <div className={`${s.board} ${grid ? (soft ? s.gridSoft : s.grid) : ''}`} style={{ width: W, height: height + (f ? 220 : 0), ...style }}>
       {children}
       {f && <Panel m={m} i={hover} x={f.x} y={f.y + f.h + 10} />}
     </div>
