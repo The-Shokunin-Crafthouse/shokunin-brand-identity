@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { ProgressIndicator } from '@the-shokunin-crafthouse/scds';
 
 export const Bar = () => (
@@ -10,21 +9,6 @@ export const Bar = () => (
 export const Circular = () => <ProgressIndicator variant="circular" value={0.7} label="70 percent" />;
 
 export const Step = () => <ProgressIndicator variant="step" steps={4} current={2} />;
-
-export const InteractiveBar = () => {
-  const [value, setValue] = useState(0.3);
-  return (
-    <div style={{ width: 320 }}>
-      <ProgressIndicator variant="bar" interactive value={value} onChange={setValue} label="Volume" />
-    </div>
-  );
-};
-
-export const InteractiveDisabled = () => (
-  <div style={{ width: 320 }}>
-    <ProgressIndicator variant="bar" interactive value={0.4} disabled label="Volume, disabled" />
-  </div>
-);
 
 export const Tones = () => (
   <div style={{ width: 320, display: 'grid', gap: 'var(--sc-space-layout-stack-sm)', background: 'var(--sc-color-surface-raised)', borderRadius: 'var(--sc-radius-surface)', padding: 'var(--sc-space-layout-inset-md)' }}>

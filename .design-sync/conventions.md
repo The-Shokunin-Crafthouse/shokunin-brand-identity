@@ -7,7 +7,7 @@ No provider is required. Load `styles.css` and `_ds_bundle.js`; every component 
 - `styles.css` also applies the system reset: `body` takes the page surface, primary text colour and the brand sans; `button` is unstyled; `p`, `h1`-`h6`, `ul` have no margin. Do not add another reset.
 - Dark mode: set `data-theme="dark"` on `<html>`. Every `--sc-*` token re-resolves. `SCDS.ThemeProvider` does this for you (it reads the OS preference, persists the choice) and `SCDS.useTheme()` returns `{ theme, toggle, setTheme }`. Never hard-code a colour per mode.
 - Icons are Phosphor. Every glyph is on the same global: `<SCDS.Icon glyph={SCDS.Gear} size="md" />`. A glyph name that does not exist renders nothing, so use real Phosphor names (`MagnifyingGlass`, `ArrowRight`, `Bell`, `CheckCircle`, `Plus`, `Minus`).
-- `Switch`, `SegmentedControl`, `Stepper` and the interactive `ProgressIndicator` are controlled. Hold their value in `useState` and pass `onChange`, or they will not move.
+- `Switch`, `SegmentedControl`, `Stepper` and `Slider` are controlled. Hold their value in `useState` and pass `onChange`, or they will not move. `ProgressIndicator` is a read-only meter; a value the user sets is a `Slider`.
 
 ## Styling your own layout
 

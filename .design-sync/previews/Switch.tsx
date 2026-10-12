@@ -16,3 +16,10 @@ export const Disabled = () => (
     <Switch disabled checked onChange={() => {}} label="Locked on" />
   </div>
 );
+
+export const NoGlyphs = () => (
+  <div style={{ display: 'grid', gap: 'var(--sc-space-layout-stack-sm)' }}>
+    <Switch checked glyphs={false} onChange={() => {}} label="Plain track, on" />
+    <Switch checked={false} glyphs={false} onChange={() => {}} label="Plain track, off" />
+  </div>
+);
