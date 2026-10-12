@@ -1,11 +1,24 @@
 import { Button, Card, Divider, Input, StatusPill } from '@the-shokunin-crafthouse/scds';
 
-export const Default = () => (
+const title = { font: 'var(--sc-font-text-title-card)', color: 'var(--sc-color-text-primary)', margin: 0 };
+const body = { font: 'var(--sc-font-text-body-dense)', color: 'var(--sc-color-text-secondary)', margin: 0 };
+
+// Glass bends what sits behind it, so its stories carry a backdrop, as the
+// brand site's Card page does.
+function GlassStage({ children }: { children: React.ReactNode }) {
+  return (
+    <div style={{ position: 'relative', display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0, 1fr))', gap: 'var(--sc-space-component-gap-lg)', padding: 'var(--sc-space-component-padding-md)', borderRadius: 'var(--sc-radius-card)', overflow: 'hidden', background: 'repeating-linear-gradient(135deg, var(--sc-color-atmosphere-celadon) 0 16px, var(--sc-color-atmosphere-river) 16px 32px)' }}>
+      {children}
+    </div>
+  );
+}
+
+export const Flat = () => (
   <div style={{ width: 320 }}>
     <Card>
       <div style={{ display: 'grid', gap: 'var(--sc-space-component-gap-md)' }}>
-        <p style={{ font: 'var(--sc-font-text-title-card)', color: 'var(--sc-color-text-primary)', margin: 0 }}>Token pipeline</p>
-        <p style={{ font: 'var(--sc-font-text-body-dense)', color: 'var(--sc-color-text-secondary)', margin: 0 }}>A set-in tile against the page. Fill alone separates it from the ground.</p>
+        <p style={title}>Token pipeline</p>
+        <p style={body}>The floating surface. No border, no shadow.</p>
       </div>
     </Card>
   </div>
@@ -13,23 +26,32 @@ export const Default = () => (
 
 export const Interactive = () => (
   <div style={{ width: 320 }}>
-    <Card variant="interactive" onClick={() => {}}>
+    <Card interactive onClick={() => {}}>
       <div style={{ display: 'grid', gap: 'var(--sc-space-component-gap-md)' }}>
-        <p style={{ font: 'var(--sc-font-text-title-card)', color: 'var(--sc-color-text-primary)', margin: 0 }}>Open the case study</p>
-        <p style={{ font: 'var(--sc-font-text-body-dense)', color: 'var(--sc-color-text-secondary)', margin: 0 }}>Renders a button. Hover or focus deepens the fill.</p>
+        <p style={title}>Open the case study</p>
+        <p style={body}>Renders a button. Hover or focus shifts the fill.</p>
       </div>
     </Card>
   </div>
 );
 
-export const Elevated = () => (
-  <div style={{ width: 360, padding: 'var(--sc-space-layout-inset-md)', background: 'var(--sc-color-surface-sunk)', borderRadius: 'var(--sc-radius-surface-large)' }}>
-    <Card variant="elevated">
-      <div style={{ display: 'grid', gap: 'var(--sc-space-component-gap-md)' }}>
-        <p style={{ font: 'var(--sc-font-text-title-card)', color: 'var(--sc-color-text-primary)', margin: 0 }}>Elevated</p>
-        <p style={{ font: 'var(--sc-font-text-body-dense)', color: 'var(--sc-color-text-secondary)', margin: 0 }}>Page ground, lifted by fill contrast against a sunk surround.</p>
-      </div>
-    </Card>
+export const GlassLight = () => (
+  <GlassStage>
+    <Card variant="glass" level="clear" tone="light"><p style={body}>Clear. Thin frost, a light bend.</p></Card>
+    <Card variant="glass" level="frosted" tone="light"><p style={body}>Frosted. The Figma Glass setting.</p></Card>
+    <Card variant="glass" level="thick" tone="light"><p style={body}>Thick. Heavy frost, the strongest bend.</p></Card>
+  </GlassStage>
+);
+
+// Dark glass sits behind light text, so this story renders in a dark-theme
+// subtree: the text tokens re-resolve to light ink there.
+export const GlassDark = () => (
+  <div data-theme="dark">
+  <GlassStage>
+    <Card variant="glass" level="clear" tone="dark"><p style={body}>Clear glass that darkens.</p></Card>
+    <Card variant="glass" level="frosted" tone="dark"><p style={body}>Frosted glass that darkens.</p></Card>
+    <Card variant="glass" level="thick" tone="dark"><p style={body}>Thick glass that darkens.</p></Card>
+  </GlassStage>
   </div>
 );
 
@@ -45,7 +67,7 @@ export const Composed = () => (
         <p style={{ font: 'var(--sc-font-text-body-dense)', color: 'var(--sc-color-text-secondary)' }}>
           They get read access to the project binder.
         </p>
-        <Input label="Email" placeholder="you@studio.com" />
+        <Input label="Email" placeholder="you@studio.com" surface="raised" />
         <Divider />
         <div style={{ display: 'flex', gap: 'var(--sc-space-component-gap-md)' }}>
           <Button variant="primary">Send invite</Button>
