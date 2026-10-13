@@ -14,7 +14,7 @@ template_version: "1.2.0"
 
 # Which learnings index this project's CLAUDE.md imports (template 1.2.0,
 # ADR-105 D3 amended 2026-09-25). Process learnings load globally.
-surface: "web"        # web | physical | process -- must match the CLAUDE.md import
+surface: "web-static" # web | web-static | physical | process -- must match the CLAUDE.md import (ADR-121)
 
 project:
   name: "Shokunin Brand Identity"
