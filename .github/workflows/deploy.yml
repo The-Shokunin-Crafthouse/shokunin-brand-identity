@@ -10,6 +10,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v5
+        with:
+          fetch-depth: 2
 
       - name: Setup Node
         uses: actions/setup-node@v5
@@ -71,8 +73,22 @@ jobs:
       # continue-on-error replaces the `if: vars.… != ''` gate the fallback era
       # relied on: a bad or missing credential must not turn a SUCCESSFUL deploy
       # red. The next step detects the empty token and warns instead.
+      # Only notify when the token source changed. Each dispatch starts a
+      # workflow in two PRIVATE repos, which spend Actions minutes, so a deploy
+      # that changed no tokens (a docs or page edit) must not fan out.
+      - name: Did the tokens change?
+        id: tokens
+        run: |
+          if git diff --name-only HEAD^ HEAD -- tokens scripts/tokens-to-css.mjs | grep -q .; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "No token files changed in this push; consumers not notified."
+          fi
+
       - name: Mint App token
         id: app-token
+        if: steps.tokens.outputs.changed == 'true'
         continue-on-error: true
         uses: actions/create-github-app-token@v2
         with:
@@ -84,6 +100,7 @@ jobs:
       # itself already succeeded by this point, and failing here would mark good
       # work red.
       - name: Notify consumers that tokens.css changed
+        if: steps.tokens.outputs.changed == 'true'
         env:
           TOKEN: ${{ steps.app-token.outputs.token }}
         run: |
