@@ -5,7 +5,7 @@
 # Design Token Map — The Shokunin Crafthouse · Brand Identity
 
 **Generated** from `tokens/primitives.json` + `tokens/semantic.json`.
-**Source fingerprint:** `b8223869407e` · **188 primitives · 377 semantic tokens.**
+**Source fingerprint:** `c496a58672eb` · **190 primitives · 378 semantic tokens.**
 
 > **This file is a mirror, not the source.** `tokens/*.json` is upstream; this document and the Figma
 > library are generated from / synced to it. It previously claimed the opposite — that both were
@@ -52,6 +52,7 @@ Pairs that fail WCAG AA and must not be used together. Generated from
 | `color/status/success-ink` | light | `color/surface/sunk`, `color/surface/deepSunk`, `color/surface/rail`, `color/surface/hover` | `color/text/primary` | Light: sunk 3.86:1, deepSunk/rail 2.44:1, hover 3.11:1 — every one below AA for the success hue. Dark cleared 2026-09-06 by the re-derivation to #3C9366, and again 2026-09-24 by the slate re-derivation to #6AC090 (4.64:1 worst case, deepSunk/floating); the reused status.success.dark it replaced read 4.37:1 on surface.deepSunk and surface.floating. |
 | `color/status/warning-ink` | light | `color/surface/sunk`, `color/surface/deepSunk`, `color/surface/rail`, `color/surface/hover` | `color/text/primary` | Light: sunk 3.73:1, deepSunk/rail 2.35:1, hover 3.00:1 — every one below AA for the warning hue. Dark cleared 2026-09-06 by the re-derivation to #DC5A33, and again 2026-09-24 by the slate re-derivation to #FE9374 (4.68:1 worst case, deepSunk/floating); the retired #D2512A read 4.34:1 on surface.raised and 4.10:1 on surface.deepSunk. |
 | `color/status/info-ink` | light | `color/surface/sunk`, `color/surface/deepSunk`, `color/surface/rail`, `color/surface/hover` | `color/text/primary` | Light: sunk 3.90:1, deepSunk/rail 2.46:1, hover 3.14:1 — every one below AA for the info hue. Dark cleared 2026-09-06 by the re-derivation to #517DF3, and again 2026-09-24 by the slate re-derivation to #8DAFFD (4.70:1 worst case, deepSunk/floating); the retired #4A74EA read 4.37:1 on surface.raised and 4.13:1 on surface.deepSunk. |
+| `color/status/error-ink` | light | `color/surface/deepSunk`, `color/surface/rail` | `color/text/primary` | Light: deepSunk/rail 4.19:1, below AA for the error hue; sunk 6.64:1 and hover 5.34:1 clear it. Dark: every surface clears AA with #FF9089 (4.66:1 worst case, deepSunk/floating); the fill #FE6B67 it replaces as text read 4.11:1 on surface.raised and 3.64:1 on surface.deepSunk. |
 | `color/brand/accentInk` | light | `color/surface/deepSunk`, `color/surface/rail`, `color/surface/hover` | `color/text/secondary` | Accent-as-text compresses below WCAG AA 4.5:1 in light on the low-contrast grounds — deepSunk/rail 2.97:1, hover 3.79:1. Dark (teal.200 since 2026-09-24) clears AA everywhere, lowest 5.99:1 on deepSunk/floating. |
 
 ---
@@ -116,6 +117,8 @@ primitives directly. Surfaced here for traceability.
 | `color/status/info/ink/dark` | `--sc-p-color-status-info-ink-dark` | `#8DAFFD` | Text-only tier, hue-locked to info (learning #56). |
 | `color/status/error/light` | `--sc-p-color-status-error-light` | `#7F1D1D` | Oxblood · error states on light ground · deep + serious, pulled deliberately off the brand band so brand-accent and danger can never be confused. |
 | `color/status/error/dark` | `--sc-p-color-status-error-dark` | `#FE6B67` | Lifted rose · error states on dark ground. |
+| `color/status/error/ink/light` | `--sc-p-color-status-error-ink-light` | `#7F1D1D` | Text-only tier, hue-locked to error (learning #56). |
+| `color/status/error/ink/dark` | `--sc-p-color-status-error-ink-dark` | `#FF9089` | Text-only tier, hue-locked to error (learning #56). |
 
 #### `color/signal`
 
@@ -518,11 +521,12 @@ channel-triplet primitives) rather than an alias to a single primitive.
 |---|---|---|---|---|---|---|
 | `color/status/success` | `--sc-color-status-success` | `color/status/success/light` | `#2F855A` | `color/status/success/dark` | `#57AD7F` | Success state · forest green on light, lifted green on dark. |
 | `color/status/warning` | `--sc-color-status-warning` | `color/status/warning/light` | `#C2410C` | `color/status/warning/dark` | `#F67751` | Warning state · burnt orange on light, lifted orange on dark. |
-| `color/status/error` | `--sc-color-status-error` | `color/status/error/light` | `#7F1D1D` | `color/status/error/dark` | `#FE6B67` | Error state · oxblood on light, lifted rose on dark (4.63:1 on dark surface.page, slate ladder 2026-09-24; below AA as text on dark raised/floating, no -ink tier yet). |
+| `color/status/error` | `--sc-color-status-error` | `color/status/error/light` | `#7F1D1D` | `color/status/error/dark` | `#FE6B67` | Error state · oxblood on light, lifted rose on dark. |
 | `color/status/info` | `--sc-color-status-info` | `color/status/info/light` | `#2D5AD8` | `color/status/info/dark` | `#709AFD` | Info state · royal blue on light, lifted blue on dark. |
 | `color/status/success-ink` | `--sc-color-status-success-ink` | `color/status/success/ink/light` | `#246E4A` | `color/status/success/ink/dark` | `#6AC090` | 2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier for status.success — use when rendered as body text, 4.64:1 (L) / 5.89:1 (D) on their respective page grounds. |
 | `color/status/warning-ink` | `--sc-color-status-warning-ink` | `color/status/warning/ink/light` | `#B13700` | `color/status/warning/ink/dark` | `#FE9374` | 2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier for status.warning — use when rendered as body text, 4.63:1 (L) / 5.94:1 (D) on their respective page grounds. |
 | `color/status/info-ink` | `--sc-color-status-info-ink` | `color/status/info/ink/light` | `#2B57D5` | `color/status/info/ink/dark` | `#8DAFFD` | 2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier for status.info — light mode reads status.info.ink.light since the 2026-10-07 oatmeal restore (4.61:1 on the #E3DFD8 page; the fill reads 4.43:1 there, so it reused status.info.light directly only while the page was #EBE7E4); dark mode gets a dedica… |
+| `color/status/error-ink` | `--sc-color-status-error-ink` | `color/status/error/ink/light` | `#7F1D1D` | `color/status/error/ink/dark` | `#FF9089` | 2026-10-17 (studio-pm ADR-136, option A; learning #56) · text-only tier for status.error — use when an error renders as text, 7.54:1 (L) / 5.92:1 (D) on their respective page grounds. |
 
 #### `color/signal`
 

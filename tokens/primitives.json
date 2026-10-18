@@ -226,7 +226,19 @@
         "dark": {
           "$type": "color",
           "$value": "#FE6B67",
-          "$description": "Lifted rose · error states on dark ground. Re-derived 2026-09-24 for the slate ladder (was #DD4C4C): hue held at 0°, lifted until it clears AA on the page. 4.63:1 on surfacePage, 5.53:1 on well; 4.11:1 on raised1 and 3.64:1 on raised2, so error TEXT on a dark card or floating surface is below AA (status.error has no -ink tier; decisions.md 2026-09-06 and 2026-09-24). History: the 2026-07-25 SCDS audit P0-4 replaced #732020 (1.79:1, unreadable)."
+          "$description": "Lifted rose · error states on dark ground. Re-derived 2026-09-24 for the slate ladder (was #DD4C4C): hue held at 0°, lifted until it clears AA on the page. 4.63:1 on surfacePage, 5.53:1 on well; 4.11:1 on raised1 and 3.64:1 on raised2, so error TEXT on a dark card or floating surface is below AA. Fill/border/dot tier since 2026-10-17; for text use status.error.ink.dark (decisions.md 2026-10-17). History: the 2026-07-25 SCDS audit P0-4 replaced #732020 (1.79:1, unreadable)."
+        },
+        "ink": {
+          "light": {
+            "$type": "color",
+            "$value": "#7F1D1D",
+            "$description": "Text-only tier, hue-locked to error (learning #56). Added 2026-10-17 (studio-pm ADR-136, option A). Same value as status.error.light, which already clears AA as text: page 7.54:1, raised 8.72:1, floating 9.28:1, sunk 6.64:1, hover 5.34:1; deepSunk/rail 4.19:1 fails. Its own primitive, not an alias, so a later repaint of the fill does not move the text tier with it."
+          },
+          "dark": {
+            "$type": "color",
+            "$value": "#FF9089",
+            "$description": "Text-only tier, hue-locked to error (learning #56). Added 2026-10-17 (studio-pm ADR-136, option A): the fill status.error.dark #FE6B67 reads 3.64:1 on raised2. OKLCH lightness lifted from 0.709 to 0.771 with the hue held at 24.5°; chroma falls from 0.181 to 0.135 because the red channel is already at 255. Tuned against raised2, the lightest dark UI ground: page 5.92:1, well 7.06:1, floor 6.53:1, raised1 5.25:1, raised2 4.66:1. Stays 12.5° of hue off status.warning.ink.dark #FE9374 (OKLCH hue 37.0°), so a failure never reads as the waiting hue."
+          }
         }
       }
     },

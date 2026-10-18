@@ -107,6 +107,9 @@ const TEXT_TIERS = [
   // outside this sweep until 2026-09-06 (WQ-041) — nothing checked them, and every one of
   // them was failing AA on dark surface.raised, the default card ground.
   'color.status.success-ink', 'color.status.warning-ink', 'color.status.info-ink',
+  // status.error gained its ink 2026-10-17 (studio-pm ADR-136): the dark fill read
+  // 3.64:1 on surface.deepSunk and nothing here covered it.
+  'color.status.error-ink',
 ];
 const SURFACES = Object.keys(semantic.color.surface);
 const MODES = semantic.$metadata.modes;
@@ -365,6 +368,23 @@ const CLAIMS = [
   ['primitives', 'color.status.error.dark', 5.53, 'color.status.error.dark', 'color.dark.well', null],
   ['primitives', 'color.status.error.dark', 4.11, 'color.status.error.dark', 'color.dark.raised1', null],
   ['primitives', 'color.status.error.dark', 3.64, 'color.status.error.dark', 'color.dark.raised2', null],
+  // --- status.error-ink, 2026-10-17 (decisions.md; studio-pm ADR-136 option A)
+  ['primitives', 'color.status.error.ink.light', 7.54, 'color.status.error.ink.light', 'color.warmGray.100', null],
+  ['primitives', 'color.status.error.ink.light', 8.72, 'color.status.error.ink.light', 'color.warmGray.50', null],
+  ['primitives', 'color.status.error.ink.light', 9.28, 'color.status.error.ink.light', 'color.warmGray.25', null],
+  ['primitives', 'color.status.error.ink.light', 6.64, 'color.status.error.ink.light', 'color.warmGray.200', null],
+  ['primitives', 'color.status.error.ink.light', 5.34, 'color.status.error.ink.light', 'color.warmGray.250', null],
+  ['primitives', 'color.status.error.ink.light', 4.19, 'color.status.error.ink.light', 'color.warmGray.300', null],
+  ['primitives', 'color.status.error.ink.dark', 5.92, 'color.status.error.ink.dark', 'color.dark.surfacePage', null],
+  ['primitives', 'color.status.error.ink.dark', 7.06, 'color.status.error.ink.dark', 'color.dark.well', null],
+  ['primitives', 'color.status.error.ink.dark', 6.53, 'color.status.error.ink.dark', 'color.dark.floor', null],
+  ['primitives', 'color.status.error.ink.dark', 5.25, 'color.status.error.ink.dark', 'color.dark.raised1', null],
+  ['primitives', 'color.status.error.ink.dark', 4.66, 'color.status.error.ink.dark', 'color.dark.raised2', null],
+  ['semantic', 'color.status.error', 3.64, 'color.status.error', 'color.surface.floating', 'dark'],
+  ['semantic', 'color.status.error-ink', 7.54, 'color.status.error-ink', 'color.surface.page', 'light'],
+  ['semantic', 'color.status.error-ink', 5.92, 'color.status.error-ink', 'color.surface.page', 'dark'],
+  ['semantic', 'color.status.error-ink', 4.66, 'color.status.error-ink', 'color.surface.floating', 'dark'],
+  ['semantic', 'color.status.error-ink', 3.64, 'color.status.error', 'color.surface.floating', 'dark'],
   ['semantic', 'color.status.success', 4.74, 'color.status.success', 'color.surface.page', 'dark'],
   ['semantic', 'color.status.warning', 4.73, 'color.status.warning', 'color.surface.page', 'dark'],
   ['semantic', 'color.status.info', 4.76, 'color.status.info', 'color.surface.page', 'dark'],

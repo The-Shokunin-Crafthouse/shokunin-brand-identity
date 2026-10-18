@@ -170,9 +170,9 @@ public enum SCDS {
     public static let primitivesVersion = "0.1.0"
     public static let semanticVersion = "0.1.0"
     public static let sourceGenerated = "2026-05-26"
-    public static let primitivesHash = "91c76a72c4dcc85e"
-    public static let semanticHash = "3fd65e9f22658d5a"
-    public static let tokenCount = 377
+    public static let primitivesHash = "2ef91b77afdc2dc9"
+    public static let semanticHash = "da131470f3e7e0c9"
+    public static let tokenCount = 378
   }
 
   // MARK: - Color
@@ -375,6 +375,12 @@ public enum SCDS {
     public static let statusInfoInk = SwiftUI.Color.scdsDynamic(
         light: (0.168627, 0.341176, 0.835294, 1),
         dark:  (0.552941, 0.686275, 0.992157, 1)
+    )
+
+    /// `color.status.error-ink`
+    public static let statusErrorInk = SwiftUI.Color.scdsDynamic(
+        light: (0.498039, 0.113725, 0.113725, 1),
+        dark:  (1, 0.564706, 0.537255, 1)
     )
 
     /// `color.signal.live`
