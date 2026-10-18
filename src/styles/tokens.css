@@ -61,6 +61,8 @@
   --sc-p-color-status-info-ink-dark: #8DAFFD;
   --sc-p-color-status-error-light: #7F1D1D;
   --sc-p-color-status-error-dark: #FE6B67;
+  --sc-p-color-status-error-ink-light: #7F1D1D;
+  --sc-p-color-status-error-ink-dark: #FF9089;
   --sc-p-color-signal-live: #C8281C;
   --sc-p-color-signal-live-bright: #DA5C4D;
   --sc-p-color-signal-progress: #FBFF00;
@@ -415,6 +417,7 @@
   --sc-color-status-success-ink: var(--sc-p-color-status-success-ink-light);
   --sc-color-status-warning-ink: var(--sc-p-color-status-warning-ink-light);
   --sc-color-status-info-ink: var(--sc-p-color-status-info-ink-light);
+  --sc-color-status-error-ink: var(--sc-p-color-status-error-ink-light);
   --sc-color-signal-live: var(--sc-p-color-signal-live);
   --sc-color-signal-on-live: var(--sc-p-color-warm-gray-100);
   --sc-color-signal-progress: var(--sc-p-color-signal-progress);
@@ -946,6 +949,7 @@
   --sc-color-status-success-ink: var(--sc-p-color-status-success-ink-dark);
   --sc-color-status-warning-ink: var(--sc-p-color-status-warning-ink-dark);
   --sc-color-status-info-ink: var(--sc-p-color-status-info-ink-dark);
+  --sc-color-status-error-ink: var(--sc-p-color-status-error-ink-dark);
   --sc-color-signal-live: var(--sc-p-color-signal-live-bright);
   --sc-color-signal-on-live: var(--sc-p-color-dark-surface-page);
   --sc-color-signal-progress: var(--sc-p-color-signal-progress);

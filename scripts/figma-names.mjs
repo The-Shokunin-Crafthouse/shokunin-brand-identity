@@ -22,6 +22,8 @@ export const VARIABLE_NAMES = {
   'color.status.warning.ink.dark': 'color/status/warningInkDark',
   'color.status.info.ink.light': 'color/status/infoInkLight',
   'color.status.info.ink.dark': 'color/status/infoInkDark',
+  'color.status.error.ink.light': 'color/status/errorInkLight',
+  'color.status.error.ink.dark': 'color/status/errorInkDark',
   'color.interactive.hoverInk.light': 'color/interactive/hoverInkLight',
   // Renamed Figma-side on 2026-07-28 (audit Block 5); the code-side rename was
   // deliberately deferred because --sc-color-text-on-inverse has live consumers.

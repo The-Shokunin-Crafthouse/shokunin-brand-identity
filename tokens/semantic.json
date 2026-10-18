@@ -346,7 +346,7 @@
       "error": {
         "$type": "color",
         "$value": "{color.status.error.light}",
-        "$description": "Error state · oxblood on light, lifted rose on dark (4.63:1 on dark surface.page, slate ladder 2026-09-24; below AA as text on dark raised/floating, no -ink tier yet). Pulled deliberately off the brand band so error and brand-accent can never be confused. Originally rebound 2026-05-28 off the then-vermilion accent (ADR brand-site-shell); accent moved to teal 2026-07-09, error stays oxblood (now doubly distinct from teal).",
+        "$description": "Error state · oxblood on light, lifted rose on dark. Fill/border/dot tier; the dark fill clears AA on surface.page (4.63:1, slate ladder 2026-09-24) but not on dark raised/floating (3.64:1 on surface.floating). For text use status.error-ink (added 2026-10-17). Pulled deliberately off the brand band so error and brand-accent can never be confused. Originally rebound 2026-05-28 off the then-vermilion accent (ADR brand-site-shell); accent moved to teal 2026-07-09, error stays oxblood (now doubly distinct from teal).",
         "$extensions": {
           "modes": {
             "light": "{color.status.error.light}",
@@ -436,6 +436,29 @@
               "dark": []
             },
             "reason": "Light: sunk 3.90:1, deepSunk/rail 2.46:1, hover 3.14:1 — every one below AA for the info hue. Dark cleared 2026-09-06 by the re-derivation to #517DF3, and again 2026-09-24 by the slate re-derivation to #8DAFFD (4.70:1 worst case, deepSunk/floating); the retired #4A74EA read 4.37:1 on surface.raised and 4.13:1 on surface.deepSunk.",
+            "substitute": "{color.text.primary}"
+          }
+        }
+      },
+      "error-ink": {
+        "$type": "color",
+        "$value": "{color.status.error.ink.light}",
+        "$description": "2026-10-17 (studio-pm ADR-136, option A; learning #56) · text-only tier for status.error — use when an error renders as text, 7.54:1 (L) / 5.92:1 (D) on their respective page grounds. Base status.error stays the fill/border/dot tier: its light value already clears AA as text, so the light ink holds the same hex, but the dark fill reads 3.64:1 on surface.floating. The dark ink is tuned against raised2 (4.66:1 on surface.floating) and stays a red hue apart from status.warning-ink, because a failure never shares the waiting hue.",
+        "$extensions": {
+          "modes": {
+            "light": "{color.status.error.ink.light}",
+            "dark":  "{color.status.error.ink.dark}"
+          },
+          "usageRestrictions": {
+            "$description": "forbiddenSurfaces is keyed BY MODE. A status ink is tuned against the page ground of its own mode. The deep oxblood clears more of the compressed light surfaces than the other status hues (sunk and hover pass), so only the two warmGray.300 grounds are forbidden. Added 2026-10-17 with the token.",
+            "forbiddenSurfaces": {
+              "light": [
+                "color.surface.deepSunk",
+                "color.surface.rail"
+              ],
+              "dark": []
+            },
+            "reason": "Light: deepSunk/rail 4.19:1, below AA for the error hue; sunk 6.64:1 and hover 5.34:1 clear it. Dark: every surface clears AA with #FF9089 (4.66:1 worst case, deepSunk/floating); the fill #FE6B67 it replaces as text read 4.11:1 on surface.raised and 3.64:1 on surface.deepSunk.",
             "substitute": "{color.text.primary}"
           }
         }
