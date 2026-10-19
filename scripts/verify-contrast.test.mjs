@@ -49,3 +49,41 @@ test('status.error-ink and status.warning-ink differ in every mode', async () =>
   assert.ok(modes('error-ink'), 'color.status.error-ink has no $extensions.modes');
   for (const mode of semantic.$metadata.modes) assert.notEqual(modes('error-ink')[mode], modes('warning-ink')[mode], mode);
 });
+
+// The checker grades the colour the page renders. tokens-to-css.mjs resolves an
+// alias to the primitive when a primitive leaf holds that path, so
+// statusPill.live.fill -> {color.signal.live} renders the primitive #C8281C in
+// both modes. The checker read the semantic color.signal.live instead, which is
+// #DA5C4D in dark, and passed a 3.19:1 dark live pill at 4.74:1 (2026-10-18).
+// Every fill and glyph pair is resolved here through the generated tokens.css
+// and must match the checker's own resolution.
+test('every graded fill and glyph pair resolves to the hex tokens.css renders', async () => {
+  const { readFileSync } = await import('node:fs');
+  const { semanticHex, FILL_PAIRS, GRAPHIC_PAIRS } = await import('./verify-contrast.mjs');
+  const css = readFileSync(resolve(root, 'src/styles/tokens.css'), 'utf8');
+  const block = (selector) => {
+    const start = css.indexOf(`\n${selector} {\n`);
+    const end = css.indexOf('\n}', start);
+    const vars = new Map();
+    for (const m of css.slice(start, end).matchAll(/^\s*(--sc-[\w-]+):\s*(.+);$/gm)) vars.set(m[1], m[2].trim());
+    return vars;
+  };
+  const rootVars = block(':root');
+  const modeVars = { light: new Map(), dark: block('[data-theme="dark"]') };
+  const cssHex = (name, mode) => {
+    const v = modeVars[mode].get(name) ?? rootVars.get(name);
+    const ref = v?.match(/^var\((--sc-[\w-]+)\)$/)?.[1];
+    return ref ? cssHex(ref, mode) : v;
+  };
+  const kebab = (s) => s.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase();
+  const varOf = (path) => `--sc-${path.split('.').map(kebab).join('-')}`;
+  const drift = [];
+  for (const mode of ['light', 'dark']) {
+    for (const path of new Set([...FILL_PAIRS, ...GRAPHIC_PAIRS].flat())) {
+      const rendered = cssHex(varOf(path), mode)?.toUpperCase();
+      const graded = semanticHex(path, mode).toUpperCase();
+      if (rendered !== graded) drift.push(`${path} (${mode}): checker grades ${graded}, tokens.css renders ${rendered}`);
+    }
+  }
+  assert.deepEqual(drift, []);
+});

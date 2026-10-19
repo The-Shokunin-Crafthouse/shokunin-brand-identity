@@ -32,7 +32,7 @@
 
 import { readFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const primitives = JSON.parse(readFileSync(resolve(repoRoot, 'tokens/primitives.json'), 'utf8'));
@@ -80,7 +80,7 @@ function refHex(ref) {
 }
 
 /** Resolve a semantic dotted path in a given mode to its hex. */
-function semanticHex(path, mode) {
+export function semanticHex(path, mode) {
   const node = walk(semantic, path);
   if (!node) throw new Error(`no semantic token at ${path}`);
   const v = node.$extensions?.modes?.[mode] ?? node.$value;
@@ -153,7 +153,7 @@ function checkAA() {
 // ------------------------------------------------- check 1b: label-on-fill pairs
 // Control labels that sit on their own fill, not on a surface. Each pair must
 // clear AA in every mode, so a per-mode tune of either side is caught here.
-const FILL_PAIRS = [
+export const FILL_PAIRS = [
   ['color.control.keyHoverInk', 'color.control.keyHoverFill'],
   ['color.stepper.keyHoverInk', 'color.stepper.keyHover'],
   ['color.stepper.keyPressedInk', 'color.stepper.keyPressed'],
@@ -183,7 +183,7 @@ function checkFillPairs() {
 // The Toast tone glyph sits on its badge; the dismiss x sits on the plate and
 // on its hover ground. Each pair must clear 3:1 in every mode.
 const NON_TEXT = 3;
-const GRAPHIC_PAIRS = [
+export const GRAPHIC_PAIRS = [
   ['color.toast.icon', 'color.toast.badge.success'],
   ['color.toast.icon', 'color.toast.badge.error'],
   ['color.toast.icon', 'color.toast.badge.warning'],
@@ -525,32 +525,37 @@ function checkOrphans() {
 }
 
 // ---------------------------------------------------------------------- main
-const { failures: aaFailures, restricted } = checkAA();
-const claimFailures = checkClaims();
-const orphanFailures = checkOrphans();
+// Imported by verify-contrast.test.mjs for its resolver; runs only as a script.
+if (import.meta.url === pathToFileURL(process.argv[1] ?? '').href) main();
 
-const section = (title, items, fatal = true) => {
-  if (!items.length) {
-    console.log(`  ✓ ${title}`);
-    return 0;
+function main() {
+  const { failures: aaFailures, restricted } = checkAA();
+  const claimFailures = checkClaims();
+  const orphanFailures = checkOrphans();
+
+  const section = (title, items, fatal = true) => {
+    if (!items.length) {
+      console.log(`  ✓ ${title}`);
+      return 0;
+    }
+    console.log(`  ${fatal ? '✗' : '!'} ${title}`);
+    for (const i of items) console.log(`      ${fatal ? '✗' : '!'} ${i}`);
+    return fatal ? items.length : 0;
+  };
+
+  console.log('\nContrast verification — tokens/primitives.json + tokens/semantic.json\n');
+
+  let fatalCount = 0;
+  fatalCount += section(`WCAG AA on every text-tier × surface × mode pair (${TEXT_TIERS.length * SURFACES.length * MODES.length} pairs)`, aaFailures);
+  fatalCount += section(`WCAG AA on every control label × its own fill × mode (${FILL_PAIRS.length * MODES.length} pairs)`, checkFillPairs());
+  fatalCount += section(`WCAG 1.4.11 on every meaning-carrying glyph × its own ground × mode (${GRAPHIC_PAIRS.length * MODES.length} pairs)`, checkGraphicPairs());
+  fatalCount += section(`every quoted figure matches its measured value (${CLAIMS.length} claims)`, claimFailures);
+  fatalCount += section('every figure quoted in a $description is registered', orphanFailures);
+  section('no restriction is over-broad', restricted, false);
+
+  if (fatalCount) {
+    console.log(`\n${fatalCount} contrast failure(s). The token source is the upstream of every Shokunin property — fix here, not in a consumer.\n`);
+    process.exit(1);
   }
-  console.log(`  ${fatal ? '✗' : '!'} ${title}`);
-  for (const i of items) console.log(`      ${fatal ? '✗' : '!'} ${i}`);
-  return fatal ? items.length : 0;
-};
-
-console.log('\nContrast verification — tokens/primitives.json + tokens/semantic.json\n');
-
-let fatalCount = 0;
-fatalCount += section(`WCAG AA on every text-tier × surface × mode pair (${TEXT_TIERS.length * SURFACES.length * MODES.length} pairs)`, aaFailures);
-fatalCount += section(`WCAG AA on every control label × its own fill × mode (${FILL_PAIRS.length * MODES.length} pairs)`, checkFillPairs());
-fatalCount += section(`WCAG 1.4.11 on every meaning-carrying glyph × its own ground × mode (${GRAPHIC_PAIRS.length * MODES.length} pairs)`, checkGraphicPairs());
-fatalCount += section(`every quoted figure matches its measured value (${CLAIMS.length} claims)`, claimFailures);
-fatalCount += section('every figure quoted in a $description is registered', orphanFailures);
-section('no restriction is over-broad', restricted, false);
-
-if (fatalCount) {
-  console.log(`\n${fatalCount} contrast failure(s). The token source is the upstream of every Shokunin property — fix here, not in a consumer.\n`);
-  process.exit(1);
+  console.log('\nAll contrast claims verified.\n');
 }
-console.log('\nAll contrast claims verified.\n');
