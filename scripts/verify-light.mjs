@@ -20,7 +20,7 @@
  *   4. Inset layers obey 1 only: a recess darkens its top-left wall (+,+) and
  *      a convex face may light it (+,+); both are the same light.
  *   5. Every face gradient in a component's CSS is linear-gradient(135deg, …).
- *   6. No component transitions box-shadow (or `all`): Button, Card, Input
+ *   6. No component transitions box-shadow (or `all`): Button, Card, TextField
  *      and the rest repeat 10+ times on a page, and a shadow transition
  *      repaints every frame. Press motion stays on transform.
  *

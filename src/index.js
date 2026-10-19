@@ -24,9 +24,13 @@ export { Button } from './components/Button/Button.jsx';
 export { Card } from './components/Card/Card.jsx';
 export { Divider } from './components/Divider/Divider.jsx';
 export { Icon, IconProvider } from './components/Icon/Icon.jsx';
-export { Input } from './components/Input/Input.jsx';
+export { TextField } from './components/TextField/TextField.jsx';
+/** @deprecated renamed TextField (name sync, 2026-10-18). Remove after consumers move. */
+export { TextField as Input } from './components/TextField/TextField.jsx';
 export { NavBar } from './components/NavBar/NavBar.jsx';
-export { ProgressIndicator } from './components/ProgressIndicator/ProgressIndicator.jsx';
+export { Progress } from './components/Progress/Progress.jsx';
+/** @deprecated renamed Progress (name sync, 2026-10-18). Remove after consumers move. */
+export { Progress as ProgressIndicator } from './components/Progress/Progress.jsx';
 export { SegmentedControl } from './components/SegmentedControl/SegmentedControl.jsx';
 export { Slider } from './components/Slider/Slider.jsx';
 export { StatusPill } from './components/StatusPill/StatusPill.jsx';

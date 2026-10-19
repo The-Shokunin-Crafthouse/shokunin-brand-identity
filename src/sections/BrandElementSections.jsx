@@ -355,7 +355,7 @@ export function PlusTimelinePage() {
       rules={[
         { name: 'One line per label', text: 'Each row is 80 tall. A label that wraps drifts off its node.' },
         { name: 'Say it in the words too', text: '“Build · in progress” tells everyone. Teal alone tells only the people who can see it.' },
-        { name: 'Horizontal counts use the step bar', text: 'For a compact count of steps across the top of a form, use ProgressIndicator step. The timeline is for stages that need names.' },
+        { name: 'Horizontal counts use the step bar', text: 'For a compact count of steps across the top of a form, use Progress step. The timeline is for stages that need names.' },
       ]}
     />
   );

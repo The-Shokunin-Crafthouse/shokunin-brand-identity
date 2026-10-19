@@ -12,12 +12,12 @@ import { Slash, Accent, Em } from './_kit/Editorial.jsx';
 import { Button } from '../components/Button/Button.jsx';
 import { StatusPill } from '../components/StatusPill/StatusPill.jsx';
 import { Card } from '../components/Card/Card.jsx';
-import { Input } from '../components/Input/Input.jsx';
+import { TextField } from '../components/TextField/TextField.jsx';
 import { EnvelopeSimple, MagnifyingGlass, MapPin, CalendarBlank, Check, Pause } from '@phosphor-icons/react';
 import { Toast } from '../components/Toast/Toast.jsx';
 import { Switch } from '../components/Switch/Switch.jsx';
 import { Avatar } from '../components/Avatar/Avatar.jsx';
-import { ProgressIndicator } from '../components/ProgressIndicator/ProgressIndicator.jsx';
+import { Progress } from '../components/Progress/Progress.jsx';
 import { Slider } from '../components/Slider/Slider.jsx';
 import { Tooltip } from '../components/Tooltip/Tooltip.jsx';
 import { Divider } from '../components/Divider/Divider.jsx';
@@ -222,17 +222,17 @@ function CardBody({ children }) {
   return <span style={{ font: 'var(--sc-font-text-body-dense)', color: 'var(--sc-color-text-secondary)' }}>{children}</span>;
 }
 
-/* ── 3.4 Input ───────────────────────────────────────────── */
+/* ── 3.4 TextField ───────────────────────────────────────────── */
 function InputDemo({ initial = '', ...props }) {
   const [value, setValue] = useState(initial);
-  return <Input {...props} value={value} onChange={(e) => setValue(e.target.value)} onClear={() => setValue('')} />;
+  return <TextField {...props} value={value} onChange={(e) => setValue(e.target.value)} onClear={() => setValue('')} />;
 }
 
-export function InputPage() {
+export function TextFieldPage() {
   return (
     <ComponentPage
-      id="input" label="Input"
-      eyebrow={<>Input<Slash />a filled field, titled above</>}
+      id="input" label="TextField"
+      eyebrow={<>TextField<Slash />a filled field, titled above</>}
       title={<>The title sits above. <Accent>The field</Accent> is a quiet <Em>tinted box.</Em></>}
       lead={<>A filled field: a tinted box with no rule and no frame, holding the value with a leading icon, a prefix or suffix, a clear button and a trailing control where the field needs them. The title stays above it, left-aligned, with optional subcopy between the title and the field. Icons are Phosphor, bold.</>}
       statesTitle="Six states and the slots a field can carry."
@@ -540,11 +540,11 @@ export function ProgressPage() {
         { title: 'Fill never fully disappears', body: 'The bar renders fill width as max(value%, track-height) — at 0 the fill still reads as a small pill the size of the track, never a blank line (Drams #3/#4 Line Volume / Volume Visible Track).' },
       ]}
       states={[
-        { name: 'Bar', token: '--sc-size-progress-bar-height', render: <div style={{ width: '100%' }}><ProgressIndicator variant="bar" value={0.62} label="62 percent" /></div> },
-        { name: 'Bar · tone progress, sunk track', token: '--sc-color-signal-progress', render: <div style={{ width: '100%' }}><ProgressIndicator variant="bar" tone="progress" track="sunk" value={0.1} label="All models, 10 percent" /></div> },
-        { name: 'Bar · tone warning, sunk track', token: '--sc-color-status-warning', render: <div style={{ width: '100%' }}><ProgressIndicator variant="bar" tone="warning" track="sunk" value={0.84} label="84 percent" /></div> },
-        { name: 'Circular', token: '--sc-size-progress-circular', render: <ProgressIndicator variant="circular" value={0.7} label="70 percent" /> },
-        { name: 'Step', token: '--sc-color-border-strong', render: <ProgressIndicator variant="step" steps={4} current={2} /> },
+        { name: 'Bar', token: '--sc-size-progress-bar-height', render: <div style={{ width: '100%' }}><Progress variant="bar" value={0.62} label="62 percent" /></div> },
+        { name: 'Bar · tone progress, sunk track', token: '--sc-color-signal-progress', render: <div style={{ width: '100%' }}><Progress variant="bar" tone="progress" track="sunk" value={0.1} label="All models, 10 percent" /></div> },
+        { name: 'Bar · tone warning, sunk track', token: '--sc-color-status-warning', render: <div style={{ width: '100%' }}><Progress variant="bar" tone="warning" track="sunk" value={0.84} label="84 percent" /></div> },
+        { name: 'Circular', token: '--sc-size-progress-circular', render: <Progress variant="circular" value={0.7} label="70 percent" /> },
+        { name: 'Step', token: '--sc-color-border-strong', render: <Progress variant="step" steps={4} current={2} /> },
       ]}
       tokenRows={[
         { prop: 'Bar height', token: '--sc-size-progress-bar-height' },
@@ -611,7 +611,7 @@ export function SliderPage() {
       ]}
       rulesTitle="Three rules for a control you hold."
       rules={[
-        { name: 'A slider sets, a meter reports', text: 'Use a Slider for a value the user chooses. For how far along something is, use ProgressIndicator; it never takes a drag or a key.' },
+        { name: 'A slider sets, a meter reports', text: 'Use a Slider for a value the user chooses. For how far along something is, use Progress; it never takes a drag or a key.' },
         { name: 'Keys and pointer reach the same values', text: 'Arrows step, Shift steps further, Home and End jump to the bounds. Anything a drag can set, a keyboard can set.' },
         { name: 'Disabled is flat', text: 'A disabled slider loses its recess, its lift and its face. Losing the material is the signal.' },
       ]}
@@ -906,7 +906,7 @@ export function StepperPage() {
         { name: 'The numeral is always the source of truth', text: 'The readout shows the live value, not a formatted approximation. Whatever value onChange last committed is exactly what is on screen.' },
         { name: 'Never let the control silently clamp past a bound', text: 'Hitting min or max disables that button rather than wrapping or silently refusing the step. A stepper that wraps from max back to min without saying so is a stepper lying about the number.' },
         { name: 'Hold-to-repeat has one speed, not an accelerating one', text: 'The repeat interval is constant (80ms) after the 400ms arm delay. An accelerating repeat is a nicety this control deliberately skipped — predictability over speed.' },
-        { name: 'No border, ever', text: 'The control reads as a soft, sunk pill — matching the sunk-surface language used elsewhere (Input filled state, Card default). A stroke here would put it in the same register as a bordered input, which it is not.' },
+        { name: 'No border, ever', text: 'The control reads as a soft, sunk pill — matching the sunk-surface language used elsewhere (TextField filled state, Card default). A stroke here would put it in the same register as a bordered input, which it is not.' },
       ]}
     />
   );

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Input } from '@the-shokunin-crafthouse/scds';
+import { TextField } from '@the-shokunin-crafthouse/scds';
 import { CalendarBlank, EnvelopeSimple, MagnifyingGlass } from '@phosphor-icons/react';
 
 // The default field is a light well built for the page ground, so stories
@@ -15,7 +15,7 @@ function Page({ children }: { children: React.ReactNode }) {
 // Controlled wrapper so a clearable field empties when its clear button is pressed.
 function Field({ initial = '', ...props }: { initial?: string; [k: string]: unknown }) {
   const [value, setValue] = useState(initial);
-  return <Input {...props} value={value} onChange={(e) => setValue(e.target.value)} onClear={() => setValue('')} />;
+  return <TextField {...props} value={value} onChange={(e) => setValue(e.target.value)} onClear={() => setValue('')} />;
 }
 
 export const Default = () => (

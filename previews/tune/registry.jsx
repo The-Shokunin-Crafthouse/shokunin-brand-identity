@@ -27,7 +27,7 @@ import { Tooltip } from '../../src/components/Tooltip/Tooltip.jsx';
 import { NavBar } from '../../src/components/NavBar/NavBar.jsx';
 import { PlusUnderline } from '../../src/components/PlusUnderline/PlusUnderline.jsx';
 import { Slider } from '../../src/components/Slider/Slider.jsx';
-import { Input } from '../../src/components/Input/Input.jsx';
+import { TextField } from '../../src/components/TextField/TextField.jsx';
 import { Card } from '../../src/components/Card/Card.jsx';
 import { StatusPill } from '../../src/components/StatusPill/StatusPill.jsx';
 import { Avatar } from '../../src/components/Avatar/Avatar.jsx';
@@ -42,7 +42,7 @@ import tooltipCss from '../../src/components/Tooltip/Tooltip.module.css?raw';
 import navBarCss from '../../src/components/NavBar/NavBar.module.css?raw';
 import underlineCss from '../../src/components/PlusUnderline/PlusUnderline.module.css?raw';
 import sliderCss from '../../src/components/Slider/Slider.module.css?raw';
-import inputCss from '../../src/components/Input/Input.module.css?raw';
+import inputCss from '../../src/components/TextField/TextField.module.css?raw';
 import cardCss from '../../src/components/Card/Card.module.css?raw';
 import statusPillCss from '../../src/components/StatusPill/StatusPill.module.css?raw';
 import avatarCss from '../../src/components/Avatar/Avatar.module.css?raw';
@@ -115,7 +115,7 @@ const KNOB = {
   dark: { rimTop: '#EAE8E3', rimBottom: '#9A9186', faceTop: '#D8D1CC', faceBottom: '#B3B1AD' },
 };
 
-/* Input slot options: Phosphor glyphs, rendered bold by the Input. */
+/* TextField slot options: Phosphor glyphs, rendered bold by the TextField. */
 const INPUT_ICONS = { none: undefined, search: MagnifyingGlass, mail: EnvelopeSimple, location: MapPin };
 const INPUT_TRAILING = { none: undefined, eye: Eye, copy: Copy, calendar: CalendarBlank, clock: Clock, caret: CaretDown };
 
@@ -497,7 +497,7 @@ export const REGISTRY = {
       </div>
     ),
   },
-  Input: {
+  TextField: {
     css: [inputCss, iconCss],
     // No seeds: concept A starts from shipped, which is Levi's filled-field
     // reference (2026-10-07). Icons are Phosphor, bold.
@@ -521,7 +521,7 @@ export const REGISTRY = {
     play: null,
     render: (p, set) => (
       <div style={{ width: 'calc(var(--sc-space-layout-stack-xl) * 2.5)', ...(p.surface === 'raised' ? { background: 'var(--sc-color-surface-raised)', padding: 'var(--sc-space-component-padding-md)' } : {}) }}>
-        <Input
+        <TextField
           surface={p.surface}
           label={p.label}
           description={p.description || undefined}

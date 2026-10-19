@@ -4,13 +4,13 @@
  * Three beats: what density means (one idea at three densities), the
  * per-register density scale (word ranges from brand-voice.md §2), and
  * density in components (UI copy rules, demonstrated on the real Button,
- * Tooltip, and Input). Page chrome is all --sc-* tokens.
+ * Tooltip, and TextField). Page chrome is all --sc-* tokens.
  */
 
 import { Section, Metabar, Hero, Chapter, Accent, Em, Slash, kit } from './_kit/Editorial.jsx';
 import { Button } from '../components/Button/Button.jsx';
 import { Tooltip } from '../components/Tooltip/Tooltip.jsx';
-import { Input } from '../components/Input/Input.jsx';
+import { TextField } from '../components/TextField/TextField.jsx';
 import styles from './DensitySection.module.css';
 
 const LEVELS = [
@@ -37,7 +37,7 @@ const COMPONENTS = [
   { name: 'Tooltip', rule: 'One line, no period. A hint, not a statement.',
     demo: <div className={styles.tipStage}><Tooltip content="Saved to the binder"><span className={styles.tipTarget}>hover me</span></Tooltip></div>, count: '4 words · no period' },
   { name: 'Error message', rule: 'Subject, problem, path forward. 15 words or fewer.',
-    demo: <Input label="Email" error="That isn’t an email yet — check the @." defaultValue="levi.bahn" />, count: '8 words' },
+    demo: <TextField label="Email" error="That isn’t an email yet — check the @." defaultValue="levi.bahn" />, count: '8 words' },
 ];
 
 export function DensitySection() {

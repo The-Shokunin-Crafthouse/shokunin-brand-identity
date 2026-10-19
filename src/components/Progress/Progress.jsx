@@ -1,5 +1,5 @@
 /**
- * ProgressIndicator — 3.10 · bar, circular, step.
+ * Progress — 3.10 · bar, circular, step.
  *
  * `bar`     — linear track with fill (value 0..1), role="progressbar".
  *              A value the user sets is a Slider, not a progress indicator
@@ -20,13 +20,13 @@
  * Bar fill never fully disappears at low values — width
  * is `max(pct%, track-height)`, so at value=0 the fill still reads as a
  * small pill/circle the same diameter as the track (Drams #3/#4 "Line
- * Volume" / "Volume Visible Track" — see ProgressIndicator.tokens.md for
+ * Volume" / "Volume Visible Track" — see Progress.tokens.md for
  * why this reuses the track-height token instead of a dedicated one).
  */
 
-import styles from './ProgressIndicator.module.css';
+import styles from './Progress.module.css';
 
-export function ProgressIndicator({
+export function Progress({
   variant = 'bar',
   value = 0.5,
   steps = 4,
