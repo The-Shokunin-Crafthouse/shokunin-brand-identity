@@ -49,7 +49,7 @@
   --sc-p-color-teal-900: #05282B;
   --sc-p-color-status-success-light: #2F855A;
   --sc-p-color-status-success-dark: #57AD7F;
-  --sc-p-color-status-success-ink-light: #246E4A;
+  --sc-p-color-status-success-ink-light: #226244;
   --sc-p-color-status-success-ink-dark: #6AC090;
   --sc-p-color-status-warning-light: #C2410C;
   --sc-p-color-status-warning-dark: #F67751;
@@ -71,6 +71,14 @@
   --sc-p-color-atmosphere-river: #5CE3E6;
   --sc-p-color-atmosphere-river-deep: #0F9CC2;
   --sc-p-color-atmosphere-indigo: #274A78;
+  --sc-p-color-dark-deep8: #07090A;
+  --sc-p-color-dark-deep7: #0A0C0E;
+  --sc-p-color-dark-deep6: #0C0F12;
+  --sc-p-color-dark-deep5: #101316;
+  --sc-p-color-dark-deep4: #121519;
+  --sc-p-color-dark-deep3: #161A1F;
+  --sc-p-color-dark-deep2: #171C21;
+  --sc-p-color-dark-deep1: #1A1F25;
   --sc-p-color-dark-well: #1F252C;
   --sc-p-color-dark-floor: #252B32;
   --sc-p-color-dark-surface-page: #2C3239;
@@ -408,6 +416,7 @@
   --sc-color-interactive-default: var(--sc-p-color-warm-gray-800);
   --sc-color-interactive-hover: var(--sc-p-color-teal-600);
   --sc-color-interactive-hover-ink: var(--sc-p-color-interactive-hover-ink-light);
+  --sc-color-interactive-active-ink: var(--sc-p-color-teal-700);
   --sc-color-interactive-selected: #038E931A;
   --sc-color-interactive-active: var(--sc-p-color-teal-700);
   --sc-color-status-success: var(--sc-p-color-status-success-light);
@@ -916,15 +925,15 @@
 
 [data-theme="dark"] {
   /* --- Semantic · dark mode overrides ------------------- */
-  --sc-color-surface-page: var(--sc-p-color-dark-surface-page);
-  --sc-color-surface-sunk: var(--sc-p-color-dark-well);
-  --sc-color-surface-deep-sunk: var(--sc-p-color-dark-raised2);
-  --sc-color-surface-raised: var(--sc-p-color-dark-raised1);
-  --sc-color-surface-floating: var(--sc-p-color-dark-raised2);
-  --sc-color-surface-rail: var(--sc-p-color-dark-floor);
-  --sc-color-surface-nav: var(--sc-p-color-dark-raised1);
-  --sc-color-surface-nav-hover: var(--sc-p-color-dark-raised2);
-  --sc-color-surface-hover: var(--sc-p-color-dark-raised1);
+  --sc-color-surface-page: var(--sc-p-color-dark-deep6);
+  --sc-color-surface-sunk: var(--sc-p-color-dark-deep8);
+  --sc-color-surface-deep-sunk: var(--sc-p-color-dark-deep2);
+  --sc-color-surface-raised: var(--sc-p-color-dark-deep4);
+  --sc-color-surface-floating: var(--sc-p-color-dark-deep2);
+  --sc-color-surface-rail: var(--sc-p-color-dark-deep7);
+  --sc-color-surface-nav: var(--sc-p-color-dark-deep4);
+  --sc-color-surface-nav-hover: var(--sc-p-color-dark-deep2);
+  --sc-color-surface-hover: var(--sc-p-color-dark-deep4);
   --sc-color-text-primary: var(--sc-p-color-dark-text-primary);
   --sc-color-text-secondary: var(--sc-p-color-dark-text-secondary);
   --sc-color-text-tertiary: var(--sc-p-color-dark-text-tertiary);
@@ -940,6 +949,7 @@
   --sc-color-interactive-default: var(--sc-p-color-warm-gray-50);
   --sc-color-interactive-hover: var(--sc-p-color-teal-300);
   --sc-color-interactive-hover-ink: var(--sc-p-color-teal-200);
+  --sc-color-interactive-active-ink: var(--sc-p-color-teal-100);
   --sc-color-interactive-selected: #038E931A;
   --sc-color-interactive-active: var(--sc-p-color-teal-500);
   --sc-color-status-success: var(--sc-p-color-status-success-dark);
@@ -974,20 +984,20 @@
   --sc-color-switch-thumb-face-bottom: var(--sc-p-color-dark-text-tertiary);
   --sc-color-switch-glyph-on: var(--sc-p-color-utility-white);
   --sc-color-switch-glyph-off: var(--sc-p-color-dark-text-disabled);
-  --sc-color-switch-track-off: var(--sc-p-color-dark-well);
-  --sc-color-switch-track-off-hover: var(--sc-p-color-dark-floor);
-  --sc-color-segmented-control-track: var(--sc-p-color-dark-well);
-  --sc-color-segmented-control-indicator: var(--sc-p-color-dark-raised2);
+  --sc-color-switch-track-off: var(--sc-p-color-dark-deep8);
+  --sc-color-switch-track-off-hover: var(--sc-p-color-dark-deep7);
+  --sc-color-segmented-control-track: var(--sc-p-color-dark-deep8);
+  --sc-color-segmented-control-indicator: var(--sc-p-color-dark-deep2);
   --sc-color-segmented-control-indicator-shade: rgb(var(--sc-p-color-ink-rgb) / 0.25);
-  --sc-color-stepper-track: var(--sc-p-color-dark-well);
+  --sc-color-stepper-track: var(--sc-p-color-dark-deep8);
   --sc-color-stepper-key: var(--sc-color-surface-raised);
   --sc-color-stepper-key-hover: var(--sc-color-control-key-hover-fill);
   --sc-color-stepper-key-hover-ink: var(--sc-color-control-key-hover-ink);
   --sc-color-stepper-key-pressed: var(--sc-color-brand-accent-deep);
   --sc-color-stepper-key-pressed-ink: var(--sc-color-text-on-accent);
   --sc-color-stepper-key-shade: var(--sc-color-control-key-shade);
-  --sc-color-slider-track: var(--sc-p-color-dark-raised2);
-  --sc-color-slider-track-disabled: var(--sc-p-color-dark-well);
+  --sc-color-slider-track: var(--sc-p-color-dark-deep2);
+  --sc-color-slider-track-disabled: var(--sc-p-color-dark-deep8);
   --sc-color-slider-fill: var(--sc-p-color-teal-500);
   --sc-color-slider-fill-hover: var(--sc-p-color-teal-300);
   --sc-color-slider-fill-disabled: var(--sc-p-color-dark-text-disabled);
@@ -1003,7 +1013,7 @@
   --sc-color-input-adornment: var(--sc-p-color-dark-text-secondary);
   --sc-color-input-divider: var(--sc-p-color-dark-raised2);
   --sc-color-card-flat: var(--sc-color-surface-floating);
-  --sc-color-card-flat-hover: var(--sc-p-color-dark-raised3);
+  --sc-color-card-flat-hover: var(--sc-p-color-dark-well);
   --sc-color-card-glass-clear-light: rgb(var(--sc-p-color-white-rgb) / 0.05);
   --sc-color-card-glass-clear-dark: rgb(var(--sc-p-color-black-rgb) / 0.20);
   --sc-color-card-glass-clear-auto: var(--sc-color-card-glass-clear-dark);
@@ -1027,10 +1037,10 @@
   --sc-color-status-pill-info-fill: var(--sc-color-status-info);
   --sc-color-status-pill-info-ink: var(--sc-color-text-on-inverse);
   --sc-color-status-pill-live-fill: var(--sc-p-color-signal-live);
-  --sc-color-status-pill-live-ink: var(--sc-color-text-on-inverse);
-  --sc-color-tooltip-surface: var(--sc-p-color-dark-raised1);
+  --sc-color-status-pill-live-ink: var(--sc-p-color-warm-gray-50);
+  --sc-color-tooltip-surface: var(--sc-p-color-dark-deep4);
   --sc-color-tooltip-text: var(--sc-p-color-dark-text-primary);
-  --sc-color-avatar-ground: var(--sc-p-color-dark-well);
+  --sc-color-avatar-ground: var(--sc-p-color-dark-deep8);
   --sc-color-toast-surface: var(--sc-color-surface-raised);
   --sc-color-toast-text: var(--sc-color-text-primary);
   --sc-color-toast-badge-success: var(--sc-color-status-success);
