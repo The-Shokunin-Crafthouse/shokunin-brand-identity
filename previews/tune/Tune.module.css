@@ -661,7 +661,7 @@ fieldset:disabled {
   color-scheme: dark;
 }
 
-/* Scoped to the header and the panel: a staged component (Input) must
+/* Scoped to the header and the panel: a staged component (TextField) must
    render with its own styles, not the lab's. */
 :is(.bar, .panel) select,
 :is(.bar, .panel) input[type='text'],

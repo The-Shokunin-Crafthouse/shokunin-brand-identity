@@ -21,7 +21,7 @@ import { SpacingSection } from './sections/SpacingSection.jsx';
 import { MotionSection } from './sections/MotionSection.jsx';
 import { MarkSection } from './sections/MarkSection.jsx';
 import {
-  ButtonPage, StatusPillPage, CardPage, InputPage, ToastPage, SwitchPage,
+  ButtonPage, StatusPillPage, CardPage, TextFieldPage, ToastPage, SwitchPage,
   AvatarPage, ProgressPage, TooltipPage, DividerPage, NavBarPage,
   SegmentedControlPage, StepperPage, SliderPage, WorkingMarkPage,
 } from './sections/ComponentSections.jsx';
@@ -87,7 +87,7 @@ const NAV = [
       { id: 'button', label: 'Button' },
       { id: 'status-pill', label: 'StatusPill' },
       { id: 'card', label: 'Card' },
-      { id: 'input', label: 'Input' },
+      { id: 'input', label: 'TextField' },
       { id: 'toast', label: 'Toast' },
       { id: 'switch', label: 'Switch' },
       { id: 'avatar', label: 'Avatar' },
@@ -168,7 +168,7 @@ const SECTIONS = {
   button: ButtonPage,
   'status-pill': StatusPillPage,
   card: CardPage,
-  input: InputPage,
+  input: TextFieldPage,
   toast: ToastPage,
   switch: SwitchPage,
   avatar: AvatarPage,

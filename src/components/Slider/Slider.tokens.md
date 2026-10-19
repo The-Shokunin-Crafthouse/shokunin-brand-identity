@@ -2,7 +2,7 @@
 
 A value the user sets by dragging or by keys. Drams #5 Standard Volume, #12 Dynamic Slider. Split from ProgressIndicator's interactive bar on 2026-10-07 (Levi): a progress indicator is read, a slider is moved. Physical-controls Tier 1: a recessed track and a physical thumb lit from the top left.
 
-The Slider reads only its own role tokens (`--sc-*-slider-*`), so a tune in sc-tune never moves ProgressIndicator, the Switch or other sunk surfaces. Values: record `output/tuning/Slider/2026-10-07-2207/` concept A (Levi), applied 2026-10-07: a 15px thumb (16px since 2026-10-08, rounded to the ladder) with the Switch knob's colours at 135deg and the Button key lift (aliased to `shadow.control.key` / `keyPressed`), the top-left recess, a 1062ms spring seek (720ms, motion.duration.orchestrated, since 2026-10-08) with stretch 0.45, a 0.985 press scale. Figma: component set `Slider` (`524:21`).
+The Slider reads only its own role tokens (`--sc-*-slider-*`), so a tune in sc-tune never moves Progress, the Switch or other sunk surfaces. Values: record `output/tuning/Slider/2026-10-07-2207/` concept A (Levi), applied 2026-10-07: a 15px thumb (16px since 2026-10-08, rounded to the ladder) with the Switch knob's colours at 135deg and the Button key lift (aliased to `shadow.control.key` / `keyPressed`), the top-left recess, a 1062ms spring seek (720ms, motion.duration.orchestrated, since 2026-10-08) with stretch 0.45, a 0.985 press scale. Figma: component set `Slider` (`524:21`).
 
 ## Tokens
 

@@ -1,4 +1,4 @@
-import { PlusField, Button, Input } from '@the-shokunin-crafthouse/scds';
+import { PlusField, Button, TextField } from '@the-shokunin-crafthouse/scds';
 
 // Every story renders twice: the light theme, then the same content under data-theme="dark".
 const Mode = ({ theme, children }) => (
@@ -112,7 +112,7 @@ export const FormCorner = () => (
       <PlusField art="unews" surface="raised" backdrop />
       <div style={{ position: 'relative', padding: 'var(--sc-space-layout-stack-xl) var(--sc-space-layout-inset-md) var(--sc-space-layout-inset-md)', display: 'grid', gap: 'var(--sc-space-layout-stack-sm)' }}>
         <p style={{ font: 'var(--sc-font-text-title-card)', margin: 0 }}>Newsletter</p>
-        <Input label="Email" placeholder="you@studio.com" />
+        <TextField label="Email" placeholder="you@studio.com" />
         <div><Button>Subscribe</Button></div>
       </div>
     </div>

@@ -13,11 +13,11 @@ import { Section, Metabar, Hero, Chapter, Accent, Em, Slash, kit } from './_kit/
 import { Button } from '../components/Button/Button.jsx';
 import { StatusPill } from '../components/StatusPill/StatusPill.jsx';
 import { Card } from '../components/Card/Card.jsx';
-import { Input } from '../components/Input/Input.jsx';
+import { TextField } from '../components/TextField/TextField.jsx';
 import { Toast } from '../components/Toast/Toast.jsx';
 import { Switch } from '../components/Switch/Switch.jsx';
 import { Avatar } from '../components/Avatar/Avatar.jsx';
-import { ProgressIndicator } from '../components/ProgressIndicator/ProgressIndicator.jsx';
+import { Progress } from '../components/Progress/Progress.jsx';
 import { Tooltip } from '../components/Tooltip/Tooltip.jsx';
 import { Divider } from '../components/Divider/Divider.jsx';
 import { NavBar } from '../components/NavBar/NavBar.jsx';
@@ -104,15 +104,15 @@ export function SpecimenSection() {
       <Chapter
         ord="ii"
         eyebrow="Input / takes something in"
-        title="Input, Switch."
+        title="TextField, Switch."
         premise="The controls that change state. The field speaks in borders; the switch flips immediately and rests on the accent when on."
         annotations={[{ title: 'Immediate vs deferred', body: 'A switch applies now; an input waits for a submit. Two different contracts, one register.' }]}
       >
         <div className={styles.blocks}>
-          <Block name="Input" count="5 states">
+          <Block name="TextField" count="5 states">
             <div className={styles.stack}>
-              <Input label="Email" placeholder="you@studio.com" />
-              <Input label="Filled" defaultValue="levi@levibahn.com" />
+              <TextField label="Email" placeholder="you@studio.com" />
+              <TextField label="Filled" defaultValue="levi@levibahn.com" />
             </div>
           </Block>
           <Block name="Switch" count="3 states">
@@ -148,9 +148,9 @@ export function SpecimenSection() {
           </Block>
           <Block name="Progress" count="3 variants">
             <div className={styles.progressRow}>
-              <div style={{ flex: 1, minWidth: 'var(--sc-p-space-120)' }}><ProgressIndicator variant="bar" value={0.62} label="62 percent" /></div>
-              <ProgressIndicator variant="circular" value={0.7} label="70 percent" />
-              <ProgressIndicator variant="step" steps={4} current={2} />
+              <div style={{ flex: 1, minWidth: 'var(--sc-p-space-120)' }}><Progress variant="bar" value={0.62} label="62 percent" /></div>
+              <Progress variant="circular" value={0.7} label="70 percent" />
+              <Progress variant="step" steps={4} current={2} />
             </div>
           </Block>
           <Block name="Divider" count="3 states">

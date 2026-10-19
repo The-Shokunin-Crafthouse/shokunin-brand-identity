@@ -24,7 +24,7 @@
  * vanishes — it reads as a track-height pill/circle (a "radius cap"),
  * not a thumbless 2px lead-in. Reuses the existing bar-height token
  * rather than adding a dedicated min-fill token — logged in
- * ProgressIndicator.tokens.md.
+ * Progress.tokens.md.
  */
 
 /* --- Bar ---------------------------------------------------------- */

@@ -11,7 +11,7 @@ The plus-sign halftone field: one `<canvas>` that fills its parent box and draws
 
 ## Arts without a wrapper
 
-Compositions from the approved prototype (Brand Elements, turn 2). The field scales to any box. Card hosts also take `borderRadius` + `overflow: 'hidden'`; captions take `--sc-color-text-secondary` (omitted below). `const { PlusField, Button, Input } = window.SCDS;`
+Compositions from the approved prototype (Brand Elements, turn 2). The field scales to any box. Card hosts also take `borderRadius` + `overflow: 'hidden'`; captions take `--sc-color-text-secondary` (omitted below). `const { PlusField, Button, TextField } = window.SCDS;`
 
 ### Card header (2c): `ucardhead`
 
@@ -124,7 +124,7 @@ Two ribbons in the top-right corner; the form starts below them.
 <div style={{ position: 'relative', width: 360, background: 'var(--sc-color-surface-raised)' }}>
   <PlusField art="unews" surface="raised" backdrop />
   <form style={{ position: 'relative', padding: 'var(--sc-space-layout-stack-xl) var(--sc-space-layout-inset-md) var(--sc-space-layout-inset-md)', display: 'grid', gap: 'var(--sc-space-layout-stack-sm)' }}>
-    <Input label="Email" placeholder="you@studio.com" />
+    <TextField label="Email" placeholder="you@studio.com" />
     <Button type="submit">Subscribe</Button>
   </form>
 </div>

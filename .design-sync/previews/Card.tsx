@@ -1,4 +1,4 @@
-import { Button, Card, Divider, Input, StatusPill } from '@the-shokunin-crafthouse/scds';
+import { Button, Card, Divider, TextField, StatusPill } from '@the-shokunin-crafthouse/scds';
 
 const title = { font: 'var(--sc-font-text-title-card)', color: 'var(--sc-color-text-primary)', margin: 0 };
 const body = { font: 'var(--sc-font-text-body-dense)', color: 'var(--sc-color-text-secondary)', margin: 0 };
@@ -67,7 +67,7 @@ export const Composed = () => (
         <p style={{ font: 'var(--sc-font-text-body-dense)', color: 'var(--sc-color-text-secondary)' }}>
           They get read access to the project binder.
         </p>
-        <Input label="Email" placeholder="you@studio.com" surface="raised" />
+        <TextField label="Email" placeholder="you@studio.com" surface="raised" />
         <Divider />
         <div style={{ display: 'flex', gap: 'var(--sc-space-component-gap-md)' }}>
           <Button variant="primary">Send invite</Button>

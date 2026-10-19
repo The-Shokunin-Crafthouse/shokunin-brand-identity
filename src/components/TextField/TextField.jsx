@@ -1,5 +1,5 @@
 /**
- * Input — 3.4 · default, hover, focus, filled, error, disabled.
+ * TextField — 3.4 · default, hover, focus, filled, error, disabled.
  *
  * Wraps a native <input> with a label and optional description, helper
  * and error text. Focus + filled are CSS-pseudo-driven; error and
@@ -34,13 +34,13 @@
 import { isValidElement, useId, useRef } from 'react';
 import { X } from '@phosphor-icons/react';
 import { Icon } from '../Icon/Icon.jsx';
-import styles from './Input.module.css';
+import styles from './TextField.module.css';
 
 const slot = (node) => (node && !isValidElement(node) && typeof node !== 'string'
   ? <Icon glyph={node} weight="bold" />
   : node);
 
-export function Input({
+export function TextField({
   label,
   description,
   helper,

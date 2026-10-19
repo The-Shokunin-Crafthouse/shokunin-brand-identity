@@ -1,4 +1,4 @@
-# ProgressIndicator · token consumption
+# Progress · token consumption
 
 Spec ref: §2 Tier 3 · 3.10 · States: bar, circular, step.
 
@@ -42,7 +42,7 @@ All progress transitions suppressed.
 
 ## Interactive bar → Slider (2026-10-07)
 
-The interactive bar moved to its own component, `Slider` (`src/components/Slider/`), with its own `--sc-*-slider-*` tokens. A progress indicator is read; a slider is moved (Levi, 2026-10-07). Every ProgressIndicator variant is a flat meter. The deprecated `interactive` prop was removed 2026-10-08 (Levi); use `Slider`.
+The interactive bar moved to its own component, `Slider` (`src/components/Slider/`), with its own `--sc-*-slider-*` tokens. A progress indicator is read; a slider is moved (Levi, 2026-10-07). Every Progress variant is a flat meter. The deprecated `interactive` prop was removed 2026-10-08 (Levi); use `Slider`.
 
 **Min-fill (bar)**
 

@@ -61,9 +61,9 @@ that needs the real node URLs.
 | Card | — | ☐ TODO |
 | Divider | — | ☐ TODO |
 | Icon | — | ☐ TODO |
-| Input | — | ☐ TODO |
+| TextField | — | ☐ TODO · Figma set `9:487` (renamed from Input) |
 | NavBar | — | ☐ TODO |
-| ProgressIndicator | — | ☐ TODO |
+| Progress | — | ☐ TODO · Figma set `140:26` (renamed from ProgressIndicator) |
 | Slider | — | ☐ TODO |
 | Switch | — | ☐ TODO |
 | Tooltip | — | ☐ TODO |
@@ -79,6 +79,44 @@ that needs the real node URLs.
 | PlusBullet | `PlusBullet/PlusBullet.figma.tsx` | ✅ code wired · ✅ Figma set `459:4` built 2026-10-05 from the engine (decisions.md · plus-field) · publish still plan-gated |
 | PlusSeparator | `PlusSeparator/PlusSeparator.figma.tsx` | ✅ code wired · ✅ Figma set `474:56316` (`Tone` Default | Muted; Default is the original `459:2370`) · publish still plan-gated |
 | PlusThumbnail | `PlusThumbnail/PlusThumbnail.figma.tsx` | ✅ code wired · ✅ Figma set `459:2400` built 2026-10-05 from the engine (decisions.md · plus-field) · publish still plan-gated |
+
+
+## Link map: every component, its code path and its Figma master
+
+Figma file `0zVoxaLJQkjHENYJlQk1VT` (SCDS library). Names were synced on 2026-10-18 so code and Figma match, one name per component. Node links open the master in Figma; code links are paths in this repo.
+
+| Component | Code path | Figma name | Figma node | Note |
+| --- | --- | --- | --- | --- |
+| Avatar | `src/components/Avatar/Avatar.jsx` | Avatar | [`556:1738`](https://www.figma.com/design/0zVoxaLJQkjHENYJlQk1VT/?node-id=556-1738) |  |
+| Button | `src/components/Button/Button.jsx` | Button | [`9:438`](https://www.figma.com/design/0zVoxaLJQkjHENYJlQk1VT/?node-id=9-438) | Code Connect file |
+| Card | `src/components/Card/Card.jsx` | Card | [`535:43`](https://www.figma.com/design/0zVoxaLJQkjHENYJlQk1VT/?node-id=535-43) |  |
+| Divider | `src/components/Divider/Divider.jsx` | — | none yet | no Figma master yet (SectionDivider and PlusSeparator are different components) |
+| HeadingRule | `src/components/HeadingRule/HeadingRule.jsx` | HeadingRule | [`460:8`](https://www.figma.com/design/0zVoxaLJQkjHENYJlQk1VT/?node-id=460-8) | Code Connect file |
+| Icon | `src/components/Icon/Icon.jsx` | Icon/<glyph> | [`24:2`](https://www.figma.com/design/0zVoxaLJQkjHENYJlQk1VT/?node-id=24-2) | family: one Figma master per glyph on the Icons page (48 today), not a single component; link is the page |
+| NavBar | `src/components/NavBar/NavBar.jsx` | — | none yet | no Figma master yet (NavLink 9:396 is its link part; Nav 9:1085 is the portal kit) |
+| PlusBullet | `src/components/PlusBullet/PlusBullet.jsx` | PlusBullet | [`459:4`](https://www.figma.com/design/0zVoxaLJQkjHENYJlQk1VT/?node-id=459-4) | Code Connect file |
+| PlusField | `src/components/PlusField/PlusField.jsx` | PlusField | [`459:2771`](https://www.figma.com/design/0zVoxaLJQkjHENYJlQk1VT/?node-id=459-2771) | Code Connect file |
+| PlusLoader | `src/components/PlusLoader/PlusLoader.jsx` | PlusLoader | [`459:2329`](https://www.figma.com/design/0zVoxaLJQkjHENYJlQk1VT/?node-id=459-2329) | Code Connect file |
+| PlusProgress | `src/components/PlusProgress/PlusProgress.jsx` | PlusProgress | [`459:2236`](https://www.figma.com/design/0zVoxaLJQkjHENYJlQk1VT/?node-id=459-2236) | Code Connect file |
+| PlusSeparator | `src/components/PlusSeparator/PlusSeparator.jsx` | PlusSeparator | [`474:56316`](https://www.figma.com/design/0zVoxaLJQkjHENYJlQk1VT/?node-id=474-56316) | Code Connect file |
+| PlusSkeleton | `src/components/PlusSkeleton/PlusSkeleton.jsx` | PlusSkeleton | [`459:2350`](https://www.figma.com/design/0zVoxaLJQkjHENYJlQk1VT/?node-id=459-2350) | Code Connect file |
+| PlusThumbnail | `src/components/PlusThumbnail/PlusThumbnail.jsx` | PlusThumbnail | [`459:2400`](https://www.figma.com/design/0zVoxaLJQkjHENYJlQk1VT/?node-id=459-2400) | Code Connect file |
+| PlusTimeline | `src/components/PlusTimeline/PlusTimeline.jsx` | PlusTimeline | [`461:73`](https://www.figma.com/design/0zVoxaLJQkjHENYJlQk1VT/?node-id=461-73) | Code Connect file |
+| PlusUnderline | `src/components/PlusUnderline/PlusUnderline.jsx` | PlusUnderline | [`459:2206`](https://www.figma.com/design/0zVoxaLJQkjHENYJlQk1VT/?node-id=459-2206) | Code Connect file |
+| Progress | `src/components/Progress/Progress.jsx` | Progress | [`140:26`](https://www.figma.com/design/0zVoxaLJQkjHENYJlQk1VT/?node-id=140-26) | renamed from ProgressIndicator (2026-10-18) |
+| SectionDivider | `src/components/SectionDivider/SectionDivider.jsx` | SectionDivider | [`459:2172`](https://www.figma.com/design/0zVoxaLJQkjHENYJlQk1VT/?node-id=459-2172) | Code Connect file |
+| SegmentedControl | `src/components/SegmentedControl/SegmentedControl.jsx` | SegmentedControl | [`85:3`](https://www.figma.com/design/0zVoxaLJQkjHENYJlQk1VT/?node-id=85-3) | its Segment part is set 137:35 |
+| Slider | `src/components/Slider/Slider.jsx` | Slider | [`524:21`](https://www.figma.com/design/0zVoxaLJQkjHENYJlQk1VT/?node-id=524-21) |  |
+| StatusPill | `src/components/StatusPill/StatusPill.jsx` | StatusPill | [`553:286`](https://www.figma.com/design/0zVoxaLJQkjHENYJlQk1VT/?node-id=553-286) | the older copy on the _Archive page (9:3722) is not the master |
+| Stepper | `src/components/Stepper/Stepper.jsx` | Stepper | [`139:51`](https://www.figma.com/design/0zVoxaLJQkjHENYJlQk1VT/?node-id=139-51) |  |
+| Switch | `src/components/Switch/Switch.jsx` | Switch | [`9:858`](https://www.figma.com/design/0zVoxaLJQkjHENYJlQk1VT/?node-id=9-858) | Figma renamed from Toggle (2026-10-18) |
+| TextField | `src/components/TextField/TextField.jsx` | TextField | [`9:487`](https://www.figma.com/design/0zVoxaLJQkjHENYJlQk1VT/?node-id=9-487) | renamed from Input (2026-10-18) |
+| Toast | `src/components/Toast/Toast.jsx` | Toast | [`9:897`](https://www.figma.com/design/0zVoxaLJQkjHENYJlQk1VT/?node-id=9-897) | Code Connect file |
+| Tooltip | `src/components/Tooltip/Tooltip.jsx` | Tooltip | [`546:23`](https://www.figma.com/design/0zVoxaLJQkjHENYJlQk1VT/?node-id=546-23) |  |
+| TypographySpecimen | `src/components/TypographySpecimen/TypographySpecimen.jsx` | — | none yet | no Figma master yet (the old Type/* text styles sit on the _Archive page) |
+| WorkingMark | `src/components/WorkingMark/WorkingMark.jsx` | WorkingMark | [`418:29`](https://www.figma.com/design/0zVoxaLJQkjHENYJlQk1VT/?node-id=418-29) |  |
+
+Counts: 24 components have a one-to-one Figma master, Icon links to its family page, and 3 (Divider, NavBar, TypographySpecimen) have no master yet. The old code names `Input` and `ProgressIndicator` still import for now as deprecated aliases in `src/index.js`.
 
 Author the rest one at a time against confirmed Figma masters — do not bulk-author
 blind. Copy the `Button.figma.tsx` shape: map `figma.enum` for variant props,

@@ -49,7 +49,7 @@ Track bg and thumb position transitions suppressed. Switch still flips state ins
 
 ## Glyphs (optional)
 
-`glyphs` (default `true`) renders the I/O glyph row. `glyphs={false}` leaves a plain recessed track; `--sc-size-switch-glyph` and `--sc-color-switch-glyph-*` are then unread. Knob position still carries on/off without colour (WCAG 1.4.1). Figma: the Toggle set's `Glyphs` boolean property (`Glyphs#498:0`) shows or hides the `Glyphs` layer in both variants.
+`glyphs` (default `true`) renders the I/O glyph row. `glyphs={false}` leaves a plain recessed track; `--sc-size-switch-glyph` and `--sc-color-switch-glyph-*` are then unread. Knob position still carries on/off without colour (WCAG 1.4.1). Figma: the Switch set's (renamed from Toggle, 2026-10-18) `Glyphs` boolean property (`Glyphs#498:0`) shows or hides the `Glyphs` layer in both variants.
 
 ## Motion (stretch, squash, press lean)
 

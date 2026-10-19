@@ -1,4 +1,4 @@
-# Input · token consumption
+# TextField · token consumption
 
 Spec ref: §2 Tier 3 · 3.4 · States: default, focus, filled, error, disabled.
 scds-v2 Phase 2: filled field — no box frame; a single bottom rule + fill-shift carry every state.
@@ -62,4 +62,4 @@ Superseded the bottom-rule field above. Levi's reference is a filled-field set; 
 
 **States:** hover and focus keep the fill (the reference shows neither); focus is the system ring on the box; error is a hairline `status.error` edge, a 2px ring when focused, and the error text under the field. Disabled is flat with disabled ink. Forced colors: a full `CanvasText` edge, a `Highlight` focus ring, `GrayText` when disabled.
 
-Figma: `TextField` set `9:487` (variants Default, Hover, Focus, Active, Disabled, Error `528:95`; boolean props Leading icon, Clear, Subcopy), icons `Icon/envelope-simple-bold` `527:8`, `Icon/x-bold` `527:4`. Record `output/tuning/Input/2026-10-07-2237/`, applied 2026-10-07.
+Figma: `TextField` set `9:487` (variants Default, Hover, Focus, Active, Disabled, Error `528:95`; boolean props Leading icon, Clear, Subcopy), icons `Icon/envelope-simple-bold` `527:8`, `Icon/x-bold` `527:4`. Record `output/tuning/TextField/2026-10-07-2237/`, applied 2026-10-07.

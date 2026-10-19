@@ -3,8 +3,8 @@
  * Standard Volume, #12 Dynamic Slider).
  *
  * Split from ProgressIndicator's `interactive` bar (Levi, 2026-10-07): a
- * progress indicator is read, a slider is moved. ProgressIndicator stays a
- * flat meter; `<ProgressIndicator interactive>` still renders this
+ * progress indicator is read, a slider is moved. Progress stays a
+ * flat meter; `<Progress interactive>` still renders this
  * component for one release.
  *
  * API: value, onChange, min (0), max (1), step (0.01), bigStep (0.05),
@@ -17,7 +17,7 @@
  * Pointer: pointerdown seeks to the click and starts a drag
  * (setPointerCapture keeps it live outside the track). Keyboard
  * (role="slider"): arrows ± step, Shift ± bigStep, Home/End. aria values
- * are percent-space (0–100), the ProgressIndicator contract.
+ * are percent-space (0–100), the Progress contract.
  *
  * Physical thumb (physical-controls Tier 1, tokens --sc-*-slider-*): a knob
  * that rides inside the recessed track, its centre running from thumb/2 to
