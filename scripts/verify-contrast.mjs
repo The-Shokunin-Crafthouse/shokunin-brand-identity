@@ -85,10 +85,14 @@ export function semanticHex(path, mode) {
   if (!node) throw new Error(`no semantic token at ${path}`);
   const v = node.$extensions?.modes?.[mode] ?? node.$value;
   // A semantic token may alias another semantic token (the Stepper keys alias
-  // the Button's), resolved in the same mode. A reference to its own path
-  // (color.signal.progress -> {color.signal.progress}) names the primitive.
+  // the Button's), resolved in the same mode. A path that is also a primitive
+  // leaf names the primitive, as tokens-to-css.mjs resolves it: statusPill.live.fill
+  // -> {color.signal.live} renders the primitive #C8281C in both modes, not the
+  // semantic signal.live (#DA5C4D in dark). This also covers a reference to its
+  // own path (color.signal.progress -> {color.signal.progress}).
   const target = typeof v === 'string' && v.match(/^\{(.+)\}$/)?.[1];
-  if (target && target !== path && walk(semantic, target)?.$value !== undefined) return semanticHex(target, mode);
+  const isPrimitiveLeaf = target && walk(primitives, target)?.$value !== undefined;
+  if (target && !isPrimitiveLeaf && walk(semantic, target)?.$value !== undefined) return semanticHex(target, mode);
   return refHex(v);
 }
 
