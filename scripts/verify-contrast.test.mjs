@@ -34,7 +34,7 @@ test('every status hue has an -ink tier, and check 1 sweeps all of them', async 
   const inks = status.filter((k) => k.endsWith('-ink'));
   for (const hue of hues) assert.ok(inks.includes(`${hue}-ink`), `color.status.${hue} has no ${hue}-ink text tier`);
 
-  const textTiers = 4 + inks.length; // text.primary/secondary/tertiary, brand.accentInk, every status ink
+  const textTiers = 5 + inks.length; // text.primary/secondary/tertiary, brand.accentInk, interactive.active-ink, every status ink
   const pairs = textTiers * Object.keys(semantic.color.surface).length * semantic.$metadata.modes.length;
   const r = spawnSync('node', ['scripts/verify-contrast.mjs'], { cwd: root, encoding: 'utf8' });
   assert.match(r.stdout, new RegExp(`WCAG AA on every text-tier × surface × mode pair \\(${pairs} pairs\\)`));

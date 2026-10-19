@@ -114,6 +114,10 @@ const TEXT_TIERS = [
   // status.error gained its ink 2026-10-17 (studio-pm ADR-136): the dark fill read
   // 3.64:1 on surface.deepSunk and nothing here covered it.
   'color.status.error-ink',
+  // interactive.active-ink, the text tier for the active state, added 2026-10-18 with
+  // the deepest slate grounds: dark interactive.active (teal.500) read 4.32:1 on
+  // surface.floating as text.
+  'color.interactive.active-ink',
 ];
 const SURFACES = Object.keys(semantic.color.surface);
 const MODES = semantic.$metadata.modes;
@@ -269,12 +273,12 @@ const CLAIMS = [
 
   // --- status ---------------------------------------------------------------
   ['primitives', 'color.status.success.light', 3.42, 'color.status.success.light', 'color.warmGray.100', null],
-  ['primitives', 'color.status.success.ink.light', 4.64, 'color.status.success.ink.light', 'color.warmGray.100', null],
+  ['primitives', 'color.status.success.ink.light', 5.46, 'color.status.success.ink.light', 'color.warmGray.100', null],
   ['primitives', 'color.status.warning.ink.light', 4.63, 'color.status.warning.ink.light', 'color.warmGray.100', null],
   ['primitives', 'color.status.warning.ink.light', 3.90, 'color.status.warning.light', 'color.warmGray.100', null],
   ['primitives', 'color.status.info.light', 4.43, 'color.status.info.light', 'color.warmGray.100', null],
   ['primitives', 'color.status.info.ink.dark', 4.43, 'color.status.info.light', 'color.warmGray.100', null],
-  ['semantic', 'color.status.success-ink', 4.64, 'color.status.success.ink.light', 'color.warmGray.100', null],
+  ['semantic', 'color.status.success-ink', 5.46, 'color.status.success.ink.light', 'color.warmGray.100', null],
   ['semantic', 'color.status.success-ink', 3.42, 'color.status.success.light', 'color.warmGray.100', null],
   ['semantic', 'color.status.warning-ink', 4.63, 'color.status.warning.ink.light', 'color.warmGray.100', null],
   ['semantic', 'color.status.warning-ink', 3.90, 'color.status.warning.light', 'color.warmGray.100', null],
@@ -295,13 +299,13 @@ const CLAIMS = [
   // --- dark mode · slate ladder, 2026-09-24 (decisions.md) --------------------
   // Every dark figure below was re-measured against the slate ladder. The
   // neutral-ladder figures they replace are pinned in HISTORICAL.
-  ['semantic', 'color.text.secondary', 6.04, 'color.text.secondary', 'color.surface.floating', 'dark'],
-  ['semantic', 'color.text.secondary', 9.15, 'color.text.secondary', 'color.surface.sunk', 'dark'],
-  ['semantic', 'color.text.tertiary', 6.05, 'color.text.tertiary', 'color.surface.page', 'dark'],
-  ['semantic', 'color.text.tertiary', 7.22, 'color.text.tertiary', 'color.surface.sunk', 'dark'],
-  ['semantic', 'color.text.tertiary', 6.67, 'color.text.tertiary', 'color.surface.rail', 'dark'],
-  ['semantic', 'color.text.tertiary', 5.37, 'color.text.tertiary', 'color.surface.raised', 'dark'],
-  ['semantic', 'color.text.tertiary', 4.76, 'color.text.tertiary', 'color.surface.deepSunk', 'dark'],
+  ['semantic', 'color.text.secondary', 10.16, 'color.text.secondary', 'color.surface.floating', 'dark'],
+  ['semantic', 'color.text.secondary', 11.82, 'color.text.secondary', 'color.surface.sunk', 'dark'],
+  ['semantic', 'color.text.tertiary', 8.98, 'color.text.tertiary', 'color.surface.page', 'dark'],
+  ['semantic', 'color.text.tertiary', 9.32, 'color.text.tertiary', 'color.surface.sunk', 'dark'],
+  ['semantic', 'color.text.tertiary', 9.15, 'color.text.tertiary', 'color.surface.rail', 'dark'],
+  ['semantic', 'color.text.tertiary', 8.55, 'color.text.tertiary', 'color.surface.raised', 'dark'],
+  ['semantic', 'color.text.tertiary', 8.01, 'color.text.tertiary', 'color.surface.deepSunk', 'dark'],
   ['primitives', 'color.dark.textPrimary', 10.57, 'color.dark.textPrimary', 'color.dark.surfacePage', null],
   ['primitives', 'color.dark.textPrimary', 12.62, 'color.dark.textPrimary', 'color.dark.well', null],
   ['primitives', 'color.dark.textPrimary', 11.66, 'color.dark.textPrimary', 'color.dark.floor', null],
@@ -326,26 +330,26 @@ const CLAIMS = [
   ['primitives', 'color.focusRing.dark', 11.96, 'color.focusRing.dark', 'color.dark.floor', null],
   ['primitives', 'color.focusRing.dark', 9.62, 'color.focusRing.dark', 'color.dark.raised1', null],
   ['primitives', 'color.focusRing.dark', 8.53, 'color.focusRing.dark', 'color.dark.raised2', null],
-  ['semantic', 'color.border.focus', 10.84, 'color.border.focus', 'color.surface.page', 'dark'],
+  ['semantic', 'color.border.focus', 16.09, 'color.border.focus', 'color.surface.page', 'dark'],
   ['primitives', 'color.teal.200', 7.61, 'color.teal.200', 'color.dark.surfacePage', null],
   ['primitives', 'color.teal.200', 5.99, 'color.teal.200', 'color.dark.raised2', null],
   ['primitives', 'color.teal.300', 5.51, 'color.teal.300', 'color.dark.surfacePage', null],
   ['primitives', 'color.teal.300', 4.34, 'color.teal.300', 'color.dark.raised2', null],
   ['primitives', 'color.teal.400', 3.94, 'color.teal.400', 'color.dark.surfacePage', null],
   ['primitives', 'color.teal.400', 3.10, 'color.teal.400', 'color.dark.raised2', null],
-  ['semantic', 'color.brand.accentDeep', 1.62, 'color.brand.accentDeep', 'color.surface.raised', 'dark'],
-  ['semantic', 'color.brand.accentInk', 7.61, 'color.brand.accentInk', 'color.surface.page', 'dark'],
-  ['semantic', 'color.brand.accentInk', 9.08, 'color.brand.accentInk', 'color.surface.sunk', 'dark'],
-  ['semantic', 'color.brand.accentInk', 6.76, 'color.brand.accentInk', 'color.surface.raised', 'dark'],
-  ['semantic', 'color.brand.accentInk', 5.99, 'color.brand.accentInk', 'color.surface.deepSunk', 'dark'],
-  ['semantic', 'color.brand.accentInk', 8.40, 'color.brand.accentInk', 'color.surface.rail', 'dark'],
-  ['semantic', 'color.brand.accentInk', 3.10, 'color.teal.400', 'color.surface.deepSunk', 'dark'],
-  ['semantic', 'color.interactive.hover', 5.51, 'color.interactive.hover', 'color.surface.page', 'dark'],
-  ['semantic', 'color.interactive.hover', 4.34, 'color.interactive.hover', 'color.surface.floating', 'dark'],
-  ['semantic', 'color.interactive.hover', 3.10, 'color.teal.400', 'color.surface.floating', 'dark'],
-  ['semantic', 'color.interactive.hover-ink', 7.61, 'color.interactive.hover-ink', 'color.surface.page', 'dark'],
-  ['semantic', 'color.interactive.hover-ink', 5.99, 'color.interactive.hover-ink', 'color.surface.floating', 'dark'],
-  ['semantic', 'color.interactive.hover-ink', 3.10, 'color.teal.400', 'color.surface.floating', 'dark'],
+  ['semantic', 'color.brand.accentDeep', 1.62, 'color.brand.accentDeep', 'color.dark.raised1', 'dark'],
+  ['semantic', 'color.brand.accentInk', 11.30, 'color.brand.accentInk', 'color.surface.page', 'dark'],
+  ['semantic', 'color.brand.accentInk', 11.73, 'color.brand.accentInk', 'color.surface.sunk', 'dark'],
+  ['semantic', 'color.brand.accentInk', 10.76, 'color.brand.accentInk', 'color.surface.raised', 'dark'],
+  ['semantic', 'color.brand.accentInk', 10.08, 'color.brand.accentInk', 'color.surface.deepSunk', 'dark'],
+  ['semantic', 'color.brand.accentInk', 11.52, 'color.brand.accentInk', 'color.surface.rail', 'dark'],
+  ['semantic', 'color.brand.accentInk', 3.10, 'color.teal.400', 'color.dark.raised2', 'dark'],
+  ['semantic', 'color.interactive.hover', 8.18, 'color.interactive.hover', 'color.surface.page', 'dark'],
+  ['semantic', 'color.interactive.hover', 7.30, 'color.interactive.hover', 'color.surface.floating', 'dark'],
+  ['semantic', 'color.interactive.hover', 3.10, 'color.teal.400', 'color.dark.raised2', 'dark'],
+  ['semantic', 'color.interactive.hover-ink', 11.30, 'color.interactive.hover-ink', 'color.surface.page', 'dark'],
+  ['semantic', 'color.interactive.hover-ink', 10.08, 'color.interactive.hover-ink', 'color.surface.floating', 'dark'],
+  ['semantic', 'color.interactive.hover-ink', 3.10, 'color.teal.400', 'color.dark.raised2', 'dark'],
   ['primitives', 'color.status.success.dark', 4.74, 'color.status.success.dark', 'color.dark.surfacePage', null],
   ['primitives', 'color.status.success.dark', 5.66, 'color.status.success.dark', 'color.dark.well', null],
   ['primitives', 'color.status.success.dark', 3.73, 'color.status.success.dark', 'color.dark.raised2', null],
@@ -384,28 +388,53 @@ const CLAIMS = [
   ['primitives', 'color.status.error.ink.dark', 6.53, 'color.status.error.ink.dark', 'color.dark.floor', null],
   ['primitives', 'color.status.error.ink.dark', 5.25, 'color.status.error.ink.dark', 'color.dark.raised1', null],
   ['primitives', 'color.status.error.ink.dark', 4.66, 'color.status.error.ink.dark', 'color.dark.raised2', null],
-  ['semantic', 'color.status.error', 3.64, 'color.status.error', 'color.surface.floating', 'dark'],
+  ['semantic', 'color.status.error', 3.64, 'color.status.error', 'color.dark.raised2', 'dark'],
   ['semantic', 'color.status.error-ink', 7.54, 'color.status.error-ink', 'color.surface.page', 'light'],
-  ['semantic', 'color.status.error-ink', 5.92, 'color.status.error-ink', 'color.surface.page', 'dark'],
-  ['semantic', 'color.status.error-ink', 4.66, 'color.status.error-ink', 'color.surface.floating', 'dark'],
-  ['semantic', 'color.status.error-ink', 3.64, 'color.status.error', 'color.surface.floating', 'dark'],
-  ['semantic', 'color.status.success', 4.74, 'color.status.success', 'color.surface.page', 'dark'],
-  ['semantic', 'color.status.warning', 4.73, 'color.status.warning', 'color.surface.page', 'dark'],
-  ['semantic', 'color.status.info', 4.76, 'color.status.info', 'color.surface.page', 'dark'],
-  ['semantic', 'color.status.error', 4.63, 'color.status.error', 'color.surface.page', 'dark'],
-  ['semantic', 'color.status.success-ink', 5.89, 'color.status.success-ink', 'color.surface.page', 'dark'],
-  ['semantic', 'color.status.success-ink', 3.73, 'color.status.success', 'color.surface.floating', 'dark'],
-  ['semantic', 'color.status.warning-ink', 5.94, 'color.status.warning-ink', 'color.surface.page', 'dark'],
-  ['semantic', 'color.status.warning-ink', 3.72, 'color.status.warning', 'color.surface.floating', 'dark'],
-  ['semantic', 'color.status.info-ink', 5.97, 'color.status.info-ink', 'color.surface.page', 'dark'],
-  ['semantic', 'color.status.info-ink', 4.70, 'color.status.info-ink', 'color.surface.floating', 'dark'],
-  ['semantic', 'color.status.info-ink', 3.75, 'color.status.info', 'color.surface.floating', 'dark'],
+  ['semantic', 'color.status.error-ink', 8.79, 'color.status.error-ink', 'color.surface.page', 'dark'],
+  ['semantic', 'color.status.error-ink', 4.66, 'color.status.error-ink', 'color.dark.raised2', 'dark'],
+  ['semantic', 'color.status.error-ink', 3.64, 'color.status.error', 'color.dark.raised2', 'dark'],
+  ['semantic', 'color.status.success', 7.04, 'color.status.success', 'color.surface.page', 'dark'],
+  ['semantic', 'color.status.warning', 7.02, 'color.status.warning', 'color.surface.page', 'dark'],
+  ['semantic', 'color.status.info', 7.07, 'color.status.info', 'color.surface.page', 'dark'],
+  ['semantic', 'color.status.error', 6.88, 'color.status.error', 'color.surface.page', 'dark'],
+  ['semantic', 'color.status.success-ink', 8.74, 'color.status.success-ink', 'color.surface.page', 'dark'],
+  ['semantic', 'color.status.success-ink', 3.73, 'color.status.success', 'color.dark.raised2', 'dark'],
+  ['semantic', 'color.status.warning-ink', 8.82, 'color.status.warning-ink', 'color.surface.page', 'dark'],
+  ['semantic', 'color.status.warning-ink', 3.72, 'color.status.warning', 'color.dark.raised2', 'dark'],
+  ['semantic', 'color.status.info-ink', 8.86, 'color.status.info-ink', 'color.surface.page', 'dark'],
+  ['semantic', 'color.status.info-ink', 7.91, 'color.status.info-ink', 'color.surface.floating', 'dark'],
+  ['semantic', 'color.status.info-ink', 3.75, 'color.status.info', 'color.dark.raised2', 'dark'],
+
+  // --- dark mode · deepest slate grounds, 2026-10-18 (decisions.md) ------------
+  // surface.* in dark reads the deep rungs (page deep6, raised deep4, floating and
+  // deepSunk deep2, rail deep7, sunk deep8). Figures that narrate why a tier exists
+  // stay pinned to the slate primitive they were measured on (dark.raised2 etc.).
+  ['semantic', 'color.brand.accentDeep', 2.57, 'color.brand.accentDeep', 'color.surface.raised', 'dark'],
+  ['semantic', 'color.status.error', 6.14, 'color.status.error', 'color.surface.floating', 'dark'],
+  ['semantic', 'color.status.error-ink', 7.84, 'color.status.error-ink', 'color.surface.floating', 'dark'],
+  ['semantic', 'color.status.success-ink', 4.80, 'color.status.success.ink.light', 'color.surface.sunk', 'light'],
+  ['primitives', 'color.status.success.ink.light', 4.80, 'color.status.success.ink.light', 'color.warmGray.200', null],
+  ['semantic', 'color.interactive.active-ink', 5.35, 'color.interactive.active-ink', 'color.surface.page', 'light'],
+  ['semantic', 'color.interactive.active-ink', 4.85, 'color.interactive.active', 'color.surface.page', 'dark'],
+  ['semantic', 'color.interactive.active-ink', 4.32, 'color.interactive.active', 'color.surface.floating', 'dark'],
+  ['semantic', 'color.interactive.active-ink', 3.26, 'color.interactive.active', 'color.dark.surfacePage', 'dark'],
+  ['semantic', 'color.interactive.active-ink', 14.59, 'color.interactive.active-ink', 'color.surface.page', 'dark'],
+  ['semantic', 'color.interactive.active-ink', 13.02, 'color.interactive.active-ink', 'color.surface.floating', 'dark'],
+  ['semantic', 'color.interactive.active-ink', 2.97, 'color.interactive.active-ink', 'color.surface.deepSunk', 'light'],
+  ['semantic', 'color.interactive.active-ink', 3.79, 'color.interactive.active-ink', 'color.surface.hover', 'light'],
+  ['semantic', 'color.statusPill.live.ink', 4.84, 'color.statusPill.live.ink', 'color.statusPill.live.fill', 'dark'],
+  ['semantic', 'color.statusPill.live.ink', 3.19, 'color.warmGray.800', 'color.statusPill.live.fill', 'dark'],
+  ['semantic', 'color.card.flatHover', 1.11, 'color.dark.well', 'color.dark.deep2', null],
+  ['semantic', 'color.card.flatHover', 1.13, 'color.dark.raised3', 'color.dark.raised2', null],
+  ['semantic', 'color.card.flatHover', 1.03, 'color.dark.deep1', 'color.dark.deep2', null],
 ];
 
 // Figures quoted in a $description that describe a RETIRED value and therefore
 // cannot be re-measured from the current token tree. Each is pinned to the hex
 // pair it was measured against so the number stays auditable after the fact.
 const HISTORICAL = [
+  // Light success ink before the 2026-10-18 fix (decisions.md, deepest slate dark grounds).
+  [4.09, 'success ink light pre-fix #246E4A on surface.sunk warmGray.200 #D8D1CC — re-derived 2026-10-18 to #226244'],
   // scds-v2 desaturated light ladder, retired 2026-10-07 by the oatmeal restore
   // (decisions.md 2026-10-07). Pinned to the retired hex pair.
   [3.69, 'status.success.light #2F855A on the retired scds-v2 page #EBE7E4'],

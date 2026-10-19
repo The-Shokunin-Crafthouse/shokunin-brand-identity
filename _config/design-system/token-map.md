@@ -5,7 +5,7 @@
 # Design Token Map — The Shokunin Crafthouse · Brand Identity
 
 **Generated** from `tokens/primitives.json` + `tokens/semantic.json`.
-**Source fingerprint:** `c496a58672eb` · **190 primitives · 378 semantic tokens.**
+**Source fingerprint:** `e62abbc69b3b` · **198 primitives · 379 semantic tokens.**
 
 > **This file is a mirror, not the source.** `tokens/*.json` is upstream; this document and the Figma
 > library are generated from / synced to it. It previously claimed the opposite — that both were
@@ -49,7 +49,8 @@ Pairs that fail WCAG AA and must not be used together. Generated from
 |---|---|---|---|---|
 | `color/text/secondary` | light | `color/surface/deepSunk`, `color/surface/rail`, `color/surface/hover` | `color/text/primary` | Light mode: deepSunk and rail (both warmGray.300) measure 3.01:1 and hover (warmGray.250) measures 3.84:1 — all below WCAG AA 4.5:1. Dark mode clears AA on every surface (6.04:1 worst case, surface.deepSunk/floating, slate ladder 2026-09-24). |
 | `color/text/tertiary` | light | `color/surface/sunk`, `color/surface/deepSunk`, `color/surface/rail`, `color/surface/hover` | `color/text/secondary` | Tertiary contrast compresses below WCAG AA 4.5:1 on the compressed pairs — light: sunk 4.06:1, deepSunk/rail 2.57:1, hover 3.27:1 (oatmeal restore, 2026-10-07). Dark (pre-2026-09-06, #7C7C7A) failed on raised/hover 4.40:1 and deepSunk/floating 4.16:1 — both cleared by the re-derivation to #858583 (WQ-040). The 2026-09-24 slate tier #B3B1AD reads 4.76:1 at its worst (deepSunk/floating). |
-| `color/status/success-ink` | light | `color/surface/sunk`, `color/surface/deepSunk`, `color/surface/rail`, `color/surface/hover` | `color/text/primary` | Light: sunk 3.86:1, deepSunk/rail 2.44:1, hover 3.11:1 — every one below AA for the success hue. Dark cleared 2026-09-06 by the re-derivation to #3C9366, and again 2026-09-24 by the slate re-derivation to #6AC090 (4.64:1 worst case, deepSunk/floating); the reused status.success.dark it replaced read 4.37:1 on surface.deepSunk and surface.floating. |
+| `color/interactive/active-ink` | light | `color/surface/deepSunk`, `color/surface/rail`, `color/surface/hover` | `` | — |
+| `color/status/success-ink` | light | `color/surface/deepSunk`, `color/surface/rail`, `color/surface/hover` | `color/text/primary` | Light (#226244 since 2026-10-18): deepSunk/rail 3.03:1, hover 3.86:1, both below AA for the success hue; sunk cleared at 4.80:1 and left the list (#246E4A read 4.09:1 there). Dark cleared 2026-09-06 by the re-derivation to #3C9366, and again 2026-09-24 by the slate re-derivation to #6AC090 (4.64:1 worst case on the slate deepSunk/floating ground; 7.80:1 on the deepest slate floating ground, 2026-10-18); the reused status.success.dark it replaced read 4.37:1 on surface.deepSunk and surface.floating. |
 | `color/status/warning-ink` | light | `color/surface/sunk`, `color/surface/deepSunk`, `color/surface/rail`, `color/surface/hover` | `color/text/primary` | Light: sunk 3.73:1, deepSunk/rail 2.35:1, hover 3.00:1 — every one below AA for the warning hue. Dark cleared 2026-09-06 by the re-derivation to #DC5A33, and again 2026-09-24 by the slate re-derivation to #FE9374 (4.68:1 worst case, deepSunk/floating); the retired #D2512A read 4.34:1 on surface.raised and 4.10:1 on surface.deepSunk. |
 | `color/status/info-ink` | light | `color/surface/sunk`, `color/surface/deepSunk`, `color/surface/rail`, `color/surface/hover` | `color/text/primary` | Light: sunk 3.90:1, deepSunk/rail 2.46:1, hover 3.14:1 — every one below AA for the info hue. Dark cleared 2026-09-06 by the re-derivation to #517DF3, and again 2026-09-24 by the slate re-derivation to #8DAFFD (4.70:1 worst case, deepSunk/floating); the retired #4A74EA read 4.37:1 on surface.raised and 4.13:1 on surface.deepSunk. |
 | `color/status/error-ink` | light | `color/surface/deepSunk`, `color/surface/rail` | `color/text/primary` | Light: deepSunk/rail 4.19:1, below AA for the error hue; sunk 6.64:1 and hover 5.34:1 clear it. Dark: every surface clears AA with #FF9089 (4.66:1 worst case, deepSunk/floating); the fill #FE6B67 it replaces as text read 4.11:1 on surface.raised and 3.64:1 on surface.deepSunk. |
@@ -105,7 +106,7 @@ primitives directly. Surfaced here for traceability.
 |---|---|---|---|
 | `color/status/success/light` | `--sc-p-color-status-success-light` | `#2F855A` | Forest green · success states on light ground. |
 | `color/status/success/dark` | `--sc-p-color-status-success-dark` | `#57AD7F` | Lifted green · success fill/border/dot on dark ground. |
-| `color/status/success/ink/light` | `--sc-p-color-status-success-ink-light` | `#246E4A` | 2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier, hue-locked to success, 4.64:1 on warmGray.100 (base success/light fails at 3.42:1 for body text). |
+| `color/status/success/ink/light` | `--sc-p-color-status-success-ink-light` | `#226244` | 2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier, hue-locked to success, 5.46:1 on warmGray.100 (base success/light fails at 3.42:1 for body text). |
 | `color/status/success/ink/dark` | `--sc-p-color-status-success-ink-dark` | `#6AC090` | Text-only tier, hue-locked to success (learning #56). |
 | `color/status/warning/light` | `--sc-p-color-status-warning-light` | `#C2410C` | Burnt orange · warning states on light ground · hue ~20°. |
 | `color/status/warning/dark` | `--sc-p-color-status-warning-dark` | `#F67751` | Lifted orange · warning fill/border/dot on dark ground. |
@@ -142,6 +143,14 @@ primitives directly. Surfaced here for traceability.
 
 | Token Name | CSS var | Value | Notes |
 |---|---|---|---|
+| `color/dark/deep8` | `--sc-p-color-dark-deep8` | `#07090A` | Deep slate rung below well · HSL 212/17%/3.5%, OKLCH L 0.138. |
+| `color/dark/deep7` | `--sc-p-color-dark-deep7` | `#0A0C0E` | Deep slate rung below well · HSL 212/17%/4.7%, OKLCH L 0.153. |
+| `color/dark/deep6` | `--sc-p-color-dark-deep6` | `#0C0F12` | Deep slate rung below well · HSL 212/17%/5.9%, OKLCH L 0.166. |
+| `color/dark/deep5` | `--sc-p-color-dark-deep5` | `#101316` | Deep slate rung below well · HSL 212/17%/7.5%, OKLCH L 0.185. |
+| `color/dark/deep4` | `--sc-p-color-dark-deep4` | `#121519` | Deep slate rung below well · HSL 212/17%/8.4%, OKLCH L 0.194. |
+| `color/dark/deep3` | `--sc-p-color-dark-deep3` | `#161A1F` | Deep slate rung below well · HSL 212/17%/10.2%, OKLCH L 0.216. |
+| `color/dark/deep2` | `--sc-p-color-dark-deep2` | `#171C21` | Deep slate rung below well · HSL 212/17%/11.0%, OKLCH L 0.224. |
+| `color/dark/deep1` | `--sc-p-color-dark-deep1` | `#1A1F25` | Deep slate rung below well · HSL 212/17%/12.4%, OKLCH L 0.237. |
 | `color/dark/well` | `--sc-p-color-dark-well` | `#1F252C` | Deepest component well · resting component ground in dark (component sinks below page). |
 | `color/dark/floor` | `--sc-p-color-dark-floor` | `#252B32` | Floor · one step above the well. |
 | `color/dark/surfacePage` | `--sc-p-color-dark-surface-page` | `#2C3239` | Page ground · dark. |
@@ -468,15 +477,15 @@ channel-triplet primitives) rather than an alias to a single primitive.
 
 | Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
 |---|---|---|---|---|---|---|
-| `color/surface/page` | `--sc-color-surface-page` | `color/warmGray/100` | `#E3DFD8` | `color/dark/surfacePage` | `#2C3239` | Page ground. |
-| `color/surface/sunk` | `--sc-color-surface-sunk` | `color/warmGray/200` | `#D8D1CC` | `color/dark/well` | `#1F252C` | Set-in component surface · cards, frames, tiles. scds-v2 elevation: light sits BELOW page (deeper, warmGray.200); dark SINKS to the deepest well (dark.well, one slate step below page) and rises to page on hover (Phase 2 component model). |
-| `color/surface/deepSunk` | `--sc-color-surface-deep-sunk` | `color/warmGray/300` | `#B0A69C` | `color/dark/raised2` | `#3B4249` | Deeper-step surface · nested states, form inputs, card hover. |
-| `color/surface/raised` | `--sc-color-surface-raised` | `color/warmGray/50` | `#F1EFEB` | `color/dark/raised1` | `#343A41` | Lifted-above-page surface · default card ground. |
-| `color/surface/floating` | `--sc-color-surface-floating` | `color/warmGray/25` | `#F8F6F2` | `color/dark/raised2` | `#3B4249` | Highest surface · popovers, interactive-card hover. |
-| `color/surface/rail` | `--sc-color-surface-rail` | `color/warmGray/300` | `#B0A69C` | `color/dark/floor` | `#252B32` | Sidebar / left-rail ground. |
-| `color/surface/nav` | `--sc-color-surface-nav` | `color/warmGray/40` | `#F5F0E9` | `color/dark/raised1` | `#343A41` | Brand-site sidebar card ground (the inset card that replaced the edge rail). |
-| `color/surface/navHover` | `--sc-color-surface-nav-hover` | `color/utility/white` | `#FFFFFF` | `color/dark/raised2` | `#3B4249` | Brand-site sidebar link hover pill. |
-| `color/surface/hover` | `--sc-color-surface-hover` | `color/warmGray/250` | `#C4BCB4` | `color/dark/raised1` | `#343A41` | Hover-highlight ground for nav links and similar row-level affordances. |
+| `color/surface/page` | `--sc-color-surface-page` | `color/warmGray/100` | `#E3DFD8` | `color/dark/deep6` | `#0C0F12` | Page ground. |
+| `color/surface/sunk` | `--sc-color-surface-sunk` | `color/warmGray/200` | `#D8D1CC` | `color/dark/deep8` | `#07090A` | Set-in component surface · cards, frames, tiles. scds-v2 elevation: light sits BELOW page (deeper, warmGray.200); dark SINKS to the deepest well (dark.well, one slate step below page) and rises to page on hover (Phase 2 component model). |
+| `color/surface/deepSunk` | `--sc-color-surface-deep-sunk` | `color/warmGray/300` | `#B0A69C` | `color/dark/deep2` | `#171C21` | Deeper-step surface · nested states, form inputs, card hover. |
+| `color/surface/raised` | `--sc-color-surface-raised` | `color/warmGray/50` | `#F1EFEB` | `color/dark/deep4` | `#121519` | Lifted-above-page surface · default card ground. |
+| `color/surface/floating` | `--sc-color-surface-floating` | `color/warmGray/25` | `#F8F6F2` | `color/dark/deep2` | `#171C21` | Highest surface · popovers, interactive-card hover. |
+| `color/surface/rail` | `--sc-color-surface-rail` | `color/warmGray/300` | `#B0A69C` | `color/dark/deep7` | `#0A0C0E` | Sidebar / left-rail ground. |
+| `color/surface/nav` | `--sc-color-surface-nav` | `color/warmGray/40` | `#F5F0E9` | `color/dark/deep4` | `#121519` | Brand-site sidebar card ground (the inset card that replaced the edge rail). |
+| `color/surface/navHover` | `--sc-color-surface-nav-hover` | `color/utility/white` | `#FFFFFF` | `color/dark/deep2` | `#171C21` | Brand-site sidebar link hover pill. |
+| `color/surface/hover` | `--sc-color-surface-hover` | `color/warmGray/250` | `#C4BCB4` | `color/dark/deep4` | `#121519` | Hover-highlight ground for nav links and similar row-level affordances. |
 
 #### `color/text`
 
@@ -512,6 +521,7 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | `color/interactive/default` | `--sc-color-interactive-default` | `color/warmGray/800` | `#1A1815` | `color/warmGray/50` | `#F1EFEB` | Resting state for interactive elements · button text + border. |
 | `color/interactive/hover` | `--sc-color-interactive-hover` | `color/teal/600` | `#04797D` | `color/teal/300` | `#52B8BC` | Hover state · primary button text/icon/border turn brand teal. |
 | `color/interactive/hover-ink` | `--sc-color-interactive-hover-ink` | `color/interactive/hoverInk/light` | `#006D72` | `color/teal/200` | `#8FD2D5` | 2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier for interactive.hover — use when the hover color renders as body text (not icon/border), 4.61:1 on warmGray.100 (re-derived 2026-10-07 for the oatmeal page). |
+| `color/interactive/active-ink` | `--sc-color-interactive-active-ink` | `color/teal/700` | `#056268` | `color/teal/100` | `#C4E7E8` | 2026-10-18 · text-only tier for interactive.active: use when the active or pressed colour renders as text. |
 | `color/interactive/selected` | `--sc-color-interactive-selected` | _literal_ | `#038E931A` | _literal_ | `#038E931A` | Selected-option tint: brand teal (teal.500) at 10%. |
 | `color/interactive/active` | `--sc-color-interactive-active` | `color/teal/700` | `#056268` | `color/teal/500` | `#038E93` | Pressed/active state · one step deeper than hover. |
 
@@ -523,10 +533,10 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | `color/status/warning` | `--sc-color-status-warning` | `color/status/warning/light` | `#C2410C` | `color/status/warning/dark` | `#F67751` | Warning state · burnt orange on light, lifted orange on dark. |
 | `color/status/error` | `--sc-color-status-error` | `color/status/error/light` | `#7F1D1D` | `color/status/error/dark` | `#FE6B67` | Error state · oxblood on light, lifted rose on dark. |
 | `color/status/info` | `--sc-color-status-info` | `color/status/info/light` | `#2D5AD8` | `color/status/info/dark` | `#709AFD` | Info state · royal blue on light, lifted blue on dark. |
-| `color/status/success-ink` | `--sc-color-status-success-ink` | `color/status/success/ink/light` | `#246E4A` | `color/status/success/ink/dark` | `#6AC090` | 2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier for status.success — use when rendered as body text, 4.64:1 (L) / 5.89:1 (D) on their respective page grounds. |
-| `color/status/warning-ink` | `--sc-color-status-warning-ink` | `color/status/warning/ink/light` | `#B13700` | `color/status/warning/ink/dark` | `#FE9374` | 2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier for status.warning — use when rendered as body text, 4.63:1 (L) / 5.94:1 (D) on their respective page grounds. |
+| `color/status/success-ink` | `--sc-color-status-success-ink` | `color/status/success/ink/light` | `#226244` | `color/status/success/ink/dark` | `#6AC090` | 2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier for status.success — use when rendered as body text, 5.46:1 (L) / 8.74:1 (D) on their respective page grounds. |
+| `color/status/warning-ink` | `--sc-color-status-warning-ink` | `color/status/warning/ink/light` | `#B13700` | `color/status/warning/ink/dark` | `#FE9374` | 2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier for status.warning — use when rendered as body text, 4.63:1 (L) / 8.82:1 (D) on their respective page grounds. |
 | `color/status/info-ink` | `--sc-color-status-info-ink` | `color/status/info/ink/light` | `#2B57D5` | `color/status/info/ink/dark` | `#8DAFFD` | 2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier for status.info — light mode reads status.info.ink.light since the 2026-10-07 oatmeal restore (4.61:1 on the #E3DFD8 page; the fill reads 4.43:1 there, so it reused status.info.light directly only while the page was #EBE7E4); dark mode gets a dedica… |
-| `color/status/error-ink` | `--sc-color-status-error-ink` | `color/status/error/ink/light` | `#7F1D1D` | `color/status/error/ink/dark` | `#FF9089` | 2026-10-17 (studio-pm ADR-136, option A; learning #56) · text-only tier for status.error — use when an error renders as text, 7.54:1 (L) / 5.92:1 (D) on their respective page grounds. |
+| `color/status/error-ink` | `--sc-color-status-error-ink` | `color/status/error/ink/light` | `#7F1D1D` | `color/status/error/ink/dark` | `#FF9089` | 2026-10-17 (studio-pm ADR-136, option A; learning #56) · text-only tier for status.error — use when an error renders as text, 7.54:1 (L) / 8.79:1 (D) on their respective page grounds. |
 
 #### `color/signal`
 
@@ -586,22 +596,22 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | `color/switch/thumb/faceBottom` | `--sc-color-switch-thumb-face-bottom` | `color/warmGray/100` | `#E3DFD8` | `color/dark/textTertiary` | `#B3B1AD` | Dark per Record Switch 2026-10-07-1539, concept B (Levi), applied 2026-10-07. |
 | `color/switch/glyph/on` | `--sc-color-switch-glyph-on` | `color/utility/white` | `#FFFFFF` | `color/utility/white` | `#FFFFFF` | 2026-10-07 · Switch restyled to the Drams Standard Switch (drams/001) at SCDS size. |
 | `color/switch/glyph/off` | `--sc-color-switch-glyph-off` | `color/warmGray/25` | `#F8F6F2` | `color/dark/textDisabled` | `#7C7A76` | 2026-10-07 · Switch restyled to the Drams Standard Switch (drams/001) at SCDS size. |
-| `color/switch/track/off` | `--sc-color-switch-track-off` | `color/warmGray/300` | `#B0A69C` | `color/dark/well` | `#1F252C` | Dark per Record Switch 2026-10-07-1539, concept B (Levi), applied 2026-10-07. |
-| `color/switch/track/offHover` | `--sc-color-switch-track-off-hover` | `color/warmGray/250` | `#C4BCB4` | `color/dark/floor` | `#252B32` | Dark per Record Switch 2026-10-07-1539, concept B (Levi), applied 2026-10-07. |
+| `color/switch/track/off` | `--sc-color-switch-track-off` | `color/warmGray/300` | `#B0A69C` | `color/dark/deep8` | `#07090A` | Dark per Record Switch 2026-10-07-1539, concept B (Levi), applied 2026-10-07. |
+| `color/switch/track/offHover` | `--sc-color-switch-track-off-hover` | `color/warmGray/250` | `#C4BCB4` | `color/dark/deep7` | `#0A0C0E` | Dark per Record Switch 2026-10-07-1539, concept B (Levi), applied 2026-10-07. |
 
 #### `color/segmentedControl`
 
 | Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
 |---|---|---|---|---|---|---|
-| `color/segmentedControl/track` | `--sc-color-segmented-control-track` | `color/warmGray/200` | `#D8D1CC` | `color/dark/well` | `#1F252C` | 2026-10-07 · SegmentedControl material (physical-controls Tier 1: recessed track, key indicator), tuned in sc-tune. |
-| `color/segmentedControl/indicator` | `--sc-color-segmented-control-indicator` | `color/warmGray/25` | `#F8F6F2` | `color/dark/raised2` | `#3B4249` | 2026-10-07 · SegmentedControl material (physical-controls Tier 1: recessed track, key indicator), tuned in sc-tune. |
+| `color/segmentedControl/track` | `--sc-color-segmented-control-track` | `color/warmGray/200` | `#D8D1CC` | `color/dark/deep8` | `#07090A` | 2026-10-07 · SegmentedControl material (physical-controls Tier 1: recessed track, key indicator), tuned in sc-tune. |
+| `color/segmentedControl/indicator` | `--sc-color-segmented-control-indicator` | `color/warmGray/25` | `#F8F6F2` | `color/dark/deep2` | `#171C21` | 2026-10-07 · SegmentedControl material (physical-controls Tier 1: recessed track, key indicator), tuned in sc-tune. |
 | `color/segmentedControl/indicatorShade` | `--sc-color-segmented-control-indicator-shade` | _literal_ | `rgb(var(--sc-p-color-ink-rgb) / 0.05)` | _literal_ | `rgb(var(--sc-p-color-ink-rgb) / 0.25)` | 2026-10-07 · SegmentedControl material (physical-controls Tier 1), lit from the top left (Gate 1 pick 1). |
 
 #### `color/stepper`
 
 | Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
 |---|---|---|---|---|---|---|
-| `color/stepper/track` | `--sc-color-stepper-track` | `color/warmGray/200` | `#D8D1CC` | `color/dark/well` | `#1F252C` | 2026-10-07 · Stepper material (physical-controls Tier 1: ± as small Drams 036 keys on a recessed pill; the numeral sits flat, no window, Levi 2026-10-07), tuned in sc-tune. |
+| `color/stepper/track` | `--sc-color-stepper-track` | `color/warmGray/200` | `#D8D1CC` | `color/dark/deep8` | `#07090A` | 2026-10-07 · Stepper material (physical-controls Tier 1: ± as small Drams 036 keys on a recessed pill; the numeral sits flat, no window, Levi 2026-10-07), tuned in sc-tune. |
 | `color/stepper/key` | `--sc-color-stepper-key` | `color/surface/raised` | `⚠ unresolved` | `color/surface/raised` | `⚠ unresolved` | 2026-10-07 · Stepper material (physical-controls Tier 1: ± as small Drams 036 keys on a recessed pill; the numeral sits flat, no window, Levi 2026-10-07), tuned in sc-tune. |
 | `color/stepper/keyHover` | `--sc-color-stepper-key-hover` | `color/control/keyHoverFill` | `⚠ unresolved` | `color/control/keyHoverFill` | `⚠ unresolved` | 2026-10-07 · Stepper material (physical-controls Tier 1), Levi's direction in the lab: hover is his Button primary hover, pressed one accent step darker. |
 | `color/stepper/keyHoverInk` | `--sc-color-stepper-key-hover-ink` | `color/control/keyHoverInk` | `⚠ unresolved` | `color/control/keyHoverInk` | `⚠ unresolved` | 2026-10-07 · Stepper material (physical-controls Tier 1), Levi's direction in the lab: hover is his Button primary hover, pressed one accent step darker. ± glyph on hover = control.keyHoverInk (white), fading in on the hover transition. |
@@ -613,8 +623,8 @@ channel-triplet primitives) rather than an alias to a single primitive.
 
 | Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
 |---|---|---|---|---|---|---|
-| `color/slider/track` | `--sc-color-slider-track` | `color/warmGray/300` | `#B0A69C` | `color/dark/raised2` | `#3B4249` | 2026-10-07 · Slider material (physical-controls Tier 1; split from ProgressIndicator's interactive bar, Levi 2026-10-07: a progress indicator is read, a slider is moved. |
-| `color/slider/trackDisabled` | `--sc-color-slider-track-disabled` | `color/warmGray/200` | `#D8D1CC` | `color/dark/well` | `#1F252C` | 2026-10-07 · Slider material (physical-controls Tier 1; split from ProgressIndicator's interactive bar, Levi 2026-10-07: a progress indicator is read, a slider is moved. |
+| `color/slider/track` | `--sc-color-slider-track` | `color/warmGray/300` | `#B0A69C` | `color/dark/deep2` | `#171C21` | 2026-10-07 · Slider material (physical-controls Tier 1; split from ProgressIndicator's interactive bar, Levi 2026-10-07: a progress indicator is read, a slider is moved. |
+| `color/slider/trackDisabled` | `--sc-color-slider-track-disabled` | `color/warmGray/200` | `#D8D1CC` | `color/dark/deep8` | `#07090A` | 2026-10-07 · Slider material (physical-controls Tier 1; split from ProgressIndicator's interactive bar, Levi 2026-10-07: a progress indicator is read, a slider is moved. |
 | `color/slider/fill` | `--sc-color-slider-fill` | `color/teal/500` | `#038E93` | `color/teal/500` | `#038E93` | 2026-10-07 · Slider material (physical-controls Tier 1; split from ProgressIndicator's interactive bar, Levi 2026-10-07: a progress indicator is read, a slider is moved. |
 | `color/slider/fillHover` | `--sc-color-slider-fill-hover` | `color/teal/600` | `#04797D` | `color/teal/300` | `#52B8BC` | 2026-10-07 · Slider material (physical-controls Tier 1; split from ProgressIndicator's interactive bar, Levi 2026-10-07: a progress indicator is read, a slider is moved. |
 | `color/slider/fillDisabled` | `--sc-color-slider-fill-disabled` | `color/warmGray/400` | `#847C71` | `color/dark/textDisabled` | `#7C7A76` | 2026-10-07 · Slider material (physical-controls Tier 1; split from ProgressIndicator's interactive bar, Levi 2026-10-07: a progress indicator is read, a slider is moved. |
@@ -640,7 +650,7 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
 |---|---|---|---|---|---|---|
 | `color/card/flat` | `--sc-color-card-flat` | `color/surface/floating` | `⚠ unresolved` | `color/surface/floating` | `⚠ unresolved` | 2026-10-08 · Card (physical-controls Tier 2), Levi: two card styles, a flat floating surface with no border and a liquid-glass card in three levels (clear, frosted, thick; renamed from subtle, regular, heavy), each in a light and a dark tone. |
-| `color/card/flatHover` | `--sc-color-card-flat-hover` | `color/utility/white` | `#FFFFFF` | `color/dark/raised3` | `#434A51` | 2026-10-08 · Card (physical-controls Tier 2), Levi: two card styles, a flat floating surface with no border and a liquid-glass card in three levels (clear, frosted, thick; renamed from subtle, regular, heavy), each in a light and a dark tone. |
+| `color/card/flatHover` | `--sc-color-card-flat-hover` | `color/utility/white` | `#FFFFFF` | `color/dark/well` | `#1F252C` | 2026-10-08 · Card (physical-controls Tier 2), Levi: two card styles, a flat floating surface with no border and a liquid-glass card in three levels (clear, frosted, thick; renamed from subtle, regular, heavy), each in a light and a dark tone. |
 | `color/card/glass/clear/light` | `--sc-color-card-glass-clear-light` | _literal_ | `rgb(var(--sc-p-color-white-rgb) / 0.16)` | _literal_ | `rgb(var(--sc-p-color-white-rgb) / 0.05)` | 2026-10-08 · Card glass (physical-controls Tier 2). |
 | `color/card/glass/clear/dark` | `--sc-color-card-glass-clear-dark` | _literal_ | `rgb(var(--sc-p-color-ink-rgb) / 0.06)` | _literal_ | `rgb(var(--sc-p-color-black-rgb) / 0.20)` | 2026-10-08 · Card glass (physical-controls Tier 2). |
 | `color/card/glass/clear/auto` | `--sc-color-card-glass-clear-auto` | `color/card/glass/clear/light` | `⚠ unresolved` | `color/card/glass/clear/dark` | `⚠ unresolved` | 2026-10-08 · Card glass (physical-controls Tier 2). |
@@ -669,20 +679,20 @@ channel-triplet primitives) rather than an alias to a single primitive.
 | `color/statusPill/info/fill` | `--sc-color-status-pill-info-fill` | `color/status/info` | `⚠ unresolved` | `color/status/info` | `⚠ unresolved` | 2026-10-08 · StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis, the label written by the consumer; physical-controls Tier 2). |
 | `color/statusPill/info/ink` | `--sc-color-status-pill-info-ink` | `color/text-on-inverse` | `⚠ unresolved` | `color/text-on-inverse` | `⚠ unresolved` | 2026-10-08 · StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis, the label written by the consumer; physical-controls Tier 2). |
 | `color/statusPill/live/fill` | `--sc-color-status-pill-live-fill` | `color/signal/live` | `#C8281C` | `color/signal/live` | `#C8281C` | 2026-10-08 · StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis, the label written by the consumer; physical-controls Tier 2). |
-| `color/statusPill/live/ink` | `--sc-color-status-pill-live-ink` | `color/text-on-inverse` | `⚠ unresolved` | `color/text-on-inverse` | `⚠ unresolved` | 2026-10-08 · StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis, the label written by the consumer; physical-controls Tier 2). |
+| `color/statusPill/live/ink` | `--sc-color-status-pill-live-ink` | `color/text-on-inverse` | `⚠ unresolved` | `color/warmGray/50` | `#F1EFEB` | 2026-10-08 · StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis, the label written by the consumer; physical-controls Tier 2). |
 
 #### `color/tooltip`
 
 | Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
 |---|---|---|---|---|---|---|
-| `color/tooltip/surface` | `--sc-color-tooltip-surface` | `color/utility/white` | `#FFFFFF` | `color/dark/raised1` | `#343A41` | 2026-10-08 · Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. |
+| `color/tooltip/surface` | `--sc-color-tooltip-surface` | `color/utility/white` | `#FFFFFF` | `color/dark/deep4` | `#121519` | 2026-10-08 · Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. |
 | `color/tooltip/text` | `--sc-color-tooltip-text` | `color/warmGray/800` | `#1A1815` | `color/dark/textPrimary` | `#EAE8E3` | 2026-10-08 · Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. |
 
 #### `color/avatar`
 
 | Token Name | CSS var | Light alias | Light value | Dark alias | Dark value | Notes |
 |---|---|---|---|---|---|---|
-| `color/avatar/ground` | `--sc-color-avatar-ground` | `color/warmGray/200` | `#D8D1CC` | `color/dark/well` | `#1F252C` | 2026-10-08 · Avatar (physical-controls Tier 2). |
+| `color/avatar/ground` | `--sc-color-avatar-ground` | `color/warmGray/200` | `#D8D1CC` | `color/dark/deep8` | `#07090A` | 2026-10-08 · Avatar (physical-controls Tier 2). |
 
 #### `color/toast`
 

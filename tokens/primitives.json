@@ -159,8 +159,8 @@
         "ink": {
           "light": {
             "$type": "color",
-            "$value": "#246E4A",
-            "$description": "2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier, hue-locked to success, 4.64:1 on warmGray.100 (base success/light fails at 3.42:1 for body text). 2026-10-07 oatmeal restore (Levi; library is canonical): re-derived from #28724D, which read 4.39:1 on the #E3DFD8 page."
+            "$value": "#226244",
+            "$description": "2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier, hue-locked to success, 5.46:1 on warmGray.100 (base success/light fails at 3.42:1 for body text). 2026-10-07 oatmeal restore (Levi; library is canonical): re-derived from #28724D, which read 4.39:1 on the #E3DFD8 page. 2026-10-18: darkened from #246E4A, which read 4.09:1 on light surface.sunk (warmGray.200), to #226244 (the value client-portal authored for the same fix), 4.80:1 on warmGray.200."
           },
           "dark": {
             "$type": "color",
@@ -257,7 +257,47 @@
       "indigo":  { "$type": "color", "$value": "#274A78" }
     },
     "dark": {
-      "$description": "Dark-mode ground ladder · SLATE since 2026-09-24 (replaces the scds-v2 true-neutral ladder). Every ground step holds OKLCH hue 252.3° and chroma 0.015, anchored on surfacePage #2C3239, measured off the sc-site Figma comp (file oIeQl6SlqWjvyZ126f65tn, Frame 19, node-id 156-15: the light comp under a #E3DFD8 exclusion blend). Text tiers are warm-light (hue 84.6°), as the blend produced. Luminance order is kept from the light ladder's roles, not inverted: well is darkest, raised5 is lightest. Elevation model (Phase 2): component sinks BELOW page (well), hover rises to page level. The P3 wide-gamut drift caveat for very dark values (studio learning #11) does not apply at these lightnesses (darkest step OKLCH L 0.262). See decisions.md 2026-09-24.",
+      "$description": "Dark-mode ground ladder · SLATE since 2026-09-24 (replaces the scds-v2 true-neutral ladder). Every ground step holds OKLCH hue 252.3° and chroma 0.015, anchored on surfacePage #2C3239, measured off the sc-site Figma comp (file oIeQl6SlqWjvyZ126f65tn, Frame 19, node-id 156-15: the light comp under a #E3DFD8 exclusion blend). Text tiers are warm-light (hue 84.6°), as the blend produced. Luminance order is kept from the light ladder's roles, not inverted: well is darkest, raised5 is lightest. Elevation model (Phase 2): component sinks BELOW page (well), hover rises to page level. The original slate steps (well to raised5) sit at OKLCH L 0.262 and above. DEEP RUNGS (2026-10-18): deep1 to deep8 continue the ladder below well at HSL hue 212 and saturation 17%, ordered like raised1 to raised5: deep1 sits just below well, deep8 is the darkest. They hold two ground sets a site can choose between. The deepest set is page deep6, raised deep4, floating deep2, rail deep7, sunk deep8, and the brand's semantic surfaces read it since 2026-10-18. The deeper set is page deep5, raised deep3, floating deep1. The deep rungs sit at OKLCH L 0.138 to 0.237, so the P3 wide-gamut drift caveat for near-black values (studio learning #11) applies to them: approve them on a wide-gamut display. See decisions.md 2026-09-24 and 2026-10-18.",
+      "deep8": {
+        "$type": "color",
+        "$value": "#07090A",
+        "$description": "Deep slate rung below well · HSL 212/17%/3.5%, OKLCH L 0.138. The deepest set's sunk ground: component wells, recesses, and the deepest nested fill. Darkest rung in the brand. 2026-10-18 (decisions.md, deepest slate dark grounds)."
+      },
+      "deep7": {
+        "$type": "color",
+        "$value": "#0A0C0E",
+        "$description": "Deep slate rung below well · HSL 212/17%/4.7%, OKLCH L 0.153. The deepest set's rail, between its sunk (deep8) and its page (deep6). Not in the brief's swatch set: placed at the HSL midpoint so the rail keeps its old place between page and sunk. 2026-10-18 (decisions.md, deepest slate dark grounds)."
+      },
+      "deep6": {
+        "$type": "color",
+        "$value": "#0C0F12",
+        "$description": "Deep slate rung below well · HSL 212/17%/5.9%, OKLCH L 0.166. The deepest set's page ground. Levi's pick from rendered swatches, 2026-10-18. 2026-10-18 (decisions.md, deepest slate dark grounds)."
+      },
+      "deep5": {
+        "$type": "color",
+        "$value": "#101316",
+        "$description": "Deep slate rung below well · HSL 212/17%/7.5%, OKLCH L 0.185. The deeper set's page ground. 2026-10-18 (decisions.md, deepest slate dark grounds)."
+      },
+      "deep4": {
+        "$type": "color",
+        "$value": "#121519",
+        "$description": "Deep slate rung below well · HSL 212/17%/8.4%, OKLCH L 0.194. The deepest set's raised ground: cards, hover, nav. 2026-10-18 (decisions.md, deepest slate dark grounds)."
+      },
+      "deep3": {
+        "$type": "color",
+        "$value": "#161A1F",
+        "$description": "Deep slate rung below well · HSL 212/17%/10.2%, OKLCH L 0.216. The deeper set's raised ground. 2026-10-18 (decisions.md, deepest slate dark grounds)."
+      },
+      "deep2": {
+        "$type": "color",
+        "$value": "#171C21",
+        "$description": "Deep slate rung below well · HSL 212/17%/11.0%, OKLCH L 0.224. The deepest set's floating ground: popovers, deep-sunk, nav hover. 2026-10-18 (decisions.md, deepest slate dark grounds)."
+      },
+      "deep1": {
+        "$type": "color",
+        "$value": "#1A1F25",
+        "$description": "Deep slate rung below well · HSL 212/17%/12.4%, OKLCH L 0.237. The deeper set's floating ground; the rung just below well. 2026-10-18 (decisions.md, deepest slate dark grounds)."
+      },
       "well": {
         "$type": "color",
         "$value": "#1F252C",

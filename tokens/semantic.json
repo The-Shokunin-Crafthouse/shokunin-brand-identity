@@ -20,99 +20,99 @@
       "page": {
         "$type": "color",
         "$value": "{color.warmGray.100}",
-        "$description": "Page ground. Foundation surface in both modes. Light = oatmeal warmGray.100, dark = the slate dark.surfacePage (#2C3239, OKLCH hue 252.3°, since 2026-09-24).",
+        "$description": "Page ground. Foundation surface in both modes. Light = oatmeal warmGray.100, dark = the slate dark.surfacePage (#2C3239, OKLCH hue 252.3°, since 2026-09-24). 2026-10-18 (decisions.md, deepest slate dark grounds): dark = dark.deep6, the deepest set's page; was dark.surfacePage.",
         "$extensions": {
           "modes": {
             "light": "{color.warmGray.100}",
-            "dark":  "{color.dark.surfacePage}"
+            "dark":  "{color.dark.deep6}"
           }
         }
       },
       "sunk": {
         "$type": "color",
         "$value": "{color.warmGray.200}",
-        "$description": "Set-in component surface · cards, frames, tiles. scds-v2 elevation: light sits BELOW page (deeper, warmGray.200); dark SINKS to the deepest well (dark.well, one slate step below page) and rises to page on hover (Phase 2 component model). Role-named for light semantics.",
+        "$description": "Set-in component surface · cards, frames, tiles. scds-v2 elevation: light sits BELOW page (deeper, warmGray.200); dark SINKS to the deepest well (dark.well, one slate step below page) and rises to page on hover (Phase 2 component model). Role-named for light semantics. 2026-10-18 (decisions.md, deepest slate dark grounds): dark = dark.deep8, the deepest set's sunk ground, below page; was dark.well.",
         "$extensions": {
           "modes": {
             "light": "{color.warmGray.200}",
-            "dark":  "{color.dark.well}"
+            "dark":  "{color.dark.deep8}"
           }
         }
       },
       "deepSunk": {
         "$type": "color",
         "$value": "{color.warmGray.300}",
-        "$description": "Deeper-step surface · nested states, form inputs, card hover. Light: one step beyond surface.sunk (deeper, warmGray.300). Dark: scds-v2 Phase 2 model inverts this — deepSunk is lifted a step beyond surface.raised (raised2, lighter than page), not darker than sunk/well, so nested/hover states stay visually distinct from resting card ground. Fixed 2026-07-08 — was incorrectly aliased to dark.well (collapsed onto surface.sunk, no elevation change).",
+        "$description": "Deeper-step surface · nested states, form inputs, card hover. Light: one step beyond surface.sunk (deeper, warmGray.300). Dark: scds-v2 Phase 2 model inverts this — deepSunk is lifted a step beyond surface.raised (raised2, lighter than page), not darker than sunk/well, so nested/hover states stay visually distinct from resting card ground. Fixed 2026-07-08 — was incorrectly aliased to dark.well (collapsed onto surface.sunk, no elevation change). 2026-10-18 (decisions.md, deepest slate dark grounds): dark = dark.deep2, the deepest set's floating rung, still lighter than page; was dark.raised2.",
         "$extensions": {
           "modes": {
             "light": "{color.warmGray.300}",
-            "dark":  "{color.dark.raised2}"
+            "dark":  "{color.dark.deep2}"
           }
         }
       },
       "raised": {
         "$type": "color",
         "$value": "{color.warmGray.50}",
-        "$description": "Lifted-above-page surface · default card ground. Light = warmGray.50, dark = dark.raised1, one slate step above page. Added 2026-05-28 for the brand-site Color page (ADR brand-site-shell).",
+        "$description": "Lifted-above-page surface · default card ground. Light = warmGray.50, dark = dark.raised1, one slate step above page. Added 2026-05-28 for the brand-site Color page (ADR brand-site-shell). 2026-10-18 (decisions.md, deepest slate dark grounds): dark = dark.deep4, the deepest set's raised rung, one step above page; was dark.raised1.",
         "$extensions": {
           "modes": {
             "light": "{color.warmGray.50}",
-            "dark":  "{color.dark.raised1}"
+            "dark":  "{color.dark.deep4}"
           }
         }
       },
       "floating": {
         "$type": "color",
         "$value": "{color.warmGray.25}",
-        "$description": "Highest surface · popovers, interactive-card hover. Light = warmGray.25, dark = surfaceDeepSunk. Added 2026-05-28 (ADR brand-site-shell).",
+        "$description": "Highest surface · popovers, interactive-card hover. Light = warmGray.25, dark = surfaceDeepSunk. Added 2026-05-28 (ADR brand-site-shell). 2026-10-18 (decisions.md, deepest slate dark grounds): dark = dark.deep2, the deepest set's floating rung; was dark.raised2.",
         "$extensions": {
           "modes": {
             "light": "{color.warmGray.25}",
-            "dark":  "{color.dark.raised2}"
+            "dark":  "{color.dark.deep2}"
           }
         }
       },
       "rail": {
         "$type": "color",
         "$value": "{color.warmGray.300}",
-        "$description": "Sidebar / left-rail ground. Light = warmGray.300; dark = floor (dark.floor — a step below page). scds-v2 remap off the retired warm dark.surfaceSunk. Added 2026-05-31 (ADR brand-site-shell sidebar pass).",
+        "$description": "Sidebar / left-rail ground. Light = warmGray.300; dark = floor (dark.floor — a step below page). scds-v2 remap off the retired warm dark.surfaceSunk. Added 2026-05-31 (ADR brand-site-shell sidebar pass). 2026-10-18 (decisions.md, deepest slate dark grounds): dark = dark.deep7, between the deepest page and sunk, as floor sat between page and well; was dark.floor.",
         "$extensions": {
           "modes": {
             "light": "{color.warmGray.300}",
-            "dark":  "{color.dark.floor}"
+            "dark":  "{color.dark.deep7}"
           }
         }
       },
       "nav": {
         "$type": "color",
         "$value": "{color.warmGray.40}",
-        "$description": "Brand-site sidebar card ground (the inset card that replaced the edge rail). Light = warmGray.40, dark = dark.raised1, the surface.raised ladder step. 2026-10-07 (ADR brand-site-sidebar-redesign; dark back to raised1 once the hover moved to surface.navHover, ADR sidebar-nav-pill-states).",
+        "$description": "Brand-site sidebar card ground (the inset card that replaced the edge rail). Light = warmGray.40, dark = dark.raised1, the surface.raised ladder step. 2026-10-07 (ADR brand-site-sidebar-redesign; dark back to raised1 once the hover moved to surface.navHover, ADR sidebar-nav-pill-states). 2026-10-18 (decisions.md, deepest slate dark grounds): dark = dark.deep4, the surface.raised rung; was dark.raised1.",
         "$extensions": {
           "modes": {
             "light": "{color.warmGray.40}",
-            "dark":  "{color.dark.raised1}"
+            "dark":  "{color.dark.deep4}"
           }
         }
       },
       "navHover": {
         "$type": "color",
         "$value": "{color.utility.white}",
-        "$description": "Brand-site sidebar link hover pill. Sits one step LIGHTER than surface.nav, the card it lifts out of: light = utility.white, dark = dark.raised2. 2026-10-07 (ADR sidebar-nav-pill-states).",
+        "$description": "Brand-site sidebar link hover pill. Sits one step LIGHTER than surface.nav, the card it lifts out of: light = utility.white, dark = dark.raised2. 2026-10-07 (ADR sidebar-nav-pill-states). 2026-10-18 (decisions.md, deepest slate dark grounds): dark = dark.deep2, one step lighter than surface.nav; was dark.raised2.",
         "$extensions": {
           "modes": {
             "light": "{color.utility.white}",
-            "dark":  "{color.dark.raised2}"
+            "dark":  "{color.dark.deep2}"
           }
         }
       },
       "hover": {
         "$type": "color",
         "$value": "{color.warmGray.250}",
-        "$description": "Hover-highlight ground for nav links and similar row-level affordances. Light = warmGray.250, dark = dark.raised1. Added 2026-05-31 (ADR brand-site-shell sidebar pass).",
+        "$description": "Hover-highlight ground for nav links and similar row-level affordances. Light = warmGray.250, dark = dark.raised1. Added 2026-05-31 (ADR brand-site-shell sidebar pass). 2026-10-18 (decisions.md, deepest slate dark grounds): dark = dark.deep4, the surface.raised rung; was dark.raised1.",
         "$extensions": {
           "modes": {
             "light": "{color.warmGray.250}",
-            "dark":  "{color.dark.raised1}"
+            "dark":  "{color.dark.deep4}"
           }
         }
       }
@@ -132,7 +132,7 @@
       "secondary": {
         "$type": "color",
         "$value": "{color.warmGray.500}",
-        "$description": "Secondary text · eyebrows, metadata, descriptions. Light (warmGray.500 #5A5750): AA on surface.page (5.43:1), surface.sunk (4.77:1), surface.raised (6.28:1), surface.floating (6.68:1); figures re-measured for the 2026-10-07 oatmeal restore. USAGE RESTRICTION: must not render on surface.deepSunk, surface.rail, or surface.hover in light mode — see $extensions.usageRestrictions. Dark (dark.textSecondary, slate ladder): AA on every surface, AAA on page, sunk and rail (6.04–9.15:1), no restrictions. Light figures re-measured 2026-08-17 (ADR text-secondary-aa-sunk); dark figures 2026-09-24 (ADR dark slate ladder).",
+        "$description": "Secondary text · eyebrows, metadata, descriptions. Light (warmGray.500 #5A5750): AA on surface.page (5.43:1), surface.sunk (4.77:1), surface.raised (6.28:1), surface.floating (6.68:1); figures re-measured for the 2026-10-07 oatmeal restore. USAGE RESTRICTION: must not render on surface.deepSunk, surface.rail, or surface.hover in light mode — see $extensions.usageRestrictions. Dark (dark.textSecondary): AAA on every surface on the deepest slate grounds, from 10.16:1 on surface.floating to 11.82:1 on surface.sunk, no restrictions. Light figures re-measured 2026-08-17 (ADR text-secondary-aa-sunk); dark figures 2026-10-18 (decisions.md, deepest slate dark grounds).",
         "$extensions": {
           "modes": {
             "light": "{color.warmGray.500}",
@@ -152,7 +152,7 @@
       "tertiary": {
         "$type": "color",
         "$value": "{color.warmGray.450}",
-        "$description": "Tertiary text · lowest readable tier (de-emphasized metadata). scds-v2 addition. Light = warmGray.450 (AA 4.62:1 on page, 5.34:1 raised, 5.68:1 floating; #66615A since the 2026-10-07 oatmeal restore); dark = dark.textTertiary, re-derived 2026-09-24 for the slate ladder to #B3B1AD — AA 6.05:1 on page, 7.22:1 sunk, 5.37:1 raised, 4.76:1 deepSunk/floating, 6.67:1 rail, clearing every dark surface including surface.raised, the default card ground. USAGE RESTRICTION: light only now — see $extensions.usageRestrictions. All figures re-measured 2026-08-17 (ADR text-secondary-aa-sunk) , 2026-09-06 (ADR brand.accentInk / dark tertiary re-derivation) and 2026-09-24 (ADR dark slate ladder).",
+        "$description": "Tertiary text · lowest readable tier (de-emphasized metadata). scds-v2 addition. Light = warmGray.450 (AA 4.62:1 on page, 5.34:1 raised, 5.68:1 floating; #66615A since the 2026-10-07 oatmeal restore); dark = dark.textTertiary, re-derived 2026-09-24 for the slate ladder to #B3B1AD. On the deepest slate grounds (2026-10-18) it reads 8.98:1 on page, 9.32:1 sunk, 8.55:1 raised, 8.01:1 deepSunk/floating, 9.15:1 rail, clearing every dark surface. USAGE RESTRICTION: light only now — see $extensions.usageRestrictions. All figures re-measured 2026-08-17 (ADR text-secondary-aa-sunk) , 2026-09-06 (ADR brand.accentInk / dark tertiary re-derivation) and 2026-09-24 (ADR dark slate ladder).",
         "$extensions": {
           "modes": {
             "light": "{color.warmGray.450}",
@@ -229,7 +229,7 @@
       "focus": {
         "$type": "color",
         "$value": "{color.focusRing.light}",
-        "$description": "Focus ring color · scds-v2 dedicated, OFF the brand (teal) band and off every status hue (focus-ring-token). Cool-neutral, AA+++ per mode (light 12.25:1 / dark 10.84:1 on page; dark re-derived 2026-09-24 for the slate ladder). Was routed through the old vermilion accent, which failed AA at 11px on some grounds.",
+        "$description": "Focus ring color · scds-v2 dedicated, OFF the brand (teal) band and off every status hue (focus-ring-token). Cool-neutral, AA+++ per mode (light 12.25:1 / dark 16.09:1 on page; dark re-derived 2026-09-24 for the slate ladder, figure re-measured 2026-10-18 on the deepest slate page). Was routed through the old vermilion accent, which failed AA at 11px on some grounds.",
         "$extensions": {
           "modes": {
             "light": "{color.focusRing.light}",
@@ -283,7 +283,7 @@
       "hover": {
         "$type": "color",
         "$value": "{color.teal.600}",
-        "$description": "Hover state · primary button text/icon/border turn brand teal. Light = teal.600 since 2026-10-07 (Levi): on the oatmeal page teal.500 read 2.99:1, under the WCAG 1.4.11 non-text floor; teal.600 reads 3.92:1 on surface.page, 4.53:1 raised, 4.82:1 floating, so the icon/border use clears the non-text floor on every light ground it sits on. Light hover now equals brand.accentFill. Body text is still a documented AA exception (underline mitigant applies, learning #67). When the hover color renders as body text use interactive.hover-ink (4.61:1). Dark mode uses teal.300 since 2026-09-24 (icon/border tier: 5.51:1 on surface.page, 4.34:1 on surface.floating, its tightest dark ground); teal.400, the previous dark alias, reads 3.10:1 on the slate floating ground. 2026-08-17 re-verification: the retired vermilion this is compared against (shu.500 #C8281C) measured 4.52:1 on surface.page, not the 3.8:1 quoted here — the rebrand widened the exception considerably more than the note claimed.",
+        "$description": "Hover state · primary button text/icon/border turn brand teal. Light = teal.600 since 2026-10-07 (Levi): on the oatmeal page teal.500 read 2.99:1, under the WCAG 1.4.11 non-text floor; teal.600 reads 3.92:1 on surface.page, 4.53:1 raised, 4.82:1 floating, so the icon/border use clears the non-text floor on every light ground it sits on. Light hover now equals brand.accentFill. Body text is still a documented AA exception (underline mitigant applies, learning #67). When the hover color renders as body text use interactive.hover-ink (4.61:1). Dark mode uses teal.300 since 2026-09-24 (icon/border tier, on the deepest slate grounds since 2026-10-18: 8.18:1 on surface.page, 7.30:1 on surface.floating, its tightest dark ground); teal.400, the previous dark alias, reads 3.10:1 on the slate floating ground (dark.raised2). 2026-08-17 re-verification: the retired vermilion this is compared against (shu.500 #C8281C) measured 4.52:1 on surface.page, not the 3.8:1 quoted here — the rebrand widened the exception considerably more than the note claimed.",
         "$extensions": {
           "modes": {
             "light": "{color.teal.600}",
@@ -294,11 +294,33 @@
       "hover-ink": {
         "$type": "color",
         "$value": "{color.interactive.hoverInk.light}",
-        "$description": "2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier for interactive.hover — use when the hover color renders as body text (not icon/border), 4.61:1 on warmGray.100 (re-derived 2026-10-07 for the oatmeal page). Base interactive.hover (teal.600 since 2026-10-07) fails AA for text at 3.92:1 (documented exception, learning #67) but is fine for icon/border use. Dark mode aliases teal.200 since 2026-09-24 (7.61:1 on surface.page, 5.99:1 on surface.floating); teal.400, the previous dark alias, reads 3.10:1 on the slate floating ground.",
+        "$description": "2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier for interactive.hover — use when the hover color renders as body text (not icon/border), 4.61:1 on warmGray.100 (re-derived 2026-10-07 for the oatmeal page). Base interactive.hover (teal.600 since 2026-10-07) fails AA for text at 3.92:1 (documented exception, learning #67) but is fine for icon/border use. Dark mode aliases teal.200 since 2026-09-24 (11.30:1 on surface.page, 10.08:1 on surface.floating, deepest slate grounds 2026-10-18); teal.400, the previous dark alias, reads 3.10:1 on the slate floating ground (dark.raised2).",
         "$extensions": {
           "modes": {
             "light": "{color.interactive.hoverInk.light}",
             "dark":  "{color.teal.200}"
+          }
+        }
+      },
+      "active-ink": {
+        "$type": "color",
+        "$value": "{color.teal.700}",
+        "$description": "2026-10-18 · text-only tier for interactive.active: use when the active or pressed colour renders as text. Light = teal.700, the same value as interactive.active (5.35:1 on surface.page). Dark = teal.100: base interactive.active is teal.500 in dark, which as text measures 4.85:1 on surface.page but 4.32:1 on surface.floating, the tightest dark ground, and 3.26:1 on the slate page it replaced; teal.100 reads 14.59:1 on surface.page and 13.02:1 on surface.floating. Sits beside interactive.hover-ink, the matching hover tier.",
+        "$extensions": {
+          "modes": {
+            "light": "{color.teal.700}",
+            "dark":  "{color.teal.100}"
+          },
+          "usageRestrictions": {
+            "$description": "forbiddenSurfaces is keyed BY MODE. teal.700 clears AA on the light page, sunk, raised, floating, nav and navHover grounds but not on the warmGray.300 grounds (deepSunk, rail: 2.97:1) or surface.hover (3.79:1). Dark: none. Added 2026-10-18 with the token.",
+            "forbiddenSurfaces": {
+              "light": [
+                "color.surface.deepSunk",
+                "color.surface.rail",
+                "color.surface.hover"
+              ],
+              "dark": []
+            }
           }
         }
       },
@@ -324,7 +346,7 @@
       "success": {
         "$type": "color",
         "$value": "{color.status.success.light}",
-        "$description": "Success state · forest green on light, lifted green on dark. Fill/border/dot tier; the dark fill clears AA on surface.page (4.74:1, slate ladder 2026-09-24). For text use status.success-ink.",
+        "$description": "Success state · forest green on light, lifted green on dark. Fill/border/dot tier; the dark fill clears AA on surface.page (7.04:1 on the deepest slate page, 2026-10-18). For text use status.success-ink.",
         "$extensions": {
           "modes": {
             "light": "{color.status.success.light}",
@@ -335,7 +357,7 @@
       "warning": {
         "$type": "color",
         "$value": "{color.status.warning.light}",
-        "$description": "Warning state · burnt orange on light, lifted orange on dark. Fill/border/dot tier; the dark fill clears AA on surface.page (4.73:1, slate ladder 2026-09-24). For text use status.warning-ink.",
+        "$description": "Warning state · burnt orange on light, lifted orange on dark. Fill/border/dot tier; the dark fill clears AA on surface.page (7.02:1 on the deepest slate page, 2026-10-18). For text use status.warning-ink.",
         "$extensions": {
           "modes": {
             "light": "{color.status.warning.light}",
@@ -346,7 +368,7 @@
       "error": {
         "$type": "color",
         "$value": "{color.status.error.light}",
-        "$description": "Error state · oxblood on light, lifted rose on dark. Fill/border/dot tier; the dark fill clears AA on surface.page (4.63:1, slate ladder 2026-09-24) but not on dark raised/floating (3.64:1 on surface.floating). For text use status.error-ink (added 2026-10-17). Pulled deliberately off the brand band so error and brand-accent can never be confused. Originally rebound 2026-05-28 off the then-vermilion accent (ADR brand-site-shell); accent moved to teal 2026-07-09, error stays oxblood (now doubly distinct from teal).",
+        "$description": "Error state · oxblood on light, lifted rose on dark. Fill/border/dot tier; the dark fill clears AA on every deepest slate ground (6.88:1 on surface.page, 6.14:1 on surface.floating, 2026-10-18). On the slate ladder it read 3.64:1 on the floating ground (dark.raised2), so text uses status.error-ink (added 2026-10-17). Pulled deliberately off the brand band so error and brand-accent can never be confused. Originally rebound 2026-05-28 off the then-vermilion accent (ADR brand-site-shell); accent moved to teal 2026-07-09, error stays oxblood (now doubly distinct from teal).",
         "$extensions": {
           "modes": {
             "light": "{color.status.error.light}",
@@ -357,7 +379,7 @@
       "info": {
         "$type": "color",
         "$value": "{color.status.info.light}",
-        "$description": "Info state · royal blue on light, lifted blue on dark. Fill/border/dot tier; the dark fill clears AA on surface.page (4.76:1, slate ladder 2026-09-24). For text use status.info-ink.",
+        "$description": "Info state · royal blue on light, lifted blue on dark. Fill/border/dot tier; the dark fill clears AA on surface.page (7.07:1 on the deepest slate page, 2026-10-18). For text use status.info-ink.",
         "$extensions": {
           "modes": {
             "light": "{color.status.info.light}",
@@ -368,7 +390,7 @@
       "success-ink": {
         "$type": "color",
         "$value": "{color.status.success.ink.light}",
-        "$description": "2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier for status.success — use when rendered as body text, 4.64:1 (L) / 5.89:1 (D) on their respective page grounds. Base status.success fails AA for text at 3.42:1 but is fine for fill/border/dot use. Dark mode gained its own ink 2026-09-06 (WQ-041); it had reused status.success.dark, which read 4.37:1 on the retired neutral deepSunk/floating ground. Re-derived 2026-09-24 for the slate ladder; the slate status.success.dark fill reads 3.73:1 on surface.floating, so the ink stays separate.",
+        "$description": "2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier for status.success — use when rendered as body text, 5.46:1 (L) / 8.74:1 (D) on their respective page grounds. Base status.success fails AA for text at 3.42:1 but is fine for fill/border/dot use. Dark mode gained its own ink 2026-09-06 (WQ-041); it had reused status.success.dark, which read 4.37:1 on the retired neutral deepSunk/floating ground. Re-derived 2026-09-24 for the slate ladder; the slate status.success.dark fill read 3.73:1 on the slate floating ground (dark.raised2), so the ink stays separate. 2026-10-18: the light ink darkened to #226244 so it clears AA on light surface.sunk (4.80:1); sunk leaves the light forbiddenSurfaces.",
         "$extensions": {
           "modes": {
             "light": "{color.status.success.ink.light}",
@@ -378,14 +400,13 @@
             "$description": "forbiddenSurfaces is keyed BY MODE. A status ink is tuned against the page ground of its own mode; the compressed light surfaces are unreachable for any status hue without abandoning the hue. Added 2026-09-06 (WQ-041), when the *-ink tiers entered check 1's AA sweep for the first time — until then no check guarded them and dark raised1, the default card ground, was failing unnoticed.",
             "forbiddenSurfaces": {
               "light": [
-                "color.surface.sunk",
                 "color.surface.deepSunk",
                 "color.surface.rail",
                 "color.surface.hover"
               ],
               "dark": []
             },
-            "reason": "Light: sunk 3.86:1, deepSunk/rail 2.44:1, hover 3.11:1 — every one below AA for the success hue. Dark cleared 2026-09-06 by the re-derivation to #3C9366, and again 2026-09-24 by the slate re-derivation to #6AC090 (4.64:1 worst case, deepSunk/floating); the reused status.success.dark it replaced read 4.37:1 on surface.deepSunk and surface.floating.",
+            "reason": "Light (#226244 since 2026-10-18): deepSunk/rail 3.03:1, hover 3.86:1, both below AA for the success hue; sunk cleared at 4.80:1 and left the list (#246E4A read 4.09:1 there). Dark cleared 2026-09-06 by the re-derivation to #3C9366, and again 2026-09-24 by the slate re-derivation to #6AC090 (4.64:1 worst case on the slate deepSunk/floating ground; 7.80:1 on the deepest slate floating ground, 2026-10-18); the reused status.success.dark it replaced read 4.37:1 on surface.deepSunk and surface.floating.",
             "substitute": "{color.text.primary}"
           }
         }
@@ -393,7 +414,7 @@
       "warning-ink": {
         "$type": "color",
         "$value": "{color.status.warning.ink.light}",
-        "$description": "2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier for status.warning — use when rendered as body text, 4.63:1 (L) / 5.94:1 (D) on their respective page grounds. Base status.warning fails AA for text in light (3.90:1) and, in dark, on the raised grounds (3.72:1 on surface.floating; it clears only surface.page and the grounds below it, slate ladder 2026-09-24), but is fine for fill/border/dot use. 2026-08-17 re-verification: the light-mode base figure read 3.69:1, which is status.success.light's number copy-pasted onto the warning line — the verdict (fails AA) held, the figure did not.",
+        "$description": "2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier for status.warning — use when rendered as body text, 4.63:1 (L) / 8.82:1 (D) on their respective page grounds. Base status.warning fails AA for text in light (3.90:1). In dark it read 3.72:1 on the slate floating ground (dark.raised2) and cleared only the slate page and the grounds below it; on the deepest slate grounds (2026-10-18) it clears every dark surface. It is fine for fill/border/dot use. 2026-08-17 re-verification: the light-mode base figure read 3.69:1, which is status.success.light's number copy-pasted onto the warning line — the verdict (fails AA) held, the figure did not.",
         "$extensions": {
           "modes": {
             "light": "{color.status.warning.ink.light}",
@@ -418,7 +439,7 @@
       "info-ink": {
         "$type": "color",
         "$value": "{color.status.info.ink.light}",
-        "$description": "2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier for status.info — light mode reads status.info.ink.light since the 2026-10-07 oatmeal restore (4.61:1 on the #E3DFD8 page; the fill reads 4.43:1 there, so it reused status.info.light directly only while the page was #EBE7E4); dark mode gets a dedicated ink (5.97:1 on its page ground, 4.70:1 on surface.floating; re-derived 2026-09-24 for the slate ladder) since base status.info.dark reads 3.75:1 on surface.floating.",
+        "$description": "2026-07-28 SCDS audit Block 2 (learning #56, P1-1) · text-only tier for status.info — light mode reads status.info.ink.light since the 2026-10-07 oatmeal restore (4.61:1 on the #E3DFD8 page; the fill reads 4.43:1 there, so it reused status.info.light directly only while the page was #EBE7E4); dark mode gets a dedicated ink (8.86:1 on its page ground, 7.91:1 on surface.floating on the deepest slate grounds, 2026-10-18; re-derived 2026-09-24 for the slate ladder) since base status.info.dark read 3.75:1 on the slate floating ground (dark.raised2).",
         "$extensions": {
           "modes": {
             "light": "{color.status.info.ink.light}",
@@ -443,7 +464,7 @@
       "error-ink": {
         "$type": "color",
         "$value": "{color.status.error.ink.light}",
-        "$description": "2026-10-17 (studio-pm ADR-136, option A; learning #56) · text-only tier for status.error — use when an error renders as text, 7.54:1 (L) / 5.92:1 (D) on their respective page grounds. Base status.error stays the fill/border/dot tier: its light value already clears AA as text, so the light ink holds the same hex, but the dark fill reads 3.64:1 on surface.floating. The dark ink is tuned against raised2 (4.66:1 on surface.floating) and stays a red hue apart from status.warning-ink, because a failure never shares the waiting hue.",
+        "$description": "2026-10-17 (studio-pm ADR-136, option A; learning #56) · text-only tier for status.error — use when an error renders as text, 7.54:1 (L) / 8.79:1 (D) on their respective page grounds. Base status.error stays the fill/border/dot tier: its light value already clears AA as text, so the light ink holds the same hex, but the dark fill read 3.64:1 on the slate floating ground (dark.raised2). The dark ink is tuned against raised2 (4.66:1 on dark.raised2; 7.84:1 on surface.floating since the deepest slate grounds, 2026-10-18) and stays a red hue apart from status.warning-ink, because a failure never shares the waiting hue.",
         "$extensions": {
           "modes": {
             "light": "{color.status.error.ink.light}",
@@ -537,7 +558,7 @@
       "accentDeep": {
         "$type": "color",
         "$value": "{color.teal.700}",
-        "$description": "Brand accent deep · pressed accent state. teal.700 in both modes (5.35:1 on warmGray.100 (oatmeal page, 2026-10-07)), unchanged. For accent as text, use color.brand.accentInk (added 2026-09-06, WQ-040) instead — accentDeep has no mode-following text ink: its dark value is the same teal.700, which measures only 1.62:1 on surface.raised (the slate dark.raised1 #343A41), far below AA. accentDeep stays teal.700/teal.700 because consumers depend on it as a pressed-state fill.",
+        "$description": "Brand accent deep · pressed accent state. teal.700 in both modes (5.35:1 on warmGray.100 (oatmeal page, 2026-10-07)), unchanged. For accent as text, use color.brand.accentInk (added 2026-09-06, WQ-040) instead — accentDeep has no mode-following text ink: its dark value is the same teal.700, which measures only 2.57:1 on surface.raised (dark.deep4 since 2026-10-18; 1.62:1 on the slate dark.raised1 #343A41 before it), far below AA. accentDeep stays teal.700/teal.700 because consumers depend on it as a pressed-state fill.",
         "$extensions": {
           "modes": {
             "light": "{color.teal.700}",
@@ -548,7 +569,7 @@
       "accentInk": {
         "$type": "color",
         "$value": "{color.teal.700}",
-        "$description": "Brand accent as text ink · mode-following counterpart of accentDeep's light-only text claim (added 2026-09-06, WQ-040). Light = teal.700 (AA 5.35:1 on surface.page, 6.19:1 raised, 6.59:1 floating, 4.71:1 sunk); dark = teal.200 since 2026-09-24 (AA 7.61:1 on surface.page, 9.08:1 sunk, 6.76:1 raised, 5.99:1 deepSunk/floating, 8.40:1 rail) — every dark surface clears AA. teal.400, the previous dark alias, reads 3.10:1 on the slate deepSunk/floating ground. USAGE RESTRICTION: light only — see $extensions.usageRestrictions.",
+        "$description": "Brand accent as text ink · mode-following counterpart of accentDeep's light-only text claim (added 2026-09-06, WQ-040). Light = teal.700 (AA 5.35:1 on surface.page, 6.19:1 raised, 6.59:1 floating, 4.71:1 sunk); dark = teal.200 since 2026-09-24 (on the deepest slate grounds, 2026-10-18: AA 11.30:1 on surface.page, 11.73:1 sunk, 10.76:1 raised, 10.08:1 deepSunk/floating, 11.52:1 rail) — every dark surface clears AA. teal.400, the previous dark alias, reads 3.10:1 on the slate deepSunk/floating ground (dark.raised2). USAGE RESTRICTION: light only — see $extensions.usageRestrictions.",
         "$extensions": {
           "modes": {
             "light": "{color.teal.700}",
@@ -664,24 +685,24 @@
         "off": {
           "$type": "color",
           "$value": "{color.warmGray.300}",
-          "$description": "Dark per Record Switch 2026-10-07-1539, concept B (Levi), applied 2026-10-07. 2026-10-07 · Switch off-track floor, the recess under the knob. Light = surface.deepSunk (warmGray.300); dark = dark.well, darker than the page so the recess reads as a recess; its own role so the Switch floor tunes in sc-tune without moving cards, inputs and meters that read deepSunk (Levi).",
-          "$extensions": { "modes": { "light": "{color.warmGray.300}", "dark": "{color.dark.well}" } }
+          "$description": "Dark per Record Switch 2026-10-07-1539, concept B (Levi), applied 2026-10-07. 2026-10-07 · Switch off-track floor, the recess under the knob. Light = surface.deepSunk (warmGray.300); dark = dark.well, darker than the page so the recess reads as a recess; its own role so the Switch floor tunes in sc-tune without moving cards, inputs and meters that read deepSunk (Levi). 2026-10-18 (decisions.md, deepest slate dark grounds): dark = dark.deep8, surface.sunk, still darker than the page; was dark.well.",
+          "$extensions": { "modes": { "light": "{color.warmGray.300}", "dark": "{color.dark.deep8}" } }
         },
         "offHover": {
           "$type": "color",
           "$value": "{color.warmGray.250}",
-          "$description": "Dark per Record Switch 2026-10-07-1539, concept B (Levi), applied 2026-10-07. 2026-10-07 · Switch off-track floor on hover. Light = surface.hover (warmGray.250); dark = dark.floor, a hair lighter than the resting floor in both modes; its own role so it tunes with the floor.",
-          "$extensions": { "modes": { "light": "{color.warmGray.250}", "dark": "{color.dark.floor}" } }
+          "$description": "Dark per Record Switch 2026-10-07-1539, concept B (Levi), applied 2026-10-07. 2026-10-07 · Switch off-track floor on hover. Light = surface.hover (warmGray.250); dark = dark.floor, a hair lighter than the resting floor in both modes; its own role so it tunes with the floor. 2026-10-18 (decisions.md, deepest slate dark grounds): dark = dark.deep7, a hair lighter than the resting floor; was dark.floor.",
+          "$extensions": { "modes": { "light": "{color.warmGray.250}", "dark": "{color.dark.deep7}" } }
         }
       }
     },
     "segmentedControl": {
-      "track": { "$type": "color", "$value": "{color.warmGray.200}", "$description": "2026-10-07 \u00b7 SegmentedControl material (physical-controls Tier 1: recessed track, key indicator), tuned in sc-tune. Track ground. Shipped = surface.sunk; its own role so the track tunes without moving cards and other sunk surfaces.", "$extensions": { "modes": { "light": "{color.warmGray.200}", "dark": "{color.dark.well}" } } },
-      "indicator": { "$type": "color", "$value": "{color.warmGray.25}", "$description": "2026-10-07 \u00b7 SegmentedControl material (physical-controls Tier 1: recessed track, key indicator), tuned in sc-tune. Selected-segment indicator fill. Shipped = surface.floating.", "$extensions": { "modes": { "light": "{color.warmGray.25}", "dark": "{color.dark.raised2}" } } },
+      "track": { "$type": "color", "$value": "{color.warmGray.200}", "$description": "2026-10-07 \u00b7 SegmentedControl material (physical-controls Tier 1: recessed track, key indicator), tuned in sc-tune. Track ground. Shipped = surface.sunk; its own role so the track tunes without moving cards and other sunk surfaces. 2026-10-18 (decisions.md, deepest slate dark grounds): dark = dark.deep8, surface.sunk; was dark.well.", "$extensions": { "modes": { "light": "{color.warmGray.200}", "dark": "{color.dark.deep8}" } } },
+      "indicator": { "$type": "color", "$value": "{color.warmGray.25}", "$description": "2026-10-07 \u00b7 SegmentedControl material (physical-controls Tier 1: recessed track, key indicator), tuned in sc-tune. Selected-segment indicator fill. Shipped = surface.floating. 2026-10-18 (decisions.md, deepest slate dark grounds): dark = dark.deep2, surface.floating; was dark.raised2.", "$extensions": { "modes": { "light": "{color.warmGray.25}", "dark": "{color.dark.deep2}" } } },
       "indicatorShade": { "$type": "color", "$value": "rgb(var(--sc-p-color-ink-rgb) / 0.05)", "$description": "2026-10-07 \u00b7 SegmentedControl material (physical-controls Tier 1), lit from the top left (Gate 1 pick 1). Shade at the far corner of the indicator face, linear-gradient(135deg, transparent, indicatorShade): the Button key face (control.keyShade values). Record SegmentedControl 2026-10-07-1645, concept A (Levi), applied 2026-10-07; was transparent.", "$extensions": { "modes": { "light": "rgb(var(--sc-p-color-ink-rgb) / 0.05)", "dark": "rgb(var(--sc-p-color-ink-rgb) / 0.25)" } } }
     },
     "stepper": {
-      "track": { "$type": "color", "$value": "{color.warmGray.200}", "$description": "2026-10-07 \u00b7 Stepper material (physical-controls Tier 1: \u00b1 as small Drams 036 keys on a recessed pill; the numeral sits flat, no window, Levi 2026-10-07), tuned in sc-tune. Track ground. Shipped = surface.sunk; its own role so the track tunes without moving cards and other sunk surfaces.", "$extensions": { "modes": { "light": "{color.warmGray.200}", "dark": "{color.dark.well}" } } },
+      "track": { "$type": "color", "$value": "{color.warmGray.200}", "$description": "2026-10-07 \u00b7 Stepper material (physical-controls Tier 1: \u00b1 as small Drams 036 keys on a recessed pill; the numeral sits flat, no window, Levi 2026-10-07), tuned in sc-tune. Track ground. Shipped = surface.sunk; its own role so the track tunes without moving cards and other sunk surfaces. 2026-10-18 (decisions.md, deepest slate dark grounds): dark = dark.deep8, surface.sunk; was dark.well.", "$extensions": { "modes": { "light": "{color.warmGray.200}", "dark": "{color.dark.deep8}" } } },
       "key": {"$type": "color", "$value": "{color.surface.raised}", "$description": "2026-10-07 \u00b7 Stepper material (physical-controls Tier 1: \u00b1 as small Drams 036 keys on a recessed pill; the numeral sits flat, no window, Levi 2026-10-07), tuned in sc-tune. Key face fill for the \u00b1 buttons. Shipped transparent (today's ghost buttons); the lab starts from the Button key's resting fill (surface.raised). Record Stepper 2026-10-07-1847, concept A (Levi), applied 2026-10-07: the Button key fill (#F1EFEB light, #343A41 dark), aliased to surface.raised as the Button primary reads it, so the key follows the Button like its hover and press (cascade, Claude); was transparent.", "$extensions": {"modes": {"light": "{color.surface.raised}", "dark": "{color.surface.raised}"}}},
       "keyHover": { "$type": "color", "$value": "{color.control.keyHoverFill}", "$description": "2026-10-07 \u00b7 Stepper material (physical-controls Tier 1), Levi's direction in the lab: hover is his Button primary hover, pressed one accent step darker. Key face fill on hover = control.keyHoverFill (the Button primary hover; teal.600), aliased so a Button retune carries over. Was surface.deepSunk.", "$extensions": { "modes": { "light": "{color.control.keyHoverFill}", "dark": "{color.control.keyHoverFill}" } } },
       "keyHoverInk": { "$type": "color", "$value": "{color.control.keyHoverInk}", "$description": "2026-10-07 \u00b7 Stepper material (physical-controls Tier 1), Levi's direction in the lab: hover is his Button primary hover, pressed one accent step darker. \u00b1 glyph on hover = control.keyHoverInk (white), fading in on the hover transition.", "$extensions": { "modes": { "light": "{color.control.keyHoverInk}", "dark": "{color.control.keyHoverInk}" } } },
@@ -690,8 +711,8 @@
       "keyShade": {"$type": "color", "$value": "{color.control.keyShade}", "$description": "2026-10-07 \u00b7 Stepper material (physical-controls Tier 1: \u00b1 as small Drams 036 keys on a recessed pill; the numeral sits flat, no window, Levi 2026-10-07), tuned in sc-tune. Shade at the far corner of a key face, linear-gradient(135deg, transparent, keyShade): the Button key face (control.keyShade). Shipped transparent (flat). Record Stepper 2026-10-07-1847, concept A (Levi), applied 2026-10-07: the Button key face (ink .05 light, .25 dark), aliased to control.keyShade (cascade, Claude); was transparent.", "$extensions": {"modes": {"light": "{color.control.keyShade}", "dark": "{color.control.keyShade}"}}}
     },
     "slider": {
-      "track": { "$type": "color", "$value": "{color.warmGray.300}", "$description": "2026-10-07 \u00b7 Slider material (physical-controls Tier 1; split from ProgressIndicator's interactive bar, Levi 2026-10-07: a progress indicator is read, a slider is moved. A recessed track and a physical thumb, lit from the top left; the thumb carries the non-text contrast cue the fill misses), tuned in sc-tune. Track ground. Shipped = surface.deepSunk (today); its own role so the track tunes without moving progress meters, cards and inputs.", "$extensions": { "modes": { "light": "{color.warmGray.300}", "dark": "{color.dark.raised2}" } } },
-      "trackDisabled": { "$type": "color", "$value": "{color.warmGray.200}", "$description": "2026-10-07 \u00b7 Slider material (physical-controls Tier 1; split from ProgressIndicator's interactive bar, Levi 2026-10-07: a progress indicator is read, a slider is moved. A recessed track and a physical thumb, lit from the top left; the thumb carries the non-text contrast cue the fill misses), tuned in sc-tune. Track ground when disabled. Shipped = surface.sunk (today).", "$extensions": { "modes": { "light": "{color.warmGray.200}", "dark": "{color.dark.well}" } } },
+      "track": { "$type": "color", "$value": "{color.warmGray.300}", "$description": "2026-10-07 \u00b7 Slider material (physical-controls Tier 1; split from ProgressIndicator's interactive bar, Levi 2026-10-07: a progress indicator is read, a slider is moved. A recessed track and a physical thumb, lit from the top left; the thumb carries the non-text contrast cue the fill misses), tuned in sc-tune. Track ground. Shipped = surface.deepSunk (today); its own role so the track tunes without moving progress meters, cards and inputs. 2026-10-18 (decisions.md, deepest slate dark grounds): dark = dark.deep2, surface.deepSunk; was dark.raised2.", "$extensions": { "modes": { "light": "{color.warmGray.300}", "dark": "{color.dark.deep2}" } } },
+      "trackDisabled": { "$type": "color", "$value": "{color.warmGray.200}", "$description": "2026-10-07 \u00b7 Slider material (physical-controls Tier 1; split from ProgressIndicator's interactive bar, Levi 2026-10-07: a progress indicator is read, a slider is moved. A recessed track and a physical thumb, lit from the top left; the thumb carries the non-text contrast cue the fill misses), tuned in sc-tune. Track ground when disabled. Shipped = surface.sunk (today). 2026-10-18 (decisions.md, deepest slate dark grounds): dark = dark.deep8, surface.sunk; was dark.well.", "$extensions": { "modes": { "light": "{color.warmGray.200}", "dark": "{color.dark.deep8}" } } },
       "fill": { "$type": "color", "$value": "{color.teal.500}", "$description": "2026-10-07 \u00b7 Slider material (physical-controls Tier 1; split from ProgressIndicator's interactive bar, Levi 2026-10-07: a progress indicator is read, a slider is moved. A recessed track and a physical thumb, lit from the top left; the thumb carries the non-text contrast cue the fill misses), tuned in sc-tune. Fill. Shipped = brand.accent (today; teal.500, under the non-text line on the track, the gap the thumb closes).", "$extensions": { "modes": { "light": "{color.teal.500}", "dark": "{color.teal.500}" } } },
       "fillHover": { "$type": "color", "$value": "{color.teal.600}", "$description": "2026-10-07 \u00b7 Slider material (physical-controls Tier 1; split from ProgressIndicator's interactive bar, Levi 2026-10-07: a progress indicator is read, a slider is moved. A recessed track and a physical thumb, lit from the top left; the thumb carries the non-text contrast cue the fill misses), tuned in sc-tune. Fill on hover. Shipped = interactive.hover (today).", "$extensions": { "modes": { "light": "{color.teal.600}", "dark": "{color.teal.300}" } } },
       "fillDisabled": { "$type": "color", "$value": "{color.warmGray.400}", "$description": "2026-10-07 \u00b7 Slider material (physical-controls Tier 1; split from ProgressIndicator's interactive bar, Levi 2026-10-07: a progress indicator is read, a slider is moved. A recessed track and a physical thumb, lit from the top left; the thumb carries the non-text contrast cue the fill misses), tuned in sc-tune. Fill and thumb when disabled (flat, directive 5). Shipped = text.disabled (today).", "$extensions": { "modes": { "light": "{color.warmGray.400}", "dark": "{color.dark.textDisabled}" } } },
@@ -711,7 +732,7 @@
     },
     "card": {
       "flat": { "$type": "color", "$value": "{color.surface.floating}", "$description": "2026-10-08 \u00b7 Card (physical-controls Tier 2), Levi: two card styles, a flat floating surface with no border and a liquid-glass card in three levels (clear, frosted, thick; renamed from subtle, regular, heavy), each in a light and a dark tone. Flat card ground: surface.floating, no border, no shadow.", "$extensions": { "modes": { "light": "{color.surface.floating}", "dark": "{color.surface.floating}" } } },
-      "flatHover": {"$type": "color", "$value": "{color.utility.white}", "$description": "2026-10-08 \u00b7 Card (physical-controls Tier 2), Levi: two card styles, a flat floating surface with no border and a liquid-glass card in three levels (clear, frosted, thick; renamed from subtle, regular, heavy), each in a light and a dark tone. Interactive flat card ground on hover: one step lighter than floating, white light (warmGray.25 is the lightest warm step) and dark.raised3 dark (Levi 2026-10-08: raise the hover to the next lightest token value); was surface.raised.", "$extensions": {"modes": {"light": "{color.utility.white}", "dark": "{color.dark.raised3}"}}},
+      "flatHover": {"$type": "color", "$value": "{color.utility.white}", "$description": "2026-10-08 \u00b7 Card (physical-controls Tier 2), Levi: two card styles, a flat floating surface with no border and a liquid-glass card in three levels (clear, frosted, thick; renamed from subtle, regular, heavy), each in a light and a dark tone. Interactive flat card ground on hover: one step lighter than floating, white light (warmGray.25 is the lightest warm step) and dark.raised3 dark (Levi 2026-10-08: raise the hover to the next lightest token value); was surface.raised. 2026-10-18 (decisions.md, deepest slate dark grounds): dark = dark.well, one step lighter than the floating ground deep2; well keeps the old raised2-to-raised3 step size (1.11:1 against deep2, where raised3 read 1.13:1 against raised2), where the adjacent deep1 would read 1.03:1; was dark.raised3.", "$extensions": {"modes": {"light": "{color.utility.white}", "dark": "{color.dark.well}"}}},
       "glass": {
         "clear": {
           "light": { "$type": "color", "$value": "rgb(var(--sc-p-color-white-rgb) / 0.16)", "$description": "2026-10-08 \u00b7 Card glass (physical-controls Tier 2). Tint, clear glass: a thin frost and a light bend at the edge (was subtle), light tone (lightens what is behind it): white 16% in light mode, 5% in dark. Record Card 2026-10-08-0921 (Levi: both concepts; A = the light tone, B = the dark tone), applied 2026-10-08.", "$extensions": { "modes": { "light": "rgb(var(--sc-p-color-white-rgb) / 0.16)", "dark": "rgb(var(--sc-p-color-white-rgb) / 0.05)" } } },
@@ -758,15 +779,15 @@
       },
       "live": {
         "fill": { "$type": "color", "$value": "{color.signal.live}", "$description": "2026-10-08 \u00b7 StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis, the label written by the consumer; physical-controls Tier 2). Filled live pill ground. Live (Pill live). The label takes text-on-inverse: signal.onLive misses AA on the live fill in both modes.", "$extensions": { "modes": { "light": "{color.signal.live}", "dark": "{color.signal.live}" } } },
-        "ink": { "$type": "color", "$value": "{color.text-on-inverse}", "$description": "2026-10-08 \u00b7 StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis, the label written by the consumer; physical-controls Tier 2). Label and glyph on the filled live pill; AA on its fill in every mode (verify-contrast FILL_PAIRS).", "$extensions": { "modes": { "light": "{color.text-on-inverse}", "dark": "{color.text-on-inverse}" } } }
+        "ink": { "$type": "color", "$value": "{color.text-on-inverse}", "$description": "2026-10-08 \u00b7 StatusPill (Levi: Badge and Pill fold into StatusPill, the one status component: a tone and an emphasis, the label written by the consumer; physical-controls Tier 2). Label and glyph on the filled live pill; AA on its fill in every mode (verify-contrast FILL_PAIRS). 2026-10-18: dark takes warmGray.50, the light value, because the live fill is the primitive signal.live (#C8281C) in both modes. text-on-inverse in dark is warmGray.800, which read 3.19:1 on that fill; warmGray.50 reads 4.84:1 in both modes.", "$extensions": { "modes": { "light": "{color.text-on-inverse}", "dark": "{color.warmGray.50}" } } }
       }
     },
     "tooltip": {
-      "surface": { "$type": "color", "$value": "{color.utility.white}", "$description": "2026-10-08 \u00b7 Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. Bubble ground. Shipped = surface.inverse (today: ink in light, near-white in dark); its own role so the tooltip tunes without moving PlusField and the other inverse grounds. The lab starts concept A from the Button key fill (surface.raised values). Record Tooltip 2026-10-08-2007, concept A (Levi), applied 2026-10-08: white (utility.white) in light, the dark key (dark.raised1) in dark, a raised plate; was surface-inverse (warmGray.800 / warmGray.50).", "$extensions": {"modes": {"light": "{color.utility.white}", "dark": "{color.dark.raised1}"}}},
+      "surface": { "$type": "color", "$value": "{color.utility.white}", "$description": "2026-10-08 \u00b7 Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. Bubble ground. Shipped = surface.inverse (today: ink in light, near-white in dark); its own role so the tooltip tunes without moving PlusField and the other inverse grounds. The lab starts concept A from the Button key fill (surface.raised values). Record Tooltip 2026-10-08-2007, concept A (Levi), applied 2026-10-08: white (utility.white) in light, the dark key (dark.raised1) in dark, a raised plate; was surface-inverse (warmGray.800 / warmGray.50). 2026-10-18 (decisions.md, deepest slate dark grounds): dark = dark.deep4, the surface.raised rung, as before; was dark.raised1.", "$extensions": {"modes": {"light": "{color.utility.white}", "dark": "{color.dark.deep4}"}}},
       "text": { "$type": "color", "$value": "{color.warmGray.800}", "$description": "2026-10-08 \u00b7 Tooltip (physical-controls Tier 2: a raised plate with a short lift), tuned in sc-tune. Bubble text. Shipped = text-on-inverse (today); its own role, paired with color.tooltip.surface. The lab starts concept A from text.primary values. Record Tooltip 2026-10-08-2007, concept A (Levi), applied 2026-10-08: text.primary values (warmGray.800 / dark.textPrimary); was text-on-inverse (warmGray.50 / warmGray.800).", "$extensions": {"modes": {"light": "{color.warmGray.800}", "dark": "{color.dark.textPrimary}"}}}
     },
     "avatar": {
-      "ground": { "$type": "color", "$value": "{color.warmGray.200}", "$description": "2026-10-08 \u00b7 Avatar (physical-controls Tier 2). Stays flat (Levi, 2026-10-08): an avatar is read, not touched. Ground behind the initials and behind an image while it loads. Shipped = surface.sunk (today: warmGray.200 light, dark.well dark); its own role so a change to the avatar never moves the cards, frames and tiles that share surface.sunk (CONTEXT finding 5).", "$extensions": { "modes": { "light": "{color.warmGray.200}", "dark": "{color.dark.well}" } } }
+      "ground": { "$type": "color", "$value": "{color.warmGray.200}", "$description": "2026-10-08 \u00b7 Avatar (physical-controls Tier 2). Stays flat (Levi, 2026-10-08): an avatar is read, not touched. Ground behind the initials and behind an image while it loads. Shipped = surface.sunk (today: warmGray.200 light, dark.well dark); its own role so a change to the avatar never moves the cards, frames and tiles that share surface.sunk (CONTEXT finding 5). 2026-10-18 (decisions.md, deepest slate dark grounds): dark = dark.deep8, surface.sunk; was dark.well.", "$extensions": { "modes": { "light": "{color.warmGray.200}", "dark": "{color.dark.deep8}" } } }
     },
     "toast": {
       "surface": { "$type": "color", "$value": "{color.surface.raised}", "$description": "2026-10-10 \u00b7 Toast (Alert folds into Toast, decisions 2026-10-08; physical-controls Tier 2), tuned in sc-tune. Plate fill, both placements. Equal to the Figma Toast (library 0zVoxaLJQkjHENYJlQk1VT, set 9:897): color/surface/raised. Its own role so a tune never moves the cards and keys that share surface.raised (CONTEXT finding 5).", "$extensions": { "modes": { "light": "{color.surface.raised}", "dark": "{color.surface.raised}" } } },
