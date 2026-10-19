@@ -2845,3 +2845,20 @@ Levi: the trailing arrow uses Phosphor's bold weight, not regular. Code: `ArrowR
   - studio-pm re-vendors with `node native/StudioPMTokens/vendor-tokens.mjs` and moves its text uses of `SCDS.Color.statusError` to `statusErrorInk` in its own PR, after this one merges.
   - The parity script's oversized plugin call.
 - **Checks:** `npm run tokens:verify` (144 pairs, 173 claims), `tokens:swift:check`, `tokens:map:check`, `test:scripts` (35 of 35) and `npm run build` all exit 0.
+
+### 2026-10-18: component names sync with Figma (Input to TextField, ProgressIndicator to Progress, Figma Toggle to Switch)
+
+**Status:** Accepted. Levi chose each name on 2026-10-18, one question per conflict, with the rule "form over function": a name says what the thing looks like, not what it does.
+**Slug:** component-name-sync
+
+- **Context:** linking each component to its Figma master (Figma's new design-to-code link) turned up three names that differed between code and Figma. Code and Figma now carry one name each.
+- **Choices (all Levi's):**
+  - Text box: `TextField` (Figma's name) over `Input`. A field you type in is a shape; "input" is the job.
+  - On/off control: `Switch` (code's name) over `Toggle`. A track with a sliding thumb is a shape; "toggle" is the action. Only Figma changed.
+  - Progress: `Progress` (Figma's name) over `ProgressIndicator` and `Meter`. Its three shapes are already named by the variants (Bar, Circular, Step), so the parent name does not repeat them. The docs site already labelled this page "Progress".
+- **Code:** `src/components/Input/` is now `TextField/` and `ProgressIndicator/` is now `Progress/` (files renamed with them, history kept by `git mv`). Every import, the docs pages, the tuning lab registry, the design-sync map and its previews follow.
+- **Compatibility:** `src/index.js` still exports `Input` and `ProgressIndicator` as deprecated aliases of the same components. Consumers of `@the-shokunin-crafthouse/scds` keep working and move on their own PRs. The built library was read after the change: `TextField` and `Input` resolve to one component, as do `Progress` and `ProgressIndicator`.
+- **Figma:** set `9:858` and its page were renamed Toggle to Switch in the SCDS library (`0zVoxaLJQkjHENYJlQk1VT`). Names only; no variant, property or style changed. The library is not published from here: consumers see the new name after someone publishes it from the Figma UI.
+- **Link map:** `src/components/CODE-CONNECT.md` now lists all 28 components with code path and Figma node. 24 have a one-to-one master, Icon links to its family page, and Divider, NavBar and TypographySpecimen have no master yet (left for their own tasks, Levi's call).
+- **Left as history on purpose:** dated notes in this log, `LEARNINGS.md`, `build-log.md`, `output/tuning/` records, `stages/` sprint folders, and the dated descriptions inside `tokens/*.json` and `token-map.md` still say `Input` and `ProgressIndicator`. Rewriting them would falsify the record. The tuning lab key is now `TextField`, so new records land in `output/tuning/TextField/`; older ones stay under `Input/`.
+- **Checks:** `tokens:verify`, `tokens:map:check`, `tokens:swift:check`, `test:scripts` (35 of 35), `build` and `build:lib` all exit 0.
