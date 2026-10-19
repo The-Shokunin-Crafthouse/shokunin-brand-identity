@@ -3,10 +3,12 @@ import { TextField } from '@the-shokunin-crafthouse/scds';
 import { CalendarBlank, EnvelopeSimple, MagnifyingGlass } from '@phosphor-icons/react';
 
 // The default field is a light well built for the page ground, so stories
-// that show it sit on surface.page.
+// that show it sit on surface.page. The track is minmax(0, 1fr): an auto
+// track floors at the input's intrinsic width, so a field with a prefix and
+// a suffix pushed both fields past the tile's edge.
 function Page({ children }: { children: React.ReactNode }) {
   return (
-    <div style={{ width: 352, display: 'grid', gap: 'var(--sc-space-layout-stack-sm)', background: 'var(--sc-color-surface-page)', padding: 'var(--sc-space-component-padding-md)', borderRadius: 'var(--sc-radius-card)' }}>
+    <div style={{ width: 352, display: 'grid', gridTemplateColumns: 'minmax(0, 1fr)', gap: 'var(--sc-space-layout-stack-sm)', background: 'var(--sc-color-surface-page)', padding: 'var(--sc-space-component-padding-md)', borderRadius: 'var(--sc-radius-card)' }}>
       {children}
     </div>
   );
