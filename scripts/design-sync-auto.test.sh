@@ -119,7 +119,7 @@ check "the prompt is the /design-sync command" grep -q "^/design-sync " "$T/stub
 check "the contract and run facts ride along" grep -q "Result file (write it last, always)" "$T/stub/argv"
 check "model and ceilings are pinned on the command line" grep -q -- "--model opus --effort high --max-turns 250" "$T/stub/argv"
 check "the built-in tools are scoped to what 13 past runs used, plus Agent" grep -q -- "--tools Bash,Read,Write,Edit,Glob,Grep,ToolSearch,DesignSync,Agent" "$T/stub/argv"
-check "guard.py runs on PreToolUse and checkpoint.py on Stop and PreCompact" python3 -c "import json,sys; h=json.load(open(sys.argv[1]))['hooks']; assert 'guard.py' in h['PreToolUse'][0]['hooks'][0]['command']; assert all('checkpoint.py' in h[e][0]['hooks'][0]['command'] for e in ('Stop','PreCompact'))" "$(settings_of)"
+check "guard.py runs on PreToolUse and checkpoint.py on Stop and PreCompact" python3 -c "import json,sys; h=json.load(open(sys.argv[1]))['hooks']; assert 'guard.py' in h['PreToolUse'][0]['hooks'][0]['command']; assert all('checkpoint.py' in h[e][0]['hooks'][0]['command'] for e in ('Stop','PreCompact','SessionStart')); assert h['SessionStart'][0]['matcher']=='compact'" "$(settings_of)"
 check "the run may write only under its state folder and temp" grep -q "^$T/state:" "$T/stub/env-roots"
 check "the checkpoint writes the run's state file" [ "$(cat "$T/stub/env-resume")" = "$T/state/run-state.md" ]
 check "a fenced read-only verifier checks the work before any upload or PR" grep -q "dispatch one read-only verifier subagent" "$T/stub/argv"
