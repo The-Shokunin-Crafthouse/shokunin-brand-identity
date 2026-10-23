@@ -327,7 +327,8 @@ if mkdir -p "$STATE_DIR/hooks" && cp "$DS_HARNESS_KIT/guard.py" "$DS_HARNESS_KIT
 {"hooks":{
  "PreToolUse":[{"matcher":"","hooks":[{"type":"command","command":"$DS_PY $STATE_DIR/hooks/guard.py","timeout":10}]}],
  "Stop":[{"hooks":[{"type":"command","command":"$DS_PY $STATE_DIR/hooks/checkpoint.py","timeout":10}]}],
- "PreCompact":[{"hooks":[{"type":"command","command":"$DS_PY $STATE_DIR/hooks/checkpoint.py","timeout":10}]}]
+ "PreCompact":[{"hooks":[{"type":"command","command":"$DS_PY $STATE_DIR/hooks/checkpoint.py","timeout":10}]}],
+ "SessionStart":[{"matcher":"compact","hooks":[{"type":"command","command":"$DS_PY $STATE_DIR/hooks/checkpoint.py","timeout":10}]}]
 }}
 DSJSON
   DS_SETTINGS=(--settings "$STATE_DIR/settings.json")
