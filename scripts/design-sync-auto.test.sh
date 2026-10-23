@@ -241,8 +241,8 @@ check "no agent" [ "$(calls)" = "$N" ]
 check "force file kept for the firing that holds the lock" [ -e "$T/state/force" ]
 rmdir "$T/state/lock"; rm -f "$T/state/force"
 
-echo "9. a run that stopped mid-sync hands its checkpoint to the next run of that commit"
-mode synced; clear_texts; push src/components/Button/Button.jsx "// edit again"
+echo "21. a run that stopped mid-sync hands its checkpoint to the next run of that commit"
+mode synced; clear_texts; push scripts/design-sync-auto.prompt.md "stub prompt"; push src/components/Button/Button.jsx "// edit again"
 printf -- '- Sync commit: %s\n- Last line: halfway through the uploads\n' "$(head_sha)" > "$T/state/run-state.md"
 rm -f "$T/state/failed-sha"; run
 check "the prompt carries the previous run's checkpoint" grep -q "halfway through the uploads" "$T/stub/argv"
