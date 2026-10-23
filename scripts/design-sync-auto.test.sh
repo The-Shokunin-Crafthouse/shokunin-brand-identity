@@ -58,6 +58,7 @@ echo x >> "$STUB_DIR/calls"
 # argv: -p <prompt> --model ... ; keep the prompt's first line for the test.
 printf '%s\n' "$2" | head -n 1 > "$STUB_DIR/prompt-head"
 printf '%s\n' "$*" > "$STUB_DIR/argv"
+printf '%s\n' "${HARNESS_ROOTS:-unset}" > "$STUB_DIR/env-roots"; printf '%s\n' "${HARNESS_RESUME_FILE:-unset}" > "$STUB_DIR/env-resume"
 mode="$(cat "$STUB_DIR/mode" 2>/dev/null || echo synced)"
 sha="$(git rev-parse HEAD)"
 verdict(){ mkdir -p ds-bundle; printf '{\n  "ok": true\n}\n' > ds-bundle/.resync-verdict.json; }
@@ -83,11 +84,14 @@ cat "$STUB_DIR/open-prs" 2>/dev/null
 exit 0
 STUB
 chmod +x "$T/bin/claude" "$T/bin/gh"
+# The harness kit (studio-memory templates/harness/); the stub never runs it, so stand-ins do.
+mkdir -p "$T/kit"; printf '# guard\n' > "$T/kit/guard.py"; printf '# checkpoint\n' > "$T/kit/checkpoint.py"
+settings_of(){ sed -n 's/.*--settings \([^ ]*\).*/\1/p' "$T/stub/argv"; }
 
 run(){
   DS_REPO_DIR="$T/repo" DS_STATE_DIR="$T/state" PENDING_DIR="$T/pending" \
   CLAUDE_BIN="$T/bin/claude" DS_GH_BIN="$T/bin/gh" STUB_DIR="$T/stub" \
-  DS_TIMEOUT_SECS="${TIMEOUT:-60}" DS_REMOTE="${REMOTE_NAME:-origin}" \
+  DS_TIMEOUT_SECS="${TIMEOUT:-60}" DS_REMOTE="${REMOTE_NAME:-origin}" DS_HARNESS_KIT="$T/kit" \
   bash "$SCRIPT" >/dev/null 2>&1
 }
 mode(){ printf '%s\n' "$1" > "$T/stub/mode"; }
@@ -114,6 +118,11 @@ check "primary checkout untouched" [ -z "$(git -C "$T/repo" status --porcelain)"
 check "the prompt is the /design-sync command" grep -q "^/design-sync " "$T/stub/prompt-head"
 check "the contract and run facts ride along" grep -q "Result file (write it last, always)" "$T/stub/argv"
 check "model and ceilings are pinned on the command line" grep -q -- "--model opus --effort high --max-turns 250" "$T/stub/argv"
+check "the built-in tools are scoped to what 13 past runs used, plus Agent" grep -q -- "--tools Bash,Read,Write,Edit,Glob,Grep,ToolSearch,DesignSync,Agent" "$T/stub/argv"
+check "guard.py runs on PreToolUse and checkpoint.py on Stop and PreCompact" python3 -c "import json,sys; h=json.load(open(sys.argv[1]))['hooks']; assert 'guard.py' in h['PreToolUse'][0]['hooks'][0]['command']; assert all('checkpoint.py' in h[e][0]['hooks'][0]['command'] for e in ('Stop','PreCompact'))" "$(settings_of)"
+check "the run may write only under its state folder and temp" grep -q "^$T/state:" "$T/stub/env-roots"
+check "the checkpoint writes the run's state file" [ "$(cat "$T/stub/env-resume")" = "$T/state/run-state.md" ]
+check "a fenced read-only verifier checks the work before any upload or PR" grep -q "dispatch one read-only verifier subagent" "$T/stub/argv"
 
 echo "2. same commit again: nothing runs"
 run
@@ -231,6 +240,15 @@ N="$(calls)"; mkdir "$T/state/lock"; touch "$T/state/force"; run
 check "no agent" [ "$(calls)" = "$N" ]
 check "force file kept for the firing that holds the lock" [ -e "$T/state/force" ]
 rmdir "$T/state/lock"; rm -f "$T/state/force"
+
+echo "9. a run that stopped mid-sync hands its checkpoint to the next run of that commit"
+mode synced; clear_texts; push src/components/Button/Button.jsx "// edit again"
+printf -- '- Sync commit: %s\n- Last line: halfway through the uploads\n' "$(head_sha)" > "$T/state/run-state.md"
+rm -f "$T/state/failed-sha"; run
+check "the prompt carries the previous run's checkpoint" grep -q "halfway through the uploads" "$T/stub/argv"
+push src/components/Button/Button.jsx "// a different commit"
+printf -- '- Sync commit: deadbeef\n- Last line: an older commit\n' > "$T/state/run-state.md"; run
+check "a checkpoint for another commit is not handed over" bash -c "! grep -q 'an older commit' '$T/stub/argv'"
 
 echo
 echo "passed: $PASS   failed: $FAIL"
