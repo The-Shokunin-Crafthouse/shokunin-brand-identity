@@ -59,6 +59,11 @@ DS_EFFORT="${DS_EFFORT:-high}"
 # Dispatch ceilings (learning #168). A first full sync of 16 components took
 # about 120 tool calls; a re-sync of a few changed components takes far fewer.
 DS_MAX_TURNS="${DS_MAX_TURNS:-250}"
+# The built-ins the 13 unattended runs to 2026-10-23 called, plus Agent for the verifier.
+DS_TOOLS="${DS_TOOLS:-Bash,Read,Write,Edit,Glob,Grep,ToolSearch,DesignSync,Agent}"
+# The studio's harness kit (studio-memory templates/harness/): guard.py on PreToolUse,
+# checkpoint.py on Stop and PreCompact. Copied per run into the state folder.
+DS_HARNESS_KIT="${DS_HARNESS_KIT:-$HOME/Projects/shokunin-crafthouse/studio-memory/templates/harness}"
 DS_TIMEOUT_SECS="${DS_TIMEOUT_SECS:-5400}"
 
 WT="$STATE_DIR/worktree"
@@ -292,7 +297,47 @@ $(cat "$WT/$PROMPT_REL")
 - Last synced commit: ${LAST:-none recorded}
 - Result file (write it last, always): ${RESULT}
 - Branch name for a repo-change PR: ${AUTO_PR_PREFIX}${SHORT}
-- Turn ceiling: ${DS_MAX_TURNS}. Wall clock: ${DS_TIMEOUT_SECS}s. Stop and write the result file before either."
+- Turn ceiling: ${DS_MAX_TURNS}. Wall clock: ${DS_TIMEOUT_SECS}s. Stop and write the result file before either.
+
+## Before any upload or pull request
+
+Before you upload (path A step 4) or open the pull request (path B step 3), dispatch one read-only verifier subagent with the Agent tool. Hand it the verdict file and the sheet paths. It checks that every pending component's sheet was read and graded in this run and that the upload list matches the verdict, and returns its disagreements. It edits nothing and uploads nothing. Fix each disagreement, or stop with needs-human."
+
+# Resume (#164): checkpoint.py keeps a hook-written block in run-state.md at every Stop
+# and before every compaction. A run of the same commit that stopped part-way is handed
+# that block; a state file for any other commit starts over.
+RUN_STATE="$STATE_DIR/run-state.md"
+if [ -f "$RUN_STATE" ] && grep -q -- "- Sync commit: $NEW" "$RUN_STATE"; then
+  PROMPT="$PROMPT
+
+## A previous run of this commit stopped here
+
+$(head -c 6000 "$RUN_STATE")
+
+Check what it finished against the project before you redo any of it."
+  log "resuming: run-state.md names $SHORT"
+else
+  printf -- '# Design-sync run state\n\n- Sync commit: %s\n' "$NEW" > "$RUN_STATE"
+fi
+
+DS_SETTINGS=()
+if mkdir -p "$STATE_DIR/hooks" && cp "$DS_HARNESS_KIT/guard.py" "$DS_HARNESS_KIT/checkpoint.py" "$STATE_DIR/hooks/" 2>/dev/null; then
+  DS_PY="$(command -v python3 2>/dev/null || echo /usr/bin/python3)"
+  cat > "$STATE_DIR/settings.json" <<DSJSON
+{"hooks":{
+ "PreToolUse":[{"matcher":"","hooks":[{"type":"command","command":"$DS_PY $STATE_DIR/hooks/guard.py","timeout":10}]}],
+ "Stop":[{"hooks":[{"type":"command","command":"$DS_PY $STATE_DIR/hooks/checkpoint.py","timeout":10}]}],
+ "PreCompact":[{"hooks":[{"type":"command","command":"$DS_PY $STATE_DIR/hooks/checkpoint.py","timeout":10}]}]
+}}
+DSJSON
+  DS_SETTINGS=(--settings "$STATE_DIR/settings.json")
+  # Writable: the state folder (the worktree lives in it) and temp. The guard also refuses
+  # a PR merge, a push to main, a force push and an MCP write (#154).
+  export HARNESS_ROOTS="$STATE_DIR:${TMPDIR:-/tmp}:/tmp:/private/tmp"
+  export HARNESS_RESUME_FILE="$RUN_STATE"
+else
+  log "NOTICE: harness kit not found at $DS_HARNESS_KIT; running without guard.py and checkpoint.py"
+fi
 
 export DS_RESULT_FILE="$RESULT"
 printf '%s\n' "running: syncing $SHORT" > "$STATE_FILE"
@@ -304,7 +349,7 @@ log "agent start: $SHORT model=$DS_MODEL effort=$DS_EFFORT max_turns=$DS_MAX_TUR
 (
   cd "$WT" || exit 97
   exec "$CLAUDE_BIN" -p "$PROMPT" --model "$DS_MODEL" --effort "$DS_EFFORT" \
-    --max-turns "$DS_MAX_TURNS" --dangerously-skip-permissions
+    --max-turns "$DS_MAX_TURNS" --tools "$DS_TOOLS" "${DS_SETTINGS[@]}" --dangerously-skip-permissions
 ) >> "$RUN_LOG" 2>&1 &
 AGENT_PID=$!
 # Keep the Mac awake for exactly as long as the agent lives.
