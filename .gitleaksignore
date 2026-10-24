@@ -1,0 +1,7 @@
+# .gitleaksignore — gitleaks findings reviewed and accepted as not secrets (ADR-150, #321).
+# One fingerprint per line: <commit>:<file>:<rule>:<line>. Every entry carries a reason
+# above it. An entry with no reason is a finding in the COO sweep. Never add a real key
+# here: a real key is rotated, then removed from history.
+
+# Not a secret: a Figma file key in a comment of a recorded use_figma script. It names a design file and grants no access.
+64d9037ae3b487f3763d5c78ee97ae70c727d6e2:scripts/figma/offscale-text-styles.use_figma.js:generic-api-key:3
