@@ -22,12 +22,16 @@
  * squash 2, a 720ms spring with a 3% overshoot. With grow at 1 and stretch
  * and squash at 0 the engine stays off and the CSS transition fades it.
  *
+ * WCAG 1.4.13: Escape dismisses an open tip without moving the pointer or
+ * focus (it reopens on the next hover or focus); the pointer can travel
+ * from the trigger onto the tip, across the gap, and the tip stays open.
+ *
  * Sound: the `reveal` role sound plays as hover or focus opens it (not when
  * `open` forces it). `sound={false}` opts one instance out; SoundProvider
  * can silence every sound.
  */
 
-import { useId, useLayoutEffect, useRef, useState } from 'react';
+import { useEffect, useId, useLayoutEffect, useRef, useState } from 'react';
 import { useUISound } from '../../sound/SoundProvider.jsx';
 import { arrowPath, dropShadowFilter } from './shape.js';
 import { readElastic, isActive, prefersReducedMotion, sampleEasing, speeds } from '../../motion/elastic.js';
@@ -103,6 +107,15 @@ export function Tooltip({ content, multiline = false, placement = 'top', open: f
     anim.oncancel = done;
     run.current = { anim, ys, duration };
   }, [open, below]);
+
+  // Escape dismisses (WCAG 1.4.13). Only a hover/focus open; a forced one
+  // belongs to its owner.
+  useEffect(() => {
+    if (!hovered || forced !== undefined) return undefined;
+    const onKey = (e) => { if (e.key === 'Escape') setOpen(false); };
+    document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
+  }, [hovered, forced]);
 
   const handleOpen = () => {
     if (forced === undefined && !hovered) playReveal();

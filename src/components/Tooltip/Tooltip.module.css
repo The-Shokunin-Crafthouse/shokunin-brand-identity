@@ -73,6 +73,24 @@
 .open {
   opacity: 1;
   transform: translate(-50%, 0);
+  /* Hoverable (WCAG 1.4.13): the open tip takes the pointer, so moving onto
+     it keeps the wrapper hovered. */
+  pointer-events: auto;
+}
+
+/* The bridge: an invisible strip across the gap between the trigger and the
+ * tip, so the pointer crossing it never leaves the wrapper. */
+.open::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  height: calc(var(--sc-space-component-gap-tooltip) + var(--sc-size-tooltip-lift));
+}
+.bottom.open::before {
+  top: auto;
+  bottom: 100%;
 }
 
 /* Below the trigger (placement="bottom"): the same offset from the trigger,
