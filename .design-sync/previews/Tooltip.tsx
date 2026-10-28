@@ -35,3 +35,12 @@ export const MultiLine = () => (
     </Tooltip>
   </Stage>
 );
+
+// placement="bottom": the tip drops under the trigger, arrow pointing up.
+export const Below = () => (
+  <div style={{ padding: 'var(--sc-space-layout-stack-sm) var(--sc-space-layout-inset-lg) var(--sc-space-layout-stack-xl)', display: 'flex', justifyContent: 'center' }}>
+    <Tooltip open placement="bottom" content="Opens under the trigger.">
+      <span tabIndex={0} style={trigger}>Hover me</span>
+    </Tooltip>
+  </div>
+);

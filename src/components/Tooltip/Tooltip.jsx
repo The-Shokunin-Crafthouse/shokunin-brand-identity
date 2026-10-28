@@ -2,7 +2,10 @@
  * Tooltip — 3.8 · single-line, multi-line.
  *
  * Hover- and focus-triggered. `content` shows on pointer enter / focus
- * of the wrapped child; `open` forces it open or shut. Positioning: top-center, with arrow.
+ * of the wrapped child; `open` forces it open or shut. Positioning:
+ * centred on the trigger, with arrow; `placement` 'top' (default) sits it
+ * above, 'bottom' below with the arrow pointing up. The lift, the grow and
+ * the stretch all run from the trigger side either way.
  *
  * Multi-line: pass any `content` that wraps. CSS clamps single-line by
  * default; pass `multiline` prop to allow wrapping.
@@ -30,7 +33,8 @@ import { arrowPath, dropShadowFilter } from './shape.js';
 import { readElastic, isActive, prefersReducedMotion, sampleEasing, speeds } from '../../motion/elastic.js';
 import styles from './Tooltip.module.css';
 
-export function Tooltip({ content, multiline = false, open: forced, sound = true, children }) {
+export function Tooltip({ content, multiline = false, placement = 'top', open: forced, sound = true, children }) {
+  const below = placement === 'bottom';
   const id = useId();
   const [hovered, setOpen] = useState(false);
   // `open` forces it (docs, the tuning lab); left undefined, hover and focus decide.
@@ -57,7 +61,9 @@ export function Tooltip({ content, multiline = false, open: forced, sound = true
     const g = parseFloat(cs.getPropertyValue('--sc-motion-tooltip-grow-from'));
     const grow = Number.isFinite(g) ? Math.min(1, Math.max(0, g)) : 1;
     if (!isActive(m) && grow === 1) return;
-    const lift = parseFloat(cs.getPropertyValue('--sc-size-tooltip-lift')) || 0;
+    // The lift starts on the side away from the trigger: above for a top
+    // tip, below for a bottom one.
+    const lift = (parseFloat(cs.getPropertyValue('--sc-size-tooltip-lift')) || 0) * (below ? -1 : 1);
     // Where the bubble is now: mid-run, the progress at the run's current
     // frame; otherwise fully shut (opening) or fully open (closing).
     let from = closing ? 1 : 0;
@@ -96,7 +102,7 @@ export function Tooltip({ content, multiline = false, open: forced, sound = true
     anim.onfinish = done;
     anim.oncancel = done;
     run.current = { anim, ys, duration };
-  }, [open]);
+  }, [open, below]);
 
   const handleOpen = () => {
     if (forced === undefined && !hovered) playReveal();
@@ -116,13 +122,14 @@ export function Tooltip({ content, multiline = false, open: forced, sound = true
         ref={tipRef}
         role="tooltip"
         id={id}
-        className={`${styles.tooltip} ${open ? styles.open : ''} ${multiline ? styles.multiline : styles.singleline}`}
+        className={`${styles.tooltip} ${below ? styles.bottom : ''} ${open ? styles.open : ''} ${multiline ? styles.multiline : styles.singleline}`}
         style={shape.drop !== 'none' ? { '--tip-drop': shape.drop } : undefined}
       >
         {content}
         {shape.d && (
           <svg className={styles.arrow} aria-hidden="true" focusable="false" width={shape.width} height={shape.height}
-            viewBox={`0 ${-shape.overlap} ${shape.width} ${shape.height}`} style={{ top: `calc(100% - ${shape.overlap}px)` }}>
+            viewBox={`0 ${-shape.overlap} ${shape.width} ${shape.height}`}
+            style={below ? { bottom: `calc(100% - ${shape.overlap}px)` } : { top: `calc(100% - ${shape.overlap}px)` }}>
             <path d={shape.d} />
           </svg>
         )}
