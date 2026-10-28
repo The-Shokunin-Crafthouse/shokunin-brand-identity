@@ -35,6 +35,7 @@ Sync target: claude.ai/design project "SCDS" (`projectId` in `config.json`, http
 - Animated brand elements (PlusLoader, PlusSkeleton, the PlusField Splash story) are captured at whatever frame the capture lands on. Their `Still` stories show the reduced-motion frame.
 - Tooltip `Open` and `MultiLine` pass `open` (added 2026-10-08) to force the tip open. Before that prop existed they dispatched a `mouseover` on mount; that helper is gone.
 - Tooltip `MultiLine` sets a fixed 320 width. The open tip (240 cap) is wider than its trigger, and a card that shrink-wraps the story would cut it.
+- Tooltip `Below` (e1fdb73) shows `placement="bottom"`. Its wrapper pads the bottom with `stack-xl` so the tip, which hangs under the trigger, stays inside the cell. `dtsPropsFor.Tooltip` carries `placement` from the same commit.
 - Not shown, cannot render statically: hover, focus and press states; NavBar compact menu open; Stepper press-and-hold.
 - `Card.tsx` export `Composed` mirrors the example in `conventions.md`. Change them together.
 - Avatar `Image` inlines `assets/logo/mark-icon-dark.png` as a data URI.
