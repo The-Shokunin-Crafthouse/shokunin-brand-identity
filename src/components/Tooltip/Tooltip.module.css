@@ -75,6 +75,22 @@
   transform: translate(-50%, 0);
 }
 
+/* Below the trigger (placement="bottom"): the same offset from the trigger,
+ * the lift starts below rest, the grow runs from the arrow tip above, and
+ * the arrow turns to point up. */
+.bottom {
+  bottom: auto;
+  top: calc(100% + var(--sc-space-component-gap-tooltip));
+  transform: translate(-50%, var(--sc-size-tooltip-lift));
+  transform-origin: 50% calc(var(--sc-size-tooltip-arrow) * -1);
+}
+.bottom .arrow {
+  transform: translateX(-50%) rotate(180deg);
+}
+.bottom.open {
+  transform: translate(-50%, 0);
+}
+
 .singleline {
   white-space: nowrap;
 }

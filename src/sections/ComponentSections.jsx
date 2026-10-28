@@ -631,11 +631,13 @@ export function TooltipPage() {
       callouts={[
         { title: 'One shape, one shadow', body: 'The arrow is part of the plate: a rounded tip, with rounded corners where it meets the bubble. The drop shadow falls under both as one shape.' },
         { title: 'Hover and focus, not click', body: 'It opens on pointer-enter and on keyboard focus, so the tip is reachable without a mouse, and plays the reveal sound as it opens. It is a hint, never a control.' },
+        { title: 'Above or below', body: 'placement="top" (the default) raises it over the trigger; placement="bottom" drops it under, with the arrow pointing up, for triggers near the top of the page such as a navigation bar.' },
         { title: 'Multi-line caps its width', body: 'A wrapping tip is capped at a readable measure via calc() of a layout token, so a long note never stretches into a banner.' },
       ]}
       states={[
         { name: 'Single-line', token: '--sc-color-tooltip-surface', render: <div style={tooltipStage}><Tooltip content="Saved to the binder."><span style={tooltipTarget}>Hover me</span></Tooltip></div> },
         { name: 'Multi-line', token: '--sc-space-layout-stack-xl', render: <div style={tooltipStage}><Tooltip multiline content="A longer note that wraps to two lines at the readable-measure cap."><span style={tooltipTarget}>Hover for more</span></Tooltip></div> },
+        { name: 'Below', token: '--sc-space-component-gap-tooltip', render: <div style={tooltipStageBelow}><Tooltip placement="bottom" content="Opens under the trigger."><span style={tooltipTarget}>Hover me</span></Tooltip></div> },
       ]}
       tokenRows={[
         { prop: 'Ground', token: '--sc-color-tooltip-surface' },
@@ -670,6 +672,8 @@ export function TooltipPage() {
    overhang clears both edges. The page uses the stack variant because a
    two-column cell at 768 is narrower than the 240 multi-line cap. */
 const tooltipStage = { flex: 1, display: 'flex', justifyContent: 'center', paddingTop: 'calc(var(--sc-space-layout-stack-xl) + var(--sc-space-layout-stack-md))' };
+// Room under the trigger for a placement="bottom" tip and its arrow.
+const tooltipStageBelow = { flex: 1, display: 'flex', justifyContent: 'center', paddingBottom: 'calc(var(--sc-space-layout-stack-xl) + var(--sc-space-layout-stack-md))' };
 const tooltipTarget = { font: 'var(--sc-font-text-body-default)', color: 'var(--sc-color-text-primary)', borderBottom: 'var(--sc-border-width-default) dashed var(--sc-color-border-strong)', cursor: 'help' };
 
 /* ── 3.5 Divider ─────────────────────────────────────────── */

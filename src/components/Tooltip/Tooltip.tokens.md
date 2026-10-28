@@ -34,6 +34,10 @@ Every token is the tooltip's own role token (CONTEXT finding 5), so a tune in sc
 | `open` | `.open` (React state) | `opacity: 1`, at rest |
 | `closed` | default | `opacity: 0`, lifted by `--sc-size-tooltip-lift` |
 
+## Placement
+
+`placement="top"` (default) sits the plate above the trigger. `placement="bottom"` (`.bottom`) sits it below: `top: calc(100% + --sc-space-component-gap-tooltip)`, the lift starts `--sc-size-tooltip-lift` below rest, the grow runs from the arrow tip above the plate, and the arrow is rotated 180deg to point up. Same tokens, no new ones.
+
 ## Mode behavior
 
 Light mode: a white plate with a warm-gray drop shadow. Dark mode: the dark key with a black drop shadow (Gate 1 pick 3, dark keys). The plate is no longer the inverse of the page: it reads as a layer because it is raised, not because it is inverted.
