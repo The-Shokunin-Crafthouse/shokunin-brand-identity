@@ -2888,3 +2888,16 @@ Levi: the trailing arrow uses Phosphor's bold weight, not regular. Code: `ArrowR
   - `interactive.hover-ink` is still outside `TEXT_TIERS`. Its light value fails AA on light sunk (4.06:1), deepSunk, rail and hover; adding it needs its own restriction decision.
   - client-portal, after the scds-sync snapshot PR lands: delete the `:root[data-theme='dark']` "Deepest dark grounds" block in `app/globals.css`, and alias `--interactive-active-ink` to `--sc-color-interactive-active-ink`.
 - **Checks:** `npm run tokens:verify` (162 pairs, 20 fill pairs, 12 glyph pairs, 191 claims), `tokens:map:check`, `tokens:swift:check`, `test:scripts` (36 of 36) and `npm run build` all exit 0. A planted bug, the dark live ink set back to `text-on-inverse`, fails check 1b at 3.19:1.
+
+### 2026-10-30: SCDS Figma variables re-synced to tokens/ (Money Bags request)
+
+**Status:** Accepted. Reversible, in-standard, in-scope; Claude's call. Library publish is Levi's click in Figma.
+**Slug:** figma-variable-resync-2026-10-30
+**Builds on:** 2026-10-18 (deepest slate dark grounds, which left the Figma library owed).
+
+- **Context:** the Money Bags session reported on 2026-10-25 that the Figma Semantic Dark values lagged `tokens/semantic.json` and that `color/interactive/active-ink` was missing. Read of the library (`0zVoxaLJQkjHENYJlQk1VT`) on 2026-10-30 at main 2207137: the values had already been brought across (eight `color/dark/deep*` primitives, the dark aliases, `active-ink` with Light `teal/700` and Dark `teal/100`). Only the metadata was off.
+- **Diff:** `scripts/parity/figma-variable-hashes.mjs` resolves every alias chain on both sides and compares per group (collection plus first two name segments). Result: 104 groups, 765 token-by-mode rows, 0 differing groups, over Primitives (159 variables) and Semantic (305, Light and Dark). Code-only tiers (composites, springs, easing) and the `font.family.*` standing exception are skipped on both sides, as in `compare-figma-variables.mjs`. Figma read saved in `output/parity/raw/figma-variable-hashes-2026-10-30.json`; the Figma-side snippet is `scripts/parity/figma-variable-hashes.figma.js`.
+- **Fixed in Figma (metadata only, no value changed):** `color/interactive/active-ink` scopes were the default all-fills set; now `TEXT_FILL`, as its siblings `hover-ink` and `error-ink`. It had no description; now the JSON's reasoning, shortened. WEB code syntax `var(--sc-color-interactive-active-ink)`, the name `tokens.css` emits. The eight `color/dark/deep1` to `deep8` primitives carried `ALL_FILLS`, `STROKE_COLOR`, `EFFECT_COLOR`; now the same four scopes as every other `color/dark/*` primitive.
+- **Money Bags:** its local stand-in `color/interactive/active-ink` can now be dropped in favour of the library variable (its repo and file are not touched from here).
+- **Waiting on Levi:** publish the library from the Figma UI (Assets, Library, Publish), so subscribers get the metadata and the 2026-10-18 variables. The API cannot publish.
+- **Not in this change:** `tokens/`, generated CSS and Swift, and every variable value.
