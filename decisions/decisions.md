@@ -2901,3 +2901,15 @@ Levi: the trailing arrow uses Phosphor's bold weight, not regular. Code: `ArrowR
 - **Money Bags:** its local stand-in `color/interactive/active-ink` can now be dropped in favour of the library variable (its repo and file are not touched from here).
 - **Waiting on Levi:** publish the library from the Figma UI (Assets, Library, Publish), so subscribers get the metadata and the 2026-10-18 variables. The API cannot publish.
 - **Not in this change:** `tokens/`, generated CSS and Swift, and every variable value.
+
+### 2026-11-14: Figma key shadow styles follow Light/Dark (effect/* tier)
+
+**Status:** Accepted. Reversible, in-standard, in-scope; Claude's call at Levi's request ("fix the brand library button shadows"). Library publish is Levi's click in Figma.
+**Slug:** figma-key-shadow-modes
+
+- **Context:** the Button variants in the SCDS library (`0zVoxaLJQkjHENYJlQk1VT`, set `9:438`) use the effect styles `shadow/control/key`, `keyHover` and `keyPressed`. Those styles held the light values only (warm shade, full-white rim), so a Button placed in a Dark-mode frame showed a white glow. The client portal file worked around it with per-instance overrides in 20 Dark frames. Code was already right: `tokens.css` redefines `--sc-shadow-control-key*` under `[data-theme="dark"]`.
+- **Change in Figma:** seven Semantic variables, Light and Dark values copied from `tokens.css`: `effect/control/keyShade`, `keyRim`, `keyPressedShade`, `keyPressedRim`, `keyPressedInner` (COLOR, scope `EFFECT_COLOR`) and `effect/control/keyOffset` (2 / 3), `keyBlur` (6 / 7) (FLOAT, scope `EFFECT_FLOAT`). Bound into the three key styles (colour, offset x and y, blur). The styles now resolve per frame mode, and every variant using them follows. The separate `shadow/control/dark/*` styles stay for existing consumers.
+- **Parity:** `effect/*` is a Figma-only tier, the parts of a composite token that code keeps whole (`codeOnly` skips `$type: shadow`). `scripts/parity/figma-variable-hashes.figma.js` now skips `effect/` the same way. Re-run: 104 groups, 765 rows, 0 differing groups.
+- **Proof:** a temporary frame on the Button page, Primary Default, Hover and Active in an explicit Light row and an explicit Dark row. Light unchanged; Dark shows the black shade and the faint cool rim, no white glow. Frame removed after the screenshot.
+- **Not in this change:** `tokens/`, generated CSS and Swift. Secondary Hover/Focus still carry a raw six-layer neumorphic stack that code does not have (code secondary has no shadow); separate drift, not touched.
+- **Waiting on Levi:** publish the library (Assets, Library, Publish). Subscribers keep the old style values until then.

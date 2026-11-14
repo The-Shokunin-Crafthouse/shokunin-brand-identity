@@ -19,6 +19,9 @@ const resolve = (v, modeName, seen = 0) => {
 const rows = [];
 for (const [id, v] of byId) for (const m of collOf.get(id).modes) {
   if (/^font\/family\//.test(v.name)) continue;
+  // effect/* is a Figma-only tier: the parts of a composite shadow token, so an
+  // effect style can follow Light/Dark. Code keeps the composite (codeOnly 'shadow').
+  if (/^effect\//.test(v.name)) continue;
   rows.push(`${collOf.get(id).name}|${v.name}|${m.name}|${resolve(v, m.name)}`);
 }
 const group = (r) => { const [c, n] = r.split('|'); return `${c}|${n.split('/').slice(0, 2).join('/')}`; };
