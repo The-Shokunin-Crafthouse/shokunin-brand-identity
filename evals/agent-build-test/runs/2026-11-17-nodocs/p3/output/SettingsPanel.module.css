@@ -1,0 +1,92 @@
+/* tokens:
+ *   --sc-space-component-padding-card / -gap-* / --sc-space-layout-stack-*  · spacing
+ *   --sc-color-text-primary / -secondary                                    · ink
+ *   --sc-color-border-subtle                                                · row rules
+ *   --sc-font-text-title-card / -body-default / -label-ui-medium / -caption · type
+ *   --sc-color-surface-sunk, --sc-radius-surface                            · preview ground
+ *
+ * Rows are label-left, control-right. Under 560px each row stacks, so the
+ * 3-way theme control keeps its full width at 360. All values are tokens.
+ */
+
+.panel {
+  max-width: 40rem;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sc-space-layout-stack-md);
+}
+
+.title {
+  margin: 0;
+  font: var(--sc-font-text-title-card);
+  color: var(--sc-color-text-primary);
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sc-space-layout-stack-sm);
+  padding-block-end: var(--sc-space-layout-stack-md);
+  border-block-end: var(--sc-border-width-default) solid var(--sc-color-border-subtle);
+}
+
+.copy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sc-space-component-gap-sm);
+  min-width: 0;
+  max-width: 24rem;
+}
+
+.name {
+  font: var(--sc-font-text-label-ui-medium);
+  color: var(--sc-color-text-primary);
+}
+
+.hint {
+  font: var(--sc-font-text-caption);
+  color: var(--sc-color-text-secondary);
+}
+
+.preview {
+  margin: 0;
+  padding: var(--sc-space-component-padding-md);
+  border-radius: var(--sc-radius-surface);
+  background-color: var(--sc-color-surface-sunk);
+  color: var(--sc-color-text-primary);
+  font-family: var(--sc-font-text-body-default-family);
+  font-weight: var(--sc-font-text-body-default-weight);
+  font-size: calc(var(--sc-font-text-body-default-size) * var(--text-scale, 1));
+  line-height: var(--sc-font-text-body-default-line-height);
+  letter-spacing: var(--sc-font-text-body-default-letter-spacing);
+  max-width: 60ch;
+  transition: font-size var(--sc-motion-hover-duration) var(--sc-motion-hover-easing);
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--sc-space-layout-stack-sm);
+}
+
+/* Reserve the confirmation's line so saving never shifts the layout (CLS). */
+.confirm {
+  flex: 1 1 16rem;
+  min-height: var(--sc-space-layout-stack-lg);
+  display: flex;
+  align-items: center;
+}
+
+@media (max-width: 35rem) {
+  .row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .footer > :first-child { width: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .preview { transition: none; }
+}

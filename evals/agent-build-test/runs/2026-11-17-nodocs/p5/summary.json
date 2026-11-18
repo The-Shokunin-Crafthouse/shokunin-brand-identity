@@ -1,0 +1,15 @@
+{
+  "exit_code": 0,
+  "wall_seconds": 44,
+  "is_error": false,
+  "num_turns": 19,
+  "total_cost_usd": 0.32683460000000003,
+  "input_tokens": 18,
+  "output_tokens": 5284,
+  "cache_read_input_tokens": 395426,
+  "cache_creation_input_tokens": 58604,
+  "output_files": [
+    "PublishPage.jsx",
+    "PublishPage.module.css"
+  ]
+}

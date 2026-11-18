@@ -1,0 +1,15 @@
+{
+  "exit_code": 0,
+  "wall_seconds": 65,
+  "is_error": false,
+  "num_turns": 19,
+  "total_cost_usd": 0.4769604,
+  "input_tokens": 18,
+  "output_tokens": 9210,
+  "cache_read_input_tokens": 514724,
+  "cache_creation_input_tokens": 83338,
+  "output_files": [
+    "ContactForm.jsx",
+    "ContactForm.module.css"
+  ]
+}

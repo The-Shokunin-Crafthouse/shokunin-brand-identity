@@ -1,0 +1,206 @@
+/* ContactForm — tokens:
+ *   --sc-space-layout-stack-sm / -md / -lg   · rhythm between title, lede, fields, action
+ *   --sc-space-component-gap-input           · label ↔ field ↔ helper (matches TextField)
+ *   --sc-space-component-padding-inline-input / -block-input · field box padding
+ *   --sc-radius-field                        · field corner
+ *   --sc-color-input-well / -hover / -focus / -disabled · field fill
+ *   --sc-color-text-primary / -secondary / -disabled     · ink
+ *   --sc-color-status-error / -error-ink     · send error text
+ *   --sc-color-border-focus, --sc-border-width-focus, --sc-border-focus-offset · focus ring
+ *   --sc-font-text-title-section-*           · heading
+ *   --sc-font-text-body-lead-*               · lede
+ *   --sc-font-text-body-default-*            · textarea value
+ *   --sc-font-text-label-ui-*                · label
+ *   --sc-font-text-caption-*                 · helper
+ *   --sc-motion-hover-duration / -easing     · fill transition
+ *
+ * Layout is left-aligned and capped to a reading measure. Nothing is centered
+ * and there is no card chrome: the form sits on the page ground.
+ * TextField and Button carry their own styles; this file owns the message
+ * textarea (TextField has no multi-line mode) and the page rhythm.
+ */
+
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sc-space-layout-stack-sm);
+  inline-size: 100%;
+  max-inline-size: 36rem;
+  color: var(--sc-color-text-primary);
+}
+
+.title {
+  margin: 0;
+  font-family: var(--sc-font-text-title-section-family);
+  font-size: var(--sc-font-text-title-section-size);
+  font-weight: var(--sc-font-text-title-section-weight);
+  line-height: var(--sc-font-text-title-section-line-height);
+  letter-spacing: var(--sc-font-text-title-section-letter-spacing);
+  color: var(--sc-color-text-primary);
+}
+
+.title:focus { outline: none; }
+
+.title:focus-visible {
+  outline: var(--sc-border-width-focus) solid var(--sc-color-border-focus);
+  outline-offset: var(--sc-border-focus-offset);
+}
+
+.lede {
+  margin: 0;
+  max-inline-size: 60ch;
+  font-family: var(--sc-font-text-body-lead-family);
+  font-size: var(--sc-font-text-body-lead-size);
+  font-weight: var(--sc-font-text-body-lead-weight);
+  line-height: var(--sc-font-text-body-lead-line-height);
+  letter-spacing: var(--sc-font-text-body-lead-letter-spacing);
+  color: var(--sc-color-text-secondary);
+}
+
+.address {
+  font-weight: var(--sc-font-text-body-default-bold-weight);
+  color: var(--sc-color-text-primary);
+  overflow-wrap: anywhere;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sc-space-layout-stack-md);
+  margin-block-start: var(--sc-space-layout-stack-sm);
+}
+
+/* --- Message textarea: the TextField anatomy, multi-line --------------- */
+
+.area {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--sc-space-component-gap-input);
+  inline-size: 100%;
+}
+
+.areaLabel {
+  font-family: var(--sc-font-text-label-ui-family);
+  font-size: var(--sc-font-text-label-ui-size);
+  font-weight: var(--sc-font-text-label-ui-weight);
+  line-height: var(--sc-font-text-label-ui-line-height);
+  letter-spacing: var(--sc-font-text-label-ui-letter-spacing);
+  color: var(--sc-color-text-secondary);
+}
+
+.areaHelp {
+  font-family: var(--sc-font-text-caption-family);
+  font-size: var(--sc-font-text-caption-size);
+  font-weight: var(--sc-font-text-caption-weight);
+  line-height: var(--sc-font-text-caption-line-height);
+  letter-spacing: var(--sc-font-text-caption-letter-spacing);
+  color: var(--sc-color-text-secondary);
+}
+
+.areaBox {
+  display: flex;
+  padding-inline: var(--sc-space-component-padding-inline-input);
+  padding-block: var(--sc-space-component-padding-block-input);
+  border-radius: var(--sc-radius-field);
+  background-color: var(--sc-color-input-well);
+  box-shadow: var(--sc-shadow-input-well);
+  cursor: text;
+  transition: background-color var(--sc-motion-hover-duration) var(--sc-motion-hover-easing);
+}
+
+.areaBox:hover {
+  background-color: var(--sc-color-input-well-hover);
+}
+
+.areaBox:has(.textarea:focus-visible) {
+  background-color: var(--sc-color-input-well-focus);
+  outline: var(--sc-border-width-focus) solid var(--sc-color-border-focus);
+  outline-offset: var(--sc-border-focus-offset);
+}
+
+.textarea {
+  flex: 1;
+  min-inline-size: 0;
+  min-block-size: 8lh;
+  padding: 0;
+  border: none;
+  background: none;
+  resize: vertical;
+  color: var(--sc-color-text-primary);
+  font-family: var(--sc-font-text-body-default-family);
+  font-size: var(--sc-font-text-body-default-size);
+  font-weight: var(--sc-font-text-body-default-weight);
+  line-height: var(--sc-font-text-body-default-line-height);
+  letter-spacing: var(--sc-font-text-body-default-letter-spacing);
+}
+
+.textarea:focus { outline: none; }
+
+.textarea:disabled {
+  color: var(--sc-color-text-disabled);
+  cursor: not-allowed;
+  resize: none;
+}
+
+.areaDisabled .areaLabel {
+  color: var(--sc-color-text-disabled);
+}
+
+.areaDisabled .areaBox {
+  background-color: var(--sc-color-input-well-disabled);
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+/* --- Send error (network failure; email error lives on the field) ------ */
+
+.sendError {
+  margin: 0;
+  font-family: var(--sc-font-text-caption-family);
+  font-size: var(--sc-font-text-caption-size);
+  font-weight: var(--sc-font-text-caption-weight);
+  line-height: var(--sc-font-text-caption-line-height);
+  letter-spacing: var(--sc-font-text-caption-letter-spacing);
+  color: var(--sc-color-status-error-ink);
+}
+
+/* --- Action ------------------------------------------------------------ */
+
+.actions {
+  display: flex;
+  justify-content: flex-start;
+}
+
+/* On a phone the action spans the row: a full-width touch target. */
+@media (max-width: 480px) {
+  .actions > * {
+    inline-size: 100%;
+  }
+}
+
+/* --- Sent -------------------------------------------------------------- */
+
+.sent {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sc-space-layout-stack-sm);
+}
+
+/* --- Forced colors: fill drops, keep a visible edge -------------------- */
+
+@media (forced-colors: active) {
+  .areaBox {
+    border: var(--sc-border-width-default) solid CanvasText;
+  }
+  .areaBox:has(.textarea:focus-visible) {
+    outline-color: Highlight;
+  }
+  .areaDisabled .areaBox {
+    border-color: GrayText;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .areaBox { transition: none; }
+}
