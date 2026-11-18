@@ -1,0 +1,15 @@
+{
+  "exit_code": 0,
+  "wall_seconds": 61,
+  "is_error": false,
+  "num_turns": 26,
+  "total_cost_usd": 0.47064009999999995,
+  "input_tokens": 18,
+  "output_tokens": 8095,
+  "cache_read_input_tokens": 531381,
+  "cache_creation_input_tokens": 84129,
+  "output_files": [
+    "SettingsPanel.jsx",
+    "SettingsPanel.module.css"
+  ]
+}

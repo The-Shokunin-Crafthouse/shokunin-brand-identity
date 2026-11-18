@@ -1,0 +1,113 @@
+/* tokens:
+ *   --sc-space-layout-stack-md / -lg       · gap between cards
+ *   --sc-space-component-gap-md / -sm      · gaps inside a card
+ *   --sc-font-text-title-card-*            · project title
+ *   --sc-font-text-body-dense-*            · client
+ *   --sc-font-text-caption-*               · owner name
+ *   --sc-color-text-primary / -secondary   · ink
+ *   --sc-space-layout-stack-xl             · skeleton height (6 x stack-xl, sized to a loaded card; unmeasured)
+ * Parts own their own tokens: Card (ground, padding, radius), PlusThumbnail,
+ * StatusPill, Avatar, PlusSkeleton. Nothing here is a raw value except the
+ * 280px column floor and the 0 resets.
+ */
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  /* One column on a 360 phone, then as many 280px+ columns as fit. */
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+  gap: var(--sc-space-layout-stack-lg);
+}
+
+.item {
+  display: flex;
+  min-width: 0;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sc-space-component-gap-md);
+}
+
+.thumb {
+  /* PlusThumbnail is square; a 4:3 crop keeps six cards from towering. */
+  aspect-ratio: 4 / 3;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sc-space-component-gap-sm);
+  min-width: 0;
+}
+
+.title {
+  margin: 0;
+  font-family: var(--sc-font-text-title-card-family);
+  font-size: var(--sc-font-text-title-card-size);
+  font-weight: var(--sc-font-text-title-card-weight);
+  line-height: var(--sc-font-text-title-card-line-height);
+  letter-spacing: var(--sc-font-text-title-card-letter-spacing);
+  color: var(--sc-color-text-primary);
+  overflow-wrap: break-word;
+}
+
+.client {
+  margin: 0;
+  font-family: var(--sc-font-text-body-dense-family);
+  font-size: var(--sc-font-text-body-dense-size);
+  font-weight: var(--sc-font-text-body-dense-weight);
+  line-height: var(--sc-font-text-body-dense-line-height);
+  letter-spacing: var(--sc-font-text-body-dense-letter-spacing);
+  color: var(--sc-color-text-secondary);
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sc-space-component-gap-md);
+  /* Pin status and owner to the card foot so rows align across a grid row. */
+  margin-top: auto;
+}
+
+.owner {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sc-space-component-gap-sm);
+  min-width: 0;
+}
+
+.ownerName {
+  font-family: var(--sc-font-text-caption-family);
+  font-size: var(--sc-font-text-caption-size);
+  font-weight: var(--sc-font-text-caption-weight);
+  line-height: var(--sc-font-text-caption-line-height);
+  letter-spacing: var(--sc-font-text-caption-letter-spacing);
+  color: var(--sc-color-text-secondary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Loading: PlusSkeleton sweeps its own highlight and rests under
+ * prefers-reduced-motion. Height tracks a loaded card so the swap does not jump. */
+.skeleton {
+  height: calc(var(--sc-space-layout-stack-xl) * 6);
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}

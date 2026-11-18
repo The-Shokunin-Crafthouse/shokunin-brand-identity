@@ -1,0 +1,177 @@
+/* tokens:
+ *   --sc-space-layout-stack-{sm,md,lg,xl} · section and column rhythm
+ *   --sc-space-layout-inset-{md,lg}       · section inset
+ *   --sc-space-component-gap-{sm,md,lg}   · inside a plan
+ *   --sc-space-component-padding-card     · via Card
+ *   --sc-color-surface-{inverse,page}, --sc-color-text-{primary,secondary,on-inverse}
+ *   --sc-font-text-{display-sm,title-section,title-card,body-default,body-dense,label-ui}-*
+ *
+ * Layout: the recommended plan takes the wider middle track and the inverse
+ * ground, so the row is not a symmetric grid. Below the mobile break the plans
+ * stack and the recommended plan keeps its place in the order.
+ */
+
+.pricing {
+  display: grid;
+  gap: var(--sc-space-layout-stack-lg);
+  padding: var(--sc-space-layout-inset-lg) var(--sc-space-layout-inset-md);
+  background-color: var(--sc-color-surface-page);
+  color: var(--sc-color-text-primary);
+}
+
+.header {
+  display: grid;
+  gap: var(--sc-space-component-gap-md);
+  max-width: 40ch;
+}
+
+.title {
+  margin: 0;
+  font-family: var(--sc-font-text-title-section-family);
+  font-size: var(--sc-font-text-title-section-size);
+  font-weight: var(--sc-font-text-title-section-weight);
+  line-height: var(--sc-font-text-title-section-line-height);
+  letter-spacing: var(--sc-font-text-title-section-letter-spacing);
+}
+
+.lead {
+  margin: 0;
+  max-width: 48ch;
+  color: var(--sc-color-text-secondary);
+  font-family: var(--sc-font-text-body-default-family);
+  font-size: var(--sc-font-text-body-default-size);
+  font-weight: var(--sc-font-text-body-default-weight);
+  line-height: var(--sc-font-text-body-default-line-height);
+  letter-spacing: var(--sc-font-text-body-default-letter-spacing);
+}
+
+/* ── plans ── */
+.plans {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: stretch;
+  gap: var(--sc-space-layout-stack-md);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.item {
+  display: grid;
+  min-width: 0;
+}
+
+@media (min-width: 64rem) {
+  .plans {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr) minmax(0, 1fr);
+    gap: var(--sc-space-layout-stack-sm);
+  }
+}
+
+.plan {
+  display: grid;
+  grid-template-rows: auto auto auto 1fr auto;
+  gap: var(--sc-space-layout-stack-sm);
+  height: 100%;
+}
+
+/* recommended: inverse ground, lifted by contrast and not by an outline */
+.recommended {
+  background-color: var(--sc-color-surface-inverse);
+  color: var(--sc-color-text-on-inverse);
+}
+
+/* ── head ── */
+.top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--sc-space-component-gap-md);
+}
+
+.name {
+  margin: 0;
+  font-family: var(--sc-font-text-title-card-family);
+  font-size: var(--sc-font-text-title-card-size);
+  font-weight: var(--sc-font-text-title-card-weight);
+  line-height: var(--sc-font-text-title-card-line-height);
+  letter-spacing: var(--sc-font-text-title-card-letter-spacing);
+}
+
+.flag {
+  font-family: var(--sc-font-text-label-ui-family);
+  font-size: var(--sc-font-text-label-ui-size);
+  font-weight: var(--sc-font-text-label-ui-weight);
+  line-height: var(--sc-font-text-label-ui-line-height);
+  letter-spacing: var(--sc-font-text-label-ui-letter-spacing);
+  text-transform: uppercase;
+  color: var(--sc-color-text-on-inverse);
+}
+
+.pitch {
+  margin: 0;
+  max-width: 32ch;
+  color: var(--sc-color-text-secondary);
+  font-family: var(--sc-font-text-body-dense-family);
+  font-size: var(--sc-font-text-body-dense-size);
+  font-weight: var(--sc-font-text-body-dense-weight);
+  line-height: var(--sc-font-text-body-dense-line-height);
+  letter-spacing: var(--sc-font-text-body-dense-letter-spacing);
+}
+.recommended .pitch { color: inherit; }
+
+/* ── price ── */
+.price {
+  display: grid;
+  gap: var(--sc-space-component-gap-sm);
+  margin: 0;
+}
+
+.amount {
+  font-family: var(--sc-font-text-display-sm-family);
+  font-size: var(--sc-font-text-display-sm-size);
+  font-weight: var(--sc-font-text-display-sm-weight);
+  line-height: var(--sc-font-text-display-sm-line-height);
+  letter-spacing: var(--sc-font-text-display-sm-letter-spacing);
+}
+
+.cadence {
+  color: var(--sc-color-text-secondary);
+  font-family: var(--sc-font-text-body-dense-family);
+  font-size: var(--sc-font-text-body-dense-size);
+  font-weight: var(--sc-font-text-body-dense-weight);
+  line-height: var(--sc-font-text-body-dense-line-height);
+  letter-spacing: var(--sc-font-text-body-dense-letter-spacing);
+}
+.recommended .cadence { color: inherit; }
+
+/* ── features ── */
+.features {
+  display: grid;
+  align-content: start;
+  gap: var(--sc-space-component-gap-md);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.feature {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: var(--sc-space-component-gap-lg);
+  font-family: var(--sc-font-text-body-dense-family);
+  font-size: var(--sc-font-text-body-dense-size);
+  font-weight: var(--sc-font-text-body-dense-weight);
+  line-height: var(--sc-font-text-body-dense-line-height);
+  letter-spacing: var(--sc-font-text-body-dense-letter-spacing);
+}
+
+/* ── action ── Button owns the five states; this only sets its place. */
+.action {
+  justify-self: start;
+}
+
+@media (max-width: 30rem) {
+  .action { justify-self: stretch; }
+}

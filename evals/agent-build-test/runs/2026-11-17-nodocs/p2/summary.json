@@ -1,0 +1,15 @@
+{
+  "exit_code": 0,
+  "wall_seconds": 55,
+  "is_error": false,
+  "num_turns": 19,
+  "total_cost_usd": 0.41986300000000004,
+  "input_tokens": 16,
+  "output_tokens": 7948,
+  "cache_read_input_tokens": 413750,
+  "cache_creation_input_tokens": 74744,
+  "output_files": [
+    "Pricing.jsx",
+    "Pricing.module.css"
+  ]
+}

@@ -1,0 +1,74 @@
+/*
+ * PublishPage layout. Tokens only: no raw hex, spacing from the 8pt scale
+ * via --sc-space-* / --sc-size-*. Button, Tooltip and Toast carry their own
+ * styles; this file places them.
+ */
+
+.screen {
+  min-height: 100vh;
+  padding: var(--sc-space-layout-inset-md);
+  background: var(--sc-color-surface-page);
+  color: var(--sc-color-text-primary);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--sc-space-layout-stack-md);
+}
+
+.title {
+  margin: 0;
+  font: var(--sc-font-text-body-lead-bold);
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: var(--sc-space-component-padding-sm);
+}
+
+/* Help trigger: a native button so it takes focus and the Tooltip opens on
+ * keyboard. 44px square hit area (touch minimum) around a 16px glyph. */
+.help {
+  display: inline-grid;
+  place-items: center;
+  inline-size: calc(var(--sc-p-space-32) + var(--sc-space-component-padding-sm) + var(--sc-p-space-4));
+  block-size: calc(var(--sc-p-space-32) + var(--sc-space-component-padding-sm) + var(--sc-p-space-4));
+  padding: 0;
+  border: 0;
+  border-radius: var(--sc-radius-pill);
+  background: transparent;
+  color: var(--sc-color-text-secondary);
+  cursor: pointer;
+}
+
+.help:hover {
+  background: var(--sc-color-surface-hover);
+  color: var(--sc-color-text-primary);
+}
+
+.help:active {
+  background: var(--sc-color-surface-deep-sunk);
+}
+
+.help:focus-visible {
+  outline: var(--sc-border-width-focus) solid var(--sc-color-border-focus);
+  outline-offset: var(--sc-border-width-focus);
+}
+
+.help:disabled {
+  color: var(--sc-color-text-disabled);
+  cursor: not-allowed;
+}
+
+.helpIcon {
+  inline-size: var(--sc-size-icon-sm);
+  block-size: var(--sc-size-icon-sm);
+}
+
+/* The Toast positions nothing; the consumer owns the region. */
+.toastRegion {
+  position: fixed;
+  inset-block-end: var(--sc-space-layout-inset-md);
+  inset-inline-start: var(--sc-space-layout-inset-md);
+  inline-size: min(var(--sc-size-toast-width), calc(100vw - 2 * var(--sc-space-layout-inset-md)));
+}
