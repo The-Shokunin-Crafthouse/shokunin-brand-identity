@@ -1,0 +1,175 @@
+/* tokens:
+ *   --sc-space-component-padding-card          · 24 card inset
+ *   --sc-space-layout-stack-md / -sm           · 24 between fields, 16 inside the confirmation
+ *   --sc-space-component-gap-input             · 4 label ↔ field ↔ helper (textarea, matches TextField)
+ *   --sc-space-component-padding-inline-input / -block-input · 16 / 12 textarea padding
+ *   --sc-radius-field                          · 8 textarea corner
+ *   --sc-color-input-well / -well-hover / -well-focus / -well-raised / -well-disabled · textarea fill
+ *   --sc-color-border-focus, --sc-border-width-focus, --sc-border-focus-offset        · focus ring
+ *   --sc-color-status-error                    · form-level error
+ *   --sc-color-status-success-ink              · confirmation mark
+ *   --sc-color-text-primary / -secondary / -disabled
+ *   --sc-font-text-title-card-*                · form + confirmation heading (24)
+ *   --sc-font-text-body-default-*              · textarea value, confirmation copy
+ *   --sc-font-text-label-ui-*                  · textarea label
+ *   --sc-font-text-caption-*                   · textarea helper, form error
+ *   --sc-motion-hover-duration / -easing       · fill transition
+ *
+ * Card, TextField and Button carry their own styles. This file adds only
+ * layout, the textarea (TextField is single-line) and the confirmation.
+ * No raw colors, no off-scale spacing.
+ */
+
+.card {
+  width: 100%;
+  max-width: 480px;
+  padding: var(--sc-space-component-padding-card);
+  box-sizing: border-box;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sc-space-layout-stack-md);
+}
+
+.title,
+.sentTitle {
+  margin: 0;
+  font-family: var(--sc-font-text-title-card-family);
+  font-size: var(--sc-font-text-title-card-size);
+  font-weight: var(--sc-font-text-title-card-weight);
+  line-height: var(--sc-font-text-title-card-line-height);
+  letter-spacing: var(--sc-font-text-title-card-letter-spacing);
+  color: var(--sc-color-text-primary);
+}
+
+/* --- Message textarea: same anatomy and tokens as TextField --------- */
+
+.area {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sc-space-component-gap-input);
+}
+
+.areaLabel {
+  font-family: var(--sc-font-text-label-ui-family);
+  font-size: var(--sc-font-text-label-ui-size);
+  font-weight: var(--sc-font-text-label-ui-weight);
+  line-height: var(--sc-font-text-label-ui-line-height);
+  letter-spacing: var(--sc-font-text-label-ui-letter-spacing);
+  color: var(--sc-color-text-secondary);
+}
+
+.areaHelp,
+.formError {
+  margin: 0;
+  font-family: var(--sc-font-text-caption-family);
+  font-size: var(--sc-font-text-caption-size);
+  font-weight: var(--sc-font-text-caption-weight);
+  line-height: var(--sc-font-text-caption-line-height);
+  letter-spacing: var(--sc-font-text-caption-letter-spacing);
+  color: var(--sc-color-text-secondary);
+}
+
+.formError {
+  color: var(--sc-color-status-error);
+}
+
+.textarea {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 128px;
+  padding-inline: var(--sc-space-component-padding-inline-input);
+  padding-block: var(--sc-space-component-padding-block-input);
+  border: none;
+  border-radius: var(--sc-radius-field);
+  background-color: var(--sc-color-input-well-raised);
+  color: var(--sc-color-text-primary);
+  font-family: var(--sc-font-text-body-default-family);
+  font-size: var(--sc-font-text-body-default-size);
+  font-weight: var(--sc-font-text-body-default-weight);
+  line-height: var(--sc-font-text-body-default-line-height);
+  letter-spacing: var(--sc-font-text-body-default-letter-spacing);
+  resize: vertical;
+  transition: background-color var(--sc-motion-hover-duration) var(--sc-motion-hover-easing);
+}
+
+.textarea:focus {
+  outline: var(--sc-border-width-focus) solid var(--sc-color-border-focus);
+  outline-offset: var(--sc-border-focus-offset);
+}
+
+.textarea:disabled {
+  color: var(--sc-color-text-disabled);
+  cursor: not-allowed;
+  resize: none;
+}
+
+.areaDisabled .areaLabel,
+.areaDisabled .areaHelp {
+  color: var(--sc-color-text-disabled);
+}
+
+/* --- Actions -------------------------------------------------------- */
+
+.actions {
+  display: flex;
+  justify-content: flex-start;
+}
+
+/* --- Sent: replaces the form --------------------------------------- */
+
+.sent {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--sc-space-layout-stack-sm);
+}
+
+.sentMark {
+  display: inline-flex;
+  color: var(--sc-color-status-success-ink);
+}
+
+.sentTitle:focus {
+  outline: none; /* programmatic focus target only; not a control */
+}
+
+.sentBody {
+  margin: 0;
+  font-family: var(--sc-font-text-body-default-family);
+  font-size: var(--sc-font-text-body-default-size);
+  font-weight: var(--sc-font-text-body-default-weight);
+  line-height: var(--sc-font-text-body-default-line-height);
+  letter-spacing: var(--sc-font-text-body-default-letter-spacing);
+  color: var(--sc-color-text-secondary);
+}
+
+.sentEmail {
+  color: var(--sc-color-text-primary);
+}
+
+/* --- Review sheet --------------------------------------------------- */
+
+.states {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+  gap: var(--sc-space-layout-stack-md);
+  align-items: start;
+}
+
+/* Forced colors: the fill drops, keep a visible edge. */
+@media (forced-colors: active) {
+  .textarea {
+    border: var(--sc-border-width-default) solid CanvasText;
+  }
+  .textarea:disabled {
+    border-color: GrayText;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .textarea { transition: none; }
+}

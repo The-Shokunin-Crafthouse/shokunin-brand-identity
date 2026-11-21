@@ -1,0 +1,101 @@
+/* tokens:
+ *   --sc-space-layout-stack-lg / -xl · section rhythm
+ *   --sc-space-layout-inset-md       · section side inset
+ *   --sc-space-component-gap-md / -lg · card-internal gaps
+ *   --sc-font-text-display-xs / title-card / body-default / caption · type roles
+ *   --sc-color-text-primary / -secondary · ink
+ *   --sc-color-surface-raised         · recommended ground
+ *
+ * Layout is deliberately asymmetric: the recommended plan takes a wider track
+ * and sits on a raised ground; no borders, no shadows (Card is flat).
+ * Mobile (<768): one column, recommended plan first.
+ */
+
+.section {
+  display: grid;
+  gap: var(--sc-space-layout-stack-lg);
+  padding: var(--sc-space-layout-stack-xl) var(--sc-space-layout-inset-md);
+  color: var(--sc-color-text-primary);
+}
+
+.title {
+  margin: 0;
+  font: var(--sc-font-text-display-xs);
+}
+
+.plans {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--sc-space-component-gap-lg);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  align-items: stretch;
+}
+
+.item { display: flex; }
+.item > * { flex: 1; }
+
+.recommended { order: -1; }
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sc-space-component-gap-lg);
+  height: 100%;
+}
+
+.recommended .card { background-color: var(--sc-color-surface-raised); }
+
+.head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sc-space-component-gap-md);
+}
+
+.name {
+  margin: 0;
+  font: var(--sc-font-text-title-card);
+}
+
+.price {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sc-space-component-gap-sm);
+  margin: 0;
+}
+
+.amount { font: var(--sc-font-text-display-xs); }
+
+.cadence {
+  font: var(--sc-font-text-caption);
+  color: var(--sc-color-text-secondary);
+}
+
+.features {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sc-space-component-gap-md);
+  flex: 1;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.feature {
+  display: flex;
+  align-items: center;
+  gap: var(--sc-space-component-gap-md);
+  font: var(--sc-font-text-body-default);
+}
+
+.action { align-self: flex-start; }
+
+@media (min-width: 768px) {
+  .plans {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr) minmax(0, 1fr);
+  }
+  /* Source order is Studio, Team, Enterprise; restore it on wide screens. */
+  .recommended { order: 0; }
+}

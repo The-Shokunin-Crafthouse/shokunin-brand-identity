@@ -20,3 +20,14 @@ Plus cost, total tokens and wall seconds per run.
 - `prompts.md` is frozen once any run exists under `runs/`. Change a prompt and every earlier result is void; add new prompts in a new file instead.
 - The counter's rules were refined once after the first no-docs run was read (class words `hint` and `tip` dropped, layout exemption added) because two hits were wrappers or field help text. Any later rule change needs a re-grade of every arm.
 - Single sample per prompt per arm. A difference smaller than run-to-run noise proves nothing; repeat before claiming one.
+
+## Result: no-docs vs docs (single sample each, 2026-11-17 and 2026-11-18)
+
+| Arm | Drift findings | Hand-built | Tokens | Cost USD | Seconds |
+|---|---|---|---|---|---|
+| no-docs | 0 | 2 (P1 TextField, P5 Button) | 2609602 | 2.0493 | 274 |
+| docs (`AGENT-INDEX.md` pointer only) | 0 | 2 (same two) | 2400905 | 1.7123 | 232 |
+
+The docs arm changed nothing the test counts: both arms reached Button, Tooltip and Toast on the TRAP prompt unaided, and both hand-built the same help-icon `<button>` as the Tooltip trigger (SCDS has no icon-button). Cost is 16% lower with the index, one sample each, so that is inside run-to-run noise (see Rules). Under ADR-165 consequence "Not yet measured", docs that do not lower the escape-hatch count are an ablation candidate and do not ship as always-loaded text. `AGENT-INDEX.md` and `scripts/scds-component.mjs` stay lookup-only (loaded on demand, never imported into CLAUDE.md).
+
+Docs-arm limits: session tools have no Bash, so the arm points at the generated index only; the `scds-component.mjs` section lookup was built but not exercised by the sessions. The baseline is already near the floor (2 hits in 5 builds), so this prompt set cannot show a gain; a harder set (new prompts file, never an edit of `prompts.md`) is the next step if a gain is still wanted.

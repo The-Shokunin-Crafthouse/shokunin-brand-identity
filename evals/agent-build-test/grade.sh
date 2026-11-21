@@ -8,5 +8,6 @@
 set -eu
 HERE="$(cd "$(dirname "$0")" && pwd)"
 RUNS="$(cd "${1:-$HERE/runs/2026-11-17-nodocs}" && pwd)"
-export DRIFT="${DRIFT:-/Users/bahnfiya/.shokunin/runner-worktrees/night-runner-2026-11-17/plugins/sc-hygiene/skills/sc-hygiene/scripts/drift.mjs}"
+export DRIFT="${DRIFT:-$(cd "$HERE/../../.." && pwd)/studio-memory/plugins/sc-hygiene/skills/sc-hygiene/scripts/drift.mjs}"
+[ -f "$DRIFT" ] || { echo "drift.mjs not found at $DRIFT (set DRIFT)" >&2; exit 2; }
 exec node "$HERE/grade.mjs" "$RUNS" "$HERE/count-handbuilt.mjs" "$(cd "$HERE/../.." && pwd)"
