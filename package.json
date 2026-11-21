@@ -37,6 +37,8 @@
     "tokens:verify": "node scripts/verify-contrast.mjs && node scripts/verify-light.mjs",
     "tokens:map": "node scripts/gen-token-map.mjs",
     "tokens:map:check": "node scripts/gen-token-map.mjs --check",
+    "components:index": "node scripts/scds-component.mjs --write-index",
+    "components:index:check": "node scripts/scds-component.mjs --check",
     "tokens:swift": "node scripts/tokens-to-swift.mjs",
     "tokens:swift:check": "node scripts/tokens-to-swift.mjs --check",
     "test:scripts": "node --test 'scripts/*.test.mjs'",
