@@ -12,7 +12,11 @@ REPO="$(git -C "$HERE" rev-parse --show-toplevel)"
 ARM="${1:-2026-11-17-nodocs}"
 CLAUDE_BIN="${CLAUDE_BIN:-$HOME/.local/bin/claude}"
 OUT="$HERE/runs/$ARM"
-ARM_EXTRA=""   # nodocs arm: nothing. Slice 2 sets the doc pointer here.
+ARM_EXTRA=""   # nodocs arm: nothing.
+DOCS=0
+# Docs arm: the only change. The session tools stay Read/Write/Edit/Glob/Grep (no Bash), so the
+# pointer is the generated index; each component's header docblock is read from its source file.
+case "$ARM" in *-docs) DOCS=1; ARM_EXTRA="Component docs: read src/components/AGENT-INDEX.md first." ;; esac
 git -C "$REPO" fetch -q origin main
 BASE="$(git -C "$REPO" rev-parse origin/main)"
 mkdir -p "$OUT"
@@ -30,6 +34,7 @@ run_one() {
   local n="$1" wt="/tmp/wq142-$ARM-p$n" d="$OUT/p$n"
   mkdir -p "$d"
   git -C "$REPO" worktree add -q --detach "$wt" "$BASE" || return 1
+  [ "$DOCS" = 1 ] && cp "$REPO/src/components/AGENT-INDEX.md" "$wt/src/components/AGENT-INDEX.md"
   local task; task="$(cat "$OUT/p$n.task.txt")"
   local prompt="$task
 Build it with this repo's design system. Write your build into the directory build-output/ (create it) and nowhere else. $ARM_EXTRA"

@@ -1,0 +1,98 @@
+/* tokens:
+ *   --sc-space-component-padding-card        · panel inner padding (Card owns it)
+ *   --sc-space-layout-stack-sm / -md         · gap inside a row / between rows
+ *   --sc-space-layout-inset-md               · toast region margin (Toast leaves 24 for its dismiss)
+ *   --sc-color-text-primary / -secondary     · title, label, hint ink
+ *   --sc-color-surface-sunk                  · text-size preview ground (fill, no stroke)
+ *   --sc-radius-card                         · preview corner
+ *   --sc-font-text-title-card                · panel title
+ *   --sc-font-text-label-ui-medium           · row labels
+ *   --sc-font-text-caption                   · hints
+ *   --sc-font-text-body-default              · preview copy (scaled by --settings-preview-scale)
+ *
+ * No raw colours, no strokes. Only the preview scales with the text-size
+ * setting here; the host app applies draft.textScale app-wide on save.
+ */
+
+.panel {
+  max-inline-size: 480px;
+  display: grid;
+  gap: var(--sc-space-layout-stack-md);
+}
+
+.title {
+  margin: 0;
+  font: var(--sc-font-text-title-card);
+  color: var(--sc-color-text-primary);
+}
+
+.rows {
+  display: grid;
+  gap: var(--sc-space-layout-stack-md);
+}
+
+.row {
+  display: grid;
+  gap: var(--sc-space-layout-stack-sm);
+  justify-items: start;
+}
+
+.labelLine {
+  inline-size: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.label {
+  font: var(--sc-font-text-label-ui-medium);
+  color: var(--sc-color-text-primary);
+}
+
+.value {
+  font: var(--sc-font-text-label-ui-medium);
+  color: var(--sc-color-text-secondary);
+  font-variant-numeric: tabular-nums;
+}
+
+.hint {
+  margin: 0;
+  font: var(--sc-font-text-caption);
+  color: var(--sc-color-text-secondary);
+}
+
+.row > :global(*) {
+  max-inline-size: 100%;
+}
+
+.preview {
+  inline-size: 100%;
+  box-sizing: border-box;
+  margin: 0;
+  padding: var(--sc-space-layout-inset-sm);
+  border-radius: var(--sc-radius-card);
+  background-color: var(--sc-color-surface-sunk);
+  color: var(--sc-color-text-primary);
+  font: var(--sc-font-text-body-default);
+  font-size: calc(var(--sc-font-text-body-default-size) * var(--settings-preview-scale, 1));
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.toastRegion {
+  position: fixed;
+  inset-block-end: var(--sc-space-layout-inset-md);
+  inset-inline-end: var(--sc-space-layout-inset-md);
+  display: grid;
+  gap: var(--sc-space-layout-stack-sm);
+  z-index: 1;
+}
+
+@media (max-width: 480px) {
+  .toastRegion {
+    inset-inline-start: var(--sc-space-layout-inset-md);
+  }
+}

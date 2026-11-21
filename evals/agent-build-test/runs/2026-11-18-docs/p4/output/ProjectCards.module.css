@@ -1,0 +1,104 @@
+/* tokens:
+ *   --sc-space-layout-stack-md / -sm       · grid gap, column floor basis
+ *   --sc-space-component-padding-card      · card inner padding (set by Card)
+ *   --sc-space-component-gap-sm / -md / -lg · gaps inside the card
+ *   --sc-radius-surface                    · thumbnail corner
+ *   --sc-color-text-primary / -secondary   · title / client, owner
+ *   --sc-font-text-body-default-bold       · title
+ *   --sc-font-text-body-dense              · client
+ *   --sc-font-text-caption                 · owner name
+ *
+ * Six cards in a responsive grid: one column at 390, two from 768, three from 1024.
+ * Column floor is a layout decision (18rem); minmax(0, 1fr) keeps long titles from
+ * blowing a track out. Loading uses the same grid so the swap does not shift layout.
+ */
+
+.region { display: block; }
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--sc-space-layout-stack-md);
+}
+
+@media (min-width: 768px) {
+  .list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (min-width: 1024px) {
+  .list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+.item { display: block; min-width: 0; }
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sc-space-component-gap-lg);
+  min-width: 0;
+}
+
+.thumb {
+  width: 100%;
+  border-radius: var(--sc-radius-surface);
+  overflow: hidden;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sc-space-component-gap-sm);
+  min-width: 0;
+}
+
+.title {
+  margin: 0;
+  font: var(--sc-font-text-body-default-bold);
+  color: var(--sc-color-text-primary);
+  overflow-wrap: break-word;
+}
+
+.client {
+  margin: 0;
+  font: var(--sc-font-text-body-dense);
+  color: var(--sc-color-text-secondary);
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sc-space-component-gap-md);
+  margin-top: var(--sc-space-component-gap-md);
+}
+
+.owner {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sc-space-component-gap-md);
+  min-width: 0;
+}
+
+.ownerName {
+  font: var(--sc-font-text-caption);
+  color: var(--sc-color-text-secondary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
