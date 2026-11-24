@@ -16,6 +16,10 @@ template_version: "1.2.0"
 # ADR-105 D3 amended 2026-09-25). Process learnings load globally.
 surface: "web-static" # web | web-static | physical | process -- must match the CLAUDE.md import (ADR-121)
 
+# Repo visibility, recorded with the reason (studio-memory ADR-131). Levi, 2026-11-23: public on purpose.
+visibility: "public"   # private | public
+visibility_reason: "Brand files meant to be seen."
+
 project:
   name: "Shokunin Brand Identity"
   client: "Internal — Shokunin Crafthouse"
