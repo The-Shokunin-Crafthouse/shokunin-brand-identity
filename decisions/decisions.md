@@ -2913,3 +2913,14 @@ Levi: the trailing arrow uses Phosphor's bold weight, not regular. Code: `ArrowR
 - **Proof:** a temporary frame on the Button page, Primary Default, Hover and Active in an explicit Light row and an explicit Dark row. Light unchanged; Dark shows the black shade and the faint cool rim, no white glow. Frame removed after the screenshot.
 - **Not in this change:** `tokens/`, generated CSS and Swift. Secondary Hover/Focus still carry a raw six-layer neumorphic stack that code does not have (code secondary has no shadow); separate drift, not touched.
 - **Waiting on Levi:** publish the library (Assets, Library, Publish). Subscribers keep the old style values until then.
+
+### 2026-11-25: four expression levels, and a loud exception to Principle 4
+
+**Status:** Accepted. Brand direction, decided by Levi by question card ("Approve as written"; loud color: "Yes, written exception").
+**Slug:** expression-levels
+**Builds on:** studio-memory ADR-195 and learning #396 (sc-reference-review of Paul Jun, "Brand as Software").
+
+- **Decision:** SCDS names four expression levels, whisper, quiet, standard and loud, in `_config/design-system/expression-levels.md`. Each states the type roles, color reach, motion and density it may use. Going up a level may add scale, contrast, motion and color. No level adds a face.
+- **Exception:** Principle 4 in `sc-brand-system-spec.md` gains one line. A loud surface may use the accent as a fill and the atmosphere wash; every other level keeps the accent as a signal only.
+- **Not in this change:** `tokens/`, generated CSS and Swift, the Figma library, the brand site. No token is added or changed.
+- **Known drift, not touched:** `_config/design-system/ui-rules.md` lists durations of 120, 220 and 450ms; the motion tokens are 200 (micro), 380 (standard) and 720ms (orchestrated). The levels cite the tokens.

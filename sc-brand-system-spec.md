@@ -103,7 +103,7 @@ This is not a Bauhaus pastiche. It is not a minimalism trend execution. It is a 
 The identity system must function before it is beautiful. That means: the color system passes WCAG AA at minimum, AAA where possible. The type scale works at every breakpoint from 320px to 2560px. The mark reproduces cleanly at every size from 16px favicon to large-format print. Every design decision has a documented functional rationale. The beauty comes from the rigor, not from ornament applied on top.
 
 ### Principle 4 — Restraint as a creative act
-The palette is narrow. Two or three primaries maximum, with a disciplined semantic layer. No accent color that exists for visual interest alone. The type system uses two faces, not four — one for display/headings, one for body/interface. The mark is reducible to a single form that works in monochrome. When in doubt, the answer is remove.
+The palette is narrow. Two or three primaries maximum, with a disciplined semantic layer. No accent color that exists for visual interest alone. One written exception: a surface at the loud expression level may use the accent as a fill and the atmosphere wash (`_config/design-system/expression-levels.md`, approved 2026-11-25). The type system uses two faces, not four — one for display/headings, one for body/interface. The mark is reducible to a single form that works in monochrome. When in doubt, the answer is remove.
 
 **Color direction:** Dark ground, light form. The studio works in precision materials — metal, wood, code — and the palette should carry that industrial restraint. Warm near-black with warm near-white. A single chromatic accent in a frequency that reads as signal, not decoration — consider a deep, muted teal or oxidized copper, not a trendy electric hue.
 
